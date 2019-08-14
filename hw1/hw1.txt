@@ -1,0 +1,84 @@
+Добрый день.
+
+Домашнее задание выполнялось после просмотра темы "Архитектура кода".
+"Паттерны" еще не смотрел.
+
+Это был мой первый проект на laravel, я писал его в 2017 году.
+Задача была создать небольшой кабинет для управления пользователями и их заказами + api для взаимодействия с приложением.
+Версия Laravel 5.4.
+Полностью весь проект заливать не стал, только модели и контроллеры.
+
+Использовалось:
+
+- две модельки app/ Order.php, /User.php
+- 6 контроллеров app/Http/controllers
+- маршруты routes/web.php (тогда я еще не знал, что для маршрутов api в laravel есть отдельный файл, потому все виды маршрутов писал в один файл, а для маршрутов api просто отключил проверку csrf в соответствующем middleware)
+- views и почтовые уведомления
+
+В ходе выполнения ДЗ анализировал только модели и контроллеры:
+
+В моделях увидел следующее:
+- statusList() и getStatusName() повторяются. => Нарушается DRY. Метод getStatusName бы было вынести в trait HasStatus, список статусов вынести в свойство модели, и statusList сделать геттером в трейте.
+- пока больше ничего не вижу.
+
+В контроллерах:
+- ApiController: дублируется проверка
+if ($validator->fails()) {
+	$errors = $validator->errors()->all();
+	return $this->answer('error',  current($errors));
+}
+Можно вынести в метод и вызывать $this->checkErrors($validator); вместо такой конструкции.
+
+- ApiController: метод authorization() - конструкцию
+(auth()->user()->status != User::STATUS_ACCEPTED) можно вынести в отдельный метод isAccepted() для модели User, тк это ее ответственность,
+тогда бы условие выглядело так: if (auth()->user()->isAccepted())
+
+- ApiController: метод password() - конструкция формирования пароля повторяется в UsersController::update().
+Даже если бы не дублировался, можно было бы передать ответственность другому классу. Самое простое - вынести в какой-нибудь helper PasswordGenerator::forUser() эти две строки:
+
+$password = substr(md5(rand()), 0, 7);
+$user->password = bcrypt($password);
+
+и
+заменить на $user->password = PasswordGenerator::forUser() ,
+
+- ApiController: метод personalUpdate() - блок "проверка корректности старого пароля, если введен новый" можно вынести в protected метод этого же класса.
+
+- ApiController: метод create() - блок
+
+$user = User::where('phone', request('phone'))
+->where('remember_token', request('remember_token'))
+->first()
+
+имеет ли смысл выносить в модель User в getByPhoneAndToken($phone, $token) или getFromRequest() ? Или это нормальная практика эти запросы оставлять в условиях?
+Хотя эта же конструкция используется в этом же классе в следующем методе delete(), так что все равно нужно выносить.
+
+- ApiController: метод create() - тут:
+$user->publish(
+	new Order(array_merge(['status' => 'New'], request(['customer_name', 'customer_phone', 'research_area', 'comment'])))
+);
+
+Можно избавиться от new Order в данном методе, а передавать Order $order через конструктор класса __construct(Order $order) { ... $this->order = $order; }  , добавить тут же метод order() для доступа к этому свойству,
+а в класс Order добавить метод assignFromRequest($status =''), и вызывать здесь:
+$user->publish($this->order()->assignFromRequest('new'));
+
+Имеет ли это смысл, чтобы избежать лишней зависимости?
+
+Аналогично заменить в OrdersController , в методе store():
+
+было
+auth()->user()->publish(
+	new Order(request(['customer_name', 'customer_phone', 'research_area', 'comment', 'status']))
+);
+
+стало
+auth()->user()->publish(
+	(new Order())->assignFromRequest()
+);
+
+Просто чтобы не повторяться.
+Или это все лишние усложнения, и никому не мешал new Order в ApiController::create() ? :)
+
+- UsersController: метод update() - блок "send email only if status was updated" вынести в отдельный protected метод, генерацию пароля вынесли в метод уже выше по данному тексту.
+
+- SessionsController: метод store() - условие проверки статуса пользователя вынесли в отдельный метод выше по данному тексту
