@@ -1,0 +1,10 @@
+{
+    "name": "egor-gruzdev/ostus",
+    "authors": [
+        {
+            "name": "Egor Gruzdev",
+            "email": "egor.gruzdev@gmail.com"
+        }
+    ],
+    "require": {}
+}
