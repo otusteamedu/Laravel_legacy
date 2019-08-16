@@ -23,7 +23,8 @@ class bdSQLlite
             //если бд есть то просто подключ. к ней
             $db = new \SQLite3('log.sqlite3');
         }
-
+        $db->busyTimeout(5000);
+        $db->exec('PRAGMA journal_mode = wal;');
         return $db;
     }
 

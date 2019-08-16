@@ -8,41 +8,67 @@ use globalSettings;
 use cron\app;
 
 
-$settings = new globalSettings();
-
-
-// CRM server conection data
-define('CRM_HOST', $settings->getDomainBitrix());
-define('CRM_PARAMS', $settings->getWebhookBitrix());
-define('CRM_FUNCTION', $settings->getWebhookFunctionBitrix()); // функция получения списка лидов
-
-
 class cronLeadBitrix
 {
-    public function getLeadList()
+    /**
+     * @throws \Exception
+     */
+    public function checkLeadSQLlite()
     {
 
-        $queryUrl = 'https://' . CRM_HOST . CRM_PARAMS . CRM_FUNCTION;
+        $resaltBDLead = $this->check();
 
-        $queryData = http_build_query(array(
-            'select' => array(
-                'PHONE',
-                'EMAIL'
+        if ($resaltBDLead) {
 
-            )));
+            $this->pullEmailErorr();
+
+        }
+    }
+
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getLeadFromCRM()
+    {
+        $settings = new globalSettings();
+        $queryUrl = 'https://' . $settings->getDomainBitrix() . $settings->getWebhookBitrix() . $settings->getWebhookFunctionBitrix();
 
         $curl = curl_init();
-        curl_setopt_array($curl, array(CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => $queryUrl, CURLOPT_POSTFIELDS => $queryData,));
+        curl_setopt_array($curl, array(CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $queryUrl,
+            CURLOPT_POSTFIELDS => http_build_query(array('select' => array( 'PHONE', 'EMAIL' ))),));
         $result = curl_exec($curl);
         curl_close($curl);
         $result = json_decode($result, 1);
 
-        if (array_key_exists('error', $result)) echo "Ошибка при получении списка лидов: " . $result['error_description'] . " ";
+        if (array_key_exists('error', $result)) throw new \Exception("Ошибка при получении списка лидов: ". $result['error_description']);
+
+        return $result;
+    }
+
+    /**
+     * @throws \PHPMailer\PHPMailer\Exception
+     */
+    public function pullEmailErorr()
+    {
+        $sendPrepareMail = new app\phpSendMailer();
+
+        $sendPrepareMail = $sendPrepareMail->sendMail();
+        $sendPrepareMail->addAddress('bv@online-gymnasium.ru');
+        $sendPrepareMail->Subject = 'В БД остались не обработанные данные';
+        $sendPrepareMail->Body = 'В БД остались лиды не добавленные в bitrix24';
+        $sendPrepareMail->send();
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    public function check()
+    {
+        $result = $this->getLeadFromCRM();
 
         $db = new app\bdSQLlite();
-        $db->openBD()->busyTimeout(5000);
-        $db->openBD()->exec('PRAGMA journal_mode = wal;');
 
         for ($i = 0; $i <= count($result['result']) - 1; $i++) {
 
@@ -76,21 +102,10 @@ class cronLeadBitrix
 
 
         $db->openBD()->close();
-
-        if ($resaltBDLead) {
-
-            $sendPrepareMail = new app\phpSendMailer();
-
-            $sendPrepareMail = $sendPrepareMail->sendMail();
-            $sendPrepareMail->addAddress('bv@online-gymnasium.ru');
-            $sendPrepareMail->Subject = 'В БД остались не обработанные данные';
-            $sendPrepareMail->Body = 'В БД остались лиды не добавленные в bitrix24';
-            $sendPrepareMail->send();
-
-        }
+        return $resaltBDLead;
     }
 }
 
-$q = new cronLeadBitrix();
-$q->getLeadList();
+$cron = new cronLeadBitrix();
+$cron->checkLeadSQLlite();
 
