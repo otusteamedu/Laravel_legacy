@@ -1,15 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Vladislav
- * Date: 07.05.2018
- * Time: 10:39
- */
 
-require '../vendor/autoload.php';
-require_once '../settings.php'; // класс для хранения конфиденциальной информации
-require_once 'bdSQLlite.php';
-require_once 'phpSendMailer.php';
+namespace cron;
+
+require_once '../vendor/autoload.php';
+
+use globalSettings;
+use cron\app;
+
 
 $settings = new globalSettings();
 
@@ -35,14 +32,15 @@ class cronLeadBitrix
             )));
 
         $curl = curl_init();
-        curl_setopt_array($curl, array(CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $queryUrl, CURLOPT_POSTFIELDS => $queryData,));
+        curl_setopt_array($curl, array(CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => $queryUrl, CURLOPT_POSTFIELDS => $queryData,));
         $result = curl_exec($curl);
         curl_close($curl);
         $result = json_decode($result, 1);
 
         if (array_key_exists('error', $result)) echo "Ошибка при получении списка лидов: " . $result['error_description'] . " ";
 
-        $db = new bdSQLlite();
+        $db = new app\bdSQLlite();
         $db->openBD()->busyTimeout(5000);
         $db->openBD()->exec('PRAGMA journal_mode = wal;');
 
@@ -81,7 +79,7 @@ class cronLeadBitrix
 
         if ($resaltBDLead) {
 
-            $sendPrepareMail = new phpSendMailer();
+            $sendPrepareMail = new app\phpSendMailer();
 
             $sendPrepareMail = $sendPrepareMail->sendMail();
             $sendPrepareMail->addAddress('bv@online-gymnasium.ru');

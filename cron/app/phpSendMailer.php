@@ -1,16 +1,7 @@
 <?php
 
-/**
- * Created by PhpStorm.
- * User: Vladislav
- * Date: 08.05.2018
- * Time: 11:28
- */
-
+namespace cron\app;
 use PHPMailer\PHPMailer\PHPMailer;
-
-require '../vendor/autoload.php';
-require_once '../settings.php';
 
 class phpSendMailer
 {
