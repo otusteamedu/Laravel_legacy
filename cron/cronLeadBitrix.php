@@ -16,12 +16,10 @@ class cronLeadBitrix
     public function checkLeadSQLlite()
     {
 
-        $resaltBDLead = $this->check();
+        $presenceNotProcessedLead = $this->check();
 
-        if ($resaltBDLead) {
-
-            $this->pullEmailErorr();
-
+        if ($presenceNotProcessedLead) {
+            (new app\phpSendMailer())->sendMailError();
         }
     }
 
@@ -31,33 +29,20 @@ class cronLeadBitrix
      */
     public function getLeadFromCRM()
     {
-        $settings = new globalSettings();
-        $queryUrl = 'https://' . $settings->getDomainBitrix() . $settings->getWebhookBitrix() . $settings->getWebhookFunctionBitrix();
-
         $curl = curl_init();
-        curl_setopt_array($curl, array(CURLOPT_SSL_VERIFYPEER => 0, CURLOPT_POST => 1, CURLOPT_HEADER => 0, CURLOPT_RETURNTRANSFER => 1, CURLOPT_URL => $queryUrl,
-            CURLOPT_POSTFIELDS => http_build_query(array('select' => array( 'PHONE', 'EMAIL' ))),));
+        curl_setopt_array($curl, array(CURLOPT_SSL_VERIFYPEER => 0,
+            CURLOPT_POST => 1,
+            CURLOPT_HEADER => 0,
+            CURLOPT_RETURNTRANSFER => 1,
+            CURLOPT_URL => (new globalSettings())->getUrlLeadList(),
+            CURLOPT_POSTFIELDS => http_build_query(array('select' => array('PHONE', 'EMAIL'))),));
         $result = curl_exec($curl);
         curl_close($curl);
-        $result = json_decode($result, 1);
+        $result = json_decode($result);
 
-        if (array_key_exists('error', $result)) throw new \Exception("Ошибка при получении списка лидов: ". $result['error_description']);
+        if (array_key_exists('error', $result)) throw new \Exception("Ошибка при получении списка лидов: " . $result['error_description']);
 
         return $result;
-    }
-
-    /**
-     * @throws \PHPMailer\PHPMailer\Exception
-     */
-    public function pullEmailErorr()
-    {
-        $sendPrepareMail = new app\phpSendMailer();
-
-        $sendPrepareMail = $sendPrepareMail->sendMail();
-        $sendPrepareMail->addAddress('bv@online-gymnasium.ru');
-        $sendPrepareMail->Subject = 'В БД остались не обработанные данные';
-        $sendPrepareMail->Body = 'В БД остались лиды не добавленные в bitrix24';
-        $sendPrepareMail->send();
     }
 
     /**
@@ -67,45 +52,40 @@ class cronLeadBitrix
     public function check()
     {
         $result = $this->getLeadFromCRM();
+        for ($i = 0; $i <= count($result->result) - 1; $i++) {
+
+            if (isset($result->result[$i]->PHONE[0]->VALUE)) {
+                $this->queryBDrequest($result->result[$i]->PHONE[0]->VALUE, 'phone');
+            }
+            if (isset($result->result[$i]->EMAIL[0]->VALUE)) {
+                $this->queryBDrequest($result->result[$i]->EMAIL[0]->VALUE, 'email');
+            }
+        }
+
+        return $this->queryBDrequest(null, 'selectAll');
+    }
+
+    public function queryBDrequest($params, $type)
+    {
 
         $db = new app\bdSQLlite();
 
-        for ($i = 0; $i <= count($result['result']) - 1; $i++) {
-
-            if ($result['result'][$i]['PHONE'][0]['VALUE']) {
-
-                $params = $result['result'][$i]['PHONE'][0]['VALUE'];
-                $sql = "SELECT id FROM addLead WHERE phone = '$params' AND msage = 'Ok'";
-                $resalt = $db->openBD()->query($sql);
-                $resaltInsert = $resalt->fetchArray(SQLITE3_ASSOC);
-
-                $sql = "DELETE FROM addLead WHERE id = '$resaltInsert[id]'";
-                $db->openBD()->query($sql);
-                $db->openBD()->close();
-            }
-            if ($result['result'][$i]['EMAIL'][0]['VALUE']) {
-
-                $params = $result['result'][$i]['EMAIL'][0]['VALUE'];
-                $sql = "SELECT id FROM addLead WHERE email = '$params' AND msage = 'Ok'";
-                $resalt = $db->openBD()->query($sql);
-                $resaltInsert = $resalt->fetchArray(SQLITE3_ASSOC);
-
-                $sql = "DELETE FROM addLead WHERE id = '$resaltInsert[id]'";
-                $db->openBD()->query($sql);
-                $db->openBD()->close();
-            }
-
+        if ($type == 'selectAll') {
+            $sql = "SELECT * FROM addLead";
+            $resalt = $db->openBD()->query($sql);
+            $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
+            $db->openBD()->close();
+        } else {
+            $sql = "SELECT id FROM addLead WHERE $type = '$params' AND msage = 'Ok'";
+            $resalt = $db->openBD()->query($sql);
+            $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
+            $sql = "DELETE FROM addLead WHERE id = '$resaltBDLead[id]'";
+            $db->openBD()->query($sql);
+            $db->openBD()->close();
         }
-        $sql = "SELECT * FROM addLead";
-        $resalt = $db->openBD()->query($sql);
-        $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
-
-
-        $db->openBD()->close();
         return $resaltBDLead;
     }
 }
 
-$cron = new cronLeadBitrix();
-$cron->checkLeadSQLlite();
+(new cronLeadBitrix())->checkLeadSQLlite();
 

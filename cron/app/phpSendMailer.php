@@ -1,6 +1,7 @@
 <?php
 
 namespace cron\app;
+
 use PHPMailer\PHPMailer\PHPMailer;
 
 class phpSendMailer
@@ -8,7 +9,7 @@ class phpSendMailer
     public function sendMail()
     {
 
-        $settings = new globalSettings();
+        $settings = new \globalSettings();
 
         $mail = new PHPMailer(true);                              // Passing `true` enables exceptions
 
@@ -28,4 +29,14 @@ class phpSendMailer
 
         return $mail;
     }
+
+    public function sendMailError()
+    {
+        $sendPrepareMail = $this->sendMail();
+        $sendPrepareMail->addAddress('bv@online-gymnasium.ru');
+        $sendPrepareMail->Subject = 'В БД остались не обработанные данные';
+        $sendPrepareMail->Body = 'В БД остались лиды не добавленные в bitrix24';
+        $sendPrepareMail->send();
+    }
+
 }
