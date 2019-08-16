@@ -17,7 +17,7 @@ class cronLeadBitrix
     {
         $presenceNotProcessedLead = $this->check();
         if ($presenceNotProcessedLead) {
-            (new app\phpSendMailer())->sendMailError();
+            (new app\PhpSendMailer())->sendMailError();
         }
     }
 
@@ -50,39 +50,26 @@ class cronLeadBitrix
     public function check()
     {
         $result = $this->getLeadFromCRM();
+        $db = new app\BdSQLlite();
         for ($i = 0; $i <= count($result->result) - 1; $i++) {
 
             if (isset($result->result[$i]->PHONE[0]->VALUE)) {
-                $this->queryBDrequest($result->result[$i]->PHONE[0]->VALUE, 'phone');
+                $devManager = new app\PhoneCheck();
+                $devManager->takeType($result->result[$i]->PHONE[0]->VALUE);
+               // $db->queryBDrequest($result->result[$i]->PHONE[0]->VALUE, 'phone');
             }
-            if (isset($result->result[$i]->EMAIL[0]->VALUE)) {
-                $this->queryBDrequest($result->result[$i]->EMAIL[0]->VALUE, 'email');
-            }
+//            if (isset($result->result[$i]->EMAIL[0]->VALUE)) {
+//
+//                $devManager = new emailChecker();
+//                $devManager->queryBDrequest($result->result[$i]->EMAIL[0]->VALUE);
+//            //    $db->queryBDrequest($result->result[$i]->EMAIL[0]->VALUE, 'email');
+//            }
         }
 
-        return $this->queryBDrequest(null, 'selectAll');
+        return $db->queryBDrequest(null, 'selectAll');
     }
 
-    public function queryBDrequest($params, $type)
-    {
 
-        $db = new app\bdSQLlite();
-
-        if ($type == 'selectAll') {
-            $sql = "SELECT * FROM addLead";
-            $resalt = $db->openBD()->query($sql);
-            $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
-            $db->openBD()->close();
-        } else {
-            $sql = "SELECT id FROM addLead WHERE $type = '$params' AND msage = 'Ok'";
-            $resalt = $db->openBD()->query($sql);
-            $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
-            $sql = "DELETE FROM addLead WHERE id = '$resaltBDLead[id]'";
-            $db->openBD()->query($sql);
-            $db->openBD()->close();
-        }
-        return $resaltBDLead;
-    }
 }
 
 (new cronLeadBitrix())->checkLeadSQLlite();

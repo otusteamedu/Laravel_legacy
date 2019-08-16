@@ -4,7 +4,7 @@ namespace cron\app;
 
 use PHPMailer\PHPMailer\PHPMailer;
 
-class phpSendMailer
+class PhpSendMailer
 {
     public function sendMail()
     {
