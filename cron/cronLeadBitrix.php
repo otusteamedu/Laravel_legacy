@@ -15,9 +15,7 @@ class cronLeadBitrix
      */
     public function checkLeadSQLlite()
     {
-
         $presenceNotProcessedLead = $this->check();
-
         if ($presenceNotProcessedLead) {
             (new app\phpSendMailer())->sendMailError();
         }
