@@ -22,6 +22,26 @@ class cronLeadBitrix
     }
 
     /**
+     * @return array
+     * @throws \Exception
+     */
+    public function check()
+    {
+        $result = $this->getLeadFromCRM();
+
+        for ($i = 0; $i <= count($result->result) - 1; $i++) {
+            if (isset($result->result[$i]->PHONE[0]->VALUE)) {
+                (new app\PhoneCheck())->takeType($result->result[$i]->PHONE[0]->VALUE);
+            }
+            if (isset($result->result[$i]->EMAIL[0]->VALUE)) {
+                (new app\EmailCheck())->takeType($result->result[$i]->EMAIL[0]->VALUE);
+            }
+        }
+        $db = new app\BdSQLlite();
+        return $db->queryBDrequest(null, 'selectAll');
+    }
+
+    /**
      * @return mixed
      * @throws \Exception
      */
@@ -42,33 +62,6 @@ class cronLeadBitrix
 
         return $result;
     }
-
-    /**
-     * @return array
-     * @throws \Exception
-     */
-    public function check()
-    {
-        $result = $this->getLeadFromCRM();
-        $db = new app\BdSQLlite();
-        for ($i = 0; $i <= count($result->result) - 1; $i++) {
-
-            if (isset($result->result[$i]->PHONE[0]->VALUE)) {
-                $devManager = new app\PhoneCheck();
-                $devManager->takeType($result->result[$i]->PHONE[0]->VALUE);
-               // $db->queryBDrequest($result->result[$i]->PHONE[0]->VALUE, 'phone');
-            }
-//            if (isset($result->result[$i]->EMAIL[0]->VALUE)) {
-//
-//                $devManager = new emailChecker();
-//                $devManager->queryBDrequest($result->result[$i]->EMAIL[0]->VALUE);
-//            //    $db->queryBDrequest($result->result[$i]->EMAIL[0]->VALUE, 'email');
-//            }
-        }
-
-        return $db->queryBDrequest(null, 'selectAll');
-    }
-
 
 }
 
