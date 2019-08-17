@@ -21,24 +21,4 @@ class BdSQLlite
         return $db;
     }
 
-    public function queryBDrequest($params, $type)
-    {
-
-        if ($type == 'selectAll') {
-            $sql = "SELECT * FROM addLead";
-            $resalt = $this->openBD()->query($sql);
-            $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
-            $this->openBD()->close();
-        } else {
-            $params = htmlspecialchars($params);
-            $sql = "SELECT id FROM addLead WHERE $type = '$params' AND msage = 'Ok'";
-            $resalt = $this->openBD()->query($sql);
-            $resaltBDLead = $resalt->fetchArray(SQLITE3_ASSOC);
-            $sql = "DELETE FROM addLead WHERE id = '$resaltBDLead[id]'";
-            $this->openBD()->query($sql);
-            $this->openBD()->close();
-        }
-        return $resaltBDLead;
-    }
-
 }

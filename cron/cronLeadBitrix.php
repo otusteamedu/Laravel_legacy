@@ -37,8 +37,7 @@ class cronLeadBitrix
                 (new app\EmailCheck())->takeType($result->result[$i]->EMAIL[0]->VALUE);
             }
         }
-        $db = new app\BdSQLlite();
-        return $db->queryBDrequest(null, 'selectAll');
+        return (new app\EmptyCheck())->takeType('isEmpty');
     }
 
     /**

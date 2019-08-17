@@ -17,6 +17,6 @@ abstract class LeadInfo
     public function takeType($params)
     {
         $query = $this->queryBD();
-        $query->queryBDrequest($params);
+        return  $query->queryBDrequest($params);
     }
 }
