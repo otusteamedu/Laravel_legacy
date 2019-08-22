@@ -109,7 +109,7 @@ class Liker extends MainClass
     }
 ```
 3. Нужно использовать PHPDoc и TypeHints
-```
+```php
 class Loader extends MainClass
 {   
     /**PHPDoc
