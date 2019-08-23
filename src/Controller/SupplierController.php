@@ -29,7 +29,7 @@ class SupplierController extends AbstractController
     /**
      * @Route("/new", name="supplier_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $supplier = new Supplier();
         $form = $this->createForm(SupplierType::class, $supplier);
@@ -47,8 +47,18 @@ class SupplierController extends AbstractController
 				$supplierHandler = new SupplierHandler();
 				$supplierHandler->setObject($handler);
 			}
-			
-			
+            
+            // пока обработчик будет один
+            $supplier->addHandler(SupplierHandler $handler);
+            
+            /** @var UploadedFile $imageFile */
+            $imageFile = $form['image']->getData();
+            if ($imageFile) {
+                $imageFileName = $fileUploader->upload($imageFile);
+                $file = new File($imageFileName);
+                /* ................ */
+                $product->setImage($file);
+            }
 		
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($supplier);
