@@ -36,19 +36,19 @@ class SupplierController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-		    $supplier->setUser($this->getUser());
-			
-			$handlerId = $form['handlerId']->getData();
-			if(!empty($handlerId)) {
-				$config = $form['options']->getData();
+            $supplier->setUser($this->getUser());
+            
+            $handlerId = $form['handlerId']->getData();
+            if(!empty($handlerId)) {
+                $config = $form['options']->getData();
                 $handler = HandlerCollection::instance()->find($handlerId);
                 
                 $handler->setConfig(new App\Common\Config\Config($config));
-				$supplierHandler = new SupplierHandler();
-				$supplierHandler->setObject($handler);
-			}
+                $supplierHandler = new SupplierHandler();
+                $supplierHandler->setObject($handler);
+            }
             
-            // ïîêà îáðàáîò÷èê áóäåò îäèí
+            // Ð¿Ð¾ÐºÐ° Ð¾Ð±Ñ€Ð°Ð±Ð¾Ñ‚Ñ‡Ð¸Ðº Ð±ÑƒÐ´ÐµÑ‚ Ð¾Ð´Ð¸Ð½
             $supplier->addHandler(SupplierHandler $handler);
             
             /** @var UploadedFile $imageFile */
@@ -59,7 +59,7 @@ class SupplierController extends AbstractController
                 /* ................ */
                 $product->setImage($file);
             }
-		
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($supplier);
             $entityManager->flush();
