@@ -5,7 +5,7 @@ namespace App\Common\Handler;
 use App\Common\File;
 
 /**
- * Парсер XML на основе xml_parser
+ * Парсер XML потокового типа, отличается от xml_parser тем, что может останавливаться и возобновляться в любом месте
  * Регистрируем события входа в элемент addNewHandler, выхода из элемента addPostHandler
  * При обходе файла будут вызываться обработчики событий с именем do$Name
  * Можно задать начальное смещение в анализируемом файле для дальнейшей цели пошаговой обработки для больших файлов.
@@ -15,7 +15,7 @@ abstract class XMLAbstractParser
 {
     /**
      * объект открытого файла
-     * @var App\Common\File
+     * @var File
      */
 	private $file;	
 	
@@ -33,7 +33,7 @@ abstract class XMLAbstractParser
 	
     /**
      * Текущий тег, содержит имя тега - name, аттрибуты - attributes, текстовое содержимое - text
-     * @var array
+     * @var ParserData
      */
 	private $currentTag;
 	
@@ -82,7 +82,7 @@ abstract class XMLAbstractParser
 		$this->file = null;
 		$this->nOffset = 0;
 		
-		$this->currTag = null;
+		$this->currentTag = null;
 		$this->tagStack = array();
 		
 		$this->buf = "";
@@ -105,8 +105,8 @@ abstract class XMLAbstractParser
 	 * @return void 
      */
 	public function setState(array $state = []) {
-		$this->nOffset = array_key_exists($state['offset']) ? intval($state['offset']) : 0;
-		$this->tagStack = array_key_exists($state['stack']) && is_array($state['stack']) ? $state['stack'] : [];
+		$this->nOffset = array_key_exists('offset', $state) ? intval($state['offset']) : 0;
+		$this->tagStack = array_key_exists('stack', $state) && is_array($state['stack']) ? $state['stack'] : [];
 	}
 	
 	public function getState() : array {
@@ -210,7 +210,7 @@ abstract class XMLAbstractParser
     /**
      * Добавить обработчики входа-выхода из элемента. Вход - как правило что-то инициализируется. Выход - сохраняется.
 	 * 
-	 * @param string $name в наследнике XMLParser должен быть определен метод on<Name>(array $currTag)
+	 * @param string $name в наследнике XMLParser должен быть определен метод on<Name>(ParserData $currentTag)
 	 * @param string $path путь до ноды по шаблону <root_element>/<sub_element_1>/../<sub_element_n>
      */
 	public function onNewElement($name, $path)
@@ -245,7 +245,7 @@ abstract class XMLAbstractParser
 		$path = $this->getPath(); 
 		if(array_key_exists($path, $this->handlers[$nPhase])) {
 			$f = $this->handlers[$nPhase][$path];
-			call_user_method($f[0], $f[1], $this->currTag, $path, $nPhase, $path);
+			call_user_method($f[0], $f[1], $this->currentTag, $nPhase, $path);
 		}
 	}
 	
@@ -364,11 +364,7 @@ abstract class XMLAbstractParser
 			}
 
 			array_push($this->tagStack, $elementName);
-			$this->currTag = array(
-				'name' => $elementName,
-				'attribs' => $elementAttrs,
-				'value' => $elementValue
-			);
+			$this->currentTag = new ParserData($elementName, $elementValue, $elementAttrs);
 
 			$this->_exec_handlers(XMLParser::PHASE_NEW);
 			if($bAndClose)

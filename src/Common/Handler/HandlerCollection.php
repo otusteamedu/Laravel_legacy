@@ -14,14 +14,22 @@ namespace App\Common\Handler;
 class HandlerCollection
 {
     /**
-     * Список существующих обработчиков,
+     * Список существующих обработчиков, синглтон
      * инициализиется при создании объекта
      *
      * @var array
      */
-    private $arData = null;
+    private $arData;
 
-    public function __construct() {
+    private static $_instance = null;
+
+    public static function instance() {
+        if(is_null(self::$_instance)) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    }
+    private function __construct() {
         $this->arData = null;
     }
 
@@ -52,4 +60,8 @@ class HandlerCollection
 
         return $result;
     }
+
+    private function __clone() { }
+
+    private function __wakeup() { }
 }

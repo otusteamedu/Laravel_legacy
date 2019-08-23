@@ -161,8 +161,10 @@ abstract class TaskManager implements ITaskManager {
         $currentTime = time();
         $isStartSession = ($ps->getCurrent() <= 0) && ($ps->getWorker() <= 0);
         $isStartWorker = ($this->processState->getCurrent() <= 0);
-        $worker = $this->currentWorker();
 
+        // иницаилизация воркера
+        $isError = false;
+        $worker = $this->currentWorker();
         if($isStartSession) {
             $ps->setSessionStartAt($currentTime);
         }
@@ -170,13 +172,22 @@ abstract class TaskManager implements ITaskManager {
         if($isStartWorker) {
             $ps->setWorkerStartAt($currentTime);
 
-            $worker->initSession();
-            $state = $worker->getState();
-            $state->merge($ps->getWorkerState());
-            $worker->init($state, 0);
+            if(!$worker->initSession())
+                $isError = true;
+            else {
+                $state = $worker->getState();
+                $state->merge($ps->getWorkerState());
+                if(!$worker->init($state, 0))
+                    $isError = true;
+            }
         }
-        else
-            $worker->init($ps->getWorkerState(), $ps->getCurrent());
+        else {
+            if(!$worker->init($ps->getWorkerState(), $ps->getCurrent()))
+                $isError = true;
+        }
+
+        if($isError)
+            throw new TaskManagerExecuteException($worker->getMessage());
 
         if($worker->getTotal() <= 0)
             throw new TaskManagerExecuteException("Объем задачи должен быть положительным числом");
@@ -185,6 +196,7 @@ abstract class TaskManager implements ITaskManager {
             throw new TaskManagerExecuteException("Теущий шаг задан неверно ".
                 $worker->getCurrent()." [".$worker->getTotal()."]");
 
+        // воркер работает пока, задача не выполнена или вышло разрешенное время
         $stage = $ps->getWorker();
         do {
             $worker->doAction();

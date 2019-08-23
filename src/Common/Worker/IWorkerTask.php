@@ -18,8 +18,10 @@ interface IWorkerTask
 {
     /**
      * единственный вызов этой функции только в начале сессии
+     * @return bool - TRUE - инициалицация завершилась удачно,
+     *              FALSE - провал, операцию отменяем
      */
-    public function initSession();
+    public function initSession(): bool;
 
     /**
      * единственный вызов этой функции только в конце сессии
@@ -28,8 +30,9 @@ interface IWorkerTask
 
     /**
      * вызывается перед каждым циклом итераций
+     * @return bool
      */
-    public function init(Config $state, int $current);
+    public function init(Config $state, int $current): bool;
 
     /**
      * вызывается после каждого цикла итераций

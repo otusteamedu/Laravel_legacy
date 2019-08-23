@@ -108,16 +108,18 @@ abstract class AbstractWorker implements IWorkerTask
     }
 
     // ряд функций может быть пустыми и никогда не меняться
-    public function initSession() {
+    public function initSession() : bool {
+        return true;
     }
 
     public function finishSession() {
     }
 
-    public function init(Config $state, int $current) 
+    public function init(Config $state, int $current): bool
     {
         $this->state = $state;
         $this->current = $current;
+        return true;
     }
 
     public function finish() : Config {

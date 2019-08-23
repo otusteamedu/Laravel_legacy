@@ -21,19 +21,22 @@ class DummyWorker extends AbstractWorker {
         return (int) $this->getState()->get('total');
     }
 
-    public function initSession() {
+    public function initSession(): bool {
         $this->getState()->set('total', \rand(
             $this->getConfig()->get('min', 10),
             $this->getConfig()->get('max', 40)
         ));
         $this->getState()->set('SessionVar', 'initSessionDummy');
         $this->getState()->set('SessionVarDelete', 'initSessionDummyDelete');
+
+        return true;
     }
 
-    public function init(Config $state, int $current) 
+    public function init(Config $state, int $current) : bool
     {
         parent::init($state, $current);
         $this->getState()->set('CircleInStep_'.$this->getCurrent(), 1);
+        return true;
     }
 
     public function finish() : Config {

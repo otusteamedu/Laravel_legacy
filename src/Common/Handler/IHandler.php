@@ -4,6 +4,7 @@
 namespace App\Common\Handler;
 
 use App\Common\Config\Options;
+use Doctrine\ORM\EntityManager;
 
 /**
  * Интерфейс обработчика задач по
@@ -37,4 +38,9 @@ interface IHandler
      * @return Options
      */
     public function getOptions() : Options;
+
+    /**
+     * @return EntityManager
+     */
+    public function getEntityManager(): EntityManager;
 }

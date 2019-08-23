@@ -16,14 +16,6 @@ final class Option {
     private $default;
     private $values; // map for T_LIST
 
-    /**
-     * Option constructor.
-     * @param $id
-     * @param $type
-     * @param $name
-     * @param $default
-     * @param array $values
-     */
     public function __construct($id, $type, $name, $default, array $values = [])
     {
         $this->id = $id;
@@ -33,30 +25,18 @@ final class Option {
         $this->values = $values;
     }
 
-    /**
-     * @return string
-     */
     public function getId() : string {
         return $this->id;
     }
 
-    /**
-     * @return int
-     */
     public function getType() : int {
         return $this->type;
     }
 
-    /**
-     * @return string
-     */
     public function getName() : string {
         return $this->name;
     }
 
-    /**
-     * @return string
-     */
     public function getDefault() : string {
         if(self::T_LIST == $this->getType()) {
             if(!array_key_exists($this->default, $this->values)) {
@@ -67,17 +47,10 @@ final class Option {
         return $this->default;
     }
 
-    /**
-     * @return array
-     */
     public function getValues() : array {
         return $this->values;
     }
 
-    /**
-     * @param $value
-     * @return bool|int|string
-     */
     public function check($value) {
         $value = (string) $value;
         $type = $this->getType();

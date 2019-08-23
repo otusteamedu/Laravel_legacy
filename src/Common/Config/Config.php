@@ -4,16 +4,8 @@ namespace App\Common\Config;
 
 class Config implements \ArrayAccess, \Serializable
 {
-    /**
-     *  Данные настроек
-     * @var array
-     */
 	private $data;
-
-    /**
-     * Config constructor.
-     * @param array $data
-     */
+	
 	public function __construct(array $data = []) {
 		$this->data = $data;
     }
