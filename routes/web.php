@@ -14,3 +14,18 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/plain/index', function () {
+    return view('plain.index');
+});
+
+Route::get('/plain/includes', function () {
+    return view('plain.includes');
+});
+Route::get('/plain/for', function () {
+    return view('plain.for');
+});
+
+Route::get('/plain/foreach', function () {
+    return view('plain.foreach');
+});
