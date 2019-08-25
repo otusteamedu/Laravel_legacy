@@ -29,3 +29,66 @@ Route::get('/plain/for', function () {
 Route::get('/plain/foreach', function () {
     return view('plain.foreach');
 });
+
+Route::get('/products', function () {
+    $company = [
+        'id' => 1,
+        'name' => 'Otus',
+        'url' => '/companies/1',
+    ];
+    $products = [
+        [
+            'id' => 1,
+            'title' => 'Pepsi',
+            'price' => 10,
+            'remainingCount' => 5,
+            'totalCount' => 50,
+            'created_at' => \Carbon\Carbon::now()->subDays(2),
+        ],
+        [
+            'id' => 2,
+            'title' => 'Sprite',
+            'price' => 10,
+            'remainingCount' => 7,
+            'totalCount' => 50,
+            'created_at' => \Carbon\Carbon::now()->subDays(5),
+        ],
+        [
+            'id' => 3,
+            'title' => 'Fanta orange',
+            'price' => 11,
+            'remainingCount' => 1,
+            'totalCount' => 50,
+            'created_at' => \Carbon\Carbon::now()->subDays(3),
+        ],
+        [
+            'id' => 4,
+            'title' => 'Aqua Minerale',
+            'price' => 8.5,
+            'remainingCount' => 77,
+            'totalCount' => 100,
+            'created_at' => \Carbon\Carbon::now()->subDays(4),
+        ],
+        [
+            'id' => 5,
+            'title' => 'Blue Ice',
+            'price' => 20,
+            'remainingCount' => 9,
+            'totalCount' => 50,
+            'created_at' => \Carbon\Carbon::now()->subDays(5),
+        ],
+        [
+            'id' => 6,
+            'title' => '7up',
+            'price' => 12,
+            'remainingCount' => 15,
+            'totalCount' => 50,
+            'created_at' => \Carbon\Carbon::now()->subDays(12),
+        ],
+    ];
+    $data = [
+        'company' => $company,
+        'products' => $products,
+    ];
+    return view('products.index', $data);
+});
