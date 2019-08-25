@@ -73,7 +73,7 @@ Route::get('/products', function () {
             'id' => 5,
             'title' => 'Blue Ice',
             'price' => 20,
-            'remainingCount' => 9,
+            'remainingCount' => 0,
             'totalCount' => 50,
             'created_at' => \Carbon\Carbon::now()->subDays(5),
         ],
