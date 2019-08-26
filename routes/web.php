@@ -30,6 +30,18 @@ Route::get('/plain/foreach', function () {
     return view('plain.foreach');
 });
 
+Route::get('/products/create', function () {
+    $company = [
+        'id' => 1,
+        'name' => 'Otus',
+        'url' => '/companies/1',
+    ];
+    $data = [
+        'company' => $company,
+    ];
+    return view('products.create', $data);
+});
+
 Route::get('/products', function () {
     $company = [
         'id' => 1,
