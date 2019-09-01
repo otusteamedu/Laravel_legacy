@@ -29,30 +29,30 @@ class SubjectPrize extends Prize
 ```
 interface PrizeGenerator
 {
-	public generate();
+	public function generate();
 }
 
 class SubjectGenerator implements PrizeGenerator
 {
-	public generate()
+	public function generate()
 	{
-		new Subject();
+		return new Subject();
 	}
 |
 
 class BonusGenerator implements PrizeGenerator
 {
-	public generate()
+	public function generate()
 	{
-		new Bonus();
+		return new Bonus();
 	}
 |
 
 class MoneyGenerator implements PrizeGenerator
 {
-	public generate()
+	public function generate()
 	{
-		new Money();
+		return new Money();
 	}
 }
 ```
