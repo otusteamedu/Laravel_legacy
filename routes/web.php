@@ -104,3 +104,17 @@ Route::get('/products', function () {
     ];
     return view('products.index', $data);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/companies/create', function () {
+
+    return view('companies.create');
+});
+Route::get('/companies', function () {
+    $data = [
+        'companies' => \App\Models\Company::paginate(50),
+    ];
+    return view('companies.index', $data);
+});
