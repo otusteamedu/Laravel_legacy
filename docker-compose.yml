@@ -1,0 +1,82 @@
+version: '2'
+
+services:
+  php1:
+    build: ./${PHP_VERSION}
+    environment:
+      PHP_IDE_CONFIG: serverName=docker_php
+      XDEBUG: ${XDEBUG}
+    volumes_from:
+    - source
+    links:
+    - mysql
+    - memcached
+    networks:
+    - otus
+    restart: always
+  web_server:
+    build: ./${WEB_SERVER_TYPE}
+    depends_on:
+    - source
+    volumes_from:
+    - source
+    ports:
+    - '${INTERFACE}:9090:80'
+    - '${INTERFACE}:444:443'
+    links:
+    - php1
+    networks:
+    - otus
+    restart: always
+  mysql:
+    build: ./mysql
+    volumes:
+      - ./logs/mysql:/var/log/mysql:cached
+      - ./data/mysql:/var/lib/mysql
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+    ports:
+    - '${INTERFACE}:3309:3306'
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    networks:
+    - otus
+    restart: always
+  memcached:
+    image: memcached:1.5-alpine
+    volumes_from:
+    - source
+    ports:
+    - '${INTERFACE}:11212:11212'
+    networks:
+    - otus
+    restart: always
+  dnsmasq:
+    image: andyshinn/dnsmasq
+    ports:
+    - '${INTERFACE}:54:53/udp'
+    - '${INTERFACE}:54:53/tcp'
+    cap_add:
+    - NET_ADMIN
+    command: -A /localhost/${INTERFACE} -R -S 8.8.8.8
+    networks:
+    - otus
+  source:
+    image: alpine:latest
+    volumes:
+    - ./logs/${WEB_SERVER_TYPE}:/var/log/${WEB_SERVER_TYPE}
+    - ./logs/php:/var/log/php
+    - ./logs/memcached:/var/log/memcached
+    - ./data/memcached:/var/lib/memcached
+    - ./php7/php.ini:/etc/php/7.1/fpm/conf.d/90-php.ini
+    - ./www/html:/var/www/html
+    - ${SITE_PATH}:/var/www/public/test.otus.localhost
+    networks:
+    - otus
+networks:
+  otus:
+    driver: bridge
+
