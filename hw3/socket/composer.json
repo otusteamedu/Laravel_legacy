@@ -1,0 +1,12 @@
+{
+    "require": {
+        "clue/socket-raw": "^1.4",
+        "vlucas/phpdotenv": "^3.5"
+    },
+    "autoload": {
+        "files": [
+          "app/boot.php",
+          "app/helpers.php"
+        ]
+    }
+}
