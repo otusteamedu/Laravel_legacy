@@ -1,0 +1,28 @@
+version: '3'
+services:
+  web:
+    build: ./docker-images/nginx
+    ports:
+      - "${NGINX_HTTP_PORT}:80"
+      - "${NGINX_HTTPS_PORT}:443"
+    volumes:
+      - ${SITE_PATH}:/var/www
+  php-fpm:
+    build: ./docker-images/php-fpm
+    ports:
+      - "9000:9000"
+    volumes:
+      - ${SITE_PATH}:/var/www
+  mysql:
+    build: ./docker-images/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    ports:
+      - "${MYSQL_PORT}:3306"
+  memcached:
+    build: ./docker-images/memcached
+    ports:
+      - "11211:11211"
