@@ -104,3 +104,7 @@ Route::get('/products', function () {
     ];
     return view('products.index', $data);
 });
+
+Route::get('/companies', function () {
+    return view('companies.index');
+});
