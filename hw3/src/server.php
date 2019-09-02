@@ -1,29 +1,34 @@
 <?php
 
-function readOneLine()
-{
-    return rtrim(fgets(STDIN));
+while (true) {
+    $message = getRandomWord();
+    send_message('127.0.0.1','85',$message);
+    usleep(5000000);
 }
 
-$host = '127.0.0.1';
-$port = 20205;
+function getRandomWord($len = 10) {
+    $word = array_merge(range('a', 'z'), range('A', 'Z'));
+    shuffle($word);
+    return substr(implode($word), 0, $len);
+}
 
-$socket = socket_create(AF_INET, SOCK_STREAM, 0);
-$socketBind = socket_bind($socket, $host, $port);
-
-$result = socket_listen($socket, 3);
-echo 'Listening socket';
-
-while (true) {
-    $accept = socket_accept($socket);
-    $messange = trim(socket_read($socket, 1024));
-
-    echo 'Server says: ' . $messange . PHP_EOL;
-
-    echo 'Enter reply:' . PHP_EOL;
-    $reply = readOneLine();
-
-    socket_write($accept, $reply, strlen($reply));
-
-    socket_close($socket);
+function send_message($ipServer,$portServer,$message)
+{
+    $fp = stream_socket_client("tcp://$ipServer:$portServer", $errno, $errstr);
+    if (!$fp)
+    {
+        echo "ERREUR : $errno - $errstr<br />\n";
+    }
+    else
+    {
+        fwrite($fp,$message);
+        $response =  fread($fp, 4);
+        if ($response != "OK\n") {
+            echo 'Команда не может быть исполнена :' . $response;
+        }
+        else {
+            echo 'Принято' . PHP_EOL;
+        }
+        fclose($fp);
+    }
 }
