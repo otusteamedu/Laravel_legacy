@@ -37,7 +37,7 @@ interface Prize{}
 
 class SubjectGenerator implements PrizeGenerator
 {
-    public function generate()
+    public function generate():Subject
     {
         return new Subject();
     }
@@ -45,7 +45,7 @@ class SubjectGenerator implements PrizeGenerator
 
 class BonusGenerator implements PrizeGenerator
 {
-    public function generate()
+    public function generate():Bonus
     {
         return new Bonus();
     }
@@ -53,7 +53,7 @@ class BonusGenerator implements PrizeGenerator
 
 class MoneyGenerator implements PrizeGenerator
 {
-    public function generate()
+    public function generate():Money
     {
         return new Money();
     }
