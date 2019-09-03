@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main.index');
+});
+
+Route::get('/register', function () {
+    return view('register.index');
+});
+
+Route::get('/user', function () {
+    return view('user.index');
+});
+
+Route::get('/helps', function () {
+    return view('helps.index');
 });
