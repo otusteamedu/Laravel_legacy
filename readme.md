@@ -59,6 +59,8 @@ class MoneyGenerator implements PrizeGenerator
     }
 }
 ```
+Классы Money, Bonus, Subject реализуют интерфейс Prize.
+
 Всё выше описанное справедливо и для остальных классов: MoneyPrize(https://github.com/shapito27/Casino/blob/master/app/Services/MoneyPrize.php) и BonusPrize(https://github.com/shapito27/Casino/blob/master/app/Services/BonusPrize.php) с небольшими дополнениями.
 
 Классов Bonus и Money сейчас нет. Создать их и создание new PrizeInterval(которое сейчас в конструкторе BonusPrize и MoneyPrize) использовать в их конструкторах.
