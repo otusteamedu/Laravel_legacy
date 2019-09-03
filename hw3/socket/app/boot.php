@@ -1,4 +1,4 @@
 <?php
 
-$dotenv = Dotenv\Dotenv::create(__DIR__.'/hw3');
+$dotenv = Dotenv\Dotenv::create(__DIR__.'/../');
 $dotenv->load();

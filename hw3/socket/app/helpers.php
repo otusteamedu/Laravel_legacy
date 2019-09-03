@@ -16,16 +16,24 @@ function consoleLog($message, $prefix = '')
 }
 
 /**
- * Get server address from .env
+ * Get unix socket address
  *
  * @return string
  */
-function getServerAddress()
+function getSocketAddress()
 {
-    $serverIp   = getenv('SERVER_IP') ?: '127.0.0.1';
-    $serverPort = getenv('SERVER_PORT') ?: '8000';
+    return sprintf('unix://%s', getSocketFile());
+}
 
-    return sprintf('tcp://%s:%s', $serverIp, $serverPort);
+
+/**
+ * Get socket file path from .env
+ *
+ * @return string
+ */
+function getSocketFile()
+{
+    return getenv('SOCKET_FILE') ?: '/tmp/daemon.sock';
 }
 
 /**
@@ -44,6 +52,11 @@ function getPingPongTimeout()
     return $pingPongTimeout;
 }
 
+/**
+ * Generate random message
+ *
+ * @return int
+ */
 function generateRandomMessage()
 {
     $randomMessage = time();

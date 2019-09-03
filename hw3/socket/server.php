@@ -5,19 +5,24 @@ use Socket\Raw\Factory;
 
 require_once __DIR__.'/vendor/autoload.php';
 
-$serverAddress = getServerAddress();
-$factory = new Factory();
+$socketFile    = getSocketFile();
+$socketAddress = getSocketAddress();
+$factory       = new Factory();
 
-consoleLog("Начинается запуск сервера {$serverAddress}");
+consoleLog("Начинается запуск сервера {$socketAddress}");
 
 try {
-    $server = $factory->createServer($serverAddress);
+    if (file_exists($socketFile)) {
+        unlink($socketFile);
+    }
+
+    $server = $factory->createServer($socketAddress);
 } catch (\Socket\Raw\Exception $exception) {
-    consoleLog("Не получилось запустить сервер {$serverAddress} из-за ошибки:");
+    consoleLog("Не получилось запустить сервер {$socketAddress} из-за ошибки:");
     die($exception->getMessage().PHP_EOL);
 }
 
-consoleLog("Сервер {$serverAddress} запущен");
+consoleLog('Сервер запущен');
 consoleLog('Ожидаю соединения с клиентом');
 
 while ($client = $server->accept()) {
@@ -32,8 +37,8 @@ while ($client = $server->accept()) {
         break;
     }
 
-    $clientPeerName = $client->getPeerName();
-    consoleLog("Соединился с клиентом {$clientPeerName}");
+    $clientLogPrefix = 'Клиент';
+    consoleLog('Соединился с клиентом');
 
     while (true) {
         try {
@@ -42,18 +47,18 @@ while ($client = $server->accept()) {
             $clientResponse = $client->read(8192);
 
             if ('Принято' === $clientResponse) {
-                consoleLog("Сообщение \"{$serverMessage}\" принято", $clientPeerName);
+                consoleLog("Сообщение \"{$serverMessage}\" принято", $clientLogPrefix);
             } else {
-                consoleLog("Сообщение \"{$serverMessage}\" не было доставлено", $clientPeerName);
-                consoleLog('Соединение разорвано', $clientPeerName);
+                consoleLog("Сообщение \"{$serverMessage}\" не было доставлено", $clientLogPrefix);
+                consoleLog('Соединение разорвано', $clientLogPrefix);
                 consoleLog('Ожидаю соединения с клиентом');
                 $client->close();
 
                 break;
             }
         } catch (\Socket\Raw\Exception $exception) {
-            consoleLog('Не получилось отправить сообщение клиенту из-за ошибки:');
-            consoleLog($exception->getMessage().PHP_EOL);
+            consoleLog('Не получилось отправить сообщение клиенту из-за ошибки:', $clientLogPrefix);
+            consoleLog($exception->getMessage(), $clientLogPrefix);
             consoleLog('Ожидаю соединения с клиентом');
 
             break;
@@ -63,6 +68,6 @@ while ($client = $server->accept()) {
     }
 }
 
-consoleLog('Сервер '.$serverAddress.' остановлен');
+consoleLog("Сервер {$socketAddress} остановлен");
 
 $server->close();
