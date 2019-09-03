@@ -1,34 +1,55 @@
 <?php
 
-while (true) {
-    $message = getRandomWord();
-    send_message('127.0.0.1','85',$message);
-    usleep(5000000);
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Socket\Raw\Factory;
+
+$factory = new Factory();
+
+echo 'Соединение с сервером...' . PHP_EOL;
+
+try {
+    $server = $factory->createServer(getSocketFilePath());
+} catch (\Socket\Raw\Exception $e) {
+    die($e->getMessage());
 }
 
-function getRandomWord($len = 10) {
-    $word = array_merge(range('a', 'z'), range('A', 'Z'));
-    shuffle($word);
-    return substr(implode($word), 0, $len);
+echo 'Сервер запущен' . PHP_EOL;
+
+while ($client = $server->accept()) {
+    try {
+        $client->bind($server);
+        $client->connect($server);
+    } catch (\Socket\Raw\Exception $e) {
+        die($e->getMessage());
+
+        break;
+    }
+
+    echo 'Соединение с клиентов прошло успешно' . PHP_EOL;
+
+    while (true) {
+        try {
+            $message = getRandomMessage();
+            $client->write($message);
+            $response = $client->read(1024);
+
+            if ($response === 'Принято') {
+                echo 'Сообщение принято' . PHP_EOL;
+            } else {
+                echo 'Сообщение не было доставлено' . PHP_EOL;
+                $client->close();
+
+                break;
+            }
+        } catch (\Socket\Raw\Exception $e) {
+            die($e->getMessage());
+        }
+
+        sleep(5);
+    }
 }
 
-function send_message($ipServer,$portServer,$message)
-{
-    $fp = stream_socket_client("tcp://$ipServer:$portServer", $errno, $errstr);
-    if (!$fp)
-    {
-        echo "ERREUR : $errno - $errstr<br />\n";
-    }
-    else
-    {
-        fwrite($fp,$message);
-        $response =  fread($fp, 4);
-        if ($response != "OK\n") {
-            echo 'Команда не может быть исполнена :' . $response;
-        }
-        else {
-            echo 'Принято' . PHP_EOL;
-        }
-        fclose($fp);
-    }
-}
+echo 'Сервер остановлен' . PHP_EOL;
+
+$server->close();

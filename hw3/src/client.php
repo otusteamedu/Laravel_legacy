@@ -1,22 +1,25 @@
 <?php
 
+require_once __DIR__ . '/vendor/autoload.php';
+
+use Socket\Raw\Factory;
+
+$factory = new Factory();
+
+try {
+    $client = $factory->createClient(getSocketFilePath());
+} catch (\Socket\Raw\Exception $e) {
+    die($e->getMessage());
+}
+
+echo 'Соединение установлено' . PHP_EOL;
+
 while (true) {
-    receive_message('127.0.0.1','85',5);
+    $message = $client->read(1024);
+    echo "Сообщение {$message} принято" . PHP_EOL;
+    $client->write('Принято');
 }
 
-function receive_message($ipServer,$portNumber,$nbSecondsIdle)
-{
-    $socket = stream_socket_server('tcp://' . $ipServer . ':' . $portNumber, $errno, $errstr);
-    if (!$socket) {
-        echo "$errstr ($errno)<br />\n";
-    } else {
-        while ($conn = @stream_socket_accept($socket,$nbSecondsIdle)) {
-            $message= fread($conn, 1024);
-            echo "Сообщение {$message} принято клиентом" . PHP_EOL;
-            fputs ($conn, "OK\n");
-            fclose ($conn);
-        }
+echo 'Соединение остановлено';
 
-        fclose($socket);
-    }
-}
+$client->close();
