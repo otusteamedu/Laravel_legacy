@@ -1,6 +1,4 @@
 <?php
-
-
 namespace Hw7;
 
 
@@ -58,6 +56,15 @@ class Server implements ServerInterface
     {
         if($this->resource) {
             return $this->resource;
+        }
+
+        if(Str::startsWith($this->socket, 'unix://')) {
+            $path = Str::after($this->socket, 'unix://');
+            if(file_exists($path)) {
+                if(!unlink($path)) {
+                    throw new ServerException('Failed to remove socket');
+                }
+            }
         }
 
         $resource = stream_socket_server($this->socket,$errno, $errstr);
