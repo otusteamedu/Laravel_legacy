@@ -27,33 +27,36 @@ class SubjectPrize extends Prize
 
 Во вторых сам класс SubjectGenerator можно реализовать по паттерну фабричный метод:
 ```
+<?php
 interface PrizeGenerator
 {
-	public function generate();
+    public function generate():Prize;
 }
+
+interface Prize{}
 
 class SubjectGenerator implements PrizeGenerator
 {
-	public function generate()
-	{
-		return new Subject();
-	}
-|
+    public function generate()
+    {
+        return new Subject();
+    }
+}
 
 class BonusGenerator implements PrizeGenerator
 {
-	public function generate()
-	{
-		return new Bonus();
-	}
-|
+    public function generate()
+    {
+        return new Bonus();
+    }
+}
 
 class MoneyGenerator implements PrizeGenerator
 {
-	public function generate()
-	{
-		return new Money();
-	}
+    public function generate()
+    {
+        return new Money();
+    }
 }
 ```
 Всё выше описанное справедливо и для остальных классов: MoneyPrize(https://github.com/shapito27/Casino/blob/master/app/Services/MoneyPrize.php) и BonusPrize(https://github.com/shapito27/Casino/blob/master/app/Services/BonusPrize.php) с небольшими дополнениями.
