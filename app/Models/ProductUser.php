@@ -14,5 +14,5 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class ProductUser extends Pivot
 {
-    //
+
 }

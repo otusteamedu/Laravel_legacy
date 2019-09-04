@@ -102,6 +102,9 @@ Route::get('/products', function () {
         'company' => $company,
         'products' => $products,
     ];
+
+//    \App\Models\Product::join('companies', 'company_id', '=', 'product_id');
+
     return view('products.index', $data);
 });
 
