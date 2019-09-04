@@ -3,14 +3,15 @@
 
 include_once('./app/Socket.php');
 
-unlink((new Socket())->getSocketFile());
+$unixSocket = new Socket('/tmp/myserver.sock','Test',1);
+unlink($unixSocket->getSocketFile());
 
-if (!$socket = (new Socket())->connectServer()) {
+if (!$socket = $unixSocket->connectServer()) {
     die('Соединение не установлено');
 }
 
 while ($conn = stream_socket_accept($socket)) {
-    (new Socket())->serverWork($socket, $conn);
+    $unixSocket->serverReceivingSendingMessage($socket, $conn);
     fclose($conn);
 }
 socket_close($socket);

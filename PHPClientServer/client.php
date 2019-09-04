@@ -3,10 +3,12 @@
 
 include_once('./app/Socket.php');
 
-if (!$socket = (new Socket())->connectClient()) {
+$unixSocket = new Socket('/tmp/myserver.sock','Test',1);
+
+if (!$socket = $unixSocket->connectClient()) {
     die('Соединение не установлено');
 }
 
-(new Socket())->clientWorks($socket);
+$unixSocket->clientReceivingSendingMessage($socket);
 
 socket_close($socket);

@@ -12,11 +12,17 @@ class Socket
     private $message;
     private $itter;
 
-    public function __construct()
+    /**
+     * Socket constructor.
+     * @param $socketFile
+     * @param $message
+     * @param $itter
+     */
+    public function __construct($socketFile, $message, $itter)
     {
-        $this->socketFile = '/tmp/myserver.sock';
-        $this->message = 'Test';
-        $this->itter = 1;
+        $this->socketFile = $socketFile;
+        $this->message = $message;
+        $this->itter = $itter;
     }
 
     /**
@@ -27,6 +33,9 @@ class Socket
         return $this->socketFile;
     }
 
+    /**
+     * @return bool|resource
+     */
     public function connectClient()
     {
 
@@ -34,17 +43,26 @@ class Socket
 
     }
 
+    /**
+     * @return resource
+     */
     public function connectServer()
     {
         return stream_socket_server(sprintf('%s%s', 'unix://', $this->socketFile), $errno, $errstr);
     }
 
+    /**
+     * false connection
+     */
     public function connectError()
     {
         die('Соединение не установлено');
     }
 
-    public function clientWorks($socket)
+    /**
+     * @param $socket
+     */
+    public function clientReceivingSendingMessage($socket)
     {
         while (true) {
             while (!feof($socket)) {
@@ -55,7 +73,11 @@ class Socket
         }
     }
 
-    public function serverWork($socket, $conn)
+    /**
+     * @param $socket
+     * @param $conn
+     */
+    public function serverReceivingSendingMessage($socket, $conn)
     {
         while (true) {
             $sendMsg = sprintf('%d:%s%s', $this->itter, $this->message, PHP_EOL);
