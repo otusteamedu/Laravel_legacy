@@ -1,7 +1,6 @@
-composer require laravel/homestead --dev
+composer install
 php vendor/bin/homestead make
 cp 'Homestead_socket.yaml' 'Homestead.yaml'
-composer install
 vagrant up
 
 1 терминал
