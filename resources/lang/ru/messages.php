@@ -6,4 +6,8 @@ return [
     'registration' => 'Регистрация',
     'userPage' => 'Страница пользователя',
     'referenceInformation' => 'Справочная информация',
+    'email' => 'Электронная почта',
+    'password' => 'Пароль',
+    'passwordConfirm' => 'Подстверждение пароля',
+    'singIn' => 'Регистрация',
 ];

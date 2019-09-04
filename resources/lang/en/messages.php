@@ -6,4 +6,8 @@ return [
     'registration' => 'Registration',
     'userPage' => 'User page',
     'referenceInformation' => 'Reference Information',
+    'email' => 'Email',
+    'password' => 'Password',
+    'passwordConfirm' => 'Confirmation Password',
+    'singIn' => 'Sing in',
 ];

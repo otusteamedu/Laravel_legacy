@@ -7,7 +7,6 @@
 @section('title', __('messages.registration'))
 
 @section('style')
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @endsection
 
@@ -32,22 +31,22 @@
             <form>
 
                     <div class="form-group col-md-6 max-width">
-                        <label for="inputEmail">Email</label>
-                        <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                        <label for="inputEmail">{{__('messages.email')}}</label>
+                        <input type="email" class="form-control" id="inputEmail" placeholder="{{__('messages.email')}}">
                     </div>
                     <div class="form-group col-md-6 max-width">
-                        <label for="inputPassword1">Password</label>
-                        <input type="password" class="form-control" id="inputPassword1" placeholder="Password">
+                        <label for="inputPassword1">{{__('messages.password')}}</label>
+                        <input type="password" class="form-control" id="inputPassword1" placeholder="{{__('messages.password')}}">
                     </div>
                     <div class="form-group col-md-6 max-width">
-                        <label for="inputPassword2">Confirmation Password</label>
-                        <input type="password" class="form-control" id="inputPassword2" placeholder="Password">
+                        <label for="inputPassword2">{{__('messages.passwordConfirm')}}</label>
+                        <input type="password" class="form-control" id="inputPassword2" placeholder="{{__('messages.passwordConfirm')}}">
                     </div>
 
 
 
 
-                <button type="submit" class="btn btn-primary button-reg">Sign in</button>
+                <button type="submit" class="btn btn-primary button-reg">{{__('messages.singIn')}}</button>
             </form>
         </div>
 
