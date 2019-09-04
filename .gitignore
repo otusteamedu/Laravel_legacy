@@ -3,6 +3,8 @@
 .env.*.php
 .env.php
 .env
+.vagrant
+.idea
 
 # ---> macOS
 .DS_Store
