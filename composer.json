@@ -1,0 +1,8 @@
+{
+    "require-dev": {
+        "laravel/homestead": "^7.20"
+    },
+    "require": {
+        "clue/socket-raw": "^1.4"
+    }
+}

@@ -7,7 +7,7 @@ error_reporting(-1);
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-$path = '/tmp/sct3.sock';
+include "config.php";
 
 if (file_exists($path)) unlink($path);
 
@@ -36,7 +36,7 @@ try {
                         . " принято клиентом\n";
                 }
 
-                sleep(3);
+                sleep($sleep_sec);
 
 
             } catch (Exception $e) {
