@@ -1,5 +1,5 @@
 blog.loc/node_modules
-blog.loc/public
+blog.loc/public/*
 blog.loc/storage/*.key
 blog.loc/vendor
 blog.loc/.env
