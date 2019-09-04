@@ -1,0 +1,19 @@
+composer require laravel/homestead --dev
+php vendor/bin/homestead make
+cp 'Homestead_socket.yaml' 'Homestead.yaml'
+composer install
+vagrant up
+
+1 терминал
+vagrant ssh
+php /var/www/socket-test/sct-server.php
+
+2 терминал
+vagrant ssh
+php /var/www/socket-test/sct-client.php
+
+Пояснения:
+Среда развернута на базе vagrant c использованием laravel/homestead
+Работа с сокетами осуществляется через класс-обертку clue/socket-raw устанавливаемую через composer
+Клиент получает 3 сообщения от сервера каждые 3 сек и отключается. При необходимости можно повторить запуск.
+Все необходимые сообщения выводятся на обоих сторонах
