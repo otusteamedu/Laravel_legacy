@@ -5,7 +5,7 @@ use Socket\Raw\Factory;
 
 error_reporting(-1);
 
-require_once __DIR__.'/vendor/autoload.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 $path = '/tmp/sct3.sock';
 
@@ -29,20 +29,20 @@ try {
 
                 $client->write($msq);
 
-                            $answer = $client->read(8192);
+                $answer = $client->read(8192);
 
-                            if ($answer == "Принято") {
-                                echo "Сообщение " . $msq
-                                    . " принято клиентом\n";
-                            }
+                if ($answer == "Принято") {
+                    echo "Сообщение " . $msq
+                        . " принято клиентом\n";
+                }
 
-                            sleep(3);
+                sleep(3);
 
 
-                } catch (Exception $e) {
+            } catch (Exception $e) {
 
-                    echo "Client disconected\n";
-                    break;
+                echo "Client disconected\n";
+                break;
 
             }
         }

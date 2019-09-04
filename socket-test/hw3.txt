@@ -1,0 +1,17 @@
+vagrant up
+cd socket-test
+composer install
+
+1 терминал
+vagrant ssh
+php /var/www/socket-test/sct-server.php
+
+2 терминал
+vagrant ssh
+/var/www/socket-test/sct-client.php
+
+Пояснения:
+Среда развернута на базе vagrant c использованием настроек сдеанных на puphpet.com
+Работа с сокетами осуществляется через класс-обертку clue/socket-raw устанавливаемую через composer
+Клиент получает 3 сообщения от сервера и отключается. При необходимости можно повторить запуск.
+Все необходимые сообщения выводятся на обоих сторонах
