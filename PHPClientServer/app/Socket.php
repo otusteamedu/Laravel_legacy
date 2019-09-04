@@ -14,11 +14,11 @@ class Socket
 
     /**
      * Socket constructor.
-     * @param $socketFile
-     * @param $message
-     * @param $itter
+     * @param string $socketFile
+     * @param string $message
+     * @param int $itter
      */
-    public function __construct($socketFile, $message, $itter)
+    public function __construct(string $socketFile, string $message, int $itter)
     {
         $this->socketFile = $socketFile;
         $this->message = $message;
@@ -26,9 +26,9 @@ class Socket
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getSocketFile()
+    public function getSocketFile(): string
     {
         return $this->socketFile;
     }
@@ -44,7 +44,7 @@ class Socket
     }
 
     /**
-     * @return resource
+     * @return bool|resource
      */
     public function connectServer()
     {
@@ -60,7 +60,7 @@ class Socket
     }
 
     /**
-     * @param $socket
+     * @param resource
      */
     public function clientReceivingSendingMessage($socket)
     {
@@ -74,8 +74,8 @@ class Socket
     }
 
     /**
-     * @param $socket
-     * @param $conn
+     * @param $socket resource
+     * @param $conn resource
      */
     public function serverReceivingSendingMessage($socket, $conn)
     {
