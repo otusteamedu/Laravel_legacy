@@ -9,7 +9,7 @@ require_once __DIR__.'/vendor/autoload.php';
 
 $path = '/tmp/sct3.sock';
 
-unlink($path);
+if (file_exists($path)) unlink($path);
 
 $factory = new Factory();
 
