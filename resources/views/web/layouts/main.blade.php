@@ -7,13 +7,11 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @yield('styles')
 </head>
-<body>
+<body class="@yield('body_class')">
 
 <div class="flex-column">
     @include('web.partials.header')
-    <div class="container">
-        @yield('content')
-    </div>
+    @yield('content')
     @include('web.partials.footer')
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
