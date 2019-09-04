@@ -8,8 +8,13 @@
     @yield('styles')
 </head>
 <body>
-<div class="">
-    @yield('content')
+
+<div class="flex-column">
+    @include('web.partials.header')
+    <div class="container">
+        @yield('content')
+    </div>
+    @include('web.partials.footer')
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>
 @yield('scripts')
