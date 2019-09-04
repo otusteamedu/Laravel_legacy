@@ -1,0 +1,11 @@
+blog.loc/node_modules
+blog.loc/public
+blog.loc/storage/*.key
+blog.loc/vendor
+blog.loc/.env
+blog.loc/.phpunit.result.cache
+blog.loc/Homestead.json
+blog.loc/Homestead.yaml
+blog.loc/npm-debug.log
+blog.loc/yarn-error.log
+blog.loc/.idea
