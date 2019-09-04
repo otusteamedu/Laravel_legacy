@@ -12,4 +12,8 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .copy('resources/css/owl.carousel.min.css', 'public/css/owl.carousel.min.css')
+    .copy('resources/css/owl.theme.default.min.css', 'public/css/owl.theme.default.min.css')
+    .copy('resources/js/owl.autoplay.js', 'public/js/owl.autoplay.js')
+    .copy('resources/js/owl.carousel.min.js', 'public/js/owl.carousel.min.js');
