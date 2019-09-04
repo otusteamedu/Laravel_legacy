@@ -1,0 +1,14 @@
+{
+    "name": "edemsky/sickettest",
+    "type": "project",
+    "require": {
+        "clue/socket-raw": "1.4"
+    },
+    "authors": [
+        {
+            "name": "Michael Edemsky",
+            "email": "cleor@yandex.ru"
+        }
+    ],
+    "minimum-stability": "dev"
+}
