@@ -9,4 +9,4 @@ add to hosts:
 192.168.10.198 laravel.otus
 Mac os: sudo nano /etc/hosts
 
-Адрес сайта: http://laravel.otus
+РђРґСЂРµСЃ СЃР°Р№С‚Р°: http://laravel.otus
