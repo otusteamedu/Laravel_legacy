@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link href="{{ asset('public/css/signin.css') }}" rel="stylesheet" type="text/css" >
     <link href="{{ asset('public/css/cover.css') }}" rel="stylesheet" type="text/css" >
@@ -23,12 +24,22 @@
             </h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link" href="/">Главная</a>
-                <!-- Authentication Links -->
-                <a  class="nav-link"  href="/add">Новый маршрут</a>
+                <a  class="nav-link"  href="/schedule">Расписание</a>
                 <a  class="nav-link"  href="/buses">Автобусы</a>
                 <a  class="nav-link"  href="/regions">Города</a>
-                <a  class="nav-link"  href="/schedule">Расписание</a>
-                <a  class="nav-link"  href="/formcheck">Проверить автобус</a>
+                <!-- Authentication Links -->
+                @if (Route::has('login'))
+                    <div class="form-inline my-2 my-lg-0" style="margin-left: 20px;">
+                        @auth
+                            <a class="btn btn-dark btn-sm" href="/home" class="btn btn-secondary">Личный кабинет</a>
+                            <a class="btn btn-dark btn-sm" href="/logout" class="btn btn-secondary">Выйти</a>
+                        @else
+
+                            <a class="btn btn-dark btn-sm" href="{{ route('login') }}">Вход</a>
+                            <a class="btn btn-dark btn-sm"  href="{{ route('register') }}">Регистрация</a>
+                        @endauth
+                    </div>
+                @endif
             </nav>
         </div>
     </header>
@@ -36,7 +47,7 @@
     @yield('content')
     <footer class="mastfoot mt-auto">
         <div class="inner">
-            <p>Laravel Timetable</p>
+            <p>iLogistics</p>
         </div>
     </footer>
 </div>
