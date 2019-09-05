@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     @yield('styles')
 </head>
+{{-- TODO Формировать body_class автоматически на основе текущего route --}}
 <body class="@yield('body_class')">
 
 <div class="flex-column">

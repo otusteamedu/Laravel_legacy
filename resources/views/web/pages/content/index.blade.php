@@ -1,4 +1,5 @@
 @extends('web.layouts.main')
+@section('body_class', 'body__content__index')
 
 @section('content')
 

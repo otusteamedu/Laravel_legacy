@@ -1,5 +1,3 @@
-/* Sticky footer styles
--------------------------------------------------- */
 html {
     position: relative;
     min-height: 100%;
@@ -18,18 +16,27 @@ body {
     background-color: #f5f5f5;
 }
 
-.form-signup {
+h1 {
+    margin-bottom: 1rem;
+}
+
+body.body__index {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/running.jpg') no-repeat 0 0;
+    background-size: cover;
+}
+
+.body__user__register .form-signup {
     width: 100%;
     max-width: 330px;
     padding: 15px;
     margin: 0 auto;
 }
 
-.form-signup .checkbox {
+.body__user__register .form-signup .checkbox {
     font-weight: 400;
 }
 
-.form-signup .form-control {
+.body__user__register .form-signup .form-control {
     position: relative;
     box-sizing: border-box;
     height: auto;
@@ -37,23 +44,22 @@ body {
     font-size: 16px;
 }
 
-.form-signup .form-control:focus {
+.body__user__register .form-signup .form-control:focus {
     z-index: 2;
 }
 
-.form-signup input[type="email"] {
+.body__user__register .form-signup input[type="email"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
 }
 
-.form-signup input[type="password"] {
+.body__user__register .form-signup input[type="password"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
 }
 
-body.body__front {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/running.jpg') no-repeat 0 0;
-    background-size: cover;
+.body__dashboard__index .card-deck .card {
+    min-width: 220px;
 }
