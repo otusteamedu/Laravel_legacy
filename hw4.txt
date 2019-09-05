@@ -1,0 +1,12 @@
+laravel new project
+git clone https://github.com/laravel/homestead.git Homestead
+cp 'Homestead.yaml' 'Homestead/Homestead.yaml'
+cp '.env.local' 'project/.env'
+cd Homestead
+vagrant up
+
+add to hosts:
+192.168.10.198 laravel.otus
+Mac os: sudo nano /etc/hosts
+
+Адрес сайта: http://laravel.otus
