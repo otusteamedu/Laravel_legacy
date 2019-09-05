@@ -121,3 +121,7 @@ Route::get('/companies', function () {
     ];
     return view('companies.index', $data);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
