@@ -13,14 +13,30 @@
 
 
 Route::get('/', function () {
-    return 'Hello World';
-});
-
-Route::get('/w', function () {
     return view('welcome');
 });
 
-
-Route::get('/w/wer', function () {
-    return view('welcome');
+Route::get('/dashboard', function () {
+    return 'dashboard';
 });
+
+Route::get('/user', function () {
+    return 'user';
+});
+
+Route::get('/group', function () {
+    return 'group';
+});
+
+Route::get('/responsibility', function () {
+    return 'responsibility';
+});
+
+Route::get('/reason', function () {
+    return 'reason';
+});
+
+Route::get('/flow', function () {
+    return 'flow';
+});
+
