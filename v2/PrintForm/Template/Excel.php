@@ -20,8 +20,6 @@ class Excel implements ITemplate
 
     public function fillWithData(array $data): void
     {
-        // Наполняем шаблон данными - делаем тупую замену строк
-        // (на деле тут надо бы использовать какой-нибудь синтаксис плейсхолдеров или нормальный шаблонизатор)
         // TODO: заполнить $this->spreadsheet данными
         $this->spreadsheet->getActiveSheet()->setCellValue(/*...*/);
     }
