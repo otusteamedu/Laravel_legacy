@@ -94,6 +94,14 @@
                     <a href="https://vapor.laravel.com">Vapor</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
+<!--                <div class="links">-->
+<!--                    <a href="{{ route('dashboard') }}">Главная</a>-->
+<!--                    <a href="{{ route('user') }}">Пользователи</a>-->
+<!--                    <a href="{{ route('group') }}">Группы</a>-->
+<!--                    <a href="{{ route('responsibility') }}">Ответственность</a>-->
+<!--                    <a href="{{ route('reason') }}">Причина</a>-->
+<!--                    <a href="{{ route('flow') }}">Денежный поток</a>-->
+<!--                </div>-->
             </div>
         </div>
     </body>
