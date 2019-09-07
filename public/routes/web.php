@@ -11,6 +11,16 @@
 |
 */
 
+
 Route::get('/', function () {
+    return 'Hello World';
+});
+
+Route::get('/w', function () {
+    return view('welcome');
+});
+
+
+Route::get('/w/wer', function () {
     return view('welcome');
 });

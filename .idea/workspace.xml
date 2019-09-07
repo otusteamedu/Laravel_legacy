@@ -2,131 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="cfbbefa7-0558-429c-b6ce-84cad056fc46" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/.editorconfig" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/.env.example" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/.gitattributes" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Console/Kernel.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Exceptions/Handler.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Admin/CoreResource.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Auth/ForgotPasswordController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Auth/LoginController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Auth/RegisterController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Auth/ResetPasswordController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Auth/VerificationController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/BusController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/BusScheduleController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/Controller.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/IndexController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Controllers/RegionsController.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Kernel.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/Authenticate.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/CheckForMaintenanceMode.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/EncryptCookies.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/Mymiddleware.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/RedirectIfAuthenticated.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/TrimStrings.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/TrustProxies.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Http/Middleware/VerifyCsrfToken.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/DateHelper.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Region.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/MakeNightRoute.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/MakeRoute.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/MakeSimpleRoute.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/NightRoute.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/Route.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/RouteInterface.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Route/SimpleRoute.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Schedule/BusSchedule.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Schedule/Schedule.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Schedule/ScheduleInterface.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Schedule/TruckSchedule.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Transport/Bus.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Transport/Transport.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Transport/TransportInterface.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Transport/Truck.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Validator/BusValidator.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Validator/TruckValidator.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Models/Validator/ValidatorInterface.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Providers/AppServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Providers/AuthServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Providers/BroadcastServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Providers/EventServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/app/Providers/RouteServiceProvider.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/artisan" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/bootstrap/app.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/bootstrap/cache/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/composer.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/composer.lock" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/app.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/auth.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/broadcasting.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/cache.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/filesystems.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/hashing.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/logging.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/mail.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/queue.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/services.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/session.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/config/view.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/database/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/database/factories/UserFactory.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/database/seeds/ArticlesSeeder.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/database/seeds/DatabaseSeeder.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/index.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/package.json" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/phpunit.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/.htaccess" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/css/app.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/css/cover.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/css/signin.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/favicon.ico" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/robots.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/screen_laravel.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/svg/403.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/svg/404.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/svg/500.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/svg/503.svg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/public/web.config" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/readme.md" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/js/app.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/js/bootstrap.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/js/components/ExampleComponent.vue" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/lang/en/auth.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/lang/en/pagination.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/lang/en/passwords.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/lang/en/validation.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/sass/_variables.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/sass/app.scss" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/auth/login.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/auth/passwords/email.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/auth/passwords/reset.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/auth/register.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/auth/verify.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/bus.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/checkbus.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/layouts/app.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/newschedule.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/regions.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/result.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/schedule.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/search.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/resources/views/welcome.blade.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/routes/api.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/routes/channels.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/routes/console.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/routes/web.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/server.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tests/CreatesApplication.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tests/Feature/ExampleTest.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tests/TestCase.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/tests/Unit/ExampleTest.php" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/webpack.mix.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/.gitignore" afterPath="$PROJECT_DIR$/public/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/routes/web.php" afterPath="$PROJECT_DIR$/public/routes/web.php" />
     </list>
     <ignored path="second.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -142,6 +24,30 @@
   <component name="FavoritesManager">
     <favorites_list name="second" />
   </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/public/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.29142857">
+              <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/routes/web.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-9.153846">
+              <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
@@ -150,10 +56,21 @@
       </map>
     </option>
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/public/routes/web.php" />
+        <option value="$PROJECT_DIR$/public/.gitignore" />
+      </list>
+    </option>
+  </component>
   <component name="JsBuildToolGruntFileManager" detection-done="true" />
   <component name="JsBuildToolPackageJson" detection-done="true" />
   <component name="JsGulpfileManager">
     <detection-done>true</detection-done>
+  </component>
+  <component name="PhpServers">
+    <servers />
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
@@ -187,6 +104,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -204,11 +123,31 @@
               <option name="myItemId" value="second" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="second" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="second" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="public" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="routes" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -223,13 +162,13 @@
     <editor active="false" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2553305" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26066098" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21212122" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -242,11 +181,69 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/public/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/routes/web.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.153846">
+          <caret line="23" column="18" selection-start-line="23" selection-start-column="18" selection-end-line="23" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29142857">
+          <caret line="12" column="5" selection-start-line="12" selection-start-column="5" selection-end-line="12" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
