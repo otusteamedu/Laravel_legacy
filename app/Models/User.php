@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  *
  * @property Location locations
  * @property Workout workouts
+ * @property Role roles
  */
 class User extends Authenticatable
 {
@@ -52,6 +53,12 @@ class User extends Authenticatable
     public function workouts()
     {
         return $this->hasMany('App\Models\Workout');
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role')
+            ->using('App\Models\RoleUser');
     }
 
 }
