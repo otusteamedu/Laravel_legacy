@@ -11,6 +11,16 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('web.static.home.index');
+})->name('home');
+
+Route::get('/contact', function () {
+    return view('web.static.contact.index');
+})->name('contact');
+
+Route::get('/app', function () {
+    return view('app.dashboard.index');
+})->name('app_dashboard');
