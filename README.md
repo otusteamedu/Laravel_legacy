@@ -18,6 +18,8 @@ php artisan key:generate
 ```
 git clone --single-branch --branch my git@github.com:pqr/laradock-p.git
 ```
+Репозиторий `pqr/laradock-p` - это форк официального репозитория Laradoc, в котором внесены некоторые изменения в настройки образов.
+Все изменения ведутся в отдельной ветке `my` - именно её мы и клонируем командой выше.
 
 4. Перейти в директорию `laradock-p` и скопировать файл `env-example` в `.env`
 ```
