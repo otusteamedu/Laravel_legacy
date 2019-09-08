@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
-        <title>{{ config('app.name', 'Онлайн-консультант') }} | @yield('title')</title>
+        <title>{{ __('common.app_name') }} | @yield('title')</title>
 
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
 
