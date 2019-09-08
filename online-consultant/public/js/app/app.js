@@ -49338,6 +49338,11 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/app/bootstrap.js");
 
+var fonts = ['Nunito:400,600'];
+
+var web_fonts_loader = __webpack_require__(/*! ../modules/webfonts */ "./resources/js/modules/webfonts.js")(fonts);
+
+web_fonts_loader.load();
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
@@ -49486,6 +49491,41 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
+
+/***/ }),
+
+/***/ "./resources/js/modules/webfonts.js":
+/*!******************************************!*\
+  !*** ./resources/js/modules/webfonts.js ***!
+  \******************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = function (fonts) {
+  var module = {
+    'fonts': fonts
+  };
+
+  module.load = function () {
+    WebFontConfig = {
+      google: {
+        families: this.fonts
+      }
+    };
+
+    (function () {
+      var protocol = 'https:' === document.location.protocol ? 'https' : 'http';
+      var wf = document.createElement('script');
+      wf.src = protocol + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = true;
+      var head = document.getElementsByTagName('head')[0];
+      head.appendChild(wf);
+    })();
+  };
+
+  return module;
+};
 
 /***/ }),
 

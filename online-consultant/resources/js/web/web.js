@@ -6,6 +6,11 @@
 
 require('./bootstrap');
 
+// TODO put config vars in separate file
+const fonts = ['Nunito:400,600'];
+const web_fonts_loader = require('../modules/webfonts')(fonts);
+web_fonts_loader.load();
+
 (function($) {
     $(document).ready(function () {
 
