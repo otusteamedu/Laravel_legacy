@@ -11,6 +11,7 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
+        // @todo Вынести список ролей в отдельный класс и обращаться к нему отсюда
         $role = \App\Models\Role::where('name', 'authenticated user')->first();
         foreach (\App\Models\User::all() as $user) {
             App\Models\RoleUser::create([

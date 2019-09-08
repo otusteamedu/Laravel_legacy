@@ -11,6 +11,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
+        // @todo Вынести список ролей в отдельный класс
         $roles = [
             'authenticated user',
             'administrator',

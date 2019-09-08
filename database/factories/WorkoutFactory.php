@@ -9,6 +9,7 @@ $factory->define(Workout::class, function (Faker $faker) {
     $timestamp = time();
     return [
         'name' => 'My workout',
+        // @todo Вынести список типовых дистанций в отдельный класс
         'distance' => $faker->randomElement([
             5000,
             10000,
