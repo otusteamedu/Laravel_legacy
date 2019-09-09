@@ -1,0 +1,58 @@
+version: '3.1'
+
+services:
+  nginx:
+    image: nginx:1.12
+    restart: always
+    ports:
+      - "8080:80"
+      - "4430:443"
+    networks:
+      - default
+    hostname: nginx
+    container_name: nginx
+    depends_on:
+      - php-fpm
+    volumes:
+      - ./data/nginx/hosts:/etc/nginx/conf.d
+      - ./www:/var/www
+      - ./data/nginx/logs:/var/log/nginx
+    tty: true
+    command: "service nginx start"
+  php-fpm:
+    build:
+      context: ./php
+      dockerfile: Dockerfile
+    volumes:
+      - ./www:/var/www
+      - ../cli:/app
+    networks:
+      - default
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8081:8080
+    networks:
+      - default
+  mysql:
+    image: mysql:5.7
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+    networks: 
+      - default
+    ports:
+      - "3308:3306"
+    hostname: mysql.localhost
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=derparol
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=root
+  memcached:
+    image: bitnami/memcached:latest
+    networks:
+      - default
+networks:
+  default:
+    driver: bridge
