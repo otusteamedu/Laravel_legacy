@@ -33,7 +33,13 @@ return [
             'label' => 'Password:'
         ],
         'name' => [
-            'label' => 'Name'
+            'label' => 'Name:'
+        ],
+        'phone_number' => [
+            'label' => 'Phone number:'
+        ],
+        'message' => [
+            'label' => 'Message:'
         ],
     ],
 

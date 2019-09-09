@@ -32,7 +32,13 @@ return [
             'label' => 'Пароль:'
         ],
         'name' => [
-            'label' => 'Имя'
+            'label' => 'Имя:'
+        ],
+        'phone_number' => [
+            'label' => 'Телефон:'
+        ],
+        'message' => [
+            'label' => 'Сообщение:'
         ],
     ],
 ];

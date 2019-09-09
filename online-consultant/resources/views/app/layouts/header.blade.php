@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">{{ __('common.app_name') }}</a>
+        <a class="navbar-brand" href="{{ route('app_dashboard') }}">{{ __('common.app_name') }} <small>{{ __('app.admin_panel_name') }}</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('common.navbar_toggle_nav') }}">
@@ -9,6 +9,10 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('user_profile') }}">{{ __('app.pages.user_profile') }}</a>
+                </li>
+
                 @auth
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -21,9 +25,10 @@
                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 {{ __('common.pages.logout') }}
                             </a>
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+
+                            {{ Form::open(['url' => route('logout'), 'id' => 'logout-form', 'style' => 'display: none;']) }}
                                 @csrf
-                            </form>
+                            {{ Form::close() }}
                         </div>
                     </li>
                 @endauth
