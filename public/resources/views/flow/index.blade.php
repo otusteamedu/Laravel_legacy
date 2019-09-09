@@ -26,28 +26,15 @@
                 </thead>
                 <tbody>
 
-
-                {{ $i=1 }}
                 @foreach($arItem as $item)
                 <tr>
-                    <th scope="row">{{ $i }}</th>
+                    <th scope="row">{{ $loop->iteration }}</th>
                     <td>{{ $item['name'] }}</td>
                     <td>{{ $item['var1'] }}</td>
                     <td>{{ $item['count'] }}</td>
                 </tr>
-                {{ $i++ }}
-                @endforeach
 
-                {{--
-                @for($i=0;$i<= count($arItem);$i++)
-                <tr>
-                    <th scope="row">{{ $i }}</th>
-                    <td>{{ $arItem[$i]['name'] }}</td>
-                    <td>{{ $arItem[$i]['var1'] }}</td>
-                    <td>{{ $arItem[$i]['count'] }}</td>
-                </tr>
-                @endfor
-                --}}
+                @endforeach
                 </tbody>
             </table>
         </div>
