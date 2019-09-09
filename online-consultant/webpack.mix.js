@@ -17,6 +17,9 @@ mix.browserSync({
 });
 
 mix.js('resources/js/app/app.js', 'public/js/app')
-   .js('resources/js/web/web.js', 'public/js/web')
-   .sass('resources/sass/app/app.scss', 'public/css/app')
+   .js('resources/js/web/web.js', 'public/js/web');
+
+mix.sass('resources/sass/app/app.scss', 'public/css/app')
    .sass('resources/sass/web/web.scss', 'public/css/web');
+
+mix.copyDirectory('resources/img', 'public/img');

@@ -24,3 +24,7 @@ Route::get('/contact', function () {
 Route::get('/app', function () {
     return view('app.dashboard.index');
 })->name('app_dashboard');
+
+Route::get('/app/profile', function () {
+    return view('app.user.index');
+})->name('user_profile');

@@ -1,0 +1,17 @@
+/**
+    Web | Contact page
+ */
+
+.section-contact-form {
+    .col-contact-info {
+        @include media-breakpoint-up('lg') {
+            border-right: 1px solid $border-color;
+        }
+    }
+
+    .contact-info {
+        @include media-breakpoint-down('md') {
+            border-bottom: 1px solid $border-color;
+        }
+    }
+}
