@@ -1,73 +1,227 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Laravel</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
-    <!-- Styles -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
-</head>
-<body>
+@extends('layout._layout')
 
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+
+
+@section('content')
+
+{{--<div class="col-sm-12">
+    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+        <span class="badge badge-pill badge-success">Success</span> You successfully read this important alert message.
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
         </button>
+    </div>
+</div>--}}
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
+@section('breadcrumbs')
+<ol class="breadcrumb text-right">
+    <li class="active">Dashboard</li>
+</ol>
+@stop
 
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+<div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-flat-color-1">
+        <div class="card-body pb-0">
+            <div class="dropdown float-right">
+                <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton1" data-toggle="dropdown">
+                    <i class="fa fa-cog"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <div class="dropdown-menu-content">
                         <a class="dropdown-item" href="#">Action</a>
                         <a class="dropdown-item" href="#">Another action</a>
-
-                        <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Disabled</a>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
+                </div>
+            </div>
+            <h4 class="mb-0">
+                <span class="count">2</span>
+            </h4>
+
+            <p class="text-light">группы</p>
+
+            <div class="chart-wrapper px-0" style="height:70px;" height="70">
+                <canvas id="widgetChart1"></canvas>
+            </div>
+
         </div>
-    </nav>
-    <div class="container">
-    <div class="row mt-5">
-        <div class="col-12 col-md-4">
-            @include('dashboard.groups')
-        </div>
-        <div class="col-12 col-md-8">
-            @include('dashboard.table')
+
+    </div>
+</div>
+<!--/.col-->
+
+<div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-flat-color-2">
+        <div class="card-body pb-0">
+            <div class="dropdown float-right">
+                <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton2" data-toggle="dropdown">
+                    <i class="fa fa-cog"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                    <div class="dropdown-menu-content">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <h4 class="mb-0">
+                <span class="count">10</span>
+            </h4>
+
+            <p class="text-light">Пользователей</p>
+
+            <div class="chart-wrapper px-0" style="height:70px;" height="70">
+                <canvas id="widgetChart2"></canvas>
+            </div>
+
         </div>
     </div>
+</div>
+<!--/.col-->
 
+<div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-flat-color-3">
+        <div class="card-body pb-0">
+            <div class="dropdown float-right">
+                <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton3" data-toggle="dropdown">
+                    <i class="fa fa-cog"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                    <div class="dropdown-menu-content">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <h4 class="mb-0">
+                <span class="count">23</span>
+            </h4>
 
+            <p class="text-light">Ответственности</p>
+
+        </div>
+
+        <div class="chart-wrapper px-0" style="height:70px;" height="70">
+            <canvas id="widgetChart3"></canvas>
+        </div>
+    </div>
+</div>
+<!--/.col-->
+
+<div class="col-sm-6 col-lg-3">
+    <div class="card text-white bg-flat-color-4">
+        <div class="card-body pb-0">
+            <div class="dropdown float-right">
+                <button class="btn bg-transparent dropdown-toggle theme-toggle text-light" type="button" id="dropdownMenuButton4" data-toggle="dropdown">
+                    <i class="fa fa-cog"></i>
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+                    <div class="dropdown-menu-content">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+            </div>
+            <h4 class="mb-0">
+                <span class="count">10468</span>
+            </h4>
+
+            <p class="text-light">Members online</p>
+
+            <div class="chart-wrapper px-3" style="height:70px;" height="70">
+                <canvas id="widgetChart4"></canvas>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!--/.col-->
+
+<div class="col-lg-9">
+    <div class="card">
+        <div class="card-header">
+            <strong class="card-title">Название группы</strong>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Handle</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>Jacob</td>
+                    <td>Thornton</td>
+                    <td>@fat</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>Larry</td>
+                    <td>the Bird</td>
+                    <td>@twitter</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-</body>
-</html>
+<div class="col-xl-3 col-lg-6">
+    <div class="card">
+        <div class="card-body">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib"><i class="ti-money text-success border-success"></i></div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Total Profit</div>
+                    <div class="stat-digit">1,012</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-xl-3 col-lg-6">
+    <div class="card">
+        <div class="card-body">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib"><i class="ti-user text-primary border-primary"></i></div>
+                <div class="stat-content dib">
+                    <div class="stat-text">New Customer</div>
+                    <div class="stat-digit">961</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-xl-3 col-lg-6">
+    <div class="card">
+        <div class="card-body">
+            <div class="stat-widget-one">
+                <div class="stat-icon dib"><i class="ti-layout-grid2 text-warning border-warning"></i></div>
+                <div class="stat-content dib">
+                    <div class="stat-text">Active Projects</div>
+                    <div class="stat-digit">770</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@stop

@@ -13,8 +13,25 @@
 
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard.index')
+        ->with('title', 'Главная страница')
+        ->with('description', 'Описание главной страницы');
 });
+//Route::get('/', function () {
+//    return view('welcome');
+//});
+
+Route::get('/{page}', function ($page) {
+    return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page])
+    ->with('arItem',[
+        ['name'=>'Имя', 'var1'=>'значение 1', 'count'=> '235'],
+        ['name'=>'Имя1', 'var1'=>'значение 13', 'count'=> '100'],
+        ['name'=>'Имя2', 'var1'=>'значение4', 'count'=> '26'],
+        ['name'=>'Имя3', 'var1'=>'значенd', 'count'=> '5'],
+        ['name'=>'Имя4', 'var1'=>'значение w', 'count'=> '2005'],
+    ] );
+});
+
 
 Route::get('/dashboard', function () {
     return view('dashboard.index');
