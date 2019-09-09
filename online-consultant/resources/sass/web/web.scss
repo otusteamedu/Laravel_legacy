@@ -1,0 +1,13 @@
+// Variables
+@import '../base/variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+@import '../base/typography';
+@import '../base/common';
+
+@import 'common';
+
+@import 'static/home';
+@import 'static/contact';

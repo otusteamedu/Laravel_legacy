@@ -1,0 +1,14 @@
+/**
+    Web | Common styles
+ */
+
+.static-header {
+    background-color: $teal;
+    color: #fff;
+}
+
+.form-group {
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

@@ -1,0 +1,3 @@
+[submodule "online-consultant/laradock"]
+	path = online-consultant/laradock
+	url = https://github.com/Laradock/laradock.git

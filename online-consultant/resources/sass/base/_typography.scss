@@ -1,0 +1,26 @@
+/**
+    Typography
+ */
+
+$text-font-family: 'Roboto', sans-serif;
+$text-font-weight: 300;
+
+$headings-font-family: 'Roboto', sans-serif;
+$headings-font-weight: 500;
+
+body {
+    font-family: $text-font-family;
+    font-weight: $text-font-weight;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $headings-font-family;
+    font-weight: $headings-font-weight;
+}
+
+.btn-link {
+    font-weight: $text-font-weight;
+}

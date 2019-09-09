@@ -1,0 +1,36 @@
+/**
+    Common styles
+ */
+
+p {
+    &:last-of-type {
+        margin-bottom: 0;
+    }
+}
+
+.page-section {
+    padding: 50px 0;
+}
+
+.page-content {
+    background-color: $page-content-bg-color;
+    flex-grow: 1;
+}
+
+.page-footer {
+    background-color: $page-footer-bg-color;
+    border-top: 1px solid $border-color;
+    padding: 30px 0;
+    text-align: center;
+}
+
+.navbar-collapse.show {
+    @include media-breakpoint-down('sm') {
+        border-top: 1px solid $border-color;
+        margin-top: 0.5rem;
+    }
+}
+
+.card-header {
+    font-weight: 500;
+}

@@ -1,0 +1,29 @@
+/**
+    Web | Home page
+ */
+
+.frontpage-main {
+    background-color: $brand-primary;
+
+    @include media-breakpoint-up('md') {
+        padding: 100px 0;
+    }
+
+    .frontpage-main-text {
+        @include media-breakpoint-down('sm') {
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.frontpage-form {
+    padding: 20px;
+    border: 1px solid $border-color;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.frontpage-form__subheading {
+    text-align: center;
+    margin-bottom: 20px;
+}
