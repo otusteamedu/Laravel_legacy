@@ -20,16 +20,23 @@ Route::get('/', function () {
 //Route::get('/', function () {
 //    return view('welcome');
 //});
+Route::get('/group', function () {
+    return view('group.index', ['title' => 'Создание группы', 'description' => 'описание страницы создание группы']);
+});
+
+Route::get('/flow', function ($page='flow') {
+    return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page])
+        ->with('arItem',[
+            ['name'=>'Имя', 'var1'=>'значение 1', 'count'=> '235'],
+            ['name'=>'Имя1', 'var1'=>'значение 13', 'count'=> '100'],
+            ['name'=>'Имя2', 'var1'=>'значение4', 'count'=> '26'],
+            ['name'=>'Имя3', 'var1'=>'значенd', 'count'=> '5'],
+            ['name'=>'Имя4', 'var1'=>'значение w', 'count'=> '2005'],
+        ] );
+});
 
 Route::get('/{page}', function ($page) {
-    return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page])
-    ->with('arItem',[
-        ['name'=>'Имя', 'var1'=>'значение 1', 'count'=> '235'],
-        ['name'=>'Имя1', 'var1'=>'значение 13', 'count'=> '100'],
-        ['name'=>'Имя2', 'var1'=>'значение4', 'count'=> '26'],
-        ['name'=>'Имя3', 'var1'=>'значенd', 'count'=> '5'],
-        ['name'=>'Имя4', 'var1'=>'значение w', 'count'=> '2005'],
-    ] );
+    return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page]);
 });
 
 
