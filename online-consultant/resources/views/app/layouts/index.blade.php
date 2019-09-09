@@ -7,6 +7,7 @@
         <title>{{ __('common.app_name') }} | @yield('title')</title>
 
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500" media="all">
 
         @yield('styles')
         <link href="{{ mix('/css/app/app.css') }}" rel="stylesheet">
@@ -16,7 +17,9 @@
     <body>
         @include('app.layouts.header')
 
-        @yield('content')
+        <div class="page-content">
+            @yield('content')
+        </div>
 
         @include('app.layouts.footer')
 

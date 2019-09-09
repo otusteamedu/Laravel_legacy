@@ -6,9 +6,9 @@
 
 require('./bootstrap');
 
-const fonts = ['Nunito:400,600'];
-const web_fonts_loader = require('../modules/webfonts')(fonts);
-web_fonts_loader.load();
+//const fonts = ['Lora:400,700', 'Roboto:400,700'];
+//const web_fonts_loader = require('../modules/webfonts')(fonts);
+//web_fonts_loader.load();
 
 window.Vue = require('vue');
 

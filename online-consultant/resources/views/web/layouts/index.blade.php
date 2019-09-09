@@ -3,9 +3,10 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{{ __('common.app_name') }} }} | @yield('title')</title>
+        <title>{{ __('common.app_name') }} | @yield('title')</title>
 
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500" media="all">
 
         @yield('styles')
         <link rel="stylesheet" href="{{ mix('/css/web/web.css') }}">
@@ -15,7 +16,9 @@
     <body>
         @include('web.layouts.header')
 
-        @yield('content')
+        <div class="page-content">
+            @yield('content')
+        </div>
 
         @include('web.layouts.footer')
 

@@ -17790,41 +17790,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./resources/js/modules/webfonts.js":
-/*!******************************************!*\
-  !*** ./resources/js/modules/webfonts.js ***!
-  \******************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = function (fonts) {
-  var module = {
-    'fonts': fonts
-  };
-
-  module.load = function () {
-    WebFontConfig = {
-      google: {
-        families: this.fonts
-      }
-    };
-
-    (function () {
-      var protocol = 'https:' === document.location.protocol ? 'https' : 'http';
-      var wf = document.createElement('script');
-      wf.src = protocol + '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
-      wf.type = 'text/javascript';
-      wf.async = true;
-      var head = document.getElementsByTagName('head')[0];
-      head.appendChild(wf);
-    })();
-  };
-
-  return module;
-};
-
-/***/ }),
-
 /***/ "./resources/js/web/bootstrap.js":
 /*!***************************************!*\
   !*** ./resources/js/web/bootstrap.js ***!
@@ -17858,13 +17823,11 @@ try {
  * building robust, powerful web applications using Vue and Laravel.
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/web/bootstrap.js"); // TODO put config vars in separate file
+// TODO make this with injection in <head>, now it's useless
+//const fonts = ['Lora:400,700', 'Roboto:400,700'];
+//const web_fonts_loader = require('../modules/webfonts')(fonts);
+//web_fonts_loader.load();
 
-
-var fonts = ['Nunito:400,600'];
-
-var web_fonts_loader = __webpack_require__(/*! ../modules/webfonts */ "./resources/js/modules/webfonts.js")(fonts);
-
-web_fonts_loader.load();
 
 (function ($) {
   $(document).ready(function () {});
