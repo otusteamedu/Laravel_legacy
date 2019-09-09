@@ -1,0 +1,50 @@
+#!/usr/bin/env php
+<?php
+
+use Solyaris\App\AppIO;
+use Solyaris\App\Process;
+use Solyaris\App\ConsoleApp;
+use Solyaris\App\ServerApp;
+use Solyaris\App\ClientApp;
+use Solyaris\Cmd\CmdDispatcher;
+
+require "vendor/autoload.php";
+
+define("ROOT_DIR", dirname(__FILE__));
+
+$shortopts = 't:d';
+
+$longopts = [
+    "type::",
+    "daemon"
+];
+
+$options = getopt($shortopts, $longopts);
+
+// type: server, client или тестовый local
+$typeApp = $options['t'] ?? ($options['type'] ?? 'local');
+if(!in_array($typeApp, ['client', 'server', 'local']))
+    $typeApp = 'local';
+
+// runner as daemon
+$IsDaemon = (isset($options['d']) || isset($options['daemon']));
+
+$app = null;
+$dispatcher = new CmdDispatcher();
+$io = new AppIO();
+
+switch ($typeApp) {
+    case 'client':
+        $configFile = ROOT_DIR . "/config/client.ini";
+        $app = new ClientApp($configFile, $dispatcher);
+        break;
+    case 'server':
+        $configFile = ROOT_DIR . "/config/server.ini";
+        $app = new ServerApp($configFile, $dispatcher);
+        break;
+    default:
+        $configFile = ROOT_DIR . "/config/console.ini";
+        $app = new ConsoleApp($configFile, $dispatcher);
+}
+
+return Process::Create($app, $io)->start($IsDaemon);

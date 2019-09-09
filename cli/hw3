@@ -1,0 +1,45 @@
+<?php
+
+use Solyaris\App\AppIO;
+use Solyaris\App\Process;
+use Solyaris\Hw3\Server;
+use Solyaris\Hw3\Client;
+use Solyaris\Cmd\CmdDispatcher;
+
+require "vendor/autoload.php";
+
+define("ROOT_DIR", dirname(__FILE__));
+
+$shortopts = 't:d';
+
+$longopts = [
+    "type::",
+    "daemon"
+];
+
+$options = getopt($shortopts, $longopts);
+
+// type: server или client
+$typeApp = $options['t'] ?? ($options['type'] ?? 'client');
+if(!in_array($typeApp, ['client', 'server']))
+    $typeApp = 'client';
+
+// runner as daemon
+$IsDaemon = (isset($options['d']) || isset($options['daemon']));
+
+$app = null;
+$dispatcher = new CmdDispatcher();
+$io = new AppIO();
+
+switch ($typeApp) {
+    case 'server':
+        $configFile = ROOT_DIR . "/config/server.ini";
+        $app = new Server($configFile, $dispatcher);
+        break;
+    default:
+        $configFile = ROOT_DIR . "/config/client.ini";
+        $IsDaemon = false;
+        $app = new Client($configFile, $dispatcher);
+}
+
+return Process::Create($app, $io)->start($IsDaemon);

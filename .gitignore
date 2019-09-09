@@ -1,0 +1,6 @@
+/cli/.idea/
+/cli/run/*
+/cli/vendor/
+/docker/data/mysql
+/docker/data/nginx/logs
+/cli/help
