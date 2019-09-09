@@ -176,6 +176,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         // LaravelCollective/docs html
         Collective\Html\HtmlServiceProvider::class,
+        // ide helper laravel
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
 
     ],
 
