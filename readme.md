@@ -3,32 +3,33 @@
 ## 1. Работа с PHP через CLI
 
 Работа находится в папке ./cli. Разберем некоторые ее части.
+
 **1. Точка входа** - файл [./cli/hw3](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3).
 В нем настроена автозагрузка через Composer. С помощью getopt определяем что конкретно надо запустить. Возможные варианты:
 * type: определяет запускать как сервер или клиент
 * daemon: в случае сервера, процесс можно запустить как демон
 
-**2. Класс Process** - файл [./cli/hw3/src/App/Process.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/App/Process.php).
+**2. Класс Process** - файл [./cli/src/App/Process.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw3/cli/src/App/Process.php).
 * Класс, инкапсулирующий процесс. Синглтон
 * Содержит ссылки на ввод-вывод AppIO. По умолчанию ввод/вывод осуществляется в консоль.
 * В качестве потока выполнения (процесс однопоточный) принимаем ссылку на реализацию IApp. 
 * Если процесс запускается в качестве демона, то перед форком проверяем не запущен ли экземпляр демона. Файл pid сохраняется в папке ./cli/run
 * Также класс содержит обработчик сигналов, который передает вызовы классу приложения (остановка через kill, CTRL+C, перезагрузка конфигурации). 
 
-**3. Класс ConsoleApp** - файл [./cli/hw3/src/App/ConsoleApp.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/App/ConsoleApp.php).
+**3. Класс ConsoleApp** - файл [./cli/src/App/ConsoleApp.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/src/App/ConsoleApp.php).
 Реализация интерфейса IApp. Инкапсулирует функционал потока выполнения. 
 Может читать конфигурацию, писать в потоки вывода/ошибок, читать из потока ввода.
 Цикл обработки построен по принципу вечного цикла. Получаем команду ICmd, выполняем ее, получаем, выполняем, получаем, выполняем...
 Остановиться можно только внешним сигналом или получением пустой команды.
 
-**4. Класс AppIO** - файл [./cli/hw3/src/App/AppIO.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/App/AppIO.php).
+**4. Класс AppIO** - файл [./cli/src/App/AppIO.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/src/App/AppIO.php).
 Класс содержит ссылки на потоки ввода/вывода. По-умолчанию связан со стандартными потоками. 
 Есть возможность поменять потоки. Например, если сервер запущен как демон, то вывод можно осуществлять в файл.
 
-**5. Класс Socket** - файл [./cli/hw3/src/Net/Socket.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/Net/Socket.php).
+**5. Класс Socket** - файл [./cli/src/Net/Socket.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/src/Net/Socket.php).
 Класс служит оберткой к дескриптору сокета и необходимым в проекте функциям. 
 
-**6. Класс Server** - файл [./cli/hw3/src/Hw3/Server.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/Hw3/Server.php).
+**6. Класс Server** - файл [./cli/src/Hw3/Server.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/src/Hw3/Server.php).
 Наследник ConsoleApp, является упрощенным серверным приложением (без цикла с командами ICmd), которое выполняет функции, 
 заданные в домашнем задании, по пересылке сообщений друг другу.
 Я предусмотрел возможность обработки нескольких клиентских соединений, поэтому для опроса входящих соединений пришлось использовать 
@@ -37,20 +38,22 @@
 Правда при запуске, если не использовать задержки между итерациями, загрузка ядра процессора подскакивает до 100% и не опускается до завершения.
 Для обработки пула соединений разработан класс SelectedPool.
 
-**7. Класс SelectedPool** - файл [./cli/hw3/src/Net/SelectedPool.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/Net/SelectedPool.php).
+**7. Класс SelectedPool** - файл [./cli/src/Net/SelectedPool.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/src/Net/SelectedPool.php).
 Обработка нескольких соединений осуществялется по следующему принципу.
 Класс содержит исходный серверный сокет и к объекту класс можно присоединить обработчики 4 событий:
 1. Новое соединение
 2. Новые данные в соединении
 3. Закрытие соединения
 4. Событие серверного цикла
+
 Весь функционал зашит в функции poll():
+
 1. Каждый серверный цикл запрашиваем изменения на новые данные серверного сокета и сокетов, обслуживаемых соединений.
 2. Если изменение на серверном сокете, то это значит поступило новое соединение - добавляем в массив соединений.
 3. Если есть изменения на обслуживаемых соединениях - значит поступили новые данные.
 4. По каждому из перечисленных событий вызываем свой обработчик + обработчик цикла.
 
-**8. Класс Client** - файл [./cli/hw3/src/Hw3/Client.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/hw3/src/Hw3/Client.php).
+**8. Класс Client** - файл [./cli/src/Hw3/Client.php](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/cli/src/Hw3/Client.php).
 Наследник ConsoleApp, является упрощенным серверным приложением (без цикла с командами ICmd), которое выполняет функции, 
 заданные в домашнем задании, по пересылке сообщений друг другу.
 
@@ -69,6 +72,7 @@
 [./docker](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/docker).
 Для виртуализации здесь и в следующем задании используются Docker-контейнеры. 
 Для запуска всех контейнеров используется команда start.sh, которая вызывает docker-compose, которая использует конфигурацию
+
 [./docker/docker-compose.yml](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw3/docker/docker-compose.yml).
 
 Тут описаны указанные в задании сервисы + adminer на управления базой данных.
