@@ -1,25 +1,10 @@
 <?php
 
-class Antareit extends DB
+namespace Models\Antareit;
+use DB;
+
+class Antareit
 {
-
-    function __construct()
-    {
-        self::connect();
-    }
-
-    function checkLogin()
-    {
-        if (!isset($_SESSION['antareit']['uid']))
-            return false;
-        else
-            return true;
-    }
-
-    function checkSavedLogin()
-    {
-
-    }
 
     function checkEmail($email)
     {
@@ -28,9 +13,9 @@ class Antareit extends DB
             FROM users 
             WHERE `user_email` = '%s'
         ", $email);
-        $result = self::query($query);
+        $result = DB::query($query);
         if($result) {
-            $emails = self::fetch($result);
+            $emails = DB::fetch($result);
             if (isset($emails[0]['user_email']) and $emails[0]['user_email'] == $email)
                 return true;
             else
@@ -40,32 +25,6 @@ class Antareit extends DB
             return false;
     }
 
-    function getUserId($email)
-    {
-        $query = sprintf("
-            SELECT `uid`
-            FROM users 
-            WHERE `user_email` = '%s'
-        ", $email);
-        $result = self::query($query);
-        $data = self::fetch($result);
-        if (isset($data[0]['uid']))
-            return $data[0]['uid'];
-        else
-            return false;
-    }
-
-    function getUser($uid)
-    {
-        $query = sprintf("
-            SELECT *
-            FROM users 
-            WHERE `uid` = '%s'
-        ", $uid);
-        $result = self::query($query);
-        $data = self::fetch($result);
-        return $data[0];
-    }
 
     function loginUser($udata)
     {
@@ -76,8 +35,8 @@ class Antareit extends DB
                 user_email = '" . $udata['user_email'] . "'
                 AND user_password = '" . md5($udata['user_password']) . "'
         ";
-        if ($result = self::query($query)) {
-            $user_data = self::fetch($result);
+        if ($result = DB::query($query)) {
+            $user_data = DB::fetch($result);
             return $user_data[0];
         } else
             return false;
@@ -111,7 +70,7 @@ class Antareit extends DB
             SET user_password = '" . md5($new_password) . "'
             WHERE uid = '" . $uid . "'
         ";
-        self::query($query);
+        DB::query($query);
     }
 
     function saveUserData($data)
@@ -132,7 +91,7 @@ class Antareit extends DB
                 `user_address` = '{$data['user_address']}',
                 `user_comment` = '{$data['user_comment']}'
         ";
-        return self::query($query);
+        return DB::query($query);
     }
 
     function getUserData($uid)
@@ -141,7 +100,7 @@ class Antareit extends DB
             SELECT * FROM `user_data`
             WHERE `uid` = '{$uid}'
         ";
-        $data = self::query_fetch($query);
+        $data = DB::query_fetch($query);
         return $data[0];
     }
 
@@ -151,8 +110,8 @@ class Antareit extends DB
                 SELECT * FROM users
                 WHERE CONCAT(MD5(uid), md5(user_email)) = '" . $key . "'
             ";
-        $result = self::query($query);
-        $data = self::fetch($result);
+        $result = DB::query($query);
+        $data = DB::fetch($result);
 
         $newpassword = self::generatePassword(6);
 
@@ -211,14 +170,14 @@ class Antareit extends DB
             SET user_verification = '1' 
             WHERE CONCAT(MD5(uid), md5(user_email)) = '" . self::real_escape($validation_code) . "'
         ";
-        if($result = self::query($query)) {
+        if($result = DB::query($query)) {
 
             $query = "
                 SELECT * FROM users
                 WHERE CONCAT(MD5(uid), md5(user_email)) = '" . $validation_code . "'
             ";
-            $result = self::query($query);
-            $data = self::fetch($result);
+            $result = DB::query($query);
+            $data = DB::fetch($result);
             return $data[0];
         } else
             return false;
@@ -234,7 +193,7 @@ class Antareit extends DB
                 AND entity = 'fid'
                 AND entity_id = '" . $fid . "'
         ";
-        if(!self::query_fetch($query))
+        if(!DB::query_fetch($query))
             return true;
         else
             return false;
@@ -262,7 +221,7 @@ class Antareit extends DB
             '" . intval($points) . "',
             NOW()
         )";
-        self::query($query);
+        DB::query($query);
 
         $query = "
         UPDATE `users`
@@ -270,7 +229,7 @@ class Antareit extends DB
             `user_points` = `user_points` + " . intval($points) . "
         WHERE
             `uid` = '" . intval($uid) . "'";
-        self::query($query);
+        DB::query($query);
     }
 
     function addFinished($data)
@@ -292,14 +251,14 @@ class Antareit extends DB
                 {$data['points_added']}
             )
         ";
-        self::query($query);
+        DB::query($query);
 
     }
 
     function getUserPoints($uid)
     {
         $query = "SELECT * FROM `users` WHERE `uid` = '" . $uid . "'";
-        $data = self::query_fetch($query);
+        $data = DB::query_fetch($query);
         if(isset($data[0]))
             return $data[0]['user_points'];
         else
@@ -309,14 +268,14 @@ class Antareit extends DB
     function getUserPointsHistory($uid)
     {
         $query = "SELECT * FROM `user_points` WHERE `uid` = '" . $uid . "'";
-        $data = self::query_fetch($query);
+        $data = DB::query_fetch($query);
         return $data;
     }
 
     function getUsers()
     {
         $query = "SELECT * FROM `users` WHERE `user_points` > 0 AND `user_verification` = 1 ORDER BY `user_points` DESC, `uid`";
-        $data = self::query_fetch($query);
+        $data = DB::query_fetch($query);
         return $data;
     }
 
@@ -348,7 +307,7 @@ class Antareit extends DB
                 points_sum DESC,
                 users.uid
         ";
-        $data = self::query_fetch($query);
+        $data = DB::query_fetch($query);
 
         foreach ($data as &$user_data) {
 
@@ -360,7 +319,7 @@ class Antareit extends DB
                 WHERE stage = '" . $stage . "'
                 
             ";
-            $stage_date = self::query_fetch($query);
+            $stage_date = DB::query_fetch($query);
 
             if((
                     $stage == 'g1'
@@ -379,7 +338,7 @@ class Antareit extends DB
     function countUsers()
     {
         $query = "SELECT count(uid) as count_users FROM `users` WHERE user_verification = '1'";
-        $data = self::query_fetch($query);
+        $data = DB::query_fetch($query);
         return $data[0]['count_users'];
     }
 

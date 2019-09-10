@@ -3,19 +3,29 @@
 class DB
 {
 
-    var $link;
+    protected static $link;
+    protected static $instance = null;
+
+    final private function __construct() {}
+    final private function __clone() {}
 
     /**
      * Подключение к базе данных
      */
-    function connect() {
+    public static function instance() {
 
-        $this->link = @mysqli_connect(HOST, USER, PASSWORD, DATABASE);
-        if(!$this->link) {
-            die('Внутренняя ошибка сервера, мы работаем над ее решением!');
+        if (self::$instance == null) {
+
+            self::$link = @mysqli_connect(HOST, USER, PASSWORD, DATABASE);
+            if (!self::$link) {
+                die('Внутренняя ошибка сервера, мы работаем над ее решением!');
+            }
+
+            self::query("SET NAMES 'utf8'");
+            self::query("SET CHARACTER SET 'utf8'");
         }
-        self::query("SET NAMES 'utf8'");
-        self::query("SET CHARACTER SET 'utf8'");
+        return self::$instance;
+
     }
 
     /**
@@ -24,9 +34,9 @@ class DB
      * @param $query - строка запроса
      * @return bool|mysqli_result
      */
-    function query($query) {
+    public static function query($query) {
 
-        return mysqli_query($this->link, $query); // or die("mysql error: " . mysqli_error($this->link));
+        return mysqli_query(self::$link, $query); // or die("mysql error: " . mysqli_error($this->link));
     }
 
     /**
@@ -35,7 +45,7 @@ class DB
      * @param $query - строка запроса
      * @return array
      */
-    function query_fetch($query) {
+    public static function query_fetch($query) {
 
         return self::fetch(self::query($query));
     }
@@ -46,22 +56,22 @@ class DB
      * @param $query - строка запроса
      * @return array
      */
-    function multi_query($query) {
+    public static function multi_query($query) {
 
         $data = array();
-        if (mysqli_multi_query($this->link, $query)) {
+        if (mysqli_multi_query(self::$link, $query)) {
             do {
                 /* получаем первый результирующий набор */
-                if ($result = mysqli_store_result($this->link)) {
+                if ($result = mysqli_store_result(self::$link)) {
                     while ($row = mysqli_fetch_assoc($result)) {
                         $data[] = $row;
                     }
                     mysqli_free_result($result);
                 }
-                if(!mysqli_more_results($this->link)) {
+                if(!mysqli_more_results(self::$link)) {
                     break;
                 }
-            } while (mysqli_next_result($this->link));
+            } while (mysqli_next_result(self::$link));
         }
         return $data;
     }
@@ -72,7 +82,7 @@ class DB
      * @param $result
      * @return array
      */
-    function fetch($result) {
+    public static function fetch($result) {
 
         $data = array();
         while($row = mysqli_fetch_assoc($result)) {
@@ -86,7 +96,7 @@ class DB
      */
     public function getLink()
     {
-        return $this->link;
+        return self::$link;
     }
 
     /**
@@ -94,11 +104,11 @@ class DB
      */
     public function setLink($link)
     {
-        $this->link = $link;
+        self::$link = $link;
     }
 
     function real_escape($var)
     {
-        return mysqli_real_escape_string($this->link, $var);
+        return mysqli_real_escape_string(self::$link, $var);
     }
 }
