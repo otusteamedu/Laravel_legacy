@@ -1,0 +1,31 @@
+version: "3.7"
+services:
+  web:
+    container_name: nginx
+    build:
+      dockerfile: ./dockerfiles/nginx/Dockerfile
+      context: .
+    volumes:
+      - ./app/public:/var/www/html/public
+    ports:
+      - "12345:80"
+      - "23456:443"
+    links:
+      - php
+#  db:
+#    container_name: db_mysql
+#    image: mysql
+#    ports:
+#      - "34567:3306"
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=rootpassword
+#      - MYSQL_DATABASE=hw3
+#      - MYSQL_USER=user
+#      - MYSQL_PASSWORD=password
+  php:
+    container_name: php-fpm.7.2
+    image: php:7.2-fpm
+    volumes:
+      - ./app:/var/www/html
+#    links:
+#      - db
