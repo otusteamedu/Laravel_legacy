@@ -24,4 +24,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\Entity\User\User');
     }
+
+    public function category()
+    {
+        return $this->belongsTo('App\Entity\Post\Category');
+    }
 }
