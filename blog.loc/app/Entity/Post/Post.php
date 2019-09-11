@@ -19,4 +19,9 @@ class Post extends Model
     {
         return $this->hasMany('App\Entity\PostDescription', 'post_id', 'id');
     }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Entity\User\User');
+    }
 }

@@ -21,4 +21,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Entity\User\Role');
     }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Entity\Post\Post','user_id');
+    }
 }
