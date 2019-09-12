@@ -57,8 +57,7 @@ class CountriesController extends Controller
                 'continent' => 'required|max:20'
             ]);
         } catch (ValidationException $e) {
-            return view('countries.create')
-                ->with($request->all())
+            return redirect()->back()->withInput($request->all())
                 ->withErrors($e->validator);
         }
 
