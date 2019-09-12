@@ -33,7 +33,9 @@ Route::get('/flow', function ($page='flow') {
             ['name'=>'Имя3', 'var1'=>'значенd', 'count'=> '5'],
             ['name'=>'Имя4', 'var1'=>'значение w', 'count'=> '2005'],
         ] );
-});
+})->name('flow');
+
+//Route::redirect('/test', 'http://ya.ru');
 
 Route::get('/{page}', function ($page) {
     return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page]);
@@ -43,6 +45,8 @@ Route::get('/{page}', function ($page) {
 Route::get('/dashboard', function () {
     return view('dashboard.index');
 });
+
+
 
 //
 //Route::get('/user', function () {
@@ -64,4 +68,14 @@ Route::get('/dashboard', function () {
 //Route::get('/flow', function () {
 //    return 'flow';
 //});
+
+
+$patterns = [
+    'id' => '\d+',
+    'hash' => '[a-z0-9]+',
+    'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+    'slug' => '[a-z0-9-]+',
+    'token' => '[a-zA-Z0-9]{64}',
+];
+
 

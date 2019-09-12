@@ -57,6 +57,9 @@
             <li>
                 <a href="widgets.html"> <i class="menu-icon ti-email"></i>Widgets </a>
             </li>
+            <li>
+                <a href="{{route('flow')}}"> <i class="menu-icon ti-email"></i>FLOW </a>
+            </li>
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-bar-chart"></i>Charts</a>
                 <ul class="sub-menu children dropdown-menu">
