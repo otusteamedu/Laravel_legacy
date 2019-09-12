@@ -1,0 +1,6 @@
+/.idea
+/.git
+/public/vendor
+/public/public/vendors
+/public/resources/templates
+/public/.env
