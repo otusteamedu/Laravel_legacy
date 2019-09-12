@@ -13,14 +13,13 @@
                 'title' => __('messages.home'),
             ],
             [
-                'url' => route('cms.countries.index'),
-                'title' => __('messages.countries'),
+                'url' => route('cms.cities.index'),
+                'title' => __('messages.cities'),
             ],
         ];
     @endphp
-    {{ $locale }}
     @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
-    @include('countries.blocks.header.list')
-    @include('countries.blocks.list.index')
+    @include('cities.blocks.header.list')
+
 </div>
 @endsection

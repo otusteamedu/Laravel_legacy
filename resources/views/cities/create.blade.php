@@ -1,6 +1,6 @@
 @extends('layouts.layout')
 
-@section('title', __('messages.products'))
+@section('title', __('messages.cities'))
 
 @section('content')
 
@@ -13,17 +13,17 @@
                     'title' => __('messages.home'),
                 ],
                 [
-                    'url' => '/countries',
+                    'url' => '/companies',
                     'title' => __('messages.countries'),
                 ],
                 [
-                    'url' => '/countries/create',
-                    'title' => __('messages.addCountry'),
+                    'url' => '/cities/create',
+                    'title' => __('messages.addCity'),
                 ],
             ];
         @endphp
         @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
-        @include('countries.blocks.header.create')
-        @include('countries.blocks.form.create')
+        @include('cities.blocks.header.create')
+        @include('cities.blocks.form.create')
     </div>
 @endsection
