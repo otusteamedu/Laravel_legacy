@@ -4,6 +4,7 @@ return [
     'home' => 'Home',
     'products' => 'Products',
     'companies' => 'Companies',
+    'countries' => 'Countries',
     'users' => 'Users',
     'history' => 'History',
     'title' => 'Title',
@@ -17,6 +18,7 @@ return [
     'companiesHeaderDescription' => 'This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.',
     'addProduct' => 'Add Product',
     'addCompany' => 'Add Company',
+    'addCountry' => 'Add Country',
     'totalCount' => 'Total Count',
     'remainingOfTotal' => '{0} None of :total|{1} One of :total|[2,*] :remaining of :total',
 ];

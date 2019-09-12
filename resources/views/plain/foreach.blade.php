@@ -13,6 +13,7 @@
 
     <h2>News: </h2>
     <ul>
+        @csrf
         @foreach($newsList as $news)
             <li>
                 @if ($loop->first) Breaking News: @endif
