@@ -30,3 +30,11 @@ Route::get('/dashboard', function () {
 Route::get('/content', function () {
     return view('web.pages.content.index');
 });
+
+Route::prefix('backend')
+    ->namespace('Backend')
+    ->group(function () {
+        Route::resources([
+            'location' => 'LocationController'
+        ]);
+    });
