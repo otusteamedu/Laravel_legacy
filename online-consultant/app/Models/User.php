@@ -70,11 +70,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     * Get the company this user belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * Get the roles this user belongs to
+     *
+     * @return BelongsToMany
+     */
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_user');

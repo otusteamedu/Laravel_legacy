@@ -55,21 +55,41 @@ class Company extends Model
         'address' => 'array'
     ];
 
+    /**
+     * Get the users belonging to this company
+     *
+     * @return HasMany
+     */
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
 
+    /**
+     * Get the widgets belonging to this company
+     *
+     * @return HasMany
+     */
     public function widgets(): HasMany
     {
         return $this->hasMany(Widget::class);
     }
 
+    /**
+     * Get the leads belonging to this company
+     *
+     * @return HasMany
+     */
     public function leads(): HasMany
     {
         return $this->hasMany(Lead::class);
     }
 
+    /**
+     * Get the conversations belonging to this company
+     *
+     * @return HasMany
+     */
     public function conversations(): HasMany
     {
         return $this->hasMany(Conversation::class);

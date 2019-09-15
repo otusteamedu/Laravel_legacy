@@ -48,6 +48,11 @@ class Lead extends Model
         'info' => 'array'
     ];
 
+    /**
+     * Get the company this lead belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);

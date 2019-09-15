@@ -55,21 +55,41 @@ class Conversation extends Model
         'info' => 'array'
     ];
 
+    /**
+     * Get the company this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
     }
 
+    /**
+     * Get the widget this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function widget(): BelongsTo
     {
         return $this->belongsTo(Widget::class);
     }
 
+    /**
+     * Get the manager this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function manager(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * Get the lead this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function lead(): BelongsTo
     {
         return $this->belongsTo(Lead::class);

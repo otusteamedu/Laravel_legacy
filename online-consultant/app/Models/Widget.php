@@ -40,6 +40,11 @@ class Widget extends Model
         'company_id', 'domain'
     ];
 
+    /**
+     * Get the company this widget belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class);
