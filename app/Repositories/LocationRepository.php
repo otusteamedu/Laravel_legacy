@@ -2,30 +2,27 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Interfaces;
+namespace App\Repositories;
 
+use App\Repositories\Interfaces\LocationRepositoryInterface;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Interface LocationRepositoryInterface
- *
- * @package App\Repositories\Interfaces
- * @todo Добавить тайпхинты для возвращаемых значений
- * @todo Разбить интерфейс на несколько интерфейсов для соответствия ISP
- */
-interface LocationRepositoryInterface
-{
+class LocationRepository implements LocationRepositoryInterface {
+
     /**
      * Get all of the records from the database.
      *
      * @param  array  $columns
      * @return Collection|static[]
      */
-    public function all(array $columns = ['*']);
+    public function all(array $columns = ['*'])
+    {
+        return Location::all($columns);
+    }
 
     /**
      * Paginate the given query.
@@ -34,7 +31,10 @@ interface LocationRepositoryInterface
      * @param  array  $columns
      * @return Collection|static[]
      */
-    public function paginate(int $perPage = 15, array $columns = ['*']);
+    public function paginate(int $perPage = 15, array $columns = ['*'])
+    {
+        return Location::paginate($perPage, $columns);
+    }
 
     /**
      * Find a record by its primary key.
@@ -42,7 +42,10 @@ interface LocationRepositoryInterface
      * @param  int  $id
      * @return Model|Collection|static[]|static|null
      */
-    public function find(int $id);
+    public function find(int $id)
+    {
+        // TODO: Implement find() method.
+    }
 
     /**
      * Find a record by an attribute/value.
@@ -51,7 +54,10 @@ interface LocationRepositoryInterface
      * @param  string  $value
      * @return Model|Collection|static[]|static|null
      */
-    public function findBy(string $attribute, string $value);
+    public function findBy(string $attribute, string $value)
+    {
+        // TODO: Implement findBy() method.
+    }
 
     /**
      * Create a record and fill it with values.
@@ -59,7 +65,12 @@ interface LocationRepositoryInterface
      * @param  array  $data
      * @return Model|static
      */
-    public function create(array $data);
+    public function create(array $data)
+    {
+        $location = new Location();
+        $location->create($data);
+        return $location;
+    }
 
     /**
      * Update a record and fill it with values.
@@ -68,7 +79,11 @@ interface LocationRepositoryInterface
      * @param  array  $data
      * @return Model|static
      */
-    public function update(Location $location, array $data);
+    public function update(Location $location, array $data)
+    {
+        $location->update($data);
+        return $location;
+    }
 
     /**
      * Delete a record from the database.
@@ -76,7 +91,10 @@ interface LocationRepositoryInterface
      * @param  Location  $location
      * @return mixed
      */
-    public function delete(Location $location);
+    public function delete(Location $location)
+    {
+        return $location->delete();
+    }
 
     /**
      * Find a record by User.
@@ -84,7 +102,10 @@ interface LocationRepositoryInterface
      * @param  User  $user
      * @return Model|Collection|static[]|static|null
      */
-    public function getByUser(User $user);
+    public function getByUser(User $user)
+    {
+        // TODO: Implement getByUser() method.
+    }
 
     /**
      * Find a record by Workout.
@@ -92,5 +113,9 @@ interface LocationRepositoryInterface
      * @param  Workout  $workout
      * @return Model|Collection|static[]|static|null
      */
-    public function getByWorkout(Workout $workout);
+    public function getByWorkout(Workout $workout)
+    {
+        // TODO: Implement getByWorkout() method.
+    }
+
 }
