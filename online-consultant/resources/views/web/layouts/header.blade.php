@@ -9,7 +9,7 @@
             <ul class="navbar-nav ml-auto">
                 {{-- временная ссылка пока не сделана авторизация --}}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('app_dashboard') }}">App</a>
+                    <a class="nav-link" href="{{ route('admin.dashboard') }}">App</a>
                 </li>
                 @guest
                     <li class="nav-item">

@@ -6,11 +6,11 @@
 |--------------------------------------------------------------------------
 */
 
-Breadcrumbs::for('app_dashboard', function ($trail) {
-    $trail->push(__('app.pages.dashboard'), route('app_dashboard'));
+Breadcrumbs::for('admin.dashboard', function ($trail) {
+    $trail->push(__('admin.pages.dashboard'), route('admin.dashboard'));
 });
 
-Breadcrumbs::for('user_profile', function ($trail) {
-    $trail->parent('app_dashboard');
-    $trail->push(__('app.pages.user_profile'), route('user_profile'));
+Breadcrumbs::for('admin.user.profile', function ($trail) {
+    $trail->parent('admin.dashboard');
+    $trail->push(__('admin.pages.user_profile'), route('admin.user.profile'));
 });

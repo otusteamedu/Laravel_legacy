@@ -1829,10 +1829,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/components/CardSimple.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/app/components/CardSimple.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/CardSimple.vue?vue&type=script&lang=js&":
+/*!***************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/components/CardSimple.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -37144,10 +37144,10 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/components/CardSimple.vue?vue&type=template&id=5c0b611f&":
-/*!*****************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/app/components/CardSimple.vue?vue&type=template&id=5c0b611f& ***!
-  \*****************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/CardSimple.vue?vue&type=template&id=114a4366&":
+/*!*******************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/admin/components/CardSimple.vue?vue&type=template&id=114a4366& ***!
+  \*******************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -49318,10 +49318,10 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app/app.js":
-/*!*********************************!*\
-  !*** ./resources/js/app/app.js ***!
-  \*********************************/
+/***/ "./resources/js/admin/admin.js":
+/*!*************************************!*\
+  !*** ./resources/js/admin/admin.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49330,7 +49330,7 @@ module.exports = function(module) {
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/app/bootstrap.js"); //const fonts = ['Lora:400,700', 'Roboto:400,700'];
+__webpack_require__(/*! ./bootstrap */ "./resources/js/admin/bootstrap.js"); //const fonts = ['Lora:400,700', 'Roboto:400,700'];
 //const web_fonts_loader = require('../modules/webfonts')(fonts);
 //web_fonts_loader.load();
 
@@ -49346,7 +49346,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('card-simple', __webpack_require__(/*! ./components/CardSimple.vue */ "./resources/js/app/components/CardSimple.vue")["default"]);
+Vue.component('card-simple', __webpack_require__(/*! ./components/CardSimple.vue */ "./resources/js/admin/components/CardSimple.vue")["default"]);
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -49359,10 +49359,10 @@ var app = new Vue({
 
 /***/ }),
 
-/***/ "./resources/js/app/bootstrap.js":
-/*!***************************************!*\
-  !*** ./resources/js/app/bootstrap.js ***!
-  \***************************************/
+/***/ "./resources/js/admin/bootstrap.js":
+/*!*****************************************!*\
+  !*** ./resources/js/admin/bootstrap.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49417,17 +49417,17 @@ if (token) {
 
 /***/ }),
 
-/***/ "./resources/js/app/components/CardSimple.vue":
-/*!****************************************************!*\
-  !*** ./resources/js/app/components/CardSimple.vue ***!
-  \****************************************************/
+/***/ "./resources/js/admin/components/CardSimple.vue":
+/*!******************************************************!*\
+  !*** ./resources/js/admin/components/CardSimple.vue ***!
+  \******************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardSimple.vue?vue&type=template&id=5c0b611f& */ "./resources/js/app/components/CardSimple.vue?vue&type=template&id=5c0b611f&");
-/* harmony import */ var _CardSimple_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardSimple.vue?vue&type=script&lang=js& */ "./resources/js/app/components/CardSimple.vue?vue&type=script&lang=js&");
+/* harmony import */ var _CardSimple_vue_vue_type_template_id_114a4366___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CardSimple.vue?vue&type=template&id=114a4366& */ "./resources/js/admin/components/CardSimple.vue?vue&type=template&id=114a4366&");
+/* harmony import */ var _CardSimple_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CardSimple.vue?vue&type=script&lang=js& */ "./resources/js/admin/components/CardSimple.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -49438,8 +49438,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _CardSimple_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _CardSimple_vue_vue_type_template_id_114a4366___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _CardSimple_vue_vue_type_template_id_114a4366___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -49449,47 +49449,47 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/app/components/CardSimple.vue"
+component.options.__file = "resources/js/admin/components/CardSimple.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/app/components/CardSimple.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./resources/js/app/components/CardSimple.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
+/***/ "./resources/js/admin/components/CardSimple.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/admin/components/CardSimple.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CardSimple.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/components/CardSimple.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./CardSimple.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/CardSimple.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/app/components/CardSimple.vue?vue&type=template&id=5c0b611f&":
-/*!***********************************************************************************!*\
-  !*** ./resources/js/app/components/CardSimple.vue?vue&type=template&id=5c0b611f& ***!
-  \***********************************************************************************/
+/***/ "./resources/js/admin/components/CardSimple.vue?vue&type=template&id=114a4366&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/admin/components/CardSimple.vue?vue&type=template&id=114a4366& ***!
+  \*************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./CardSimple.vue?vue&type=template&id=5c0b611f& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/app/components/CardSimple.vue?vue&type=template&id=5c0b611f&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_114a4366___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./CardSimple.vue?vue&type=template&id=114a4366& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/admin/components/CardSimple.vue?vue&type=template&id=114a4366&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_114a4366___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_5c0b611f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CardSimple_vue_vue_type_template_id_114a4366___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
 /***/ }),
 
-/***/ "./resources/sass/app/app.scss":
-/*!*************************************!*\
-  !*** ./resources/sass/app/app.scss ***!
-  \*************************************/
+/***/ "./resources/sass/admin/admin.scss":
+/*!*****************************************!*\
+  !*** ./resources/sass/admin/admin.scss ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -49509,14 +49509,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!***************************************************************************************************!*\
-  !*** multi ./resources/js/app/app.js ./resources/sass/app/app.scss ./resources/sass/web/web.scss ***!
-  \***************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** multi ./resources/js/admin/admin.js ./resources/sass/admin/admin.scss ./resources/sass/web/web.scss ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /tera/sites/learning/otus/laravel/online-consultant/resources/js/app/app.js */"./resources/js/app/app.js");
-__webpack_require__(/*! /tera/sites/learning/otus/laravel/online-consultant/resources/sass/app/app.scss */"./resources/sass/app/app.scss");
+__webpack_require__(/*! /tera/sites/learning/otus/laravel/online-consultant/resources/js/admin/admin.js */"./resources/js/admin/admin.js");
+__webpack_require__(/*! /tera/sites/learning/otus/laravel/online-consultant/resources/sass/admin/admin.scss */"./resources/sass/admin/admin.scss");
 module.exports = __webpack_require__(/*! /tera/sites/learning/otus/laravel/online-consultant/resources/sass/web/web.scss */"./resources/sass/web/web.scss");
 
 

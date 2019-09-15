@@ -1,15 +1,15 @@
-@extends('app.layouts.index')
+@extends('admin.layouts.index')
 
-@section('title', __('app.pages.user_profile'))
+@section('title', __('admin.pages.user_profile'))
 
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('user_profile') }}
+    {{ Breadcrumbs::render('admin.user.profile') }}
 @endsection
 
 @section('content')
     <section class="page-section">
         <div id="app">
-            <card-simple title="{{ __('app.pages.user_profile') }}">
+            <card-simple title="{{ __('admin.pages.user_profile') }}">
                 <table>
                     <tbody>
                         <tr>

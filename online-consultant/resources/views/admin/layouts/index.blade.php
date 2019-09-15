@@ -10,20 +10,20 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500" media="all">
 
         @yield('styles')
-        <link href="{{ mix('/css/app/app.css') }}" rel="stylesheet">
+        <link href="{{ mix('/css/admin/admin.css') }}" rel="stylesheet">
 
         @yield('javascript-head')
     </head>
     <body>
-        @include('app.layouts.header')
+        @include('admin.layouts.header')
 
         <div class="page-content">
             @yield('content')
         </div>
 
-        @include('app.layouts.footer')
+        @include('admin.layouts.footer')
 
         @yield('javascript-body')
-        <script src="{{ mix('/js/app/app.js') }}"></script>
+        <script src="{{ mix('/js/admin/admin.js') }}"></script>
     </body>
 </html>

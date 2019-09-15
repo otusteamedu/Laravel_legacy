@@ -13,18 +13,24 @@
 
 Auth::routes();
 
-Route::get('/', function () {
-    return view('web.static.home.index');
-})->name('home');
+Route::name('web.')->group(function () {
+    Route::get('/', function () {
+        return view('web.static.home.index');
+    })->name('home');
 
-Route::get('/contact', function () {
-    return view('web.static.contact.index');
-})->name('contact');
+    Route::get('/contact', function () {
+        return view('web.static.contact.index');
+    })->name('contact');
+});
 
-Route::get('/app', function () {
-    return view('app.dashboard.index');
-})->name('app_dashboard');
+Route::name('admin.')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::get('/', function () {
+            return view('admin.dashboard.index');
+        })->name('dashboard');
 
-Route::get('/app/profile', function () {
-    return view('app.user.index');
-})->name('user_profile');
+        Route::get('/profile', function () {
+            return view('admin.user.index');
+        })->name('user.profile');
+    });
+});

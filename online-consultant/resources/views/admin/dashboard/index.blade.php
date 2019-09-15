@@ -1,15 +1,15 @@
-@extends('app.layouts.index')
+@extends('admin.layouts.index')
 
-@section('title', __('app.pages.dashboard'))
+@section('title', __('admin.pages.dashboard'))
 
 @section('breadcrumbs')
-    {{ Breadcrumbs::render('app_dashboard') }}
+    {{ Breadcrumbs::render('admin.dashboard') }}
 @endsection
 
 @section('content')
     <section class="page-section">
         <div id="app">
-            <card-simple title="{{ __('app.pages.dashboard') }}">
+            <card-simple title="{{ __('admin.pages.dashboard') }}">
                 <p>{{ __('Content') }}</p>
             </card-simple>
         </div>

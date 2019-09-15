@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('app_dashboard') }}">{{ __('common.app_name') }} <small>{{ __('app.admin_panel_name') }}</small></a>
+        <a class="navbar-brand" href="{{ route('admin.dashboard') }}">{{ __('common.app_name') }} <small>{{ __('admin.admin_panel_name') }}</small></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="{{ __('common.navbar_toggle_nav') }}">
@@ -10,7 +10,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ route('user_profile') }}">{{ __('app.pages.user_profile') }}</a>
+                    <a class="nav-link" href="{{ route('admin.user.profile') }}">{{ __('admin.pages.user_profile') }}</a>
                 </li>
 
                 @auth

@@ -16,10 +16,10 @@ mix.browserSync({
     https: process.env.MIX_BROWSERSYNC_HTTPS
 });
 
-mix.js('resources/js/app/app.js', 'public/js/app')
+mix.js('resources/js/admin/admin.js', 'public/js/admin')
    .js('resources/js/web/web.js', 'public/js/web');
 
-mix.sass('resources/sass/app/app.scss', 'public/css/app')
+mix.sass('resources/sass/admin/admin.scss', 'public/css/admin')
    .sass('resources/sass/web/web.scss', 'public/css/web');
 
 mix.copyDirectory('resources/img', 'public/img');
