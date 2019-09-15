@@ -5,11 +5,12 @@ namespace App\Repositories\Interfaces;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Interface LocationRepositoryInterface
+ *
  * @package App\Repositories\Interfaces
  * @todo Добавить тайпхинты для возвращаемых значений
  * @todo Разбить интерфейс на несколько интерфейсов для соответствия ISP
@@ -20,7 +21,7 @@ interface LocationRepositoryInterface
      * Get all of the records from the database.
      *
      * @param  array  $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return Collection|static[]
      */
     public function all(array $columns = ['*']);
 
@@ -29,7 +30,7 @@ interface LocationRepositoryInterface
      *
      * @param  int  $perPage
      * @param  array  $columns
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * @return Collection|static[]
      */
     public function paginate(int $perPage = 15, array $columns = ['*']);
 
@@ -37,7 +38,7 @@ interface LocationRepositoryInterface
      * Find a record by its primary key.
      *
      * @param  int  $id
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
+     * @return Model|Collection|static[]|static|null
      */
     public function find(int $id);
 
@@ -46,7 +47,7 @@ interface LocationRepositoryInterface
      *
      * @param  string  $attribute
      * @param  string  $value
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
+     * @return Model|Collection|static[]|static|null
      */
     public function findBy(string $attribute, string $value);
 
@@ -54,7 +55,7 @@ interface LocationRepositoryInterface
      * Create a record and fill it with values.
      *
      * @param  array  $data
-     * @return \Illuminate\Database\Eloquent\Model|static
+     * @return Model|static
      */
     public function create(array $data);
 
@@ -63,7 +64,7 @@ interface LocationRepositoryInterface
      *
      * @param  Location  $location
      * @param  array  $data
-     * @return \Illuminate\Database\Eloquent\Model|static
+     * @return Model|static
      */
     public function update(Location $location, array $data);
 
@@ -79,7 +80,7 @@ interface LocationRepositoryInterface
      * Find a record by User.
      *
      * @param  User  $user
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
+     * @return Model|Collection|static[]|static|null
      */
     public function getByUser(User $user);
 
@@ -87,7 +88,7 @@ interface LocationRepositoryInterface
      * Find a record by Workout.
      *
      * @param  Workout  $workout
-     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Eloquent\Collection|static[]|static|null
+     * @return Model|Collection|static[]|static|null
      */
     public function getByWorkout(Workout $workout);
 }
