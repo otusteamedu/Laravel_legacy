@@ -13,3 +13,5 @@ yarn-error.log
 /.idea/
 /laradock-p
 /storage/laradock
+.phpstorm.meta.php
+_ide_helper.php

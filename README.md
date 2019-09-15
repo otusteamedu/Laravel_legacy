@@ -72,3 +72,10 @@ DB_DATABASE=default
 DB_USERNAME=default
 DB_PASSWORD=secret
 ``` 
+
+## Настройка ide-helper
+
+```
+php artisan ide-helper:generate
+php artisan ide-helper:meta
+```
