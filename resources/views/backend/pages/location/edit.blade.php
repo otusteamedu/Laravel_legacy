@@ -3,6 +3,8 @@
 @section('content')
     <div class="container">
 
+        <h1>Edit Location <em>{{ $location->name }}</em></h1>
+
         {{ Form::model($location, [
             'url' => route('backend.location.update', ['location' => $location]),
             'method' => 'patch'

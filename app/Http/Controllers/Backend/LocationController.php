@@ -67,7 +67,7 @@ class LocationController extends Controller
     {
         // @todo Валидация запроса
         $this->locationService->create($request->all());
-        // @todo Сообщение об успешном обновлении записи
+        // @todo Сообщение об успешном создании записи
         return redirect(route('backend.location.index'));
     }
 
@@ -126,6 +126,9 @@ class LocationController extends Controller
      */
     public function destroy(Location $location)
     {
-        //
+        // @todo Промежуточная форма подтверждения
+        $this->locationService->delete($location);
+        // @todo Сообщение об успешном удалении записи
+        return redirect(route('backend.location.index'));
     }
 }

@@ -3,6 +3,16 @@
 @section('content')
     <div class="container">
 
+        <h1>Locations</h1>
+
+        <div class="row my-3">
+            <div class="col-12">
+                <a class="btn btn-primary"
+                   href="{{ route('backend.location.create') }}"
+                >Add new Location</a>
+            </div>
+        </div>
+
         <table class="table table-striped">
             <thead>
             <tr>

@@ -3,6 +3,8 @@
 @section('content')
     <div class="container">
 
+        <h1>Add new Location</h1>
+
         {{ Form::open([
             'url' => route('backend.location.store')
         ]) }}
