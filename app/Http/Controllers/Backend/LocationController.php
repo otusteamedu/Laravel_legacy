@@ -45,7 +45,16 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        // @todo Использовать UserService
+        $users = [
+            -1 => '– Please select –'
+        ];
+        foreach (User::all() as $user) {
+            $users[$user->id] = $user->name;
+        }
+        return view('backend.pages.location.create', [
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -56,7 +65,10 @@ class LocationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // @todo Валидация запроса
+        $this->locationService->create($request->all());
+        // @todo Сообщение об успешном обновлении записи
+        return redirect(route('backend.location.index'));
     }
 
     /**
@@ -78,8 +90,10 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        $users = [];
         // @todo Использовать UserService
+        $users = [
+            -1 => '– Please select –'
+        ];
         foreach (User::all() as $user) {
             $users[$user->id] = $user->name;
         }
