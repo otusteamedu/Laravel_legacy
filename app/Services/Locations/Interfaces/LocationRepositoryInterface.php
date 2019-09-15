@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories\Interfaces;
+namespace App\Services\Locations\Interfaces;
 
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Interface LocationRepositoryInterface
@@ -40,7 +39,7 @@ interface LocationRepositoryInterface
      * Find a record by its primary key.
      *
      * @param  int  $id
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function find(int $id);
 
@@ -49,7 +48,7 @@ interface LocationRepositoryInterface
      *
      * @param  string  $attribute
      * @param  string  $value
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function findBy(string $attribute, string $value);
 
@@ -57,7 +56,7 @@ interface LocationRepositoryInterface
      * Create a record and fill it with values.
      *
      * @param  array  $data
-     * @return Model|static
+     * @return Location|static
      */
     public function create(array $data);
 
@@ -66,7 +65,7 @@ interface LocationRepositoryInterface
      *
      * @param  Location  $location
      * @param  array  $data
-     * @return Model|static
+     * @return Location|static
      */
     public function update(Location $location, array $data);
 
@@ -82,7 +81,7 @@ interface LocationRepositoryInterface
      * Find a record by User.
      *
      * @param  User  $user
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function getByUser(User $user);
 
@@ -90,7 +89,7 @@ interface LocationRepositoryInterface
      * Find a record by Workout.
      *
      * @param  Workout  $workout
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function getByWorkout(Workout $workout);
 }

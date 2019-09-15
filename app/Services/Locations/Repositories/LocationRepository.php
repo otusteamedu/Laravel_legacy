@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Repositories;
+namespace App\Services\Locations\Repositories;
 
-use App\Repositories\Interfaces\LocationRepositoryInterface;
+use App\Services\Locations\Interfaces\LocationRepositoryInterface;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
@@ -40,7 +40,7 @@ class LocationRepository implements LocationRepositoryInterface {
      * Find a record by its primary key.
      *
      * @param  int  $id
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function find(int $id)
     {
@@ -52,7 +52,7 @@ class LocationRepository implements LocationRepositoryInterface {
      *
      * @param  string  $attribute
      * @param  string  $value
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function findBy(string $attribute, string $value)
     {
@@ -63,7 +63,7 @@ class LocationRepository implements LocationRepositoryInterface {
      * Create a record and fill it with values.
      *
      * @param  array  $data
-     * @return Model|static
+     * @return Location|static
      */
     public function create(array $data)
     {
@@ -77,7 +77,7 @@ class LocationRepository implements LocationRepositoryInterface {
      *
      * @param  Location  $location
      * @param  array  $data
-     * @return Model|static
+     * @return Location|static
      */
     public function update(Location $location, array $data)
     {
@@ -100,7 +100,7 @@ class LocationRepository implements LocationRepositoryInterface {
      * Find a record by User.
      *
      * @param  User  $user
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function getByUser(User $user)
     {
@@ -111,7 +111,7 @@ class LocationRepository implements LocationRepositoryInterface {
      * Find a record by Workout.
      *
      * @param  Workout  $workout
-     * @return Model|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function getByWorkout(Workout $workout)
     {
