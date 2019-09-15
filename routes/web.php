@@ -31,6 +31,10 @@ Route::get('/content', function () {
     return view('web.pages.content.index');
 });
 
+Route::get('/backend', function () {
+    return view('backend.pages.index');
+});
+
 Route::prefix('backend')
     ->namespace('Backend')
     ->group(function () {

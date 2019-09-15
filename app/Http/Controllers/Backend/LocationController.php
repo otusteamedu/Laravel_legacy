@@ -33,7 +33,7 @@ class LocationController extends Controller
     public function index()
     {
         return view('backend.pages.locations.index', [
-            'locations' => $this->locationService->all(),
+            'locations' => $this->locationService->paginate(),
         ]);
     }
 
