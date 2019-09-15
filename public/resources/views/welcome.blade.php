@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <main role="main" class="inner cover"  style="margin-top:200px;">
+    <main role="main" class="inner cover"  style="margin-top:100px;">
         <h1 class="h3 mb-3 font-weight-normal">Расписание</h1>
         <form action="/" method="post">
             @csrf
