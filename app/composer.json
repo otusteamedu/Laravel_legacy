@@ -1,0 +1,18 @@
+{
+    "name": "shapito27/otus-laravel",
+    "authors": [
+        {
+            "name": "Shapito27",
+            "email": "legionerust@yandex.ru"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "WebSocket\\": "classes/WebSocket/"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^6.3",
+        "clue/socket-raw": "^1.4"
+    }
+}
