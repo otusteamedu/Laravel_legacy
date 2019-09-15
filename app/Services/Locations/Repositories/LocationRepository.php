@@ -9,7 +9,6 @@ use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class LocationRepository implements LocationRepositoryInterface {
 
@@ -90,6 +89,7 @@ class LocationRepository implements LocationRepositoryInterface {
      *
      * @param  Location  $location
      * @return mixed
+     * @throws \Exception
      */
     public function delete(Location $location)
     {

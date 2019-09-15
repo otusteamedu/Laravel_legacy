@@ -2,8 +2,13 @@
 
 declare(strict_types=1);
 
-use App\Services\Locations\Interfaces\LocationRepositoryInterface;
+namespace App\Services\Locations\Interfaces;
 
+/**
+ * Interface LocationServiceInterface
+ *
+ * @todo Продумать недостающие методы
+ */
 interface LocationServiceInterface extends LocationRepositoryInterface
 {
 

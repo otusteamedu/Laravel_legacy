@@ -2,26 +2,28 @@
 
 declare(strict_types=1);
 
-use App\Services\Locations\Interfaces\LocationRepositoryInterface;
-use App\Services\Locations\Repositories\LocationRepository;
+namespace App\Services\Locations;
+
+use App\Services\Locations\Interfaces\LocationServiceInterface;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
+use App\Services\Locations\Repositories\LocationRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class LocationService implements LocationServiceInterface {
 
     /**
-     * @var LocationRepositoryInterface
+     * @var LocationRepository
      */
     private $locationRepository;
 
     /**
      * LocationService constructor.
      *
-     * @param  LocationRepositoryInterface  $locationRepository
+     * @param  LocationRepository  $locationRepository
      */
-    public function __construct(LocationRepositoryInterface $locationRepository)
+    public function __construct(LocationRepository $locationRepository)
     {
         $this->locationRepository = $locationRepository;
     }

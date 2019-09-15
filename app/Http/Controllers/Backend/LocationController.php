@@ -3,11 +3,28 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Location;
+use App\Services\Locations\LocationService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class LocationController extends Controller
 {
+
+    /**
+     * @var LocationService
+     */
+    private $locationService;
+
+    /**
+     * LocationController constructor.
+     *
+     * @param  LocationService  $locationService
+     */
+    public function __construct(LocationService $locationService)
+    {
+        $this->locationService = $locationService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +32,9 @@ class LocationController extends Controller
      */
     public function index()
     {
-        //
+        return view('backend.pages.locations.index', [
+            'locations' => $this->locationService->all(),
+        ]);
     }
 
     /**
