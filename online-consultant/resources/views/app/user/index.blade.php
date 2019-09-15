@@ -2,6 +2,10 @@
 
 @section('title', __('app.pages.user_profile'))
 
+@section('breadcrumbs')
+    {{ Breadcrumbs::render('user_profile') }}
+@endsection
+
 @section('content')
     <section class="page-section">
         <div id="app">

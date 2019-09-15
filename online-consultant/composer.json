@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "davejamesmiller/laravel-breadcrumbs": "^5.3.0",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/telescope": "^2.1",

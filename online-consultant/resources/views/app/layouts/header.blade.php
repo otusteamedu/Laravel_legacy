@@ -36,3 +36,13 @@
         </div>
     </div>
 </nav>
+
+<div class="app-breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                @yield('breadcrumbs')
+            </div>
+        </div>
+    </div>
+</div>

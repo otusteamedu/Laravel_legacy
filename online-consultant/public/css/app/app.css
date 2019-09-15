@@ -10651,9 +10651,6 @@ a.text-dark:focus {
 body {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 h1,
@@ -10673,6 +10670,12 @@ h6 {
 /**
     Common styles
  */
+
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
 p:last-of-type {
   margin-bottom: 0;
@@ -10703,5 +10706,18 @@ p:last-of-type {
 
 .card-header {
   font-weight: 500;
+}
+
+/**
+    App | Common styles
+ */
+
+.app-breadcrumbs {
+  background-color: #e9ecef;
+}
+
+.app-breadcrumbs .breadcrumb {
+  margin-bottom: 0;
+  padding: 0.75rem 0;
 }
 
