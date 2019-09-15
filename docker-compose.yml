@@ -24,7 +24,9 @@ services:
       - MYSQL_PASSWORD=password
   php:
     container_name: php-fpm.7.2
-    image: php:7.2-fpm
+    build:
+      context: .
+      dockerfile: ./dockerfiles/php/Dockerfile
     volumes:
       - ./app:/var/www/html
     ports:
