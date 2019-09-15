@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Models\Location;
+use App\Models\User;
 use App\Services\Locations\LocationService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -32,7 +33,7 @@ class LocationController extends Controller
      */
     public function index()
     {
-        return view('backend.pages.locations.index', [
+        return view('backend.pages.location.index', [
             'locations' => $this->locationService->paginate(),
         ]);
     }
@@ -77,7 +78,15 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        //
+        $users = [];
+        // @todo Использовать UserService
+        foreach (User::all() as $user) {
+            $users[$user->id] = $user->name;
+        }
+        return view('backend.pages.location.edit', [
+            'location' => $location,
+            'users' => $users,
+        ]);
     }
 
     /**
@@ -89,7 +98,10 @@ class LocationController extends Controller
      */
     public function update(Request $request, Location $location)
     {
-        //
+        // @todo Валидация запроса
+        $this->locationService->update($location, $request->all());
+        // @todo Сообщение об успешном обновлении записи
+        return redirect(route('backend.location.index'));
     }
 
     /**
