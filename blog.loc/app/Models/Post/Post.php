@@ -30,4 +30,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\Post\Category', 'category_id', 'id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\Models\User\User', 'user_id', 'id');
+    }
 }
