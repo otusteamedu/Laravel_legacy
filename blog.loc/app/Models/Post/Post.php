@@ -25,4 +25,9 @@ class Post extends Model
         'category_id',
         'published_at',
     ];
+
+    public function category()
+    {
+        return $this->belongsTo('App\Models\Post\Category', 'category_id', 'id');
+    }
 }
