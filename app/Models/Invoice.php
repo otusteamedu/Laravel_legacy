@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,11 +15,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $address_id
  * @property float $amount
  * @property string $status
- * @property InvoicePaymentRegister[] $payments
+ * @property InvoicePaymentRegister[]|Collection $payments
  */
 class Invoice extends Model
 {
-    public function payments(){
+    public function payments()
+    {
         return $this->hasMany(InvoicePaymentRegister::class);
     }
 }

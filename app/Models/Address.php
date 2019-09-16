@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $owner_name
  * @property string $number
  * @property float $balance
- * @property Invoice[] $invoices
+ * @property Invoice[]|Collection $invoices
  */
 class Address extends Model
 {
