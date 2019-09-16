@@ -6,5 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    //
+    protected $fillable=['name'];
+
+    public function responsibilities(){
+        return $this->hasMany('App\Model\Responsibility');
+    }
 }
