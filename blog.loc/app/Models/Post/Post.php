@@ -35,4 +35,9 @@ class Post extends Model
     {
         return $this->belongsTo('App\Models\User\User', 'user_id', 'id');
     }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Models\Post\Tag', 'post_tag');
+    }
 }
