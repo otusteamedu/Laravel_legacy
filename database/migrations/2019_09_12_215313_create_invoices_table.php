@@ -25,7 +25,9 @@ class CreateInvoicesTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+        });
 
+        Schema::table('invoices', function (Blueprint $table) {
             $table->foreign('service_id')->references('id')
                 ->on('services')->onDelete('cascade');
 

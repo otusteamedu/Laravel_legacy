@@ -26,7 +26,9 @@ class CreateAccountTransactionsTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+        });
 
+        Schema::table('account_transactions', function (Blueprint $table) {
             $table->foreign('account_id')->references('id')
                 ->on('accounts')->onDelete('cascade');
 

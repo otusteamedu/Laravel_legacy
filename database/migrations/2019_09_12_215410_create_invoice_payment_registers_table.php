@@ -23,7 +23,9 @@ class CreateInvoicePaymentRegistersTable extends Migration
 
             $table->timestamps();
             $table->softDeletes();
+        });
 
+        Schema::table('invoice_payment_registers', function (Blueprint $table) {
             $table->foreign('invoice_id')->references('id')
                 ->on('invoices')->onDelete('cascade');
         });

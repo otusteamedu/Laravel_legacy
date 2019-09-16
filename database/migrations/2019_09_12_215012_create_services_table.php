@@ -23,7 +23,9 @@ class CreateServicesTable extends Migration
             $table->boolean('is_counter')->comment('услуга подразумевает использование счетчика');
             $table->timestamps();
             $table->softDeletes();
+        });
 
+        Schema::table('services', function (Blueprint $table) {
             $table->foreign('account_id')->references('id')
                 ->on('accounts')->onDelete('cascade');
         });
