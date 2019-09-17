@@ -90,3 +90,22 @@ Pass: password
 ```
 php artisan db:seed
 ```
+
+## Сборка фронтенда
+
+В качестве css фреймворка используется [Bulma](https://bulma.io), минифицированный файл `bulma.min.css` уже скачен и хранится в директории `resources/css/bulma.min.css`.
+
+В начале нужно установить необходимые npm пакеты:
+```
+yarn run dev
+```
+
+Для сборки css и js файлов фроненда в директорию `public` в режиме development нужно выполнить:
+```
+yarn run dev
+```
+
+Для production сборки:
+```
+yarn run prod
+```

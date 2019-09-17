@@ -4,12 +4,12 @@
     <div class="container">
         <div class="card">
             <header class="card-header">
-                <p class="card-header-title">{{ __('Register') }}</p>
+                <p class="card-header-title">{{ __('Account Settings') }}</p>
             </header>
 
             <div class="card-content">
                 <div class="content">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('settings.submit') }}">
                         @csrf
 
                         <div class="field">
@@ -38,15 +38,29 @@
                         </div>
 
                         <div class="field">
+                            <label for="old-password"
+                                   class="label">{{ __('Old Password') }}</label>
+
+                            <div class="control">
+                                <input id="old-password" type="password"
+                                       class="input @error('old-password') is-danger @enderror" name="old-password"
+                                       autocomplete="off">
+                            </div>
+                            @error('old-password')
+                            <span class="help is-danger">{{ $message }}</span>
+                            @enderror
+                        </div>
+
+                        <div class="field">
                             <label for="password"
                                    class="label">{{ __('Password') }}</label>
 
                             <div class="control">
                                 <input id="password" type="password"
                                        class="input @error('password') is-danger @enderror" name="password"
-                                       required autocomplete="new-password">
+                                       autocomplete="off">
                             </div>
-                            @error('password')
+                            @error('old-password')
                             <span class="help is-danger">{{ $message }}</span>
                             @enderror
                         </div>
@@ -57,13 +71,13 @@
 
                             <div class="control">
                                 <input id="password-confirm" type="password" class="input"
-                                       name="password_confirmation" required autocomplete="new-password">
+                                       name="password_confirmation" autocomplete="off">
                             </div>
                         </div>
 
                         <div class="field">
                             <button type="submit" class="button is-link">
-                                {{ __('Register') }}
+                                {{ __('Update Settings') }}
                             </button>
                         </div>
                     </form>
