@@ -1,0 +1,13 @@
+php:
+  preset: laravel
+  disabled:
+    - unused_use
+  finder:
+    not-name:
+      - start.php
+      - server.php
+js:
+  finder:
+    not-name:
+      - webpack.mix.js
+css: true
