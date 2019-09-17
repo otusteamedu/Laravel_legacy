@@ -79,3 +79,14 @@ DB_PASSWORD=secret
 php artisan ide-helper:generate
 php artisan ide-helper:meta
 ```
+
+## Добавление первого тестового пользователя в базу
+
+Параметры пользователя описаны в `database/UserFactory/factories/UserFactory.php`:
+Email: admin@example.com
+Pass: password
+
+Чтобы добавить в пользователя в базу, нужно запустить команду
+```
+php artisan db:seed
+```
