@@ -1,5 +1,5 @@
 <?php
-
+$adminUrl = config('app.admin_url');
 
 Route::get('/', function (){
     return view('page.home');
@@ -20,3 +20,13 @@ Route::get('/register', function(){
 Route::get('/cabinet/profile', function(){
     return view('cabinet.profile.index');
 })->name('cabinet.profile');
+
+Route::group(
+    [
+        'prefix' => $adminUrl,
+        'namespace' => 'Admin',
+        'as' => 'admin.',
+    ],
+    function (){
+        Route::get('users', 'UserController@index')->name('users.index');
+});
