@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Http\Requests\UpdateLocation;
 use App\Models\Location;
 use App\Models\User;
 use App\Services\Locations\LocationService;
@@ -47,7 +48,7 @@ class LocationController extends Controller
     {
         // @todo Использовать UserService
         $users = [
-            -1 => '– Please select –'
+            '0' => '– Please select –'
         ];
         foreach (User::all() as $user) {
             $users[$user->id] = $user->name;
@@ -92,7 +93,7 @@ class LocationController extends Controller
     {
         // @todo Использовать UserService
         $users = [
-            -1 => '– Please select –'
+            '0' => '– Please select –'
         ];
         foreach (User::all() as $user) {
             $users[$user->id] = $user->name;
@@ -110,7 +111,7 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Location $location)
+    public function update(UpdateLocation $request, Location $location)
     {
         // @todo Валидация запроса
         $this->locationService->update($location, $request->all());

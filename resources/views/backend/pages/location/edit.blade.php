@@ -5,6 +5,16 @@
 
         <h1>Edit Location <em>{{ $location->name }}</em></h1>
 
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         {{ Form::model($location, [
             'url' => route('backend.location.update', ['location' => $location]),
             'method' => 'patch'
