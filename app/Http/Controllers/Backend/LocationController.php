@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Requests\UpdateLocation;
+use App\Http\Requests\LocationStoreFormRequest;
+use App\Http\Requests\LocationUpdateFormRequest;
 use App\Models\Location;
 use App\Models\User;
 use App\Services\Locations\LocationService;
@@ -64,9 +65,8 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LocationStoreFormRequest $request)
     {
-        // @todo Валидация запроса
         $this->locationService->create($request->all());
         // @todo Сообщение об успешном создании записи
         return redirect(route('backend.location.index'));
@@ -111,9 +111,8 @@ class LocationController extends Controller
      * @param  \App\Models\Location  $location
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateLocation $request, Location $location)
+    public function update(LocationUpdateFormRequest $request, Location $location)
     {
-        // @todo Валидация запроса
         $this->locationService->update($location, $request->all());
         // @todo Сообщение об успешном обновлении записи
         return redirect(route('backend.location.index'));

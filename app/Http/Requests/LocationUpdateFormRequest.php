@@ -7,7 +7,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
-class UpdateLocation extends FormRequest
+class LocationUpdateFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -16,7 +16,7 @@ class UpdateLocation extends FormRequest
      */
     public function authorize()
     {
-        // TODO
+        // @todo Авторизация (?)
         return true;
     }
 
@@ -27,6 +27,7 @@ class UpdateLocation extends FormRequest
      */
     public function rules(Request $request, Location $location)
     {
+        // @todo Дублирует код LocationStoreFormRequest
         return [
             'user_id' => [
                 'required',
@@ -36,7 +37,7 @@ class UpdateLocation extends FormRequest
             'name' => [
                 'required',
                 'max:255',
-                // TODO Валидировать составной unique
+                // @todo Валидировать составной unique
             ],
             'distance' => [
                 'required',
