@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Services\Location\LocationService;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 
 class LocationController extends Controller
 {
@@ -27,6 +28,7 @@ class LocationController extends Controller
      * LocationController constructor.
      *
      * @param  LocationService  $locationService
+     * @param  UserService  $userService
      * @todo Использовать DI на уровне интерфейсов
      */
     public function __construct(LocationService $locationService, UserService $userService)
@@ -38,7 +40,7 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -50,7 +52,7 @@ class LocationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -69,8 +71,8 @@ class LocationController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  LocationStoreFormRequest  $request
+     * @return Response
      */
     public function store(LocationStoreFormRequest $request)
     {
@@ -82,8 +84,8 @@ class LocationController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param  Location  $location
+     * @return Response
      */
     public function show(Location $location)
     {
@@ -93,8 +95,8 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param  Location  $location
+     * @return Response
      */
     public function edit(Location $location)
     {
@@ -114,9 +116,9 @@ class LocationController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param  LocationUpdateFormRequest  $request
+     * @param  Location  $location
+     * @return Response
      */
     public function update(LocationUpdateFormRequest $request, Location $location)
     {
@@ -128,8 +130,8 @@ class LocationController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Location  $location
-     * @return \Illuminate\Http\Response
+     * @param  Location  $location
+     * @return Response
      */
     public function destroy(Location $location)
     {
