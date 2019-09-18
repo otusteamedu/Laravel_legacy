@@ -48,6 +48,11 @@ class PodcastController extends Controller
         return view('podcasts.create');
     }
 
+    public function show(int $id)
+    {
+        return redirect(route('podcasts.edit', $id));
+    }
+
     public function store()
     {
         // TODO
