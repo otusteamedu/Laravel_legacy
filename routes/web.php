@@ -40,6 +40,7 @@ Route::prefix('backend')
     ->name('backend.')
     ->group(function () {
         Route::resources([
-            'location' => 'LocationController'
+            'location' => 'LocationController',
+            'workout' => 'workoutController',
         ]);
     });

@@ -4,7 +4,6 @@ namespace App\Http\Requests;
 
 use App\Models\Location;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 use Illuminate\Http\Request;
 
 class LocationUpdateFormRequest extends FormRequest
@@ -28,16 +27,15 @@ class LocationUpdateFormRequest extends FormRequest
     public function rules(Request $request, Location $location)
     {
         // @todo Дублирует код LocationStoreFormRequest
+        // @todo Валидировать составной unique
         return [
             'user_id' => [
                 'required',
-                'gt:0',
                 'exists:users,id',
             ],
             'name' => [
                 'required',
                 'max:255',
-                // @todo Валидировать составной unique
             ],
             'distance' => [
                 'required',

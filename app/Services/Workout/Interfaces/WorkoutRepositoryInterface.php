@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Locations\Interfaces;
+namespace App\Services\Workout\Interfaces;
 
-use App\Models\Location;
+use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Interface LocationRepositoryInterface
+ * Interface WorkoutRepositoryInterface
  *
  * @package App\Repositories\Interfaces
  * @todo Добавить тайпхинты для возвращаемых значений
  * @todo Разбить интерфейс на несколько меньших интерфейсов для соответствия ISP
  */
-interface LocationRepositoryInterface
+interface WorkoutRepositoryInterface
 {
     /**
      * Get all of the records from the database.
@@ -37,7 +37,7 @@ interface LocationRepositoryInterface
      * Find a record by its primary key.
      *
      * @param  int  $id
-     * @return Location|Collection|static[]|static|null
+     * @return Workout|Collection|static[]|static|null
      */
     public function find(int $id);
 
@@ -46,7 +46,7 @@ interface LocationRepositoryInterface
      *
      * @param  string  $attribute
      * @param  string  $value
-     * @return Location|Collection|static[]|static|null
+     * @return Workout|Collection|static[]|static|null
      */
     public function findBy(string $attribute, string $value);
 
@@ -54,25 +54,25 @@ interface LocationRepositoryInterface
      * Create a record and fill it with values.
      *
      * @param  array  $data
-     * @return Location|static
+     * @return Workout|static
      */
     public function create(array $data);
 
     /**
      * Update a record and fill it with values.
      *
-     * @param  Location  $location
+     * @param  Workout  $workout
      * @param  array  $data
-     * @return Location|static
+     * @return Workout|static
      */
-    public function update(Location $location, array $data);
+    public function update(Workout $workout, array $data);
 
     /**
      * Delete a record from the database.
      *
-     * @param  Location  $location
+     * @param  Workout  $workout
      * @return mixed
      */
-    public function delete(Location $location);
+    public function delete(Workout $workout);
 
 }

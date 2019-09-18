@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers\Backend;
 
-use App\Http\Requests\LocationStoreFormRequest;
-use App\Http\Requests\LocationUpdateFormRequest;
-use App\Models\Location;
+use App\Http\Requests\WorkoutStoreFormRequest;
+use App\Http\Requests\WorkoutUpdateFormRequest;
+use App\Models\Workout;
 use App\Models\User;
 use App\Services\Location\LocationService;
+use App\Services\Workout\WorkoutService;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 
-class LocationController extends Controller
+class WorkoutController extends Controller
 {
 
     /**
-     * @var LocationService
+     * @var WorkoutService
      */
-    private $locationService;
+    private $workoutService;
 
     /**
      * @var UserService
@@ -24,15 +25,25 @@ class LocationController extends Controller
     private $userService;
 
     /**
-     * LocationController constructor.
+     * @var LocationService
+     */
+    private $locationService;
+
+    /**
+     * WorkoutController constructor.
      *
-     * @param  LocationService  $locationService
+     * @param  WorkoutService  $workoutService
      * @todo Использовать DI на уровне интерфейсов
      */
-    public function __construct(LocationService $locationService, UserService $userService)
+    public function __construct(
+        WorkoutService $workoutService,
+        UserService $userService,
+        LocationService $locationService
+    )
     {
-        $this->locationService = $locationService;
+        $this->workoutService = $workoutService;
         $this->userService = $userService;
+        $this->locationService = $locationService;
     }
 
     /**
@@ -42,8 +53,8 @@ class LocationController extends Controller
      */
     public function index()
     {
-        return view('backend.pages.location.index', [
-            'locations' => $this->locationService->paginate(),
+        return view('backend.pages.workout.index', [
+            'workouts' => $this->workoutService->paginate(),
         ]);
     }
 
@@ -61,8 +72,16 @@ class LocationController extends Controller
         foreach ($this->userService->all() as $user) {
             $users[$user->id] = $user->name;
         }
-        return view('backend.pages.location.create', [
+        $locations = [
+            // @todo Брать значение по умолчанию из конфига
+            '' => '– Please select –'
+        ];
+        foreach ($this->locationService->all() as $location) {
+            $locations[$location->id] = $location->name;
+        }
+        return view('backend.pages.workout.create', [
             'users' => $users,
+            'locations' => $locations,
         ]);
     }
 
@@ -72,20 +91,20 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(LocationStoreFormRequest $request)
+    public function store(WorkoutStoreFormRequest $request)
     {
-        $this->locationService->create($request->all());
+        $this->workoutService->create($request->all());
         // @todo Сообщение об успешном создании записи
-        return redirect(route('backend.location.index'));
+        return redirect(route('backend.workout.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\Workout  $workout
      * @return \Illuminate\Http\Response
      */
-    public function show(Location $location)
+    public function show(Workout $workout)
     {
         //
     }
@@ -93,10 +112,10 @@ class LocationController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\Workout  $workout
      * @return \Illuminate\Http\Response
      */
-    public function edit(Location $location)
+    public function edit(Workout $workout)
     {
         $users = [
             // @todo Брать значение по умолчанию из конфига
@@ -105,9 +124,17 @@ class LocationController extends Controller
         foreach ($this->userService->all() as $user) {
             $users[$user->id] = $user->name;
         }
-        return view('backend.pages.location.edit', [
-            'location' => $location,
+        $locations = [
+            // @todo Брать значение по умолчанию из конфига
+            '' => '– Please select –'
+        ];
+        foreach ($this->locationService->all() as $location) {
+            $locations[$location->id] = $location->name;
+        }
+        return view('backend.pages.workout.edit', [
+            'workout' => $workout,
             'users' => $users,
+            'locations' => $locations,
         ]);
     }
 
@@ -115,27 +142,27 @@ class LocationController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\Workout  $workout
      * @return \Illuminate\Http\Response
      */
-    public function update(LocationUpdateFormRequest $request, Location $location)
+    public function update(WorkoutUpdateFormRequest $request, Workout $workout)
     {
-        $this->locationService->update($location, $request->all());
+        $this->workoutService->update($workout, $request->all());
         // @todo Сообщение об успешном обновлении записи
-        return redirect(route('backend.location.index'));
+        return redirect(route('backend.workout.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Location  $location
+     * @param  \App\Models\Workout  $workout
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Location $location)
+    public function destroy(Workout $workout)
     {
         // @todo Промежуточная форма подтверждения
-        $this->locationService->delete($location);
+        $this->workoutService->delete($workout);
         // @todo Сообщение об успешном удалении записи
-        return redirect(route('backend.location.index'));
+        return redirect(route('backend.workout.index'));
     }
 }

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Users;
+namespace App\Services\User;
 
-use App\Services\Users\Interfaces\UserServiceInterface;
+use App\Services\User\Interfaces\UserServiceInterface;
 use App\Models\User;
-use App\Services\Users\Repositories\UserRepository;
+use App\Services\User\Repositories\UserRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserService implements UserServiceInterface {

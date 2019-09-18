@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Users\Repositories;
+namespace App\Services\User\Repositories;
 
-use App\Services\Users\Interfaces\UserRepositoryInterface;
+use App\Services\User\Interfaces\UserRepositoryInterface;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 

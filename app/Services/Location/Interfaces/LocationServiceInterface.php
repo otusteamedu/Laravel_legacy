@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Locations\Interfaces;
+namespace App\Services\Location\Interfaces;
 
 use App\Models\Location;
 use App\Models\User;

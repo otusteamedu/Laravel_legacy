@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Users\Interfaces;
+namespace App\Services\User\Interfaces;
 
 /**
  * Interface UserServiceInterface

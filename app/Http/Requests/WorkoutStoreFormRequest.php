@@ -2,11 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Location;
+use App\Models\Workout;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
 
-class LocationStoreFormRequest extends FormRequest
+class WorkoutStoreFormRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,9 +24,9 @@ class LocationStoreFormRequest extends FormRequest
      *
      * @return array
      */
-    public function rules(Request $request, Location $location)
+    public function rules(Request $request, Workout $workout)
     {
-        // @todo Дублирует код LocationUpdateFormRequest
+        // @todo Дублирует код WorkoutUpdateFormRequest
         // @todo Валидировать составной unique
         return [
             'user_id' => [
@@ -41,6 +41,21 @@ class LocationStoreFormRequest extends FormRequest
                 'required',
                 'integer',
                 'between:1,999999',
+            ],
+            'started_at' => [
+                'required',
+                'date',
+                'before:now',
+            ],
+            'duration' => [
+                'required',
+                'integer',
+                'between:1,999999',
+                // @todo Валидировать (started_at + duration < now)
+            ],
+            'location_id' => [
+                'nullable',
+                'exists:locations,id',
             ],
         ];
     }

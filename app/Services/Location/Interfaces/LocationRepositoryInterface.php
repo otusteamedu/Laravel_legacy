@@ -2,19 +2,19 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Users\Interfaces;
+namespace App\Services\Location\Interfaces;
 
-use App\Models\User;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
- * Interface UserRepositoryInterface
+ * Interface LocationRepositoryInterface
  *
  * @package App\Repositories\Interfaces
  * @todo Добавить тайпхинты для возвращаемых значений
  * @todo Разбить интерфейс на несколько меньших интерфейсов для соответствия ISP
  */
-interface UserRepositoryInterface
+interface LocationRepositoryInterface
 {
     /**
      * Get all of the records from the database.
@@ -37,7 +37,7 @@ interface UserRepositoryInterface
      * Find a record by its primary key.
      *
      * @param  int  $id
-     * @return User|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function find(int $id);
 
@@ -46,7 +46,7 @@ interface UserRepositoryInterface
      *
      * @param  string  $attribute
      * @param  string  $value
-     * @return User|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function findBy(string $attribute, string $value);
 
@@ -54,27 +54,25 @@ interface UserRepositoryInterface
      * Create a record and fill it with values.
      *
      * @param  array  $data
-     * @return User|static
+     * @return Location|static
      */
     public function create(array $data);
 
     /**
      * Update a record and fill it with values.
      *
-     * @param  User  $user
+     * @param  Location  $location
      * @param  array  $data
-     * @return User|static
+     * @return Location|static
      */
-    public function update(User $user, array $data);
+    public function update(Location $location, array $data);
 
     /**
      * Delete a record from the database.
      *
-     * @param  User  $user
+     * @param  Location  $location
      * @return mixed
      */
-    public function delete(User $user);
-
-    // @todo Добавить методы для связанных сущностей
+    public function delete(Location $location);
 
 }

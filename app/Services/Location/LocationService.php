@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Locations;
+namespace App\Services\Location;
 
-use App\Services\Locations\Interfaces\LocationServiceInterface;
+use App\Services\Location\Interfaces\LocationServiceInterface;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
-use App\Services\Locations\Repositories\LocationRepository;
+use App\Services\Location\Repositories\LocationRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class LocationService implements LocationServiceInterface {

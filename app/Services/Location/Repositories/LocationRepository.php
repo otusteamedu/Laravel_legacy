@@ -2,12 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Locations\Repositories;
+namespace App\Services\Location\Repositories;
 
-use App\Services\Locations\Interfaces\LocationRepositoryInterface;
+use App\Services\Location\Interfaces\LocationRepositoryInterface;
 use App\Models\Location;
-use App\Models\User;
-use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
 
 class LocationRepository implements LocationRepositoryInterface {
