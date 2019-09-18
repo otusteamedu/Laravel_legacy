@@ -7,7 +7,7 @@ use App\Http\Requests\LocationUpdateFormRequest;
 use App\Models\Location;
 use App\Models\User;
 use App\Services\Locations\LocationService;
-use Illuminate\Http\Request;
+use App\Services\Users\UserService;
 use App\Http\Controllers\Controller;
 
 class LocationController extends Controller
@@ -19,13 +19,19 @@ class LocationController extends Controller
     private $locationService;
 
     /**
+     * @var UserService
+     */
+    private $userService;
+
+    /**
      * LocationController constructor.
      *
      * @param  LocationService  $locationService
      */
-    public function __construct(LocationService $locationService)
+    public function __construct(LocationService $locationService, UserService $userService)
     {
         $this->locationService = $locationService;
+        $this->userService = $userService;
     }
 
     /**
@@ -47,11 +53,10 @@ class LocationController extends Controller
      */
     public function create()
     {
-        // @todo Использовать UserService
         $users = [
             '0' => '– Please select –'
         ];
-        foreach (User::all() as $user) {
+        foreach ($this->userService->all() as $user) {
             $users[$user->id] = $user->name;
         }
         return view('backend.pages.location.create', [
@@ -91,11 +96,10 @@ class LocationController extends Controller
      */
     public function edit(Location $location)
     {
-        // @todo Использовать UserService
         $users = [
             '0' => '– Please select –'
         ];
-        foreach (User::all() as $user) {
+        foreach ($this->userService->all() as $user) {
             $users[$user->id] = $user->name;
         }
         return view('backend.pages.location.edit', [
