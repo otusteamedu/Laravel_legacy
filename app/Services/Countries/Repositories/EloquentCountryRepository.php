@@ -10,7 +10,7 @@ namespace App\Services\Countries\Repositories;
 
 use App\Models\Country;
 
-class CountryRepository
+class EloquentCountryRepository implements CountryRepositoryInterface
 {
 
     public function find(int $id)
@@ -18,12 +18,12 @@ class CountryRepository
         return Country::find($id);
     }
 
-    public function search()
+    public function search(array $filters = [])
     {
         return Country::paginate();
     }
 
-    public function createFromArray(array $data)
+    public function createFromArray(array $data): Country
     {
         $country = new Country();
         $country->create($data);

@@ -3,11 +3,24 @@
 namespace App\Http\Controllers\Cms\Cities;
 
 use App\Models\City;
+use App\Services\Countries\CountriesService;
+use App\Services\SimpleFoo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class CitiesController extends Controller
 {
+    protected $countriesService;
+    protected $simpleFoo;
+
+    public function __construct(
+        CountriesService $countriesService,
+        SimpleFoo $simpleFoo
+    )
+    {
+        $this->countriesService = $countriesService;
+        $this->simpleFoo = $simpleFoo;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +28,11 @@ class CitiesController extends Controller
      */
     public function index()
     {
-        //
+        $this->simpleFoo->saveFoo();
+
+        return view('countries.index', [
+            'countries' => $this->countriesService->searchCountries(),
+        ]);
     }
 
     /**

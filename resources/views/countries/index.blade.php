@@ -18,7 +18,6 @@
             ],
         ];
     @endphp
-    {{ $locale }}
     @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
     @include('countries.blocks.header.list')
     @include('countries.blocks.list.index')

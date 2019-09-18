@@ -9,19 +9,24 @@ namespace App\Services\Countries;
 
 
 use App\Models\Country;
-use App\Services\Countries\Repositories\CountryRepository;
+use App\Services\Countries\Handlers\CreateCountryHandler;
+use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CountriesService
 {
 
-    /** @var CountryRepository */
+    /** @var CountryRepositoryInterface */
     private $countryRepository;
+    /** @var CreateCountryHandler */
+    private $createCountryHandler;
 
     public function __construct(
-        CountryRepository $countryRepository
+        CreateCountryHandler $createCountryHandler,
+        CountryRepositoryInterface $countryRepository
     )
     {
+        $this->createCountryHandler = $createCountryHandler;
         $this->countryRepository = $countryRepository;
     }
 
@@ -48,7 +53,7 @@ class CountriesService
      */
     public function storeCountry(array $data): Country
     {
-        $country = $this->countryRepository->createFromArray($data);
+        $country = $this->createCountryHandler->handle($data);
 
         // do some logic
 

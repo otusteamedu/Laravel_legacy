@@ -16,6 +16,13 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Model' => 'App\Policies\ModelPolicy',
     ];
 
+    public function register()
+    {
+        if (true) {
+            //
+        }
+    }
+
     /**
      * Register any authentication / authorization services.
      *

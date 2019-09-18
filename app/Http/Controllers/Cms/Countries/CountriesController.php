@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Cms\Countries;
 
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
+use App\Services\SimpleBar;
+use App\Services\SimpleFoo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
@@ -12,12 +14,17 @@ class CountriesController extends Controller
 {
 
     protected $countriesService;
+    protected $simpleFoo;
+    protected $simpleBar;
 
     public function __construct(
-        CountriesService $countriesService
+        CountriesService $countriesService,
+        SimpleFoo $simpleFoo,
+        SimpleBar $simpleBar
     )
     {
-        $this->middleware('shareCommonData');
+        $this->simpleFoo = $simpleFoo;
+        $this->simpleBar = $simpleBar;
         $this->countriesService = $countriesService;
     }
 
@@ -26,8 +33,11 @@ class CountriesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $this->simpleFoo->saveFoo();
+
+//        $this->simpleBar->getAppName();
         return view('countries.index', [
             'countries' => $this->countriesService->searchCountries(),
         ]);
@@ -51,16 +61,12 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        try {
-            $this->validate($request, [
-                'name' => 'required|unique:countries,name|max:100',
-                'continent' => 'required|max:20'
-            ]);
-        } catch (ValidationException $e) {
-            return redirect()->back()->withInput($request->all())
-                ->withErrors($e->validator);
-        }
+        $this->beforeSave();
 
+        $this->validate($request, [
+            'name' => 'required|unique:countries,name|max:100',
+            'continent' => 'required|max:20'
+        ]);
 
         $this->countriesService->storeCountry($request->all());
 

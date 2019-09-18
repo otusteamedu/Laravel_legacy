@@ -28,3 +28,6 @@ Route::name('cms.')->group(function () {
         ]);
     });
 });
+Route::view('/home', 'home')->name('home');
+Route::view('/', 'welcome');
+Route::auth();
