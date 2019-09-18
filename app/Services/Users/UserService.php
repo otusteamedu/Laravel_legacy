@@ -14,16 +14,16 @@ class UserService implements UserServiceInterface {
     /**
      * @var UserRepository
      */
-    private $UserRepository;
+    private $userRepository;
 
     /**
      * UserService constructor.
      *
-     * @param  UserRepository  $UserRepository
+     * @param  UserRepository  $userRepository
      */
-    public function __construct(UserRepository $UserRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        $this->UserRepository = $UserRepository;
+        $this->userRepository = $userRepository;
     }
 
     /**
@@ -34,7 +34,7 @@ class UserService implements UserServiceInterface {
      */
     public function all(array $columns = ['*'])
     {
-        return $this->UserRepository->all($columns);
+        return $this->userRepository->all($columns);
     }
 
     /**
@@ -46,7 +46,7 @@ class UserService implements UserServiceInterface {
      */
     public function paginate(int $perPage = 15, array $columns = ['*'])
     {
-        return $this->UserRepository->paginate($perPage, $columns);
+        return $this->userRepository->paginate($perPage, $columns);
     }
 
     /**
@@ -57,7 +57,7 @@ class UserService implements UserServiceInterface {
      */
     public function find(int $id)
     {
-        return $this->UserRepository->find($id);
+        return $this->userRepository->find($id);
     }
 
     /**
@@ -69,7 +69,7 @@ class UserService implements UserServiceInterface {
      */
     public function findBy(string $attribute, string $value)
     {
-        return $this->UserRepository->findBy($attribute, $value);
+        return $this->userRepository->findBy($attribute, $value);
     }
 
     /**
@@ -80,30 +80,30 @@ class UserService implements UserServiceInterface {
      */
     public function create(array $data)
     {
-        return $this->UserRepository->create($data);
+        return $this->userRepository->create($data);
     }
 
     /**
      * Update a record and fill it with values.
      *
-     * @param  User  $User
+     * @param  User  $user
      * @param  array  $data
      * @return User|static
      */
-    public function update(User $User, array $data)
+    public function update(User $user, array $data)
     {
-        return $this->UserRepository->update($User, $data);
+        return $this->userRepository->update($user, $data);
     }
 
     /**
      * Delete a record from the database.
      *
-     * @param  User  $User
+     * @param  User  $user
      * @return mixed
      */
-    public function delete(User $User)
+    public function delete(User $user)
     {
-        return $this->UserRepository->delete($User);
+        return $this->userRepository->delete($user);
     }
 
 }

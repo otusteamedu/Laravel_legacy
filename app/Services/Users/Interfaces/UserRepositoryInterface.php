@@ -61,19 +61,19 @@ interface UserRepositoryInterface
     /**
      * Update a record and fill it with values.
      *
-     * @param  User  $User
+     * @param  User  $user
      * @param  array  $data
      * @return User|static
      */
-    public function update(User $User, array $data);
+    public function update(User $user, array $data);
 
     /**
      * Delete a record from the database.
      *
-     * @param  User  $User
+     * @param  User  $user
      * @return mixed
      */
-    public function delete(User $User);
+    public function delete(User $user);
 
     // @todo Добавить методы для связанных сущностей
 

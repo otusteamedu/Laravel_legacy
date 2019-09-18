@@ -64,34 +64,34 @@ class UserRepository implements UserRepositoryInterface {
      */
     public function create(array $data)
     {
-        $User = new User();
-        $User->create($data);
-        return $User;
+        $user = new User();
+        $user->create($data);
+        return $user;
     }
 
     /**
      * Update a record and fill it with values.
      *
-     * @param  User  $User
+     * @param  User  $user
      * @param  array  $data
      * @return User|static
      */
-    public function update(User $User, array $data)
+    public function update(User $user, array $data)
     {
-        $User->update($data);
-        return $User;
+        $user->update($data);
+        return $user;
     }
 
     /**
      * Delete a record from the database.
      *
-     * @param  User  $User
+     * @param  User  $user
      * @return mixed
      * @throws \Exception
      */
-    public function delete(User $User)
+    public function delete(User $user)
     {
-        return $User->delete();
+        return $user->delete();
     }
 
 }
