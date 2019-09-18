@@ -41,6 +41,6 @@ Route::prefix('backend')
     ->group(function () {
         Route::resources([
             'location' => 'LocationController',
-            'workout' => 'workoutController',
+            'workout' => 'WorkoutController',
         ]);
     });
