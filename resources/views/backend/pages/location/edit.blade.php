@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
 
-        <h1>Edit Location <em>{{ $location->name }}</em></h1>
+        <h1>Edit Location</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -41,6 +41,23 @@
         </div>
         <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}
+        </div>
+        {{ Form::close() }}
+
+        <div class="row">
+            <div class="col"><hr></div>
+        </div>
+
+        <h2>Delete Location</h2>
+
+        {{ Form::model($location, [
+            'url' => route('backend.location.destroy', ['location' => $location]),
+            'method' => 'delete',
+            'id'=>'form-delete'
+        ]) }}
+        <p>This action cannot be undone.</p>
+        <div class="form-group">
+            {{ Form::submit('Delete', array('class' => 'btn btn-danger')) }}
         </div>
         {{ Form::close() }}
 
