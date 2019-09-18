@@ -9,7 +9,7 @@
 
             <div class="card-content">
                 <div class="content">
-                    <form method="POST" action="{{ route('settings.submit') }}">
+                    <form method="POST" action="{{ route('settings.update') }}">
                         @csrf
 
                         <div class="field">

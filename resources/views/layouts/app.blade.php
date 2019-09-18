@@ -26,6 +26,9 @@
     </div>
     <div class="navbar-menu is-active">
         <div class="navbar-start">
+            @auth
+                <a class="navbar-item" href="{{ route('podcasts.index') }}">{{ __('Podcasts') }}</a>
+                @endauth
         </div>
         <div class="navbar-end">
             <!-- Authentication Links -->
@@ -41,7 +44,7 @@
                     </a>
 
                     <div class="navbar-dropdown">
-                        <a class="navbar-item" href="{{ route('settings') }}">
+                        <a class="navbar-item" href="{{ route('settings.edit') }}">
                             {{ __('Settings') }}
                         </a>
                         <a class="navbar-item" href="{{ route('logout') }}"
