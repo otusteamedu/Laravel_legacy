@@ -72,3 +72,40 @@ DB_DATABASE=default
 DB_USERNAME=default
 DB_PASSWORD=secret
 ``` 
+
+## Настройка ide-helper
+
+```
+php artisan ide-helper:generate
+php artisan ide-helper:meta
+```
+
+## Добавление первого тестового пользователя в базу
+
+Параметры пользователя описаны в `database/UserFactory/factories/UserFactory.php`:
+Email: admin@example.com
+Pass: password
+
+Чтобы добавить в пользователя в базу, нужно запустить команду
+```
+php artisan db:seed
+```
+
+## Сборка фронтенда
+
+В качестве css фреймворка используется [Bulma](https://bulma.io), минифицированный файл `bulma.min.css` уже скачен и хранится в директории `resources/css/bulma.min.css`.
+
+В начале нужно установить необходимые npm пакеты:
+```
+yarn run dev
+```
+
+Для сборки css и js файлов фроненда в директорию `public` в режиме development нужно выполнить:
+```
+yarn run dev
+```
+
+Для production сборки:
+```
+yarn run prod
+```
