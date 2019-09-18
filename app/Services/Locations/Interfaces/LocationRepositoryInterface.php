@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace App\Services\Locations\Interfaces;
 
 use App\Models\Location;
-use App\Models\User;
-use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -14,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
  *
  * @package App\Repositories\Interfaces
  * @todo Добавить тайпхинты для возвращаемых значений
- * @todo Разбить интерфейс на несколько интерфейсов для соответствия ISP
+ * @todo Разбить интерфейс на несколько меньших интерфейсов для соответствия ISP
  */
 interface LocationRepositoryInterface
 {
@@ -77,19 +75,4 @@ interface LocationRepositoryInterface
      */
     public function delete(Location $location);
 
-    /**
-     * Find a record by User.
-     *
-     * @param  User  $user
-     * @return Location|Collection|static[]|static|null
-     */
-    public function getByUser(User $user);
-
-    /**
-     * Find a record by Workout.
-     *
-     * @param  Workout  $workout
-     * @return Location|Collection|static[]|static|null
-     */
-    public function getByWorkout(Workout $workout);
 }

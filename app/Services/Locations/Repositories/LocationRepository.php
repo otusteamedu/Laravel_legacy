@@ -96,26 +96,4 @@ class LocationRepository implements LocationRepositoryInterface {
         return $location->delete();
     }
 
-    /**
-     * Find a record by User.
-     *
-     * @param  User  $user
-     * @return Location|Collection|static[]|static|null
-     */
-    public function getByUser(User $user)
-    {
-        // TODO: Implement getByUser() method.
-    }
-
-    /**
-     * Find a record by Workout.
-     *
-     * @param  Workout  $workout
-     * @return Location|Collection|static[]|static|null
-     */
-    public function getByWorkout(Workout $workout)
-    {
-        // TODO: Implement getByWorkout() method.
-    }
-
 }

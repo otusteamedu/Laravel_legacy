@@ -116,7 +116,7 @@ class LocationService implements LocationServiceInterface {
      */
     public function getByUser(User $user)
     {
-        return $this->locationRepository->getByUser($user);
+        // TODO
     }
 
     /**
@@ -127,6 +127,6 @@ class LocationService implements LocationServiceInterface {
      */
     public function getByWorkout(Workout $workout)
     {
-        return $this->locationRepository->getByWorkout($workout);
+        // TODO
     }
 }
