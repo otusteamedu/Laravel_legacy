@@ -68,8 +68,13 @@ class User extends Authenticatable
             ->using('App\Models\ProductUser');
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
+        return $this->level === self::LEVEL_ADMIN;
+    }
 
+    public function isModerator(): bool
+    {
+        return $this->level === self::LEVEL_MODERATOR;
     }
 }

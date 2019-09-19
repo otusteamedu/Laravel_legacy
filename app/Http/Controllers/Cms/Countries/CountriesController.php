@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Cms\Countries;
 
+use Gate;
+use Log;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
 use App\Services\SimpleBar;
@@ -14,17 +16,11 @@ class CountriesController extends Controller
 {
 
     protected $countriesService;
-    protected $simpleFoo;
-    protected $simpleBar;
 
     public function __construct(
-        CountriesService $countriesService,
-        SimpleFoo $simpleFoo,
-        SimpleBar $simpleBar
+        CountriesService $countriesService
     )
     {
-        $this->simpleFoo = $simpleFoo;
-        $this->simpleBar = $simpleBar;
         $this->countriesService = $countriesService;
     }
 
@@ -35,9 +31,13 @@ class CountriesController extends Controller
      */
     public function index(Request $request)
     {
-        $this->simpleFoo->saveFoo();
+        if (Gate::allows('countries.view')) {
+            Log::info('Allows');
+        } else {
+            Log::info('Not allowed');
+        }
+        Gate::authorize('countries.view');
 
-//        $this->simpleBar->getAppName();
         return view('countries.index', [
             'countries' => $this->countriesService->searchCountries(),
         ]);

@@ -33,7 +33,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('edit-settings', function (User $user) {
+        Gate::define('countries.view', function (User $user) {
             return $user->isAdmin();
         });
 
