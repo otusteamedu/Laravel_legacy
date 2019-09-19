@@ -9,7 +9,12 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class CountryPolicy
 {
     use HandlesAuthorization;
-    
+
+    public function before(User $user)
+    {
+        return $user->isAdmin();
+    }
+
     /**
      * Determine whether the user can view any countries.
      *
@@ -18,7 +23,7 @@ class CountryPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isAdmin();
     }
 
     /**
@@ -30,7 +35,7 @@ class CountryPolicy
      */
     public function view(User $user, Country $country)
     {
-        return false;
+        return $user->id === $country->created_user_id;
     }
 
     /**
@@ -41,7 +46,7 @@ class CountryPolicy
      */
     public function create(User $user)
     {
-        return false;
+        return $user->isAdmin();
     }
 
     /**
@@ -53,7 +58,7 @@ class CountryPolicy
      */
     public function update(User $user, Country $country)
     {
-        //
+        return $user->id === $country->created_user_id;
     }
 
     /**

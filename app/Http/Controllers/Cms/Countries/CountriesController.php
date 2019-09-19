@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Cms\Countries;
 
+use App\Policies\Abilities;
 use Gate;
+use Auth;
 use Log;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
@@ -38,7 +40,7 @@ class CountriesController extends Controller
 //        }
 //        Gate::authorize('countries.view');
 
-        if (!$this->getCurrentUser()->can('viewAny', Country::class)) {
+        if (!$this->getCurrentUser()->can(Abilities::VIEW_ANY, Country::class)) {
             abort(403);
         }
 
@@ -54,6 +56,7 @@ class CountriesController extends Controller
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Country::class);
         return view('countries.create');
     }
 
@@ -65,12 +68,15 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize(Abilities::CREATE, Country::class);
+
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
             'continent_name' => 'required|max:20'
         ]);
-
-        $this->countriesService->storeCountry($request->all());
+        $data = $request->all();
+        $data['created_user_id'] = Auth::id();
+        $this->countriesService->storeCountry($data);
 
         return redirect(route('cms.countries.index'));
     }
@@ -97,6 +103,8 @@ class CountriesController extends Controller
      */
     public function update(Request $request, Country $country)
     {
+        $this->authorize(Abilities::UPDATE, $country);
+
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
             'continent_name' => 'required|max:20'
@@ -116,6 +124,8 @@ class CountriesController extends Controller
      */
     public function show(Request $request, Country $country)
     {
+        $this->authorize(Abilities::VIEW, $country);
+
         return view('countries.show', [
             'country' => $country,
             'cities' => $country->cities()->paginate(),
