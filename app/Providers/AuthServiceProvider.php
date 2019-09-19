@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Country;
 use App\Models\User;
+use App\Policies\CountryPolicy;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Laravel\Passport\Passport;
@@ -15,14 +17,12 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Country::class => CountryPolicy::class,
     ];
 
     public function register()
     {
-        if (true) {
-            //
-        }
+
     }
 
     /**
@@ -33,9 +33,9 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-        Gate::define('countries.view', function (User $user) {
-            return $user->isAdmin();
-        });
+//        Gate::define('countries.view', function (User $user) {
+//            return $user->isAdmin();
+//        });
 
 //        Passport::routes();
 

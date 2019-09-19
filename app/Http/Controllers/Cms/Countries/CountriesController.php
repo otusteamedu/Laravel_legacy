@@ -31,12 +31,16 @@ class CountriesController extends Controller
      */
     public function index(Request $request)
     {
-        if (Gate::allows('countries.view')) {
-            Log::info('Allows');
-        } else {
-            Log::info('Not allowed');
+//        if (Gate::allows('countries.view')) {
+//            Log::info('Allows');
+//        } else {
+//            Log::info('Not allowed');
+//        }
+//        Gate::authorize('countries.view');
+
+        if (!$this->getCurrentUser()->can('viewAny', Country::class)) {
+            abort(403);
         }
-        Gate::authorize('countries.view');
 
         return view('countries.index', [
             'countries' => $this->countriesService->searchCountries(),
@@ -61,11 +65,9 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->beforeSave();
-
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
-            'continent' => 'required|max:20'
+            'continent_name' => 'required|max:20'
         ]);
 
         $this->countriesService->storeCountry($request->all());
@@ -81,7 +83,9 @@ class CountriesController extends Controller
      */
     public function edit(Country $country)
     {
-        //
+        return view('countries.edit', [
+            'country' => $country,
+        ]);
     }
 
     /**
@@ -93,7 +97,29 @@ class CountriesController extends Controller
      */
     public function update(Request $request, Country $country)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|unique:countries,name|max:100',
+            'continent_name' => 'required|max:20'
+        ]);
+
+        $this->countriesService->updateCountry($country, $request->all());
+
+        return redirect(route('cms.countries.index'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Country  $country
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, Country $country)
+    {
+        return view('countries.show', [
+            'country' => $country,
+            'cities' => $country->cities()->paginate(),
+        ]);
     }
 
     /**
@@ -105,5 +131,13 @@ class CountriesController extends Controller
     public function destroy(Country $country)
     {
         //
+    }
+
+    /**
+     * @return \App\Models\User|null
+     */
+    private function getCurrentUser()
+    {
+        return \Auth::user();
     }
 }
