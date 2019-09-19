@@ -11,6 +11,11 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\User::class, 100)->create();
+        foreach (\App\Models\User::all() as $user) {
+            $user->update([
+               'api_token' => Str::random(60),
+            ]);
+        }
+        factory(\App\Models\User::class, 10)->create();
     }
 }
