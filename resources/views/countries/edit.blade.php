@@ -13,12 +13,11 @@
                     'title' => __('messages.home'),
                 ],
                 [
-                    'url' => '/companies',
-                    'title' => __('messages.companies'),
+                    'url' => '/cms/countries',
+                    'title' => __('messages.countries'),
                 ],
                 [
-                    'url' => '/companies/create',
-                    'title' => __('messages.addProduct'),
+                    'title' => __('messages.editCountry'),
                 ],
             ];
         @endphp

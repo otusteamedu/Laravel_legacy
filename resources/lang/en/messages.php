@@ -19,6 +19,10 @@ return [
     'addProduct' => 'Add Product',
     'addCompany' => 'Add Company',
     'addCountry' => 'Add Country',
+    'editCountry' => 'Edit Country',
+    'continentName' => 'Continent Name',
+    'edit' => 'Edit',
+    'add' => 'Add',
     'totalCount' => 'Total Count',
     'remainingOfTotal' => '{0} None of :total|{1} One of :total|[2,*] :remaining of :total',
 ];
