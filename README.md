@@ -78,6 +78,7 @@ DB_PASSWORD=secret
 ```
 php artisan ide-helper:generate
 php artisan ide-helper:meta
+php artisan ide-helper:model
 ```
 
 ## Добавление первого тестового пользователя в базу
