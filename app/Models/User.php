@@ -10,6 +10,12 @@ use Laravel\Passport\HasApiTokens;
 /**
  * App\Models\User
  *
+ * @property int level
+ * @property int id
+ * @property string name
+ * @property string email
+ * @property string password
+ * @property string api_token
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -19,6 +25,10 @@ use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
+
+    const LEVEL_USER = 1;
+    const LEVEL_MODERATOR = 2;
+    const LEVEL_ADMIN = 3;
 
     /**
      * The attributes that are mass assignable.
@@ -30,6 +40,7 @@ class User extends Authenticatable
         'email',
         'password',
         'api_token',
+        'level',
     ];
 
     /**
@@ -55,5 +66,10 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Product')
             ->withPivot(['price'])
             ->using('App\Models\ProductUser');
+    }
+
+    public function isAdmin()
+    {
+
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddApiTokenToUsersTable extends Migration
+class AddLevelFieldToUsersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,11 +14,7 @@ class AddApiTokenToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token', 80)
-                ->after('password')
-                ->unique()
-                ->nullable()
-                ->default(null);
+            $table->unsignedInteger('level')->default(\App\Models\User::LEVEL_USER);
         });
     }
 
@@ -30,8 +26,7 @@ class AddApiTokenToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropUnique('api_token');
-            $table->dropColumn('api_token');
+            $table->dropColumn('level');
         });
     }
 }
