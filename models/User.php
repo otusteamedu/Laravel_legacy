@@ -2,10 +2,12 @@
 
 namespace Models\User;
 
+use DB;
+
 class User
 {
 
-    function getUserId($email)
+    public static function getIdByEmail($email)
     {
         $query = sprintf("
             SELECT `uid`

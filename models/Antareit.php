@@ -25,7 +25,6 @@ class Antareit
             return false;
     }
 
-
     function loginUser($udata)
     {
         $query = "
