@@ -2,7 +2,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>{{ $title }}</h1>
+                <h1>@isset($title){{ $title }}@endisset</h1>
             </div>
         </div>
     </div>

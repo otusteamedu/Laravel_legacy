@@ -2,6 +2,11 @@
 
 
 
+@section('breadcrumbs')
+<ol class="breadcrumb text-right">
+    <li class="active">Dashboard</li>
+</ol>
+@stop
 
 @section('content')
 
@@ -14,12 +19,6 @@
     </div>
 </div>--}}
 
-@section('breadcrumbs')
-<ol class="breadcrumb text-right">
-    <li class="active">Dashboard</li>
-</ol>
-@stop
-
 
 <div class="col-sm-6 col-lg-3">
     <div class="card text-white bg-flat-color-1">
@@ -30,9 +29,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <div class="dropdown-menu-content">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="">Создать группу</a>
+                        <a class="dropdown-item" href="">Создать группу</a>
                     </div>
                 </div>
             </div>
@@ -61,9 +59,7 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
                     <div class="dropdown-menu-content">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a class="dropdown-item" href="#">Администрирование ответственности</a>
                     </div>
                 </div>
             </div>

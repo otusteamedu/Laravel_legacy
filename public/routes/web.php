@@ -11,15 +11,24 @@
 |
 */
 
+Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+    Route::get('/','DashboardController@dashboard')->name('admin.index');
+    Route::resource('/group','GroupController',['as'=>'admin']);
+});
+
 
 Route::get('/', function () {
     return view('dashboard.index')
         ->with('title', 'Главная страница')
         ->with('description', 'Описание главной страницы');
 });
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+
+
+
+
+Route::get('/info', function () {
+    return phpinfo();
+});
 Route::get('/group', function () {
     return view('group.index', ['title' => 'Создание группы', 'description' => 'описание страницы создание группы']);
 });
@@ -70,12 +79,12 @@ Route::get('/dashboard', function () {
 //});
 
 
-$patterns = [
-    'id' => '\d+',
-    'hash' => '[a-z0-9]+',
-    'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
-    'slug' => '[a-z0-9-]+',
-    'token' => '[a-zA-Z0-9]{64}',
-];
+//$patterns = [
+//    'id' => '\d+',
+//    'hash' => '[a-z0-9]+',
+//    'uuid' => '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',
+//    'slug' => '[a-z0-9-]+',
+//    'token' => '[a-zA-Z0-9]{64}',
+//];
 
 
