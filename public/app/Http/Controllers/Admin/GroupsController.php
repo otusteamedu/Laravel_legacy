@@ -6,7 +6,7 @@ use App\Models\Group;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class GroupController extends Controller
+class GroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,11 +15,9 @@ class GroupController extends Controller
      */
     public function index()
     {
-        return view(
-            'group.index',[
-                'groups'=>[['name'=>'111'],['name'=>'222']],
-            ]
-        );
+        return view('groups.index', [
+            'groups' => Group::orderBy('created_at', 'desc')->paginate(10)
+        ]);
     }
 
     /**
@@ -29,7 +27,7 @@ class GroupController extends Controller
      */
     public function create()
     {
-        //
+        return view('groups.create', []);
     }
 
     /**
@@ -40,7 +38,8 @@ class GroupController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $group = Group::create($request->all());
+        return redirect()->route('admin.groups.index');
     }
 
     /**
@@ -51,7 +50,9 @@ class GroupController extends Controller
      */
     public function show(Group $group)
     {
-        //
+        return view('groups.show', [
+            'group'=>$group
+        ]);
     }
 
     /**
@@ -62,7 +63,9 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
-        //
+        return view('groups.edit', [
+            'group' => $group
+        ]);
     }
 
     /**
@@ -74,7 +77,8 @@ class GroupController extends Controller
      */
     public function update(Request $request, Group $group)
     {
-        //
+        $group->update($request->all());
+        return redirect()->route('admin.groups.index');
     }
 
     /**
@@ -85,6 +89,7 @@ class GroupController extends Controller
      */
     public function destroy(Group $group)
     {
-        //
+        $group->delete();
+        return redirect()->route('admin.groups.index');
     }
 }

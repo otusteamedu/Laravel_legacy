@@ -13,7 +13,9 @@
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
     Route::get('/','DashboardController@dashboard')->name('admin.index');
-    Route::resource('/group','GroupController',['as'=>'admin']);
+    Route::resource('/groups','GroupsController',['as'=>'admin']);
+    Route::resource('/responsibilities','ResponsibilitiesController',['as'=>'admin']);
+    Route::resource('/reasons','ReasonsController',['as'=>'admin']);
 });
 
 
@@ -24,6 +26,14 @@ Route::get('/', function () {
 });
 
 
+Route::get('/clear', function() {
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    //Artisan::call('backup:clean');
+    return "Кэш очищен.";
+});
 
 
 Route::get('/info', function () {

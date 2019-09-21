@@ -13,6 +13,28 @@
             <li class="active">
                 <a href="{{route('admin.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
             </li>
+            <h3 class="menu-title">Группы</h3>
+            <li>
+                <a href="{{route('admin.groups.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список групп</a>
+            </li>
+            <li>
+                <a href="{{route('admin.groups.create')}}"> <i class="menu-icon fa fa-dashboard"></i>Создать группу</a>
+            </li>
+            <h3 class="menu-title">Ответственности</h3>
+            <li>
+                <a href="{{route('admin.responsibilities.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список отв.</a>
+            </li>
+            <li>
+                <a href="{{route('admin.responsibilities.create')}}"> <i class="menu-icon fa fa-dashboard"></i>Создать отв.</a>
+            </li>
+            <h3 class="menu-title">Причина</h3>
+            <li>
+                <a href="{{route('admin.reasons.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список причин.</a>
+            </li>
+            <li>
+                <a href="{{route('admin.reasons.create')}}"> <i class="menu-icon fa fa-dashboard"></i>Создать причину</a>
+            </li>
+            {{--
             <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
             <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>
@@ -84,7 +106,7 @@
                     <li><i class="menu-icon fa fa-sign-in"></i><a href="page-register.html">Register</a></li>
                     <li><i class="menu-icon fa fa-paper-plane"></i><a href="pages-forget.html">Forget Pass</a></li>
                 </ul>
-            </li>
+            </li>--}}
         </ul>
     </div><!-- /.navbar-collapse -->
 </nav>

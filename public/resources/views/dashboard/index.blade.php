@@ -29,8 +29,8 @@
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                     <div class="dropdown-menu-content">
-                        <a class="dropdown-item" href="">Создать группу</a>
-                        <a class="dropdown-item" href="">Создать группу</a>
+                        <a class="dropdown-item" href="{{route('admin.groups.index')}}">Список групп</a>
+                        <a class="dropdown-item" href="{{route('admin.groups.create')}}">Создать группу</a>
                     </div>
                 </div>
             </div>

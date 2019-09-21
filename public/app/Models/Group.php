@@ -9,6 +9,6 @@ class Group extends Model
     protected $fillable=['name'];
 
     public function responsibilities(){
-        return $this->hasMany('App\Model\Responsibility');
+        return $this->hasMany('App\Models\Responsibility');
     }
 }
