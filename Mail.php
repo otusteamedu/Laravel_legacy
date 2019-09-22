@@ -1,6 +1,8 @@
 <?php
 
-class Mail extends Antareit
+use Models\User;
+
+class Mail
 {
 
     function sendEmail($email, $subject, $message)
