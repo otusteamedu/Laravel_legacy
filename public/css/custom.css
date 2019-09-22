@@ -55,3 +55,11 @@
 .about h2, .about p{
     margin-left: 240px;
 }
+
+.income{
+    color: green;
+}
+
+.consumption{
+    color: red;
+}

@@ -12,8 +12,6 @@
 */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
 Route::get('/', function () {
     return view('statics.index');
 })->name('index');
@@ -21,6 +19,11 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('statics.about');
 })->name('about');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'OperationsController@index')->name('home');
+Route::resource('operation', 'OperationsController')->except(['show', 'destroy']);
+Route::get('operation/{id}/destroy', 'OperationsController@destroy')->name('operation.destroy');;
+Route::get('operation/period', 'OperationsController@setPeriod')->name('operation.setPeriod');;
+
+
+
