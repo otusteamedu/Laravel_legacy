@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -38,11 +39,21 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
+ * @property-read bool|string $company_name
+ * @property-read mixed|string $company_name_link
+ * @property-read mixed|string $name_link
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
-    use Notifiable;
-
+    use Notifiable, SoftDeletes;
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -51,25 +62,25 @@ class User extends Authenticatable
     protected $fillable = [
         'company_id', 'name', 'email', 'password'
     ];
-
+    
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token'
     ];
-
+    
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'email_verified_at' => 'datetime'
     ];
-
+    
     /**
      * Get the company this user belongs to
      *
@@ -77,9 +88,9 @@ class User extends Authenticatable
      */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withTrashed();
     }
-
+    
     /**
      * Get the roles this user belongs to
      *
@@ -88,5 +99,55 @@ class User extends Authenticatable
     public function roles(): BelongsToMany
     {
         return $this->belongsToMany(Role::class, 'role_user');
+    }
+    
+    /**
+     * Get name link
+     *
+     * @return mixed|string
+     */
+    public function getNameLinkAttribute()
+    {
+        if ($this->trashed()) {
+            return $this->name;
+        }
+        
+        return link_to_route('admin.users.edit', $this->name, [$this->id]);
+    }
+    
+    /**
+     * Get company's name
+     *
+     * @return bool|string
+     */
+    public function getCompanyNameAttribute()
+    {
+        $company = $this->company;
+        
+        if (!$company) {
+            return false;
+        }
+        
+        return $company->name;
+    }
+    
+    /**
+     * Get company's name link
+     *
+     * @return mixed|string
+     */
+    public function getCompanyNameLinkAttribute()
+    {
+        $companyName = $this->company_name;
+        
+        if (!$companyName) {
+            return '--';
+        }
+        
+        if ($this->company->trashed()) {
+            return $companyName;
+        }
+        
+        return link_to_route('admin.companies.edit', $companyName, ['company' => $this->company]);
     }
 }
