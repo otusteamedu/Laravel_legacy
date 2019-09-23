@@ -16,17 +16,18 @@ class CreatePeopleTable extends Migration
         Schema::create('people', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255);
-            $table->text('description')->nullable();
             $table->date('birth_day')->nullable();
             $table->enum('sex', ['male', 'female']);
+            $table->bigInteger('photo_id')->unsigned();
+            $table->text('description')->nullable();
 
             // $table->timestamps();
         });
 
         Schema::table('people', function (Blueprint $table) {
-            $table->foreign('file_id')
+            $table->foreign('photo_id')
                 ->references('id')->on('files')
-                ->onDelete('cascade');
+            	->onDelete('cascade');
         });
     }
 

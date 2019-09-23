@@ -15,8 +15,8 @@ class CreateGenresTable extends Migration
     {
         Schema::create('genres', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 255)->unique();
-            $table->integer('sort', 255)->unsigned()->default(0);
+            $table->string('name', 100)->unique();
+            $table->integer('sort')->unsigned()->default(0);
             $table->text('description')->nullable();
         });
     }
