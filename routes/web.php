@@ -553,15 +553,33 @@ Route::get('/account/register', function () {
             [
                 'url' => \route('public.start'),
                 'title' => __('public.menu.home'),
-            ],
-            [
+            ], [
                 'url' => \route('public.account.index'),
                 'title' => __('public.account.index'),
-            ],
-            [
+            ], [
                 'url' => \route('public.account.register'),
                 'title' => __('public.account.register'),
             ]
         ]
     ]);
 })->name('public.account.register');
+
+
+Route::get('/manager', function () {
+    return view('admin.start.index');
+})->name('admin.index');
+
+Route::name('admin.')->group(function () {
+    Route::prefix('manager')->group(function () {
+        Route::resource('countries', 'Admin\Movies\CountryController')->except(['show']);
+        Route::resource('genres', 'Admin\Movies\GenreController')->except(['show']);
+        Route::resource('people', 'Admin\Movies\PersonController')->except(['show']);
+    });
+});
+
+
+// ->where(['id' => '[0-9]+'])->name('admin.index');
+//[
+//    'countries' => 'Cms\Countries\CountriesController',
+//    'cities' => 'Cms\Cities\CitiesController',
+//]
