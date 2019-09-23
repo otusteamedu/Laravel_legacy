@@ -1,0 +1,66 @@
+/**
+    App | Common styles
+ */
+
+.table-model-index {
+    th, td {
+        vertical-align: middle;
+    }
+
+    .column-date-created {
+        width: 160px;
+    }
+
+    .column-single-controls {
+        width: 180px;
+    }
+}
+
+.page-section {
+    .row {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.form-model {
+    .form-row {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}
+
+.row-section-header {
+    margin-bottom: 20px;
+
+    h1 {
+        margin-bottom: 0;
+    }
+}
+
+.admin-dashboard-nav {
+    padding: 20px 0;
+    background-color: #dedede;
+
+    .nav {
+        li {
+            &:not(:last-child) {
+                margin-right: 20px;
+            }
+        }
+    }
+
+    .nav-link {
+        background-color: #fff;
+        border: 1px solid currentColor;
+        border-radius: $btn-border-radius-sm;
+
+        &:hover {
+            background-color: $blue;
+            border-color: $blue;
+            color: #fff;
+        }
+    }
+}

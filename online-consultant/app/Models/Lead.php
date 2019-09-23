@@ -35,21 +35,79 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Lead withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Lead withoutTrashed()
  * @mixin \Eloquent
+ * @property-read bool|string $company_name
+ * @property-read mixed|string $company_name_link
+ * @property-read mixed|string $name_link
  */
 class Lead extends Model
 {
     use SoftDeletes;
-
+    
     protected $fillable = [
         'company_id', 'name', 'email', 'info'
     ];
-
+    
     protected $casts = [
         'info' => 'array'
     ];
-
+    
+    /**
+     * Get the company this lead belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withTrashed();
+    }
+    
+    /**
+     * Get name link
+     *
+     * @return mixed|string
+     */
+    public function getNameLinkAttribute()
+    {
+        if ($this->trashed()) {
+            return $this->name;
+        }
+        
+        return link_to_route('admin.leads.edit', $this->name, [$this->id]);
+    }
+    
+    /**
+     * Get company's name
+     *
+     * @return bool|string
+     */
+    public function getCompanyNameAttribute()
+    {
+        $company = $this->company;
+        
+        if (!$company) {
+            return false;
+        }
+        
+        return $company->name;
+    }
+    
+    /**
+     * Get company's name link
+     *
+     * @return mixed|string
+     */
+    public function getCompanyNameLinkAttribute()
+    {
+        $companyName = $this->company_name;
+        
+        if (!$companyName) {
+            return '--';
+        }
+        
+        if ($this->company->trashed()) {
+            return $companyName;
+        }
+        
+        return link_to_route('admin.companies.edit', $companyName, ['company' => $this->company]);
     }
 }

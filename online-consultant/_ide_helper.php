@@ -3,7 +3,7 @@
 
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 6.0.0 on 2019-09-14 23:47:09.
+ * Generated for Laravel 6.0.3 on 2019-09-22 22:21:02.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -13234,7 +13234,7 @@ namespace Illuminate\Support\Facades {
          * @param mixed $parameters
          * @param bool $absolute
          * @return string 
-         * @throws \InvalidArgumentException
+         * @throws \Symfony\Component\Routing\Exception\RouteNotFoundException
          * @static 
          */ 
         public static function route($name, $parameters = array(), $absolute = true)
@@ -14587,6 +14587,843 @@ namespace Illuminate\Support {
  
 }
 
+namespace Barryvdh\Debugbar { 
+
+    /**
+     * 
+     *
+     * @method static void alert(string $message)
+     * @method static void critical(string $message)
+     * @method static void debug(string $message)
+     * @method static void emergency(string $message)
+     * @method static void error(string $message)
+     * @method static void info(string $message)
+     * @method static void log(string $message)
+     * @method static void notice(string $message)
+     * @method static void warning(string $message)
+     * @see \Barryvdh\Debugbar\LaravelDebugbar
+     */ 
+    class Facade {
+        
+        /**
+         * Enable the Debugbar and boot, if not already booted.
+         *
+         * @static 
+         */ 
+        public static function enable()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->enable();
+        }
+        
+        /**
+         * Boot the debugbar (add collectors, renderer and listener)
+         *
+         * @static 
+         */ 
+        public static function boot()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->boot();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function shouldCollect($name, $default = false)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->shouldCollect($name, $default);
+        }
+        
+        /**
+         * Adds a data collector
+         *
+         * @param \Barryvdh\Debugbar\DataCollectorInterface $collector
+         * @throws DebugBarException
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function addCollector($collector)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addCollector($collector);
+        }
+        
+        /**
+         * Handle silenced errors
+         *
+         * @param $level
+         * @param $message
+         * @param string $file
+         * @param int $line
+         * @param array $context
+         * @throws \ErrorException
+         * @static 
+         */ 
+        public static function handleError($level, $message, $file = '', $line = 0, $context = array())
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->handleError($level, $message, $file, $line, $context);
+        }
+        
+        /**
+         * Starts a measure
+         *
+         * @param string $name Internal name, used to stop the measure
+         * @param string $label Public name
+         * @static 
+         */ 
+        public static function startMeasure($name, $label = null)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->startMeasure($name, $label);
+        }
+        
+        /**
+         * Stops a measure
+         *
+         * @param string $name
+         * @static 
+         */ 
+        public static function stopMeasure($name)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->stopMeasure($name);
+        }
+        
+        /**
+         * Adds an exception to be profiled in the debug bar
+         *
+         * @param \Exception $e
+         * @deprecated in favor of addThrowable
+         * @static 
+         */ 
+        public static function addException($e)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addException($e);
+        }
+        
+        /**
+         * Adds an exception to be profiled in the debug bar
+         *
+         * @param \Exception $e
+         * @static 
+         */ 
+        public static function addThrowable($e)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addThrowable($e);
+        }
+        
+        /**
+         * Returns a JavascriptRenderer for this instance
+         *
+         * @param string $baseUrl
+         * @param string $basePathng
+         * @return \Barryvdh\Debugbar\JavascriptRenderer 
+         * @static 
+         */ 
+        public static function getJavascriptRenderer($baseUrl = null, $basePath = null)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getJavascriptRenderer($baseUrl, $basePath);
+        }
+        
+        /**
+         * Modify the response and inject the debugbar (or data in headers)
+         *
+         * @param \Symfony\Component\HttpFoundation\Request $request
+         * @param \Symfony\Component\HttpFoundation\Response $response
+         * @return \Symfony\Component\HttpFoundation\Response 
+         * @static 
+         */ 
+        public static function modifyResponse($request, $response)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->modifyResponse($request, $response);
+        }
+        
+        /**
+         * Check if the Debugbar is enabled
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isEnabled()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->isEnabled();
+        }
+        
+        /**
+         * Collects the data from the collectors
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function collect()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->collect();
+        }
+        
+        /**
+         * Injects the web debug toolbar into the given Response.
+         *
+         * @param \Symfony\Component\HttpFoundation\Response $response A Response instance
+         * Based on https://github.com/symfony/WebProfilerBundle/blob/master/EventListener/WebDebugToolbarListener.php
+         * @static 
+         */ 
+        public static function injectDebugbar($response)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->injectDebugbar($response);
+        }
+        
+        /**
+         * Disable the Debugbar
+         *
+         * @static 
+         */ 
+        public static function disable()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->disable();
+        }
+        
+        /**
+         * Adds a measure
+         *
+         * @param string $label
+         * @param float $start
+         * @param float $end
+         * @static 
+         */ 
+        public static function addMeasure($label, $start, $end)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addMeasure($label, $start, $end);
+        }
+        
+        /**
+         * Utility function to measure the execution of a Closure
+         *
+         * @param string $label
+         * @param \Closure $closure
+         * @static 
+         */ 
+        public static function measure($label, $closure)
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->measure($label, $closure);
+        }
+        
+        /**
+         * Collect data in a CLI request
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function collectConsole()
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->collectConsole();
+        }
+        
+        /**
+         * Adds a message to the MessagesCollector
+         * 
+         * A message can be anything from an object to a string
+         *
+         * @param mixed $message
+         * @param string $label
+         * @static 
+         */ 
+        public static function addMessage($message, $label = 'info')
+        {
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->addMessage($message, $label);
+        }
+        
+        /**
+         * Checks if a data collector has been added
+         *
+         * @param string $name
+         * @return boolean 
+         * @static 
+         */ 
+        public static function hasCollector($name)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->hasCollector($name);
+        }
+        
+        /**
+         * Returns a data collector
+         *
+         * @param string $name
+         * @return \DebugBar\DataCollectorInterface 
+         * @throws DebugBarException
+         * @static 
+         */ 
+        public static function getCollector($name)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getCollector($name);
+        }
+        
+        /**
+         * Returns an array of all data collectors
+         *
+         * @return \DebugBar\array[DataCollectorInterface] 
+         * @static 
+         */ 
+        public static function getCollectors()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getCollectors();
+        }
+        
+        /**
+         * Sets the request id generator
+         *
+         * @param \DebugBar\RequestIdGeneratorInterface $generator
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setRequestIdGenerator($generator)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setRequestIdGenerator($generator);
+        }
+        
+        /**
+         * 
+         *
+         * @return \DebugBar\RequestIdGeneratorInterface 
+         * @static 
+         */ 
+        public static function getRequestIdGenerator()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getRequestIdGenerator();
+        }
+        
+        /**
+         * Returns the id of the current request
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getCurrentRequestId()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getCurrentRequestId();
+        }
+        
+        /**
+         * Sets the storage backend to use to store the collected data
+         *
+         * @param \DebugBar\StorageInterface $storage
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setStorage($storage = null)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setStorage($storage);
+        }
+        
+        /**
+         * 
+         *
+         * @return \DebugBar\StorageInterface 
+         * @static 
+         */ 
+        public static function getStorage()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getStorage();
+        }
+        
+        /**
+         * Checks if the data will be persisted
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isDataPersisted()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->isDataPersisted();
+        }
+        
+        /**
+         * Sets the HTTP driver
+         *
+         * @param \DebugBar\HttpDriverInterface $driver
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setHttpDriver($driver)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setHttpDriver($driver);
+        }
+        
+        /**
+         * Returns the HTTP driver
+         * 
+         * If no http driver where defined, a PhpHttpDriver is automatically created
+         *
+         * @return \DebugBar\HttpDriverInterface 
+         * @static 
+         */ 
+        public static function getHttpDriver()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getHttpDriver();
+        }
+        
+        /**
+         * Returns collected data
+         * 
+         * Will collect the data if none have been collected yet
+         *
+         * @return array 
+         * @static 
+         */ 
+        public static function getData()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getData();
+        }
+        
+        /**
+         * Returns an array of HTTP headers containing the data
+         *
+         * @param string $headerName
+         * @param integer $maxHeaderLength
+         * @return array 
+         * @static 
+         */ 
+        public static function getDataAsHeaders($headerName = 'phpdebugbar', $maxHeaderLength = 4096, $maxTotalHeaderLength = 250000)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getDataAsHeaders($headerName, $maxHeaderLength, $maxTotalHeaderLength);
+        }
+        
+        /**
+         * Sends the data through the HTTP headers
+         *
+         * @param bool $useOpenHandler
+         * @param string $headerName
+         * @param integer $maxHeaderLength
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function sendDataInHeaders($useOpenHandler = null, $headerName = 'phpdebugbar', $maxHeaderLength = 4096)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->sendDataInHeaders($useOpenHandler, $headerName, $maxHeaderLength);
+        }
+        
+        /**
+         * Stacks the data in the session for later rendering
+         *
+         * @static 
+         */ 
+        public static function stackData()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->stackData();
+        }
+        
+        /**
+         * Checks if there is stacked data in the session
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function hasStackedData()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->hasStackedData();
+        }
+        
+        /**
+         * Returns the data stacked in the session
+         *
+         * @param boolean $delete Whether to delete the data in the session
+         * @return array 
+         * @static 
+         */ 
+        public static function getStackedData($delete = true)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getStackedData($delete);
+        }
+        
+        /**
+         * Sets the key to use in the $_SESSION array
+         *
+         * @param string $ns
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setStackDataSessionNamespace($ns)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setStackDataSessionNamespace($ns);
+        }
+        
+        /**
+         * Returns the key used in the $_SESSION array
+         *
+         * @return string 
+         * @static 
+         */ 
+        public static function getStackDataSessionNamespace()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->getStackDataSessionNamespace();
+        }
+        
+        /**
+         * Sets whether to only use the session to store stacked data even
+         * if a storage is enabled
+         *
+         * @param boolean $enabled
+         * @return \Barryvdh\Debugbar\LaravelDebugbar 
+         * @static 
+         */ 
+        public static function setStackAlwaysUseSessionStorage($enabled = true)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->setStackAlwaysUseSessionStorage($enabled);
+        }
+        
+        /**
+         * Checks if the session is always used to store stacked data
+         * even if a storage is enabled
+         *
+         * @return boolean 
+         * @static 
+         */ 
+        public static function isStackAlwaysUseSessionStorage()
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->isStackAlwaysUseSessionStorage();
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetSet($key, $value)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetSet($key, $value);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetGet($key)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetGet($key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetExists($key)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetExists($key);
+        }
+        
+        /**
+         * 
+         *
+         * @static 
+         */ 
+        public static function offsetUnset($key)
+        {
+            //Method inherited from \DebugBar\DebugBar            
+                        /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
+                        return $instance->offsetUnset($key);
+        }
+         
+    }
+ 
+}
+
+namespace DaveJamesMiller\Breadcrumbs\Facades { 
+
+    /**
+     * Breadcrumbs facade - allows easy access to the Manager instance.
+     *
+     * @see BreadcrumbsManager
+     */ 
+    class Breadcrumbs {
+        
+        /**
+         * Register a breadcrumb-generating callback for a page.
+         *
+         * @param string $name The name of the page.
+         * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
+         *     accept additional parameters.
+         * @return void 
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
+         *     used.
+         * @static 
+         */ 
+        public static function for($name, $callback)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        $instance->for($name, $callback);
+        }
+        
+        /**
+         * Register a breadcrumb-generating callback for a page.
+         * 
+         * For backwards-compatibility with v5.0.0 and below.
+         *
+         * @param string $name The name of the page.
+         * @param callable $callback The callback, which should accept a Generator instance as the first parameter and may
+         *     accept additional parameters.
+         * @return void 
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\DuplicateBreadcrumbException If the given name has already been
+         *     used.
+         * @see self::for()
+         * @static 
+         */ 
+        public static function register($name, $callback)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        $instance->register($name, $callback);
+        }
+        
+        /**
+         * Register a closure to call before generating breadcrumbs for the current page.
+         * 
+         * For example, this can be used to always prepend the homepage without needing to manually add it to each page.
+         *
+         * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
+         * @return void 
+         * @static 
+         */ 
+        public static function before($callback)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        $instance->before($callback);
+        }
+        
+        /**
+         * Register a closure to call after generating breadcrumbs for the current page.
+         * 
+         * For example, this can be used to append the current page number when using pagination.
+         *
+         * @param callable $callback The callback, which should accept a Generator instance as the first and only parameter.
+         * @return void 
+         * @static 
+         */ 
+        public static function after($callback)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        $instance->after($callback);
+        }
+        
+        /**
+         * Check if a breadcrumb with the given name exists.
+         * 
+         * If no name is given, defaults to the current route name.
+         *
+         * @param string|null $name The page name.
+         * @return bool Whether there is a registered callback with that name.
+         * @static 
+         */ 
+        public static function exists($name = null)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        return $instance->exists($name);
+        }
+        
+        /**
+         * Generate a set of breadcrumbs for a page.
+         *
+         * @param string|null $name The name of the current page.
+         * @param mixed $params The parameters to pass to the closure for the current page.
+         * @return \Illuminate\Support\Collection The generated breadcrumbs.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route
+         *     doesn't have an associated name.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names
+         *     are) not registered.
+         * @static 
+         */ 
+        public static function generate($name = null, $params = null)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        return $instance->generate($name, $params);
+        }
+        
+        /**
+         * Render breadcrumbs for a page with the specified view.
+         *
+         * @param string $view The name of the view to render.
+         * @param string|null $name The name of the current page.
+         * @param mixed $params The parameters to pass to the closure for the current page.
+         * @return \Illuminate\Support\HtmlString The generated HTML.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
+         * @static 
+         */ 
+        public static function view($view, $name = null, $params = null)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        return $instance->view($view, $name, $params);
+        }
+        
+        /**
+         * Render breadcrumbs for a page with the default view.
+         *
+         * @param string|null $name The name of the current page.
+         * @param mixed $params The parameters to pass to the closure for the current page.
+         * @return \Illuminate\Support\HtmlString The generated HTML.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if no name is given and the current route doesn't have an associated name.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\ViewNotSetException if no view has been set.
+         * @static 
+         */ 
+        public static function render($name = null, $params = null)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        return $instance->render($name, $params);
+        }
+        
+        /**
+         * Get the last breadcrumb for the current page.
+         * 
+         * Optionally pass a
+         *
+         * @return \stdClass|null The breadcrumb for the current page.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\UnnamedRouteException if the current route doesn't have an associated name.
+         * @throws \DaveJamesMiller\Breadcrumbs\Exceptions\InvalidBreadcrumbException if the name is (or any ancestor names are) not registered.
+         * @static 
+         */ 
+        public static function current()
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        return $instance->current();
+        }
+        
+        /**
+         * Set the current route name and parameters to use when calling render() or generate() with no parameters.
+         *
+         * @param string $name The name of the current page.
+         * @param mixed $params The parameters to pass to the closure for the current page.
+         * @return void 
+         * @static 
+         */ 
+        public static function setCurrentRoute($name, $params = null)
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        $instance->setCurrentRoute($name, $params);
+        }
+        
+        /**
+         * Clear the previously set route name and parameters to use when calling render() or generate() with no parameters.
+         * 
+         * Next time it will revert to the default behaviour of using the current route from Laravel.
+         *
+         * @return void 
+         * @static 
+         */ 
+        public static function clearCurrentRoute()
+        {
+                        /** @var \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager $instance */
+                        $instance->clearCurrentRoute();
+        }
+        
+        /**
+         * Register a custom macro.
+         *
+         * @param string $name
+         * @param object|callable $macro
+         * @return void 
+         * @static 
+         */ 
+        public static function macro($name, $macro)
+        {
+                        \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::macro($name, $macro);
+        }
+        
+        /**
+         * Mix another object into the class.
+         *
+         * @param object $mixin
+         * @param bool $replace
+         * @return void 
+         * @throws \ReflectionException
+         * @static 
+         */ 
+        public static function mixin($mixin, $replace = true)
+        {
+                        \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::mixin($mixin, $replace);
+        }
+        
+        /**
+         * Checks if macro is registered.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */ 
+        public static function hasMacro($name)
+        {
+                        return \DaveJamesMiller\Breadcrumbs\BreadcrumbsManager::hasMacro($name);
+        }
+         
+    }
+ 
+}
+
 namespace Collective\Html { 
 
     /**
@@ -14597,6 +15434,23 @@ namespace Collective\Html {
     class FormFacade {
         
         /**
+         * Show form to delete model
+         *
+         * @param \App\Services\Model $model
+         * @param string $route
+         * @param string $method
+         * @param string $buttonText
+         * @param array $buttonAttributes
+         * @return \App\Services\HtmlString 
+         * @static 
+         */ 
+        public static function modelDeleteActionsForm($model, $route, $method, $buttonText, $buttonAttributes)
+        {
+                        /** @var \App\Services\MacroService $instance */
+                        return $instance->modelDeleteActionsForm($model, $route, $method, $buttonText, $buttonAttributes);
+        }
+        
+        /**
          * Open up a new HTML form.
          *
          * @param array $options
@@ -14605,7 +15459,8 @@ namespace Collective\Html {
          */ 
         public static function open($options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->open($options);
         }
         
@@ -14619,7 +15474,8 @@ namespace Collective\Html {
          */ 
         public static function model($model, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->model($model, $options);
         }
         
@@ -14632,7 +15488,8 @@ namespace Collective\Html {
          */ 
         public static function setModel($model)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         $instance->setModel($model);
         }
         
@@ -14644,7 +15501,8 @@ namespace Collective\Html {
          */ 
         public static function getModel()
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->getModel();
         }
         
@@ -14656,7 +15514,8 @@ namespace Collective\Html {
          */ 
         public static function close()
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->close();
         }
         
@@ -14668,7 +15527,8 @@ namespace Collective\Html {
          */ 
         public static function token()
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->token();
         }
         
@@ -14684,7 +15544,8 @@ namespace Collective\Html {
          */ 
         public static function label($name, $value = null, $options = array(), $escape_html = true)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->label($name, $value, $options, $escape_html);
         }
         
@@ -14700,7 +15561,8 @@ namespace Collective\Html {
          */ 
         public static function input($type, $name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->input($type, $name, $value, $options);
         }
         
@@ -14715,7 +15577,8 @@ namespace Collective\Html {
          */ 
         public static function text($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->text($name, $value, $options);
         }
         
@@ -14729,7 +15592,8 @@ namespace Collective\Html {
          */ 
         public static function password($name, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->password($name, $options);
         }
         
@@ -14744,7 +15608,8 @@ namespace Collective\Html {
          */ 
         public static function range($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->range($name, $value, $options);
         }
         
@@ -14759,7 +15624,8 @@ namespace Collective\Html {
          */ 
         public static function hidden($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->hidden($name, $value, $options);
         }
         
@@ -14774,7 +15640,8 @@ namespace Collective\Html {
          */ 
         public static function search($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->search($name, $value, $options);
         }
         
@@ -14789,7 +15656,8 @@ namespace Collective\Html {
          */ 
         public static function email($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->email($name, $value, $options);
         }
         
@@ -14804,7 +15672,8 @@ namespace Collective\Html {
          */ 
         public static function tel($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->tel($name, $value, $options);
         }
         
@@ -14819,7 +15688,8 @@ namespace Collective\Html {
          */ 
         public static function number($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->number($name, $value, $options);
         }
         
@@ -14834,7 +15704,8 @@ namespace Collective\Html {
          */ 
         public static function date($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->date($name, $value, $options);
         }
         
@@ -14849,7 +15720,8 @@ namespace Collective\Html {
          */ 
         public static function datetime($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->datetime($name, $value, $options);
         }
         
@@ -14864,7 +15736,8 @@ namespace Collective\Html {
          */ 
         public static function datetimeLocal($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->datetimeLocal($name, $value, $options);
         }
         
@@ -14879,7 +15752,8 @@ namespace Collective\Html {
          */ 
         public static function time($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->time($name, $value, $options);
         }
         
@@ -14894,7 +15768,8 @@ namespace Collective\Html {
          */ 
         public static function url($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->url($name, $value, $options);
         }
         
@@ -14909,7 +15784,8 @@ namespace Collective\Html {
          */ 
         public static function week($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->week($name, $value, $options);
         }
         
@@ -14923,7 +15799,8 @@ namespace Collective\Html {
          */ 
         public static function file($name, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->file($name, $options);
         }
         
@@ -14938,7 +15815,8 @@ namespace Collective\Html {
          */ 
         public static function textarea($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->textarea($name, $value, $options);
         }
         
@@ -14956,7 +15834,8 @@ namespace Collective\Html {
          */ 
         public static function select($name, $list = array(), $selected = null, $selectAttributes = array(), $optionsAttributes = array(), $optgroupsAttributes = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->select($name, $list, $selected, $selectAttributes, $optionsAttributes, $optgroupsAttributes);
         }
         
@@ -14973,7 +15852,8 @@ namespace Collective\Html {
          */ 
         public static function selectRange($name, $begin, $end, $selected = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->selectRange($name, $begin, $end, $selected, $options);
         }
         
@@ -14990,7 +15870,8 @@ namespace Collective\Html {
          */ 
         public static function selectYear()
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->selectYear();
         }
         
@@ -15006,7 +15887,8 @@ namespace Collective\Html {
          */ 
         public static function selectMonth($name, $selected = null, $options = array(), $format = '%B')
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->selectMonth($name, $selected, $options, $format);
         }
         
@@ -15023,7 +15905,8 @@ namespace Collective\Html {
          */ 
         public static function getSelectOption($display, $value, $selected, $attributes = array(), $optgroupAttributes = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->getSelectOption($display, $value, $selected, $attributes, $optgroupAttributes);
         }
         
@@ -15039,7 +15922,8 @@ namespace Collective\Html {
          */ 
         public static function checkbox($name, $value = 1, $checked = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->checkbox($name, $value, $checked, $options);
         }
         
@@ -15055,7 +15939,8 @@ namespace Collective\Html {
          */ 
         public static function radio($name, $value = null, $checked = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->radio($name, $value, $checked, $options);
         }
         
@@ -15069,7 +15954,8 @@ namespace Collective\Html {
          */ 
         public static function reset($value, $attributes = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->reset($value, $attributes);
         }
         
@@ -15084,7 +15970,8 @@ namespace Collective\Html {
          */ 
         public static function image($url, $name = null, $attributes = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->image($url, $name, $attributes);
         }
         
@@ -15099,7 +15986,8 @@ namespace Collective\Html {
          */ 
         public static function month($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->month($name, $value, $options);
         }
         
@@ -15114,7 +16002,8 @@ namespace Collective\Html {
          */ 
         public static function color($name, $value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->color($name, $value, $options);
         }
         
@@ -15128,7 +16017,8 @@ namespace Collective\Html {
          */ 
         public static function submit($value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->submit($value, $options);
         }
         
@@ -15142,7 +16032,8 @@ namespace Collective\Html {
          */ 
         public static function button($value = null, $options = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->button($value, $options);
         }
         
@@ -15156,7 +16047,8 @@ namespace Collective\Html {
          */ 
         public static function datalist($id, $list = array())
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->datalist($id, $list);
         }
         
@@ -15170,7 +16062,8 @@ namespace Collective\Html {
          */ 
         public static function getIdAttribute($name, $attributes)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->getIdAttribute($name, $attributes);
         }
         
@@ -15184,7 +16077,8 @@ namespace Collective\Html {
          */ 
         public static function getValueAttribute($name, $value = null)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->getValueAttribute($name, $value);
         }
         
@@ -15196,7 +16090,8 @@ namespace Collective\Html {
          */ 
         public static function considerRequest($consider = true)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->considerRequest($consider);
         }
         
@@ -15209,7 +16104,8 @@ namespace Collective\Html {
          */ 
         public static function old($name)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->old($name);
         }
         
@@ -15221,7 +16117,8 @@ namespace Collective\Html {
          */ 
         public static function oldInputIsEmpty()
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->oldInputIsEmpty();
         }
         
@@ -15233,7 +16130,8 @@ namespace Collective\Html {
          */ 
         public static function getSessionStore()
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->getSessionStore();
         }
         
@@ -15241,12 +16139,13 @@ namespace Collective\Html {
          * Set the session store implementation.
          *
          * @param \Illuminate\Contracts\Session\Session $session
-         * @return \Collective\Html\FormBuilder 
+         * @return \App\Services\MacroService 
          * @static 
          */ 
         public static function setSessionStore($session)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->setSessionStore($session);
         }
         
@@ -15260,7 +16159,8 @@ namespace Collective\Html {
          */ 
         public static function macro($name, $macro)
         {
-                        \Collective\Html\FormBuilder::macro($name, $macro);
+            //Method inherited from \Collective\Html\FormBuilder            
+                        \App\Services\MacroService::macro($name, $macro);
         }
         
         /**
@@ -15274,7 +16174,8 @@ namespace Collective\Html {
          */ 
         public static function mixin($mixin, $replace = true)
         {
-                        \Collective\Html\FormBuilder::mixin($mixin, $replace);
+            //Method inherited from \Collective\Html\FormBuilder            
+                        \App\Services\MacroService::mixin($mixin, $replace);
         }
         
         /**
@@ -15286,7 +16187,8 @@ namespace Collective\Html {
          */ 
         public static function hasMacro($name)
         {
-                        return \Collective\Html\FormBuilder::hasMacro($name);
+            //Method inherited from \Collective\Html\FormBuilder            
+                        return \App\Services\MacroService::hasMacro($name);
         }
         
         /**
@@ -15300,7 +16202,8 @@ namespace Collective\Html {
          */ 
         public static function macroCall($method, $parameters)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->macroCall($method, $parameters);
         }
         
@@ -15315,7 +16218,8 @@ namespace Collective\Html {
          */ 
         public static function component($name, $view, $signature)
         {
-                        \Collective\Html\FormBuilder::component($name, $view, $signature);
+            //Method inherited from \Collective\Html\FormBuilder            
+                        \App\Services\MacroService::component($name, $view, $signature);
         }
         
         /**
@@ -15327,7 +16231,8 @@ namespace Collective\Html {
          */ 
         public static function hasComponent($name)
         {
-                        return \Collective\Html\FormBuilder::hasComponent($name);
+            //Method inherited from \Collective\Html\FormBuilder            
+                        return \App\Services\MacroService::hasComponent($name);
         }
         
         /**
@@ -15341,7 +16246,8 @@ namespace Collective\Html {
          */ 
         public static function componentCall($method, $parameters)
         {
-                        /** @var \Collective\Html\FormBuilder $instance */
+            //Method inherited from \Collective\Html\FormBuilder            
+                        /** @var \App\Services\MacroService $instance */
                         return $instance->componentCall($method, $parameters);
         }
          
@@ -18585,6 +19491,10 @@ namespace  {
     class Validator extends \Illuminate\Support\Facades\Validator {}
 
     class View extends \Illuminate\Support\Facades\View {}
+
+    class Debugbar extends \Barryvdh\Debugbar\Facade {}
+
+    class Breadcrumbs extends \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs {}
 
     class Form extends \Collective\Html\FormFacade {}
 

@@ -10651,9 +10651,6 @@ a.text-dark:focus {
 body {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
 }
 
 h1,
@@ -10674,8 +10671,24 @@ h6 {
     Common styles
  */
 
+body {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 p:last-of-type {
   margin-bottom: 0;
+}
+
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
 }
 
 .page-section {

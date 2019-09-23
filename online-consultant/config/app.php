@@ -67,7 +67,7 @@ return [
     |
     */
 
-    'timezone' => 'Europe/Moscow',
+    'timezone' => 'UTC',
 
     /*
     |--------------------------------------------------------------------------
@@ -161,6 +161,7 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
+        App\Providers\MacroServiceProvider::class,
 
         /*
          * Package Service Providers...

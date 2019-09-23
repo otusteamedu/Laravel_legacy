@@ -42,36 +42,87 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Company withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Company withoutTrashed()
  * @mixin \Eloquent
+ * @property-read mixed|string $name_link
  */
 class Company extends Model
 {
     use SoftDeletes;
-
+    
     protected $fillable = [
         'name', 'email', 'url', 'address'
     ];
-
+    
     protected $casts = [
         'address' => 'array'
     ];
-
+    
+    /**
+     * List of address fields
+     *
+     * @return array
+     */
+    public static function addressFields(): array
+    {
+        return [
+            'country'         => __('Country'),
+            'city'            => __('City'),
+            'postcode'        => __('Post code'),
+            'street'          => __('Street'),
+            'building_number' => __('Building number')
+        ];
+    }
+    
+    /**
+     * Get the users belonging to this company
+     *
+     * @return HasMany
+     */
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
     }
-
+    
+    /**
+     * Get the widgets belonging to this company
+     *
+     * @return HasMany
+     */
     public function widgets(): HasMany
     {
         return $this->hasMany(Widget::class);
     }
-
+    
+    /**
+     * Get the leads belonging to this company
+     *
+     * @return HasMany
+     */
     public function leads(): HasMany
     {
         return $this->hasMany(Lead::class);
     }
-
+    
+    /**
+     * Get the conversations belonging to this company
+     *
+     * @return HasMany
+     */
     public function conversations(): HasMany
     {
         return $this->hasMany(Conversation::class);
+    }
+    
+    /**
+     * Get name link
+     *
+     * @return mixed|string
+     */
+    public function getNameLinkAttribute()
+    {
+        if ($this->trashed()) {
+            return $this->name;
+        }
+        
+        return link_to_route('admin.companies.edit', $this->name, [$this->id]);
     }
 }

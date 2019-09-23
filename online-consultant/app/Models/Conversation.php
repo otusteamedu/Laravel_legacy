@@ -42,36 +42,223 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Conversation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Conversation withoutTrashed()
  * @mixin \Eloquent
+ * @property-read mixed $company_name
+ * @property-read mixed $company_name_link
+ * @property-read mixed $id_link
+ * @property-read mixed $lead_name
+ * @property-read mixed $lead_name_link
+ * @property-read mixed $manager_name
+ * @property-read mixed $manager_name_link
+ * @property-read mixed $widget_domain
+ * @property-read mixed $widget_domain_link
  */
 class Conversation extends Model
 {
     use SoftDeletes;
-
+    
     protected $fillable = [
         'company_id', 'widget_id', 'manager_id', 'lead_id', 'text', 'info'
     ];
-
+    
     protected $casts = [
         'info' => 'array'
     ];
-
+    
+    /**
+     * Get the company this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withTrashed();
     }
-
+    
+    /**
+     * Get the widget this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function widget(): BelongsTo
     {
-        return $this->belongsTo(Widget::class);
+        return $this->belongsTo(Widget::class)->withTrashed();
     }
-
+    
+    /**
+     * Get the manager this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function manager(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withTrashed();
     }
-
+    
+    /**
+     * Get the lead this conversation belongs to
+     *
+     * @return BelongsTo
+     */
     public function lead(): BelongsTo
     {
-        return $this->belongsTo(Lead::class);
+        return $this->belongsTo(Lead::class)->withTrashed();
+    }
+    
+    /**
+     * Get id link
+     *
+     * @return int|string
+     */
+    public function getIdLinkAttribute()
+    {
+        if ($this->trashed()) {
+            return $this->id;
+        }
+        
+        return link_to_route('admin.conversations.edit', $this->id, ['conversation' => $this]);
+    }
+    
+    /**
+     * Get company's name
+     *
+     * @return bool|string
+     */
+    public function getCompanyNameAttribute()
+    {
+        $company = $this->company;
+        
+        if (!$company) {
+            return false;
+        }
+        
+        return $company->name;
+    }
+    
+    /**
+     * Get company's name link
+     *
+     * @return mixed|string
+     */
+    public function getCompanyNameLinkAttribute()
+    {
+        $companyName = $this->company_name;
+        
+        if (!$companyName) {
+            return '--';
+        }
+        
+        if ($this->company->trashed()) {
+            return $companyName;
+        }
+        
+        return link_to_route('admin.companies.edit', $companyName, ['company' => $this->company]);
+    }
+    
+    /**
+     * Get widget's domain
+     *
+     * @return bool|string
+     */
+    public function getWidgetDomainAttribute()
+    {
+        $widget = $this->widget;
+        
+        if (!$widget) {
+            return false;
+        }
+        
+        return $widget->domain;
+    }
+    
+    /**
+     * Get widget's domain link
+     *
+     * @return mixed|string
+     */
+    public function getWidgetDomainLinkAttribute()
+    {
+        $widgetDomain = $this->widget_domain;
+        
+        if (!$widgetDomain) {
+            return '--';
+        }
+        
+        if ($this->widget->trashed()) {
+            return $widgetDomain;
+        }
+        
+        return link_to_route('admin.widgets.edit', $widgetDomain, ['widget' => $this->widget]);
+    }
+    
+    /**
+     * Get manager's name
+     *
+     * @return bool|mixed
+     */
+    public function getManagerNameAttribute()
+    {
+        $manager = $this->manager;
+        
+        if (!$manager) {
+            return false;
+        }
+        
+        return $manager->name;
+    }
+    
+    /**
+     * Get manager's name link
+     *
+     * @return mixed|string
+     */
+    public function getManagerNameLinkAttribute()
+    {
+        $managerName = $this->manager_name;
+        
+        if (!$managerName) {
+            return '--';
+        }
+        
+        if ($this->manager->trashed()) {
+            return $managerName;
+        }
+        
+        return link_to_route('admin.users.edit', $managerName, ['user' => $this->manager]);
+    }
+    
+    /**
+     * Get lead's name
+     *
+     * @return bool|string
+     */
+    public function getLeadNameAttribute()
+    {
+        $lead = $this->lead;
+        
+        if (!$lead) {
+            return false;
+        }
+        
+        return $lead->name;
+    }
+    
+    /**
+     * Get lead's name link
+     *
+     * @return mixed|string
+     */
+    public function getLeadNameLinkAttribute()
+    {
+        $leadName = $this->lead_name;
+        
+        if (!$leadName) {
+            return '--';
+        }
+        
+        if ($this->lead->trashed()) {
+            return $leadName;
+        }
+        
+        return link_to_route('admin.leads.edit', $leadName, ['lead' => $this->lead]);
     }
 }

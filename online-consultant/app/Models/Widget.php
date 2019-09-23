@@ -31,17 +31,75 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Widget withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Widget withoutTrashed()
  * @mixin \Eloquent
+ * @property-read bool|string $company_name
+ * @property-read mixed|string $company_name_link
+ * @property-read mixed|string $domain_link
  */
 class Widget extends Model
 {
     use SoftDeletes;
-
+    
     protected $fillable = [
         'company_id', 'domain'
     ];
-
+    
+    /**
+     * Get the company this widget belongs to
+     *
+     * @return BelongsTo
+     */
     public function company(): BelongsTo
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withTrashed();
+    }
+    
+    /**
+     * Get domain link
+     *
+     * @return mixed|string
+     */
+    public function getDomainLinkAttribute()
+    {
+        if ($this->trashed()) {
+            return $this->domain;
+        }
+        
+        return link_to_route('admin.widgets.edit', $this->domain, [$this->id]);
+    }
+    
+    /**
+     * Get company's name
+     *
+     * @return bool|string
+     */
+    public function getCompanyNameAttribute()
+    {
+        $company = $this->company;
+        
+        if (!$company) {
+            return false;
+        }
+        
+        return $company->name;
+    }
+    
+    /**
+     * Get company's name link
+     *
+     * @return mixed|string
+     */
+    public function getCompanyNameLinkAttribute()
+    {
+        $companyName = $this->company_name;
+        
+        if (!$companyName) {
+            return '--';
+        }
+        
+        if ($this->company->trashed()) {
+            return $companyName;
+        }
+        
+        return link_to_route('admin.companies.edit', $companyName, ['company' => $this->company]);
     }
 }

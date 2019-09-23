@@ -2,10 +2,20 @@
     Common styles
  */
 
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 p {
     &:last-of-type {
         margin-bottom: 0;
     }
+}
+
+a {
+    @include transition();
 }
 
 .page-section {

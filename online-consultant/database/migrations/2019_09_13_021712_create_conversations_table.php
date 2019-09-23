@@ -16,8 +16,8 @@ class CreateConversationsTable extends Migration
         Schema::create('conversations', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('company_id');
-            $table->unsignedBigInteger('widget_id');
-            $table->unsignedBigInteger('manager_id');
+            $table->unsignedBigInteger('widget_id')->nullable();
+            $table->unsignedBigInteger('manager_id')->nullable();
             $table->unsignedBigInteger('lead_id');
             $table->longText('text');
             $table->json('info')->nullable();
@@ -29,7 +29,7 @@ class CreateConversationsTable extends Migration
             $table->foreign('widget_id')
                 ->references('id')
                 ->on('widgets')
-                ->onDelete('cascade');
+                ->onDelete('set null');
             $table->foreign('lead_id')
                 ->references('id')
                 ->on('leads')
@@ -37,7 +37,7 @@ class CreateConversationsTable extends Migration
             $table->foreign('manager_id')
                 ->references('id')
                 ->on('users')
-                ->onDelete('cascade');
+                ->onDelete('set null');
             $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')

@@ -31,6 +31,11 @@ class Role extends Model
         'name', 'display_name'
     ];
 
+    /**
+     * Get the users this role belongs to
+     *
+     * @return BelongsToMany
+     */
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'role_user');
