@@ -25,6 +25,8 @@ class CreatePodcastsTable extends Migration
             $table->text('shownotes_footer');
             $table->string('episode_name_template');
 
+            $table->string('cover_file', 100)->nullable()->default(null);
+
             $table->timestamps();
         });
     }

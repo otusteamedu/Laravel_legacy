@@ -2,37 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Podcast;
 use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
-    // temporary static data
-    private const DATA = [
-        [
-            'id' => 1,
-            'name' => 'Радио-Laravel',
-            'description' => "Подкаст о Laravel!\nВыходит ежемесячно.",
-            'last_episode' => [
-                'no' => 34,
-                'name' => 'Обзор Laravel Vaport',
-            ],
-        ],
-        [
-            'id' => 2,
-            'name' => 'Радио-Symfony',
-            'description' => "Подкаст о Symfony!\nВыходит еженедельно.",
-            'last_episode' => [
-                'no' => 112,
-                'name' => 'Новинки Symfony 3.4',
-            ],
-        ],
-        [
-            'id' => 3,
-            'name' => 'Радио-DevOps',
-            'description' => "Всё из мира DevOps!\nДобро пожаловать.",
-        ],
-    ];
-
     /**
      * Show the application dashboard.
      *
@@ -40,40 +14,54 @@ class PodcastController extends Controller
      */
     public function index()
     {
-        return view('podcasts.index', ['podcasts' => self::DATA]);
+        $podcasts = Podcast::with('latestEpisode')
+            ->orderBy('name')
+            ->paginate(20);
+
+        return view('podcasts.index', compact('podcasts'));
     }
 
     public function create()
     {
-        return view('podcasts.create');
+        $podcast = new Podcast();
+        return view('podcasts.create', compact('podcast'));
     }
 
     public function show(int $id)
     {
+        // страницы для просмотра как таковой нет - сразу переходим в режим редакитрования
         return redirect(route('podcasts.edit', $id));
     }
 
-    public function store()
+    public function store(Request $request)
     {
-        // TODO
+        $podcast = Podcast::create($request->all());
+
+        return redirect(route('podcasts.edit', $podcast));
     }
 
-    public function edit(int $id)
+    public function edit(Podcast $podcast)
     {
-        $foundIndex = array_search($id, array_column(self::DATA, 'id'), false);
-        if ($foundIndex === false) {
-            abort(404);
+        return view('podcasts.edit', compact('podcast'));
+    }
+
+    public function update(Request $request, Podcast $podcast)
+    {
+        $podcast->update($request->all());
+
+        $coverFile = $request->file('cover');
+        if ($coverFile) {
+            $filepath = $coverFile->store('public/podcasts');
+            $podcast->update(['cover_file' => $filepath]);
         }
-        return view('podcasts.edit', ['podcast' => self::DATA[$foundIndex]]);
+
+        return redirect(route('podcasts.edit', compact('podcast')));
     }
 
-    public function update()
+    public function destroy(Podcast $podcast)
     {
-        // TODO
-    }
+        $podcast->delete();
 
-    public function destroy()
-    {
-        // TODO
+        return redirect(route('podcasts.index'));
     }
 }

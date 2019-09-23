@@ -3,3 +3,14 @@
     border-color: #ff3860;
     color: #fff;
 }
+
+.sticky-footer {
+    background-color: #f5f5f5;
+    padding: 15px 20px 15px 135px;
+    width: 100%;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+

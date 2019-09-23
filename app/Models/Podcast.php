@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $website
  * @property string $shownotes_footer
  * @property string $episode_name_template
+ * @property string|null $cover_file
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereAuthor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCopyright($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereDescription($value)
@@ -33,6 +34,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereShownotesFooter($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereWebsite($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCoverFile($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[] $episodes
+ * @property-read int|null $episodes_count
+ * @property-read \App\Models\Episode $latestEpisode
  */
 class Podcast extends Model
 {
@@ -41,10 +46,32 @@ class Podcast extends Model
         'description',
         'author',
         'copyright',
-        'category',
         'keywords',
         'website',
         'shownotes_footer',
         'episode_name_template',
+        'cover_file',
     ];
+
+    public function episodes()
+    {
+        return $this->hasMany(Episode::class);
+    }
+
+    /**
+     * https://softonsofa.com/tweaking-eloquent-relations-how-to-get-latest-related-model/
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function latestEpisode()
+    {
+        return $this->hasOne(Episode::class)->latest('no');
+    }
+
+    public function coverUrl(): ?string
+    {
+        if (!$this->cover_file || !\Storage::exists($this->cover_file)) {
+            return null;
+        }
+        return \Storage::url($this->cover_file);
+    }
 }

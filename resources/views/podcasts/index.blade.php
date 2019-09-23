@@ -1,8 +1,25 @@
+<?php
+use App\Models\Podcast;
+/** @var Podcast $podcast */
+?>
 @extends('layouts.app')
 
 @section('content')
     <div class="content">
-        <h1 class="title">@lang('Подкасты')</h1>
+        <nav class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <h1 class="title">@lang('podcast.list_h1')</h1>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <a class="button is-primary is-outlined"
+                       href="{{ route('podcasts.create') }}"><i class="fa fa-plus"></i>&nbsp;@lang('podcast.create')</a>
+                </div>
+            </div>
+        </nav>
+        <h1 class="title"></h1>
 
         <table class="table">
             <thead>
@@ -16,18 +33,17 @@
             @forelse($podcasts as $podcast)
                 <tr>
                     <td>
-                        <a href="{{ route('podcasts.edit', $podcast['id']) }}">
-                        <img src="https://via.placeholder.com/128x128.png?text={{ rawurlencode($podcast['name']) }}"
-                             class="image is-128x128"/>
+                        <a href="{{ route('podcasts.edit', $podcast) }}">
+                            @include('components.cover', ['url' => $podcast->coverUrl(), 'size' => 150])
                         </a>
                     </td>
                     <td>
-                        <a href="{{ route('podcasts.edit', $podcast['id']) }}">{{ $podcast['name'] }}</a>
+                        <a href="{{ route('podcasts.edit', $podcast) }}">{{ $podcast->name }}</a>
                     </td>
                     <td>
-                        @if(!empty($podcast['last_episode']))
-                            № {{ $podcast['last_episode']['no'] }}
-                            {{ $podcast['last_episode']['name'] }}
+                        @if(!empty($podcast->latestEpisode))
+                            № {{ $podcast->latestEpisode->no }}
+                            {{ $podcast->latestEpisode->name }}
                         @else
                             <span class="has-text-grey-light">Нет эпизодов</span>
                         @endif
@@ -43,5 +59,7 @@
             </tbody>
         </table>
     </div>
+    {{ $podcasts->links() }}
+
 
 @endsection
