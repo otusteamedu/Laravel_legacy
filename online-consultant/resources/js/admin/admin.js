@@ -4,13 +4,13 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+// require('./bootstrap');
 
 //const fonts = ['Lora:400,700', 'Roboto:400,700'];
 //const web_fonts_loader = require('../modules/webfonts')(fonts);
 //web_fonts_loader.load();
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -23,7 +23,7 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('card-simple', require('./components/CardSimple.vue').default);
+// Vue.component('card-simple', require('./components/CardSimple.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -31,6 +31,6 @@ Vue.component('card-simple', require('./components/CardSimple.vue').default);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-const app = new Vue({
-    el: '#app',
-});
+// const app = new Vue({
+//     el: '#app',
+// });

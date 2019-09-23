@@ -8,10 +8,12 @@
 
 @section('content')
     <section class="page-section">
-        <div id="app">
-            <card-simple title="{{ __('admin.pages.dashboard') }}">
-                <p>{{ __('Content') }}</p>
-            </card-simple>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    {{ __('admin.pages.dashboard') }}
+                </div>
+            </div>
         </div>
     </section>
 @endsection

@@ -10681,6 +10681,16 @@ p:last-of-type {
   margin-bottom: 0;
 }
 
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
+}
+
 .page-section {
   padding: 50px 0;
 }
@@ -10711,6 +10721,56 @@ p:last-of-type {
 /**
     App | Common styles
  */
+
+.table-model-index th,
+.table-model-index td {
+  vertical-align: middle;
+}
+
+.table-model-index .column-date-created {
+  width: 160px;
+}
+
+.table-model-index .column-single-controls {
+  width: 180px;
+}
+
+.page-section .row:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.form-model .form-row:not(:last-child) {
+  margin-bottom: 20px;
+}
+
+.row-section-header {
+  margin-bottom: 20px;
+}
+
+.row-section-header h1 {
+  margin-bottom: 0;
+}
+
+.admin-dashboard-nav {
+  padding: 20px 0;
+  background-color: #dedede;
+}
+
+.admin-dashboard-nav .nav li:not(:last-child) {
+  margin-right: 20px;
+}
+
+.admin-dashboard-nav .nav-link {
+  background-color: #fff;
+  border: 1px solid currentColor;
+  border-radius: 0.2rem;
+}
+
+.admin-dashboard-nav .nav-link:hover {
+  background-color: #3490dc;
+  border-color: #3490dc;
+  color: #fff;
+}
 
 .app-breadcrumbs {
   background-color: #e9ecef;

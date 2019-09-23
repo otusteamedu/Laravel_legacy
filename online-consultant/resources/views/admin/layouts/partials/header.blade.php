@@ -9,10 +9,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.user.profile') }}">{{ __('admin.pages.user_profile') }}</a>
-                </li>
-
                 @auth
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -46,3 +42,29 @@
         </div>
     </div>
 </div>
+
+<nav class="admin-dashboard-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <ul class="nav">
+                    <li>
+                        {{ link_to_route('admin.companies.index', __('admin.companies.pages.index.title'), null, ['class' => 'nav-link']) }}
+                    </li>
+                    <li>
+                        {{ link_to_route('admin.leads.index', __('admin.leads.pages.index.title'), null, ['class' => 'nav-link']) }}
+                    </li>
+                    <li>
+                        {{ link_to_route('admin.widgets.index', __('admin.widgets.pages.index.title'), null, ['class' => 'nav-link']) }}
+                    </li>
+                    <li>
+                        {{ link_to_route('admin.users.index', __('admin.users.pages.index.title'), null, ['class' => 'nav-link']) }}
+                    </li>
+                    <li>
+                        {{ link_to_route('admin.conversations.index', __('admin.conversations.pages.index.title'), null, ['class' => 'nav-link']) }}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

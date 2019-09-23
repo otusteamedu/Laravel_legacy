@@ -10681,6 +10681,16 @@ p:last-of-type {
   margin-bottom: 0;
 }
 
+a {
+  transition: all 0.2s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  a {
+    transition: none;
+  }
+}
+
 .page-section {
   padding: 50px 0;
 }

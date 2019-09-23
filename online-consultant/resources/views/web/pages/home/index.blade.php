@@ -16,7 +16,7 @@
                     <div class="frontpage-form">
                         <h2 class="frontpage-form__subheading">Vestibulum pharetra</h2>
 
-                        @component('components.forms.register')@endcomponent
+                        @component('common.forms.register')@endcomponent
                     </div>
                 </div>
             </div>

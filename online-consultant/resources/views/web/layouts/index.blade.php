@@ -14,13 +14,13 @@
         @yield('javascript-head')
     </head>
     <body>
-        @include('web.layouts.header')
+        @include('web.layouts.partials.header')
 
         <div class="page-content">
             @yield('content')
         </div>
 
-        @include('web.layouts.footer')
+        @include('web.layouts.partials.footer')
 
         @yield('javascript-body')
         <script src="{{ mix('/js/web/web.js') }}"></script>

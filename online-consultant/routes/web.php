@@ -17,18 +17,18 @@ Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
 
 Route::name('web.')->group(function () {
     Route::get('/', function () {
-        return view('web.static.home.index');
+        return view('web.pages.home.index');
     })->name('home');
     
     Route::get('/contact', function () {
-        return view('web.static.contact.index');
+        return view('web.pages.contact.index');
     })->name('contact');
 });
 
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', function () {
-            return view('admin.dashboard.index');
+            return view('admin.pages.dashboard.index');
         })->name('dashboard');
         
         Route::name('companies.')->group(function () {

@@ -9,7 +9,7 @@
                         <div class="card-header">{{ __('Register') }}</div>
 
                         <div class="card-body">
-                            @component('components.forms.register')@endcomponent
+                            @component('common.forms.register')@endcomponent
                         </div>
                     </div>
                 </div>

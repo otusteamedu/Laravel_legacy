@@ -15,13 +15,13 @@
         @yield('javascript-head')
     </head>
     <body>
-        @include('admin.layouts.header')
+        @include('admin.layouts.partials.header')
 
         <div class="page-content">
             @yield('content')
         </div>
 
-        @include('admin.layouts.footer')
+        @include('admin.layouts.partials.footer')
 
         @yield('javascript-body')
         <script src="{{ mix('/js/admin/admin.js') }}"></script>
