@@ -23,7 +23,7 @@ class CountryPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin();
+        return $user->isModerator();
     }
 
     /**
@@ -96,4 +96,5 @@ class CountryPolicy
     {
         //
     }
+
 }

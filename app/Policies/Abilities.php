@@ -19,4 +19,6 @@ class Abilities
     const RESTORE = 'restore';
     const FORCE_DELETE = 'forceDelete';
 
+    const BATCH_CREATE = 'batch-create';
+
 }

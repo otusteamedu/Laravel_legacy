@@ -21,7 +21,9 @@
 //});
 
 Route::name('cms.')->group(function () {
-    Route::prefix('cms')->middleware('auth.basic')->group(function () {
+    Route::prefix('cms')->middleware([
+        'auth',
+    ])->group(function () {
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',
             'cities' => 'Cms\Cities\CitiesController',
@@ -29,5 +31,5 @@ Route::name('cms.')->group(function () {
     });
 });
 Route::view('/home', 'home')->name('home');
-Route::view('/', 'welcome');
+Route::view('/', 'home');
 Route::auth();

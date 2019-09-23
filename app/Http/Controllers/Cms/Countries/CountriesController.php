@@ -33,16 +33,9 @@ class CountriesController extends Controller
      */
     public function index(Request $request)
     {
-//        if (Gate::allows('countries.view')) {
-//            Log::info('Allows');
-//        } else {
-//            Log::info('Not allowed');
-//        }
-//        Gate::authorize('countries.view');
+        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Country::class);
 
-        if (!$this->getCurrentUser()->can(Abilities::VIEW_ANY, Country::class)) {
-            abort(403);
-        }
+        $this->authorize(Abilities::VIEW_ANY, Country::class);
 
         return view('countries.index', [
             'countries' => $this->countriesService->searchCountries(),
@@ -89,6 +82,8 @@ class CountriesController extends Controller
      */
     public function edit(Country $country)
     {
+        $this->authorize(Abilities::UPDATE, $country);
+
         return view('countries.edit', [
             'country' => $country,
         ]);
