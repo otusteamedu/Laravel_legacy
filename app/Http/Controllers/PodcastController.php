@@ -44,7 +44,8 @@ class PodcastController extends Controller
         // Загрузим файл обложки
         $this->handleCoverUpload($request, $podcast);
 
-        return redirect(route('podcasts.edit', $podcast));
+        return redirect(route('podcasts.edit', $podcast))
+            ->with('success', trans('podcast.save_success'));
     }
 
     public function edit(Podcast $podcast)
@@ -63,7 +64,8 @@ class PodcastController extends Controller
         // Загрузим файл обложки
         $this->handleCoverUpload($request, $podcast);
 
-        return redirect(route('podcasts.edit', compact('podcast')));
+        return redirect(route('podcasts.edit', compact('podcast')))
+            ->with('success', trans('podcast.save_success'));
     }
 
     public function destroy(Podcast $podcast)

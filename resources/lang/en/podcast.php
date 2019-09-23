@@ -38,6 +38,7 @@ return [
         'title' => 'Will be listed in iTunes and other podcast players as the "Podcast Website."',
     ],
     'save' => 'Save Podcast',
+    'save_success' => 'Podcast has been saved',
     'delete' => 'Delete Podcast',
     'delete_confirmation' => 'Are you sure to delete podcast :name?',
 ];

@@ -63,6 +63,17 @@
 </nav>
 
 <section class="section">
+
+    @if (session('success'))
+        <div class="content">
+        <div class="alert alert-success">
+            <div class="notification is-success">
+                {{ session('success') }}
+            </div>
+        </div>
+        </div>
+    @endif
+
     @yield('content')
 </section>
 </body>
