@@ -3,6 +3,7 @@
 
         {{ Form::bulmaText('name', 'podcast.name', ['required']) }}
         {{ Form::bulmaTextarea('description', 'podcast.description') }}
+        {{ Form::bulmaSelect('category_itunes_id', 'podcast.category_itunes_id', $categoriesItunesList) }}
         {{ Form::bulmaText('author', 'podcast.author') }}
         {{ Form::bulmaText('copyright', 'podcast.copyright') }}
         {{ Form::bulmaText('keywords', 'podcast.keywords') }}

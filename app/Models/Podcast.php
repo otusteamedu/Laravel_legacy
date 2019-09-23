@@ -38,6 +38,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[] $episodes
  * @property-read int|null $episodes_count
  * @property-read \App\Models\Episode $latestEpisode
+ * @property int|null $category_itunes_id
+ * @property-read \App\Models\CategoryItunes|null $categoryItunes
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCategoryItunesId($value)
  */
 class Podcast extends Model
 {
@@ -51,7 +54,17 @@ class Podcast extends Model
         'shownotes_footer',
         'episode_name_template',
         'cover_file',
+        'category_itunes_id',
     ];
+
+    protected $casts = [
+        'category_itunes_id' => 'integer',
+    ];
+
+    public function categoryItunes()
+    {
+        return $this->belongsTo(CategoryItunes::class);
+    }
 
     public function episodes()
     {

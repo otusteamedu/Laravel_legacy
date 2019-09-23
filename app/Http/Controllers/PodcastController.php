@@ -24,7 +24,8 @@ class PodcastController extends Controller
     public function create()
     {
         $podcast = new Podcast();
-        return view('podcasts.create', compact('podcast'));
+        $categoriesItunesList = $this->getCategoriesItunesList();
+        return view('podcasts.create', compact('podcast', 'categoriesItunesList'));
     }
 
     public function show(int $id)
@@ -35,25 +36,32 @@ class PodcastController extends Controller
 
     public function store(Request $request)
     {
-        $podcast = Podcast::create($request->all());
+        $data = $request->all();
+        // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
+        $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
+        $podcast = Podcast::create($data);
+
+        // Загрузим файл обложки
+        $this->handleCoverUpload($request, $podcast);
 
         return redirect(route('podcasts.edit', $podcast));
     }
 
     public function edit(Podcast $podcast)
     {
-        return view('podcasts.edit', compact('podcast'));
+        $categoriesItunesList = $this->getCategoriesItunesList();
+        return view('podcasts.edit', compact('podcast', 'categoriesItunesList'));
     }
 
     public function update(Request $request, Podcast $podcast)
     {
-        $podcast->update($request->all());
+        $data = $request->all();
+        // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
+        $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
+        $podcast->update($data);
 
-        $coverFile = $request->file('cover');
-        if ($coverFile) {
-            $filepath = $coverFile->store('public/podcasts');
-            $podcast->update(['cover_file' => $filepath]);
-        }
+        // Загрузим файл обложки
+        $this->handleCoverUpload($request, $podcast);
 
         return redirect(route('podcasts.edit', compact('podcast')));
     }
@@ -63,5 +71,20 @@ class PodcastController extends Controller
         $podcast->delete();
 
         return redirect(route('podcasts.index'));
+    }
+
+    private function handleCoverUpload(Request $request, Podcast $podcast)
+    {
+        $coverFile = $request->file('cover');
+        if ($coverFile) {
+            $filepath = $coverFile->store('public/podcasts');
+            $podcast->update(['cover_file' => $filepath]);
+        }
+    }
+
+    private function getCategoriesItunesList()
+    {
+        $categories = \DB::select("SELECT id, name FROM categories_itunes ORDER BY name");
+        return array_combine(array_column($categories, 'id'), array_column($categories, 'name'));
     }
 }

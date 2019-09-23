@@ -11,6 +11,10 @@ return [
     'description' => [
         'label' => 'Description',
     ],
+    'category_itunes_id' => [
+        'label' => 'iTunes Category',
+        'title' => 'Choose the most accurate cateogry for your show, to be indexed by iTunes.'
+    ],
     'author' => [
         'label' => 'Author',
         'title' => 'Name of the podcast\'s creator. Could also be your company name. Will be shown in podcast players, generally under the show title.',
