@@ -1,69 +1,37 @@
-# Д3 №5. Работа с FrontEnd
+# Д3 №6. Хранилище данных
 
-При проработке ДЗ целью было изучение:
+При проработке ДЗ изучались:
 
-1. Возможностей пакетного менеджера для фронтэнта, 
-2. Сборка фронтэндовских файлов
-3. Директив Blade
-4. Использования языковых файлов
+1. Создание таблиц базы данных через миграции
+2. Создание классов моделей и классов связей для отношений ManyToMany
+3. Заполнение таблиц данными
+4. Накатывание миграции средствами помощника artisan
 
-Для этого были сделаны несколько страниц публичной части 
-[проекта](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw4/readme.md). 
-Эти страницы в ходе развития проекта будут изменяться. 
-Также будут изменяться подходы, испольуемые для вывода данных.
-Разрабатываемый проект будет доступен по:
+По задаче, сформулированной в 
+[ДЗ4](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw4/readme.md) 
+частично создана следующая структура проекта. Таблицы:
 
-* Адрес: [http://188.120.243.205/](http://188.120.243.205/)
-* Логин: lar
-* Пароль: p1
+1. [Пользователи](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2014_10_12_000000_create_users_table.php) + 
+[доп. поля](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_140549_add_photos_surname_birth_to_users_table.php)
+2. [Роли](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_111445_create_roles_table.php)
+3. [Жанры](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_18_205819_create_genres_table.php)
+4. [Страны](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_18_210727_create_countries_table.php)
+5. [Люди](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_18_212024_create_people_table.php)
+6. [Фильмы](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_19_134722_create_movies_table.php)
+7. [Кинотеатры](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_114853_create_cinemas_table.php)
+8. [Залы](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_114910_create_halls_table.php)
+9. [Места](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_114921_create_places_table.php)
+10. [Тарифы (типы мест)](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_114920_create_tariffs_table.php)
+11. [Прокаты фильмов](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_143313_create_movie_rentals_table.php)
+12. [Сеансы проката фильмы](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_143416_create_movie_showings_table.php)
+13. [Цена на фильм в зависимости от тарифа](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_20_143431_create_showing_prices_table.php)
+14. [Файлы](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw6/database/migrations/2019_09_18_203050_create_files_table.php)
 
-### Сделанные страницы
+Модели создавались вместе с таблицами и находятся тут [/app/Models](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw6/app/Models). 
+Их оформление будет идти по мере проработки проекта.
 
-* [Главная](http://188.120.243.205/). 
-* [О сети](http://188.120.243.205/about). 
-* [Регистрация](http://188.120.243.205/account/register).
-* [Кинотеатры сети](http://188.120.243.205/cinemas).
-* [Фильмы в кинотеатре в прокате](http://188.120.243.205/cinemas/1).
-* [Фильмы в прокате](http://188.120.243.205/movies)
-* [Карточка фильма](http://188.120.243.205/movies/view/392)
-* [Прокат фильма в кинотеатрах](http://188.120.243.205/movies/order/392)
+Модели будут меняться и добавляться.
 
-### Комментарии по работе
+Для первых двух простых моделей были созданы [фабрики](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw6/database/factories) и 
+[сиды](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw6/database/seeds).
 
-* На данный момент все роуты прописываются без группировки и разделения на контроллеры в [/routes/web.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw5/routes/web.php). Когда я доделаю декомпозицию проекта на страницы и формы в публичной и административной панели, будет понятно какие контроллеры будут необходимы, а оттуда уже будет ясно какие адреса будут использоваться и под них можно будет причесать роуты. Хранение всех роутов в одном отдельном файле меня пока устраивает, менять ничего не буду. Честно говоря, перед разговором про фронтэнд не хватало занятия по хорошим практикам декомпомозиции проекта, раз мы реализуем свой проект, а не по выданному ТЗ. Хотя, это наверное материал отдельного курса. Также, после выписывания всех используемых в проекте страниц будут понятны требования к слою данных.  
-* У меня есть два главных лейаута - для админки и для [публичной части](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw5/resources/views/public/layouts/public.blade.php). Далее в каждом разделе, который в шаблонах я выношу в отдельную папку есть свой лейаут, расширяющий базовый, например, [/resources/views/public/cinemas/layout.blade.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw5/resources/views/public/cinemas/layout.blade.php). В основном тут будет разбивка на колонки, верхние/нижные дополнительные блоки. 
-* Общие элементы шаблона: [/resources/views/public/elements](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw5/resources/views/public/elements). Под каждый раздел элементы можно размещать отдельно [/resources/views/public/start/elements](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw5/resources/views/public/start/elements)
-* Переводы начал размещать пока в одном файле [/resources/lang/ru/public.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw5/resources/lang/ru/public.php).
-* Ссылки на страницы генерирую на основе имен роутов с передачей в функцию route дополнительных параметров - пока только ID.
-* Формы я буду подключать через Helper'ы Laravel или каких-то подключаемых расширений в ДЗ с админпанелью.
-
-### Вопросы
-
-Пока есть два вопроса к преподавателю, по используемым практикам.
-
-1. Очень напрягает отсутствие возможности подключения внутри шаблона полностью изолированных блоков на подобии тех, что используются в Symfony/Twig, где этот блок можно выводить не как подключаемый файл шаблона, а с прокладкой в виде метода контроллера, в котором я могу выбрать все необходимые данные. 
-
-    Например, есть блок меню, он мне нужен везде и его формирование может сильно отличаться от вывода статического меню. Пример:
-    * Я могу опрашивать контроллеры на предмет наличия у них собственного подменю (аналогично модулям битрикс)
-    * Я могу хранить меню со ссылками на методы контроллера с необходимыми параметрами (как это делается в Joomla).
-
-    Т.е. за формирование навигации будет отвечать какая-то подсистема (сервис). 
-
-    На данный момент, чтобы ее подключить, мне надо либо в каждом контроллере вызывать что-то типа 
-    ```php 
-    [
-
-        ....
-
-        'menu' => $navService->getMenu(),
-
-        ...
-    ]
-    ```
-    что неприемлемо, либо как говорилось на вебинаре использовать для этого мидлвары, что выглядит более удобно, особенно если можно подключать их не отдельно на каждый роут а на все роуты или группы и подгруппы.
-
-    Прошу каких-то комментариев по этой проблеме.
-
-2. Как обычно подключаются готовые скрипты к проекту. Я этим пока не занимался плотно (кроме, подключенных Poper и jQuery). Например, задача, мне надо подключить компоненты "ввод маске" или компонент "выбор даты". Какие мои действия? Как всегда ищу скрипты и закидываю и в папку js, подключаю в app.js и собираю проект. Или можно как-то искать решение в едином репозитории, типа Пакажист и подключаю оттуда. 
-
-    Как работать правильно?
