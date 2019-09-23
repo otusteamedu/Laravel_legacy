@@ -19,7 +19,6 @@ class CreatePodcastsTable extends Migration
             $table->text('description');
             $table->string('author', 500);
             $table->string('copyright', 500);
-            $table->string('category', 100);
             $table->string('keywords', 2000);
             $table->string('website', 100);
 

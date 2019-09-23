@@ -21,13 +21,11 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $description
  * @property string $author
  * @property string $copyright
- * @property string $category
  * @property string $keywords
  * @property string $website
  * @property string $shownotes_footer
  * @property string $episode_name_template
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereAuthor($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCategory($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCopyright($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereEpisodeNameTemplate($value)
