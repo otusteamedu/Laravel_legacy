@@ -8,13 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 
 
 /**
- * App\Models\Region
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Region newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Region newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Region query()
- * @mixin \Eloquent
+ * Class Region
+ * @package App\Models
  */
+
 class Region extends Model
 {
     //

@@ -9,8 +9,10 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "rakit/validation": "*",
-        "predis/predis": "^1.1"
+        "laravel/ui": "^1.0",
+        "laravelcollective/html": "^6.0",
+        "predis/predis": "^1.1",
+        "rakit/validation": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

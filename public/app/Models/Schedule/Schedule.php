@@ -34,7 +34,7 @@ class Schedule extends Model
         $post = $request->all();
         $region = Region::find($post['region_id']);
         $this->className = $className;
-        $transport = Bus::find($post['transport_id']);
+        $transport = Truck::find($post['transport_id']);
         $date =  $post['date'] . ' ' . $post['time'];
 
         $route = new Route($region, $transport, $date);

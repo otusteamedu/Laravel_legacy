@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\Region;
 
 class ClientsTableSeeder extends Seeder
 {
@@ -11,6 +12,8 @@ class ClientsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\App\Models\Clients::class, 20)->create();
+        foreach (Region::all() as $region) {
+            factory(\App\Models\Clients\Client::class, 2)->create(['region_id' => $region->id]);
+        }
     }
 }

@@ -13,7 +13,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\Models\Clients::class, function (Faker $faker) {
+$factory->define(App\Models\Clients\Client::class, function (Faker $faker) {
     return [
         'name' => $faker->company,
         'region_id' => $faker->randomNumber(2)
