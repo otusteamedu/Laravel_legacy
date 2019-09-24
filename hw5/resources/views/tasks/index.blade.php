@@ -3,7 +3,6 @@
 @section('title', __('messages.tasks'))
 
 @section('content')
-
     <div class="container">
         @php
             $breadcrumbs = [
@@ -15,7 +14,6 @@
                     'url' => '/registration',
                     'title' =>  __('messages.tasks'),
                 ],
-
             ];
         @endphp
         @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])

@@ -3,5 +3,4 @@
     <th>{{ $task['title'] }}</th>
     <td>{{
      $task['description'] }}</td>
-
 </tr>

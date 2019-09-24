@@ -13,7 +13,7 @@ class CreateUserRolesTables extends Migration
      */
     public function up()
     {
-        Schema::create('user_roles', function (Blueprint $table) {
+        Schema::create('user_role', function (Blueprint $table) {
             $table->increments('id');
             $table->timestamps();
 
@@ -28,7 +28,7 @@ class CreateUserRolesTables extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('user_role');
 
     }
 }
