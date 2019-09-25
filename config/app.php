@@ -17,6 +17,8 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'default_route' => 'podcasts.index',
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

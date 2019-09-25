@@ -20,7 +20,7 @@
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="{{ url('/') }}">
+        <a class="navbar-item" href="/">
             {{ config('app.name', 'Podcast Publisher') }}
         </a>
     </div>
