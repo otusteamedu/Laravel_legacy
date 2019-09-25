@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
+    private const PODCASTS_PER_PAGE = 20;
+
     /**
      * Show the application dashboard.
      *
@@ -16,7 +18,7 @@ class PodcastController extends Controller
     {
         $podcasts = Podcast::with('latestEpisode')
             ->orderBy('name')
-            ->paginate(20);
+            ->paginate(self::PODCASTS_PER_PAGE);
 
         return view('podcasts.index', compact('podcasts'));
     }
