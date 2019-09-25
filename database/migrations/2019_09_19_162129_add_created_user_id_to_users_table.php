@@ -32,6 +32,7 @@ class AddCreatedUserIdToUsersTable extends Migration
     public function down()
     {
         Schema::table('countries', function (Blueprint $table) {
+            $table->dropForeign('created_user_id');
             $table->dropColumn('created_user_id');
         });
     }

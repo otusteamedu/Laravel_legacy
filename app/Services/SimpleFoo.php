@@ -23,6 +23,7 @@ class SimpleFoo
 
     public function getSeconds()
     {
+        \Log::info('getSeconds');
         return $this->seconds;
     }
 

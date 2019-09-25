@@ -69,9 +69,9 @@ class CountriesController extends Controller
         ]);
         $data = $request->all();
         $data['created_user_id'] = Auth::id();
-        $this->countriesService->storeCountry($data);
+        $country = $this->countriesService->storeCountry($data);
 
-        return redirect(route('cms.countries.index'));
+        return response()->json($country, 201);
     }
 
     /**
