@@ -2,36 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Podcast;
 use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
-    // temporary static data
-    private const DATA = [
-        [
-            'id' => 1,
-            'name' => 'Радио-Laravel',
-            'description' => "Подкаст о Laravel!\nВыходит ежемесячно.",
-            'last_episode' => [
-                'no' => 34,
-                'name' => 'Обзор Laravel Vaport',
-            ],
-        ],
-        [
-            'id' => 2,
-            'name' => 'Радио-Symfony',
-            'description' => "Подкаст о Symfony!\nВыходит еженедельно.",
-            'last_episode' => [
-                'no' => 112,
-                'name' => 'Новинки Symfony 3.4',
-            ],
-        ],
-        [
-            'id' => 3,
-            'name' => 'Радио-DevOps',
-            'description' => "Всё из мира DevOps!\nДобро пожаловать.",
-        ],
-    ];
+    private const PODCASTS_PER_PAGE = 20;
 
     /**
      * Show the application dashboard.
@@ -40,35 +16,79 @@ class PodcastController extends Controller
      */
     public function index()
     {
-        return view('podcasts.index', ['podcasts' => self::DATA]);
+        $podcasts = Podcast::with('latestEpisode')
+            ->orderBy('name')
+            ->paginate(self::PODCASTS_PER_PAGE);
+
+        return view('podcasts.index', compact('podcasts'));
     }
 
     public function create()
     {
-        return view('podcasts.create');
+        $podcast = new Podcast();
+        $categoriesItunesList = $this->getCategoriesItunesList();
+        return view('podcasts.create', compact('podcast', 'categoriesItunesList'));
     }
 
-    public function store()
+    public function show(int $id)
     {
-        // TODO
+        // страницы для просмотра как таковой нет - сразу переходим в режим редакитрования
+        return redirect(route('podcasts.edit', $id));
     }
 
-    public function edit(int $id)
+    public function store(Request $request)
     {
-        $foundIndex = array_search($id, array_column(self::DATA, 'id'), false);
-        if ($foundIndex === false) {
-            abort(404);
+        $data = $request->all();
+        // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
+        $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
+        $podcast = Podcast::create($data);
+
+        // Загрузим файл обложки
+        $this->handleCoverUpload($request, $podcast);
+
+        return redirect(route('podcasts.edit', $podcast))
+            ->with('success', trans('podcast.save_success'));
+    }
+
+    public function edit(Podcast $podcast)
+    {
+        $categoriesItunesList = $this->getCategoriesItunesList();
+        return view('podcasts.edit', compact('podcast', 'categoriesItunesList'));
+    }
+
+    public function update(Request $request, Podcast $podcast)
+    {
+        $data = $request->all();
+        // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
+        $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
+        $podcast->update($data);
+
+        // Загрузим файл обложки
+        $this->handleCoverUpload($request, $podcast);
+
+        return redirect(route('podcasts.edit', compact('podcast')))
+            ->with('success', trans('podcast.save_success'));
+    }
+
+    public function destroy(Podcast $podcast)
+    {
+        $podcast->delete();
+
+        return redirect(route('podcasts.index'));
+    }
+
+    private function handleCoverUpload(Request $request, Podcast $podcast)
+    {
+        $coverFile = $request->file('cover');
+        if ($coverFile) {
+            $filepath = $coverFile->store('public/podcasts');
+            $podcast->update(['cover_file' => $filepath]);
         }
-        return view('podcasts.edit', ['podcast' => self::DATA[$foundIndex]]);
     }
 
-    public function update()
+    private function getCategoriesItunesList()
     {
-        // TODO
-    }
-
-    public function destroy()
-    {
-        // TODO
+        $categories = \DB::select("SELECT id, name FROM categories_itunes ORDER BY name");
+        return array_combine(array_column($categories, 'id'), array_column($categories, 'name'));
     }
 }

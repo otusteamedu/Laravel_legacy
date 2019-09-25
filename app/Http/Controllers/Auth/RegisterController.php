@@ -23,12 +23,7 @@ class RegisterController extends Controller
 
     use RegistersUsers;
 
-    /**
-     * Where to redirect users after registration.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    protected $redirectTo;
 
     /**
      * Create a new controller instance.
@@ -37,6 +32,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
+        // Where to redirect users after registration.
+        $this->redirectTo = route(config('app.default_route'));
         $this->middleware('guest');
     }
 

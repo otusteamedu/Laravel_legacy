@@ -19,13 +19,8 @@ class VerificationController extends Controller
     */
 
     use VerifiesEmails;
-
-    /**
-     * Where to redirect users after verification.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/home';
+    
+    protected $redirectTo;
 
     /**
      * Create a new controller instance.
@@ -34,6 +29,9 @@ class VerificationController extends Controller
      */
     public function __construct()
     {
+        // Where to redirect users after verification.
+        $this->redirectTo = route(config('app.default_route'));
+
         $this->middleware('auth');
         $this->middleware('signed')->only('verify');
         $this->middleware('throttle:6,1')->only('verify', 'resend');

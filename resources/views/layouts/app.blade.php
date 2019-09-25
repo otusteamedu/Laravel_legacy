@@ -20,22 +20,22 @@
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="{{ url('/') }}">
+        <a class="navbar-item" href="/">
             {{ config('app.name', 'Podcast Publisher') }}
         </a>
     </div>
     <div class="navbar-menu is-active">
         <div class="navbar-start">
             @auth
-                <a class="navbar-item" href="{{ route('podcasts.index') }}">{{ __('Podcasts') }}</a>
+                <a class="navbar-item" href="{{ route('podcasts.index') }}">@lang('common.podcasts')</a>
                 @endauth
         </div>
         <div class="navbar-end">
             <!-- Authentication Links -->
             @guest
-                <a class="navbar-item" href="{{ route('login') }}">{{ __('Login') }}</a>
+                <a class="navbar-item" href="{{ route('login') }}">@lang('nav.login')</a>
                 @if (Route::has('register'))
-                    <a class="navbar-item" href="{{ route('register') }}">{{ __('Register') }}</a>
+                    <a class="navbar-item" href="{{ route('register') }}">@lang('nav.register')</a>
                 @endif
             @else
                 <div class="navbar-item has-dropdown is-hoverable">
@@ -45,12 +45,12 @@
 
                     <div class="navbar-dropdown">
                         <a class="navbar-item" href="{{ route('settings.edit') }}">
-                            {{ __('Settings') }}
+                            @lang('nav.settings')
                         </a>
                         <a class="navbar-item" href="{{ route('logout') }}"
                            onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                            {{ __('Logout') }}
+                            @lang('nav.logout')
                         </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
@@ -63,6 +63,17 @@
 </nav>
 
 <section class="section">
+
+    @if (session('success'))
+        <div class="content">
+        <div class="alert alert-success">
+            <div class="notification is-success">
+                {{ session('success') }}
+            </div>
+        </div>
+        </div>
+    @endif
+
     @yield('content')
 </section>
 </body>

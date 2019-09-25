@@ -1,5 +1,7 @@
 <?php
 
+use App\Providers\FormServiceProvider;
+
 return [
 
     /*
@@ -14,6 +16,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
+
+    'default_route' => 'podcasts.index',
 
     /*
     |--------------------------------------------------------------------------
@@ -174,6 +178,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+
+        FormServiceProvider::class
 
     ],
 
