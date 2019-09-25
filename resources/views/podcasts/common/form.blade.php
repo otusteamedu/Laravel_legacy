@@ -9,7 +9,7 @@
         {{ Form::bulmaText('keywords', 'podcast.keywords') }}
         {{ Form::bulmaText('website', 'podcast.website') }}
         {{ Form::bulmaText('episode_name_template', 'podcast.episode_name_template') }}
-        {{ Form::bulmaTextarea('shownotes_footer', 'podcast.shownotes_footer') }}
+        {{ Form::bulmaTextarea('show_notes_footer', 'podcast.show_notes_footer') }}
 
     </div>
     <div class="column">

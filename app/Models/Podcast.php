@@ -23,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $copyright
  * @property string $keywords
  * @property string $website
- * @property string $shownotes_footer
+ * @property string $show_notes_footer
  * @property string $episode_name_template
  * @property string|null $cover_file
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereAuthor($value)
@@ -32,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereEpisodeNameTemplate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereKeywords($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereShownotesFooter($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereShowNotesFooter($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereWebsite($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCoverFile($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Episode[] $episodes
@@ -51,7 +51,7 @@ class Podcast extends Model
         'copyright',
         'keywords',
         'website',
-        'shownotes_footer',
+        'show_notes_footer',
         'episode_name_template',
         'cover_file',
         'category_itunes_id',

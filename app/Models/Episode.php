@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property int $season
  * @property int $no
- * @property string $shownotes
+ * @property string $show_notes
  * @property int $podcast_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -25,7 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereNo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode wherePodcastId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereSeason($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereShownotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereShowNotes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -35,7 +35,7 @@ class Episode extends Model
         'name',
         'season',
         'no',
-        'shownotes',
+        'show_notes',
         'podcast_id',
     ];
 

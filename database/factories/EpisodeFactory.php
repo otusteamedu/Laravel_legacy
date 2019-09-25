@@ -8,6 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Episode::class, function (Faker $faker) use (&$nextNo) {
     return [
         'name' => $faker->words(4, true),
-        'shownotes' => $faker->paragraph,
+        'show_notes' => $faker->paragraph,
     ];
 });

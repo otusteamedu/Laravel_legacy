@@ -16,7 +16,7 @@ $factory->define(Podcast::class, function (Faker $faker) {
         'copyright' => $faker->company,
         'keywords' => implode(', ', $faker->words(5)),
         'website' => 'https://' . $faker->domainName,
-        'shownotes_footer' => $faker->paragraph,
+        'show_notes_footer' => $faker->paragraph,
         'episode_name_template' => '#{no}',
         'category_itunes_id' => $randomCategory[0]->id,
     ];

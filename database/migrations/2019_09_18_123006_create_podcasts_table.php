@@ -22,7 +22,7 @@ class CreatePodcastsTable extends Migration
             $table->string('keywords', 2000);
             $table->string('website', 100);
 
-            $table->text('shownotes_footer');
+            $table->text('show_notes_footer');
             $table->string('episode_name_template');
 
             $table->string('cover_file', 100)->nullable()->default(null);

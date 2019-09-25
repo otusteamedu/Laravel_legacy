@@ -18,7 +18,7 @@ class CreateEpisodesTable extends Migration
             $table->string('name', 500)->default('');
             $table->integer('season')->nullable()->default(null);
             $table->integer('no')->nullable()->default(null);
-            $table->text('shownotes');
+            $table->text('show_notes');
             $table->unsignedBigInteger('podcast_id')->nullable()->default(null);
             $table->timestamps();
         });
