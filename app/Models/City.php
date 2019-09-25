@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\City
  *
+ * @proprety int id
+ * @proprety int country_id
+ * @proprety string name
  * @proprety Country country
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newModelQuery()
@@ -19,7 +22,17 @@ class City extends Model
 
     public function country()
     {
-        return $this->belongsTo('App\Models\Country');
+        return $this->belongsTo(Country::class);
+    }
+
+    public function companies()
+    {
+        return $this->hasMany(Company::class);
+    }
+
+    public function products()
+    {
+        return $this->hasManyThrough(Product::class, Company::class);
     }
 
 

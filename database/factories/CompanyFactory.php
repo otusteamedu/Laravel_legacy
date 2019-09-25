@@ -6,10 +6,18 @@ use App\Models\Company;
 use Faker\Generator as Faker;
 
 $factory->define(Company::class, function (Faker $faker) {
-    $name = $faker->unique()->company;
+    $name = uniqueCompany($faker);
     return [
         'name' => $name,
         'url' => Str::slug($name),
         'description' => $faker->text(500),
     ];
 });
+
+function uniqueCompany(Faker $faker) {
+    $name = $faker->unique()->company;
+    if (\App\Models\Company::where('name', $name)->count()) {
+        return uniqueCompany($faker);
+    }
+    return $name;
+}

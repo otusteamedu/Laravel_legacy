@@ -56,7 +56,7 @@ class CountriesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -77,7 +77,7 @@ class CountriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\Country $country
      * @return \Illuminate\Http\Response
      */
     public function edit(Country $country)
@@ -92,8 +92,8 @@ class CountriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Country $country
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Country $country)
@@ -113,29 +113,38 @@ class CountriesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Country $country
      * @return \Illuminate\Http\Response
      */
     public function show(Request $request, Country $country)
     {
         $this->authorize(Abilities::VIEW, $country);
 
+        $cities = $country->cities()
+            ->paginate();
         return view('countries.show', [
             'country' => $country,
-            'cities' => $country->cities()->paginate(),
+            'cities' => $cities,
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\Country $country
      * @return \Illuminate\Http\Response
      */
     public function destroy(Country $country)
     {
         //
+//            ->with([
+//                'country',
+//            ])
+//            ->withCount([
+//                'companies',
+//                'products',
+//            ])
     }
 
     /**

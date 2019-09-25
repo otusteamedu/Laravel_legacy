@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         foreach (\App\Models\User::all() as $user) {
             $user->update([
-               'api_token' => Str::random(60),
+               'level' => \App\Models\User::LEVEL_ADMIN,
             ]);
         }
         factory(\App\Models\User::class, 10)->create();

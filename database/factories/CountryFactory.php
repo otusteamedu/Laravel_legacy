@@ -20,10 +20,19 @@ $factory->define(\App\Models\Country::class, function (Faker $faker) {
         'Asia',
         'USA',
     ];
+
     shuffle($continents);
     $continent = array_shift($continents);
     return [
-        'name' => $faker->country,
+        'name' => uniqueCountryName($faker),
         'continent_name' => $continent,
     ];
 });
+
+function uniqueCountryName(Faker $faker) {
+    $name = $faker->unique()->country;
+    if (\App\Models\Country::where('name', $name)->count()) {
+        return uniqueCountryName($faker);
+    }
+    return $name;
+}
