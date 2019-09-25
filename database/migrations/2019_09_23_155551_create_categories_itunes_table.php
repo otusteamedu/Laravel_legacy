@@ -27,6 +27,12 @@ class CreateCategoriesItunesTable extends Migration
         });
 
         // Загрузим список официально рекомендуемых категорий от Apple для каталога iTunes
+        $this->loadCategoriesFromTextFile();
+    }
+
+    private function loadCategoriesFromTextFile()
+    {
+        // Список категорий хранится в текстовом файле в репозитории проекта
         $categories = file(__DIR__ . '/categories_itunes_data.txt');
         // Удалим случайные пробелвы в начале и конце строк
         $categories = array_map('trim', $categories);
