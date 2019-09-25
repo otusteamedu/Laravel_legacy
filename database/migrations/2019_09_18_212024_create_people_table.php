@@ -17,8 +17,8 @@ class CreatePeopleTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 255);
             $table->date('birth_day')->nullable();
-            $table->enum('sex', ['male', 'female']);
-            $table->bigInteger('photo_id')->unsigned();
+            $table->enum('sex', ['male', 'female'])->nullable();
+            $table->bigInteger('photo_id')->unsigned()->nullable();
             $table->text('description')->nullable();
 
             // $table->timestamps();

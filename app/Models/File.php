@@ -7,17 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class File
  * @property int id
- * @property string fileName
+ * @property string file_name
  * @property string subdir
- * @property string originalName
- * @property string contentType
+ * @property string original_name
+ * @property string content_type
  * @property int width
  * @property int height
- * @property int fileSize
+ * @property int file_size
  * @package App\Models
  */
 class File extends Model
 {
     //
     public $timestamps = true;
+
+    public function getPath() {
+        return DIRECTORY_SEPARATOR . $this->subdir . DIRECTORY_SEPARATOR . $this->file_name;
+    }
 }

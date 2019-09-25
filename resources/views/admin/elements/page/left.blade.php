@@ -18,7 +18,7 @@
                     'text' => __('admin.menu.movies.countries'),
                     'icon' => 'flag'
                 ], [
-                    'href' => '#',
+                    'href' => route('admin.movies.index'),
                     'text' => __('admin.menu.movies.movies'),
                     'icon' => 'video'
                 ]

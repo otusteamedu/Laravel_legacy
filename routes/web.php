@@ -574,6 +574,7 @@ Route::name('admin.')->group(function () {
         Route::resource('countries', 'Admin\Movies\CountryController')->except(['show']);
         Route::resource('genres', 'Admin\Movies\GenreController')->except(['show']);
         Route::resource('people', 'Admin\Movies\PersonController')->except(['show']);
+        Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
     });
 });
 

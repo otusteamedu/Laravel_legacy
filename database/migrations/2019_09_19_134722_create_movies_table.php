@@ -21,7 +21,7 @@ class CreateMoviesTable extends Migration
             $table->text('slogan')->nullable();
             $table->longText('description')->nullable();
             $table->integer('duration')->unsigned()->nullable();
-            $table->integer('age_limit')->unsigned()->nullable();
+            $table->enum('age_limit', ['0', '6', '12', '16', '18'])->nullable();
             $table->bigInteger('poster_id')->unsigned();
             $table->string('trailer_link', 100);
 

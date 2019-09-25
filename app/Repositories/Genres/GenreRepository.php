@@ -21,8 +21,7 @@ class GenreRepository implements IGenreRepository
     public function createFromArray(array $data): Genre
     {
         $genre = new Genre();
-        $genre->create($data);
-        return $genre;
+        return $genre->create($data);
     }
     public function updateFromArray(Genre $genre, array $data)
     {

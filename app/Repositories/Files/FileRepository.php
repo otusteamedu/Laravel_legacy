@@ -15,8 +15,7 @@ class FileRepository implements IFileRepository
     public function createFromArray(array $data): File
     {
         $file = new File();
-        $file->create($data);
-        return $file;
+        return $file->create($data);
     }
     public function updateFromArray(File $file, array $data)
     {

@@ -48,10 +48,10 @@ class CountryController extends Controller
     public function store(Request $request)
     {
         //
-        //$this->beforeSave();
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100'
-        ]);
+        ], __('admin.errors.countries'));
+
         $this->countryRepository->createFromArray($request->all());
         return redirect(route('admin.countries.index'));
     }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class Person
@@ -17,19 +18,22 @@ class Person extends Model
 {
     //
     protected $fillable = [
-        'name', 'description'
+        'name',
+        'description'
     ];
 
     protected $attributes = [
         'name' => '',
-        'sort' => 10,
         'description' => ''
     ];
     protected $table = 'people';
     public $timestamps = false;
 
-    public function photo()
+    /**
+     * @return BelongsTo
+     */
+    public function photo() : BelongsTo
     {
-        return $this->hasOne(File::class );
+        return $this->belongsTo(File::class, 'photo_id');
     }
 }
