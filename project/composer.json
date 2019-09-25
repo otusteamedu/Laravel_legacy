@@ -9,9 +9,11 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "barryvdh/laravel-ide-helper": "^2.6",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "laravel/ui": "^1.0"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

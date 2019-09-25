@@ -11,6 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/welcome', function () {
+    return view('public.welcome');
 });
+
+Route::get('/', function (){
+    return view('public.home');
+});
+
+Auth::routes();
