@@ -5,7 +5,7 @@
         <nav class="level">
             <div class="level-left">
                 <div class="level-item">
-                    <h1 class="title">@lang('podcast.edit_h1')</h1>
+                    <h1 class="title">@lang('common.podcast')</h1>
                 </div>
             </div>
             <div class="level-right">

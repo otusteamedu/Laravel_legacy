@@ -1,9 +1,7 @@
 <?php
 return [
-    'list_h1' => 'Podcasts',
     'create' => 'Create Podcast',
     'new_h1' => 'New Podcast',
-    'edit_h1' => 'Podcast',
     'to_list' => 'To all podcasts list',
     'name' => [
         'label' => 'Podcast Title',
@@ -13,7 +11,7 @@ return [
     ],
     'category_itunes_id' => [
         'label' => 'iTunes Category',
-        'title' => 'Choose the most accurate cateogry for your show, to be indexed by iTunes.'
+        'title' => 'Choose the most accurate cateogry for your show, to be indexed by iTunes.',
     ],
     'author' => [
         'label' => 'Author',
