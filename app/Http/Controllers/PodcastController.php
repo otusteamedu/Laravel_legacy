@@ -3,11 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Podcast;
+use App\Services\CategoryItunes\CategoryItunesService;
+use App\Services\Podcast\PodcastService;
 use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
-    private const PODCASTS_PER_PAGE = 20;
+    /**
+     * @var PodcastService
+     */
+    private $podcastService;
+
+    public function __construct(PodcastService $podcastService)
+    {
+        $this->podcastService = $podcastService;
+    }
 
     /**
      * Show the application dashboard.
@@ -16,17 +26,14 @@ class PodcastController extends Controller
      */
     public function index()
     {
-        $podcasts = Podcast::with('latestEpisode')
-            ->orderBy('name')
-            ->paginate(self::PODCASTS_PER_PAGE);
-
+        $podcasts = $this->podcastService->searchPodcasts();
         return view('podcasts.index', compact('podcasts'));
     }
 
-    public function create()
+    public function create(CategoryItunesService $categoryItunesService)
     {
         $podcast = new Podcast();
-        $categoriesItunesList = $this->getCategoriesItunesList();
+        $categoriesItunesList = $categoryItunesService->getAssoc();
         return view('podcasts.create', compact('podcast', 'categoriesItunesList'));
     }
 
@@ -40,19 +47,23 @@ class PodcastController extends Controller
     {
         $data = $request->all();
         // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
-        $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
-        $podcast = Podcast::create($data);
+        if (isset($data['category_itunes_id'])) {
+            $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
+        }
 
-        // Загрузим файл обложки
-        $this->handleCoverUpload($request, $podcast);
+        // Создаём новую запись о подкасте в базе
+        $podcast = $this->podcastService->storePodcast($data);
+
+        // Загрузим файл обложки и запишем в базу имя файла
+        $this->podcastService->handleCoverUpload($request, $podcast);
 
         return redirect(route('podcasts.edit', $podcast))
             ->with('success', trans('podcast.save_success'));
     }
 
-    public function edit(Podcast $podcast)
+    public function edit(Podcast $podcast, CategoryItunesService $categoryItunesService)
     {
-        $categoriesItunesList = $this->getCategoriesItunesList();
+        $categoriesItunesList = $categoryItunesService->getAssoc();
         return view('podcasts.edit', compact('podcast', 'categoriesItunesList'));
     }
 
@@ -60,11 +71,15 @@ class PodcastController extends Controller
     {
         $data = $request->all();
         // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
-        $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
-        $podcast->update($data);
+        if (isset($data['category_itunes_id'])) {
+            $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
+        }
 
-        // Загрузим файл обложки
-        $this->handleCoverUpload($request, $podcast);
+        // Обновляем информацию о подкасте в базе
+        $this->podcastService->updatePodcast($podcast, $data);
+
+        // Загрузим файл обложки и запишем в базу имя файла
+        $this->podcastService->handleCoverUpload($request, $podcast);
 
         return redirect(route('podcasts.edit', compact('podcast')))
             ->with('success', trans('podcast.save_success'));
@@ -72,23 +87,8 @@ class PodcastController extends Controller
 
     public function destroy(Podcast $podcast)
     {
-        $podcast->delete();
+        $this->podcastService->deletePodcast($podcast);
 
         return redirect(route('podcasts.index'));
-    }
-
-    private function handleCoverUpload(Request $request, Podcast $podcast)
-    {
-        $coverFile = $request->file('cover');
-        if ($coverFile) {
-            $filepath = $coverFile->store('public/podcasts');
-            $podcast->update(['cover_file' => $filepath]);
-        }
-    }
-
-    private function getCategoriesItunesList()
-    {
-        $categories = \DB::select("SELECT id, name FROM categories_itunes ORDER BY name");
-        return array_combine(array_column($categories, 'id'), array_column($categories, 'name'));
     }
 }
