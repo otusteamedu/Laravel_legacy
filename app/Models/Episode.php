@@ -64,7 +64,7 @@ class Episode extends Model
     {
         if (!$this->cover_file || !\Storage::exists($this->cover_file)) {
             // Если для самого эпизода обложка не загружена, попробуем взять обложку из подкаста
-            return $this->podcast->coverUrl();
+            return $this->podcast ? $this->podcast->coverUrl() : null;
         }
         return \Storage::url($this->cover_file);
     }

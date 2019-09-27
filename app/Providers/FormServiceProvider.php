@@ -29,7 +29,8 @@ class FormServiceProvider extends ServiceProvider
         $formBuilder::component('bulmaText', 'components.form.text', ['name', 'transKey', 'attributes' => []]);
         $formBuilder::component('bulmaTextarea', 'components.form.textarea', ['name', 'transKey', 'attributes' => []]);
         $formBuilder::component('bulmaNumber', 'components.form.number', ['name', 'transKey', 'attributes' => []]);
-        $formBuilder::component('bulmaSelect', 'components.form.select', ['name', 'transKey', 'list' => []]);
+        $formBuilder::component('bulmaSelect', 'components.form.select',
+            ['name', 'transKey', 'list' => [], 'attributes' => []]);
         $formBuilder::component('bulmaFile', 'components.form.file', ['name', 'transKey']);
     }
 }

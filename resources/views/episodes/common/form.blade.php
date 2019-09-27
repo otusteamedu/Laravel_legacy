@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column">
         {{ Form::bulmaText('name', 'episode.name', ['required']) }}
-        {{ Form::bulmaSelect('podcast_id', 'episode.podcast_id', $podcastsList) }}
+        {{ Form::bulmaSelect('podcast_id', 'episode.podcast_id', $podcastsList, ['required']) }}
         {{ Form::bulmaTextarea('show_notes', 'episode.show_notes') }}
         {{ Form::bulmaNumber('season', 'episode.season') }}
         {{ Form::bulmaNumber('no', 'episode.no') }}

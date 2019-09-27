@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EpisodeRequest;
 use App\Models\Episode;
-use App\Models\Podcast;
 use App\Services\Episode\EpisodeService;
 use App\Services\Podcast\PodcastService;
-use Illuminate\Http\Request;
 
 class EpisodeController extends Controller
 {
@@ -44,12 +43,9 @@ class EpisodeController extends Controller
         return redirect(route('episodes.edit', $id));
     }
 
-    public function store(Request $request)
+    public function store(EpisodeRequest $request)
     {
         $data = $request->all();
-
-        $data['season'] = $data['season'] ?: null;
-        $data['no'] = $data['no'] ?: null;
 
         // Создаём новую запись об эпизоде в базе
         $episode = $this->episodeService->storeEpisode($data);
@@ -67,12 +63,9 @@ class EpisodeController extends Controller
         return view('episodes.edit', compact('episode', 'podcastsList'));
     }
 
-    public function update(Request $request, Episode $episode)
+    public function update(EpisodeRequest $request, Episode $episode)
     {
         $data = $request->all();
-
-        $data['season'] = $data['season'] ?: null;
-        $data['no'] = $data['no'] ?: null;
 
         // Обновляем информацию об эпизоде в базе
         $this->episodeService->updateEpisode($episode, $data);

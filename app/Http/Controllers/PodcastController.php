@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PodcastRequest;
 use App\Models\Podcast;
 use App\Services\CategoryItunes\CategoryItunesService;
 use App\Services\Podcast\PodcastService;
-use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
@@ -43,13 +43,9 @@ class PodcastController extends Controller
         return redirect(route('podcasts.edit', $id));
     }
 
-    public function store(Request $request)
+    public function store(PodcastRequest $request)
     {
         $data = $request->all();
-        // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
-        if (isset($data['category_itunes_id'])) {
-            $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
-        }
 
         // Создаём новую запись о подкасте в базе
         $podcast = $this->podcastService->storePodcast($data);
@@ -67,13 +63,9 @@ class PodcastController extends Controller
         return view('podcasts.edit', compact('podcast', 'categoriesItunesList'));
     }
 
-    public function update(Request $request, Podcast $podcast)
+    public function update(PodcastRequest $request, Podcast $podcast)
     {
         $data = $request->all();
-        // Пустой выбор категории (пустая строка) приводим к null для правильной вставки в базу
-        if (isset($data['category_itunes_id'])) {
-            $data['category_itunes_id'] = $data['category_itunes_id'] ?: null;
-        }
 
         // Обновляем информацию о подкасте в базе
         $this->podcastService->updatePodcast($podcast, $data);
