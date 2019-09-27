@@ -1,7 +1,9 @@
 <?php
 return [
     'create' => 'Create Podcast',
-    'new_h1' => 'New Podcast',
+    'no_podcasts' => 'No podcasts',
+    'latest_episode' => 'Latest Episode',
+    'new_podcast' => 'New Podcast',
     'to_list' => 'To all podcasts list',
     'name' => [
         'label' => 'Podcast Title',

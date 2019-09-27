@@ -23,7 +23,6 @@
 
         {!! Form::close() !!}
 
-
         @include('components.form.delete', [
             'text' => __('podcast.delete'),
             'confirmation' => __('podcast.delete_confirmation', ['name' => $podcast->name]),

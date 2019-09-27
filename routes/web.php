@@ -23,6 +23,7 @@ Route::middleware('auth')->group(function() {
     Route::post('/settings', 'SettingsController@update')->name('settings.update');
 
     Route::resource('podcasts', 'PodcastController');
+    Route::resource('episodes', 'EpisodeController');
 
 });
 

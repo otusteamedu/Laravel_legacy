@@ -24,9 +24,9 @@ use App\Models\Podcast;
         <table class="table">
             <thead>
             <tr>
-                <th>@lang('Обложка')</th>
-                <th>@lang('Название подкаста')</th>
-                <th>@lang('Последний эпизод')</th>
+                <th>@lang('common.cover')</th>
+                <th>@lang('podcast.name.label')</th>
+                <th>@lang('podcast.latest_episode')</th>
             </tr>
             </thead>
             <tbody>
@@ -45,14 +45,14 @@ use App\Models\Podcast;
                             № {{ $podcast->latestEpisode->no }}
                             {{ $podcast->latestEpisode->name }}
                         @else
-                            <span class="has-text-grey-light">Нет эпизодов</span>
+                            <span class="has-text-grey-light">@lang('episode.no_episodes')</span>
                         @endif
                     </td>
                 </tr>
             @empty
                 <tr>
                     <td colspan="3">
-                        <span class="has-text-grey-light">Нет подкастов</span>
+                        <span class="has-text-grey-light">@lang('podcast.no_podcasts')</span>
                     </td>
                 </tr>
             @endforelse

@@ -1,6 +1,7 @@
 <?php
 
 use App\Providers\CategoryItunesServiceProvider;
+use App\Providers\EpisodeServiceProvider;
 use App\Providers\FormServiceProvider;
 use App\Providers\PodcastServiceProvider;
 
@@ -182,6 +183,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         PodcastServiceProvider::class,
+        EpisodeServiceProvider::class,
         CategoryItunesServiceProvider::class,
         FormServiceProvider::class,
 

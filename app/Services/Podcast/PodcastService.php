@@ -63,13 +63,25 @@ class PodcastService
     /**
      * @param Request $request
      * @param Podcast $podcast
+     * @return bool
      */
-    public function handleCoverUpload(Request $request, Podcast $podcast): void
+    public function handleCoverUpload(Request $request, Podcast $podcast): bool
     {
-        $coverFile = $request->file('cover');
-        if ($coverFile) {
-            $filepath = $coverFile->store('public/podcasts');
-            $this->podcastRepository->updateFromArray($podcast, ['cover_file' => $filepath]);
+        $file = $request->file('cover');
+        if (!$file) {
+            return false;
         }
+        $filepath = $file->store('public/podcasts');
+        $this->podcastRepository->updateFromArray($podcast, ['cover_file' => $filepath]);
+        return true;
+    }
+
+    /**
+     * Возвращает массив подкастов в формате id => name
+     * @return array
+     */
+    public function getAssoc(): array
+    {
+        return $this->podcastRepository->getAssoc();
     }
 }

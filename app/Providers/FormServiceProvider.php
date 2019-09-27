@@ -28,6 +28,7 @@ class FormServiceProvider extends ServiceProvider
         // https://laravelcollective.com/docs/6.0/html#custom-components
         $formBuilder::component('bulmaText', 'components.form.text', ['name', 'transKey', 'attributes' => []]);
         $formBuilder::component('bulmaTextarea', 'components.form.textarea', ['name', 'transKey', 'attributes' => []]);
+        $formBuilder::component('bulmaNumber', 'components.form.number', ['name', 'transKey', 'attributes' => []]);
         $formBuilder::component('bulmaSelect', 'components.form.select', ['name', 'transKey', 'list' => []]);
         $formBuilder::component('bulmaFile', 'components.form.file', ['name', 'transKey']);
     }

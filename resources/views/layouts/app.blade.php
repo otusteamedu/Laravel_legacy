@@ -28,7 +28,8 @@
         <div class="navbar-start">
             @auth
                 <a class="navbar-item" href="{{ route('podcasts.index') }}">@lang('common.podcasts')</a>
-                @endauth
+                <a class="navbar-item" href="{{ route('episodes.index') }}">@lang('common.episodes')</a>
+            @endauth
         </div>
         <div class="navbar-end">
             <!-- Authentication Links -->
@@ -66,11 +67,11 @@
 
     @if (session('success'))
         <div class="content">
-        <div class="alert alert-success">
-            <div class="notification is-success">
-                {{ session('success') }}
+            <div class="alert alert-success">
+                <div class="notification is-success">
+                    {{ session('success') }}
+                </div>
             </div>
-        </div>
         </div>
     @endif
 

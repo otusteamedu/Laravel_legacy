@@ -34,4 +34,14 @@ class EloquentPodcastRepository implements PodcastRepositoryInterface
     {
         $podcast->delete();
     }
+
+    /**
+     * Возвращает массив подкастов в формате id => name
+     * @return array
+     */
+    public function getAssoc(): array
+    {
+        $categories = \DB::select("SELECT id, name FROM podcasts ORDER BY name");
+        return array_combine(array_column($categories, 'id'), array_column($categories, 'name'));
+    }
 }

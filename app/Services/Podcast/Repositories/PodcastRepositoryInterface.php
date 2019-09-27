@@ -18,4 +18,10 @@ interface PodcastRepositoryInterface
     public function updateFromArray(Podcast $podcast, array $data): Podcast;
 
     public function delete(Podcast $podcast): void;
+
+    /**
+     * Возвращает массив подкастов в формате id => name
+     * @return array
+     */
+    public function getAssoc(): array;
 }
