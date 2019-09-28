@@ -1,5 +1,7 @@
 <?php
+
 use App\Models\Episode;
+
 /** @var Episode $episode */
 ?>
 @extends('layouts.app')
@@ -19,44 +21,13 @@ use App\Models\Episode;
                 </div>
             </div>
         </nav>
-        <h1 class="title"></h1>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>@lang('common.cover')</th>
-                <th>@lang('episode.podcast_id.label')</th>
-                <th>@lang('episode.no.label')</th>
-                <th>@lang('episode.name.label')</th>
-            </tr>
-            </thead>
-            <tbody>
-            @forelse($episodes as $episode)
-                <tr>
-                    <td>
-                        <a href="{{ route('episodes.edit', $episode) }}">
-                            @include('components.cover', ['url' => $episode->coverUrl(), 'size' => 150])
-                        </a>
-                    </td>
-                    <td>
-                        {{ $episode->podcast->name }}
-                    </td>
-                    <td>
-                        {{ $episode->no }}
-                    </td>
-                    <td>
-                        <a href="{{ route('episodes.edit', $episode) }}">{{ $episode->name }}</a>
-                    </td>
-                </tr>
-            @empty
-                <tr>
-                    <td colspan="3">
-                        <span class="has-text-grey-light">@lang('episode.no_episodes')</span>
-                    </td>
-                </tr>
-            @endforelse
-            </tbody>
-        </table>
+        @if($episodes->count())
+            @include('episodes.table')
+        @else
+            <p>@lang('episode.no_episodes')</p>
+        @endif
+
     </div>
     {{ $episodes->links() }}
 
