@@ -80,8 +80,8 @@ class PodcastService
      * Возвращает массив подкастов в формате id => name
      * @return array
      */
-    public function getAssoc(): array
+    public function getPodcasts(): array
     {
-        return $this->podcastRepository->getAssoc();
+        return $this->podcastRepository->getPodcastsOptions();
     }
 }

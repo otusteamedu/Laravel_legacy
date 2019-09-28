@@ -33,8 +33,8 @@ class PodcastController extends Controller
     public function create(CategoryItunesService $categoryItunesService)
     {
         $podcast = new Podcast();
-        $categoriesItunesList = $categoryItunesService->getAssoc();
-        return view('podcasts.create', compact('podcast', 'categoriesItunesList'));
+        $categoriesItunes = $categoryItunesService->getCategories();
+        return view('podcasts.create', compact('podcast', 'categoriesItunes'));
     }
 
     public function show(int $id)
@@ -59,8 +59,8 @@ class PodcastController extends Controller
 
     public function edit(Podcast $podcast, CategoryItunesService $categoryItunesService)
     {
-        $categoriesItunesList = $categoryItunesService->getAssoc();
-        return view('podcasts.edit', compact('podcast', 'categoriesItunesList'));
+        $categoriesItunes = $categoryItunesService->getCategories();
+        return view('podcasts.edit', compact('podcast', 'categoriesItunes'));
     }
 
     public function update(PodcastRequest $request, Podcast $podcast)

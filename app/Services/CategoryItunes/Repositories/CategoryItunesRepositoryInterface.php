@@ -8,5 +8,5 @@ interface CategoryItunesRepositoryInterface
      * Возвращает массив категорий для iTunes в формате id => name
      * @return array
      */
-    public function getAssoc(): array;
+    public function getCategories(): array;
 }

@@ -33,8 +33,8 @@ class EpisodeController extends Controller
     public function create(PodcastService $podcastService)
     {
         $episode = new Episode();
-        $podcastsList = $podcastService->getAssoc();
-        return view('episodes.create', compact('episode', 'podcastsList'));
+        $podcasts = $podcastService->getPodcasts();
+        return view('episodes.create', compact('episode', 'podcasts'));
     }
 
     public function show(int $id)
@@ -59,8 +59,8 @@ class EpisodeController extends Controller
 
     public function edit(Episode $episode, PodcastService $podcastService)
     {
-        $podcastsList = $podcastService->getAssoc();
-        return view('episodes.edit', compact('episode', 'podcastsList'));
+        $podcasts = $podcastService->getPodcasts();
+        return view('episodes.edit', compact('episode', 'podcasts'));
     }
 
     public function update(EpisodeRequest $request, Episode $episode)

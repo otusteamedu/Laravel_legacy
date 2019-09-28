@@ -20,8 +20,8 @@ class CategoryItunesService
      * Возвращает массив категорий для iTunes в формате id => name
      * @return array
      */
-    public function getAssoc(): array
+    public function getCategories(): array
     {
-        return $this->categoryItunesRepository->getAssoc();
+        return $this->categoryItunesRepository->getCategories();
     }
 }

@@ -23,5 +23,5 @@ interface PodcastRepositoryInterface
      * Возвращает массив подкастов в формате id => name
      * @return array
      */
-    public function getAssoc(): array;
+    public function getPodcastsOptions(): array;
 }
