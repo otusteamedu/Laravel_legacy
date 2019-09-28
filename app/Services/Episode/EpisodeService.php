@@ -82,7 +82,7 @@ class EpisodeService
      */
     public function handleCoverUpload(Episode $episode, UploadedFile $file): void
     {
-        $filepath = $file->store('public/episodes');
+        $filepath = $file->store('public/' . config('podcast-publisher.episodes_cover_public_dir'));
         $this->episodeRepository->updateFromArray($episode, ['cover_file' => $filepath]);
     }
 }
