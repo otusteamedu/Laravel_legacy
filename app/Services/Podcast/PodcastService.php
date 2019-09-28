@@ -5,7 +5,7 @@ namespace App\Services\Podcast;
 use App\Models\Podcast;
 use App\Services\Podcast\Repositories\PodcastRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class PodcastService
 {
@@ -42,17 +42,26 @@ class PodcastService
     public function storePodcast(array $data): Podcast
     {
         $podcast = $this->podcastRepository->createFromArray($data);
+
+        if (!empty($data['cover'])) {
+            $this->handleCoverUpload($podcast, $data['cover']);
+        }
+
         return $podcast;
     }
 
     /**
      * @param Podcast $podcast
      * @param array $data
-     * @return Podcast
+     * @return void
      */
-    public function updatePodcast(Podcast $podcast, array $data): Podcast
+    public function updatePodcast(Podcast $podcast, array $data): void
     {
-        return $this->podcastRepository->updateFromArray($podcast, $data);
+        $this->podcastRepository->updateFromArray($podcast, $data);
+
+        if (!empty($data['cover'])) {
+            $this->handleCoverUpload($podcast, $data['cover']);
+        }
     }
 
     public function deletePodcast(Podcast $podcast): void
@@ -61,19 +70,14 @@ class PodcastService
     }
 
     /**
-     * @param Request $request
      * @param Podcast $podcast
-     * @return bool
+     * @param UploadedFile $file
+     * @return void
      */
-    public function handleCoverUpload(Request $request, Podcast $podcast): bool
+    public function handleCoverUpload(Podcast $podcast, UploadedFile $file): void
     {
-        $file = $request->file('cover');
-        if (!$file) {
-            return false;
-        }
         $filepath = $file->store('public/podcasts');
         $this->podcastRepository->updateFromArray($podcast, ['cover_file' => $filepath]);
-        return true;
     }
 
     /**

@@ -40,12 +40,10 @@ class PodcastController extends Controller
     public function store(PodcastRequest $request)
     {
         $data = $request->all();
+        $data['cover'] = $request->file('cover');
 
         // Создаём новую запись о подкасте в базе
         $podcast = $this->podcastService->storePodcast($data);
-
-        // Загрузим файл обложки и запишем в базу имя файла
-        $this->podcastService->handleCoverUpload($request, $podcast);
 
         return redirect(route('podcasts.edit', $podcast))
             ->with('success', trans('podcast.save_success'));
@@ -60,12 +58,10 @@ class PodcastController extends Controller
     public function update(PodcastRequest $request, Podcast $podcast)
     {
         $data = $request->all();
+        $data['cover'] = $request->file('cover');
 
         // Обновляем информацию о подкасте в базе
         $this->podcastService->updatePodcast($podcast, $data);
-
-        // Загрузим файл обложки и запишем в базу имя файла
-        $this->podcastService->handleCoverUpload($request, $podcast);
 
         return redirect(route('podcasts.edit', compact('podcast')))
             ->with('success', trans('podcast.save_success'));

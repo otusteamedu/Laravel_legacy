@@ -40,12 +40,10 @@ class EpisodeController extends Controller
     public function store(EpisodeRequest $request)
     {
         $data = $request->all();
+        $data['cover'] = $request->file('cover');
 
         // Создаём новую запись об эпизоде в базе
         $episode = $this->episodeService->storeEpisode($data);
-
-        // Загрузим файл обложки и запишем в базу имя файла
-        $this->episodeService->handleCoverUpload($request, $episode);
 
         return redirect(route('episodes.edit', $episode))
             ->with('success', trans('episode.save_success'));
@@ -60,12 +58,10 @@ class EpisodeController extends Controller
     public function update(EpisodeRequest $request, Episode $episode)
     {
         $data = $request->all();
+        $data['cover'] = $request->file('cover');
 
         // Обновляем информацию об эпизоде в базе
         $this->episodeService->updateEpisode($episode, $data);
-
-        // Загрузим файл обложки и запишем в базу имя файла
-        $this->episodeService->handleCoverUpload($request, $episode);
 
         return redirect(route('episodes.edit', compact('episode')))
             ->with('success', trans('episode.save_success'));

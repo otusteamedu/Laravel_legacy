@@ -5,7 +5,7 @@ namespace App\Services\Episode;
 use App\Models\Episode;
 use App\Services\Episode\Repositories\EpisodeRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 
 class EpisodeService
 {
@@ -48,17 +48,26 @@ class EpisodeService
     public function storeEpisode(array $data): Episode
     {
         $episode = $this->episodeRepository->createFromArray($data);
+
+        if (!empty($data['cover'])) {
+            $this->handleCoverUpload($episode, $data['cover']);
+        }
+
         return $episode;
     }
 
     /**
-     * @param Episode $podcast
+     * @param Episode $episode
      * @param array $data
-     * @return Episode
+     * @return void
      */
-    public function updateEpisode(Episode $podcast, array $data): Episode
+    public function updateEpisode(Episode $episode, array $data): void
     {
-        return $this->episodeRepository->updateFromArray($podcast, $data);
+        $this->episodeRepository->updateFromArray($episode, $data);
+
+        if (!empty($data['cover'])) {
+            $this->handleCoverUpload($episode, $data['cover']);
+        }
     }
 
     public function deleteEpisode(Episode $podcast): void
@@ -67,19 +76,13 @@ class EpisodeService
     }
 
     /**
-     * @param Request $request
      * @param Episode $episode
-     * @return bool
+     * @param UploadedFile $file
+     * @return void
      */
-    public function handleCoverUpload(Request $request, Episode $episode): bool
+    public function handleCoverUpload(Episode $episode, UploadedFile $file): void
     {
-        $file = $request->file('cover');
-        if (!$file) {
-            return false;
-        }
-
         $filepath = $file->store('public/episodes');
         $this->episodeRepository->updateFromArray($episode, ['cover_file' => $filepath]);
-        return true;
     }
 }
