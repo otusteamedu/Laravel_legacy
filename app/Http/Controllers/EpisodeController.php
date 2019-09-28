@@ -37,12 +37,6 @@ class EpisodeController extends Controller
         return view('episodes.create', compact('episode', 'podcasts'));
     }
 
-    public function show(int $id)
-    {
-        // страницы для просмотра как таковой нет - сразу переходим в режим редакитрования
-        return redirect(route('episodes.edit', $id));
-    }
-
     public function store(EpisodeRequest $request)
     {
         $data = $request->all();

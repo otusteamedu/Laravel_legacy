@@ -22,8 +22,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/settings', 'SettingsController@edit')->name('settings.edit');
     Route::post('/settings', 'SettingsController@update')->name('settings.update');
 
-    Route::resource('podcasts', 'PodcastController');
-    Route::resource('episodes', 'EpisodeController');
+    Route::resource('podcasts', 'PodcastController')->except('show');
+    Route::resource('episodes', 'EpisodeController')->except('show');
 
 });
-

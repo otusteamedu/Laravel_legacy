@@ -37,12 +37,6 @@ class PodcastController extends Controller
         return view('podcasts.create', compact('podcast', 'categoriesItunes'));
     }
 
-    public function show(int $id)
-    {
-        // страницы для просмотра как таковой нет - сразу переходим в режим редакитрования
-        return redirect(route('podcasts.edit', $id));
-    }
-
     public function store(PodcastRequest $request)
     {
         $data = $request->all();
