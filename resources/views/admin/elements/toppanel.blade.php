@@ -3,7 +3,7 @@
         <h1 class="h2">{{ $title }}</h1>
     @endif
     @isset($cmdButtons)
-        @if(count($cmdButtons) > 0) :
+        @if(count($cmdButtons) > 0)
             <div class="btn-toolbar mb-2 mb-md-0">
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
