@@ -2,18 +2,7 @@
 
 @section('content')
     <div class="content">
-        <nav class="level">
-            <div class="level-left">
-                <div class="level-item">
-                    <h1 class="title">@lang('common.episode')</h1>
-                </div>
-            </div>
-            <div class="level-right">
-                <div class="level-item">
-                    {{ link_to_route('episodes.index', __('episode.to_list'), [], ['class' => 'is-size-7']) }}
-                </div>
-            </div>
-        </nav>
+        @include('episodes.common.nav', ['head_text' => __('common.episode')]);
 
         {{ Form::model($episode, ['route' => ['episodes.update', $episode->id], 'method' => 'put', 'files' => true]) }}
 
