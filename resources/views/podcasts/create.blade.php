@@ -17,7 +17,7 @@
 
         {{ Form::open(['route' => ['podcasts.store'], 'files' => true]) }}
 
-        @include('podcasts.common.form')
+        @include('podcasts.common.fields')
 
         @include('components.form.save', ['text' => __('podcast.save'), 'cancelUrl' => route('podcasts.index')])
 

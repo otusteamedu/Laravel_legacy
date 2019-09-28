@@ -17,7 +17,7 @@
 
         {{ Form::model($podcast, ['route' => ['podcasts.update', $podcast->id], 'method' => 'put', 'files' => true]) }}
 
-        @include('podcasts.common.form')
+        @include('podcasts.common.fields')
 
         @include('components.form.save', ['text' => __('podcast.save'), 'cancelUrl' => route('podcasts.index')])
 
