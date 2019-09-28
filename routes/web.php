@@ -12,6 +12,7 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Log;
 
 $GLOBALS = array_merge($GLOBALS, [
     'arCinemas' => [
@@ -566,6 +567,7 @@ Route::get('/account/register', function () {
 
 
 Route::get('/manager', function () {
+    Log::debug('ffff');
     return view('admin.start.index');
 })->name('admin.index');
 
