@@ -15,9 +15,12 @@ class AddPhotosSurnameBirthToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('surname', 100)->nullable();
-            $table->bigInteger('file_id')->unsigned();
+            $table->string('phone', 100)->nullable()->after('email');
+            $table->string('surname', 100)->nullable()->after('name');
+            $table->enum('sex', ['male', 'female'])->nullable();
+            $table->bigInteger('file_id')->unsigned()->nullable();
             $table->date('birthday')->nullable();
+            $table->boolean('active')->default(true);
         });
 
         Schema::table('users', function (Blueprint $table) {
@@ -25,6 +28,9 @@ class AddPhotosSurnameBirthToUsersTable extends Migration
                 ->references('id')
                 ->on('files')
             	->onDelete('cascade');
+
+            $table->index('phone');
+            $table->index('active');
         });
     }
 
@@ -38,7 +44,7 @@ class AddPhotosSurnameBirthToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->dropForeign('file_id');
-            $table->dropColumn(['surname', 'file_id', 'birthday']);
+            $table->dropColumn(['surname', 'file_id', 'birthday', 'phone']);
         });
     }
 }
