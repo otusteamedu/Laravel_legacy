@@ -1,0 +1,59 @@
+version: '3.6'
+services:
+  nginx:
+    build: docker/nginx
+    container_name: nginx
+    volumes:
+      - phpsocket:/var/run
+      - ./docker/logs/nginx:/var/log/nginx
+    ports:
+      - 80:80
+    links:
+      - php-fpm
+    networks:
+      - laravel-dev
+    restart: always
+  php-fpm:
+    build: docker/php-fpm
+    container_name: php-fpm
+    volumes:
+      - phpsocket:/var/run
+      - ./docker/../src/:/app
+      - ./docker/logs/php:/var/log/php-fpm
+      - ./docker/logs/app:/var/log/app
+    environment:
+      - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+    networks:
+      - laravel-dev
+  memcached:
+    image: memcached:1.5-alpine
+    container_name: memcached
+    networks:
+      - laravel-dev
+    restart: always
+  mysql:
+    build: docker/mysql
+    container_name: mysql
+    volumes:
+      - ./docker/data/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    command: --explicit_defaults_for_timestamp --sql_mode="NO_AUTO_CREATE_USER"
+    ports:
+      - 3306:3306
+    networks:
+      - laravel-dev
+    restart: always
+networks:
+    laravel-dev:
+      driver: bridge
+      ipam:
+        driver: default
+        config:
+          - subnet: 10.100.0.0/24
+volumes:
+  phpsocket:
+    driver: local
