@@ -34,6 +34,12 @@
             <li>
                 <a href="{{route('admin.reasons.create')}}"> <i class="menu-icon fa fa-dashboard"></i>Создать причину</a>
             </li>
+            <h3 class="menu-title">Админка</h3>
+            <li>
+                <a href="{{route('admin.user_managment.users.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список пользователей</a>
+            </li> <li>
+                <a href="{{route('admin.user_managment.roles.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список ролей</a>
+            </li>
             {{--
             <h3 class="menu-title">UI elements</h3><!-- /.menu-title -->
             <li class="menu-item-has-children dropdown">
