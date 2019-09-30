@@ -14,6 +14,7 @@
                     </form>
                 </div>
 
+                {{--
                 <div class="dropdown for-notification">
                     <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell"></i>
@@ -81,28 +82,37 @@
                                 </span>
                         </a>
                     </div>
-                </div>
+                </div>--}}
             </div>
         </div>
 
         <div class="col-sm-5">
             <div class="user-area dropdown float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img class="user-avatar rounded-circle" src="images/admin.jpg" alt="User Avatar">
+                    <img class="user-avatar rounded-circle" src="/images/no-user.jpg" alt="User Avatar">
                 </a>
 
                 <div class="user-menu dropdown-menu">
-                    <a class="nav-link" href="#"><i class="fa fa-user"></i> My Profile</a>
+                    <a class="nav-link" href="#"><i class="fa fa-user"></i> Профиль</a>
 
+                    {{--
                     <a class="nav-link" href="#"><i class="fa fa-user"></i> Notifications <span class="count">13</span></a>
 
-                    <a class="nav-link" href="#"><i class="fa fa-cog"></i> Settings</a>
+                    <a class="nav-link" href="#"><i class="fa fa-cog"></i> Настройки</a>
+                    --}}
 
-                    <a class="nav-link" href="#"><i class="fa fa-power-off"></i> Logout</a>
+                    <a class="nav-link" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        <i class="fa fa-power-off"></i> Выход
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
                 </div>
             </div>
 
-            <div class="language-select dropdown" id="language-select">
+            {{--<div class="language-select dropdown" id="language-select">
                 <a class="dropdown-toggle" href="#" data-toggle="dropdown" id="language" aria-haspopup="true" aria-expanded="true">
                     <i class="flag-icon flag-icon-us"></i>
                 </a>
@@ -121,7 +131,7 @@
                         <i class="flag-icon flag-icon-it"></i>
                     </div>
                 </div>
-            </div>
+            </div>--}}
 
         </div>
     </div>

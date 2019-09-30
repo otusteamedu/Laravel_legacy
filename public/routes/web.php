@@ -11,11 +11,15 @@
 |
 */
 
-Route::group(['prefix'=>'admin','namespace'=>'Admin'],function(){
+Route::group(['prefix'=>'admin','namespace'=>'Admin', 'middleware'=>'auth'],function(){
     Route::get('/','DashboardController@dashboard')->name('admin.index');
     Route::resource('/groups','GroupsController',['as'=>'admin']);
     Route::resource('/responsibilities','ResponsibilitiesController',['as'=>'admin']);
     Route::resource('/reasons','ReasonsController',['as'=>'admin']);
+
+    Route::group(['prefix'=>'user_managment', 'namespace'=>'UserManagment'],function(){
+       Route::resource('/users','UserController', ['as'=>'admin.user_managment']);
+    });
 });
 
 
@@ -23,7 +27,7 @@ Route::get('/', function () {
     return view('dashboard.index')
         ->with('title', 'Главная страница')
         ->with('description', 'Описание главной страницы');
-});
+})->name('main');
 
 
 Route::get('/clear', function() {
@@ -56,9 +60,9 @@ Route::get('/flow', function ($page='flow') {
 
 //Route::redirect('/test', 'http://ya.ru');
 
-Route::get('/{page}', function ($page) {
-    return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page]);
-});
+//Route::get('/{page}', function ($page) {
+//    return view($page.'.index', ['title' => 'Страница ' . $page, 'description' => 'Описаие страницы ' . $page]);
+//});
 
 
 Route::get('/dashboard', function () {
@@ -98,3 +102,7 @@ Route::get('/dashboard', function () {
 //];
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

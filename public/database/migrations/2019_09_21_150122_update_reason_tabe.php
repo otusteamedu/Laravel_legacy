@@ -31,6 +31,8 @@ class UpdateReasonTabe extends Migration
     {
         Schema::table('reasons', function(Blueprint $table)
         {
+            $table->dropForeign('group_id');
+
             $table->dropColumn(array('group_id', 'amount'));
         });
     }

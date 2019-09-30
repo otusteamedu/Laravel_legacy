@@ -15,9 +15,13 @@ class GroupsController extends Controller
      */
     public function index()
     {
+//        start_measure('start111');
+        $groups = Group::orderBy('created_at', 'desc')->paginate(10);
+        //$groups->load(['responsibilities']);
         return view('groups.index', [
-            'groups' => Group::orderBy('created_at', 'desc')->paginate(10)
+            'groups' => $groups,
         ]);
+//        stop_measure('start111');
     }
 
     /**
@@ -33,7 +37,7 @@ class GroupsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -45,20 +49,20 @@ class GroupsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Group  $group
+     * @param  \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function show(Group $group)
     {
         return view('groups.show', [
-            'group'=>$group
+            'group' => $group
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Group  $group
+     * @param  \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function edit(Group $group)
@@ -71,8 +75,8 @@ class GroupsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Group  $group
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Group $group)
@@ -84,7 +88,7 @@ class GroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Group  $group
+     * @param  \App\Models\Group $group
      * @return \Illuminate\Http\Response
      */
     public function destroy(Group $group)

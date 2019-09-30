@@ -17,6 +17,8 @@ class CreateRoleUserTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
         });
+
+
     }
 
     /**
