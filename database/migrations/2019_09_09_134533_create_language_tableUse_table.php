@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateLanguageRepositoriesTable extends Migration
+class CreateLanguageTableUseTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateLanguageRepositoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('language_repositories', function (Blueprint $table) {
+        Schema::create('language_table_use', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->char('language_name', 20)->nullable();
             $table->integer('function_id');
@@ -28,6 +28,6 @@ class CreateLanguageRepositoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('language_repositories');
+        Schema::dropIfExists('language_table_use');
     }
 }

@@ -24,5 +24,25 @@ use Illuminate\Database\Eloquent\Model;
  */
 class RoleUser extends Model
 {
-    //
+
+    protected $fillable = ['user_id', 'role_id'];
+
+    public static function isAdmin()
+    {
+//        $result =  '168';  // заглушка ( получение текущего пользователя )
+//
+//        ($result == 168 ? return  : b)
+//        if ($result == 168) return 'отрицательное'; else return 'положительное';
+//        return $result;
+
+    }
+
+    public function geRoleID(){
+       return $this->attributes['role_id'] ;
+    }
+
+    public function getUserId(){
+
+    }
+
 }

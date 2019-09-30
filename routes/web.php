@@ -26,3 +26,8 @@ Route::get('/user', function () {
 Route::get('/helps', function () {
     return view('helps.index');
 });
+Route::get('/php-info', function () {
+    return view('phpInfo.index');
+});
+
+Route::resource('administrator', 'admin\AdminController');

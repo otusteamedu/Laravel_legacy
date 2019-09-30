@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class LanguageRepositoryTableSeeder extends Seeder
+class LanguageTableUseTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,7 +13,7 @@ class LanguageRepositoryTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('language_repositories')->insert([
+        DB::table('language_table_use')->insert([
 
             'language_name' => str_random(10),
             'function_id' => random_int(1,20),

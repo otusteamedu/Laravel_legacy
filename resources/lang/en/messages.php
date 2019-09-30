@@ -10,4 +10,5 @@ return [
     'password' => 'Password',
     'passwordConfirm' => 'Confirmation Password',
     'singIn' => 'Sing in',
+    'admin' => 'Admin panel'
 ];

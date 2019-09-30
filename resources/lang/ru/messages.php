@@ -10,4 +10,8 @@ return [
     'password' => 'Пароль',
     'passwordConfirm' => 'Подстверждение пароля',
     'singIn' => 'Регистрация',
+    'admin' => 'Админ панель',
+    'adminCreateRole' => 'Назначение роли для юзеров',
+    'adminUpdateUser' => 'Id юзера',
+    'adminUpdateRole' => 'Id роли',
 ];
