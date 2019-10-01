@@ -4,6 +4,7 @@ namespace App\Services\Episode;
 
 use App\Models\Episode;
 use App\Services\Episode\Repositories\EpisodeRepositoryInterface;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
 
@@ -36,9 +37,9 @@ class EpisodeService
      * @param array $filters
      * @return LengthAwarePaginator
      */
-    public function searchEpisodes(array $filters = []): LengthAwarePaginator
+    public function searchEpisodes(array $filters = [], User $user = null): LengthAwarePaginator
     {
-        return $this->episodeRepository->search($filters);
+        return $this->episodeRepository->search($filters, $user);
     }
 
     /**

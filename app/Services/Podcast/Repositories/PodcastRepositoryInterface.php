@@ -22,7 +22,8 @@ interface PodcastRepositoryInterface
 
     /**
      * Возвращает массив подкастов в формате id => name
+     * @param User $user
      * @return array
      */
-    public function getPodcastsOptions(): array;
+    public function getPodcastsOptions(User $user): array;
 }

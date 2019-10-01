@@ -86,10 +86,11 @@ class PodcastService
 
     /**
      * Возвращает массив подкастов в формате id => name
+     * @param User $user
      * @return array
      */
-    public function getPodcasts(): array
+    public function getPodcasts(User $user): array
     {
-        return $this->podcastRepository->getPodcastsOptions();
+        return $this->podcastRepository->getPodcastsOptions($user);
     }
 }

@@ -5,7 +5,6 @@ return [
     'latest_episode' => 'Latest Episode',
     'new_podcast' => 'New Podcast',
     'to_list' => 'To all podcasts list',
-    'no_access' => 'You do not have access to this podcast',
     'name' => [
         'label' => 'Podcast Title',
     ],

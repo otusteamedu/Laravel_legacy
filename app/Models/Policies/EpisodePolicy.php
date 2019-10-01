@@ -3,10 +3,10 @@
 namespace App\Models\Policies;
 
 use App\User;
-use App\Models\Podcast;
+use App\Models\Episode;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PodcastPolicy
+class EpisodePolicy
 {
     use HandlesAuthorization;
 
@@ -14,12 +14,12 @@ class PodcastPolicy
      * Determine whether the user can view the podcast.
      *
      * @param \App\User $user
-     * @param \App\Models\Podcast $podcast
+     * @param \App\Models\Episode $episode
      * @return mixed
      */
-    public function access(User $user, Podcast $podcast)
+    public function access(User $user, Episode $episode)
     {
-        return $podcast->hasUser($user)
+        return $episode->hasUser($user)
             ? $this->allow()
             : $this->deny(trans('common.no_access'));
     }

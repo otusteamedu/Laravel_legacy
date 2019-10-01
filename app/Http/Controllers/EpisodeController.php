@@ -6,6 +6,8 @@ use App\Http\Requests\EpisodeRequest;
 use App\Models\Episode;
 use App\Services\Episode\EpisodeService;
 use App\Services\Podcast\PodcastService;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\Request;
 
 class EpisodeController extends Controller
 {
@@ -24,16 +26,18 @@ class EpisodeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $episodes = $this->episodeService->searchEpisodes();
+        $user = $request->user();
+        $episodes = $this->episodeService->searchEpisodes([], $user);
         return view('episodes.index', compact('episodes'));
     }
 
-    public function create(PodcastService $podcastService)
+    public function create(Request $request, PodcastService $podcastService)
     {
         $episode = new Episode();
-        $podcasts = $podcastService->getPodcasts();
+        $user = $request->user();
+        $podcasts = $podcastService->getPodcasts($user);
         return view('episodes.create', compact('episode', 'podcasts'));
     }
 
@@ -49,14 +53,27 @@ class EpisodeController extends Controller
             ->with('success', trans('episode.save_success'));
     }
 
-    public function edit(Episode $episode, PodcastService $podcastService)
+    public function edit(Request $request, Episode $episode, PodcastService $podcastService)
     {
-        $podcasts = $podcastService->getPodcasts();
+        try {
+            $this->authorize('access', $episode);
+        } catch (AuthorizationException $e) {
+            return redirect(route('episodes.index'))->with('error', $e->getMessage());
+        }
+
+        $user = $request->user();
+        $podcasts = $podcastService->getPodcasts($user);
         return view('episodes.edit', compact('episode', 'podcasts'));
     }
 
     public function update(EpisodeRequest $request, Episode $episode)
     {
+        try {
+            $this->authorize('access', $episode);
+        } catch (AuthorizationException $e) {
+            return redirect(route('episodes.index'))->with('error', $e->getMessage());
+        }
+
         $data = $request->all();
         $data['cover'] = $request->file('cover');
 
@@ -69,6 +86,12 @@ class EpisodeController extends Controller
 
     public function destroy(Episode $episode)
     {
+        try {
+            $this->authorize('access', $episode);
+        } catch (AuthorizationException $e) {
+            return redirect(route('episodes.index'))->with('error', $e->getMessage());
+        }
+
         $this->episodeService->deleteEpisode($episode);
 
         return redirect(route('episodes.index'));

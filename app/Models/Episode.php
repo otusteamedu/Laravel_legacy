@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -60,6 +61,15 @@ class Episode extends Model
         return $this->belongsTo(Podcast::class);
     }
 
+    public function users()
+    {
+        // Как проверить с помощью tinker:
+        // $episode = Episode::find(/*какой-нибудь id*/);
+        // $episode->users()->toSql()
+        // select * from `users` inner join `podcast_user` on `users`.`id` = `podcast_user`.`user_id` where `podcast_user`.`podcast_id` = ?
+        return $this->belongsToMany(User::class, 'podcast_user', 'podcast_id', 'user_id', 'podcast_id');
+    }
+
     public function coverUrl(): ?string
     {
         if (!$this->cover_file || !\Storage::exists($this->cover_file)) {
@@ -67,5 +77,28 @@ class Episode extends Model
             return $this->podcast ? $this->podcast->coverUrl() : null;
         }
         return \Storage::url($this->cover_file);
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param User $user
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForUser($query, User $user)
+    {
+        // "select * from `episodes` where exists (select * from `users` inner join `podcast_user` on `users`.`id` = `podcast_user`.`user_id` where `episodes`.`podcast_id` = `podcast_user`.`podcast_id` and `user_id` = ?)"
+        return $query->whereHas('users', function ($q) use ($user) {
+            $q->where('user_id', '=', $user->id);
+        });
+    }
+
+    /**
+     * Определяет, относится ли данный эпизод к указанному пользователю?
+     * @param User $user
+     * @return bool
+     */
+    public function hasUser(User $user): bool
+    {
+        return $this->podcast->hasUser($user);
     }
 }
