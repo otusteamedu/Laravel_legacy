@@ -44,7 +44,8 @@ class PodcastController extends Controller
         $data['cover'] = $request->file('cover');
 
         // Создаём новую запись о подкасте в базе
-        $podcast = $this->podcastService->storePodcast($data);
+        $user = $request->user();
+        $podcast = $this->podcastService->storePodcast($data, $user);
 
         return redirect(route('podcasts.edit', $podcast))
             ->with('success', trans('podcast.save_success'));

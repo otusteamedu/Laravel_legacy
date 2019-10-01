@@ -41,13 +41,15 @@ class PodcastService
      * @param array $data
      * @return Podcast
      */
-    public function storePodcast(array $data): Podcast
+    public function storePodcast(array $data, User $user): Podcast
     {
         $podcast = $this->podcastRepository->createFromArray($data);
 
         if (!empty($data['cover'])) {
             $this->handleCoverUpload($podcast, $data['cover']);
         }
+
+        $podcast->users()->attach($user);
 
         return $podcast;
     }
