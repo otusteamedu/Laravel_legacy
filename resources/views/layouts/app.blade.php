@@ -66,12 +66,14 @@
 <section class="section">
 
     @if (session('success'))
-        <div class="content">
-            <div class="alert alert-success">
-                <div class="notification is-success">
-                    {{ session('success') }}
-                </div>
-            </div>
+        <div class="notification is-success">
+            {{ session('success') }}
+        </div>
+    @endif
+
+    @if (session('error'))
+        <div class="notification is-danger">
+            {{ session('error') }}
         </div>
     @endif
 

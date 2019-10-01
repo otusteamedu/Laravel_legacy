@@ -107,8 +107,18 @@ class Podcast extends Model
      */
     public function scopeForUser($query, User $user)
     {
-        return $query->whereHas('users', function($q) use ($user) {
+        return $query->whereHas('users', function ($q) use ($user) {
             $q->where('user_id', '=', $user->id);
         });
+    }
+
+    /**
+     * Определяет, относится ли данный подкаст к указанному пользователю?
+     * @param User $user
+     * @return bool
+     */
+    public function hasUser(User $user): bool
+    {
+        return $this->users->contains($user);
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\PodcastRequest;
 use App\Models\Podcast;
 use App\Services\CategoryItunes\CategoryItunesService;
 use App\Services\Podcast\PodcastService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class PodcastController extends Controller
@@ -53,12 +54,24 @@ class PodcastController extends Controller
 
     public function edit(Podcast $podcast, CategoryItunesService $categoryItunesService)
     {
+        try {
+            $this->authorize('access', $podcast);
+        } catch (AuthorizationException $e) {
+            return redirect(route('podcasts.index'))->with('error', $e->getMessage());
+        }
+
         $categoriesItunes = $categoryItunesService->getCategories();
         return view('podcasts.edit', compact('podcast', 'categoriesItunes'));
     }
 
     public function update(PodcastRequest $request, Podcast $podcast)
     {
+        try {
+            $this->authorize('access', $podcast);
+        } catch (AuthorizationException $e) {
+            return redirect(route('podcasts.index'))->with('error', $e->getMessage());
+        }
+
         $data = $request->all();
         $data['cover'] = $request->file('cover');
 
@@ -71,6 +84,12 @@ class PodcastController extends Controller
 
     public function destroy(Podcast $podcast)
     {
+        try {
+            $this->authorize('access', $podcast);
+        } catch (AuthorizationException $e) {
+            return redirect(route('podcasts.index'))->with('error', $e->getMessage());
+        }
+
         $this->podcastService->deletePodcast($podcast);
 
         return redirect(route('podcasts.index'));
