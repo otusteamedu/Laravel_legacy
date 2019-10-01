@@ -42,6 +42,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $category_itunes_id
  * @property-read \App\Models\CategoryItunes|null $categoryItunes
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCategoryItunesId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read int|null $users_count
+ * @method  \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast forUser(\App\User $user)
  */
 class Podcast extends Model
 {

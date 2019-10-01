@@ -15,3 +15,6 @@ docker-composer-update:
 
 yarn-dev:
 	yarn development
+
+artisan-ide-model:
+	php artisan ide-helper:model -W
