@@ -66,23 +66,17 @@ yarn development
 ```
 php artisan storage:link
 ```
-
 5.5. Находясь внтури контейнера `workspace`, выполнить миграции и наполнить базу тестовыми данными
 (подробнее: https://laravel.com/docs/6.x/filesystem#the-public-disk)
 ```
 php artisan migrate --seed
 ```
 
-5.6. Находясь внтури контейнера `workspace`, создать первого пользоватля (логин и пароль нужно будет указать в интерактивном режиме)
-```
-php artisan podpub:user
-```
-
-Примечание:
-**podpub** - сокращение от Podcust Publisher. Все команды данного проекта начинаются с этого профикса.
-
+При этом будет создан пользователь admin@example.com/password, к которому будут привязаны первые два подкаста по алфавиту.
+Остальные подкасты будут привязаны к случаным пользователям.
 
 6. Сайт должен отрываться по адресу `http://localhost:8000`
+Для входа используйте Login: `admin@example.com`, Password: `password`
 
 7. Для остановки Docker сервисов необходимо выполнить следующую команду, находясь в директории `laradock-p`
 ```
@@ -157,3 +151,17 @@ php artisan ide-helper:generate
 php artisan ide-helper:meta
 php artisan ide-helper:model
 ```
+
+## Дополнительные команды
+
+Приложение даёт ряд дополнительных artisan команд.
+Их нужно выполнять, находясь в контейнере `workspace` (для входа в контейнер выполните `make docker-workspace`).
+
+### Создание пользователя
+```
+php artisan podpub:user
+```
+
+Примечание:
+**podpub** - сокращение от Podcust Publisher. Все команды данного проекта начинаются с этого профикса.
+
