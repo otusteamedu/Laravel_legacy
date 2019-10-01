@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(FunctionAPITableSeeder::class);
         $this->call(LanguageTableUseTableSeeder::class);
         $this->call(RoleTableSeeder::class);
-        $this->call(RoleUsersTableSeeder::class);
+        $this->call(RoleUserTableSeeder::class);
     }
 }
