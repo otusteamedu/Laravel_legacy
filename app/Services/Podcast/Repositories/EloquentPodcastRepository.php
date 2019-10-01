@@ -5,6 +5,7 @@ namespace App\Services\Podcast\Repositories;
 
 
 use App\Models\Podcast;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class EloquentPodcastRepository implements PodcastRepositoryInterface
@@ -14,9 +15,13 @@ class EloquentPodcastRepository implements PodcastRepositoryInterface
         return Podcast::find($id);
     }
 
-    public function search(array $filters = []): LengthAwarePaginator
+    public function search(array $filters = [], User $user = null): LengthAwarePaginator
     {
-        return Podcast::with('latestEpisode')->orderBy('name')->where($filters)->paginate();
+        $builder = Podcast::with('latestEpisode')->orderBy('name')->where($filters);
+        if ($user) {
+            $builder->forUser($user);
+        }
+        return $builder->paginate();
     }
 
     public function createFromArray(array $data): Podcast

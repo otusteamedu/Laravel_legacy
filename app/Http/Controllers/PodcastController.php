@@ -6,6 +6,7 @@ use App\Http\Requests\PodcastRequest;
 use App\Models\Podcast;
 use App\Services\CategoryItunes\CategoryItunesService;
 use App\Services\Podcast\PodcastService;
+use Illuminate\Http\Request;
 
 class PodcastController extends Controller
 {
@@ -24,9 +25,9 @@ class PodcastController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        $podcasts = $this->podcastService->searchPodcasts();
+        $podcasts = $this->podcastService->searchPodcasts([], $request->user());
         return view('podcasts.index', compact('podcasts'));
     }
 

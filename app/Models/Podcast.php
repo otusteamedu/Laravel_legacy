@@ -96,4 +96,16 @@ class Podcast extends Model
     {
         return $this->belongsToMany(User::class);
     }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param User $user
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForUser($query, User $user)
+    {
+        return $query->whereHas('users', function($q) use ($user) {
+            $q->where('user_id', '=', $user->id);
+        });
+    }
 }

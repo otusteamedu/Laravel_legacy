@@ -5,13 +5,14 @@ namespace App\Services\Podcast\Repositories;
 
 
 use App\Models\Podcast;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 interface PodcastRepositoryInterface
 {
     public function find(int $id): ?Podcast;
 
-    public function search(array $filters = []): LengthAwarePaginator;
+    public function search(array $filters = [], User $user = null): LengthAwarePaginator;
 
     public function createFromArray(array $data): Podcast;
 

@@ -4,6 +4,7 @@ namespace App\Services\Podcast;
 
 use App\Models\Podcast;
 use App\Services\Podcast\Repositories\PodcastRepositoryInterface;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
 
@@ -28,11 +29,12 @@ class PodcastService
 
     /**
      * @param array $filters
+     * @param User|null $user
      * @return LengthAwarePaginator
      */
-    public function searchPodcasts(array $filters = []): LengthAwarePaginator
+    public function searchPodcasts(array $filters = [], User $user = null): LengthAwarePaginator
     {
-        return $this->podcastRepository->search($filters);
+        return $this->podcastRepository->search($filters, $user);
     }
 
     /**
