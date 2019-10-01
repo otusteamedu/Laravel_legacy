@@ -1,6 +1,8 @@
 <?php
-use App\Models\Podcast;
-/** @var Podcast $podcast */
+
+use App\Models\Episode;
+
+/** @var Episode $episode */
 ?>
 @extends('layouts.app')
 
@@ -9,26 +11,25 @@ use App\Models\Podcast;
         <nav class="level">
             <div class="level-left">
                 <div class="level-item">
-                    <h1 class="title">@lang('common.podcasts')</h1>
+                    <h1 class="title">@lang('common.episodes')</h1>
                 </div>
             </div>
             <div class="level-right">
                 <div class="level-item">
                     <a class="button is-primary is-outlined"
-                       href="{{ route('podcasts.create') }}"><i class="fa fa-plus"></i>&nbsp;@lang('podcast.create')</a>
+                       href="{{ route('episodes.create') }}"><i class="fa fa-plus"></i>&nbsp;@lang('episode.create')</a>
                 </div>
             </div>
         </nav>
-        <h1 class="title"></h1>
 
-        @if($podcasts->count())
-            @include('podcasts.table')
+        @if($episodes->count())
+            @include('episodes.table')
         @else
-            <p>@lang('podcasts.no_podcasts')</p>
+            <p>@lang('episode.no_episodes')</p>
         @endif
 
     </div>
-    {{ $podcasts->links() }}
+    {{ $episodes->links() }}
 
 
 @endsection

@@ -20,15 +20,16 @@
 <body>
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+        <a class="navbar-item has-text-weight-light has-text-grey" href="/">
             {{ config('app.name', 'Podcast Publisher') }}
         </a>
     </div>
     <div class="navbar-menu is-active">
         <div class="navbar-start">
             @auth
-                <a class="navbar-item" href="{{ route('podcasts.index') }}">@lang('common.podcasts')</a>
-                @endauth
+                <a class="navbar-item @if(Route::is('podcasts.*')) has-text-weight-bold @endif" href="{{ route('podcasts.index') }}">@lang('common.podcasts')</a>
+                <a class="navbar-item @if(Route::is('episodes.*')) has-text-weight-bold @endif" href="{{ route('episodes.index') }}">@lang('common.episodes')</a>
+            @endauth
         </div>
         <div class="navbar-end">
             <!-- Authentication Links -->
@@ -66,11 +67,11 @@
 
     @if (session('success'))
         <div class="content">
-        <div class="alert alert-success">
-            <div class="notification is-success">
-                {{ session('success') }}
+            <div class="alert alert-success">
+                <div class="notification is-success">
+                    {{ session('success') }}
+                </div>
             </div>
-        </div>
         </div>
     @endif
 

@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $no
  * @property string $show_notes
  * @property int $podcast_id
+ * @property string|null $cover_file
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Podcast $podcast
@@ -26,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode wherePodcastId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereSeason($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereShowNotes($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCoverFile($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Episode whereUpdatedAt($value)
  * @mixin \Eloquent
  */
@@ -37,6 +39,7 @@ class Episode extends Model
         'no',
         'show_notes',
         'podcast_id',
+        'cover_file',
     ];
 
     protected $casts = [
@@ -45,8 +48,24 @@ class Episode extends Model
         'podcast_id' => 'integer',
     ];
 
+    /**
+     * Подкаст всегда загружаем вместе с эпизодом, т.к. практически на всех экранах где выводится эпизод
+     * требуется информация и о подкасте
+     * @var array
+     */
+    protected $with = ['podcast'];
+
     public function podcast()
     {
         return $this->belongsTo(Podcast::class);
+    }
+
+    public function coverUrl(): ?string
+    {
+        if (!$this->cover_file || !\Storage::exists($this->cover_file)) {
+            // Если для самого эпизода обложка не загружена, попробуем взять обложку из подкаста
+            return $this->podcast ? $this->podcast->coverUrl() : null;
+        }
+        return \Storage::url($this->cover_file);
     }
 }
