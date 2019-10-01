@@ -15,7 +15,6 @@ class CreatePodcastUserTable extends Migration
     {
         Schema::create('podcast_user', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('podcast_id');
 

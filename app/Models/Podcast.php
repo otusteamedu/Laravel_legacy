@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -86,5 +87,13 @@ class Podcast extends Model
             return null;
         }
         return \Storage::url($this->cover_file);
+    }
+
+    /**
+     * The users that belong to the role.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
     }
 }
