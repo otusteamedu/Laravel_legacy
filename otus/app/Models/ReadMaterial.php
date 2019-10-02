@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class ReadMaterial
  * @property int id
- * @property User user
- * @property Material material
+ * @property User user_id
+ * @property Material material_id
  * @property \DateTime created_at
  * @property \DateTime updated_at
  * @package App\Models

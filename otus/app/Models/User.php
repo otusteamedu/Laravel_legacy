@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string email
  * @property string password_hash
  * @property string photo
+ * @property string remember_token
  * @property \DateTime created_at
  * @property \DateTime updated_at
  * @package App\Models

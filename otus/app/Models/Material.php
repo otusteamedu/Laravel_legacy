@@ -8,9 +8,9 @@ use Illuminate\Database\Eloquent\Model;
  * Class Material
  * @property int id
  * @property string name
- * @property Category category
- * @property Author authors
- * @property Handbook status
+ * @property Category  category_id
+ * @property Author authors_id
+ * @property Handbook  status_id
  * @property string file
  * @property \DateTime year_publishing
  * @property \DateTime created_at

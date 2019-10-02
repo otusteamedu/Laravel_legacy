@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration
             $table->string('password_hash');
             $table->string('photo');
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 

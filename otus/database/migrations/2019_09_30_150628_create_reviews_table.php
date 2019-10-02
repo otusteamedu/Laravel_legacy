@@ -4,32 +4,27 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReviewsTable extends Migration
-{
+class CreateReviewsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user')->unsigned()->nullable(false);
-            $table->bigInteger('material')->unsigned()->nullable(false);
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('material_id')->unsigned();
             $table->longText('review')->nullable();
             $table->timestamps();
         });
 
         Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('user')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-        });
-
-        Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('material')
+            $table->foreign('material_id')
                 ->references('id')
                 ->on('materials')
                 ->onDelete('cascade');
@@ -41,8 +36,7 @@ class CreateReviewsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('reviews');
     }
 }

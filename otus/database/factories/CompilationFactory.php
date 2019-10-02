@@ -27,10 +27,10 @@ use Faker\Generator as Faker;
 
 $factory->define(Compilation::class, function (Faker $faker) {
     return [
-        'material' => function () {
+        'material_id' => function () {
             return factory(Material::class)->create()->id;
         },
-        'compilation' => function () {
+        'compilation_id' => function () {
             return factory(SelectionMaterial::class)->create()->id;
         },
     ];

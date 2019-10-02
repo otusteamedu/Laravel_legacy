@@ -4,42 +4,36 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMaterialsTable extends Migration
-{
+class CreateMaterialsTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('materials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name')->nullable(false);
-            $table->bigInteger('category')->unsigned()->nullable(false);
-            $table->bigInteger('authors')->unsigned()->nullable(false);
-            $table->bigInteger('status')->unsigned()->nullable(false);
-            $table->string('file')->nullable(false);
+            $table->string('name');
+            $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('authors_id')->unsigned();
+            $table->bigInteger('status_id')->unsigned();
+            $table->string('file');
             $table->year('year_publishing')->nullable();
             $table->timestamps();
         });
 
         Schema::table('materials', function (Blueprint $table) {
-           $table->foreign('category')
-               ->references('id')
-               ->on('categories')
-               ->onDelete('cascade');
-        });
+            $table->foreign('category_id')
+                ->references('id')
+                ->on('categories')
+                ->onDelete('cascade');
 
-        Schema::table('materials', function (Blueprint $table) {
-            $table->foreign('authors')
+            $table->foreign('authors_id')
                 ->references('id')
                 ->on('authors')
                 ->onDelete('cascade');
-        });
 
-        Schema::table('materials', function (Blueprint $table) {
-            $table->foreign('status')
+            $table->foreign('status_id')
                 ->references('id')
                 ->on('handbooks')
                 ->onDelete('cascade');
@@ -51,8 +45,7 @@ class CreateMaterialsTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::dropIfExists('materials');
     }
 }

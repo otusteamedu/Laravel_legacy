@@ -21,11 +21,11 @@ use Faker\Generator as Faker;
 
 $factory->define(Journal::class, function (Faker $faker) {
     return [
-        'user' => function () {
+        'user_id' => function () {
             return factory(User::class)->create()->id;
         },
 
-        'status' => function () {
+        'status_id' => function () {
             return factory(Handbook::class)->create()->id;
         }
     ];

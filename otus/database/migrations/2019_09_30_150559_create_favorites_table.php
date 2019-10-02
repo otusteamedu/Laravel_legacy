@@ -15,20 +15,17 @@ class CreateFavoritesTable extends Migration
     {
         Schema::create('favorites', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user')->unsigned()->nullable(false);
-            $table->bigInteger('material')->unsigned()->nullable(false);
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('material_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('favorites', function (Blueprint $table) {
-            $table->foreign('user')
+            $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-        });
-
-        Schema::table('favorites', function (Blueprint $table) {
-            $table->foreign('material')
+            $table->foreign('material_id')
                 ->references('id')
                 ->on('materials')
                 ->onDelete('cascade');

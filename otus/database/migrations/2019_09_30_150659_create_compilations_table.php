@@ -15,20 +15,20 @@ class CreateCompilationsTable extends Migration
     {
         Schema::create('compilations', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('material')->unsigned();
-            $table->bigInteger('compilation')->unsigned();
+            $table->bigInteger('material_id')->unsigned();
+            $table->bigInteger('compilation_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('compilations', function (Blueprint $table) {
-            $table->foreign('material')
+            $table->foreign('material_id')
                 ->references('id')
                 ->on('materials')
                 ->onDelete('cascade');
         });
 
         Schema::table('compilations', function (Blueprint $table) {
-            $table->foreign('compilation')
+            $table->foreign('compilation_id')
                 ->references('id')
                 ->on('selection_materials')
                 ->onDelete('cascade');

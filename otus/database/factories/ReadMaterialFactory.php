@@ -24,10 +24,10 @@ use Faker\Generator as Faker;
 
 $factory->define(ReadMaterial::class, function (Faker $faker) {
     return [
-        'user' => function () {
+        'user_id' => function () {
             return factory(User::class)->create()->id;
         },
-        'material' => function () {
+        'material_id' => function () {
             return factory(Material::class)->create()->id;
         },
     ];

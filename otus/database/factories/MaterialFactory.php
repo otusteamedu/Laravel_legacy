@@ -47,14 +47,14 @@ $factory->define(Material::class, function (Faker $faker) {
 
     return [
         'name' => $material,
-        'category' => function () {
+        'category_id' => function () {
             return factory(Category::class)->create()->id;
         },
 
-        'authors' => function () {
+        'authors_id' => function () {
             return factory(\App\Models\Author::class)->create()->id;
         },
-        'status' => function () {
+        'status_id' => function () {
             return factory(Handbook::class)->create()->id;
         },
         'file' => $file,

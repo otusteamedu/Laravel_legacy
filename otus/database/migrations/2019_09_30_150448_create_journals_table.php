@@ -15,26 +15,25 @@ class CreateJournalsTable extends Migration
     {
         Schema::create('journals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user')->unsigned();
-            $table->bigInteger('status')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('status_id')->unsigned();
             $table->timestamps();
         });
 
         Schema::table('journals', function (Blueprint $table) {
             $table
-                ->foreign('user')
+                ->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-        });
 
-        Schema::table('journals', function (Blueprint $table) {
             $table
-                ->foreign('status')
+                ->foreign('status_id')
                 ->references('id')
                 ->on('handbooks')
                 ->onDelete('cascade');
         });
+
     }
 
     /**
