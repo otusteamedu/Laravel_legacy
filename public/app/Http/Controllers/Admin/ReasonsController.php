@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Reason;
 use App\Models\Group;
+use App\Models\Responsibility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -27,11 +28,12 @@ class ReasonsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($request)
     {
         return view('reasons.create', [
             'reasons' => [],
             'groups' => Group::get(),
+            'group_id'=>$request
         ]);
     }
 
@@ -44,7 +46,8 @@ class ReasonsController extends Controller
     public function store(Request $request)
     {
         $reason = Reason::create($request->all());
-        return redirect()->route('admin.reasons.index');
+//        return redirect()->route('admin.reasons.index');
+        return redirect()->route('admin.groups.show',$request['group_id']);
     }
 
     /**
@@ -58,6 +61,7 @@ class ReasonsController extends Controller
         return view('reasons.show',[
             'reason'=>$reason,
             'group'=>Group::where('id',$reason->group_id)->get(),
+            'responsibilities'=>Responsibility::where('group_id',$reason->group_id)->get(),
         ]);
     }
 
@@ -85,7 +89,8 @@ class ReasonsController extends Controller
     public function update(Request $request, Reason $reason)
     {
         $reason->update($request->all());
-        return redirect()->route('admin.reasons.index');
+//        return redirect()->route('admin.reasons.index');
+        return redirect()->route('admin.groups.show',$request['group_id']);
     }
 
     /**
@@ -97,6 +102,7 @@ class ReasonsController extends Controller
     public function destroy(Reason $reason)
     {
         $reason->delete();
-        return redirect()->route('admin.reasons.index');
+//        return redirect()->route('admin.reasons.index');
+        return redirect()->route('admin.groups.show',$reason['group_id']);
     }
 }

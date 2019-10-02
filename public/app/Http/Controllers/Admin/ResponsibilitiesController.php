@@ -26,11 +26,13 @@ class ResponsibilitiesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($request)
     {
+        //return $request;
         return view('responsibilities.create', [
             'responsibilities' => [],
             'groups' => Group::get(),
+            'group_id'=>$request
         ]);
     }
 
@@ -43,7 +45,7 @@ class ResponsibilitiesController extends Controller
     public function store(Request $request)
     {
         $responsibility = Responsibility::create($request->all());
-        return redirect()->route('admin.responsibilities.index');
+        return redirect()->route('admin.groups.show',$request['group_id']);
     }
 
     /**
@@ -84,7 +86,8 @@ class ResponsibilitiesController extends Controller
     public function update(Request $request, Responsibility $responsibility)
     {
         $responsibility->update($request->all());
-        return redirect()->route('admin.responsibilities.index');
+//        return redirect()->route('admin.responsibilities.index');
+        return redirect()->route('admin.groups.show',$request['group_id']);
     }
 
     /**
@@ -95,7 +98,9 @@ class ResponsibilitiesController extends Controller
      */
     public function destroy(Responsibility $responsibility)
     {
+
         $responsibility->delete();
-        return redirect()->route('admin.responsibilities.index');
+//        return redirect()->route('admin.responsibilities.index');
+        return redirect()->route('admin.groups.show',$responsibility['group_id']);
     }
 }

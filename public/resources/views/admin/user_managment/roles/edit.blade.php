@@ -10,11 +10,11 @@
 
 @section('content')
 
-@if($message!='')
+@isset($message)
 <div class="alert">
     {{$message}}
 </div>
-@endif
+@endisset
 
 <div class="col-lg-6">
     <div class="card">

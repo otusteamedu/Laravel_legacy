@@ -17,12 +17,14 @@
                 {{csrf_field()}}
 
                 <div class="row form-group">
-                    <div class="col col-md-3"><label for="select" class=" form-control-label">Select</label></div>
+                    <div class="col col-md-3"><label for="select" class=" form-control-label">Группа</label></div>
                     <div class="col-12 col-md-9">
                         <select name="group_id" id="select" class="form-control">
                             @foreach ($groups as $group)
 
-                            <option value="{{$group->id}}">{{$group->name}}</option>
+                            <option value="{{$group->id}}"
+                            @if($group->id == $group_id) selected @endif
+                            >{{$group->name}}</option>
 
                             @endforeach
                         </select>

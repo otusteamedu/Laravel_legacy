@@ -22,9 +22,9 @@
                     <div class="col-12 col-md-9">
                         <select name="group_id" id="select" class="form-control">
                             @foreach ($groups as $group)
-
-                            <option value="{{$group->id}}">{{$group->name}}</option>
-
+                            <option value="{{$group->id}}"
+                            @if($group->id == $group_id) selected @endif
+                            >{{$group->name}}</option>
                             @endforeach
                         </select>
                     </div>

@@ -14,8 +14,14 @@
 Route::group(['prefix'=>'admin','namespace'=>'Admin', 'middleware'=>'auth'],function(){
     Route::get('/','DashboardController@dashboard')->name('admin.index');
     Route::resource('/groups','GroupsController',['as'=>'admin']);
+
+    Route::get('/responsibilities/create/{group?}','ResponsibilitiesController@create')->where('group', '[0-9]+')->name('admin.responsibilities.create.group');
     Route::resource('/responsibilities','ResponsibilitiesController',['as'=>'admin']);
+
+    Route::get('/reasons/create/{group?}','ReasonsController@create')->where('group', '[0-9]+')->name('admin.reasons.create.group');
     Route::resource('/reasons','ReasonsController',['as'=>'admin']);
+
+    Route::post('/flows/store','FlowController@store')->name('admin.flows.store');
 
     Route::group(['prefix'=>'user_managment', 'namespace'=>'UserManagment'],function(){
        Route::resource('/users','UserController', ['as'=>'admin.user_managment']);
@@ -58,6 +64,8 @@ Route::get('/flow', function ($page='flow') {
             ['name'=>'Имя4', 'var1'=>'значение w', 'count'=> '2005'],
         ] );
 })->name('flow');
+
+
 
 //Route::redirect('/test', 'http://ya.ru');
 

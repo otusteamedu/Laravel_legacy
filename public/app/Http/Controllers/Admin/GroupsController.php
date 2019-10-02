@@ -55,7 +55,9 @@ class GroupsController extends Controller
     public function show(Group $group)
     {
         return view('groups.show', [
-            'group' => $group
+            'group' => $group,
+            'responsibilities'=> $group->load(['responsibilities']),
+            'reasons'=>$group->load(['reasons']),
         ]);
     }
 
