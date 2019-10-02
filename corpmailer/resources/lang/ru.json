@@ -1,0 +1,22 @@
+{
+
+  "E-Mail Address": "E-mail адрес",
+
+  "Password": "Пароль",
+  "Reset Password": "Сбросить пароль",
+
+  "Send Password Reset Link": "Восстановить пароль",
+  "These credentials do not match our records.": "Такие данные отсутстсуют в системе",
+
+  "Remember Me": "Запомнить меня",
+
+  "Login": "Войти",
+  "Logout": "Выход",
+
+  "Cabinet": "Личный кабинет",
+  "User": "Пользователь",
+
+  "Register": "Регистрация",
+  "Forgot Your Password?": "Забыли пароль?"
+
+}
