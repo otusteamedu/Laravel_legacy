@@ -1,3 +1,5 @@
+/* static pages */
+
 .index {
     background: url("/img/background-index.jpeg") top left no-repeat;
     min-height: 400px;
@@ -56,10 +58,25 @@
     margin-left: 240px;
 }
 
+/* users */
+.together{
+    margin-right: -10px;
+}
+
 .income{
     color: green;
 }
 
 .consumption{
     color: red;
+}
+
+.logout{
+    display: block;
+    color:#fff;
+    margin-top: 20px;
+}
+
+.logout:hover{
+    color: #000;
 }

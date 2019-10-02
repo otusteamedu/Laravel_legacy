@@ -12,6 +12,13 @@
 */
 Auth::routes();
 
+Route::get('setlocale/{locale}', function ($locale) {
+    if (in_array($locale, \Config::get('app.locales'))) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('locale');
+
 Route::get('/', function () {
     return view('statics.index');
 })->name('index');
@@ -20,10 +27,11 @@ Route::get('/about', function () {
     return view('statics.about');
 })->name('about');
 
-Route::get('/home', 'OperationsController@index')->name('home');
-Route::resource('operation', 'OperationsController')->except(['show', 'destroy']);
-Route::get('operation/{id}/destroy', 'OperationsController@destroy')->name('operation.destroy');;
-Route::get('operation/period', 'OperationsController@setPeriod')->name('operation.setPeriod');;
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'OperationsController@index')->name('home');
+    Route::resource('operation', 'OperationsController')->except(['show']);
+    Route::get('operation/period', 'OperationsController@setPeriod');
+});
 
 
 

@@ -15,6 +15,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriesTableSeeder::class);
         $this->call(OperationsTableSeeder::class);
 
-//         factory(App\Models\Operation::class, 100)->create();
+//         factory(App\Models\OperationsService::class, 100)->create();
     }
 }

@@ -5,6 +5,23 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
+    //datatables
+    var lang = $('meta[name="lang"]').attr('content');
+    switch(lang){
+        case 'en':
+            var url = '/assets/plugins/datatables/media/lang/en.json';
+            break;
+        default:
+            var url = '/assets/plugins/datatables/media/lang/ru.json';
+    }
+    $(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": url
+            }
+        });
+    });
+
     //вывод операций установленный за период
     $('.index-button-group button').on('click', function () {
         var period = $(this).attr('period');
@@ -15,9 +32,9 @@ $(document).ready(function () {
             },
             success: function( result ) {
                 var obj = jQuery.parseJSON(result);
-                console.log(obj);
 
-                $('#count p').html('Доход: <span class="income">'+ obj.incomeCount +'</span> Расход: <span class="consumption">'+ obj.consumptionCount +'</span>');
+                $('#count .income').html(obj.incomeCount);
+                $('#count .consumption').html(obj.consumptionCount);
 
                 var table = $('#myTable').DataTable();
                 table.clear();

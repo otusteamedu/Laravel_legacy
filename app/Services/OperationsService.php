@@ -3,11 +3,12 @@
 
 namespace App\Services;
 
-
 use Illuminate\Http\Request;
+use \App\Models\Operation;
+use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 
-class OperationService
+class OperationsService
 {
     const PERIOD_TODAY = 'today';
     /**
@@ -42,7 +43,7 @@ class OperationService
                 break;
         }
 
-        return \App\Models\Operation::whereBetween('updated_at', [$dateStart, $dateEnd])->with('category')->get();
+        return Operation::where('user_id', Auth::id())->whereBetween('updated_at', [$dateStart, $dateEnd])->with('category')->get();
     }
 
     /**
