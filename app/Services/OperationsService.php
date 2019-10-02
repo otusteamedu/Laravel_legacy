@@ -7,13 +7,14 @@ namespace App\Services;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
-class Operation
+class OperationService
 {
+    const PERIOD_TODAY = 'today';
     /**
      * @param Request $request
      * @return mixed
      */
-    public static function getOperationsForPeriod($period = 'today'){
+    public function getOperationsForPeriod($period = self::PERIOD_TODAY){
         switch ($period){
             case 'today':
                 $dateStart = Carbon::today();
@@ -50,7 +51,7 @@ class Operation
      * @param $operations
      * @return array
      */
-    public static function getIncomeConsumptionCount($operations){
+    public function getIncomeConsumptionCount($operations){
         $incomeCount = 0;
         $consumptionCount = 0;
         foreach ($operations as $operation){
