@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Cms\Countries;
 
+use App\Exceptions\SimpleException;
+use App\Models\User;
 use App\Policies\Abilities;
 use Gate;
 use Auth;
+use Illuminate\Auth\Access\AuthorizationException;
 use Log;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
@@ -33,12 +36,25 @@ class CountriesController extends Controller
      */
     public function index(Request $request)
     {
-        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Country::class);
+        $countries = $this->countriesService->searchCountriesWithCities([
+            'cities',
+        ]);
+        if ($this->getCurrentUser()->cant(Abilities::VIEW_ANY, Country::class)) {
+            abort(403, 'Hoho' , [
 
-        $this->authorize(Abilities::VIEW_ANY, Country::class);
+            ]);
+        }
+        try {
+            $this->authorize(Abilities::VIEW_ANY, Country::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('User is not authorized', [
+                $request->all(),
+            ]);
+            return response()->json([], 403);
+        }
 
         return view('countries.index', [
-            'countries' => $this->countriesService->searchCountries(),
+            'countries' => $countries,
         ]);
     }
 
@@ -123,10 +139,13 @@ class CountriesController extends Controller
 
         $cities = $country->cities()
             ->paginate();
-        return view('countries.show', [
+
+        $view = view('countries.show', [
             'country' => $country,
             'cities' => $cities,
-        ]);
+        ])->render();
+
+        return $view;
     }
 
     /**

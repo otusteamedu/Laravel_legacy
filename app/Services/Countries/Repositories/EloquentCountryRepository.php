@@ -9,6 +9,7 @@ namespace App\Services\Countries\Repositories;
 
 
 use App\Models\Country;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCountryRepository implements CountryRepositoryInterface
 {
@@ -18,9 +19,14 @@ class EloquentCountryRepository implements CountryRepositoryInterface
         return Country::find($id);
     }
 
-    public function search(array $filters = [])
+    /**
+     * @param array $filters
+     * @param array $with
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection
+     */
+    public function search(array $filters = [], array $with = [])
     {
-        return Country::paginate();
+        return Country::with($with)->paginate();
     }
 
     public function createFromArray(array $data): Country

@@ -1,6 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+
 use Faker\Generator as Faker;
 
 /*
@@ -29,10 +30,14 @@ $factory->define(\App\Models\Country::class, function (Faker $faker) {
     ];
 });
 
-function uniqueCountryName(Faker $faker) {
-    $name = $faker->unique()->country;
-    if (\App\Models\Country::where('name', $name)->count()) {
-        return uniqueCountryName($faker);
+if (!function_exists('uniqueCountryName')) {
+
+    function uniqueCountryName(Faker $faker)
+    {
+        $name = $faker->unique()->country;
+        if (\App\Models\Country::where('name', $name)->count()) {
+            return uniqueCountryName($faker);
+        }
+        return $name;
     }
-    return $name;
 }

@@ -11,10 +11,13 @@ $factory->define(City::class, function (Faker $faker) {
     ];
 });
 
-function uniqueCity(Faker $faker) {
-    $name = $faker->unique()->city;
-    if (\App\Models\City::where('name', $name)->count()) {
-        return uniqueCity($faker);
+if (!function_exists('uniqueCity')) {
+    function uniqueCity(Faker $faker)
+    {
+        $name = $faker->unique()->city;
+        if (\App\Models\City::where('name', $name)->count()) {
+            return uniqueCity($faker);
+        }
+        return $name;
     }
-    return $name;
 }

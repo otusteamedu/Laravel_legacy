@@ -14,10 +14,14 @@ $factory->define(Company::class, function (Faker $faker) {
     ];
 });
 
-function uniqueCompany(Faker $faker) {
-    $name = $faker->unique()->company;
-    if (\App\Models\Company::where('name', $name)->count()) {
-        return uniqueCompany($faker);
+if (!function_exists('uniqueCompany')) {
+
+    function uniqueCompany(Faker $faker)
+    {
+        $name = $faker->unique()->company;
+        if (\App\Models\Company::where('name', $name)->count()) {
+            return uniqueCompany($faker);
+        }
+        return $name;
     }
-    return $name;
 }

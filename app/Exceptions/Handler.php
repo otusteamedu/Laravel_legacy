@@ -26,6 +26,13 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    protected function context()
+    {
+        return array_merge(parent::context(), [
+            'url' => request()->url(),
+        ]);
+    }
+
     /**
      * Report or log an exception.
      *
@@ -34,6 +41,9 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $exception)
     {
+        if ($exception instanceof SimpleException) {
+            // xode
+        }
         parent::report($exception);
     }
 

@@ -12,7 +12,7 @@ class CitiesTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\Country::all() as $country) {
-            factory(\App\Models\City::class, 5)->create([
+            factory(\App\Models\City::class, rand(4, 10))->create([
                 'country_id' => $country->id,
             ]);
         }

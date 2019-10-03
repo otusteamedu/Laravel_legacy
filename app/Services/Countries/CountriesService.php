@@ -42,9 +42,11 @@ class CountriesService
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function searchCountries(): LengthAwarePaginator
+    public function searchCountriesWithCities(): LengthAwarePaginator
     {
-        return $this->countryRepository->search();
+        return $this->countryRepository->search([], [
+            'cities'
+        ]);
     }
 
     /**
