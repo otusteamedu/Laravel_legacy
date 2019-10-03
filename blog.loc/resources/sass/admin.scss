@@ -1,0 +1,52 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+.container {
+  overflow: hidden;
+}
+
+.navbar {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(120deg, #00e4d0, #5983e8);
+  transition: background 0.25s ease;
+  -webkit-transition: background 0.25s ease;
+  -moz-transition: background 0.25s ease;
+  -ms-transition: background 0.25s ease;
+}
+
+.navbar-menu-wrapper {
+  color: #ffffff;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: calc(100% - 255px);
+  height: 63px;
+  a {
+    color: #fff;
+  }
+}
+.navbar-nav-right {
+  margin-left: auto;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+
+.flash {
+  opacity: 0.9;
+  transition-delay: 1s;
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 999999;
+}

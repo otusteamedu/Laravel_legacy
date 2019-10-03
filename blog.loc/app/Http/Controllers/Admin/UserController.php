@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreUserRequest;
 use App\Models\User\User;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class UserController extends MainController
 {
     protected $userService;
 
@@ -22,30 +23,18 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $users = $this->userService->getUsers();
+        $this->template = 'admin.user.index';
+        $filters = [];
+        $this->data['pageTitle'] = 'Пользователи';
+        $this->data['users'] = $this->userService->getUsers($filters);
+        $this->data['currentUser'] = $this->userService->getCurrentUser();
 
-        dd($users);
+        return $this->renderOut();
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function store(StoreUserRequest $request)
     {
-        //
-    }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

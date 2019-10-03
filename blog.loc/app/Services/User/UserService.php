@@ -10,6 +10,7 @@ namespace App\Services\User;
 
 
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class UserService
 {
@@ -21,10 +22,31 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    public function getUsers()
+    /**
+     * Получаем список пользователей
+     * @param array $filters
+     * @return mixed
+     */
+    public function getUsers(array $filters)
     {
-        $users = $this->userRepository->get([]);
+        $users = $this->userRepository->get($filters);
 
         return $users;
+    }
+
+    /**
+     * Получаем текущего авторизированного пользователя
+     * @return \Illuminate\Contracts\Auth\Authenticatable|null
+     */
+    public function getCurrentUser()
+    {
+        $currentUser = Auth::user();
+
+        return $currentUser;
+    }
+
+    public function createUser()
+    {
+        $user = $this->userRepository->create($data);
     }
 }

@@ -29,4 +29,5 @@ Route::group(
     ],
     function (){
         Route::get('users', 'UserController@index')->name('users.index');
+        Route::post('users/store', 'UserController@store')->name('users.store');
 });
