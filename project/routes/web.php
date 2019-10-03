@@ -11,12 +11,20 @@
 |
 */
 
-Route::get('/welcome', function () {
-    return view('public.welcome');
-});
+Route::name('public.')->group(function(){
+    Route::get('/', function (){
+        return view('public.home');
+    })->name('home');
 
-Route::get('/', function (){
-    return view('public.home');
+    Route::name('account.')->group(function(){
+        Route::get('/personal_data', function (){
+            return view('public.account.personal_data');
+        })->name('personal_data');
+
+        Route::get('/favorites', function (){
+            return view('public.account.favorites');
+        })->name('favorites');
+    });
 });
 
 Auth::routes();
