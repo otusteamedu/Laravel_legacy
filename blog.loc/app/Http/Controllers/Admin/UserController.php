@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreUserRequest;
-use App\Models\User\User;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class UserController extends MainController
 {
@@ -24,17 +22,18 @@ class UserController extends MainController
     public function index(Request $request)
     {
         $this->template = 'admin.user.index';
-        $filters = [];
         $this->data['pageTitle'] = 'Пользователи';
-        $this->data['users'] = $this->userService->getUsers($filters);
-        $this->data['currentUser'] = $this->userService->getCurrentUser();
+
+        $this->data['users'] = $this->userService->getUsers();
 
         return $this->renderOut();
     }
 
     public function store(StoreUserRequest $request)
     {
-
+        dd($request->all());
+//        $userData = [];
+//        $userData
     }
 
     /**

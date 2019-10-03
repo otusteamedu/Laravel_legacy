@@ -9,6 +9,7 @@
 namespace App\Services\User;
 
 
+
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,12 +25,11 @@ class UserService
 
     /**
      * Получаем список пользователей
-     * @param array $filters
      * @return mixed
      */
-    public function getUsers(array $filters)
+    public function getUsers()
     {
-        $users = $this->userRepository->get($filters);
+        $users = $this->userRepository->getAll();
 
         return $users;
     }
