@@ -1,8 +1,10 @@
 {
 
-  "E-Mail Address": "E-mail адрес",
+  "Name": "Имя",
+  "E-Mail Address": "E-mail",
 
   "Password": "Пароль",
+  "Confirm Password": "Подтвердите пароль",
   "Reset Password": "Сбросить пароль",
 
   "Send Password Reset Link": "Восстановить пароль",

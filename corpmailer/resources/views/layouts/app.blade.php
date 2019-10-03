@@ -74,8 +74,10 @@
             </div>
         </nav>
 
-        <main class="py-0">
+        <main @if (Request::url() !== 'http://corpmailer.lan') class="py-4" @endif>
+
             @yield('content')
+
         </main>
 
         <hr>
