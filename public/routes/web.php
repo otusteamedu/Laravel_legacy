@@ -14,8 +14,8 @@
 Route::group(['prefix'=>'admin','namespace'=>'Admin', 'middleware'=>'auth'],function(){
     Route::get('/','DashboardController@dashboard')->name('admin.index');
 
-    Route::get('/groups/{group}','GroupsController@show')->name('admin.groups.show.group');
     Route::resource('/groups','GroupsController',['as'=>'admin']);
+    Route::get('/groups/{group?}','GroupsController@show')->where('group', '[0-9]+')->name('admin.groups.show.group');
 
     Route::get('/responsibilities/create/{group?}','ResponsibilitiesController@create')->where('group', '[0-9]+')->name('admin.responsibilities.create.group');
     Route::resource('/responsibilities','ResponsibilitiesController',['as'=>'admin']);

@@ -52,13 +52,11 @@ class FlowController extends Controller
 
         //пересчитывем сумму группы
         $group = Group::find($request->group_id);
-
         if($request->operation == 1) {
             $group->total_cache = $group->total_cache + $request->cash;
         }elseif($request->operation == 2){
             $group->total_cache = $group->total_cache - $request->cash;
         }
-
         $group->save();
 
 
@@ -68,6 +66,7 @@ class FlowController extends Controller
         if ($request->responsibility_id != 0) {
             return redirect()->back();
         }
+
         return redirect()->route('admin.groups.show.group', ['group'=>$request->group_id]);
     }
 
