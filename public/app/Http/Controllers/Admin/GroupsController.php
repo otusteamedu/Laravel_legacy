@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Group;
+use App\Models\Flow;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -58,6 +59,7 @@ class GroupsController extends Controller
             'group' => $group,
             'responsibilities'=> $group->load(['responsibilities']),
             'reasons'=>$group->load(['reasons']),
+            'flows'=> Flow::orderBy('created_at', 'desc')->where('group_id', $group->id)->limit(10)->get()
         ]);
     }
 

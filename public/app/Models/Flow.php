@@ -18,4 +18,9 @@ class Flow extends Model
         return $this->hasMany('App\Models\Responsibility');
     }
 
+    public function flows()
+    {
+        return $this->hasMany('App\Models\Group');
+    }
+
 }

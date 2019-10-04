@@ -13,6 +13,8 @@
 
 Route::group(['prefix'=>'admin','namespace'=>'Admin', 'middleware'=>'auth'],function(){
     Route::get('/','DashboardController@dashboard')->name('admin.index');
+
+    Route::get('/groups/{group}','GroupsController@show')->name('admin.groups.show.group');
     Route::resource('/groups','GroupsController',['as'=>'admin']);
 
     Route::get('/responsibilities/create/{group?}','ResponsibilitiesController@create')->where('group', '[0-9]+')->name('admin.responsibilities.create.group');
@@ -22,6 +24,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin', 'middleware'=>'auth'],func
     Route::resource('/reasons','ReasonsController',['as'=>'admin']);
 
     Route::post('/flows/store','FlowController@store')->name('admin.flows.store');
+    Route::get('/flows/create/{group?}','FlowController@create')->where('group', '[0-9]+')->name('admin.flows.create');
 
     Route::group(['prefix'=>'user_managment', 'namespace'=>'UserManagment'],function(){
        Route::resource('/users','UserController', ['as'=>'admin.user_managment']);

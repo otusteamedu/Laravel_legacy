@@ -20,6 +20,7 @@
             <li>
                 <a href="{{route('admin.groups.create')}}"> <i class="menu-icon fa fa-dashboard"></i>Создать группу</a>
             </li>
+            {{--
             <h3 class="menu-title">Ответственности</h3>
             <li>
                 <a href="{{route('admin.responsibilities.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список отв.</a>
@@ -34,6 +35,7 @@
             <li>
                 <a href="{{route('admin.reasons.create')}}"> <i class="menu-icon fa fa-dashboard"></i>Создать причину</a>
             </li>
+            --}}
             <h3 class="menu-title">Админка</h3>
             <li>
                 <a href="{{route('admin.user_managment.users.index')}}"> <i class="menu-icon fa fa-dashboard"></i>Список пользователей</a>

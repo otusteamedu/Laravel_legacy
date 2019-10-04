@@ -124,5 +124,7 @@
     </div>
 </div>
 
+@include('layout.flow_block')
+
 
 @stop

@@ -17,4 +17,16 @@ class Group extends Model
     {
         return $this->hasMany('App\Models\Reason');
     }
+
+
+    public function flows()
+    {
+        return $this->hasMany('App\Models\Flow');
+    }
+
+
+//    public function flows()
+//    {
+//        return $this->hasManyThrough('App\Models\Flow', 'App\Models\Responsibility');
+//    }
 }
