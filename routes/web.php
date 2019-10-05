@@ -27,6 +27,7 @@ Route::name('cms.')->group(function () {
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',
             'cities' => 'Cms\Cities\CitiesController',
+            'users' => 'Cms\Users\UsersController',
         ]);
     });
 });

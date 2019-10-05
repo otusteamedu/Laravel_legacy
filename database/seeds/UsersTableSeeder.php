@@ -11,11 +11,19 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (\App\Models\User::all() as $user) {
-            $user->update([
-               'level' => \App\Models\User::LEVEL_ADMIN,
+        $this->createAdmin();
+        factory(\App\Models\User::class, 10)->create();
+    }
+
+    private function createAdmin()
+    {
+        $adminEmail = 'egor@otus.ru';
+        if (!\App\Models\User::where('email', $adminEmail)->count()) {
+            factory(\App\Models\User::class)->create([
+                'level' => \App\Models\User::LEVEL_ADMIN,
+                'email' => $adminEmail,
+                'password' => Hash::make($adminEmail),
             ]);
         }
-        factory(\App\Models\User::class, 10)->create();
     }
 }

@@ -16,6 +16,7 @@ use Laravel\Passport\HasApiTokens;
  * @property string email
  * @property string password
  * @property string api_token
+ * @property string photo
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -41,6 +42,7 @@ class User extends Authenticatable
         'password',
         'api_token',
         'level',
+        'photo',
     ];
 
     /**
