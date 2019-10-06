@@ -21,35 +21,31 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Название</th>
-                    <th scope="col">Количество</th>
+                    <th scope="col">Группы</th>
                     <th scope="col">Управление</th>
                 </tr>
                 </thead>
                 <tbody>
 
-                @forelse ($groups as $group)
+
+                @forelse ($users as $user)
                 <tr>
                     <th scope="row">{{$loop->iteration}}</th>
-                    <td><a href="{{route('admin.groups.show', $group)}}">{{$group->name}}</a></td>
+                    <td>{{$user->name}}</a></td>
                     <td>
-                        @isset($group->responsibilities)
-                        {{$group->responsibilities->count()}}
+                        @isset($user->groups)
+                        {{$user->groups->pluck('name')->implode(', ')}}
                         @endisset
                     </td>
                     <td>
-                        <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.groups.destroy', $group)}}"
-                              method="post">
-                            <input type="hidden" name="_method" value="DELETE">
+                        <form action="{{route('admin.groups.addUser', $group)}}" method="post">
                             {{ csrf_field() }}
-
-                            <a href="{{route('admin.groups.edit', $group)}}" class="btn btn-default">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <a href="{{route('admin.groups.invite', $group)}}" class="btn btn-default">
-                                <i class="fa fa-edit"></i>
-                            </a>
-                            <button type="submit" class="btn"><i class="fa fa-trash-o"></i></button>
+                            <input type="hidden" name="group_id" value="{{$group->id}}">
+                            <input type="hidden" name="user_id" value="{{$user->id}}">
+                            <button type="submit" class="btn"><i class="fa fa-trash-o"></i>пригласить</button>
                         </form>
+
+                        {{--<a href="{{route('admin.groups.adduser', [$group->id, $user->id])}}">пригласить</a>--}}
                     </td>
                 </tr>
                 @empty

@@ -16,6 +16,11 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin', 'middleware'=>'auth'],func
 
     Route::resource('/groups','GroupsController',['as'=>'admin']);
     Route::get('/groups/{group?}','GroupsController@show')->where('group', '[0-9]+')->name('admin.groups.show.group');
+    Route::get('/groups/{group?}/invite','GroupsController@invite')->where('group', '[0-9]+')->name('admin.groups.invite');
+//    Route::put('/groups/adduser/{group?}','GroupsController@adduser')->name('admin.groups.adduser');
+//    Route::get('/groups/{group}/adduser/{user}','GroupsController@adduser')->where('group', '[0-9]+')->where('user', '[0-9]+')->name('admin.groups.adduser');
+
+    Route::post('/groups/{group}/user','GroupsController@addUser')->name('admin.groups.addUser');
 
     Route::get('/responsibilities/create/{group?}','ResponsibilitiesController@create')->where('group', '[0-9]+')->name('admin.responsibilities.create.group');
     Route::resource('/responsibilities','ResponsibilitiesController',['as'=>'admin']);

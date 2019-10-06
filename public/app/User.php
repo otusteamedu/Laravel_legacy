@@ -4,6 +4,8 @@ namespace App;
 
 
 use App\Models\Admin\UserManagment\Role;
+use App\Models\Group;
+use App\Models\Responsibility;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -41,5 +43,13 @@ class User extends Authenticatable
 
     public function roles(){
         return $this->belongsToMany('App\Models\Admin\UserManagment\Role', 'role_user', 'user_id', 'role_id');
+    }
+
+    public function groups(){
+        return $this->belongsToMany('App\Models\Group', 'group_user', 'user_id', 'group_id');
+    }
+
+    public function responsibilities(){
+        return $this->belongsToMany('App\Models\Responsibility', 'responsibility_user', 'user_id', 'responsibility_id');
     }
 }

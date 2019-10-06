@@ -14,7 +14,9 @@
 
     <div class="card">
         <div class="card-body">
+            @can('isCustodianInThisGroup', App\Models\Flow::class)
             <a href="{{route('admin.flows.create',$groupID=$group->id)}}">Добавить в поток</a>
+            @endcan
             <table class="table table-striped">
                 <tbody>
                 @forelse ($flows as $flow)

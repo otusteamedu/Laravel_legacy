@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Group extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'created_by'];
 
     public function responsibilities()
     {
@@ -25,8 +25,8 @@ class Group extends Model
     }
 
 
-//    public function flows()
-//    {
-//        return $this->hasManyThrough('App\Models\Flow', 'App\Models\Responsibility');
-//    }
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'group_user', 'group_id', 'user_id');
+    }
 }

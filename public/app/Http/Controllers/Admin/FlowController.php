@@ -8,6 +8,9 @@ use App\Models\Responsibility;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Auth;
+use Gate;
+
 class FlowController extends Controller
 {
     /**
@@ -48,13 +51,21 @@ class FlowController extends Controller
             $request['text'] = "Сдали за " . $responsibility->name;
         }
 
-        $flow = Flow::create($request->all());
+        $flow = new Flow();
+        $group = Group::find($request->group_id);
+
+        if (Gate::allows('in-group', $group)) {
+            return 'нет прав';
+        }
+
+        $this->authorize('isCustodianInThisGroup', $flow);
+        $flow->create($request->all());
+
 
         //пересчитывем сумму группы
-        $group = Group::find($request->group_id);
-        if($request->operation == 1) {
+        if ($request->operation == 1) {
             $group->total_cache = $group->total_cache + $request->cash;
-        }elseif($request->operation == 2){
+        } elseif ($request->operation == 2) {
             $group->total_cache = $group->total_cache - $request->cash;
         }
         $group->save();
@@ -67,7 +78,7 @@ class FlowController extends Controller
             return redirect()->back();
         }
 
-        return redirect()->route('admin.groups.show.group', ['group'=>$request->group_id]);
+        return redirect()->route('admin.groups.show.group', ['group' => $request->group_id]);
     }
 
     /**

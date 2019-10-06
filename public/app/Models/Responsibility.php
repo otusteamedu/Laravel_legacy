@@ -11,4 +11,9 @@ class Responsibility extends Model
     public function group(){
         return $this->belongsTo('App\Models\Group');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User', 'responsibility_user', 'responsibility_id', 'user_id');
+    }
 }

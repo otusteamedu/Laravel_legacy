@@ -44,8 +44,6 @@
                 <tbody>
 
 
-
-
                 @forelse ($responsibilities as $responsibility)
                 <tr>
                     <th scope="row">{{$loop->iteration}}</th>
@@ -56,18 +54,23 @@
                         @if(in_array($responsibility->id, $handedResponsibilities))
                         сдал
                         @else
-                        <form action="{{route('admin.flows.store')}}" method="post" class="">
-                            {{csrf_field()}}
-                            <input type="hidden" name="cash" value="{{$reason->amount}}">
-                            <input type="hidden" name="operation" value="1">
-                            <input type="hidden" name="reason_id" value="{{$reason->id}}">
-                            <input type="hidden" name="group_id" value="{{$group->id}}">
-                            <input type="hidden" name="responsibility_id" value="{{$responsibility->id}}">
 
-                            <div class="form-actions form-group">
-                                <button type="submit" class="btn btn-success btn-sm">Сдал</button>
-                            </div>
-                        </form>
+                            @can('isCustodianInThisGroup', App\Models\Flow::class)
+                            <form action="{{route('admin.flows.store')}}" method="post" class="">
+                                {{csrf_field()}}
+                                <input type="hidden" name="cash" value="{{$reason->amount}}">
+                                <input type="hidden" name="operation" value="1">
+                                <input type="hidden" name="reason_id" value="{{$reason->id}}">
+                                <input type="hidden" name="group_id" value="{{$group->id}}">
+                                <input type="hidden" name="responsibility_id" value="{{$responsibility->id}}">
+
+                                <div class="form-actions form-group">
+
+                                    <button type="submit" class="btn btn-success btn-sm">Сдал</button>
+                                </div>
+                            </form>
+                            @endcan
+
                         @endif
                     </td>
                 </tr>
