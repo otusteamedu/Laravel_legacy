@@ -113,7 +113,6 @@ class UsersController extends CmsController
 
     private function storePhoto(UploadedFile $photo)
     {
-        return $photo->file('photo')
-            ->store('users/photo', 'public');
+        return $photo->store('users/photo', 'public');
     }
 }

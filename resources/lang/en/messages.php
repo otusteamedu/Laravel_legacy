@@ -9,6 +9,7 @@ return [
     'users' => 'Users',
     'cities' => 'Cities',
     'history' => 'History',
+    'apiToken' => 'Api Token',
     'title' => 'Title',
     'name' => 'Name',
     'email' => 'Email',
