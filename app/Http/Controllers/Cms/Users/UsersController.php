@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cms\Users;
 
 use App\Http\Controllers\Cms\Users\Requests\StoreUserRequest;
 use App\Http\Controllers\Cms\Users\Requests\UpdateUserRequest;
+use App\Jobs\UserPhotoProcess;
 use App\Policies\Abilities;
 use Illuminate\Http\UploadedFile;
 use View;
@@ -108,6 +109,8 @@ class UsersController extends Controller
             $data['photo'] = $this->storePhoto($request->file('photo'));
         }
         $this->usersService->updateUser($user, $data);
+
+        UserPhotoProcess::dispatch($user);
 
         return redirect(route('cms.users.index'));
     }
