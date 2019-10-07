@@ -1,4 +1,4 @@
-@include('cms.blocks.form.errors')
+@include('cms.blocks.form.messages')
 {{ Form::open(['url' => route('cms.countries.store')]) }}
     @include('countries.blocks.form.fields')
     <div class="form-group">

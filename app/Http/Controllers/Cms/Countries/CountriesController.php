@@ -2,22 +2,15 @@
 
 namespace App\Http\Controllers\Cms\Countries;
 
-use App\Exceptions\SimpleException;
-use App\Models\User;
+use App\Http\Controllers\Cms\CmsController;
 use App\Policies\Abilities;
-use Gate;
 use Auth;
 use Illuminate\Auth\Access\AuthorizationException;
-use Log;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
-use App\Services\SimpleBar;
-use App\Services\SimpleFoo;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Validation\ValidationException;
 
-class CountriesController extends Controller
+class CountriesController extends CmsController
 {
 
     protected $countriesService;

@@ -1,4 +1,4 @@
-@include('cms.blocks.form.errors')
+@include('cms.blocks.form.messages')
 {{ Form::model($user, ['url' => route('cms.users.update', ['user' => $user]), 'method' => 'PUT', 'files' => true]) }}
     @include('cms.users.blocks.form.fields')
     <div class="form-group">

@@ -20,6 +20,7 @@
     @endphp
     @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
     @include('cms.users.blocks.header.list')
+    @include('cms.blocks.form.messages')
     @include('cms.users.blocks.list.index')
 </div>
 @endsection
