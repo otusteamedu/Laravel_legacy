@@ -3,16 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreUserRequest;
+use App\Services\Role\RoleService;
 use App\Services\User\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends MainController
 {
     protected $userService;
+    protected $roleService;
 
-    public function __construct(UserService $userService)
+    public function __construct(
+        UserService $userService,
+        RoleService $roleService
+    )
     {
         $this->userService = $userService;
+        $this->roleService = $roleService;
     }
     /**
      * Выводит список всех пользователей
@@ -25,15 +31,25 @@ class UserController extends MainController
         $this->data['pageTitle'] = 'Пользователи';
 
         $this->data['users'] = $this->userService->getUsers();
+        $this->data['roles'] = $this->roleService->getRoles();
 
         return $this->renderOut();
     }
 
+    /**
+     * Добавление нового пользователя
+     * @param StoreUserRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(StoreUserRequest $request)
     {
-        dd($request->all());
-//        $userData = [];
-//        $userData
+        $userData['email'] = $request->email;
+        $userData['password'] = bcrypt($request->password);
+        $userData['role_id'] = $request->role;
+
+        $this->userService->createUser($userData);
+
+        return redirect()->route('admin.users.index')->with('Пользователь добавлен');
     }
 
     /**

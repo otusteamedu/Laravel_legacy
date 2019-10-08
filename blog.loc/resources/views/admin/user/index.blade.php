@@ -57,7 +57,17 @@
                         <td>{{ $user->first_name }}</td>
                         <td>{{ $user->last_name }}</td>
                         <td>{{ $user->birthday }}</td>
-                        <td>{{ $user->status }}</td>
+                        <td>
+                            @if($user->status === 'unactive')
+                                <span class="badge badge-danger">
+                                    {{ $user->status }}
+                                </span>
+                            @else
+                                <span class="badge badge-success">
+                                    {{ $user->status }}
+                                </span>
+                            @endif
+                        </td>
                         <td>{{ $user->role->role }}</td>
                         <td>{{ $user->created_at }}</td>
                         <td></td>
@@ -95,9 +105,9 @@
                         <div class="form-group">
                             <label for="role">Выберите роль</label>
                             <select name="role" class="form-control" id="role">
-                                <option value="admin">Админ</option>
-                                <option value="editor">Редактор</option>
-                                <option value="user">Пользователь</option>
+                                @foreach($roles as $role)
+                                    <option value="{{ $role->id }}">{{ $role->role }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </form>

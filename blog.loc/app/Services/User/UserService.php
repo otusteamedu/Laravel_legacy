@@ -45,8 +45,8 @@ class UserService
         return $currentUser;
     }
 
-    public function createUser()
+    public function createUser($data)
     {
-        $user = $this->userRepository->create($data);
+        $user = $this->userRepository->add($data);
     }
 }
