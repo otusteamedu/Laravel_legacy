@@ -3,3 +3,5 @@ test:
 mysql:
 	mysql -uhomestead -p --port 33061 --host 127.0.0.1
 
+build-dev:
+    docker exec blog_node_1 npm run dev

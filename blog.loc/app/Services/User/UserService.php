@@ -47,6 +47,34 @@ class UserService
 
     public function createUser($data)
     {
-        $user = $this->userRepository->add($data);
+        try {
+            $user = $this->userRepository->add($data);
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            //TODO: вывод флеш
+            return fasle;
+        }
+    }
+
+    public function activate($userId)
+    {
+        try {
+            $this->userRepository->activate($userId);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function unactivate($userId)
+    {
+        try {
+            $this->userRepository->deactivate($userId);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
     }
 }

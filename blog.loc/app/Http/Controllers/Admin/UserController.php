@@ -96,4 +96,20 @@ class UserController extends MainController
     {
         //
     }
+
+    public function active(Request $request)
+    {
+        $userId = $request->id;
+        $this->userService->activate($userId);
+
+        return redirect()->route('admin.users.index')->with('Пользователь активирован');
+    }
+
+    public function unactive(Request $request)
+    {
+        $userId = $request->id;
+        $this->userService->unactivate($userId);
+
+        return redirect()->route('admin.users.index')->with('Пользователь деактивирован');
+    }
 }

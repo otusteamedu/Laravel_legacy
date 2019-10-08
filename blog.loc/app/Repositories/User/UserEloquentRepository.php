@@ -40,12 +40,18 @@ class UserEloquentRepository implements UserRepositoryInterface
 
     public function activate(int $userId)
     {
-        // TODO: Implement activate() method.
+        User::where('id', $userId)
+            ->update([
+                'status' => User::STATUS_ACTIVE,
+            ]);
     }
 
     public function deactivate(int $userId)
     {
-        // TODO: Implement deactivate() method.
+        User::where('id', $userId)
+            ->update([
+                'status' => User::STATUS_UNACTIVE,
+            ]);
     }
 
     public function changePassword(int $userId, string $newPassword)

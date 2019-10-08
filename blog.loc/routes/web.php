@@ -30,4 +30,7 @@ Route::group(
     function (){
         Route::get('users', 'UserController@index')->name('users.index');
         Route::post('users/store', 'UserController@store')->name('users.store');
+        Route::patch('users/active', 'UserController@active')->name('users.active');
+        Route::patch('users/unactive', 'UserController@unactive')->name('users.unactive');
+
 });

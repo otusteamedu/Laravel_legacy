@@ -50,3 +50,7 @@
   right: 20px;
   z-index: 999999;
 }
+
+a.active, a.unactive {
+  cursor: pointer;
+}

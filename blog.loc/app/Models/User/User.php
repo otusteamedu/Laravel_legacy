@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class User extends Authenticatable
 {
     use Notifiable;
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_UNACTIVE = 'unactive';
 
     /**
      * The attributes that are mass assignable.

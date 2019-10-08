@@ -8,5 +8,17 @@ $(document).ready(function(){
         modal.modal('hide');
         spiner.modal('show');
         modal.find('form').submit();
-    })
+    });
+
+    $('a.unactive').on('click', function () {
+        let id = $(this).data('id');
+        $('#modalUserActivate').modal('show');
+        $('#modalUserActivate input[name=id]').val(id);
+    });
+
+    $('a.active').on('click', function () {
+        let id = $(this).data('id');
+        $('#modalUserUnactivate').modal('show');
+        $('#modalUserUnactivate input[name=id]').val(id);
+    });
 });
