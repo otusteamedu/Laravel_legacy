@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Services\Security;
+
 use App\Models\Role;
+
 class RolePermissionChecker
 {
 
@@ -16,7 +18,7 @@ class RolePermissionChecker
     {
         if (is_array($name)) {
             foreach ($name as $permissionName) {
-                $hasPermission =  $this->hasPermission($permissionName);
+                $hasPermission = $this->hasPermission($permissionName);
 
                 if ($hasPermission && !$require) {
                     return true;

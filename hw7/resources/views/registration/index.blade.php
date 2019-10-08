@@ -8,14 +8,15 @@
                     <h3 class="panel-heading"> {{__('auth.registration')}} </h3>
 
                     <div class="panel-body">
-                        <form class="form-horizontal" >
+                        <form class="form-horizontal">
                             {{ csrf_field() }}
 
                             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                 <label for="name" class="col-md-4 control-label">{{__('auth.name')}}</label>
 
                                 <div class="col-md-6">
-                                    <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                    <input id="name" type="text" class="form-control" name="name"
+                                           value="{{ old('name') }}" required autofocus>
 
                                     @if ($errors->has('name'))
                                         <span class="help-block">
@@ -29,7 +30,8 @@
                                 <label for="email" class="col-md-4 control-label">{{__('auth.email')}}</label>
 
                                 <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email"
+                                           value="{{ old('email') }}" required>
 
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -54,10 +56,12 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="password-confirm" class="col-md-4 control-label">{{__('auth.confirm_password')}}</label>
+                                <label for="password-confirm"
+                                       class="col-md-4 control-label">{{__('auth.confirm_password')}}</label>
 
                                 <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                    <input id="password-confirm" type="password" class="form-control"
+                                           name="password_confirmation" required>
                                 </div>
                             </div>
 

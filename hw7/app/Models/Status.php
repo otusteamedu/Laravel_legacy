@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string name
  */
-
 class Status extends Model
 {
     protected $table = 'statuses';
@@ -18,7 +17,9 @@ class Status extends Model
     protected $fillable = [
         'name',
     ];
-    public function tasks(){
+
+    public function tasks()
+    {
         return $this->hasMany('App\Models\Task', 'status_id', 'id');
     }
 }

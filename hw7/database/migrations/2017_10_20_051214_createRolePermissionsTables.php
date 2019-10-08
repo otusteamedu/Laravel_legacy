@@ -17,7 +17,6 @@ class CreateRolePermissionsTables extends Migration
             $table->increments('id');
 
 
-
             $table->timestamps();
 
         });

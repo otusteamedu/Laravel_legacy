@@ -1,6 +1,6 @@
 <tr>
-    <th scope="row">{{ url(route('admin.users.show', ['user' => $user['id']]), $user['id']) }}</th>
-    <th><a href=" {{ route('admin.users.show', ['user' => $user->id]) }}"> {{  $user['name'] }} </a> </th>
+    <th scope="row"> {{ $user['id'] }}</th>
+    <th><a href=" {{ route('admin.users.show', ['user' => $user->id]) }}"> {{  $user['name'] }} </a></th>
     <td>{{$user['email']}}</td>
     <td>{{ $user->roles()->first()->name }}</td>
     <td>{{$user['created_at']  }}   </td>

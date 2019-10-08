@@ -1,9 +1,9 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Users\Repositories;
+
 use App\Models\User;
 
 interface UserRepositoryInterface

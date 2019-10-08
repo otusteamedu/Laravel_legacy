@@ -1,17 +1,17 @@
 <?php
 
 return [
-    'title' => 'Привелегии',
-    'addPermission' => 'Добавить привелегию',
-    'editPermission' => 'Редактировать привелегию',
+    'title' => 'Привилегии',
+    'addPermission' => 'Добавить привилегию',
+    'editPermission' => 'Редактировать привилегию',
     'create_permission' => 'Создать право',
-    'permissions' => 'Права',
+    'permissions' => 'Привилегии',
     'name' => 'Имя',
     'route' => 'Маршрут',
     'created' => 'Создано',
     'save' => 'Сохранить',
     'delete' => 'Удалить',
-    'permissionsHeaderDescription' => "Раздел управления правами",
+    'permissionsHeaderDescription' => "Раздел управления привилегиями",
     'delete_confirm' => 'Are you sure?'
 
 ];

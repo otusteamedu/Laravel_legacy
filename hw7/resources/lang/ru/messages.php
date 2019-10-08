@@ -7,7 +7,7 @@ return [
     'help' => 'Помощь',
     'users' => 'Пользователи',
     'roles' => 'Роли',
-    'permissions' => 'Привелегии пользователей',
+    'permissions' => 'Привилегии пользователей',
     'statuses' => 'Статусы задач',
     'title' => 'TikTak - toDo сервис',
     'price' => 'Цена',

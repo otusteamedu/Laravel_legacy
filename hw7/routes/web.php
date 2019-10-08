@@ -22,13 +22,10 @@ Route::name('admin.')->group(function () {
             'permissions' => 'Admin\PermissionsController',
             '/' => 'Admin\AdminController',
 
-           // 'cities' => 'Cms\Cities\CitiesController',
+            // 'cities' => 'Cms\Cities\CitiesController',
         ]);
     });
 });
-
-
-
 
 Route::get('/', function () {
 
@@ -82,7 +79,7 @@ Route::get('/registration', function () {
         'description' => ' Вот что мы знаем о нем',
 
     ];
-  return view('registration.index', $data);
+    return view('registration.index', $data);
 });
 
 Route::get('/login', function () {
@@ -103,7 +100,7 @@ Route::get('/about', function () {
         'description' => ' Вот что мы знаем о нем',
 
     ];
-  return view('about.index', $data);
+    return view('about.index', $data);
 });
 
 Route::get('/help', function () {

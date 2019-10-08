@@ -1,6 +1,5 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Statuses\Repositories;
@@ -31,19 +30,22 @@ class EloquentStatusRepository implements StatusRepositoryInterface
     public function updateFromArray(Status $status, array $data)
     {
 
-       $result =  Status::where('name',$data['name'])->get();
-       if( (count($result) > 1) || (count($result) == 1 && $result[0]->id != $status->id)) {
+        $result = Status::where('name', $data['name'])->get();
+        if ((count($result) > 1) || (count($result) == 1 && $result[0]->id != $status->id)) {
 
             return ['error' => 'Это имя уже успользуется'];
-       }
-       $status->update($data);
-       return 1;
+        }
+        $status->update($data);
+        return 1;
     }
-    public  function create(array $data): Status
+
+    public function create(array $data): Status
     {
         return $this->createFromArray($data);
     }
-    public function delete(int $id) {
+
+    public function delete(int $id)
+    {
 
         return Status::destroy($id);
     }

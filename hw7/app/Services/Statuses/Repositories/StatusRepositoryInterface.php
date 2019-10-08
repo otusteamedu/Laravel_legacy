@@ -1,9 +1,9 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Statuses\Repositories;
+
 use App\Models\Status;
 
 interface StatusRepositoryInterface

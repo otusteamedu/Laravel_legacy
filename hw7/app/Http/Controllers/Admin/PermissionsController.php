@@ -14,6 +14,7 @@ class PermissionsController extends Controller
 {
     protected $permissionsService;
     protected $breadcrumbs;
+
     public function __construct(
         PermissionsService $permissionsService
     )
@@ -44,7 +45,7 @@ class PermissionsController extends Controller
     {
 
         $user = Auth::user();
-        if(!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index') ){
+        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
             abort(403);
         }
 
@@ -70,7 +71,7 @@ class PermissionsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -106,7 +107,7 @@ class PermissionsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -117,18 +118,17 @@ class PermissionsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Permission $permission)
+    public function update(Request $request, Permission $permission)
     {
         $result = $this->permissionsService->updatePermission($permission, $request->all());
 
-        if($result == 1){
+        if ($result == 1) {
             return redirect(route('admin.permissions.index'));
-        }
-        else {
+        } else {
             return back()->with($result);
 
         }
@@ -138,17 +138,17 @@ class PermissionsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $result = $this->permissionsService->deletePermission($id);
 
-        if(is_array($result) && !empty($result['error'])) {
+        if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
 
-        return redirect(route('admin.permissions.index',['result' => $result] ));
+        return redirect(route('admin.permissions.index', ['result' => $result]));
     }
 }

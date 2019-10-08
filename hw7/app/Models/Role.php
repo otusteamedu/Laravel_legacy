@@ -18,13 +18,17 @@ class Role extends Model
         'name',
     ];
 
-    public function users(){
+    public function users()
+    {
         return $this->belongsToMany('App\Models\User', 'user_role');
     }
-    public function permissions(){
+
+    public function permissions()
+    {
         return $this->belongsToMany('App\Models\Permission', 'role_permissions');
 
     }
+
     public function hasPermission($name, $require = false)
     {
         if (is_array($name)) {
@@ -52,16 +56,14 @@ class Role extends Model
     public function savePermissions($inputPermissions)
     {
 
-        if(!empty($inputPermissions)) {
+        if (!empty($inputPermissions)) {
             $this->permissions()->sync($inputPermissions);
-        }
-        else {
+        } else {
             $this->permissions()->detach();
         }
 
         return TRUE;
     }
-
 
 
 }

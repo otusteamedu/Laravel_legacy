@@ -1,5 +1,5 @@
 <div class="header">
-    <h1 class="display-4"><a href="/"> {{ $title }} </a> </h1>
+    <h1 class="display-4"><a href="/"> {{ $title }} </a></h1>
     <p class="lead">{{ $description }}</p>
     @php
         $menu = [

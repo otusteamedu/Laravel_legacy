@@ -1,9 +1,9 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Roles\Repositories;
+
 use App\Models\Role;
 
 interface RoleRepositoryInterface
@@ -22,5 +22,5 @@ interface RoleRepositoryInterface
 
     public function delete(int $id);
 
-    public function permissions(Role $role,array $filters = []);
+    public function permissions(Role $role, array $filters = []);
 }

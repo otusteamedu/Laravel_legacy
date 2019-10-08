@@ -35,7 +35,7 @@ class UsersService
      */
     public function findUser(int $id)
     {
-       // return $this->userRepository->find($id);
+        // return $this->userRepository->find($id);
     }
 
     /**
@@ -77,7 +77,6 @@ class UsersService
         return $this->userRepository->roles($user);
 
     }
-
 
 
 }

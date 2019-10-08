@@ -17,6 +17,7 @@ class RolesController extends Controller
     protected $rolesService;
     protected $permissionsService;
     protected $breadcrumbs;
+
     public function __construct(
         RolesService $rolesService,
         PermissionsService $permissionService
@@ -47,7 +48,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if(!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index') ){
+        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
             abort(403);
         }
 
@@ -65,6 +66,9 @@ class RolesController extends Controller
     public function create()
     {
         return view('admin.roles.create', [
+
+            'role_permissions' => [],
+            'permissions' => $this->permissionsService->searchPermissions(),
             'breadcrumbs' => $this->breadcrumbs
 
         ]);
@@ -73,7 +77,7 @@ class RolesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -104,7 +108,7 @@ class RolesController extends Controller
             [
                 'role' => $role,
                 'role_permissions' => $this->rolesService->searchRolePermissions($role),
-                'permissions'  => $this->permissionsService->searchPermissions(),
+                'permissions' => $this->permissionsService->searchPermissions(),
                 'breadcrumbs' => $this->breadcrumbs
             ]
         );
@@ -113,7 +117,7 @@ class RolesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -124,19 +128,18 @@ class RolesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Role $role)
+    public function update(Request $request, Role $role)
     {
 
         $result = $this->rolesService->updateRole($role, $request->all());
 
-        if($result == 1){
+        if ($result == 1) {
             return redirect(route('admin.roles.index'));
-        }
-        else {
+        } else {
             return back()->with($result);
 
         }
@@ -146,17 +149,17 @@ class RolesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $result = $this->rolesService->deleteRole($id);
 
-        if(is_array($result) && !empty($result['error'])) {
+        if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
 
-        return redirect(route('admin.roles.index',['result' => $result] ));
+        return redirect(route('admin.roles.index', ['result' => $result]));
     }
 }

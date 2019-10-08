@@ -1,6 +1,5 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Users\Repositories;
@@ -32,13 +31,13 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function updateFromArray(User $user, array $data)
     {
 
-       $result =  User::where('name',$data['name'])->get();
-       if( (count($result) > 1) || (count($result) == 1 && $result[0]->id != $user->id)) {
+        $result = User::where('name', $data['name'])->get();
+        if ((count($result) > 1) || (count($result) == 1 && $result[0]->id != $user->id)) {
 
             return ['error' => 'Это имя уже успользуется'];
-       }
-       $result =  User::where('email',$data['email'])->get();
-       if( (count($result) > 1) || (count($result) == 1 && $result[0]->id != $user->id)) {
+        }
+        $result = User::where('email', $data['email'])->get();
+        if ((count($result) > 1) || (count($result) == 1 && $result[0]->id != $user->id)) {
 
             return ['error' => 'Этот email уже успользуется'];
         }
@@ -48,20 +47,22 @@ class EloquentUserRepository implements UserRepositoryInterface
         $this->saveRoles($user, $data['role_id']);
 
 
-
         return 1;
     }
-    public  function create(array $data): User
+
+    public function create(array $data): User
     {
-        return  $this->createFromArray($data);
+        return $this->createFromArray($data);
 
     }
+
     public function delete(int $id)
     {
 
         return User::destroy($id);
 
     }
+
     public function roles(User $user, array $filters = [])
     {
         return $user->roles()->get()->pluck('name', 'id')->toArray();;
@@ -70,10 +71,9 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function saveRoles(User $user, $roles)
     {
-        if(!empty($roles)) {
+        if (!empty($roles)) {
             $user->roles()->sync($roles);
-        }
-        else {
+        } else {
             $user->roles()->detach();
         }
 

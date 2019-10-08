@@ -18,8 +18,10 @@ class Permission extends Model
     protected $fillable = [
         'name', 'route'
     ];
-    public function roles(){
 
-       return $this->belongsToMany('App\Models\Role', 'role_permissions');
-   }
+    public function roles()
+    {
+
+        return $this->belongsToMany('App\Models\Role', 'role_permissions');
+    }
 }

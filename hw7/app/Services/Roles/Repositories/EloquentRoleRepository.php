@@ -1,6 +1,5 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Roles\Repositories;
@@ -19,7 +18,7 @@ class EloquentRoleRepository implements RoleRepositoryInterface
     public function search(array $filters = [])
     {
         return Role::paginate();
-      // return Role::all()->pluck('name', 'id')->toArray();
+        // return Role::all()->pluck('name', 'id')->toArray();
     }
 
     public function searchToArray(array $filters = [])
@@ -27,10 +26,12 @@ class EloquentRoleRepository implements RoleRepositoryInterface
         //return Role::paginate();
         return Role::all()->pluck('name', 'id')->toArray();
     }
+
     public function createFromArray(array $data): Role
     {
         $role = new Role();
-        $role->create($data);
+        $role = $role->create($data);
+        //dd($role->id);
         $role->savePermissions($data['permissions']);
 
         return $role;
@@ -39,20 +40,23 @@ class EloquentRoleRepository implements RoleRepositoryInterface
     public function updateFromArray(Role $role, array $data)
     {
 
-       $result =  Role::where('name',$data['name'])->get();
-       if( (count($result) > 1) || (count($result) == 1 && $result[0]->id != $role->id)) {
+        $result = Role::where('name', $data['name'])->get();
+        if ((count($result) > 1) || (count($result) == 1 && $result[0]->id != $role->id)) {
 
             return ['error' => 'Это имя уже успользуется'];
-       }
-       $role->update($data);
-       $role->savePermissions($data['permissions']);
-       return 1;
+        }
+        $role->update($data);
+        $role->savePermissions($data['permissions']);
+        return 1;
     }
-    public  function create(array $data): Role
+
+    public function create(array $data): Role
     {
         return $this->createFromArray($data);
     }
-    public function delete(int $id) {
+
+    public function delete(int $id)
+    {
 
         return Role::destroy($id);
     }

@@ -1,6 +1,8 @@
 <tr>
-    <th scope="row">{{ url(route('admin.permissions.show', ['permission' => $permission['id']]), $permission['id']) }}</th>
-    <th><a href=" {{ route('admin.permissions.show', ['permission' => $permission->id]) }}"> {{  $permission['name'] }} </a> </th>
+    <th scope="row"> {{ $permission['id'] }}</th>
+    <th>
+        <a href=" {{ route('admin.permissions.show', ['permission' => $permission->id]) }}"> {{  $permission['name'] }} </a>
+    </th>
     <th>{{  $permission['route'] }}  </th>
     <td>{{$permission['created_at']  }}   </td>
     <td>

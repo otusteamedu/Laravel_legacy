@@ -1,6 +1,6 @@
 <tr>
-    <th scope="row">{{ url(route('admin.statuses.show', ['status' => $status['id']]), $status['id']) }}</th>
-    <th><a href=" {{ route('admin.statuses.show', ['status' => $status->id]) }}"> {{  $status['name'] }} </a> </th>
+    <th scope="row"> {{ $status['id'] }}</th>
+    <th><a href=" {{ route('admin.statuses.show', ['status' => $status->id]) }}"> {{  $status['name'] }} </a></th>
 
     <td>
         {!! Form::open(['url' => route('admin.statuses.destroy',['status'=> $status->id]),'class'=>'form-delete','id' =>'deleteForm'.$status->id,'method'=>'POST',

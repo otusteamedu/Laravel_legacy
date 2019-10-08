@@ -17,6 +17,7 @@ class ChangeTablePermissions extends Migration
             $table->string('route', 255);
         });
     }
+
     /**
      * Reverse the migrations.
      *

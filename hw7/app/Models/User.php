@@ -40,12 +40,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-   public function roles(){
-       return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
-   }
-   public function permissions(){
-       return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
-   }
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
+    }
 
     public function hasPermission($name, $require = false)
     {
@@ -61,7 +64,7 @@ class User extends Authenticatable
             }
             return $require;
         } else {
-            foreach($this->roles as $role) {
+            foreach ($this->roles as $role) {
 
                 foreach ($role->permissions as $permission) {
 

@@ -14,6 +14,7 @@ class StatusesController extends Controller
 {
     protected $statusesService;
     protected $breadcrumbs;
+
     public function __construct(
         StatusesService $statusesService
     )
@@ -43,10 +44,9 @@ class StatusesController extends Controller
     {
 
         $user = Auth::user();
-        if(!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index') ){
+        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
             abort(403);
         }
-
         return view('admin.statuses.index', [
             'statuses' => $this->statusesService->searchStatuses(),
             'breadcrumbs' => $this->breadcrumbs
@@ -69,7 +69,7 @@ class StatusesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -105,7 +105,7 @@ class StatusesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -116,18 +116,17 @@ class StatusesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Status $status)
+    public function update(Request $request, Status $status)
     {
         $result = $this->statusesService->updateStatus($status, $request->all());
 
-        if($result == 1){
+        if ($result == 1) {
             return redirect(route('admin.statuses.index'));
-        }
-        else {
+        } else {
             return back()->with($result);
 
         }
@@ -137,17 +136,17 @@ class StatusesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $result = $this->statusesService->deleteStatus($id);
 
-        if(is_array($result) && !empty($result['error'])) {
+        if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
 
-        return redirect(route('admin.statuses.index',['result' => $result] ));
+        return redirect(route('admin.statuses.index', ['result' => $result]));
     }
 }

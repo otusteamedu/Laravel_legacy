@@ -17,6 +17,7 @@ class UsersController extends Controller
     protected $usersService;
     protected $rolesService;
     protected $breadcrumbs;
+
     public function __construct(
         UsersService $usersService,
         RolesService $rolesService
@@ -48,7 +49,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if(!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index') ){
+        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
             abort(403);
         }
 
@@ -75,7 +76,7 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -102,7 +103,7 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-      // dd($this->rolesService->searchRoles());
+        // dd($this->rolesService->searchRoles());
         return view('admin.users.edit',
             [
                 'user' => $user,
@@ -115,7 +116,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -126,18 +127,17 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,User $user)
+    public function update(Request $request, User $user)
     {
         $result = $this->usersService->updateUser($user, $request->all());
 
-        if($result == 1){
+        if ($result == 1) {
             return redirect(route('admin.users.index'));
-        }
-        else {
+        } else {
             return back()->with($result);
 
         }
@@ -147,17 +147,17 @@ class UsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
         $result = $this->usersService->deleteUser($id);
 
-        if(is_array($result) && !empty($result['error'])) {
+        if (is_array($result) && !empty($result['error'])) {
             return back()->with($result);
         }
 
-        return redirect(route('admin.users.index',['result' => $result] ));
+        return redirect(route('admin.users.index', ['result' => $result]));
     }
 }

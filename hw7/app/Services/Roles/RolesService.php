@@ -35,7 +35,7 @@ class RolesService
      */
     public function findRole(int $id)
     {
-       // return $this->roleRepository->find($id);
+        // return $this->roleRepository->find($id);
     }
 
     /**
@@ -46,6 +46,7 @@ class RolesService
         return $this->roleRepository->search();
 
     }
+
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -54,6 +55,7 @@ class RolesService
         return $this->roleRepository->searchToArray();
 
     }
+
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -87,8 +89,6 @@ class RolesService
     {
         return $this->roleRepository->delete($id);
     }
-
-
 
 
 }

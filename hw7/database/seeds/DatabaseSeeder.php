@@ -13,7 +13,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call(UserTableSeeder::class);
-        $this->call(StatusTableSeeder::class);
-        factory(\App\Models\Task::class, 15)->create();
+        //$this->call(StatusTableSeeder::class);
+        $status = factory(\App\Models\Status::class)->create();
+        factory(\App\Models\Task::class, 15)->create(['status_id' => $status->id]);
     }
 }

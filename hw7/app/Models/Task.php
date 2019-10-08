@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property timestamp created_at
  * @property timestamp updated_id
  */
-
 class Task extends Model
 {
     //

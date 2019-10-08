@@ -1,9 +1,9 @@
 <?php
 /**
-
  */
 
 namespace App\Services\Permissions\Repositories;
+
 use App\Models\Permission;
 
 interface PermissionRepositoryInterface

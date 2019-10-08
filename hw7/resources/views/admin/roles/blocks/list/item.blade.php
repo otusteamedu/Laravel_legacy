@@ -1,6 +1,6 @@
 <tr>
-    <th scope="row">{{ url(route('admin.roles.show', ['role' => $role['id']]), $role['id']) }}</th>
-    <th><a href=" {{ route('admin.roles.show', ['role' => $role->id]) }}"> {{  $role['name'] }} </a> </th>
+    <th scope="row"> {{ $role['id'] }}</th>
+    <th><a href=" {{ route('admin.roles.show', ['role' => $role->id]) }}"> {{  $role['name'] }} </a></th>
     <td>{{$role['created_at']  }}   </td>
     <td>
         {!! Form::open(['url' => route('admin.roles.destroy',['role'=> $role->id]),'class'=>'form-delete','id' =>'deleteForm'.$role->id,'method'=>'POST',

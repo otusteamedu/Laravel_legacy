@@ -12,11 +12,11 @@ class StatusTableSeeder extends Seeder
     public function run()
     {
         $data [] = [
-            'name'=>'Выполнено',
+            'name' => 'Выполнено',
 
         ];
         $data [] = [
-            'name'=>'Не выполнено',
+            'name' => 'Не выполнено',
 
         ];
         DB::table('statuses')->insert($data);

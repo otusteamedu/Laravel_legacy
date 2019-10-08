@@ -5,5 +5,4 @@
             {{ Form::text('name', null, array('class'=>'form-control')) }}
         </div>
     </div>
-
 </div>

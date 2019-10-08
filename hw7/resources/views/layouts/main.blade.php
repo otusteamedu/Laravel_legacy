@@ -10,16 +10,16 @@
     @yield('styles')
 </head>
 <body>
-<div class="wrapper" >
+<div class="wrapper">
 
-        @include('blocks.header.index')
+    @include('blocks.header.index')
 
-        <div class="container">
-            @yield('content')
-        </div>
+    <div class="container">
+        @yield('content')
+    </div>
 </div>
 
-    @include('blocks.footer.index')
+@include('blocks.footer.index')
 
 
 <script src="{{ mix('/js/app.js') }}"></script>
