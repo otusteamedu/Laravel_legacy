@@ -5,14 +5,22 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use App\Services\Repositories\TrucksRepository;
+use App\Services\ValidationService;
 
 class TrucksService
 {
+    const RULES = [
+        'brand' => 'required|max:50',
+        'plate' => 'required|max:12',
+        'cars' => 'required|integer',
+    ];
     private $trucksRepository;
+    private $validationService;
 
-    public function __construct(TrucksRepository $trucksRepository)
+    public function __construct(TrucksRepository $trucksRepository, ValidationService $validationService)
     {
         $this->trucksRepository = $trucksRepository;
+        $this->validationService = $validationService;
     }
 
     public function index()
@@ -20,24 +28,31 @@ class TrucksService
         return $this->trucksRepository->index();
     }
 
+    public function validate(Request $request)
+    {
+        return $this->validationService->validate($request, self::RULES);
+    }
+
     public function store(Request $request)
     {
-        $this->trucksRepository->store($request);
-    }
+        if ($this->validate($request)) {
+            $data['brand'] = $request->brand;
+            $data['plate'] = $request->plate;
+            $data['cars'] = $request->cars;
 
-    public function show($id)
-    {
-        return $this->trucksRepository->show($id);
-    }
-
-    public function edit($id)
-    {
-        $this->trucksRepository->edit($id);
+            $this->trucksRepository->store($data);
+        }
     }
 
     public function update(Request $request, $model)
     {
-        $this->trucksRepository->update($request, $model);
+        if ($this->validate($request)) {
+            $data['brand'] = $request->brand;
+            $data['plate'] = $request->plate;
+            $data['cars'] = $request->cars;
+
+            $this->trucksRepository->update($data, $model);
+        }
     }
 
     public function destroy($model)

@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Clients;
 use App\Models\Clients\Client;
 use App\Services\ClientsService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
+use App\Http\Controllers\Crm\CrmController;
 
-class ClientsController extends Controller
+class ClientsController extends CrmController
 {
     private $clientsService;
 
@@ -18,32 +17,26 @@ class ClientsController extends Controller
     }
 
     /**
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $items = $this->clientsService->index();
-        $view = view('clients/index', ['items' => $items])->render();
 
-        return (new Response($view));
+        return view('crm.clients.index', ['items' => $items, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return (new Response(view('clients/create')));
+        return view('crm.clients.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -53,28 +46,21 @@ class ClientsController extends Controller
     }
 
     /**
-     * @param $id
-     * @return Response
-     * @throws \Throwable
+     * @param Client $client
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Client $client)
     {
-        $model = $this->clientsService->show($id);
-        $view = view('clients/edit', ['model' => $model])->render();
-
-        return (new Response($view));
+        return view('crm.clients.edit', ['model' => $client, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
      * @param Client $client
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Client $client)
     {
-        $view = view('clients/edit', ['model' => $client])->render();
-
-        return (new Response($view));
+        return view('crm.clients.edit', ['model' => $client, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**

@@ -15,7 +15,8 @@ Route::name('crm.')->group(function () {
         Route::resources([
             'trucks' => 'Trucks\TrucksController',
             'clients' => 'Clients\ClientsController',
-            'schedule' => 'Schedule\ScheduleController'
+            'schedule' => 'Schedule\ScheduleController',
+            'orders' => 'Orders\OrdersController'
         ]);
     });
 });
@@ -25,8 +26,7 @@ Route::get('/add', 'BusScheduleController@add');
 Route::match(['get', 'post'], '/', 'IndexController@show');
 Route::match(['get', 'post'], '/newroute', 'BusScheduleController@store');
 Route::get('/', 'IndexController@index');
-Route::get('/home', 'Admin\HomeController@index');
-//Route::get('/schedule', 'BusScheduleController@index');
+Route::get('/crm', 'Crm\CrmController@index');
 Route::get('/regions', 'RegionsController@index');
 Route::get('/buses', 'BusesController@index');
 Route::get('/formcheck', 'BusesController@formcheck');

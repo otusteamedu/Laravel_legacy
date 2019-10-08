@@ -1,4 +1,4 @@
-@extends('admin.layouts.main')
+@extends($layout)
 @section('content')
     <div>
         <div class="mt-3 mb-3">
@@ -23,11 +23,13 @@
                         <td style="max-width: 150px;">
                             <div class="row">
                                 <div class="col">
+                                    @if($edit)
                                     {{ link_to(route('crm.trucks.edit', ['truck' => $item]), 'изменить',
                                     ['class' => 'btn btn-outline-primary']) }}
+                                        @endif
                                 </div>
                                 <div class="col">
-                                    @include('trucks.blocks.form_delete')
+                                    @include('crm.trucks.blocks.form_delete')
                                 </div>
                             </div>
                         </td>

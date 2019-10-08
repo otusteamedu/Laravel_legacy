@@ -4,27 +4,27 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use App\Services\Repositories\ClientsRepository;
+use App\Services\Repositories\OrdersRepository;
 
-class ClientsService
+class OrdersService
 {
     const RULES = [
         'name' => 'required|max:255',
         'region_id' => 'required',
     ];
 
-    private $clientsRepository;
+    private $ordersRepository;
     private $validationService;
 
-    public function __construct(ClientsRepository $clientsRepository, ValidationService $validationService)
+    public function __construct(OrdersRepository $ordersRepository, ValidationService $validationService)
     {
-        $this->clientsRepository = $clientsRepository;
+        $this->ordersRepository = $ordersRepository;
         $this->validationService = $validationService;
     }
 
     public function index()
     {
-        return $this->clientsRepository->index();
+        return $this->ordersRepository->index();
     }
 
     public function validate(Request $request)
@@ -37,13 +37,13 @@ class ClientsService
         if ($this->validate($request)) {
             $data['name'] = $request->name;
             $data['region_id'] = $request->region_id;
-            $this->clientsRepository->store($data);
+            $this->ordersRepository->store($data);
         }
     }
 
     public function edit($id)
     {
-        $this->clientsRepository->edit($id);
+        $this->ordersRepository->edit($id);
     }
 
     public function update(Request $request, $model)
@@ -51,12 +51,12 @@ class ClientsService
         if ($this->validate($request)) {
             $data['name'] = $request->name;
             $data['region_id'] = $request->region_id;
-            $this->clientsRepository->update($data, $model);
+            $this->ordersRepository->update($data, $model);
         }
     }
 
     public function destroy($model)
     {
-        $this->clientsRepository->destroy($model);
+        $this->ordersRepository->destroy($model);
     }
 }

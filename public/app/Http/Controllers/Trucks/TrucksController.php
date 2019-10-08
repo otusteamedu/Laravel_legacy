@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Trucks;
 use App\Models\Transport\Truck;
 use App\Services\TrucksService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
+use App\Http\Controllers\Crm\CrmController;
+use Illuminate\Support\Facades\Gate;
 
-class TrucksController extends Controller
+class TrucksController extends CrmController
 {
     private $trucksService;
 
@@ -18,63 +18,55 @@ class TrucksController extends Controller
     }
 
     /**
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $items = $this->trucksService->index();
-        $view = view('trucks/index', ['items' => $items])->render();
 
-        return (new Response($view));
+        return view('crm.trucks.index', [
+            'items' => $items,
+            'layout' => 'crm.layouts.nav_' . parent::layout(),
+            'edit' => Gate::allows('edit-transport')]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return (new Response(view('trucks/create')));
+        return view('crm.trucks.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
-        $this->trucksService->store($request);
+        if ($this->trucksService->validate($request)) {
+            $this->trucksService->store($request);
+        }
 
         return redirect(route('crm.trucks.index'));
     }
 
     /**
      * @param $id
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show($id)
+    public function show(Truck $truck)
     {
-        $model = $this->trucksService->show($id);
-        $view = view('trucks/edit', ['model' => $model])->render();
-
-        return (new Response($view));
+        return view('crm.trucks.edit',['model' => $truck, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
      * @param Truck $truck
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Truck $truck)
     {
-        $view = view('trucks/edit', ['model' => $truck])->render();
-
-        return (new Response($view));
+        return view('crm.trucks.edit', ['model' => $truck, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
@@ -92,9 +84,7 @@ class TrucksController extends Controller
     /**
      * @param Truck $truck
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     * @throws \Exception
      */
-
     public function destroy(Truck $truck)
     {
         $this->trucksService->destroy($truck);

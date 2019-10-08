@@ -18,11 +18,11 @@ class ScheduleRepository implements RepositoryInterface
         return Schedule::with(['transport', 'region'])->paginate(20);
     }
 
-    public function store(Request $request)
+    public function store(array $data)
     {
         $model = new Schedule;
-        $model->name = $request->name;
-        $model->region_id = $request->region_id;
+        $model->name = $data->name;
+        $model->region_id = $data->region_id;
         $model->save();
     }
 
@@ -36,11 +36,11 @@ class ScheduleRepository implements RepositoryInterface
         return Schedule::find($id);
     }
 
-    public function update(Request $request, $model)
+    public function update(array $data, $model)
     {
         $truck = Schedule::find($model->id);
-        $truck->name = $request->name;
-        $truck->region_id = $request->region_id;
+        $truck->name = $data->name;
+        $truck->region_id = $data->region_id;
         $truck->save();
     }
 

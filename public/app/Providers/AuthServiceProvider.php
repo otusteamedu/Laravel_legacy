@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\OrderPolicy;
+use App\Models\Orders\Order;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
@@ -14,7 +16,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         'App\Model' => 'App\Policies\ModelPolicy',
+        Order::class => OrderPolicy::class,
     ];
+
 
     /**
      * Register any authentication / authorization services.
@@ -25,6 +29,12 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('edit-transport', function($user) {
+            return $user->hasRole('admin');
+        });
+
+        Gate::define('add-order', function($user) {
+            return $user->hasRole('client');
+        });
     }
 }

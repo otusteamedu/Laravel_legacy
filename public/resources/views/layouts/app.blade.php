@@ -31,7 +31,7 @@
                 @if (Route::has('login'))
                     <div class="form-inline my-2 my-lg-0" style="margin-left: 20px;">
                         @auth
-                            <a class="btn btn-dark btn-sm" href="/home" class="btn btn-secondary">Личный кабинет</a>
+                            <a class="btn btn-dark btn-sm" href="/crm" class="btn btn-secondary">Личный кабинет</a>
                             <a class="btn btn-dark btn-sm" href="/logout" class="btn btn-secondary">Выйти</a>
                         @else
 

@@ -9,13 +9,9 @@ interface RepositoryInterface
 {
     public function index();
 
-    public function store(Request $request);
+    public function store(array $data);
 
-    public function show($id);
-
-    public function edit($id);
-
-    public function update(Request $request, $model);
+    public function update(array $data, $model);
 
     public function destroy($id);
 }

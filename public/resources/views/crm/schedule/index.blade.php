@@ -1,4 +1,5 @@
-@extends('admin.layouts.main')
+@extends($layout)
+
 @section('content')
     <div>
         <div class="mt-3 mb-3">

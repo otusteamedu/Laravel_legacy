@@ -1,13 +1,13 @@
-@extends('admin.layouts.main')
+@extends($layout)
 
 @section('content')
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
         <h3 style="margin-top:50px;">
-            <span>Добавить автовоз</span>
+            <span>Добавить автосалон</span>
         </h3>
         <div>
-            {{ Form::open(array('url' => '/crm/trucks')) }}
-            @include('trucks.blocks.fields')
+            {{ Form::open(array('url' => '/crm/clients')) }}
+            @include('crm.clients.blocks.fields')
             {{ Form::close() }}
         </div>
     </main>

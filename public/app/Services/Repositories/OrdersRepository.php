@@ -3,32 +3,34 @@
 
 namespace App\Services\Repositories;
 
-use App\Models\Clients\Client;
+use App\Models\Orders\Order;
 
 /**
- * Class ClientsRepository
+ * Class OrdersRepository
  * @package App\Services\Repositories
  */
 
-class ClientsRepository implements RepositoryInterface
+class OrdersRepository implements RepositoryInterface
 {
     public function index()
     {
-        return Client::with(['region'])->paginate(20);
+        return Order::paginate(20);
     }
 
     public function store(array $data)
     {
-        $model = new Client;
-        $model->name = $data->name;
+        $model = new Order;
+        $model->date = $data->date;
+        $model->amount = $data->amount;
+        $model->client_id = $data->client_id;
         $model->region_id = $data->region_id;
         $model->save();
     }
 
     public function update(array $data, $model)
     {
-        $model->name = $data['name'];
-        $model->region_id = $data['region_id'];
+        $model->date = $data['date'];
+        $model->amount = $data['amount'];
         $model->save();
     }
 

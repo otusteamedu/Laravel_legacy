@@ -18,32 +18,21 @@ class TrucksRepository implements RepositoryInterface
         return Truck::paginate(20);
     }
 
-    public function store(Request $request)
+    public function store(array $data)
     {
         $model = new Truck;
-        $model->brand = $request->brand;
-        $model->plate = $request->plate;
-        $model->cars = $request->cars;
+        $model->brand = $data['brand'];
+        $model->plate = $data['plate'];
+        $model->cars = $data['cars'];
         $model->save();
     }
 
-    public function show($id)
+    public function update(array $data, $model)
     {
-        return Truck::find($id);
-    }
-
-    public function edit($id)
-    {
-        return Truck::find($id);
-    }
-
-    public function update(Request $request, $model)
-    {
-        $truck = Truck::find($model->id);
-        $truck->brand = $request->brand;
-        $truck->plate = $request->plate;
-        $truck->cars = $request->cars;
-        $truck->save();
+        $model->brand = $data['brand'];
+        $model->plate = $data['plate'];
+        $model->cars = $data['cars'];
+        $model->save();
     }
 
     public function destroy($model)

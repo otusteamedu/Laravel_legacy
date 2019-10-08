@@ -5,10 +5,9 @@ namespace App\Http\Controllers\Schedule;
 use App\Models\Schedule\Schedule;
 use App\Services\ScheduleService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Response;
+use App\Http\Controllers\Crm\CrmController;
 
-class ScheduleController extends Controller
+class ScheduleController extends CrmController
 {
     private $scheduleService;
 
@@ -18,32 +17,26 @@ class ScheduleController extends Controller
     }
 
     /**
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
         $items = $this->scheduleService->index();
-        $view = view('schedule/index', ['items' => $items])->render();
 
-        return (new Response($view));
+        return view('crm.schedule.index', ['items' => $items, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        return (new Response(view('schedule/create')));
+        return view('crm.schedule.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(Request $request)
     {
@@ -54,27 +47,22 @@ class ScheduleController extends Controller
 
     /**
      * @param $id
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
         $model = $this->scheduleService->show($id);
-        $view = view('schedule/edit', ['model' => $model])->render();
 
-        return (new Response($view));
+        return view('crm.schedule.edit', ['model' => $model, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
      * @param Schedule $schedule
-     * @return Response
-     * @throws \Throwable
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(Schedule $schedule)
     {
-        $view = view('schedule/edit', ['model' => $schedule])->render();
-
-        return (new Response($view));
+        return view('crm.schedule.edit', ['model' => $schedule, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
     }
 
     /**
