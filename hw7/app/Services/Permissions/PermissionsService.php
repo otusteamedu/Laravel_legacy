@@ -6,8 +6,6 @@
  */
 
 namespace App\Services\Permissions;
-
-
 use App\Models\Permission;
 
 use App\Services\Permissions\Repositories\PermissionRepositoryInterface;

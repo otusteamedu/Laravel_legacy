@@ -22,7 +22,6 @@ class UsersService
     private $createUserHandler;
 
     public function __construct(
-
         UserRepositoryInterface $userRepository
     )
     {
@@ -44,7 +43,6 @@ class UsersService
     public function searchUsers(): LengthAwarePaginator
     {
         return $this->userRepository->search();
-
     }
 
     /**
@@ -56,7 +54,6 @@ class UsersService
         $user = $this->userRepository->create($data);
         return $user;
     }
-
     /**
      * @param User $user
      * @param array $data
@@ -74,9 +71,7 @@ class UsersService
 
     public function searchUserRoles(User $user)
     {
-        return $this->userRepository->roles($user);
+        return $this->userRepository->getRolesNames($user);
 
     }
-
-
 }

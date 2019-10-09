@@ -50,33 +50,7 @@ class User extends Authenticatable
         return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
     }
 
-    public function hasPermission($name, $require = false)
-    {
-        if (is_array($name)) {
-            foreach ($name as $roleName) {
-                $hasPermission = $this->hasPermission($roleName);
 
-                if ($hasPermission && !$require) {
-                    return true;
-                } elseif (!$hasPermission && $require) {
-                    return false;
-                }
-            }
-            return $require;
-        } else {
-            foreach ($this->roles as $role) {
-
-                foreach ($role->permissions as $permission) {
-
-                    if ($permission->route == $name) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
 
 
 }

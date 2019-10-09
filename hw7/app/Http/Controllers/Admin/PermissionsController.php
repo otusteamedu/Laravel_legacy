@@ -4,35 +4,34 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
 use App\Models\Permission;
 use App\Services\Permissions\PermissionsService;
+use App\Services\BaseCheckerService;
+
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 
-class PermissionsController extends Controller
+
+class PermissionsController extends BaseAdminController
 {
     protected $permissionsService;
     protected $breadcrumbs;
 
     public function __construct(
-        PermissionsService $permissionsService
+        PermissionsService $permissionsService,
+        BaseCheckerService $basePolicy
     )
     {
+
         $this->permissionsService = $permissionsService;
-        $this->breadcrumbs = [
+        $this->breadcrumbs = $this->getAdminBreadcrumbs();
+        array_push($this->breadcrumbs,
             [
-                'url' => '/admin',
-                'title' => __('messages.admin_panel'),
-            ],
-            [
-                'url' => route('admin.index'),
+                'url' => route('admin.permissions.index'),
                 'title' => __('messages.permissions'),
-            ],
-
-
-        ];
-
+            ]
+        );
+        $this->basePolicy = $basePolicy;
     }
 
 
@@ -43,11 +42,8 @@ class PermissionsController extends Controller
      */
     public function index(Request $request)
     {
-
         $user = Auth::user();
-        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
-            abort(403);
-        }
+        $this->basePolicy->view($user, $request->route()->getName());
 
         return view('admin.permissions.index', [
             'permissions' => $this->permissionsService->searchPermissions(),

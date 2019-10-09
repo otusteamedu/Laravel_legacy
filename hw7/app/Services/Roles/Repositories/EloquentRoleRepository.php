@@ -32,7 +32,7 @@ class EloquentRoleRepository implements RoleRepositoryInterface
         $role = new Role();
         $role = $role->create($data);
         //dd($role->id);
-        $role->savePermissions($data['permissions']);
+        $this->savePermissions($role, $data['permissions']);
 
         return $role;
     }
@@ -46,7 +46,7 @@ class EloquentRoleRepository implements RoleRepositoryInterface
             return ['error' => 'Это имя уже успользуется'];
         }
         $role->update($data);
-        $role->savePermissions($data['permissions']);
+        $this->savePermissions($role, $data['permissions']);
         return 1;
     }
 
@@ -65,6 +65,18 @@ class EloquentRoleRepository implements RoleRepositoryInterface
     {
         return $role->permissions()->get();
 
+    }
+
+    public function savePermissions(Role $role, $inputPermissions)
+    {
+
+        if (!empty($inputPermissions)) {
+            $role->permissions()->sync($inputPermissions);
+        } else {
+            $role->permissions()->detach();
+        }
+
+        return TRUE;
     }
 
 }

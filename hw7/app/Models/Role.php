@@ -53,17 +53,4 @@ class Role extends Model
         return false;
     }
 
-    public function savePermissions($inputPermissions)
-    {
-
-        if (!empty($inputPermissions)) {
-            $this->permissions()->sync($inputPermissions);
-        } else {
-            $this->permissions()->detach();
-        }
-
-        return TRUE;
-    }
-
-
 }

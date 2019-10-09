@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 use App\Models\User;
 use App\Services\Users\UsersService;
-use App\Models\Role;
 use App\Services\Roles\RolesService;
+use App\Services\BaseCheckerService;
+use App\Models\Role;
+
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 
-class UsersController extends Controller
+class UsersController extends BaseAdminController
 {
     protected $usersService;
     protected $rolesService;
@@ -20,24 +22,20 @@ class UsersController extends Controller
 
     public function __construct(
         UsersService $usersService,
-        RolesService $rolesService
+        RolesService $rolesService,
+        BaseCheckerService $basePolicy
     )
     {
         $this->usersService = $usersService;
         $this->rolesService = $rolesService;
-
-        $this->breadcrumbs = [
+        $this->breadcrumbs = $this->getAdminBreadcrumbs();
+        array_push($this->breadcrumbs,
             [
-                'url' => '/admin',
-                'title' => __('messages.admin_panel'),
-            ],
-            [
-                'url' => route('admin.index'),
+                'url' => route('admin.users.index'),
                 'title' => __('messages.users'),
-            ],
-
-
-        ];
+            ]
+        );
+        $this->basePolicy = $basePolicy;
     }
 
 
@@ -49,9 +47,7 @@ class UsersController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
-            abort(403);
-        }
+        $this->basePolicy->view($user, $request->route()->getName());
 
         return view('admin.users.index', [
             'users' => $this->usersService->searchUsers(),

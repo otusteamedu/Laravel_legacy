@@ -21,7 +21,7 @@ interface UserRepositoryInterface
     public function delete(int $id);
 
 
-    public function roles(User $user, array $filters = []);
+    public function getRolesNames(User $user, array $filters = []);
 
     public function saveRoles(User $user, $roles);
 

@@ -63,7 +63,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     }
 
-    public function roles(User $user, array $filters = [])
+    public function getRolesNames(User $user, array $filters = [])
     {
         return $user->roles()->get()->pluck('name', 'id')->toArray();;
 

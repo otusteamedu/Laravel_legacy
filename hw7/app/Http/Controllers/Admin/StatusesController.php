@@ -7,33 +7,30 @@ use Illuminate\Http\Request;
 
 use App\Models\Status;
 use App\Services\Statuses\StatusesService;
+use App\Services\BaseCheckerService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 
-class StatusesController extends Controller
+class StatusesController extends BaseAdminController
 {
     protected $statusesService;
     protected $breadcrumbs;
 
     public function __construct(
-        StatusesService $statusesService
+        StatusesService $statusesService,
+        BaseCheckerService $basePolicy
     )
     {
         $this->statusesService = $statusesService;
-        $this->breadcrumbs = [
+        $this->breadcrumbs = $this->getAdminBreadcrumbs();
+        array_push($this->breadcrumbs,
             [
-                'url' => '/admin',
-                'title' => __('messages.admin_panel'),
-            ],
-            [
-                'url' => route('admin.index'),
+                'url' => route('admin.statuses.index'),
                 'title' => __('messages.statuses'),
-            ],
-
-
-        ];
+            ]
+        );
+        $this->basePolicy = $basePolicy;
     }
-
 
     /**
      * Display a listing of the resource.
@@ -44,9 +41,7 @@ class StatusesController extends Controller
     {
 
         $user = Auth::user();
-        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
-            abort(403);
-        }
+        $this->basePolicy->view($user, $request->route()->getName());
         return view('admin.statuses.index', [
             'statuses' => $this->statusesService->searchStatuses(),
             'breadcrumbs' => $this->breadcrumbs

@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 
 use App\Models\Role;
 use App\Services\Roles\RolesService;
+use App\Services\BaseCheckerService;
 use App\Models\Permission;
 use App\Services\Permissions\PermissionsService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 
-class RolesController extends Controller
+
+class RolesController extends BaseAdminController
 {
     protected $rolesService;
     protected $permissionsService;
@@ -20,23 +22,21 @@ class RolesController extends Controller
 
     public function __construct(
         RolesService $rolesService,
-        PermissionsService $permissionService
+        PermissionsService $permissionService,
+        BaseCheckerService $basePolicy
+
     )
     {
         $this->rolesService = $rolesService;
         $this->permissionsService = $permissionService;
-        $this->breadcrumbs = [
+        $this->breadcrumbs = $this->getAdminBreadcrumbs();
+        array_push($this->breadcrumbs,
             [
-                'url' => '/admin',
-                'title' => __('messages.admin_panel'),
-            ],
-            [
-                'url' => route('admin.index'),
+                'url' => route('admin.roles.index'),
                 'title' => __('messages.roles'),
-            ],
-
-
-        ];
+            ]
+        );
+        $this->basePolicy = $basePolicy;
     }
 
 
@@ -48,9 +48,7 @@ class RolesController extends Controller
     public function index(Request $request)
     {
         $user = Auth::user();
-        if (!$user->hasPermission($request->route()->getName()) && !$user->hasPermission('admin.index')) {
-            abort(403);
-        }
+        $this->basePolicy->view($user, $request->route()->getName());
 
         return view('admin.roles.index', [
             'roles' => $this->rolesService->searchRoles(),
