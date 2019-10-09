@@ -17,5 +17,10 @@ return [
     'profileUserEmail' => 'Email',
     'profileUserEmailVerified' => 'Data Email Verified',
     'profileUserCreated' => 'Data Created',
-    'profileUserUpdated' => 'Data last Updated ',
+    'profileUserUpdated' => 'Data last Updated',
+    'functionTitle' => 'Adding New Features',
+    'functionName' => 'Function name',
+    'functionSubject' => 'Function text {}',
+    'functionDescription' => 'Function Description',
+    'functionButton' => 'Add new function',
 ];

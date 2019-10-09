@@ -15,6 +15,6 @@ class AdminUserRepository
 {
     public function find(int $id)
     {
-        return User::find($id);
+        return User::findOrFail($id);
     }
 }

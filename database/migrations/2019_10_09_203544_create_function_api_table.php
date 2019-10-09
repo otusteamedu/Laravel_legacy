@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFunctionAPISTable extends Migration
+class CreateFunctionApiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateFunctionAPISTable extends Migration
      */
     public function up()
     {
-        Schema::create('function_a_p_i_s', function (Blueprint $table) {
+        Schema::create('function_api', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->mediumText('function');
@@ -30,6 +30,6 @@ class CreateFunctionAPISTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('function_a_p_i_s');
+        Schema::dropIfExists('function_api');
     }
 }

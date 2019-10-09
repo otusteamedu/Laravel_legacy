@@ -21,5 +21,10 @@ return [
     'profileUserEmailVerified' => 'Дата потвержения Email`a',
     'profileUserCreated' => 'Дата создания',
     'profileUserUpdated' => 'Дата последнего обновления ',
+    'functionTitle' => 'Добавление новых функций',
+    'functionName' => 'Название функции',
+    'functionSubject' => 'Текст функции {}',
+    'functionDescription' => 'Описание функции',
+    'functionButton' => 'Добавить новую фунцию',
 
 ];

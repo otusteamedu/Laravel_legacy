@@ -35,4 +35,5 @@ Route::prefix('administrator')->group(function () {
     Route::resource('/', 'admin\AdminController');
     Route::resource('/role', 'admin\RolesController');
     Route::get('/user.profile/{user}', 'admin\UsersController');
+    Route::resource('/function', 'admin\FunctionController');
 });

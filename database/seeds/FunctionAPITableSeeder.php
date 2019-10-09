@@ -13,7 +13,7 @@ class FunctionAPITableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('function_a_p_i_s')->insert([
+        DB::table('function_api')->insert([
 
             'name' => str_random(10),
             'function' =>  str_random(10),
