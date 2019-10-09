@@ -8,7 +8,7 @@ html, body {
 }
 
 .full-height {
-  height: 40vh;
+  height: 20vh;
 }
 
 .flex-center {
@@ -59,7 +59,6 @@ html, body {
 .form-align{
   display: flex;
   justify-content: center;
-  margin: -50px;
 }
 
 .button-reg{
@@ -125,4 +124,13 @@ html, body {
   .main-title {
     font-size: 34px;
   }
+}
+.spanResult{
+  color: darkcyan;
+}
+
+.autoCentre{
+  margin-left: auto;
+  margin-right: auto;
+  width: 24em;
 }

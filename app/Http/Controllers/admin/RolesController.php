@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Model\RoleUser;
+use App\Services\Admin\AdminRoleService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
@@ -10,9 +11,15 @@ use Illuminate\Validation\ValidationException;
 class RolesController extends Controller
 {
 
-    public function __construct(RoleUser $roleUser)
+    protected $adminIndexService;
+    protected $response = null;
+
+    public function __construct(
+        AdminRoleService $adminIndexService
+    )
     {
-        $this->roleUser = $roleUser;
+        //  $this->middleware('shareCommonData');
+        $this->adminIndexService = $adminIndexService;
     }
 
     /**
@@ -21,7 +28,10 @@ class RolesController extends Controller
      */
     public function index(Request $request)
     {
-        return view('admin.index');
+
+        return view('admin.rolesUser.index', [
+            'response' => $this->response,
+        ]);
     }
 
     /**
@@ -31,26 +41,35 @@ class RolesController extends Controller
      */
     public function store(Request  $request)
     {
-
         try {
             $this->validate($request, [
                 'user_id' => 'required|max:3',
                 'role_id' => 'required|max:3'
             ]);
         } catch (ValidationException $e) {
-            return view('admin.index')
+            return view('admin.rolesUser.index')
                 ->with($request->all())
                 ->withErrors($e->validator);
         }
 
-        $existUser = RoleUser::where('user_id', $request->input('user_id'))->first();
+        $model = RoleUser::where('user_id', $request->input('user_id'))->first();
 
-        if (isset($existUser)){
-            $existUser->update($request->all());
+        if (isset($model)){
+            $userUpdate = $this->adminIndexService->updateAdminUser($model, $request->all());
+            if ($userUpdate->wasChanged()) {
+                $this->response = 'Роль пользователя успешно изменена';
+            }
+
         }else{
-            $this->roleUser->create($request->all());
+            $userCreate = $this->adminIndexService->storeAdminUser($request->all());
+            if($userCreate->exists()){
+                $this->response = 'Пользователь успешно создан';
+            }
+
         }
 
-        return view('admin.index');
+        return view('admin.rolesUser.index', [
+            'response' => $this->response,
+        ]);
     }
 }

@@ -2,24 +2,11 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Model\RoleUser;
-use App\Services\Admin\AdminService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\ValidationException;
 
 class AdminController extends Controller
 {
-    protected $adminService;
-
-    public function __construct(
-        AdminService $adminService
-    )
-    {
-      //  $this->middleware('shareCommonData');
-        $this->adminService = $adminService;
-    }
-
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -36,7 +23,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        return view('admin.index');
+       // return view('admin.index');
     }
 
     /**
@@ -47,29 +34,7 @@ class AdminController extends Controller
      */
     public function store(Request  $request)
     {
-
-        try {
-            $this->validate($request, [
-                'user_id' => 'required|max:3',
-                'role_id' => 'required|max:3'
-            ]);
-        } catch (ValidationException $e) {
-            return view('admin.index')
-                ->with($request->all())
-                ->withErrors($e->validator);
-        }
-
-        $model = RoleUser::where('user_id', $request->input('user_id'))->first();
-
-        if (isset($model)){
-            $this->adminService->updateAdminUser($model, $request->all());
-        }else{
-            $this->adminService->storeAdminUser($request->all());
-        }
-
-
-
-        return view('admin.index');
+        //
     }
 
     /**
@@ -85,7 +50,7 @@ class AdminController extends Controller
 //        if(!$posts){
 //            return abort('404');
 //        }
-        return view('admin.index', ['user' => RoleUser::findOrFail($id)]);
+       // return view('admin.index', ['user' => RoleUser::findOrFail($id)]);
     }
 
     /**

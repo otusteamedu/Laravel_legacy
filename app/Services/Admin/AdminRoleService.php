@@ -9,16 +9,16 @@ namespace App\Services\Admin;
 
 
 use App\Model\RoleUser;
-use App\Services\Admin\Repositories\AdminRepository;
+use App\Services\Admin\Repositories\AdminRoleRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class AdminService
+class AdminRoleService
 {
 
     private $adminRepository;
 
     public function __construct(
-        AdminRepository $adminRepository
+        AdminRoleRepository $adminRepository
     )
     {
         $this->adminRepository = $adminRepository;

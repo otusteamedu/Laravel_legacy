@@ -10,7 +10,7 @@ namespace App\Services\Admin\Repositories;
 
 use App\Model\RoleUser;
 
-class AdminRepository
+class AdminRoleRepository
 {
 
     public function find(int $id)
@@ -25,15 +25,15 @@ class AdminRepository
 
     public function createFromArray(array $data)
     {
-        $country = new RoleUser();
-        $country->create($data);
-        return $country;
+        $roleUser = new RoleUser();
+        $roleUser->create($data);
+        return $roleUser;
     }
 
-    public function updateFromArray(RoleUser $country, array $data)
+    public function updateFromArray(RoleUser $roleUser, array $data)
     {
-        $country->update($data);
-        return $country;
+        $roleUser->update($data);
+        return $roleUser;
     }
 
 }

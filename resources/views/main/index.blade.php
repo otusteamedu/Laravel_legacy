@@ -11,9 +11,9 @@
 @endsection
 
 @section('content')
-    <div class="flex-center position-ref full-height">
+    <div class="position-ref full-height">
         <div class="content">
-            <div class="title m-b-md main-title">
+            <div class="title m-b-md autoCentre">
                 {{__('messages.mainTitle')}}
             </div>
 
