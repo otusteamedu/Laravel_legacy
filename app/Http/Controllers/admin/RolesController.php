@@ -37,7 +37,6 @@ class RolesController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request  $request)
     {
@@ -58,6 +57,8 @@ class RolesController extends Controller
             $userUpdate = $this->adminIndexService->updateAdminUser($model, $request->all());
             if ($userUpdate->wasChanged()) {
                 $this->response = 'Роль пользователя успешно изменена';
+            }else{
+                $this->response = 'Пользователь с данной ролью уже существует';
             }
 
         }else{

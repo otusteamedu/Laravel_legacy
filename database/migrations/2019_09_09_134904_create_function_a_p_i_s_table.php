@@ -18,7 +18,7 @@ class CreateFunctionAPISTable extends Migration
             $table->string('name', 100);
             $table->mediumText('function');
             $table->mediumText('description')->nullable();
-            $table->integer('role_available');
+            $table->integer('role_available')->default(3);
             $table->timestamps();
         });
     }

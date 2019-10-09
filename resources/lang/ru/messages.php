@@ -14,4 +14,12 @@ return [
     'adminCreateRole' => 'Назначение роли для юзеров',
     'adminUpdateUser' => 'Id юзера',
     'adminUpdateRole' => 'Id роли',
+    'profileUserID' => 'Ид',
+    'dataUserCaption' => 'Информация о пользователе',
+    'profileUserName' => 'Имя',
+    'profileUserEmail' => 'Емэйл',
+    'profileUserEmailVerified' => 'Дата потвержения Email`a',
+    'profileUserCreated' => 'Дата создания',
+    'profileUserUpdated' => 'Дата последнего обновления ',
+
 ];

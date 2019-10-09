@@ -10,5 +10,12 @@ return [
     'password' => 'Password',
     'passwordConfirm' => 'Confirmation Password',
     'singIn' => 'Sing in',
-    'admin' => 'Admin panel'
+    'admin' => 'Admin panel',
+    'profileUserID' => 'Id',
+    'dataUserCaption' => 'Data of users',
+    'profileUserName' => 'Name',
+    'profileUserEmail' => 'Email',
+    'profileUserEmailVerified' => 'Data Email Verified',
+    'profileUserCreated' => 'Data Created',
+    'profileUserUpdated' => 'Data last Updated ',
 ];

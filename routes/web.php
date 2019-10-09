@@ -34,4 +34,5 @@ Route::get('/php-info', function () {
 Route::prefix('administrator')->group(function () {
     Route::resource('/', 'admin\AdminController');
     Route::resource('/role', 'admin\RolesController');
+    Route::get('/user.profile/{user}', 'admin\UsersController');
 });
