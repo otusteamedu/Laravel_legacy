@@ -108,6 +108,8 @@ class UsersController extends CmsController
             $data['photo'] = $this->storePhoto($request->file('photo'));
         }
         $this->usersService->updateUser($user, $data);
+        $this->setSuccessSavedState();
+
         return redirect(route('cms.users.index'));
     }
 

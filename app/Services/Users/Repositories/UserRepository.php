@@ -35,6 +35,15 @@ class UserRepository
     }
 
     /**
+     * @param array $with
+     * @return User[]|Collection
+     */
+    public function get(array $with = []): Collection
+    {
+        return User::with($with)->get();
+    }
+
+    /**
      * @param array $data
      * @return User
      */

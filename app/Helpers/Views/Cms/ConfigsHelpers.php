@@ -30,7 +30,7 @@ trait ConfigsHelpers
         return self::TRANSLATION_NOT_FOUND;
     }
 
-    public static function getTranslatedCMSConfigs($model, $config, $translateConfig = '')
+    public static function getTranslatedCMSConfigs(string $model, string $config, $translateConfig = '')
     {
         $configs = [];
         if (isset(config('cms')[$model][$config])) {

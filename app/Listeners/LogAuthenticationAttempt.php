@@ -26,6 +26,6 @@ class LogAuthenticationAttempt
      */
     public function handle(Attempting $event)
     {
-        \Log::info(self::class, [$event->credentials]);
+        info(self::class, [$event->credentials]);
     }
 }
