@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Country\CountrySaved;
 use Illuminate\Support\Collection;
 
 /**
@@ -18,6 +19,10 @@ use Illuminate\Support\Collection;
  */
 class Country extends Model
 {
+
+    protected $dispatchesEvents = [
+        'saved' => CountrySaved::class,
+    ];
 
     protected $fillable = [
         'name',

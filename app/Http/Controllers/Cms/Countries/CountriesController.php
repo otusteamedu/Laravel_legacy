@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cms\Countries;
 
+use App\Helpers\RouteBuilder;
 use App\Http\Controllers\Cms\CmsController;
 use App\Policies\Abilities;
 use Auth;
@@ -23,28 +24,13 @@ class CountriesController extends CmsController
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws AuthorizationException
      */
-    public function index(Request $request)
+    public function index()
     {
-        $countries = $this->countriesService->searchCountriesWithCities([
-            'cities',
-        ]);
-        if ($this->getCurrentUser()->cant(Abilities::VIEW_ANY, Country::class)) {
-            abort(403, 'Hoho' , [
-
-            ]);
-        }
-        try {
-            $this->authorize(Abilities::VIEW_ANY, Country::class);
-        } catch (AuthorizationException $e) {
-            \Log::critical('User is not authorized', [
-                $request->all(),
-            ]);
-            return response()->json([], 403);
-        }
+        $countries = $this->countriesService->searchCachedCountriesWithCities();
+        $this->authorize(Abilities::VIEW_ANY, Country::class);
 
         return view('countries.index', [
             'countries' => $countries,
@@ -52,9 +38,8 @@ class CountriesController extends CmsController
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws AuthorizationException
      */
     public function create()
     {
@@ -63,10 +48,10 @@ class CountriesController extends CmsController
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function store(Request $request)
     {
@@ -84,10 +69,9 @@ class CountriesController extends CmsController
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Country $country
-     * @return \Illuminate\Http\Response
+     * @param Country $country
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws AuthorizationException
      */
     public function edit(Country $country)
     {
@@ -99,11 +83,11 @@ class CountriesController extends CmsController
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Country $country
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Country $country
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws AuthorizationException
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Country $country)
     {
@@ -115,16 +99,15 @@ class CountriesController extends CmsController
         ]);
 
         $this->countriesService->updateCountry($country, $request->all());
-
-        return redirect(route('cms.countries.index'));
+        return redirect(RouteBuilder::localeRoute('cms.countries.index'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  \App\Models\Country $country
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Country $country
+     * @return array|string
+     * @throws AuthorizationException
+     * @throws \Throwable
      */
     public function show(Request $request, Country $country)
     {
@@ -139,31 +122,5 @@ class CountriesController extends CmsController
         ])->render();
 
         return $view;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Country $country
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Country $country)
-    {
-        //
-//            ->with([
-//                'country',
-//            ])
-//            ->withCount([
-//                'companies',
-//                'products',
-//            ])
-    }
-
-    /**
-     * @return \App\Models\User|null
-     */
-    private function getCurrentUser()
-    {
-        return \Auth::user();
     }
 }
