@@ -13,7 +13,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \DateTime updated_at
  * @package App\Models
  */
-class Author extends Model
-{
-    //
+class Author extends Model {
+    protected $fillable = ['name', 'surname'];
 }
