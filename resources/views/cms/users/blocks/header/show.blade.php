@@ -5,5 +5,5 @@
     @if($user->photo)
         <img src="{{ asset('storage/' . $user->photo) }}" alt="..." class="img-thumbnail">
     @endif
-    <a class="btn btn-primary btn-lg" href="{{ route('cms.users.edit', ['user' => $user]) }}" role="button">@lang('messages.edit')</a>
+    <a class="btn btn-primary btn-lg" href="{{ App\Helpers\RouteBuilder::localeRoute('cms.users.edit', ['user' => $user]) }}" role="button">@lang('messages.edit')</a>
 @endcomponent

@@ -17,10 +17,10 @@
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="{{ App\Helpers\RouteBuilder::localeApp\Helpers\RouteBuilder::localeRouteApp\Helpers\RouteBuilder::localeRoute('login')) }}">Login</a>
 
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
+                            <a href="{{ App\Helpers\RouteBuilder::localeRoute('register') }}">Register</a>
                         @endif
                     @endauth
                 </div>

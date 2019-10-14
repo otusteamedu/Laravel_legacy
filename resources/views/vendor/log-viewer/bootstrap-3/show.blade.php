@@ -45,7 +45,7 @@
                     Log info :
 
                     <div class="group-btns pull-right">
-                        <a href="{{ route('log-viewer::logs.download', [$log->date]) }}" class="btn btn-xs btn-success">
+                        <a href="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.download', [$log->date]) }}" class="btn btn-xs btn-success">
                             <i class="fa fa-download"></i> DOWNLOAD
                         </a>
                         <a href="#delete-log-modal" class="btn btn-xs btn-danger" data-toggle="modal">
@@ -85,13 +85,13 @@
                 </div>
                 <div class="panel-footer">
                     {{-- Search --}}
-                    <form action="{{ route('log-viewer::logs.search', [$log->date, $level]) }}" method="GET">
+                    <form action="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.search', [$log->date, $level]) }}" method="GET">
                         <div class=form-group">
                             <div class="input-group">
                                 <input id="query" name="query" class="form-control"  value="{!! $query !!}" placeholder="Type here to search">
                                 <span class="input-group-btn">
                                     @unless (is_null($query))
-                                        <a href="{{ route('log-viewer::logs.show', [$log->date]) }}" class="btn btn-default">
+                                        <a href="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.show', [$log->date]) }}" class="btn btn-default">
                                             ({{ $entries->count() }} results) <span class="glyphicon glyphicon-remove"></span>
                                         </a>
                                     @endunless
@@ -192,7 +192,7 @@
     {{-- DELETE MODAL --}}
     <div id="delete-log-modal" class="modal fade">
         <div class="modal-dialog">
-            <form id="delete-log-form" action="{{ route('log-viewer::logs.delete') }}" method="POST">
+            <form id="delete-log-form" action="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.delete') }}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="date" value="{{ $log->date }}">
@@ -236,7 +236,7 @@
                         submitBtn.button('reset');
                         if (data.result === 'success') {
                             deleteLogModal.modal('hide');
-                            location.replace("{{ route('log-viewer::logs.list') }}");
+                            location.replace("{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.list') }}");
                         }
                         else {
                             alert('OOPS ! This is a lack of coffee exception !')
