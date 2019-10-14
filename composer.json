@@ -16,7 +16,8 @@
         "laravel/passport": "^7.4",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "watson/rememberable": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
