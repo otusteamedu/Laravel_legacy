@@ -5,5 +5,6 @@ Route::name('admin.')->group(function() {
             'authors' => 'Authors\AuthorsController',
             'users' => 'Users\UsersController',
             'categories' => 'Categories\CategoriesController',
+            'handbooks' => 'Handbooks\HandbooksController',
         ]);
 });
