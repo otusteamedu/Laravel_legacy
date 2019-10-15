@@ -37,7 +37,7 @@ class UsersService {
         if ($request->hasFile('photo')) {
             $file = $request->file('photo');
             $randString = substr(md5(microtime()), rand(0, 26), 5);
-            $filePath = public_path('upload/images/' .  $randString . '/');
+            $filePath = public_path('storage/images/' .  $randString . '/');
             $file->move($filePath, $request->file('photo')->getClientOriginalName());
             $data['photo'] = $filePath . $request->file('photo')->getClientOriginalName();
         }

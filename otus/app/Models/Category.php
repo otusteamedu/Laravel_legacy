@@ -13,5 +13,5 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  */
 class Category extends Model {
-    //
+    protected $fillable = ['name'];
 }

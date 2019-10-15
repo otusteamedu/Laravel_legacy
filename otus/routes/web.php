@@ -3,6 +3,7 @@
 Route::name('admin.')->group(function() {
         Route::resources([
             'authors' => 'Authors\AuthorsController',
-            'users' => 'Users\UsersController'
+            'users' => 'Users\UsersController',
+            'categories' => 'Categories\CategoriesController',
         ]);
 });
