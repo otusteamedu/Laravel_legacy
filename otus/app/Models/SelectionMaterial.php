@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \DateTime updated_at
  * @package App\Models
  */
-class SelectionMaterial extends Model
-{
-    //
+class SelectionMaterial extends Model {
+    protected $fillable = ['name'];
 }

@@ -6,5 +6,6 @@ Route::name('admin.')->group(function() {
             'users' => 'Users\UsersController',
             'categories' => 'Categories\CategoriesController',
             'handbooks' => 'Handbooks\HandbooksController',
+            'selection-materials' => 'SelectionMaterials\SelectionMaterialsController',
         ]);
 });
