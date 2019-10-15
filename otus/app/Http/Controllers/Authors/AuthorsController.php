@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Authors;
 
 use App\Models\Author;
-use App\Services\Authors\CategoryService;
+use App\Services\Authors\AuthorsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +11,7 @@ class AuthorsController extends Controller {
 
     protected $authorsService;
 
-    public function __construct(CategoryService $authorsService) {
+    public function __construct(AuthorsService $authorsService) {
         $this->authorsService = $authorsService;
     }
 

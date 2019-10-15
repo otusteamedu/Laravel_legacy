@@ -2,7 +2,7 @@
 
 @section('title', 'Page Edit ')
 
-<?php /** @var Category $category */?>use App\Models\Category;
+<?php /** @var App\Models\Category $category */?>
 @section('content')
 
     <div class="container">
