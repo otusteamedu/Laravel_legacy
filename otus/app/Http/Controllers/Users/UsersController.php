@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
-use App\Services\Users\UsersService;
+use App\Services\Users\UserService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +11,7 @@ class UsersController extends Controller {
 
     protected $userService;
 
-    public function __construct(UsersService $userService) {
+    public function __construct(UserService $userService) {
         $this->userService = $userService;
     }
 

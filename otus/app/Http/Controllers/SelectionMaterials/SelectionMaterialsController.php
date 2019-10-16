@@ -21,7 +21,7 @@ class SelectionMaterialsController extends Controller {
      */
     public function index() {
         return \view('selection_materials.list', [
-            'selectionMaterials' => $this->selectionMaterialsService->searchSelectionMaterial()
+            'selectionMaterials' => $this->selectionMaterialsService->searchSelectionMaterials()
         ]);
     }
 

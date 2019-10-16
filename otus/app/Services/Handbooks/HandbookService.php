@@ -6,7 +6,7 @@ use App\Models\Handbook;
 use App\Services\Handbooks\Repositories\HandbookRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class HandbooksService {
+class HandbookService {
 
     private $authorRepository;
 

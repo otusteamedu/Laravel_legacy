@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Handbooks;
 
 use App\Models\Handbook;
-use App\Services\Handbooks\HandbooksService;
+use App\Services\Handbooks\HandbookService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -11,7 +11,7 @@ class HandbooksController extends Controller {
 
     protected $handbookService;
 
-    public function __construct(HandbooksService $handbooksService) {
+    public function __construct(HandbookService $handbooksService) {
         $this->handbookService = $handbooksService;
     }
     /**

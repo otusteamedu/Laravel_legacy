@@ -7,7 +7,7 @@ use App\Services\Users\Repositories\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
-class UsersService {
+class UserService {
 
     private $userRepository;
 

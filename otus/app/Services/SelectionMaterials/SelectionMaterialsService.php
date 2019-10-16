@@ -21,7 +21,7 @@ class SelectionMaterialsService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchSelectionMaterial(): LengthAwarePaginator {
+    public function searchSelectionMaterials(): LengthAwarePaginator {
         return $this->selectionMaterialsRepository->search();
     }
 
