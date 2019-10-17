@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers\Cms\Users;
 
+use App\Http\Controllers\Cms\CmsController;
 use App\Http\Controllers\Cms\Users\Requests\StoreUserRequest;
 use App\Http\Controllers\Cms\Users\Requests\UpdateUserRequest;
 use App\Jobs\UserPhotoProcess;
 use App\Policies\Abilities;
 use Illuminate\Http\UploadedFile;
+use mysql_xdevapi\Exception;
 use View;
 use App\Models\User;
 use App\Services\Users\UsersService;
-use App\Http\Controllers\Controller;
 
-class UsersController extends Controller
+class UsersController extends CmsController
 {
 
     /** @var UsersService */
@@ -109,6 +110,7 @@ class UsersController extends Controller
             $data['photo'] = $this->storePhoto($request->file('photo'));
         }
         $this->usersService->updateUser($user, $data);
+        $this->setSuccessSavedState();
 
         UserPhotoProcess::dispatch($user);
 

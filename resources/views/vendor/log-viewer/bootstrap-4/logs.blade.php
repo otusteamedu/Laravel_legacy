@@ -34,17 +34,17 @@
                                 @elseif ($value == 0)
                                     <span class="badge empty">{{ $value }}</span>
                                 @else
-                                    <a href="{{ route('log-viewer::logs.filter', [$date, $key]) }}">
+                                    <a href="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.filter', [$date, $key]) }}">
                                         <span class="badge badge-level-{{ $key }}">{{ $value }}</span>
                                     </a>
                                 @endif
                             </td>
                         @endforeach
                         <td class="text-right">
-                            <a href="{{ route('log-viewer::logs.show', [$date]) }}" class="btn btn-sm btn-info">
+                            <a href="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.show', [$date]) }}" class="btn btn-sm btn-info">
                                 <i class="fa fa-search"></i>
                             </a>
-                            <a href="{{ route('log-viewer::logs.download', [$date]) }}" class="btn btn-sm btn-success">
+                            <a href="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.download', [$date]) }}" class="btn btn-sm btn-success">
                                 <i class="fa fa-download"></i>
                             </a>
                             <a href="#delete-log-modal" class="btn btn-sm btn-danger" data-log-date="{{ $date }}">
@@ -71,7 +71,7 @@
     {{-- DELETE MODAL --}}
     <div id="delete-log-modal" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
-            <form id="delete-log-form" action="{{ route('log-viewer::logs.delete') }}" method="POST">
+            <form id="delete-log-form" action="{{ App\Helpers\RouteBuilder::localeRoute('log-viewer::logs.delete') }}" method="POST">
                 <input type="hidden" name="_method" value="DELETE">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <input type="hidden" name="date" value="">

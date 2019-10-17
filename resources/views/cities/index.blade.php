@@ -13,7 +13,7 @@
                 'title' => __('messages.home'),
             ],
             [
-                'url' => route('cms.cities.index'),
+                'url' => App\Helpers\RouteBuilder::localeRoute('cms.cities.index'),
                 'title' => __('messages.cities'),
             ],
         ];

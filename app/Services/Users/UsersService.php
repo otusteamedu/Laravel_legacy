@@ -12,7 +12,10 @@ use App\Models\User;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Handlers\UpdateUserHandler;
 use App\Services\Users\Repositories\UserRepository;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class UsersService
 {
@@ -50,6 +53,68 @@ class UsersService
     public function search(array $filters = [], array $with = []): LengthAwarePaginator
     {
         return $this->userRepository->search($filters, $with);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getModerators(): Collection
+    {
+        $users = $this->userRepository->get();
+        return $this->filterUsersOnlyGmail($moderatorUsers);
+    }
+
+    /**
+     * @return int
+     */
+    public function getModeratorsCount(): int
+    {
+        $users = $this->userRepository->get();
+        $moderatorUsers = $users->filter(function (User $user) {
+            Str::ascii($user->name);
+            return $user->isModerator();
+        });
+        return count($moderatorUsers);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUsersGroupedByLevel(): Collection
+    {
+        $users = $this->userRepository->get();
+        return $users->groupBy('level');
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getUsersSortedByLevel(): Collection
+    {
+        $users = $this->userRepository->get();
+        return $users->sortBy('level');
+    }
+
+    /**
+     * @return array
+     */
+    public function getUsersSortedByLevelAsArray(): array
+    {
+        $users = $this->userRepository->get();
+        return $users
+            ->sortBy('level')
+            ->toArray();
+    }
+
+    /**
+     * @param Collection $users
+     * @return Collection
+     */
+    public function filterUsersOnlyGmail(Collection $users): Collection
+    {
+        return $users->filter(function (User $user) {
+            return strpos($user->email, '@otus.ru') !== false;
+        });
     }
 
     /**

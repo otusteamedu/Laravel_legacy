@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\Cms\Cities;
 
+use App\Http\Controllers\Cms\CmsController;
 use App\Models\City;
 use App\Services\Countries\CountriesService;
 use App\Services\SimpleFoo;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
-class CitiesController extends Controller
+class CitiesController extends CmsController
 {
     protected $countriesService;
     protected $simpleFoo;

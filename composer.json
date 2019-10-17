@@ -18,9 +18,10 @@
         "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
-        "laravelcollective/html": "^6.0",
         "predis/predis": "^1.1",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^9.1"
+        "laravelcollective/html": "^6.0",
+        "watson/rememberable": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

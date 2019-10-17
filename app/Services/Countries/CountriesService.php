@@ -10,6 +10,7 @@ namespace App\Services\Countries;
 
 use App\Models\Country;
 use App\Services\Countries\Handlers\CreateCountryHandler;
+use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -18,15 +19,19 @@ class CountriesService
 
     /** @var CountryRepositoryInterface */
     private $countryRepository;
+    /** @var CachedCountryRepositoryInterface */
+    private $cachedCountryRepository;
     /** @var CreateCountryHandler */
     private $createCountryHandler;
 
     public function __construct(
         CreateCountryHandler $createCountryHandler,
+        CachedCountryRepositoryInterface $cachedCountryRepository,
         CountryRepositoryInterface $countryRepository
     )
     {
         $this->createCountryHandler = $createCountryHandler;
+        $this->cachedCountryRepository = $cachedCountryRepository;
         $this->countryRepository = $countryRepository;
     }
 
@@ -37,6 +42,16 @@ class CountriesService
     public function findCountry(int $id)
     {
         return $this->countryRepository->find($id);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function searchCachedCountriesWithCities(): LengthAwarePaginator
+    {
+        return $this->cachedCountryRepository->search([], [
+            'cities'
+        ]);
     }
 
     /**

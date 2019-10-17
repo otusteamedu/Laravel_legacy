@@ -21,8 +21,10 @@
 //});
 
 Route::name('cms.')->group(function () {
-    Route::prefix('cms')->middleware([
+    Route::prefix('{locale}/cms')->middleware([
         'auth',
+        'shareCommonData:admin',
+        'localize',
     ])->group(function () {
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',
@@ -31,7 +33,11 @@ Route::name('cms.')->group(function () {
         ]);
     });
 });
-Route::view('/home', 'home')->name('home');
+Route::view('/home', 'home')
+    ->name('home')
+    ->middleware([
+        'localize',
+    ]);
 Route::view('/', 'home');
 Route::auth();
 

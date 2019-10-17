@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\Country\ClearCountryCache;
 use App\Listeners\LogAuthenticated;
 use App\Listeners\LogAuthenticationAttempt;
 use App\Listeners\LogFailedLogin;
@@ -9,6 +10,7 @@ use App\Listeners\LogLockout;
 use App\Listeners\LogRegisteredUser;
 use App\Listeners\LogSuccessfulLogin;
 use App\Listeners\LogSuccessfulLogout;
+use App\Services\Events\Models\Country\CountrySaved;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Authenticated;
 use Illuminate\Auth\Events\Failed;
@@ -52,6 +54,10 @@ class EventServiceProvider extends ServiceProvider
 
         Lockout::class => [
             LogLockout::class
+        ],
+
+        CountrySaved::class => [
+            ClearCountryCache::class,
         ],
     ];
 

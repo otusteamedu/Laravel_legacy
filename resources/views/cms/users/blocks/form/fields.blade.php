@@ -23,11 +23,7 @@
         <div class="form-group">
             {{ Form::label('level', trans('messages.level')) }}
             @php
-                $levels = [
-                    \App\Models\User::LEVEL_USER => __('cms.users.level.' . \App\Models\User::LEVEL_USER),
-                    \App\Models\User::LEVEL_MODERATOR => __('cms.users.level.' . \App\Models\User::LEVEL_MODERATOR),
-                    \App\Models\User::LEVEL_ADMIN => __('cms.users.level.' . \App\Models\User::LEVEL_ADMIN),
-                ];
+                $levels = \App\Helpers\Views\Cms\CmsHelpers::getTranslatedCMSConfigs('users', 'level');
             @endphp
             {{ Form::select('level', $levels, null, array('class'=>'form-control')) }}
         </div>

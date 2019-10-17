@@ -8,9 +8,9 @@
 return [
     'users' => [
         'level' => [
-            \App\Models\User::LEVEL_USER => 'User',
-            \App\Models\User::LEVEL_MODERATOR => 'Moderator',
-            \App\Models\User::LEVEL_ADMIN => 'Admin',
+            'user' => 'User',
+            'moderator' => 'Moderator',
+            'admin' => 'Admin',
         ]
     ]
 ];

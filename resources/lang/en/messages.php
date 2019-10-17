@@ -9,6 +9,7 @@ return [
     'users' => 'Users',
     'cities' => 'Cities',
     'history' => 'History',
+    'apiToken' => 'Api Token',
     'title' => 'Title',
     'name' => 'Name',
     'email' => 'Email',
@@ -33,5 +34,6 @@ return [
     'edit' => 'Edit',
     'add' => 'Add',
     'totalCount' => 'Total Count',
+    'changesHaveBeenSaved' => 'Changes have been saved',
     'remainingOfTotal' => '{0} None of :total|{1} One of :total|[2,*] :remaining of :total',
 ];

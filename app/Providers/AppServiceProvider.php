@@ -5,6 +5,8 @@ namespace App\Providers;
 use App\Http\Controllers\Cms\Cities\CitiesController;
 use App\Http\Controllers\Cms\Countries\CountriesController;
 use App\Providers\Views\BladeStatements;
+use App\Services\Countries\Repositories\CachedCountryRepository;
+use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use App\Services\Countries\Repositories\EloquentCountryRepository;
 use App\Services\Foo\Bar;
@@ -46,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(FooInterface::class, Foo::class);
         $this->app->bind(CountryRepositoryInterface::class, EloquentCountryRepository::class);
+        $this->app->bind(CachedCountryRepositoryInterface::class, CachedCountryRepository::class);
 
         $this->app->when(CountriesController::class)
             ->needs(SimpleFoo::class)
