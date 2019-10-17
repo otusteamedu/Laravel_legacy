@@ -26,4 +26,13 @@ class LoginTest extends DuskTestCase
 
         });
     }
+
+    public function testRoles()
+    {
+        $this->browse(function (Browser $browser) {
+            $this->visit('/admin/roles')
+                ->see('Роли');
+
+        });
+    }
 }
