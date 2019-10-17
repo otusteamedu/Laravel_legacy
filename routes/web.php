@@ -34,3 +34,6 @@ Route::name('cms.')->group(function () {
 Route::view('/home', 'home')->name('home');
 Route::view('/', 'home');
 Route::auth();
+
+Route::get('/jobs', 'JobsController@index')->name('jobs.index');
+Route::get('/jobs/failed', 'JobsController@failed')->name('jobs.failed');

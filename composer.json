@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-imagick": "*",
         "arcanedev/log-viewer": "^5.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.3",

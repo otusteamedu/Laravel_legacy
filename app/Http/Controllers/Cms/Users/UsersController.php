@@ -117,7 +117,6 @@ class UsersController extends Controller
 
     private function storePhoto(UploadedFile $photo)
     {
-        return $photo->file('photo')
-            ->store('users/photo', 'public');
+        return $photo->store(config('images.dir'), 'public');
     }
 }

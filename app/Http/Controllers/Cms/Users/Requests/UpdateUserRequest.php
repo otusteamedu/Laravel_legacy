@@ -25,7 +25,6 @@ class UpdateUserRequest extends FormRequest
                 'max:255',
                 Rule::unique('users')->ignore($this->user->id),
             ],
-            'password' => 'sometimes|required|string|min:8',
             'level' => ['required'],
         ];
     }

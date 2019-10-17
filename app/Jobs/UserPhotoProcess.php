@@ -24,10 +24,43 @@ class UserPhotoProcess implements ShouldQueue
         $this->data = $data;
     }
 
+    /**
+     * @throws \ImagickException
+     */
     public function handle()
     {
         echo UserPhotoProcess::class, '@handle:', $this->user->id, PHP_EOL;
         info($this->user->id, $this->data);
+        $this->processImage($this->user->photo);
 //        throw new \Exception();
     }
+
+    /**
+     * @param $filename
+     * @throws \ImagickException
+     */
+    private function processImage($filename)
+    {
+        $sizes = config('images.sizes');
+        $image = new \Imagick($this->getFilePath($filename));
+        foreach ($sizes as $suffix => $size) {
+            $image->thumbnailImage($size['width'], $size['height']);
+            $filePath = $this->getFilePath($filename, $suffix);
+            $image->writeImage($filePath);
+        }
+    }
+
+    private function getFilePath($filename, $suffix = '')
+    {
+        $imageDir = ''; //config('images.dir');
+        $parts = explode('.', $filename);
+        $extension = array_pop($parts);
+
+        $thumbFilename = implode('.', $parts) . "{$suffix}.{$extension}";
+
+        return storage_path("app/public/{$imageDir}{$thumbFilename}");
+    }
+
+
+
 }
