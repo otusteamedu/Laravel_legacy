@@ -28,7 +28,6 @@ class QueueServiceProvider extends ServiceProvider
     public function boot()
     {
         Queue::failing(function (JobFailed $event) {
-            info(config('logging.channels.slack.url'));
             Notification::route('slack', config('logging.channels.slack.url'))
                 ->notify(new SlackFailedJob($event));
         });

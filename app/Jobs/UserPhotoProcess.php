@@ -14,16 +14,6 @@ class UserPhotoProcess implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Get the middlewarwe the job should pass through.
-     *
-     * @return array
-     */
-//    public function middleware()
-//    {
-//        return [new RateLimited];
-//    }
-
     /** @var User */
     protected $user;
     protected $data;
@@ -34,13 +24,10 @@ class UserPhotoProcess implements ShouldQueue
         $this->data = $data;
     }
 
-    /**
-     * @param User $user
-     */
     public function handle()
     {
         echo UserPhotoProcess::class, '@handle:', $this->user->id, PHP_EOL;
         info($this->user->id, $this->data);
-        throw new \Exception();
+//        throw new \Exception();
     }
 }

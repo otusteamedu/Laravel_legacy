@@ -40,9 +40,11 @@ class SlackFailedJob extends Notification
      * @param  mixed $notifiable
      * @return SlackMessage
      */
+
+
+
     public function toSlack($notifiable)
     {
-        info('toSlack');
         return (new SlackMessage)
             ->content('A job failed at ' . config('app.name'))
             ->attachment(function (SlackAttachment $attachment) use ($notifiable) {
