@@ -20,15 +20,15 @@ class UserRepository {
     }
 
     public function createFromArray(array $data) {
-        $author = new User();
-        $author->fill($data);
-        $author->save();
+        $user = new User();
+        $user->fill($data);
+        $user->save();
 
-        return $author;
+        return $user;
     }
 
-    public function updateFromArray(User $author, array $data) {
-        $author->update($data);
-        return $author;
+    public function updateFromArray(User $user, array $data) {
+        $user->update($data);
+        return $user;
     }
 }

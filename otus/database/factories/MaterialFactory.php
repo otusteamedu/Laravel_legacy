@@ -51,9 +51,6 @@ $factory->define(Material::class, function (Faker $faker) {
             return factory(Category::class)->create()->id;
         },
 
-        'authors_id' => function () {
-            return factory(\App\Models\Author::class)->create()->id;
-        },
         'status_id' => function () {
             return factory(Handbook::class)->create()->id;
         },

@@ -20,15 +20,15 @@ class CategoryRepository {
     }
 
     public function createFromArray(array $data) {
-        $Category = new Category();
-        $Category->fill($data);
-        $Category->save();
+        $category = new Category();
+        $category->fill($data);
+        $category->save();
 
-        return $Category;
+        return $category;
     }
 
-    public function updateFromArray(Category $Category, array $data) {
-        $Category->update($data);
-        return $Category;
+    public function updateFromArray(Category $category, array $data) {
+        $category->update($data);
+        return $category;
     }
 }

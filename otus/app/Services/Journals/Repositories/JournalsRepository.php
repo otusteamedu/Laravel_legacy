@@ -20,15 +20,15 @@ class JournalsRepository {
     }
 
     public function createFromArray(array $data) {
-        $author = new Journal();
-        $author->fill($data);
-        $author->save();
+        $journal = new Journal();
+        $journal->fill($data);
+        $journal->save();
 
-        return $author;
+        return $journal;
     }
 
-    public function updateFromArray(Journal $author, array $data) {
-        $author->update($data);
-        return $author;
+    public function updateFromArray(Journal $journal, array $data) {
+        $journal->update($data);
+        return $journal;
     }
 }

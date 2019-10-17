@@ -28,17 +28,17 @@ class CategoryService {
 
     /**
      * @param array $data
-     * @return category
+     * @return Category
      */
-    public function storeCategory(array $data) : category {
+    public function storeCategory(array $data): Category {
         return $this->categoryRepository->createFromArray($data);
     }
 
     /**
-     * @param category $category
+     * @param Category $category
      * @param array $data
      */
-    public function updateCategory(category $category, array $data) {
+    public function updateCategory(Category $category, array $data) {
         $this->categoryRepository->updateFromArray($category, $data);
     }
 

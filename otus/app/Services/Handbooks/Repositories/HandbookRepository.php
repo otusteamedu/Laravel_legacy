@@ -20,15 +20,15 @@ class HandbookRepository {
     }
 
     public function createFromArray(array $data) {
-        $author = new Handbook();
-        $author->fill($data);
-        $author->save();
+        $handbook = new Handbook();
+        $handbook->fill($data);
+        $handbook->save();
 
-        return $author;
+        return $handbook;
     }
 
-    public function updateFromArray(Handbook $author, array $data) {
-        $author->update($data);
-        return $author;
+    public function updateFromArray(Handbook $handbook, array $data) {
+        $handbook->update($data);
+        return $handbook;
     }
 }

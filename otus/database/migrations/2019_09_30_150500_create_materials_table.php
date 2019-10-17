@@ -15,7 +15,6 @@ class CreateMaterialsTable extends Migration {
             $table->bigIncrements('id');
             $table->string('name');
             $table->bigInteger('category_id')->unsigned();
-            $table->bigInteger('authors_id')->unsigned();
             $table->bigInteger('status_id')->unsigned();
             $table->string('file');
             $table->year('year_publishing')->nullable();
@@ -28,10 +27,6 @@ class CreateMaterialsTable extends Migration {
                 ->on('categories')
                 ->onDelete('cascade');
 
-            $table->foreign('authors_id')
-                ->references('id')
-                ->on('authors')
-                ->onDelete('cascade');
 
             $table->foreign('status_id')
                 ->references('id')

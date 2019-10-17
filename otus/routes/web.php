@@ -8,5 +8,6 @@ Route::name('admin.')->group(function() {
             'handbooks' => 'Handbooks\HandbooksController',
             'selection-materials' => 'SelectionMaterials\SelectionMaterialsController',
             'journals' => 'Journals\JournalsController',
+            'materials' => 'Materials\MaterialsController',
         ]);
 });

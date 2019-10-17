@@ -15,4 +15,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Author extends Model {
     protected $fillable = ['name', 'surname'];
+
+    public function materials() {
+        return $this->belongsToMany(Material::class);
+    }
+
 }

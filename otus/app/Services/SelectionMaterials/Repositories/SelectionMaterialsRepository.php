@@ -20,15 +20,15 @@ class SelectionMaterialsRepository {
     }
 
     public function createFromArray(array $data) {
-        $author = new SelectionMaterial();
-        $author->fill($data);
-        $author->save();
+        $selectionMaterial = new SelectionMaterial();
+        $selectionMaterial->fill($data);
+        $selectionMaterial->save();
 
-        return $author;
+        return $selectionMaterial;
     }
 
-    public function updateFromArray(SelectionMaterial $author, array $data) {
-        $author->update($data);
-        return $author;
+    public function updateFromArray(SelectionMaterial $selectionMaterial, array $data) {
+        $selectionMaterial->update($data);
+        return $selectionMaterial;
     }
 }
