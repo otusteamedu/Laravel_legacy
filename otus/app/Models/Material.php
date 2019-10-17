@@ -19,14 +19,18 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Material extends Model {
     protected $fillable = ['name', 'category_id', 'status_id', 'file', 'year_publishing'];
-    protected $with = ['category', 'authors', 'status'];
+    protected $with = ['category', 'authors','readUsers', 'status'];
 
     public function category() {
         return $this->hasOne(Category::class, 'id', 'category_id');
     }
 
     public function authors() {
-        return $this->belongsToMany(Author::class);
+        return $this->belongsToMany(Author::class, 'author_material', 'material_id', 'author_id');
+    }
+
+    public function readUsers() {
+        return $this->belongsToMany(User::class, 'read_material', 'material_id', 'user_id');
     }
 
     public function status() {

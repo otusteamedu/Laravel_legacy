@@ -18,4 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model {
     protected $fillable = ['name', 'email', 'password_hash', 'photo'];
+
+    public function readMaterials() {
+        return $this->belongsToMany(User::class, 'read_material', 'user_id', 'material_id');
+    }
+
 }

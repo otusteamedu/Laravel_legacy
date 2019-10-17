@@ -40,6 +40,6 @@ class AuthorMaterialTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('author_materials');
+        Schema::dropIfExists('author_material');
     }
 }

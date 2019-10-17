@@ -16,6 +16,10 @@
                     <ul class="list-group">
                         <?php /** @var \App\Models\user $user */?>
                         @foreach ($users as $user)
+{{--                            {{$user->id}}--}}
+{{--                            @foreach ($user->readMaterials as $readMaterial)--}}
+{{--                                {{$readMaterial->name}}--}}
+{{--                                @endforeach--}}
                             <li class="list-group-item">
                                 <div class="checkbox">
                                     <img src = ''>

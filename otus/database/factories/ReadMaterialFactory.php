@@ -2,13 +2,9 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Category;
-use App\Models\Handbook;
-use App\Models\Journal;
 use App\Models\Material;
 use App\Models\ReadMaterial;
 use App\Models\User;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 /*

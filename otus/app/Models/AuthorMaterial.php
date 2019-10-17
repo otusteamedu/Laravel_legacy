@@ -15,4 +15,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class AuthorMaterial extends Model {
     protected $fillable = ['author_id', 'material_id'];
+    public $timestamps = false;
 }

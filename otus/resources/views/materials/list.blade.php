@@ -2,7 +2,6 @@
 
 @section('title', 'Page List ')
 {{ Html::style('css/custom.css') }}
-
 @section('content')
 <div class="container">
     <div class="row">
