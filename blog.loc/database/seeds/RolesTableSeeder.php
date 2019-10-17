@@ -17,5 +17,15 @@ class RolesTableSeeder extends Seeder
                 'role' => 'Admin',
                 'description' => 'Главная роль',
             ]);
+        DB::table('roles')
+            ->insert([
+                'role' => 'Editor',
+                'description' => 'Редактор',
+            ]);
+        DB::table('roles')
+            ->insert([
+                'role' => 'User',
+                'description' => 'Обычный пользователь',
+            ]);
     }
 }
