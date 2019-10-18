@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Services\Role\RoleService;
 use App\Services\User\UserService;
@@ -194,6 +195,25 @@ class UserController extends MainController
         $roleId = $request->role;
 
         $res = $this->userService->editRole($userId, $roleId);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
+
+        return redirect()->back()->with('success', 'Пользователь изменен');
+    }
+
+    /**
+     * Редактирование пароля
+     * @param ChangePasswordRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function changePassword(ChangePasswordRequest $request)
+    {
+        $userId = $request->id;
+        $newPassword = $request->password;
+
+        $res = $this->userService->changePassword($userId, $newPassword);
 
         if($res === false) {
             return redirect()->back()->with('error', 'Возникла ошибка');

@@ -61,7 +61,10 @@ class UserEloquentRepository implements UserRepositoryInterface
 
     public function changePassword(int $userId, string $newPassword)
     {
-        // TODO: Implement changePassword() method.
+        User::where('id', $userId)
+            ->update([
+                'password' => bcrypt($newPassword),
+            ]);
     }
 
     public function delete(int $userId)

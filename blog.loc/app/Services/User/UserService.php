@@ -158,4 +158,16 @@ class UserService
             return false;
         }
     }
+
+    public function changePassword($userId, $newPassword)
+    {
+        try {
+            $this->userRepository->changePassword($userId, $newPassword);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+
+    }
 }

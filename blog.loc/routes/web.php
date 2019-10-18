@@ -38,5 +38,6 @@ Route::group(
         Route::patch('users/active', 'UserController@active')->name('users.active');
         Route::patch('users/unactive', 'UserController@unactive')->name('users.unactive');
         Route::delete('users/delete', 'UserController@destroy')->name('users.destroy');
+        Route::patch('users/change-password', 'UserController@changePassword')->name('users.changePassword');
 
 });
