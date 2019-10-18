@@ -59,7 +59,12 @@ class UserController extends MainController
      */
     public function show($id)
     {
-        $user = $this->userService->getUserById($id);
+        $res = $user = $this->userService->getUserById($id);
+
+        if($res === false) {
+            return redirect()->route('admin.users.index')->with('error', 'Возникла ошибка');
+        }
+
         $this->data['user'] = $user;
         $this->data['roles'] = $this->roleService->getRoles();
 
@@ -70,14 +75,21 @@ class UserController extends MainController
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Удаление пользователя
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $userId = $request->id;
+        $res = $this->userService->destroy($userId);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
+
+        return redirect()->route('admin.users.index')->with('success', 'Пользователь удален');
     }
 
     /**
@@ -88,7 +100,11 @@ class UserController extends MainController
     public function active(Request $request)
     {
         $userId = $request->id;
-        $this->userService->activate($userId);
+        $res = $this->userService->activate($userId);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
 
         return redirect()->back()->with('success', 'Пользователь активирован');
     }
@@ -101,7 +117,11 @@ class UserController extends MainController
     public function unactive(Request $request)
     {
         $userId = $request->id;
-        $this->userService->unactivate($userId);
+        $res = $this->userService->unactivate($userId);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
 
         return redirect()->back()->with('success', 'Пользователь деактивирован');
     }
@@ -116,7 +136,11 @@ class UserController extends MainController
         $userId = $request->id;
         $firstName = $request->first_name;
 
-        $this->userService->editFirstName($userId, $firstName);
+        $res = $this->userService->editFirstName($userId, $firstName);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
 
         return redirect()->back()->with('success','Пользователь изменен');
     }
@@ -131,7 +155,11 @@ class UserController extends MainController
         $userId = $request->id;
         $lastName = $request->last_name;
 
-        $this->userService->editLastName($userId, $lastName);
+        $res = $this->userService->editLastName($userId, $lastName);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
 
         return redirect()->back()->with('success', 'Пользователь изменен');
     }
@@ -146,7 +174,11 @@ class UserController extends MainController
         $userId = $request->id;
         $birthday = $request->birthday;
 
-        $this->userService->editBirthday($userId, $birthday);
+        $res = $this->userService->editBirthday($userId, $birthday);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
 
         return redirect()->back()->with('success', 'Пользователь изменен');
     }
@@ -161,7 +193,11 @@ class UserController extends MainController
         $userId = $request->id;
         $roleId = $request->role;
 
-        $this->userService->editRole($userId, $roleId);
+        $res = $this->userService->editRole($userId, $roleId);
+
+        if($res === false) {
+            return redirect()->back()->with('error', 'Возникла ошибка');
+        }
 
         return redirect()->back()->with('success', 'Пользователь изменен');
     }

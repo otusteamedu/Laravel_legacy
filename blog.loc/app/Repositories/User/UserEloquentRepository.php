@@ -66,6 +66,7 @@ class UserEloquentRepository implements UserRepositoryInterface
 
     public function delete(int $userId)
     {
-        // TODO: Implement delete() method.
+        User::where('id', $userId)
+            ->delete();
     }
 }

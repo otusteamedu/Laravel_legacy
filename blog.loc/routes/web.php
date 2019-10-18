@@ -37,5 +37,6 @@ Route::group(
         Route::patch('users/update/role/{id}', 'UserController@editRole')->name('users.editRole');
         Route::patch('users/active', 'UserController@active')->name('users.active');
         Route::patch('users/unactive', 'UserController@unactive')->name('users.unactive');
+        Route::delete('users/delete', 'UserController@destroy')->name('users.destroy');
 
 });

@@ -147,4 +147,15 @@ class UserService
             return false;
         }
     }
+
+    public function destroy($userId)
+    {
+        try {
+            $this->userRepository->delete($userId);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
 }
