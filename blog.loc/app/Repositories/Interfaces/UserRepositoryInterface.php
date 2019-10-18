@@ -52,7 +52,7 @@ interface UserRepositoryInterface
      * @param array $userData
      * @return mixed
      */
-    public function update(array $userData);
+    public function update(int $userId, array $userData);
 
     /**
      * Удаление пользователя

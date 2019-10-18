@@ -23,7 +23,9 @@ class UserEloquentRepository implements UserRepositoryInterface
 
     public function getById(int $userId)
     {
-        // TODO: Implement getById() method.
+        $user = User::findOrFail($userId);
+
+        return $user;
     }
 
     public function add(array $userData)
@@ -33,9 +35,12 @@ class UserEloquentRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function update(array $userData)
+    public function update(int $userId, array $userData)
     {
-        // TODO: Implement update() method.
+        $user = User::where('id', $userId)
+            ->update($userData);
+
+        return $user;
     }
 
     public function activate(int $userId)

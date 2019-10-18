@@ -1,5 +1,12 @@
 require('./bootstrap');
+require('./datapicker.min');
+
+
 $(document).ready(function(){
+    $('#datepicker').datepicker({
+        dateFormat: 'yy-mm-dd'
+    });
+
     //отправка формы из модального окна
     $('.send_modal_form').on('click',function () {
         let modal = $(this).parents('.modal');
@@ -21,4 +28,6 @@ $(document).ready(function(){
         $('#modalUserUnactivate').modal('show');
         $('#modalUserUnactivate input[name=id]').val(id);
     });
+
+
 });

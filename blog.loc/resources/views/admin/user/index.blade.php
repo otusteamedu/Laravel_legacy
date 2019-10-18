@@ -48,6 +48,7 @@
                     <th scope="col">Статус</th>
                     <th scope="col">Роль</th>
                     <th scope="col">Дата создания</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -74,7 +75,9 @@
                         </td>
                         <td>{{ $user->role->role }}</td>
                         <td>{{ $user->created_at }}</td>
-                        <td></td>
+                        <td>
+                            <a href="{{ route('admin.users.show', ['id' => $user->id]) }}" class="btn btn-outline-dark">Инфо</a>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>

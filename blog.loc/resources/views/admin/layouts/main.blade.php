@@ -8,6 +8,7 @@
         @yield('title','Панель управления')
     </title>
     @yield('styles', '')
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="{{ mix('/css/admin.css') }}">
 </head>
 
@@ -296,6 +297,7 @@
 <script src="{{ config('app.url') }}/js/off-canvas.js"></script>
 <script src="{{ config('app.url') }}/js/misc.js"></script>
 <!-- endinject -->
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <!-- Custom js for this page-->
 <script src="{{ config('app.url') }}/js/dashboard.js"></script>
 <!-- End custom js for this page-->

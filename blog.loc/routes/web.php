@@ -30,6 +30,11 @@ Route::group(
     function (){
         Route::get('users', 'UserController@index')->name('users.index');
         Route::post('users/store', 'UserController@store')->name('users.store');
+        Route::get('users/show/{id}', 'UserController@show')->name('users.show');
+        Route::patch('users/update/first_name/{id}', 'UserController@editFirstName')->name('users.editFirstName');
+        Route::patch('users/update/last_name/{id}', 'UserController@editLastName')->name('users.editLastName');
+        Route::patch('users/update/birthday/{id}', 'UserController@editBirthday')->name('users.editBirthday');
+        Route::patch('users/update/role/{id}', 'UserController@editRole')->name('users.editRole');
         Route::patch('users/active', 'UserController@active')->name('users.active');
         Route::patch('users/unactive', 'UserController@unactive')->name('users.unactive');
 

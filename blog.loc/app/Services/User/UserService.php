@@ -1,17 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: romchik
- * Date: 17.09.2019
- * Time: 13:00
- */
-
 namespace App\Services\User;
-
-
 
 use App\Repositories\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserService
 {
@@ -45,17 +37,27 @@ class UserService
         return $currentUser;
     }
 
+    /**
+     * Создаем нового пользователя
+     * @param $data
+     * @return mixed
+     */
     public function createUser($data)
     {
         try {
             $user = $this->userRepository->add($data);
+            return true;
         } catch (\Exception $e) {
             Log::error($e->getMessage());
-            //TODO: вывод флеш
-            return fasle;
+            return false;
         }
     }
 
+    /**
+     * Активируем пользователя
+     * @param $userId
+     * @return bool
+     */
     public function activate($userId)
     {
         try {
@@ -67,10 +69,78 @@ class UserService
         }
     }
 
+    /**
+     * Деактивируем пользователя
+     * @param $userId
+     * @return bool
+     */
     public function unactivate($userId)
     {
         try {
             $this->userRepository->deactivate($userId);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function getUserById($userId)
+    {
+        try {
+            $res = $this->userRepository->getById($userId);
+            return $res;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function editFirstName($userId, $newFirstName)
+    {
+        try {
+            $userData = [];
+            $userData['first_name'] = $newFirstName;
+            $this->userRepository->update($userId, $userData);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function editLastName($userId, $newLastName)
+    {
+        try {
+            $userData = [];
+            $userData['last_name'] = $newLastName;
+            $this->userRepository->update($userId, $userData);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function editBirthday($userId, $newBirthday)
+    {
+        try {
+            $userData = [];
+            $userData['birthday'] = $newBirthday;
+            $this->userRepository->update($userId, $userData);
+            return true;
+        } catch (\Exception $e) {
+            Log::error($e->getMessage());
+            return false;
+        }
+    }
+
+    public function editRole($userId, $newRoleId)
+    {
+        try {
+            $userData = [];
+            $userData['role_id'] = $newRoleId;
+            $this->userRepository->update($userId, $userData);
             return true;
         } catch (\Exception $e) {
             Log::error($e->getMessage());

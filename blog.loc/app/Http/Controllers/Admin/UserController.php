@@ -49,41 +49,24 @@ class UserController extends MainController
 
         $this->userService->createUser($userData);
 
-        return redirect()->route('admin.users.index')->with('Пользователь добавлен');
+        return redirect()->route('admin.users.index')->with('success', 'Пользователь добавлен');
     }
 
     /**
-     * Display the specified resource.
-     *
+     * Просмотр информации о пользователе
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
-        //
-    }
+        $user = $this->userService->getUserById($id);
+        $this->data['user'] = $user;
+        $this->data['roles'] = $this->roleService->getRoles();
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        $this->template = 'admin.user.show';
+        $this->data['pageTitle'] = 'Пользователь: ' . $user->email;
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+        return $this->renderOut();
     }
 
     /**
@@ -97,19 +80,89 @@ class UserController extends MainController
         //
     }
 
+    /**
+     * Активация пользователя
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function active(Request $request)
     {
         $userId = $request->id;
         $this->userService->activate($userId);
 
-        return redirect()->route('admin.users.index')->with('Пользователь активирован');
+        return redirect()->back()->with('success', 'Пользователь активирован');
     }
 
+    /**
+     * Деактивация пользователя
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function unactive(Request $request)
     {
         $userId = $request->id;
         $this->userService->unactivate($userId);
 
-        return redirect()->route('admin.users.index')->with('Пользователь деактивирован');
+        return redirect()->back()->with('success', 'Пользователь деактивирован');
+    }
+
+    /**
+     * Редатирование имени пользователя
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editFirstName(Request $request)
+    {
+        $userId = $request->id;
+        $firstName = $request->first_name;
+
+        $this->userService->editFirstName($userId, $firstName);
+
+        return redirect()->back()->with('success','Пользователь изменен');
+    }
+
+    /**
+     * Редактирование фамилии пользователя
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editLastName(Request $request)
+    {
+        $userId = $request->id;
+        $lastName = $request->last_name;
+
+        $this->userService->editLastName($userId, $lastName);
+
+        return redirect()->back()->with('success', 'Пользователь изменен');
+    }
+
+    /**
+     * Редактирование дня рождения
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editBirthday(Request $request)
+    {
+        $userId = $request->id;
+        $birthday = $request->birthday;
+
+        $this->userService->editBirthday($userId, $birthday);
+
+        return redirect()->back()->with('success', 'Пользователь изменен');
+    }
+
+    /**
+     * Редактирование роли пользователя
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function editRole(Request $request)
+    {
+        $userId = $request->id;
+        $roleId = $request->role;
+
+        $this->userService->editRole($userId, $roleId);
+
+        return redirect()->back()->with('success', 'Пользователь изменен');
     }
 }

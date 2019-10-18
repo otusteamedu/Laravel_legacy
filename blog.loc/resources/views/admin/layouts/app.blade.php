@@ -9,7 +9,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     @yield('style')
+    <link rel="stylesheet" href="{{ asset('css/datapicker.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -24,6 +26,8 @@
     </div>
 </div>
 </div>
+{{--<script src="{{ asset('js/datapicker.min.js') }}" ></script>--}}
+{{--<script src="{{ asset('js/datepicker-ru.js') }}" ></script>--}}
 <script src="{{ asset('js/admin.js') }}"></script>
 @yield('script')
 </body>

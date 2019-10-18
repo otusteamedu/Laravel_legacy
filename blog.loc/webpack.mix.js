@@ -18,4 +18,8 @@ mix.js('resources/js/app.js', 'public/js')
     .copy('resources/css/owl.carousel.min.css', 'public/css/owl.carousel.min.css')
     .copy('resources/css/owl.theme.default.min.css', 'public/css/owl.theme.default.min.css')
     .copy('resources/js/owl.autoplay.js', 'public/js/owl.autoplay.js')
-    .copy('resources/js/owl.carousel.min.js', 'public/js/owl.carousel.min.js');
+    .copy('resources/js/owl.carousel.min.js', 'public/js/owl.carousel.min.js')
+    .copy('resources/css/datapicker.min.css', 'public/css/datapicker.min.css')
+    .copy('resources/js/datapicker.min.js', 'public/js/datapicker.min.js')
+    .copy('resources/js/datepicker-ru.js', 'public/js/datepicker-ru.js')
+    .copyDirectory('resources/css/images', 'public/css/images');
