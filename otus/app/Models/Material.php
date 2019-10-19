@@ -36,4 +36,8 @@ class Material extends Model {
     public function status() {
         return $this->hasOne(Handbook::class, 'id', 'status_id');
     }
+
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
 }

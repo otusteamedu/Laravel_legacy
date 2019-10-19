@@ -2,7 +2,6 @@
 
 @section('title', 'Page List ')
 {{ Html::style('css/custom.css') }}
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -16,10 +15,10 @@
                     <ul class="list-group">
                         <?php /** @var \App\Models\user $user */?>
                         @foreach ($users as $user)
-{{--                            {{$user->id}}--}}
-{{--                            @foreach ($user->readMaterials as $readMaterial)--}}
-{{--                                {{$readMaterial->name}}--}}
-{{--                                @endforeach--}}
+                            id пользователя:{{$user->id}}<br/>
+                            @foreach ($user->readMaterials as $readMaterial)
+                               Имя "прочитанного материала" :{{$readMaterial->name}}<br/>
+                                @endforeach
                             <li class="list-group-item">
                                 <div class="checkbox">
                                     <img src = ''>

@@ -15,8 +15,7 @@
                             <ul class="list-group">Авторы:
                             @foreach ($material->authors as $author)
                                     <li class="list-group-item">{{$author->name}}</li>
-
-                                @endforeach
+                            @endforeach
                             </ul><br/>
                             <li class="list-group-item">Статус - {{$material->status->name}}</li>
                             <li class="list-group-item">Год публикации - {{$material->year_publishing}}</li>

@@ -18,9 +18,13 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model {
     protected $fillable = ['name', 'email', 'password_hash', 'photo'];
+    protected $with = ['favorites'];
 
     public function readMaterials() {
         return $this->belongsToMany(User::class, 'read_material', 'user_id', 'material_id');
     }
 
+    public function favorites() {
+        return $this->hasMany(Favorite::class);
+    }
 }
