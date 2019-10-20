@@ -8,12 +8,10 @@ class CreateInvoicePaymentRegistersTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        /**
+        /*
          * Реестр оплаты счетов
          */
         Schema::create('invoice_payment_registers', function (Blueprint $table) {
@@ -33,8 +31,6 @@ class CreateInvoicePaymentRegistersTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

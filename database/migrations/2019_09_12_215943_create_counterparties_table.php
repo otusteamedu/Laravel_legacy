@@ -8,12 +8,10 @@ class CreateCounterpartiesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        /**
+        /*
          * контрагенты
          */
         Schema::create('counterparties', function (Blueprint $table) {
@@ -28,8 +26,6 @@ class CreateCounterpartiesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

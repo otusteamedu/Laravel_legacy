@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Услуги
+ * Услуги.
  *
  * Class Service
- * @package App\Models
- * @property int $id
- * @property int $account_id
- * @property string $title
- * @property boolean $is_counter
+ *
+ * @property int     $id
+ * @property int     $account_id
+ * @property string  $title
+ * @property bool    $is_counter
  * @property Account $account
  */
 class Service extends Model

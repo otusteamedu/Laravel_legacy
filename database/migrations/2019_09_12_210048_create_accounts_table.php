@@ -8,12 +8,10 @@ class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        /**
+        /*
          * счета начисления и списания денежных средств предприятия
          */
         Schema::create('accounts', function (Blueprint $table) {
@@ -28,8 +26,6 @@ class CreateAccountsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

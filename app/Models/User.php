@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -41,13 +42,28 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class);
     }
 
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class);
+    }
+
     /**
-     * Проверка на роль, проверка так на скорую руку не для продакшн
+     * Проверка на роль, проверка так на скорую руку не для продакшн.
+     *
      * @param string $role
+     *
      * @return bool
      */
     public function hasRole(string $role)
     {
         return $this->roles()->where('name', $role)->exists();
+    }
+
+    public function hasPermission(string $permission)
+    {
+        return $this->permissions()->where('name', $permission)->exists()
+            || $this->roles()->whereHas('permissions', function (Builder $query) use ($permission) {
+                $query->where('name', $permission);
+            })->exists();
     }
 }

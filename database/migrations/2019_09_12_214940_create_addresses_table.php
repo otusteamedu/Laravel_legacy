@@ -8,12 +8,10 @@ class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        /**
+        /*
          * таблица с объектами начисления платежей
          */
         Schema::create('addresses', function (Blueprint $table) {
@@ -33,8 +31,6 @@ class CreateAddressesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

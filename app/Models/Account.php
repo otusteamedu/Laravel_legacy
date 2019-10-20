@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Модель счета
- * Class Account
- * @package App\Models
- * @property int $id
- * @property string $title
- * @property float $amount
+ * Class Account.
+ *
+ * @property int                             $id
+ * @property string                          $title
+ * @property float                           $amount
  * @property AccountTransaction[]|Collection $transactions
  */
 class Account extends Model
