@@ -25,6 +25,7 @@
                                         @foreach ($material->favorites as $favorite)
                                             id таблицы избранного {{$favorite->id}}<br/>
                                             @endforeach
+
                                     </label>
                                 </div>
                                 <div class="pull-right action-buttons">

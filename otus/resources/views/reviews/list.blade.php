@@ -9,35 +9,32 @@
         <div class="col-md-6">
             <div class="panel panel-primary">
                 <div class="panel-body">
-                    <div style="float:left;font-size: 36px">
-                        @include('include.addUserLink')
-                    </div>
+                    <a href="{{route('admin.reviews.create')}}"><span
+                            class="glyphicon glyphicon-pencil">Добавить</span>
+                    </a>
 
                     <ul class="list-group">
-                        <?php /** @var \App\Models\user $user */?>
-                        @foreach ($users as $user)
-                            id пользователя:{{$user->id}}<br/>
-                            @foreach ($user->readMaterials as $readMaterial)
-                               Имя "прочитанного материала" :{{$readMaterial->name}}<br/>
-                                @endforeach
+                        <?php /** @var App\Models\Review $review */?>
+                        @foreach ($reviews as $review)
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <img src = ''>
                                     <label for="checkbox">
-                                        {{$user->name . ' ' . $user->email}}
+                                        Имя пользователя: {{$review->user->name}}<br/>
+                                        Имя матриала: {{$review->material->name}}<br/>
+                                        Отзыв: {{$review->review}}<br/>
                                     </label>
                                 </div>
                                 <div class="pull-right action-buttons">
 
-                                    <a href="{{route('admin.users.show', ['user' => $user])}}"><span
+                                    <a href="{{route('admin.reviews.show', ['review' => $review])}}"><span
                                             class="glyphicon glyphicon-pencil">Подробнее</span>
                                     </a>
 
-                                    <a href="{{route('admin.users.edit', ['user' => $user])}}"><span
+                                    <a href="{{route('admin.reviews.edit', ['review' => $review])}}"><span
                                             class="glyphicon glyphicon-pencil">Редактировать</span>
                                     </a>
 
-                                    <a href="{{route('admin.users.destroy', ['user' => $user])}}"  class="js-destroy trash"><span
+                                    <a href="{{route('admin.reviews.destroy', ['review' => $review])}}"  class="js-destroy trash"><span
                                             class="glyphicon glyphicon-trash">Удалить</span>
                                     </a>
 

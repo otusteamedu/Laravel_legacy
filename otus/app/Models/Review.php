@@ -14,7 +14,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property \DateTime updated_at
  * @package App\Models
  */
-class Review extends Model
-{
-    //
+class Review extends Model {
+    protected $fillable = ['user_id', 'material_id', 'review'];
+
+    public function user() {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    public function material() {
+        return $this->hasOne(Material::class, 'id', 'material_id');
+    }
 }

@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Material extends Model {
     protected $fillable = ['name', 'category_id', 'status_id', 'file', 'year_publishing'];
-    protected $with = ['category', 'authors','readUsers', 'status'];
+    protected $with = ['category', 'authors','readUsers', 'status', 'reviews'];
 
     public function category() {
         return $this->hasOne(Category::class, 'id', 'category_id');
@@ -39,5 +39,9 @@ class Material extends Model {
 
     public function favorites() {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function reviews() {
+        return $this->hasMany(Review::class);
     }
 }

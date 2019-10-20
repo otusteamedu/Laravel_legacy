@@ -10,5 +10,6 @@ Route::name('admin.')->group(function() {
             'journals' => 'Journals\JournalsController',
             'materials' => 'Materials\MaterialsController',
             'favorites' => 'Favorites\FavoritesController',
+            'reviews' => 'Reviews\ReviewsController',
         ]);
 });
