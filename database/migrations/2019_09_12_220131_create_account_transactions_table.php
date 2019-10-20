@@ -8,12 +8,10 @@ class CreateAccountTransactionsTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        /**
+        /*
          * реестр транзакций по счету
          */
         Schema::create('account_transactions', function (Blueprint $table) {
@@ -39,8 +37,6 @@ class CreateAccountTransactionsTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

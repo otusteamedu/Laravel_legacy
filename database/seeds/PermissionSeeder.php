@@ -13,14 +13,12 @@ class PermissionSeeder extends Seeder
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
         foreach ($this->permissions as $permission) {
             Permission::query()->create([
-                'name' => $permission
+                'name' => $permission,
             ]);
         }
     }

@@ -8,12 +8,10 @@ class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
-     *
-     * @return void
      */
     public function up()
     {
-        /**
+        /*
          * таблица с услугами
          */
         Schema::create('services', function (Blueprint $table) {
@@ -33,8 +31,6 @@ class CreateServicesTable extends Migration
 
     /**
      * Reverse the migrations.
-     *
-     * @return void
      */
     public function down()
     {

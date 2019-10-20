@@ -9,12 +9,12 @@ use Illuminate\Database\Eloquent\Model;
  * Реестр счетов по л/с
  *
  * Class Invoice
- * @package App\Models
- * @property int $id
- * @property int $service_id
- * @property int $address_id
- * @property float $amount
- * @property string $status
+ *
+ * @property int                                 $id
+ * @property int                                 $service_id
+ * @property int                                 $address_id
+ * @property float                               $amount
+ * @property string                              $status
  * @property InvoicePaymentRegister[]|Collection $payments
  */
 class Invoice extends Model

@@ -48,8 +48,10 @@ class User extends Authenticatable
     }
 
     /**
-     * Проверка на роль, проверка так на скорую руку не для продакшн
+     * Проверка на роль, проверка так на скорую руку не для продакшн.
+     *
      * @param string $role
+     *
      * @return bool
      */
     public function hasRole(string $role)

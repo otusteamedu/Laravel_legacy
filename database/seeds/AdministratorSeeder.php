@@ -11,8 +11,6 @@ class AdministratorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
@@ -31,9 +29,8 @@ class AdministratorSeeder extends Seeder
         $user->roles()->attach($roles);
 
         /** @var Role $role */
-        if($role = $roles->where('name', 'Administrator')->first()) {
+        if ($role = $roles->where('name', 'Administrator')->first()) {
             $role->permissions()->attach(Permission::all());
         }
-
     }
 }

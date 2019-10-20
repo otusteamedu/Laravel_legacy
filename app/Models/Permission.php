@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Permissions
- * @package App\Models
- * @property int $id
- * @property string $name
+ * Class Permissions.
+ *
+ * @property int               $id
+ * @property string            $name
  * @property Role[]|Collection $roles
  * @property User[]|Collection $users
  */

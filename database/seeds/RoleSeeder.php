@@ -11,19 +11,17 @@ class RoleSeeder extends Seeder
         'Bookkeeper', //бухгалтер
         'Cashier', //кассир
         'Landowner', //владелец учатска
-        'Guest' //гость
+        'Guest', //гость
     ];
 
     /**
      * Run the database seeds.
-     *
-     * @return void
      */
     public function run()
     {
         foreach ($this->roles as $role) {
             Role::query()->create([
-                'name' => $role
+                'name' => $role,
             ]);
         }
     }
