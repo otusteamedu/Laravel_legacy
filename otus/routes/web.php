@@ -11,5 +11,6 @@ Route::name('admin.')->group(function() {
             'materials' => 'Materials\MaterialsController',
             'favorites' => 'Favorites\FavoritesController',
             'reviews' => 'Reviews\ReviewsController',
+            'compilations' => 'Compilations\CompilationsController',
         ]);
 });
