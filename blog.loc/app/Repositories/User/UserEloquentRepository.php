@@ -43,7 +43,7 @@ class UserEloquentRepository implements UserRepositoryInterface
         return $user;
     }
 
-    public function activate(int $userId)
+    public function activate(int $userId): void
     {
         User::where('id', $userId)
             ->update([
@@ -51,7 +51,7 @@ class UserEloquentRepository implements UserRepositoryInterface
             ]);
     }
 
-    public function deactivate(int $userId)
+    public function deactivate(int $userId): void
     {
         User::where('id', $userId)
             ->update([
@@ -59,7 +59,7 @@ class UserEloquentRepository implements UserRepositoryInterface
             ]);
     }
 
-    public function changePassword(int $userId, string $newPassword)
+    public function changePassword(int $userId, string $newPassword): void
     {
         User::where('id', $userId)
             ->update([
@@ -67,7 +67,7 @@ class UserEloquentRepository implements UserRepositoryInterface
             ]);
     }
 
-    public function delete(int $userId)
+    public function delete(int $userId): void
     {
         User::where('id', $userId)
             ->delete();

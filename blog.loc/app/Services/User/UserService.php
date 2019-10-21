@@ -2,6 +2,7 @@
 namespace App\Services\User;
 
 use App\Repositories\Interfaces\UserRepositoryInterface;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -19,7 +20,7 @@ class UserService
      * Получаем список пользователей
      * @return mixed
      */
-    public function getUsers()
+    public function getUsers(): Collection
     {
         $users = $this->userRepository->getAll();
 
@@ -30,7 +31,7 @@ class UserService
      * Получаем текущего авторизированного пользователя
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function getCurrentUser()
+    public function getCurrentUser(): ?User
     {
         $currentUser = Auth::user();
 
@@ -42,14 +43,14 @@ class UserService
      * @param $data
      * @return mixed
      */
-    public function createUser($data)
+    public function createUser(array $data): ?User
     {
         try {
             $user = $this->userRepository->add($data);
-            return true;
+            return $user;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return false;
+            report($e);
+            return null;
         }
     }
 
@@ -58,13 +59,13 @@ class UserService
      * @param $userId
      * @return bool
      */
-    public function activate($userId)
+    public function activate(int $userId): bool
     {
         try {
             $this->userRepository->activate($userId);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
@@ -74,100 +75,131 @@ class UserService
      * @param $userId
      * @return bool
      */
-    public function unactivate($userId)
+    public function unactivate(int $userId): bool
     {
         try {
             $this->userRepository->deactivate($userId);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
 
-    public function getUserById($userId)
+    /**
+     * Получаем пользователя по ID
+     * @param int $userId
+     * @return User|null
+     */
+    public function getUserById(int $userId): ?User
     {
         try {
             $res = $this->userRepository->getById($userId);
             return $res;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
-            return false;
+            report($e);
+            return null;
         }
     }
 
-    public function editFirstName($userId, $newFirstName)
+    /**
+     * Оедактирование имени пользователя
+     * @param int $userId
+     * @param string $newFirstName
+     * @return bool
+     */
+    public function editFirstName(int $userId, string $newFirstName): bool
     {
         try {
-            $userData = [];
-            $userData['first_name'] = $newFirstName;
-            $this->userRepository->update($userId, $userData);
+            $this->userRepository->update($userId, ['first_name' => $newFirstName]);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
 
-    public function editLastName($userId, $newLastName)
+    /**
+     * Реактироание фамилии пользователя
+     * @param int $userId
+     * @param string $newLastName
+     * @return bool
+     */
+    public function editLastName(int $userId, string $newLastName): bool
     {
         try {
-            $userData = [];
-            $userData['last_name'] = $newLastName;
-            $this->userRepository->update($userId, $userData);
+            $this->userRepository->update($userId, ['last_name' => $newLastName]);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
 
-    public function editBirthday($userId, $newBirthday)
+    /**
+     * Редактирование дня рождения
+     * @param $userId
+     * @param $newBirthday
+     * @return bool
+     */
+    public function editBirthday(int $userId, string $newBirthday): bool
     {
         try {
-            $userData = [];
-            $userData['birthday'] = $newBirthday;
-            $this->userRepository->update($userId, $userData);
+            $this->userRepository->update($userId, ['birthday' => $newBirthday]);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
 
-    public function editRole($userId, $newRoleId)
+    /**
+     * Редактирование роли
+     * @param $userId
+     * @param $newRoleId
+     * @return bool
+     */
+    public function editRole(int $userId, int $newRoleId): bool
     {
         try {
-            $userData = [];
-            $userData['role_id'] = $newRoleId;
-            $this->userRepository->update($userId, $userData);
+            $this->userRepository->update($userId, ['role_id' => $newRoleId]);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
 
-    public function destroy($userId)
+    /**
+     * Удаление пользователя
+     * @param $userId
+     * @return bool
+     */
+    public function destroy(int $userId): bool
     {
         try {
             $this->userRepository->delete($userId);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            report($e);
             return false;
         }
     }
 
-    public function changePassword($userId, $newPassword)
+    /**
+     * Изменение пароля пользователя
+     * @param int $userId
+     * @param string $newPassword
+     * @return bool
+     */
+    public function changePassword(int $userId, string $newPassword): bool
     {
         try {
             $this->userRepository->changePassword($userId, $newPassword);
             return true;
         } catch (\Exception $e) {
-            Log::error($e->getMessage());
+            error($e);
             return false;
         }
-
     }
 }
