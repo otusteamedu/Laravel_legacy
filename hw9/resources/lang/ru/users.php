@@ -15,6 +15,7 @@ return [
     'save' => 'Сохранить',
     'delete' => 'Удалить',
     'usersHeaderDescription' => "Раздел управления данными пользователей",
-    'delete_confirm' => 'Are you sure?'
+    'delete_confirm' => 'Are you sure?',
+    'user_was_updated' => 'Данные пользователя были обновлены.'
 
 ];

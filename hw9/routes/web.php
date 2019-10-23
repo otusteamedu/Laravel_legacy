@@ -37,7 +37,7 @@ Route::get('/', function () {
     ];
     return view('index', $data);
 });
-
+/*
 Route::get('/tasks', function () {
 
     $tasks = [
@@ -68,8 +68,11 @@ Route::get('/tasks', function () {
 
     ];
 
-    return view('tasks.index', $data);
+   // return view('tasks.index', $data);
+
 });
+*/
+Route::get('/tasks', 'Site\TasksController@index')->name('tasks');
 
 Route::get('/registration', function () {
 

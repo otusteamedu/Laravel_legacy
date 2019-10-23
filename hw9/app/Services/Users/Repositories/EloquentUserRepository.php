@@ -7,6 +7,7 @@ namespace App\Services\Users\Repositories;
 
 use App\Models\User;
 
+
 class EloquentUserRepository implements UserRepositoryInterface
 {
 
@@ -79,6 +80,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function saveRoles(User $user, $roles)
     {
+        //dd($roles);
         if (!empty($roles)) {
             $user->roles()->sync($roles);
         } else {

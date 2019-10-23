@@ -14,11 +14,13 @@ use App\Services\Users\Repositories\UserRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Roles\Repositories\RoleRepositoryInterface;
 use App\Services\Roles\Repositories\EloquentRoleRepository;
-
 use App\Services\Permissions\Repositories\PermissionRepositoryInterface;
 use App\Services\Permissions\Repositories\EloquentPermissionRepository;
 use App\Services\Statuses\Repositories\StatusRepositoryInterface;
 use App\Services\Statuses\Repositories\EloquentStatusRepository;
+use App\Services\Tasks\Repositories\TasksRepositoryInterface;
+use App\Services\Tasks\Repositories\EloquentTasksRepository;
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -33,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(RoleRepositoryInterface::class, EloquentRoleRepository::class);
         $this->app->bind(PermissionRepositoryInterface::class, EloquentPermissionRepository::class);
         $this->app->bind(StatusRepositoryInterface::class, EloquentStatusRepository::class);
+        $this->app->bind(TasksRepositoryInterface::class, EloquentTasksRepository::class);
     }
 
     /**

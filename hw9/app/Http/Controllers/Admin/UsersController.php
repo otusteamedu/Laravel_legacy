@@ -13,6 +13,9 @@ use App\Models\Role;
 
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use SebastianBergmann\CodeCoverage\TestFixture\C;
+use Session;
+use Cache;
 
 class UsersController extends BaseAdminController
 {
@@ -37,8 +40,6 @@ class UsersController extends BaseAdminController
         );
 
     }
-
-
     /**
      * Display a listing of the resource.
      *
@@ -49,8 +50,13 @@ class UsersController extends BaseAdminController
         $user = Auth::user();
         $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
 
+        $key='users';
+        $users = Cache::remember('users',60, function (){
+           return  $this->usersService->searchUsers();
+        });
+
         return view('admin.users.index', [
-            'users' => $this->usersService->searchUsers(),
+            'users' => $users,
             'breadcrumbs' => $this->breadcrumbs
         ]);
     }
@@ -132,6 +138,7 @@ class UsersController extends BaseAdminController
         $result = $this->usersService->updateUser($user, $request->all());
 
         if ($result == 1) {
+            Session::flash('success', __('users.user_was_updated'));
             return redirect(route('admin.users.index'));
         } else {
             return back()->with($result);

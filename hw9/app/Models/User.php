@@ -21,6 +21,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const USER_ROLE_ADMIN = 1;
+    const USER_ROLE_USER = 2;
+
     protected $table = 'users';
     /**
      * The attributes that are mass assignable.
