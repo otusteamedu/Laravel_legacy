@@ -16,7 +16,7 @@ class Counterparty extends Controller
 
     public function index()
     {
-        return $this->repository->search();
+        return $this->repository->paginate();
     }
 
     public function show(\App\Models\Counterparty $counterparty)

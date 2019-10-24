@@ -11,14 +11,14 @@ class ApiRoutes extends Router
      */
     public function map(): void
     {
-        $attibutes = [
+        $attributes = [
             'prefix' => '/api',
             'middleware' => ['api'],
             'as' => 'api.',
             'namespace' => 'App\Http\Controllers\Api'
         ];
 
-        $this->router->group($attibutes, function () {
+        $this->router->group($attributes, function () {
             $this->router->resource('counterparties', 'Counterparty')->except('create', 'edit');
         });
     }

@@ -17,14 +17,17 @@ interface RepositoryInterface
     /**
      * @param $value
      *
-     * @return mixed
+     * @return object
      */
     public function bind($value);
 
     /**
      * @param array $filters
      *
+     * @param array $columns
      * @return Collection
      */
-    public function search(array $filters = []);
+    public function search(array $filters = [], array $columns = ['*']);
+
+    public function paginate(array $filters = [], array $options = []);
 }
