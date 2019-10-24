@@ -40,9 +40,6 @@ class SlackFailedJob extends Notification
      * @param  mixed $notifiable
      * @return SlackMessage
      */
-
-
-
     public function toSlack($notifiable)
     {
         return (new SlackMessage)

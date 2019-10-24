@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\Queue;
 use App\Jobs\UserPhotoProcess;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -40,10 +41,11 @@ class TestQueue extends Command
     public function handle()
     {
         for ($i = 0; $i < 3; $i++) {
+            /** @var User $user */
             $user = User::inRandomOrder()->first();
             echo $user->id, PHP_EOL;
             UserPhotoProcess::dispatch($user, [
-                microtime(true),
+                'photo' => $user->photo,
             ]);
         }
     }

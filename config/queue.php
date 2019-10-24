@@ -92,7 +92,7 @@ return [
             'login' => env('RABBITMQ_LOGIN', 'guest'),
             'password' => env('RABBITMQ_PASSWORD', 'guest'),
 
-            'queue' => env('RABBITMQ_QUEUE', 'default'),
+            'queue' => env('RABBITMQ_QUEUE', \App\Jobs\Queue::LOW),
 
             'options' => [
 
