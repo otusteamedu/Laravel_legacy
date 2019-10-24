@@ -6,4 +6,5 @@ use App\Services\RepositoryInterface;
 
 interface CounterpartyRepositoryInterface extends RepositoryInterface
 {
+
 }
