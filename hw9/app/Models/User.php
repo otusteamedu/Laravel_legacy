@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Services\Events\Models\User\UserSaved;
+use App\Services\Events\Models\User\UserDeleted;
 
 
 /**
@@ -23,6 +25,12 @@ class User extends Authenticatable
 
     const USER_ROLE_ADMIN = 1;
     const USER_ROLE_USER = 2;
+
+
+    protected $dispatchesEvents = [
+        'saved' =>   UserSaved::class,
+        'deleted' => UserDeleted::class
+    ];
 
     protected $table = 'users';
     /**

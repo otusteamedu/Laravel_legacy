@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Http\Controllers\Controller;
 use App\Services\Statuses\StatusesService;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Task;
 use App\Services\Tasks\TasksService;
 use Illuminate\Validation\ValidationException;
@@ -27,6 +27,7 @@ class TasksController extends Controller
         //  $this->statusesService = $statusService;
         // $this->breadcrumbs = $this->getAdminBreadcrumbs();
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -36,11 +37,9 @@ class TasksController extends Controller
     {
         $user = Auth::user();
         //$this->checkCurrentUserRouteAccess($user, $request->route()->getName());
+        // $tasks = $this->tasksService->searchTasks(['user_id' => $user->id]);
 
-        $key='tasks';
-        $tasks = Cache::remember('tasks',60, function (){
-            return  $this->tasksService->searchTasksByUser($user);
-        });
+        $tasks = $this->tasksService->searchCachedTasks([]);
         $data = [
             'tasks' => $tasks,
             'title' => 'TikTak - оптимальный сервис для управления своими задачами',
@@ -51,4 +50,5 @@ class TasksController extends Controller
 
 
     }
+
 }

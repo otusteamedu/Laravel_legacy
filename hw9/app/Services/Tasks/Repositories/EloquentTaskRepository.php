@@ -17,7 +17,7 @@ class EloquentTaskRepository implements TaskRepositoryInterface
 
     public function search(array $filters = [])
     {
-        return Task::paginate();
+        return Task::paginate($filters);
 
     }
 

@@ -50,11 +50,8 @@ class UsersController extends BaseAdminController
         $user = Auth::user();
         $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
 
-        $key='users';
-        $users = Cache::remember('users',60, function (){
-           return  $this->usersService->searchUsers();
-        });
-
+        //$users= $this->usersService->searchUsers();
+        $users = $this->usersService->searchCachedUsers([]);
         return view('admin.users.index', [
             'users' => $users,
             'breadcrumbs' => $this->breadcrumbs

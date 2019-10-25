@@ -15,13 +15,6 @@ class UserControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->artisan('db:seed');
-    }
-
     public function testUserRoute()
     {
         //$user = User::find(1);

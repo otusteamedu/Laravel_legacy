@@ -15,13 +15,13 @@ class UserRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
-
+/*
     public function setUp(): void
     {
         parent::setUp();
         $this->artisan('db:seed');
     }
-
+*/
     /**
      * A basic unit test example.
      *

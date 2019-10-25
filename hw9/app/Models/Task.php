@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Events\Models\Task\TaskSaved;
+use App\Services\Events\Models\Task\TaskDeleted;
 
 
 /**
@@ -20,5 +22,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Task extends Model
 {
-    //
+    protected $dispatchesEvents = [
+        'saved' => TaskSaved::class,
+        'deleted' =>  TaskDeleted::class
+    ];
 }

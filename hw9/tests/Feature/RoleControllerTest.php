@@ -14,12 +14,6 @@ class RoleControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->artisan('db:seed');
-    }
-
     public function testRoleRoute()
     {
         $data['name'] = 'test_user3';

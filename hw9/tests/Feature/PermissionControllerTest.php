@@ -14,12 +14,6 @@ class PermissionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->artisan('db:seed');
-    }
-
     public function testPermissionRoute()
     {
         $data['name'] = 'test_user3';

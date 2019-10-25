@@ -15,6 +15,10 @@ use App\Models\Task;
  */
 class Permission extends Model
 {
+    const PERMISSION_ALL = 1;
+    const PERMISSION_ALL_ROUTE = 'admin.index';
+
+
     protected $fillable = [
         'name', 'route'
     ];

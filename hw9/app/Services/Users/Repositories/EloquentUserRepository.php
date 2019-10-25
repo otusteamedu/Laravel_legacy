@@ -42,14 +42,12 @@ class EloquentUserRepository implements UserRepositoryInterface
 
             return ['error' => 'Этот email уже успользуется'];
         }
-        if($data['password']){
+        if ($data['password']) {
             $data['password'] = bcrypt($data['password']);
-        }
-        else {
+        } else {
             unset($data['password']);
 
         }
-
 
 
         $user->update($data);
@@ -67,9 +65,7 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function delete(int $id)
     {
-
         return User::destroy($id);
-
     }
 
     public function getRolesNames(User $user, array $filters = [])

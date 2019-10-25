@@ -11,6 +11,7 @@ namespace App\Services\Users;
 use App\Models\User;
 
 use App\Services\Users\Repositories\UserRepositoryInterface;
+use App\Services\Users\Repositories\CachedUserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class UsersService
@@ -19,13 +20,18 @@ class UsersService
     /** @var UserRepositoryInterface */
     private $userRepository;
 
-    private $createUserHandler;
+    /** @var CachedUserRepositoryInterface */
+    private $cachedUserRepository;
+
+
 
     public function __construct(
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        CachedUserRepositoryInterface $cachedUserRepository
     )
     {
         $this->userRepository = $userRepository;
+        $this->cachedUserRepository = $cachedUserRepository;
     }
 
     /**
@@ -74,4 +80,12 @@ class UsersService
         return $this->userRepository->getRolesNames($user);
 
     }
+
+    public function searchCachedUsers(array $filter): LengthAwarePaginator
+    {
+        return $this->cachedUserRepository->search($filter);
+    }
+
+
+
 }

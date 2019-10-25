@@ -12,21 +12,27 @@ use App\Models\Task;
 
 use App\Services\Tasks\Repositories\EloquentTaskRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Services\Tasks\Repositories\TaskRepositoryInterface;
+use App\Services\Tasks\Repositories\CachedTaskRepositoryInterface;
+
 
 class TasksService
 {
-
     /** @var TaskRepositoryInterface */
     private $taskRepository;
+    /** @var CachedTaskRepositoryInterface */
+    private $cachedTaskRepository;
 
     private $createTaskHandler;
 
     public function __construct(
 
-        EloquentTaskRepository $taskRepository
+        TaskRepositoryInterface $taskRepository,
+        CachedTaskRepositoryInterface $cachedTaskRepository
     )
     {
         $this->taskRepository = $taskRepository;
+        $this->cachedTaskRepository = $cachedTaskRepository;
     }
 
     /**
@@ -89,6 +95,12 @@ class TasksService
     {
         return $this->taskRepository->delete($id);
     }
+
+    public function searchCachedTasks(array $filter): LengthAwarePaginator
+    {
+        return $this->cachedTaskRepository->search($filter);
+    }
+
 
 
 }
