@@ -9,9 +9,10 @@ class RestApi{
 		$method=self::getMethod();
 		$path=parse_url($_SERVER['REQUEST_URI']);
 		if (!SRP::get()) return false;
+
 		switch ($method){
 			case 'GET':
-				$mt=$routs->getMethod($path['path']);
+				$mt=Routs::requestGet($path['path']);
 				if((!empty($mt))&&(!empty($mt['param']))){
 					RestApiGETMethods::{$mt['method']}($mt['param']);
 					break;
@@ -24,7 +25,7 @@ class RestApi{
 				break;
 			case 'POST'	:
 
-			$mt=$routs->postMethod($path['path']);
+			$mt=Routs::requestPost($path['path']);
 			if((!empty($mt))&&(!empty($mt['param']))){
 				RestApiPOSTMethods::{$mt['method']}($mt['param']);
 				break;

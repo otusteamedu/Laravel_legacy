@@ -3,34 +3,19 @@ require_once($_SERVER['DOCUMENT_ROOT'] . "/bitrix/modules/main/include/prolog_be
 
 class Routs{
 
-	private $get = [];
-	private $post = [];
-    /*
-    * Добавить GET метод
-    */
-	public function addGet($route, $method){
-		$this->get[$route]=$method;
-	}
-	/*
-    *  Получить метод по GET запросу
-    */
-	public function getMethod($route){
-		return self::getData($this->get,$route);
+	private static $get = [];
+	private static $post = [];
 
+	public static function get($route, $method){
+		self::$get[$route]=$method;
 	}
-    /*
-    * Добавить POST метод
-    */
-	public function addPost($route, $method){
-		$this->post[$route]=$method;
+	public static function requestGet($route){
+		return  self::getData(self::$get,$route);
 	}
-	/*
-    *  Получить метод по POST запросу
-    */
-	public function postMethod($route){
-		return self::getData($this->post,$route);
+	public static function requestPost($route){
+		return  self::getData(self::$post,$route);
 	}
-	private function getData($method,$route){
+	private static function getData($method,$route){
 		if(!empty($method[$route])){
 			return ['method'   => $method[$route]];
 		}
@@ -45,4 +30,7 @@ class Routs{
 		}
 		return "";
 	}
+
+	private function __construct() {}
+   	private function __clone() {}
 }

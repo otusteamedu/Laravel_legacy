@@ -137,7 +137,12 @@ class RestApiGETMethods {
 					'text' 	=> 	TruncateText(strip_tags($item['DETAIL_TEXT']),200),
 			];
 		}
-
+		if($result){
+			$result=[
+					'count'	=> self::getElementsCount(Setting::IBLOCK_INSTITUTIONS_RUS_ID),
+					'result'=> $result
+			];
+		}
 		echo Response::Result($result);
 	}
 
@@ -201,7 +206,18 @@ class RestApiGETMethods {
 			}
 
 		}
+
 		echo Response::Result($result);
 
+	}
+
+	/*
+	 *	Возвращает количество элементов в инфоблоке
+	 *	return int @count
+	 */
+	protected function getElementsCount($ib)
+	{
+		$arFilter = Array("IBLOCK_ID"=>$ib, "ACTIVE"=>"Y");
+		return \CIBlockElement::GetList(Array(), $arFilter, Array(), false, Array());
 	}
 }
