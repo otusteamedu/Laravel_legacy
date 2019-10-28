@@ -16,7 +16,11 @@
                             <h1>{{ __('admin.companies.pages.create.title') }}</h1>
                         </div>
                     </div>
-                    @include('admin.models.companies.forms.create')
+                    <div class="row">
+                        <div class="col">
+                            @include('admin.models.companies.forms.create')
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

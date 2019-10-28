@@ -19,6 +19,29 @@ return [
     ],
     
     /**
+     * Admin tables
+     */
+    'tables'           => [
+        'columns' => [
+            'actions'    => 'Actions',
+            'created_at' => 'Created at'
+        ]
+    ],
+    
+    /**
+     * Models
+     */
+    'models'           => [
+        'controls' => [
+            'edit'         => 'Edit',
+            'delete'       => 'Delete',
+            'save'         => 'Save',
+            'restore'      => 'Restore',
+            'force_delete' => 'Force delete'
+        ]
+    ],
+    
+    /**
      * Companies
      */
     'companies'        => [
@@ -37,18 +60,22 @@ return [
             ]
         ],
         'fields' => [
-            'name' => 'Name'
-        ]
+            'name'         => 'Name',
+            'created_user' => 'Creator of company'
+        ],
+        'errors' => [
+            'not_found' => 'Cannot found company by ID'
+        ],
     ],
     
     /**
      * Leads
      */
     'leads'            => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Lead'
         ],
-        'pages' => [
+        'pages'  => [
             'index'  => [
                 'title' => 'Leads'
             ],
@@ -58,17 +85,23 @@ return [
             'edit'   => [
                 'title' => 'Edit lead'
             ]
-        ]
+        ],
+        'fields' => [
+            'created_user' => 'Creator of lead'
+        ],
+        'errors' => [
+            'not_found' => 'Cannot found lead by ID'
+        ],
     ],
     
     /**
      * Widgets
      */
     'widgets'          => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Widget'
         ],
-        'pages' => [
+        'pages'  => [
             'index'  => [
                 'title' => 'Widgets'
             ],
@@ -78,37 +111,49 @@ return [
             'edit'   => [
                 'title' => 'Edit widget'
             ]
-        ]
+        ],
+        'fields' => [
+            'created_user' => 'Creator of widget'
+        ],
+        'errors' => [
+            'not_found' => 'Cannot found widget by ID'
+        ],
     ],
     
     /**
      * Users
      */
     'users'            => [
-        'model' => [
+        'model'  => [
             'single_name' => 'User'
         ],
-        'pages' => [
-            'index'  => [
+        'pages'  => [
+            'index'   => [
                 'title' => 'Users'
             ],
-            'create' => [
+            'create'  => [
                 'title' => 'Create user'
             ],
-            'edit'   => [
+            'edit'    => [
                 'title' => 'Edit user'
+            ],
+            'profile' => [
+                'title' => 'Profile'
             ]
-        ]
+        ],
+        'errors' => [
+            'not_found' => 'Cannot found user by ID'
+        ],
     ],
     
     /**
      * Conversations
      */
     'conversations'    => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Conversation'
         ],
-        'pages' => [
+        'pages'  => [
             'index'  => [
                 'title' => 'Conversations'
             ],
@@ -118,7 +163,20 @@ return [
             'edit'   => [
                 'title' => 'Edit conversation'
             ]
-        ]
+        ],
+        'errors' => [
+            'not_found' => 'Cannot found conversation by ID'
+        ],
+    ],
+    
+    /**
+     * Roles
+     */
+    'roles'            => [
+        'model' => [
+            'single_name' => 'Role',
+            'plural_name' => 'Roles',
+        ],
     ],
 
 ];

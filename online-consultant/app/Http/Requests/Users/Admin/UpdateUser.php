@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Users;
+namespace App\Http\Requests\Users\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
@@ -29,7 +29,8 @@ class UpdateUser extends FormRequest
             'email' => [
                 'required',
                 Rule::unique('users')->ignore($this->route()->parameter('user'))
-            ]
+            ],
+            'roles' => 'required'
         ];
     }
 }

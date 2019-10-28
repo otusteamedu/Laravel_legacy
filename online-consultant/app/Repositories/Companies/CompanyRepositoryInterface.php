@@ -15,7 +15,7 @@ interface CompanyRepositoryInterface
      *
      * @return Company[]|Collection
      */
-    public function all($columns = []);
+    public function all($columns = ['*']);
     
     /**
      * Paginate companies

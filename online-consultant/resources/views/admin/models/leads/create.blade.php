@@ -16,11 +16,16 @@
                             <h1>{{ __('admin.leads.pages.create.title') }}</h1>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            @include('admin.models.leads.forms.create')
+                    @if(count($companiesSelectList) > 0)
+                        <div class="row">
+                            <div class="col">
+                                {{-- TODO we don't ever need companies to create leads and widgets, change select items to users list --}}
+                                @include('admin.models.leads.forms.create')
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        @include('common.errors.no_companies')
+                    @endif
                 </div>
             </div>
         </div>

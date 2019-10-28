@@ -7,10 +7,6 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                {{-- временная ссылка пока не сделана авторизация --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('admin.dashboard') }}">App</a>
-                </li>
                 @guest
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">{{ __('common.pages.login') }}</a>
@@ -19,12 +15,21 @@
                         <a class="nav-link" href="{{ route('register') }}">{{ __('common.pages.register') }}</a>
                     </li>
                 @else
+                    @php
+                        $currentUser = Auth::user();
+                    @endphp
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin.dashboard') }}">App</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            {{ Auth::user()->name }} <span class="caret"></span>
+                            {{ $currentUser->name }} ({{ $currentUser->top_role->name }}) <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('admin.users.edit', ['user' => $currentUser]) }}">
+                                {{ __('admin.users.pages.profile.title') }}
+                            </a>
                             <a class="dropdown-item" href="{{ route('logout') }}"
                                onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                                 {{ __('common.pages.logout') }}

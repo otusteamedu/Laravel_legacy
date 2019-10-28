@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class WidgetService
 {
-    private $repository;
+    private $widgetRepository;
     
-    public function __construct(WidgetRepositoryInterface $repository)
+    public function __construct(WidgetRepositoryInterface $widgetRepository)
     {
-        $this->repository = $repository;
+        $this->widgetRepository = $widgetRepository;
     }
     
     /**
@@ -25,7 +25,7 @@ class WidgetService
      */
     public function allWidgets($columns = []): Collection
     {
-        return $this->repository->all($columns);
+        return $this->widgetRepository->all($columns);
     }
     
     /**
@@ -37,7 +37,7 @@ class WidgetService
      */
     public function paginateWidgets(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginate($perPage);
+        return $this->widgetRepository->paginate($perPage);
     }
     
     /**
@@ -49,7 +49,7 @@ class WidgetService
      */
     public function paginateWidgetsWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginateWithTrashed($perPage);
+        return $this->widgetRepository->paginateWithTrashed($perPage);
     }
     
     /**
@@ -61,7 +61,7 @@ class WidgetService
      */
     public function createWidget(array $data): Widget
     {
-        return $this->repository->create($data);
+        return $this->widgetRepository->create($data);
     }
     
     /**
@@ -73,7 +73,7 @@ class WidgetService
      */
     public function findWidget(int $id): ?Widget
     {
-        return $this->repository->find($id);
+        return $this->widgetRepository->find($id);
     }
     
     /**
@@ -85,7 +85,7 @@ class WidgetService
      */
     public function findWidgetWithTrashed(int $id): ?Widget
     {
-        return $this->repository->findWithTrashed($id);
+        return $this->widgetRepository->findWithTrashed($id);
     }
     
     /**
@@ -98,7 +98,7 @@ class WidgetService
      */
     public function updateWidget(Widget $widget, array $data): Widget
     {
-        return $this->repository->update($widget, $data);
+        return $this->widgetRepository->update($widget, $data);
     }
     
     /**
@@ -111,43 +111,31 @@ class WidgetService
      */
     public function deleteWidget(Widget $widget): ?bool
     {
-        return $this->repository->delete($widget);
+        return $this->widgetRepository->delete($widget);
     }
     
     /**
      * Restore widget
      *
-     * @param  int  $id
+     * @param  Widget  $widget
      *
      * @return bool|null
      */
-    public function restoreWidget(int $id): ?bool
+    public function restoreWidget(Widget $widget): ?bool
     {
-        $widget = $this->findWidgetWithTrashed($id);
-        
-        if (!$widget) {
-            return false;
-        }
-        
-        return $this->repository->restore($widget);
+        return $this->widgetRepository->restore($widget);
     }
     
     /**
      * Permanently delete widget
      *
-     * @param  int  $id
+     * @param  Widget  $widget
      *
      * @return bool|null
      */
-    public function forceDeleteWidget(int $id): ?bool
+    public function forceDeleteWidget(Widget $widget): ?bool
     {
-        $widget = $this->findWidgetWithTrashed($id);
-        
-        if (!$widget) {
-            return false;
-        }
-        
-        return $this->repository->forceDelete($widget);
+        return $this->widgetRepository->forceDelete($widget);
     }
     
     /**
@@ -158,7 +146,7 @@ class WidgetService
     public function getFormSelectWidgets(): array
     {
         $formSelectWidgets = [];
-        $rawWidgets = $this->repository->getFormSelectOptions(['id', 'domain']);
+        $rawWidgets = $this->widgetRepository->getFormSelectOptions(['id', 'domain']);
         
         if (count($rawWidgets) === 0) {
             return $formSelectWidgets;

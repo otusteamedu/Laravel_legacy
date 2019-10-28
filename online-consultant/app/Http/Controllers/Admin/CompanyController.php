@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Company;
 use App\Http\Requests\Companies\StoreCompany;
 use App\Http\Requests\Companies\UpdateCompany;
+use App\Policies\Abilities;
 use App\Services\Companies\CompanyService;
+use App\Traits\Auth\HasAuthorizationPolicy;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
@@ -13,20 +15,30 @@ use Illuminate\View\View;
 
 class CompanyController extends Controller
 {
+    use HasAuthorizationPolicy;
+    
+    protected $modelClass = Company::class;
+    
     private $companyService;
     
     public function __construct(CompanyService $companyService)
     {
         $this->companyService = $companyService;
+    
+        $this->viewShareData();
     }
     
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function index()
     {
+        if (!$this->authorizeUserAbility(Abilities::VIEW_ANY)) {
+            return $this->redirectIfNoPermission('admin.dashboard', Abilities::VIEW_ANY);
+        }
+        
         $companies = $this->companyService->paginateCompaniesWithTrashed();
         
         return view('admin.models.companies.index', compact('companies'));
@@ -35,13 +47,18 @@ class CompanyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function create()
     {
-        $addressFields = Company::addressFields();
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::CREATE);
+        }
         
-        return view('admin.models.companies.create', compact('addressFields'));
+        $addressFields = Company::addressFields();
+        $currentUser = $this->getCurrentUser();
+        
+        return view('admin.models.companies.create', compact('addressFields', 'currentUser'));
     }
     
     /**
@@ -53,6 +70,10 @@ class CompanyController extends Controller
      */
     public function store(StoreCompany $request): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::CREATE);
+        }
+        
         $this->companyService->createCompany($request->all());
         
         return redirect()->route('admin.companies.index');
@@ -63,13 +84,17 @@ class CompanyController extends Controller
      *
      * @param  Company  $company
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Company $company)
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $company)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::UPDATE);
+        }
+        
         $addressFields = Company::addressFields();
         
-        return view('admin.models.companies.edit', compact('company', 'addressFields'));
+        return view('admin.models.companies.edit', compact('company', 'addressFields', 'currentUser'));
     }
     
     /**
@@ -82,6 +107,10 @@ class CompanyController extends Controller
      */
     public function update(UpdateCompany $request, Company $company): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $company)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::UPDATE);
+        }
+        
         $this->companyService->updateCompany($company, $request->all());
         
         return redirect()->route('admin.companies.edit', compact('company'));
@@ -97,6 +126,10 @@ class CompanyController extends Controller
      */
     public function destroy(Company $company): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::DELETE, $company)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::DELETE);
+        }
+        
         $this->companyService->deleteCompany($company);
         
         return redirect()->route('admin.companies.index');
@@ -111,7 +144,17 @@ class CompanyController extends Controller
      */
     public function restore(int $id): RedirectResponse
     {
-        $this->companyService->restoreCompany($id);
+        $company = $this->companyService->findCompanyWithTrashed($id);
+        
+        if (!$company) {
+            return redirect()->route('admin.companies.index')->with('errors', __('admin.companies.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::RESTORE, $company)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::RESTORE);
+        }
+        
+        $this->companyService->restoreCompany($company);
         
         return redirect()->route('admin.companies.index');
     }
@@ -125,7 +168,17 @@ class CompanyController extends Controller
      */
     public function forceDelete(int $id): RedirectResponse
     {
-        $this->companyService->forceDeleteCompany($id);
+        $company = $this->companyService->findCompanyWithTrashed($id);
+        
+        if (!$company) {
+            return redirect()->route('admin.companies.index')->with('errors', __('admin.companies.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::FORCE_DELETE, $company)) {
+            return $this->redirectIfNoPermission('admin.companies.index', Abilities::FORCE_DELETE);
+        }
+        
+        $this->companyService->forceDeleteCompany($company);
         
         return redirect()->route('admin.companies.index');
     }

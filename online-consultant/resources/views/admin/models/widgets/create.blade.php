@@ -16,11 +16,15 @@
                             <h1>{{ __('admin.widgets.pages.create.title') }}</h1>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col">
-                            @include('admin.models.widgets.forms.create')
+                    @if(count($companiesSelectList) > 0)
+                        <div class="row">
+                            <div class="col">
+                                @include('admin.models.widgets.forms.create')
+                            </div>
                         </div>
-                    </div>
+                    @else
+                        @include('common.errors.no_companies')
+                    @endif
                 </div>
             </div>
         </div>

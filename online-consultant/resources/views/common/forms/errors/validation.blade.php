@@ -1,4 +1,4 @@
-{{-- Form | Field validation error --}}
+{{-- Form | Field validation error message --}}
 
 @error($field)
     <span class="invalid-feedback" role="alert">

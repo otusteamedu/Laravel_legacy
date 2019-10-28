@@ -11,6 +11,12 @@
         <div class="container">
             <div class="row row-section-header">
                 <div class="col">
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+
                     <h1>{{ __('admin.users.pages.index.title') }}</h1>
                 </div>
             </div>

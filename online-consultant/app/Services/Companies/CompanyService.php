@@ -9,11 +9,12 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CompanyService
 {
-    private $repository;
+    private $companyRepository;
     
-    public function __construct(CompanyRepositoryInterface $repository)
-    {
-        $this->repository = $repository;
+    public function __construct(
+        CompanyRepositoryInterface $companyRepository
+    ) {
+        $this->companyRepository = $companyRepository;
     }
     
     /**
@@ -25,7 +26,7 @@ class CompanyService
      */
     public function allCompanies($columns = []): Collection
     {
-        return $this->repository->all($columns);
+        return $this->companyRepository->all($columns);
     }
     
     /**
@@ -37,7 +38,7 @@ class CompanyService
      */
     public function paginateCompanies(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginate($perPage);
+        return $this->companyRepository->paginate($perPage);
     }
     
     /**
@@ -49,7 +50,7 @@ class CompanyService
      */
     public function paginateCompaniesWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginateWithTrashed($perPage);
+        return $this->companyRepository->paginateWithTrashed($perPage);
     }
     
     /**
@@ -61,7 +62,7 @@ class CompanyService
      */
     public function createCompany(array $data): Company
     {
-        return $this->repository->create($data);
+        return $this->companyRepository->create($data);
     }
     
     /**
@@ -73,7 +74,7 @@ class CompanyService
      */
     public function findCompany(int $id): ?Company
     {
-        return $this->repository->find($id);
+        return $this->companyRepository->find($id);
     }
     
     /**
@@ -85,7 +86,7 @@ class CompanyService
      */
     public function findCompanyWithTrashed(int $id): ?Company
     {
-        return $this->repository->findWithTrashed($id);
+        return $this->companyRepository->findWithTrashed($id);
     }
     
     /**
@@ -98,7 +99,7 @@ class CompanyService
      */
     public function updateCompany(Company $company, array $data): Company
     {
-        return $this->repository->update($company, $data);
+        return $this->companyRepository->update($company, $data);
     }
     
     /**
@@ -111,44 +112,32 @@ class CompanyService
      */
     public function deleteCompany(Company $company): ?bool
     {
-        return $this->repository->delete($company);
+        return $this->companyRepository->delete($company);
     }
     
     /**
      * Restore company
      *
-     * @param  int  $id
+     * @param  Company  $company
      *
      * @return bool|null
      */
-    public function restoreCompany(int $id): ?bool
+    public function restoreCompany(Company $company): ?bool
     {
-        $company = $this->findCompanyWithTrashed($id);
-        
-        if (!$company) {
-            return false;
-        }
-        
-        return $this->repository->restore($company);
+        return $this->companyRepository->restore($company);
     }
     
     /**
      * Permanently delete company
      *
-     * @param  int  $id
+     * @param  Company  $company
      *
      * @return bool|null
      */
-    public function forceDeleteCompany(int $id): ?bool
+    public function forceDeleteCompany(Company $company): ?bool
     {
-        $company = $this->findCompanyWithTrashed($id);
-        
-        if (!$company) {
-            return false;
-        }
-        
         // TODO save company name somewhere and make this for all other models
-        return $this->repository->forceDelete($company);
+        return $this->companyRepository->forceDelete($company);
     }
     
     /**
@@ -159,7 +148,7 @@ class CompanyService
     public function getFormSelectCompanies(): array
     {
         $formSelectCompanies = [];
-        $rawCompanies = $this->repository->getFormSelectOptions(['id', 'name']);
+        $rawCompanies = $this->companyRepository->getFormSelectOptions(['id', 'name']);
         
         if (count($rawCompanies) === 0) {
             return $formSelectCompanies;

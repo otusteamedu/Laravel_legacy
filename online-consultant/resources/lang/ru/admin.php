@@ -10,11 +10,34 @@ return [
     'admin_panel_name' => 'Панель управления',
     
     /**
-     * Страницы админской части приложения
+     * Admin pages
      */
     'pages'            => [
         'dashboard'    => 'Главная панель',
         'user_profile' => 'Профиль'
+    ],
+    
+    /**
+     * Admin tables
+     */
+    'tables'           => [
+        'columns' => [
+            'actions'    => 'Действия',
+            'created_at' => 'Дата создания'
+        ]
+    ],
+    
+    /**
+     * Models
+     */
+    'models'           => [
+        'controls' => [
+            'edit'         => 'Редактировать',
+            'delete'       => 'Удалить',
+            'save'         => 'Сохранить',
+            'restore'      => 'Восстановить',
+            'force_delete' => 'Удалить навсегда'
+        ]
     ],
     
     /**
@@ -36,18 +59,22 @@ return [
             ],
         ],
         'fields' => [
-            'name' => 'Название'
-        ]
+            'name'         => 'Название',
+            'created_user' => 'Создатель компании'
+        ],
+        'errors' => [
+            'not_found' => 'Не получилось найти компанию по ID'
+        ],
     ],
     
     /**
      * Leads
      */
     'leads'            => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Лид'
         ],
-        'pages' => [
+        'pages'  => [
             'index'  => [
                 'title' => 'Лиды'
             ],
@@ -57,17 +84,23 @@ return [
             'edit'   => [
                 'title' => 'Редактировать лида'
             ]
-        ]
+        ],
+        'fields' => [
+            'created_user' => 'Создатель лида'
+        ],
+        'errors' => [
+            'not_found' => 'Не получилось найти лида по ID'
+        ],
     ],
     
     /**
      * Widgets
      */
     'widgets'          => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Виджет'
         ],
-        'pages' => [
+        'pages'  => [
             'index'  => [
                 'title' => 'Виджеты'
             ],
@@ -77,37 +110,49 @@ return [
             'edit'   => [
                 'title' => 'Редактировать виджет'
             ]
-        ]
+        ],
+        'fields' => [
+            'created_user' => 'Создатель виджета'
+        ],
+        'errors' => [
+            'not_found' => 'Не получилось найти виджет по ID'
+        ],
     ],
     
     /**
      * Users
      */
     'users'            => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Пользователь'
         ],
-        'pages' => [
-            'index'  => [
+        'pages'  => [
+            'index'   => [
                 'title' => 'Пользователи'
             ],
-            'create' => [
+            'create'  => [
                 'title' => 'Создать пользователя'
             ],
-            'edit'   => [
+            'edit'    => [
                 'title' => 'Редактировать пользователя'
+            ],
+            'profile' => [
+                'title' => 'Профиль'
             ]
-        ]
+        ],
+        'errors' => [
+            'not_found' => 'Не получилось найти пользователя по ID'
+        ],
     ],
     
     /**
      * Conversations
      */
     'conversations'    => [
-        'model' => [
+        'model'  => [
             'single_name' => 'Беседа'
         ],
-        'pages' => [
+        'pages'  => [
             'index'  => [
                 'title' => 'Беседы'
             ],
@@ -117,7 +162,20 @@ return [
             'edit'   => [
                 'title' => 'Редактировать беседу'
             ]
-        ]
+        ],
+        'errors' => [
+            'not_found' => 'Не получилось найти беседу по ID'
+        ],
+    ],
+    
+    /**
+     * Roles
+     */
+    'roles'            => [
+        'model' => [
+            'single_name' => 'Роль',
+            'plural_name' => 'Роли',
+        ],
     ],
 
 ];

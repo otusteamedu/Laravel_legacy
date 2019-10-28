@@ -161,7 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Providers\MacroServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -176,6 +175,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+    
+        App\Providers\MacroServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
 
     ],
 

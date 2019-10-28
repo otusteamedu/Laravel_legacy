@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\Users\StoreUser;
-use App\Http\Requests\Users\UpdateUser;
+use App\Http\Requests\Users\Admin\StoreUser;
+use App\Http\Requests\Users\Admin\UpdateUser;
 use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Companies\CompanyService;
+use App\Services\Roles\RoleService;
 use App\Services\Users\UserService;
+use App\Traits\Auth\HasAuthorizationPolicy;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -14,25 +17,37 @@ use Illuminate\View\View;
 
 class UserController extends Controller
 {
+    use HasAuthorizationPolicy;
+    
+    protected $modelClass = User::class;
+    
     private $userService;
     private $companyService;
+    private $roleService;
     
     public function __construct(
         UserService $userService,
-        CompanyService $companyService
+        CompanyService $companyService,
+        RoleService $roleService
     ) {
         $this->userService = $userService;
         $this->companyService = $companyService;
+        $this->roleService = $roleService;
+    
+        $this->viewShareData();
     }
     
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function index()
     {
-        // TODO показывать роли юзера в index, edit, create
+        if (!$this->authorizeUserAbility(Abilities::VIEW_ANY)) {
+            return $this->redirectIfNoPermission('admin.dashboard', Abilities::VIEW_ANY);
+        }
+        
         $users = $this->userService->paginateUsersWithTrashed();
         
         return view('admin.models.users.index', compact('users'));
@@ -41,13 +56,19 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function create()
     {
-        $companiesSelectList = $this->companyService->getFormSelectCompanies();
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            // TODO generate routes from trait property
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::CREATE);
+        }
         
-        return view('admin.models.users.create', compact('companiesSelectList'));
+        $companiesSelectList = $this->companyService->getFormSelectCompanies();
+        $allRolesSelectList = $this->roleService->getFormSelectRoles();
+        
+        return view('admin.models.users.create', compact('companiesSelectList', 'allRolesSelectList'));
     }
     
     /**
@@ -59,6 +80,10 @@ class UserController extends Controller
      */
     public function store(StoreUser $request): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::CREATE);
+        }
+        
         $this->userService->createUser($request->all());
         
         return redirect()->route('admin.users.index');
@@ -69,11 +94,17 @@ class UserController extends Controller
      *
      * @param  User  $user
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function edit(User $user)
     {
-        return view('admin.models.users.edit', compact('user'));
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $user)) {
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::UPDATE);
+        }
+        
+        $userRolesSelectList = $this->userService->getFormSelectUserRoles($user);
+        
+        return view('admin.models.users.edit', compact('user', 'userRolesSelectList'));
     }
     
     /**
@@ -86,6 +117,10 @@ class UserController extends Controller
      */
     public function update(UpdateUser $request, User $user): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $user)) {
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::UPDATE);
+        }
+        
         $this->userService->updateUser($user, $request->all());
         
         return redirect()->route('admin.users.edit', compact('user'));
@@ -101,6 +136,10 @@ class UserController extends Controller
      */
     public function destroy(User $user): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::DELETE, $user)) {
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::DELETE);
+        }
+        
         $this->userService->deleteUser($user);
         
         return redirect()->route('admin.users.index');
@@ -115,7 +154,18 @@ class UserController extends Controller
      */
     public function restore(int $id): RedirectResponse
     {
-        $this->userService->restoreUser($id);
+        $user = $this->userService->findUserWithTrashed($id);
+        
+        if (!$user) {
+            // TODO make this redirect as method in trait
+            return redirect()->route('admin.users.index')->with('errors', __('admin.users.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::RESTORE, $user)) {
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::RESTORE);
+        }
+        
+        $this->userService->restoreUser($user);
         
         return redirect()->route('admin.users.index');
     }
@@ -129,7 +179,17 @@ class UserController extends Controller
      */
     public function forceDelete(int $id): RedirectResponse
     {
-        $this->userService->forceDeleteUser($id);
+        $user = $this->userService->findUserWithTrashed($id);
+        
+        if (!$user) {
+            return redirect()->route('admin.users.index')->with('errors', __('admin.users.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::FORCE_DELETE, $user)) {
+            return $this->redirectIfNoPermission('admin.users.index', Abilities::FORCE_DELETE);
+        }
+        
+        $this->userService->forceDeleteUser($user);
         
         return redirect()->route('admin.users.index');
     }

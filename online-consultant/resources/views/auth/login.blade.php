@@ -4,7 +4,13 @@
     <section class="page-section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-6">
+                    @if (session('success'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    
                     <div class="card">
                         <div class="card-header">{{ __('Login') }}</div>
 
@@ -14,21 +20,13 @@
                                     {{ Form::label('email', __('common.form_fields.email.label')) }}
                                     {{ Form::email('email', old('email'), ['class' => 'form-control' . ( $errors->has('email') ? ' is-invalid' : '' ), 'required' => '', 'autocomplete' => 'email', 'autofocus' => '']) }}
 
-                                    @error('email')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+                                    @include('common.forms.errors.validation', ['field' => 'email'])
                                 </div>
                                 <div class="form-group">
                                     {{ Form::label('password', __('common.form_fields.password.label')) }}
                                     {{ Form::password('password', ['class' => 'form-control' . ( $errors->has('password') ? ' is-invalid' : '' ), 'required' => 'required', 'autocomplete' => 'current-password', 'value' => old('password')]) }}
-
-                                    @error('password')
-                                        <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+    
+                                    @include('common.forms.errors.validation', ['field' => 'password'])
                                 </div>
                                 <div class="form-group">
                                     <div class="form-check">

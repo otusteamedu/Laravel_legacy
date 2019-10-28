@@ -141,6 +141,9 @@ return [
         'company_id' => [
             'exists' => 'The company does not exist.'
         ],
+        'roles'      => [
+            'required' => 'You must specify at least one role.'
+        ]
     ],
     
     /*

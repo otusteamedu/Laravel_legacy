@@ -24,9 +24,10 @@ class StoreLead extends FormRequest
     public function rules(): array
     {
         return [
-            'name'       => 'required',
-            'email'      => 'required|email|unique:leads',
-            'company_id' => 'required|exists:companies,id'
+            'name'            => 'required',
+            'email'           => 'required|email|unique:leads',
+            'company_id'      => 'required|exists:companies,id',
+            'created_user_id' => 'required|exists:users,id',
         ];
     }
 }

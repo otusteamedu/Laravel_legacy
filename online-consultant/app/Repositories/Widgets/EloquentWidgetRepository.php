@@ -16,7 +16,7 @@ class EloquentWidgetRepository implements WidgetRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection
+    public function all($columns = ['*']): Collection
     {
         return Widget::all($columns);
     }
@@ -30,7 +30,7 @@ class EloquentWidgetRepository implements WidgetRepositoryInterface
      */
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->withCompany()->paginate($perPage);
+        return $this->withRelations()->paginate($perPage);
     }
     
     /**
@@ -42,17 +42,17 @@ class EloquentWidgetRepository implements WidgetRepositoryInterface
      */
     public function paginateWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->withCompany()->withTrashed()->paginate($perPage);
+        return $this->withRelations()->withTrashed()->paginate($perPage);
     }
     
     /**
-     * Eager loading for companies
+     * Eager loading for all relations
      *
-     * @return Widget|Builder
+     * @return Company|Builder
      */
-    public function withCompany()
+    public function withRelations()
     {
-        return Widget::with('company');
+        return Widget::with(['company', 'createdUser']);
     }
     
     /**

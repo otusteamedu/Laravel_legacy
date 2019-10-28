@@ -15,7 +15,7 @@ interface UserRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection;
+    public function all($columns = ['*']): Collection;
     
     /**
      * Paginate users
@@ -107,4 +107,20 @@ interface UserRepositoryInterface
      * @return User[]|array|Collection
      */
     public function getFormSelectOptions($columns = []);
+    
+    /**
+     * Detach roles
+     *
+     * @param  User  $user
+     * @param  array  $roles
+     */
+    public function detachRoles(User $user, array $roles = []): void;
+    
+    /**
+     * Assign roles
+     *
+     * @param  User  $user
+     * @param  array  $roles
+     */
+    public function assignRoles(User $user, array $roles): void;
 }

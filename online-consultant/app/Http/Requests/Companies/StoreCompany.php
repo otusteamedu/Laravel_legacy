@@ -24,14 +24,10 @@ class StoreCompany extends FormRequest
     public function rules(): array
     {
         return [
-            'name'                    => 'required|unique:companies',
-            'email'                   => 'required|email|unique:users',
-            'url'                     => 'required|unique:companies',
-            'address.country'         => 'required',
-            'address.city'            => 'required',
-            'address.postcode'        => 'required|max:6',
-            'address.street'          => 'required',
-            'address.building_number' => 'required'
+            'name'            => 'required|unique:companies',
+            'url'             => 'required|unique:companies',
+            'email'           => 'required|email|unique:users',
+            'created_user_id' => 'required|exists:users,id',
         ];
     }
     

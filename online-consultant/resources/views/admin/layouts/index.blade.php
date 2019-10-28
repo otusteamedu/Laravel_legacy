@@ -9,10 +9,10 @@
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500" media="all">
 
-        @yield('styles')
+        @stack('styles')
         <link href="{{ mix('/css/admin/admin.css') }}" rel="stylesheet">
 
-        @yield('javascript-head')
+        @stack('javascript-head')
     </head>
     <body>
         @include('admin.layouts.partials.header')
@@ -22,8 +22,11 @@
         </div>
 
         @include('admin.layouts.partials.footer')
-
-        @yield('javascript-body')
+    
+        <script src="https://browser.sentry-cdn.com/5.6.3/bundle.min.js" integrity="sha384-/Cqa/8kaWn7emdqIBLk3AkFMAHBk0LObErtMhO+hr52CntkaurEnihPmqYj3uJho" crossorigin="anonymous">
+        </script>
+        <script src="{{ mix('/js/admin/bootstrap.js') }}"></script>
+        @stack('javascript-body')
         <script src="{{ mix('/js/admin/admin.js') }}"></script>
     </body>
 </html>

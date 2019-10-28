@@ -4,7 +4,7 @@
     <section class="page-section">
         <div class="container">
             <div class="row justify-content-center">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="card">
                         <div class="card-header">{{ __('Reset Password') }}</div>
 
@@ -19,12 +19,8 @@
                                 <div class="form-group">
                                     {{ Form::label('email', __('common.form_fields.email.label')) }}
                                     {{ Form::email('email', old('email'), ['class' => 'form-control' . ( $errors->has('email') ? ' is-invalid' : '' ), 'required' => '', 'autocomplete' => 'email', 'autofocus' => '']) }}
-
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                    @enderror
+    
+                                    @include('common.forms.errors.validation', ['field' => 'email'])
                                 </div>
                                 <div class="form-group">
                                     {{ Form::submit(__('Send Password Reset Link'), ['class' => 'btn btn-primary btn-lg btn-block']) }}
