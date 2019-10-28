@@ -86,34 +86,14 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/web/web.js":
-/*!*********************************!*\
-  !*** ./resources/js/web/web.js ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// You should manually place <script> tag with admin bootstrap js file
-// require('./bootstrap');
-// TODO put config vars in separate file
-// TODO make this with injection in <head>, now it's useless
-//const fonts = ['Lora:400,700', 'Roboto:400,700'];
-//const web_fonts_loader = require('../modules/webfonts')(fonts);
-//web_fonts_loader.load();
-(function ($) {
-  $(document).ready(function () {});
-})(jQuery);
-
-/***/ }),
-
 /***/ 2:
-/*!***************************************!*\
-  !*** multi ./resources/js/web/web.js ***!
-  \***************************************/
+/*!*****************************************!*\
+  !*** multi ./resources/js/web/admin.js ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! /tera/sites/learning/otus/laravel/online-consultant/resources/js/web/web.js */"./resources/js/web/web.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module '/tera/sites/learning/otus/laravel/online-consultant/resources/js/web/admin.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 
 
 /***/ })

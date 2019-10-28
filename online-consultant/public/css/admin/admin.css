@@ -10718,6 +10718,10 @@ a {
   font-weight: 500;
 }
 
+.form-model .form-row:not(:last-child) {
+  margin-bottom: 20px;
+}
+
 /**
     App | Common styles
  */
@@ -10736,10 +10740,6 @@ a {
 }
 
 .page-section .row:not(:last-child) {
-  margin-bottom: 20px;
-}
-
-.form-model .form-row:not(:last-child) {
   margin-bottom: 20px;
 }
 
@@ -10770,6 +10770,17 @@ a {
   background-color: #3490dc;
   border-color: #3490dc;
   color: #fff;
+}
+
+.user-role {
+  display: inline-block;
+  vertical-align: middle;
+  background-color: #e3342f;
+  padding: 5px;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .app-breadcrumbs {

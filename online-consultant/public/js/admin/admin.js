@@ -93,11 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
+// You should manually place <script> tag with admin bootstrap js file
 // require('./bootstrap');
 //const fonts = ['Lora:400,700', 'Roboto:400,700'];
 //const web_fonts_loader = require('../modules/webfonts')(fonts);
@@ -123,6 +119,19 @@
 // const app = new Vue({
 //     el: '#app',
 // });
+(function ($) {
+  $(document).ready(function () {
+    select2Features();
+  });
+})(jQuery);
+
+var select2Features = function select2Features() {
+  if (typeof $.fn.select2 === 'undefined') {
+    return false;
+  }
+
+  $('.select2').select2();
+};
 
 /***/ }),
 

@@ -24,14 +24,6 @@
     }
 }
 
-.form-model {
-    .form-row {
-        &:not(:last-child) {
-            margin-bottom: 20px;
-        }
-    }
-}
-
 .row-section-header {
     margin-bottom: 20px;
 
@@ -63,4 +55,15 @@
             color: #fff;
         }
     }
+}
+
+.user-role {
+    display: inline-block;
+    vertical-align: middle;
+    background-color: $red;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
 }

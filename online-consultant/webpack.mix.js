@@ -17,9 +17,12 @@ mix.browserSync({
 });
 
 mix.js('resources/js/admin/admin.js', 'public/js/admin')
-   .js('resources/js/web/web.js', 'public/js/web');
+   .js('resources/js/admin/bootstrap.js', 'public/js/admin')
+   .js('resources/js/web/web.js', 'public/js/web')
+   .js('resources/js/web/bootstrap.js', 'public/js/web');
 
 mix.sass('resources/sass/admin/admin.scss', 'public/css/admin')
    .sass('resources/sass/web/web.scss', 'public/css/web');
 
 mix.copyDirectory('resources/img', 'public/img');
+mix.copyDirectory('resources/plugins', 'public/plugins');
