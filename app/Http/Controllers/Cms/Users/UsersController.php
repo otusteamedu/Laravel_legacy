@@ -8,7 +8,6 @@ use App\Http\Controllers\Cms\Users\Requests\UpdateUserRequest;
 use App\Jobs\UserPhotoProcess;
 use App\Policies\Abilities;
 use Illuminate\Http\UploadedFile;
-use mysql_xdevapi\Exception;
 use View;
 use App\Models\User;
 use App\Services\Users\UsersService;

@@ -2,8 +2,6 @@
 
 namespace App\Console;
 
-use App\Console\Commands\TestQueue;
-use App\Console\Commands\Cache\Warmup;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

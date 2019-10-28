@@ -15,7 +15,7 @@ return [
 
     'commands' => [
         // App\Console\Commands\ExampleCommand::class,
-        \App\Console\Commands\TestQueue::class
+//        \App\Console\Commands\TestQueue::class
     ],
 
     /*
