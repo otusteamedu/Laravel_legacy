@@ -11,9 +11,7 @@
 |
 */
 
-Auth::routes();
-
-Route::get('logs', '\Rap2hpoutre\LaravelLogViewer\LogViewerController@index');
+Auth::routes(['verify' => true]);
 
 Route::name('web.')->group(function () {
     Route::get('/', function () {
@@ -25,7 +23,7 @@ Route::name('web.')->group(function () {
     })->name('contact');
 });
 
-Route::name('admin.')->group(function () {
+Route::name('admin.')->middleware(['auth', 'verified'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/', function () {
             return view('admin.pages.dashboard.index');
@@ -70,8 +68,16 @@ Route::name('admin.')->group(function () {
             'companies'     => 'Admin\CompanyController',
             'leads'         => 'Admin\LeadController',
             'widgets'       => 'Admin\WidgetController',
-            'users'         => 'Admin\UserController',
-            'conversations' => 'Admin\ConversationController'
-        ], ['except' => 'show']);
+            'users'         => 'Admin\UserController'
+        ], [
+            'except' => 'show'
+        ]);
+        
+        Route::resource('conversations', 'Admin\ConversationController', [
+            'except' => [
+                'show',
+                'create'
+            ]
+        ]);
     });
 });
