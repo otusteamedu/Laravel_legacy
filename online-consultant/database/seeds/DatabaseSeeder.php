@@ -9,14 +9,11 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+    // TODO rebuild factories - we don't need companies to set users etc.
     public function run()
     {
-         $this->call(CompaniesTableSeeder::class);
-
          $this->call(UsersTableSeeder::class);
-         $this->call(RolesTableSeeder::class);
-         $this->call(RoleUserTableSeeder::class);
-
+         $this->call(CompaniesTableSeeder::class);
          $this->call(WidgetsTableSeeder::class);
          $this->call(LeadsTableSeeder::class);
          $this->call(ConversationsTableSeeder::class);

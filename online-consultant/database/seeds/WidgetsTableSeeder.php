@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Company;
+use App\Models\User;
 use App\Models\Widget;
 use Illuminate\Database\Seeder;
 
@@ -13,9 +13,9 @@ class WidgetsTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Company::all() as $company) {
+        foreach (User::all() as $user) {
             factory(Widget::class, 1)->create([
-                'company_id' => $company->id
+                'created_user_id' => $user->id
             ]);
         }
     }
