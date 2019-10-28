@@ -1,0 +1,93 @@
+Была переделана реализаөия REST API
+1. Маршрутизация вынесена в отделҗный класс Routs 
+2. Ответы вынесеены в отдельный класс Response
+3. Класс RestApi обрабатывает пути и вызывает необходимые методы
+4. Классы RestApiGETMethods и RestApiPOSTMethods кдассы в которых описывется запрос к БД и выводится ответ
+5. Класс SRP нужен для протокола SRP
+
+
+Что было сделано
+1.Раньше в классах RestApiGETMethods и RestApiPOSTMethods
+кроме медов отвечающих за выборку их БД еще находился метод отвечающий
+за маршрутизацию. 
+
+
+	private $currentFunction;
+ 	function __construct(){
+ 		parent::__construct();
+ 		$this->method="POST";
+ 		if($this->init){
+ 			$function=self::getFunction();
+ 			if(!empty($function)){		
+ 				$this->currentFunction=$function;								
+ 				self::{$this->currentFunction}();
+ 			}
+ 		}		
+ 	}
+
+	protected function getFunction(){
+ 		$rest=[
+ 					'services'	=>[
+ 									'method'	=>	[	'list'	=>'getList',
+ 														'detail'=>'getDetail',
+ 													],
+ 									'iblockId'	=>	[
+ 														'ru' => 21,
+ 														'en' =>	69
+ 													],
+ 									'useCache'	=>	"N",
+ 								],					
+ 					];
+
+ 					
+
+
+ 		if(empty($rest[$this->rest1])){
+ 			self::response(400);
+ 			return false;
+ 		}		
+
+ 		$this->useCache	=	$rest[$this->rest1]['useCache'];		
+ 		$this->iblockId =	$rest[$this->rest1]['iblockId'][$this->language];				
+ 		return $rest[$this->rest1]['method'][$this->rest2];		
+
+ 	}
+
+
+ 	в конструкторе вызывались методы базоаого класса и инициализировались свойства
+ 	$rest1 $rest2, которые подставлялись в массив и $rest и вычислялся необходимый метод
+
+ 	Теперьвся маршрутизаөия вынесена в класс Routs и осуществляется следующим образом
+
+ 	$routs = new Routs();
+
+	$routs->addGet('/restapi/services/list','getList');
+	$routs->addGet('/restapi/services/detail/+','getDetail');
+	$routs->addGet('/restapi/institutions/list','getInstitutionsList');
+	$routs->addGet('/restapi/institutions/detail/+','getInstitutionsDetail');
+
+
+	new \AV\RestApi($routs);
+
+2. Класс RestApiBase отвечал за обработку ответов и парсинг урла
+Был такие методы 
+public static function getResponseText($code){
+ 		$stateText =[
+ 				200 => 'OK',
+ 				400 => 'Bad Request',
+ 				404 => 'Not Found',
+ 				405 => 'Method Not Allowed',
+ 				500 => 'Internal Server Error'
+ 		];
+ 		$result["status"]=$code;
+ 		$result['error']=$stateText[$code];
+ 		header("HTTP/1.1 " . $code . " " . $stateText[$code]);
+ 		echo json_encode($result,JSON_UNESCAPED_UNICODE);
+ 	}
+ 	private function setHeaders(){		
+ 		header('Access-Control-Allow-Origin: *');
+ 		header("Access-Control-Allow-Methods: *");
+ 		header('Content-Type: application/json;charset=utf-8');
+ 	}
+
+Теперь все это вынесно в отдельный класс Response 	
