@@ -16,7 +16,7 @@ class EloquentLeadRepository implements LeadRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection
+    public function all($columns = ['*']): Collection
     {
         return Lead::all($columns);
     }
@@ -30,7 +30,7 @@ class EloquentLeadRepository implements LeadRepositoryInterface
      */
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->withCompany()->paginate($perPage);
+        return $this->withRelations()->paginate($perPage);
     }
     
     /**
@@ -42,17 +42,17 @@ class EloquentLeadRepository implements LeadRepositoryInterface
      */
     public function paginateWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->withCompany()->withTrashed()->paginate($perPage);
+        return $this->withRelations()->withTrashed()->paginate($perPage);
     }
     
     /**
-     * Eager loading for companies
+     * Eager loading for all relations
      *
-     * @return Lead|Builder
+     * @return Company|Builder
      */
-    public function withCompany()
+    public function withRelations()
     {
-        return Lead::with('company');
+        return Lead::with(['company', 'createdUser']);
     }
     
     /**
