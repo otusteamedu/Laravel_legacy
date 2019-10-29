@@ -5,6 +5,7 @@ namespace App\Services\Tasks\Repositories;
 use App\Services\Cache\CacheKeyManager;
 use App\Services\Cache\Tag;
 use Cache;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class CachedTaskRepository implements CachedTaskRepositoryInterface
 {
@@ -25,7 +26,11 @@ class CachedTaskRepository implements CachedTaskRepositoryInterface
         $this->cacheKeyManager = $cacheKeyManager;
     }
 
-    public function search(array $filters = [], array $with = [])
+    /**
+
+     * @return taskRepository::search
+     */
+    public function search(array $filters = [], array $with = []):LengthAwarePaginator
     {
         $key = $this->cacheKeyManager->getSearchTasksKey($filters);
 

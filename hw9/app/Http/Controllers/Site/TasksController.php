@@ -39,7 +39,7 @@ class TasksController extends Controller
         //$this->checkCurrentUserRouteAccess($user, $request->route()->getName());
         // $tasks = $this->tasksService->searchTasks(['user_id' => $user->id]);
 
-        $tasks = $this->tasksService->searchCachedTasks([]);
+        $tasks = $this->tasksService->searchCachedTasks();
         $data = [
             'tasks' => $tasks,
             'title' => 'TikTak - оптимальный сервис для управления своими задачами',

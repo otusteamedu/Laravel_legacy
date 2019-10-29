@@ -40,6 +40,7 @@ class UsersController extends BaseAdminController
         );
 
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -49,9 +50,8 @@ class UsersController extends BaseAdminController
     {
         $user = Auth::user();
         $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
-
-        //$users= $this->usersService->searchUsers();
-        $users = $this->usersService->searchCachedUsers([]);
+            //$users= $this->usersService->searchUsers();
+        $users = $this->usersService->searchCachedUsers();
         return view('admin.users.index', [
             'users' => $users,
             'breadcrumbs' => $this->breadcrumbs

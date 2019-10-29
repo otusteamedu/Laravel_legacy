@@ -15,9 +15,7 @@ class StatusControllerTest extends TestCase
 
     public function testStatusRoute()
     {
-        $data['name'] = 'test_user3';
-        $data['email'] = 'test_user3@test.ru';
-        $user = UserGenerator::createUserAdmin($data);
+        $user = UserGenerator::createUserAdminWithRole(['name' => 'test_user3', 'email' => 'admin@mail.ru']);
         $response = $this->actingAs($user)
             ->call('GET', route('admin.statuses.index'));
         $response->assertStatus(200);

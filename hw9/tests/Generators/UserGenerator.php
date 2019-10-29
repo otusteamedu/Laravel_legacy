@@ -7,13 +7,11 @@ use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 
+
 class UserGenerator
 {
     public static function createUserAdmin(array $data = [])
     {
-        $role = factory(Role::class, 1)->create(['id' => User::USER_ROLE_ADMIN, 'name' => 'Admin'])[0];
-        $permission =  factory(Permission::class, 1)->create(['id' => Permission::PERMISSION_ALL, 'name' => 'Полный доступ', 'route' => Permission::PERMISSION_ALL_ROUTE]);
-        $role->permissions()->sync([Permission::PERMISSION_ALL]);
         return factory(User::class, 1)
             ->create($data)
             ->each(function ($user) {
@@ -32,5 +30,18 @@ class UserGenerator
 
             });
 
+    }
+
+    public static function createUserAdminWithRole(array $data = [])
+    {
+
+        PermissionGenerator::createPermission(['id' => Permission::PERMISSION_ALL, 'name' => 'Полный доступ', 'route' => Permission::PERMISSION_ALL_ROUTE]);
+        RoleGenerator::createRole(['id' => User::USER_ROLE_ADMIN, 'name' => 'Admin'], [Permission::PERMISSION_ALL]);
+        return factory(User::class, 1)
+            ->create($data)
+            ->each(function ($user) {
+                $user->roles()->sync([User::USER_ROLE_ADMIN]);
+
+            })[0];
     }
 }

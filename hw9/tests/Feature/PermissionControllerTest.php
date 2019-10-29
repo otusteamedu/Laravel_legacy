@@ -16,9 +16,7 @@ class PermissionControllerTest extends TestCase
 
     public function testPermissionRoute()
     {
-        $data['name'] = 'test_user3';
-        $data['email'] = 'test_user3@test.ru';
-        $user = UserGenerator::createUserAdmin($data);
+        $user = UserGenerator::createUserAdminWithRole(['name' => 'test_user3', 'email' => 'Admin']);
         $response = $this->actingAs($user)
             ->call('GET', route('admin.permissions.index'));
         $response->assertStatus(200);

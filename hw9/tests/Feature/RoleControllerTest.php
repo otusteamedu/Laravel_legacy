@@ -16,9 +16,7 @@ class RoleControllerTest extends TestCase
 
     public function testRoleRoute()
     {
-        $data['name'] = 'test_user3';
-        $data['email'] = 'test_user3@test.ru';
-        $user = UserGenerator::createUserAdmin($data);
+        $user = UserGenerator::createUserAdminWithRole(['name' => 'test_user3', 'email' => 'admin@mail.ru']);
         $response = $this->actingAs($user)
             ->call('GET', route('admin.roles.index'));
         $response->assertStatus(200);

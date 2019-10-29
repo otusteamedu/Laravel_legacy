@@ -96,7 +96,7 @@ class TasksService
         return $this->taskRepository->delete($id);
     }
 
-    public function searchCachedTasks(array $filter): LengthAwarePaginator
+    public function searchCachedTasks(array $filter = []): LengthAwarePaginator
     {
         return $this->cachedTaskRepository->search($filter);
     }

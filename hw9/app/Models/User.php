@@ -28,7 +28,7 @@ class User extends Authenticatable
 
 
     protected $dispatchesEvents = [
-        'saved' =>   UserSaved::class,
+        'saved' => UserSaved::class,
         'deleted' => UserDeleted::class
     ];
 
@@ -60,8 +60,6 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Models\Role', 'user_role', 'user_id', 'role_id');
     }
-
-
 
 
 }

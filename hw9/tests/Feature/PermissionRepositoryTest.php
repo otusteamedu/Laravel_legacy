@@ -21,6 +21,7 @@ class PermissionRepositoryTest extends TestCase
      */
     public function testCreatePermission()
     {
+        $data['id'] = Permission::PERMISSION_ALL;
         $data['name'] = 'test_permission';
         $data['route'] = 'test_permission';
         $permission = factory(Permission::class)->create($data);
@@ -35,6 +36,7 @@ class PermissionRepositoryTest extends TestCase
      */
     public function testCreatePermissionFailsDublicate()
     {
+        $data['id'] = Permission::PERMISSION_ALL;
         $data['name'] = 'test_permission2';
         $data['route'] = 'test_permission';
         $permissions_count_before = Permission::all()->count();
@@ -53,6 +55,7 @@ class PermissionRepositoryTest extends TestCase
 
     public function testCreatePermissionFailsEmpty()
     {
+        $data['id'] = Permission::PERMISSION_ALL;
         $data['name'] = null;
         $this->expectExceptionMessageRegExp('/ cannot be null/');
         $this->expectException(QueryException::class);

@@ -20,7 +20,7 @@ class Permission extends Model
 
 
     protected $fillable = [
-        'name', 'route'
+        'name', 'route', 'id'
     ];
 
     public function roles()

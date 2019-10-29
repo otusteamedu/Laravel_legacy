@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 
-
 use Illuminate\Support\ServiceProvider;
 
 
@@ -43,14 +42,12 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(StatusRepositoryInterface::class, EloquentStatusRepository::class);
         $this->app->bind(TasksRepositoryInterface::class, EloquentTasksRepository::class);
         $this->app->bind(CachedUserRepositoryInterface::class, CachedUserRepository::class);
-       
- $this->app->bind(CachedTaskRepositoryInterface::class, CachedTaskRepository::class);
- 
- $this->app->bind(TaskRepositoryInterface::class, EloquentTaskRepository::class);
- 
+
+        $this->app->bind(CachedTaskRepositoryInterface::class, CachedTaskRepository::class);
+        $this->app->bind(TaskRepositoryInterface::class, EloquentTaskRepository::class);
 
 
-   }
+    }
 
     /**
      * Bootstrap any application services.

@@ -19,14 +19,12 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker, $data) {
 
-   // $name = isset($data['name']) ? $data['name']:$faker->name;
-
+    // $name = isset($data['name']) ? $data['name']:$faker->name;
     return [
-        'name' =>isset($data['name']) ? $data['name']:null,
-        'email' =>isset($data['email']) ? $data['email']:null,
+        'name' => isset($data['name']) ? $data['name'] : null,
+        'email' => isset($data['email']) ? $data['email'] : null,
         'password' => bcrypt('secret'),
-       // 'email_verified_at' => now(),
-
-       // 'remember_token' => Str::random(10),
+        // 'email_verified_at' => now(),
+        // 'remember_token' => Str::random(10),
     ];
 });

@@ -6,6 +6,7 @@ namespace App\Services\Tasks\Repositories;
 
 
 use App\Models\Task;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class EloquentTaskRepository implements TaskRepositoryInterface
 {
@@ -15,7 +16,7 @@ class EloquentTaskRepository implements TaskRepositoryInterface
         return Task::find($id);
     }
 
-    public function search(array $filters = [])
+    public function search(array $filters = []):LengthAwarePaginator
     {
         return Task::paginate($filters);
 

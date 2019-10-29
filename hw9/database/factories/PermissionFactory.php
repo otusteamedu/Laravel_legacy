@@ -17,11 +17,14 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Permission::class, function (Faker $faker) {
+$factory->define(Permission::class, function (Faker $faker, $data) {
 
     $name = $faker->sentence(rand(5, 10), true);
+    $route = $faker->sentence(rand(5, 10), true);
     $data = [
-        'name' => $name,
+        'id'   =>  $data['id'],
+        'name' => isset($data['name']) ? $data['name']:$name,
+        'route' => isset($data['route']) ? $data['route'] : $route,
     ];
 
     return $data;

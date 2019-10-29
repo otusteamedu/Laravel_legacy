@@ -17,11 +17,12 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Role::class, function (Faker $faker) {
+$factory->define(Role::class, function (Faker $faker, $data) {
 
     $name = $faker->sentence(rand(5, 10), true);
     $data = [
-        'name' => $name,
+        'id'   =>  $data['id'],
+        'name' => isset($data['name']) ? $data['name']:$name,
     ];
 
     return $data;

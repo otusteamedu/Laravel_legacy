@@ -15,13 +15,13 @@ class UserRepositoryTest extends TestCase
 {
     use RefreshDatabase;
 
-/*
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->artisan('db:seed');
-    }
-*/
+    /*
+        public function setUp(): void
+        {
+            parent::setUp();
+            $this->artisan('db:seed');
+        }
+    */
     /**
      * A basic unit test example.
      *
@@ -31,7 +31,7 @@ class UserRepositoryTest extends TestCase
     {
         $data['name'] = 'test_user';
         $data['email'] = 'test_user@test.ru';
-        $user = UserGenerator::createUserAdmin($data);
+        $user = UserGenerator::createUserAdminWithRole($data);
         $this->assertDatabaseHas('users', [
             'name' => $data['name'],
         ]);
@@ -47,13 +47,13 @@ class UserRepositoryTest extends TestCase
         $data['email'] = 'test_user2@test.ru';
         //первого добавляем
         $users_count_before = User::all()->count();
-        $user = UserGenerator::createUserAdmin($data);
+        $user = UserGenerator::createUserAdminWithRole($data);
         $this->assertEquals($users_count_before + 1, User::all()->count());
 
         $this->expectExceptionCode(23000);
         $this->expectExceptionMessageRegExp('/Duplicate entry/');
 
-        $user = UserGenerator::createUserAdmin($data);
+        $user = UserGenerator::createUserAdminWithRole($data);
     }
 
     /**
@@ -68,7 +68,7 @@ class UserRepositoryTest extends TestCase
         $this->expectException(QueryException::class);
         $this->expectExceptionCode(23000);
 
-        $user = UserGenerator::createUserAdmin();
+        $user = UserGenerator::createUserAdminWithRole();
         //$user = factory(User::class)->create($data);
     }
 

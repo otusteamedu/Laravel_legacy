@@ -81,7 +81,7 @@ class UsersService
 
     }
 
-    public function searchCachedUsers(array $filter): LengthAwarePaginator
+    public function searchCachedUsers(array $filter = []): LengthAwarePaginator
     {
         return $this->cachedUserRepository->search($filter);
     }
