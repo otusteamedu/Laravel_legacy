@@ -1,7 +1,7 @@
 <?php
 
-use App\Models\Company;
 use App\Models\Lead;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class LeadsTableSeeder extends Seeder
@@ -13,9 +13,9 @@ class LeadsTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Company::all() as $company) {
+        foreach (User::all() as $user) {
             factory(Lead::class, 5)->create([
-                'company_id' => $company->id
+                'created_user_id' => $user->id
             ]);
         }
     }

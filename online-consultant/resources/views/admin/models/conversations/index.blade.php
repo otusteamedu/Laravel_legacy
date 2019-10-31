@@ -16,11 +16,6 @@
             </div>
             <div class="row">
                 <div class="col">
-                    @include('admin.models.conversations.controls.index.page')
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
                     @include('admin.models.conversations.lists.index')
                 </div>
             </div>

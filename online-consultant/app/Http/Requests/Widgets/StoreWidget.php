@@ -24,8 +24,9 @@ class StoreWidget extends FormRequest
     public function rules(): array
     {
         return [
-            'domain'     => 'required|unique:widgets',
-            'company_id' => 'required|exists:companies,id'
+            'domain'          => 'required|unique:widgets',
+            'company_id'      => 'required|exists:companies,id',
+            'created_user_id' => 'required|exists:users,id',
         ];
     }
 }

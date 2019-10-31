@@ -6,6 +6,10 @@
     {{ Breadcrumbs::render('admin.users.create') }}
 @endsection
 
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('/plugins/select2/select2.min.css') }}">
+@endpush
+
 @section('content')
     <section class="page-section">
         <div class="container">
@@ -26,3 +30,7 @@
         </div>
     </section>
 @endsection
+
+@push('javascript-body')
+    <script src="{{ asset('/plugins/select2/select2.min.js') }}"></script>
+@endpush

@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 
 class ResetPasswordController extends Controller
 {
@@ -25,15 +28,51 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct() {}
+    
+    /**
+     * Get the password reset validation rules.
+     *
+     * @return array
+     */
+    protected function rules()
     {
-        $this->middleware('guest');
+        return [
+            'token'    => 'required',
+            'password' => 'required|confirmed|min:8'
+        ];
+    }
+    
+    /**
+     * Get the password reset credentials from the request.
+     *
+     * @param  Request  $request
+     * @return array
+     */
+    protected function credentials(Request $request)
+    {
+        return $request->only(
+            'password', 'password_confirmation', 'token'
+        );
+    }
+    
+    /**
+     * Get the response for a failed password reset.
+     *
+     * @param  Request  $request
+     * @param  string  $response
+     *
+     * @return RedirectResponse|JsonResponse
+     */
+    protected function sendResetFailedResponse(Request $request, $response)
+    {
+        return redirect()->back()->with('error', trans($response));
     }
 }

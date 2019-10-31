@@ -25,6 +25,6 @@
 5. [Установить xDebug](https://laradock.io/documentation/#install-xdebug)
 6. [Тестовый домен и SSL](https://laradock.io/documentation/#use-custom-domain-instead-of-the-docker-ip)
 
-Запуск: `docker-compose up -d nginx mysql phpmyadmin`<br>
+Запуск: `docker-compose up -d nginx mysql`<br>
 Остановка: `docker-compose stop`<br>
 SSH: `docker-compose exec workspace bash`

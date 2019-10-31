@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * App\Models\Company
  *
  * @property int $id
+ * @property int $created_user_id
  * @property string $name
  * @property string $email
  * @property string $url
@@ -19,6 +21,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Conversation[] $conversations
  * @property-read int|null $conversations_count
+ * @property-read \App\Models\User $createdUser
+ * @property-read mixed|string $name_link
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lead[] $leads
  * @property-read int|null $leads_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
@@ -33,6 +37,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Company whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Company whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Company whereCreatedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Company whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Company whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Company whereId($value)
@@ -42,14 +47,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Company withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Company withoutTrashed()
  * @mixin \Eloquent
- * @property-read mixed|string $name_link
  */
 class Company extends Model
 {
     use SoftDeletes;
     
     protected $fillable = [
-        'name', 'email', 'url', 'address'
+        'name', 'email', 'url', 'address', 'created_user_id'
     ];
     
     protected $casts = [
@@ -110,6 +114,16 @@ class Company extends Model
     public function conversations(): HasMany
     {
         return $this->hasMany(Conversation::class);
+    }
+    
+    /**
+     * Get the user that created company
+     *
+     * @return BelongsTo
+     */
+    public function createdUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_user_id')->withTrashed();
     }
     
     /**

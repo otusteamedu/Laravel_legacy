@@ -16,7 +16,7 @@ class EloquentUserRepository implements UserRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection
+    public function all($columns = ['*']): Collection
     {
         return User::all($columns);
     }
@@ -157,5 +157,39 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function getFormSelectOptions($columns = [])
     {
         return $this->all($columns)->toArray();
+    }
+    
+    /**
+     * Detach roles
+     *
+     * @param  User  $user
+     * @param  array  $roles
+     */
+    public function detachRoles(User $user, array $roles = []): void
+    {
+        $userRoles = $user->roles();
+        
+        if (count($roles) === 0) {
+            $userRoles->detach();
+        } else {
+            $userRoles->detach($roles);
+        }
+    }
+    
+    /**
+     * Assign roles
+     *
+     * @param  User  $user
+     * @param  array  $roles
+     */
+    public function assignRoles(User $user, array $roles): void
+    {
+        if (count($roles) === 0) {
+            return;
+        }
+        
+        foreach ($roles as $role) {
+            $user->assignRole($role);
+        }
     }
 }

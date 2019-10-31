@@ -11,8 +11,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int $company_id
- * @property int $widget_id
- * @property int $manager_id
+ * @property int $created_user_id
+ * @property int|null $widget_id
+ * @property int|null $manager_id
  * @property int $lead_id
  * @property string $text
  * @property array|null $info
@@ -20,9 +21,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
+ * @property-read bool|string $company_name
+ * @property-read mixed|string $company_name_link
+ * @property-read int|string $id_link
+ * @property-read bool|string $lead_name
+ * @property-read mixed|string $lead_name_link
+ * @property-read bool|mixed $manager_name
+ * @property-read mixed|string $manager_name_link
+ * @property-read bool|string $widget_domain
+ * @property-read mixed|string $widget_domain_link
  * @property-read \App\Models\Lead $lead
- * @property-read \App\Models\User $manager
- * @property-read \App\Models\Widget $widget
+ * @property-read \App\Models\User|null $manager
+ * @property-read \App\Models\Widget|null $widget
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation newQuery()
@@ -31,6 +41,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation whereCreatedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Conversation whereInfo($value)
@@ -42,22 +53,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Conversation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Conversation withoutTrashed()
  * @mixin \Eloquent
- * @property-read mixed $company_name
- * @property-read mixed $company_name_link
- * @property-read mixed $id_link
- * @property-read mixed $lead_name
- * @property-read mixed $lead_name_link
- * @property-read mixed $manager_name
- * @property-read mixed $manager_name_link
- * @property-read mixed $widget_domain
- * @property-read mixed $widget_domain_link
  */
 class Conversation extends Model
 {
     use SoftDeletes;
     
     protected $fillable = [
-        'company_id', 'widget_id', 'manager_id', 'lead_id', 'text', 'info'
+        'company_id', 'widget_id', 'manager_id', 'lead_id', 'text', 'info', 'created_user_id'
     ];
     
     protected $casts = [

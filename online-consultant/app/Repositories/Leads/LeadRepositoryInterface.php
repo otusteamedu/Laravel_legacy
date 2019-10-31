@@ -15,7 +15,7 @@ interface LeadRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection;
+    public function all($columns = ['*']): Collection;
     
     /**
      * Paginate leads

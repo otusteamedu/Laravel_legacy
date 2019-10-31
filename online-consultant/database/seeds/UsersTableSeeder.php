@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\Company;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
@@ -13,10 +13,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Company::all() as $company) {
-            factory(User::class, 2)->create([
-                'company_id' => $company->id
-            ]);
+        factory(User::class, 5)->create();
+        
+        foreach (User::all() as $user) {
+            /** @var User $user */
+            if (!$user->hasAnyRole(Role::all())) {
+                $user->assignRole(Role::defaultRole);
+            }
         }
     }
 }

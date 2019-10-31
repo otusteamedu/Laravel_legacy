@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class LeadService
 {
-    private $repository;
+    private $leadRepository;
     
-    public function __construct(LeadRepositoryInterface $repository)
+    public function __construct(LeadRepositoryInterface $leadRepository)
     {
-        $this->repository = $repository;
+        $this->leadRepository = $leadRepository;
     }
     
     /**
@@ -25,7 +25,7 @@ class LeadService
      */
     public function allLeads($columns = []): Collection
     {
-        return $this->repository->all($columns);
+        return $this->leadRepository->all($columns);
     }
     
     /**
@@ -37,7 +37,7 @@ class LeadService
      */
     public function paginateLeads(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginate($perPage);
+        return $this->leadRepository->paginate($perPage);
     }
     
     /**
@@ -49,7 +49,7 @@ class LeadService
      */
     public function paginateLeadsWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginateWithTrashed($perPage);
+        return $this->leadRepository->paginateWithTrashed($perPage);
     }
     
     /**
@@ -61,7 +61,7 @@ class LeadService
      */
     public function createLead(array $data): Lead
     {
-        return $this->repository->create($data);
+        return $this->leadRepository->create($data);
     }
     
     /**
@@ -73,7 +73,7 @@ class LeadService
      */
     public function findLead(int $id): ?Lead
     {
-        return $this->repository->find($id);
+        return $this->leadRepository->find($id);
     }
     
     /**
@@ -85,7 +85,7 @@ class LeadService
      */
     public function findLeadWithTrashed(int $id): ?Lead
     {
-        return $this->repository->findWithTrashed($id);
+        return $this->leadRepository->findWithTrashed($id);
     }
     
     /**
@@ -98,7 +98,7 @@ class LeadService
      */
     public function updateLead(Lead $lead, array $data): Lead
     {
-        return $this->repository->update($lead, $data);
+        return $this->leadRepository->update($lead, $data);
     }
     
     /**
@@ -111,43 +111,31 @@ class LeadService
      */
     public function deleteLead(Lead $lead): ?bool
     {
-        return $this->repository->delete($lead);
+        return $this->leadRepository->delete($lead);
     }
     
     /**
      * Restore lead
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      *
      * @return bool|null
      */
-    public function restoreLead(int $id): ?bool
+    public function restoreLead(Lead $lead): ?bool
     {
-        $lead = $this->findLeadWithTrashed($id);
-        
-        if (!$lead) {
-            return false;
-        }
-        
-        return $this->repository->restore($lead);
+        return $this->leadRepository->restore($lead);
     }
     
     /**
      * Permanently delete lead
      *
-     * @param  int  $id
+     * @param  Lead  $lead
      *
      * @return bool|null
      */
-    public function forceDeleteLead(int $id): ?bool
+    public function forceDeleteLead(Lead $lead): ?bool
     {
-        $lead = $this->findLeadWithTrashed($id);
-        
-        if (!$lead) {
-            return false;
-        }
-        
-        return $this->repository->forceDelete($lead);
+        return $this->leadRepository->forceDelete($lead);
     }
     
     /**
@@ -158,7 +146,7 @@ class LeadService
     public function getFormSelectLeads(): array
     {
         $formSelectLeads = [];
-        $rawLeads = $this->repository->getFormSelectOptions(['id', 'name']);
+        $rawLeads = $this->leadRepository->getFormSelectOptions(['id', 'name']);
         
         if (count($rawLeads) === 0) {
             return $formSelectLeads;

@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int $company_id
+ * @property int $created_user_id
  * @property string $name
  * @property string $email
  * @property array|null $info
@@ -18,6 +19,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
+ * @property-read \App\Models\User $createdUser
+ * @property-read bool|string $company_name
+ * @property-read mixed|string $company_name_link
+ * @property-read mixed|string $name_link
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead newQuery()
@@ -26,6 +31,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead whereCreatedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lead whereId($value)
@@ -35,16 +41,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Lead withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Lead withoutTrashed()
  * @mixin \Eloquent
- * @property-read bool|string $company_name
- * @property-read mixed|string $company_name_link
- * @property-read mixed|string $name_link
  */
 class Lead extends Model
 {
     use SoftDeletes;
     
     protected $fillable = [
-        'company_id', 'name', 'email', 'info'
+        'company_id', 'name', 'email', 'info', 'created_user_id'
     ];
     
     protected $casts = [
@@ -59,6 +62,16 @@ class Lead extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class)->withTrashed();
+    }
+    
+    /**
+     * Get the user that created company
+     *
+     * @return BelongsTo
+     */
+    public function createdUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_user_id')->withTrashed();
     }
     
     /**

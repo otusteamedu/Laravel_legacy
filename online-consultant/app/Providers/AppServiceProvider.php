@@ -8,6 +8,10 @@ use App\Repositories\Conversations\ConversationRepositoryInterface;
 use App\Repositories\Conversations\EloquentConversationRepository;
 use App\Repositories\Leads\EloquentLeadRepository;
 use App\Repositories\Leads\LeadRepositoryInterface;
+use App\Repositories\Permissions\EloquentPermissionRepository;
+use App\Repositories\Permissions\PermissionRepositoryInterface;
+use App\Repositories\Roles\EloquentRoleRepository;
+use App\Repositories\Roles\RoleRepositoryInterface;
 use App\Repositories\Users\EloquentUserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use App\Repositories\Widgets\EloquentWidgetRepository;
@@ -29,6 +33,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(WidgetRepositoryInterface::class, EloquentWidgetRepository::class);
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
         $this->app->bind(ConversationRepositoryInterface::class, EloquentConversationRepository::class);
+        $this->app->bind(RoleRepositoryInterface::class, EloquentRoleRepository::class);
+        $this->app->bind(PermissionRepositoryInterface::class, EloquentPermissionRepository::class);
     }
     
     /**

@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use App\Services\MacroService;
-use Illuminate\Support\ServiceProvider;
+use Collective\Html\HtmlServiceProvider;
 
-class MacroServiceProvider extends ServiceProvider
+class MacroServiceProvider extends HtmlServiceProvider
 {
     /**
      * Register services.

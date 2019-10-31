@@ -9,11 +9,11 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ConversationService
 {
-    private $repository;
+    private $conversationRepository;
     
-    public function __construct(ConversationRepositoryInterface $repository)
+    public function __construct(ConversationRepositoryInterface $conversationRepository)
     {
-        $this->repository = $repository;
+        $this->conversationRepository = $conversationRepository;
     }
     
     /**
@@ -25,7 +25,7 @@ class ConversationService
      */
     public function allConversations($columns = []): Collection
     {
-        return $this->repository->all($columns);
+        return $this->conversationRepository->all($columns);
     }
     
     /**
@@ -37,7 +37,7 @@ class ConversationService
      */
     public function paginateConversations(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginate($perPage);
+        return $this->conversationRepository->paginate($perPage);
     }
     
     /**
@@ -49,7 +49,7 @@ class ConversationService
      */
     public function paginateConversationsWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginateWithTrashed($perPage);
+        return $this->conversationRepository->paginateWithTrashed($perPage);
     }
     
     /**
@@ -61,7 +61,7 @@ class ConversationService
      */
     public function createConversation(array $data): Conversation
     {
-        return $this->repository->create($data);
+        return $this->conversationRepository->create($data);
     }
     
     /**
@@ -73,7 +73,7 @@ class ConversationService
      */
     public function findConversation(int $id): ?Conversation
     {
-        return $this->repository->find($id);
+        return $this->conversationRepository->find($id);
     }
     
     /**
@@ -85,7 +85,7 @@ class ConversationService
      */
     public function findConversationWithTrashed(int $id): ?Conversation
     {
-        return $this->repository->findWithTrashed($id);
+        return $this->conversationRepository->findWithTrashed($id);
     }
     
     /**
@@ -98,7 +98,7 @@ class ConversationService
      */
     public function updateConversation(Conversation $conversation, array $data): Conversation
     {
-        return $this->repository->update($conversation, $data);
+        return $this->conversationRepository->update($conversation, $data);
     }
     
     /**
@@ -111,43 +111,31 @@ class ConversationService
      */
     public function deleteConversation(Conversation $conversation): ?bool
     {
-        return $this->repository->delete($conversation);
+        return $this->conversationRepository->delete($conversation);
     }
     
     /**
      * Restore conversation
      *
-     * @param  int  $id
+     * @param  Conversation  $conversation
      *
      * @return bool|null
      */
-    public function restoreConversation(int $id): ?bool
+    public function restoreConversation(Conversation $conversation): ?bool
     {
-        $conversation = $this->findConversationWithTrashed($id);
-        
-        if (!$conversation) {
-            return false;
-        }
-        
-        return $this->repository->restore($conversation);
+        return $this->conversationRepository->restore($conversation);
     }
     
     /**
      * Permanently delete conversation
      *
-     * @param  int  $id
+     * @param  Conversation  $conversation
      *
      * @return bool|null
      */
-    public function forceDeleteConversation(int $id): ?bool
+    public function forceDeleteConversation(Conversation $conversation): ?bool
     {
-        $conversation = $this->findConversationWithTrashed($id);
-        
-        if (!$conversation) {
-            return false;
-        }
-        
-        return $this->repository->forceDelete($conversation);
+        return $this->conversationRepository->forceDelete($conversation);
     }
     
     /**
@@ -158,7 +146,7 @@ class ConversationService
     public function getFormSelectConversations(): array
     {
         $formSelectConversations = [];
-        $rawConversations = $this->repository->getFormSelectOptions(['id', 'name']);
+        $rawConversations = $this->conversationRepository->getFormSelectOptions(['id', 'name']);
         
         if (count($rawConversations) === 0) {
             return $formSelectConversations;

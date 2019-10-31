@@ -44,3 +44,11 @@ a {
 .card-header {
     font-weight: 500;
 }
+
+.form-model {
+    .form-row {
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}

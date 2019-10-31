@@ -2,18 +2,26 @@
 
 namespace App\Services\Users;
 
+use App\Models\Company;
+use App\Models\Role;
 use App\Models\User;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Services\Roles\RoleService;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Collection;
 
 class UserService
 {
-    private $repository;
+    private $userRepository;
+    private $roleService;
     
-    public function __construct(UserRepositoryInterface $repository)
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        RoleService $roleService
+    )
     {
-        $this->repository = $repository;
+        $this->userRepository = $userRepository;
+        $this->roleService = $roleService;
     }
     
     /**
@@ -25,7 +33,7 @@ class UserService
      */
     public function allUsers($columns = []): Collection
     {
-        return $this->repository->all($columns);
+        return $this->userRepository->all($columns);
     }
     
     /**
@@ -37,7 +45,7 @@ class UserService
      */
     public function paginateUsers(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginate($perPage);
+        return $this->userRepository->paginate($perPage);
     }
     
     /**
@@ -49,7 +57,7 @@ class UserService
      */
     public function paginateUsersWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return $this->repository->paginateWithTrashed($perPage);
+        return $this->userRepository->paginateWithTrashed($perPage);
     }
     
     /**
@@ -61,7 +69,17 @@ class UserService
      */
     public function createUser(array $data): User
     {
-        return $this->repository->create($data);
+        if (isset($data['roles'])) {
+            $roles = $data['roles'];
+            unset($data['roles']);
+        } else {
+            $roles = [Role::defaultRole];
+        }
+        
+        $user = $this->userRepository->create($data);
+        $this->userRepository->assignRoles($user, $roles);
+        
+        return $user;
     }
     
     /**
@@ -73,7 +91,7 @@ class UserService
      */
     public function findUser(int $id): ?User
     {
-        return $this->repository->find($id);
+        return $this->userRepository->find($id);
     }
     
     /**
@@ -85,7 +103,7 @@ class UserService
      */
     public function findUserWithTrashed(int $id): ?User
     {
-        return $this->repository->findWithTrashed($id);
+        return $this->userRepository->findWithTrashed($id);
     }
     
     /**
@@ -98,7 +116,12 @@ class UserService
      */
     public function updateUser(User $user, array $data): User
     {
-        return $this->repository->update($user, $data);
+        if (isset($data['roles'])) {
+            $this->updateRoles($user, $data['roles']);
+            unset($data['roles']);
+        }
+        
+        return $this->userRepository->update($user, $data);
     }
     
     /**
@@ -111,43 +134,31 @@ class UserService
      */
     public function deleteUser(User $user): ?bool
     {
-        return $this->repository->delete($user);
+        return $this->userRepository->delete($user);
     }
     
     /**
      * Restore user
      *
-     * @param  int  $id
+     * @param  User  $user
      *
      * @return bool|null
      */
-    public function restoreUser(int $id): ?bool
+    public function restoreUser(User $user): ?bool
     {
-        $user = $this->findUserWithTrashed($id);
-        
-        if (!$user) {
-            return false;
-        }
-        
-        return $this->repository->restore($user);
+        return $this->userRepository->restore($user);
     }
     
     /**
      * Permanently delete user
      *
-     * @param  int  $id
+     * @param  User  $user
      *
      * @return bool|null
      */
-    public function forceDeleteUser(int $id): ?bool
+    public function forceDeleteUser(User $user): ?bool
     {
-        $user = $this->findUserWithTrashed($id);
-        
-        if (!$user) {
-            return false;
-        }
-        
-        return $this->repository->forceDelete($user);
+        return $this->userRepository->forceDelete($user);
     }
     
     /**
@@ -158,7 +169,7 @@ class UserService
     public function getFormSelectUsers(): array
     {
         $formSelectUsers = [];
-        $rawUsers = $this->repository->getFormSelectOptions(['id', 'name']);
+        $rawUsers = $this->userRepository->getFormSelectOptions(['id', 'name']);
         
         if (count($rawUsers) === 0) {
             return $formSelectUsers;
@@ -169,5 +180,35 @@ class UserService
         }
         
         return $formSelectUsers;
+    }
+    
+    /**
+     * Update user roles
+     *
+     * @param  User  $user
+     * @param  array  $roles
+     */
+    public function updateRoles(User $user, array $roles): void
+    {
+        $this->userRepository->detachRoles($user);
+        $this->userRepository->assignRoles($user, $roles);
+    }
+    
+    /**
+     * Get array of roles available for user for form select
+     *
+     * @param  User  $user
+     *
+     * @return array
+     */
+    public function getFormSelectUserRoles(User $user): array
+    {
+        $allRolesSelectList = $this->roleService->getFormSelectRoles();
+        $userAvailableRoles = $user->getAvailableRoles();
+        $userAvailableRolesSelectList = array_filter($allRolesSelectList, function ($roleId) use ($userAvailableRoles) {
+            return in_array($roleId, $userAvailableRoles, true);
+        }, ARRAY_FILTER_USE_KEY);
+        
+        return $userAvailableRolesSelectList;
     }
 }

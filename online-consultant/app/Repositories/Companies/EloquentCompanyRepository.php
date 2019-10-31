@@ -4,6 +4,7 @@ namespace App\Repositories\Companies;
 
 use App\Models\Company;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class EloquentCompanyRepository implements CompanyRepositoryInterface
@@ -15,7 +16,7 @@ class EloquentCompanyRepository implements CompanyRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection
+    public function all($columns = ['*']): Collection
     {
         return Company::all($columns);
     }
@@ -29,7 +30,7 @@ class EloquentCompanyRepository implements CompanyRepositoryInterface
      */
     public function paginate(int $perPage = 15): LengthAwarePaginator
     {
-        return Company::paginate($perPage);
+        return $this->withRelations()->paginate($perPage);
     }
     
     /**
@@ -41,7 +42,17 @@ class EloquentCompanyRepository implements CompanyRepositoryInterface
      */
     public function paginateWithTrashed(int $perPage = 15): LengthAwarePaginator
     {
-        return Company::withTrashed()->paginate($perPage);
+        return $this->withRelations()->withTrashed()->paginate($perPage);
+    }
+    
+    /**
+     * Eager loading for all relations
+     *
+     * @return Company|Builder
+     */
+    public function withRelations()
+    {
+        return Company::with(['createdUser']);
     }
     
     /**

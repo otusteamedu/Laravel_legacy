@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Role;
+use App\Policies\Roles;
 use Illuminate\Database\Seeder;
 
 class RolesTableSeeder extends Seeder
@@ -12,41 +13,13 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        $defaultRoles = $this->getDefaultRoles();
-
-        foreach ($defaultRoles as $role) {
-            Role::create($role);
+        foreach (Roles::getRolesData() as $roleData) {
+            $role = Role::create($roleData);
+            $rolePermissions = Permissions::getPermissionsByRole($role);
+        
+            if ($rolePermissions) {
+                $role->syncPermissions($rolePermissions);
+            }
         }
-    }
-
-    /**
-     * Default roles
-     *
-     * @return array
-     */
-    private function getDefaultRoles(): array
-    {
-        return [
-            [
-                'name' => 'app_user',
-                'display_name' => __('App User')
-            ],
-            [
-                'name' => 'app_admin',
-                'display_name' => __('App Admin')
-            ],
-            [
-                'name' => 'company_user',
-                'display_name' => __('Company User')
-            ],
-            [
-                'name' => 'company_manager',
-                'display_name' => __('Company Manager')
-            ],
-            [
-                'name' => 'company_admin',
-                'display_name' => __('Company Admin')
-            ]
-        ];
     }
 }

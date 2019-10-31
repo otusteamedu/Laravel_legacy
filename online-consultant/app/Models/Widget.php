@@ -11,11 +11,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int $company_id
+ * @property int $created_user_id
  * @property string $domain
  * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Company $company
+ * @property-read \App\Models\User $createdUser
+ * @property-read bool|string $company_name
+ * @property-read mixed|string $company_name_link
+ * @property-read mixed|string $domain_link
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget newQuery()
@@ -24,6 +29,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget whereCompanyId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget whereCreatedUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget whereDomain($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Widget whereId($value)
@@ -31,16 +37,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Widget withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Widget withoutTrashed()
  * @mixin \Eloquent
- * @property-read bool|string $company_name
- * @property-read mixed|string $company_name_link
- * @property-read mixed|string $domain_link
  */
 class Widget extends Model
 {
     use SoftDeletes;
     
     protected $fillable = [
-        'company_id', 'domain'
+        'company_id', 'domain', 'created_user_id'
     ];
     
     /**
@@ -51,6 +54,16 @@ class Widget extends Model
     public function company(): BelongsTo
     {
         return $this->belongsTo(Company::class)->withTrashed();
+    }
+    
+    /**
+     * Get the user that created company
+     *
+     * @return BelongsTo
+     */
+    public function createdUser(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_user_id')->withTrashed();
     }
     
     /**

@@ -5,14 +5,20 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Leads\StoreLead;
 use App\Http\Requests\Leads\UpdateLead;
 use App\Models\Lead;
+use App\Policies\Abilities;
 use App\Services\Companies\CompanyService;
 use App\Services\Leads\LeadService;
 use App\Http\Controllers\Controller;
+use App\Traits\Auth\HasAuthorizationPolicy;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class LeadController extends Controller
 {
+    use HasAuthorizationPolicy;
+    
+    protected $modelClass = Lead::class;
+    
     private $leadService;
     private $companyService;
     
@@ -22,15 +28,21 @@ class LeadController extends Controller
     ) {
         $this->leadService = $leadService;
         $this->companyService = $companyService;
+    
+        $this->viewShareData();
     }
     
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function index()
     {
+        if (!$this->authorizeUserAbility(Abilities::VIEW_ANY)) {
+            return $this->redirectIfNoPermission('admin.dashboard', Abilities::VIEW_ANY);
+        }
+        
         $leads = $this->leadService->paginateLeadsWithTrashed();
         
         return view('admin.models.leads.index', compact('leads'));
@@ -39,13 +51,18 @@ class LeadController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function create()
     {
-        $companiesSelectList = $this->companyService->getFormSelectCompanies();
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::CREATE);
+        }
         
-        return view('admin.models.leads.create', compact('companiesSelectList'));
+        $companiesSelectList = $this->companyService->getFormSelectCompanies();
+        $currentUser = $this->getCurrentUser();
+        
+        return view('admin.models.leads.create', compact('companiesSelectList', 'currentUser'));
     }
     
     /**
@@ -57,6 +74,10 @@ class LeadController extends Controller
      */
     public function store(StoreLead $request): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::CREATE);
+        }
+        
         $this->leadService->createLead($request->all());
         
         return redirect()->route('admin.leads.index');
@@ -67,10 +88,14 @@ class LeadController extends Controller
      *
      * @param  Lead  $lead
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Lead $lead)
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $lead)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::UPDATE);
+        }
+        
         return view('admin.models.leads.edit', compact('lead'));
     }
     
@@ -84,6 +109,10 @@ class LeadController extends Controller
      */
     public function update(UpdateLead $request, Lead $lead): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $lead)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::UPDATE);
+        }
+        
         $this->leadService->updateLead($lead, $request->all());
         
         return redirect()->route('admin.leads.edit', compact('lead'));
@@ -99,6 +128,10 @@ class LeadController extends Controller
      */
     public function destroy(Lead $lead): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::DELETE, $lead)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::DELETE);
+        }
+        
         $this->leadService->deleteLead($lead);
         
         return redirect()->route('admin.leads.index');
@@ -113,7 +146,17 @@ class LeadController extends Controller
      */
     public function restore(int $id): RedirectResponse
     {
-        $this->leadService->restoreLead($id);
+        $lead = $this->leadService->findLeadWithTrashed($id);
+        
+        if (!$lead) {
+            return redirect()->route('admin.leads.index')->with('errors', __('admin.leads.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::RESTORE, $lead)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::RESTORE);
+        }
+        
+        $this->leadService->restoreLead($lead);
         
         return redirect()->route('admin.leads.index');
     }
@@ -127,7 +170,17 @@ class LeadController extends Controller
      */
     public function forceDelete(int $id): RedirectResponse
     {
-        $this->leadService->forceDeleteLead($id);
+        $lead = $this->leadService->findLeadWithTrashed($id);
+        
+        if (!$lead) {
+            return redirect()->route('admin.leads.index')->with('errors', __('admin.leads.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::FORCE_DELETE, $lead)) {
+            return $this->redirectIfNoPermission('admin.leads.index', Abilities::FORCE_DELETE);
+        }
+        
+        $this->leadService->forceDeleteLead($lead);
         
         return redirect()->route('admin.leads.index');
     }

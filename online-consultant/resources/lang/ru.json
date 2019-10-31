@@ -13,17 +13,12 @@
     "Remember Me": "Запомнить",
     "Submit": "Отправить",
     "Address:": "Адрес:",
-    "Created at": "Дата создания",
     "Country": "Страна",
     "City": "Город",
     "State/Region": "Штат/Регион",
     "Post code": "Индекс",
     "Street": "Улица",
     "Building number": "Дом",
-    "Save": "Сохранить",
-    "Delete": "Удалить",
-    "Restore": "Восстановить",
-    "Force delete": "Удалить навсегда",
     "No companies": "Нет компаний",
     "No conversations": "Нет бесед",
     "No leads": "Нет лидов",
@@ -31,5 +26,8 @@
     "No widgets": "Нет виджетов",
     "Name": "Имя",
     "Domain": "Домен",
-    "Text": "Текст"
+    "Text": "Текст",
+    "Password": "Пароль",
+    "You must create a company first!": "Вы должны сначала создать компанию!",
+    "Register company": "Зарегистрировать компанию"
 }

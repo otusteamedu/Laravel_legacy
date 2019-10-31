@@ -15,7 +15,8 @@ class CreateWidgetsTable extends Migration
     {
         Schema::create('widgets', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('created_user_id');
             $table->string('domain')->unique();
             $table->softDeletes();
             $table->timestamps();
@@ -25,6 +26,10 @@ class CreateWidgetsTable extends Migration
             $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')
+                ->onDelete('set null');
+            $table->foreign('created_user_id')
+                ->references('id')
+                ->on('users')
                 ->onDelete('cascade');
         });
     }

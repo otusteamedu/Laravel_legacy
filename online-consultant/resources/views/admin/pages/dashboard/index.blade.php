@@ -11,7 +11,13 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                    {{ __('admin.pages.dashboard') }}
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
+                    
+                    <h1>{{ __('admin.pages.dashboard') }}</h1>
                 </div>
             </div>
         </div>

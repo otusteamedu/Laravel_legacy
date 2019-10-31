@@ -16,7 +16,7 @@ class EloquentConversationRepository implements ConversationRepositoryInterface
      *
      * @return Collection
      */
-    public function all($columns = []): Collection
+    public function all($columns = ['*']): Collection
     {
         return Conversation::all($columns);
     }

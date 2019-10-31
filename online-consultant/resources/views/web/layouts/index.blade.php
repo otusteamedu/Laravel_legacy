@@ -8,10 +8,10 @@
         <link rel="dns-prefetch" href="//fonts.gstatic.com">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,500" media="all">
 
-        @yield('styles')
+        @stack('styles')
         <link rel="stylesheet" href="{{ mix('/css/web/web.css') }}">
 
-        @yield('javascript-head')
+        @stack('javascript-head')
     </head>
     <body>
         @include('web.layouts.partials.header')
@@ -21,8 +21,9 @@
         </div>
 
         @include('web.layouts.partials.footer')
-
-        @yield('javascript-body')
+    
+        <script src="{{ mix('/js/web/bootstrap.js') }}"></script>
+        @stack('javascript-body')
         <script src="{{ mix('/js/web/web.js') }}"></script>
     </body>
 </html>

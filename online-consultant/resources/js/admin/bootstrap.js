@@ -1,3 +1,5 @@
+Sentry.init({ dsn: 'https://8a7d731acbdb435ba679013cad4b680d@sentry.io/1760481' });
+
 window._ = require('lodash');
 
 /**

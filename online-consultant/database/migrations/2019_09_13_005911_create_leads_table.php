@@ -13,10 +13,10 @@ class CreateLeadsTable extends Migration
      */
     public function up()
     {
-
         Schema::create('leads', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('company_id');
+            $table->unsignedBigInteger('company_id')->nullable();
+            $table->unsignedBigInteger('created_user_id')->nullable();
             $table->string('name');
             $table->string('email')->unique();
             $table->json('info')->nullable();
@@ -28,7 +28,11 @@ class CreateLeadsTable extends Migration
             $table->foreign('company_id')
                 ->references('id')
                 ->on('companies')
-                ->onDelete('cascade');
+                ->onDelete('set null');
+            $table->foreign('created_user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('set null');
         });
     }
 

@@ -5,11 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Requests\Conversations\StoreConversation;
 use App\Http\Requests\Conversations\UpdateConversation;
 use App\Models\Conversation;
-use App\Services\Companies\CompanyService;
+use App\Policies\Abilities;
 use App\Services\Conversations\ConversationService;
-use App\Services\Leads\LeadService;
-use App\Services\Users\UserService;
-use App\Services\Widgets\WidgetService;
+use App\Traits\Auth\HasAuthorizationPolicy;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -17,52 +15,32 @@ use Illuminate\View\View;
 
 class ConversationController extends Controller
 {
-    private $conversationService;
-    private $leadService;
-    private $widgetService;
-    private $userService;
-    private $companyService;
+    use HasAuthorizationPolicy;
     
-    public function __construct(
-        ConversationService $conversationService,
-        LeadService $leadService,
-        WidgetService $widgetService,
-        UserService $userService,
-        CompanyService $companyService
-    ) {
+    protected $modelClass = Conversation::class;
+    
+    private $conversationService;
+    
+    public function __construct(ConversationService $conversationService) {
         $this->conversationService = $conversationService;
-        $this->leadService = $leadService;
-        $this->widgetService = $widgetService;
-        $this->userService = $userService;
-        $this->companyService = $companyService;
+    
+        $this->viewShareData();
     }
     
     /**
      * Display a listing of the resource.
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function index()
     {
+        if (!$this->authorizeUserAbility(Abilities::VIEW_ANY)) {
+            return $this->redirectIfNoPermission('admin.dashboard', Abilities::VIEW_ANY);
+        }
+        
         $conversations = $this->conversationService->paginateConversationsWithTrashed();
         
         return view('admin.models.conversations.index', compact('conversations'));
-    }
-    
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return Factory|View
-     */
-    public function create()
-    {
-        $leadsSelectList = $this->leadService->getFormSelectLeads();
-        $widgetsSelectList = $this->widgetService->getFormSelectWidgets();
-        $usersSelectList = $this->userService->getFormSelectUsers();
-        $companiesSelectList = $this->companyService->getFormSelectCompanies();
-        
-        return view('admin.models.conversations.create',
-            compact('leadsSelectList', 'widgetsSelectList', 'usersSelectList', 'companiesSelectList'));
     }
     
     /**
@@ -74,6 +52,10 @@ class ConversationController extends Controller
      */
     public function store(StoreConversation $request): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::CREATE)) {
+            return $this->redirectIfNoPermission('admin.conversations.index', Abilities::CREATE);
+        }
+        
         $this->conversationService->createConversation($request->all());
         
         return redirect()->route('admin.conversations.index');
@@ -84,10 +66,14 @@ class ConversationController extends Controller
      *
      * @param  Conversation  $conversation
      *
-     * @return Factory|View
+     * @return Factory|RedirectResponse|View
      */
     public function edit(Conversation $conversation)
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $conversation)) {
+            return $this->redirectIfNoPermission('admin.conversations.index', Abilities::UPDATE);
+        }
+        
         return view('admin.models.conversations.edit', compact('conversation'));
     }
     
@@ -101,6 +87,10 @@ class ConversationController extends Controller
      */
     public function update(UpdateConversation $request, Conversation $conversation): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::UPDATE, $conversation)) {
+            return $this->redirectIfNoPermission('admin.conversations.index', Abilities::UPDATE);
+        }
+        
         $this->conversationService->updateConversation($conversation, $request->all());
         
         return redirect()->route('admin.conversations.edit', compact('conversation'));
@@ -116,6 +106,10 @@ class ConversationController extends Controller
      */
     public function destroy(Conversation $conversation): RedirectResponse
     {
+        if (!$this->authorizeUserAbility(Abilities::DELETE, $conversation)) {
+            return $this->redirectIfNoPermission('admin.conversations.index', Abilities::DELETE);
+        }
+        
         $this->conversationService->deleteConversation($conversation);
         
         return redirect()->route('admin.conversations.index');
@@ -130,7 +124,17 @@ class ConversationController extends Controller
      */
     public function restore(int $id): RedirectResponse
     {
-        $this->conversationService->restoreConversation($id);
+        $conversation = $this->conversationService->findConversationWithTrashed($id);
+    
+        if (!$conversation) {
+            return redirect()->route('admin.conversations.index')->with('errors', __('admin.conversations.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::RESTORE, $conversation)) {
+            return $this->redirectIfNoPermission('admin.conversations.index', Abilities::RESTORE);
+        }
+        
+        $this->conversationService->restoreConversation($conversation);
         
         return redirect()->route('admin.conversations.index');
     }
@@ -144,7 +148,17 @@ class ConversationController extends Controller
      */
     public function forceDelete(int $id): RedirectResponse
     {
-        $this->conversationService->forceDeleteConversation($id);
+        $conversation = $this->conversationService->findConversationWithTrashed($id);
+    
+        if (!$conversation) {
+            return redirect()->route('admin.conversations.index')->with('errors', __('admin.conversations.errors.not_found'));
+        }
+        
+        if (!$this->authorizeUserAbility(Abilities::FORCE_DELETE, $conversation)) {
+            return $this->redirectIfNoPermission('admin.conversations.index', Abilities::FORCE_DELETE);
+        }
+        
+        $this->conversationService->forceDeleteConversation($conversation);
         
         return redirect()->route('admin.conversations.index');
     }

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
+use App\Http\Middleware\Auth\HashPassword;
+use App\Http\Requests\Users\Web\RegisterUser;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use App\Services\Users\UserService;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -28,45 +29,38 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
-
+    protected $redirectTo = '/admin';
+    
+    private $userService;
+    
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param  UserService  $userService
      */
-    public function __construct()
+    public function __construct(UserService $userService)
     {
+        $this->userService = $userService;
+    
         $this->middleware('guest');
     }
-
+    
     /**
-     * Get a validator for an incoming registration request.
+     * Handle a registration request for the application.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
+     * @param  RegisterUser  $request
      *
-     * @param  array  $data
-     * @return \App\Models\User
+     * @return mixed
      */
-    protected function create(array $data)
+    public function register(RegisterUser $request)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        $user = $this->userService->createUser($request->all());
+        
+        event(new Registered($user));
+        
+        $this->guard()->login($user);
+        
+        return $this->registered($request, $user)
+            ?: redirect($this->redirectPath());
     }
 }
