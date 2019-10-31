@@ -11,6 +11,7 @@ use App\Policies\PolicyPermissions;
 class UserPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
 {
     protected $modelClass = User::class;
+    protected $modelAuthorizedUserIdColumn = 'id';
     
     /**
      * Determine whether the user can view any models.
@@ -46,8 +47,11 @@ class UserPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
      */
     public function update(User $user, $model)
     {
-        // TODO for now user can edit itself only. later add condition for companies to edit their own users
-        return $this->userCanManageAny($user) || ($this->userCan($user, Abilities::UPDATE) && $user->id === $model->id);
+        if ($this->userCanManageAny($user)) {
+            return true;
+        }
+        
+        return $this->userCanHandleModel($user, Abilities::UPDATE, $model);
     }
     
     /**
@@ -60,7 +64,7 @@ class UserPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
      */
     public function delete(User $user, $model)
     {
-        return ($user->id !== $model->id) && ($this->userCanManageAny($user) || $this->userCan($user, Abilities::DELETE));
+        return $this->userCanManageAny($user);
     }
     
     /**
@@ -73,7 +77,7 @@ class UserPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
      */
     public function restore(User $user, $model)
     {
-        return ($user->id !== $model->id) && ($this->userCanManageAny($user) || $this->userCan($user, Abilities::RESTORE));
+        return $this->userCanManageAny($user);
     }
     
     /**
@@ -86,6 +90,6 @@ class UserPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
      */
     public function forceDelete(User $user, $model)
     {
-        return ($user->id !== $model->id) && ($this->userCanManageAny($user) || $this->userCan($user, Abilities::FORCE_DELETE));
+        return $this->userCanManageAny($user);
     }
 }

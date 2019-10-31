@@ -10,4 +10,5 @@ abstract class AbstractPolicy implements PolicyBasicAuthorizationInterface
     use HandlesAuthorization, PolicyPermissions;
     
     protected $modelClass;
+    protected $modelAuthorizedUserIdColumn;
 }

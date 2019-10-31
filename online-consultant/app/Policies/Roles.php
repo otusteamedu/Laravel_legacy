@@ -4,11 +4,11 @@ namespace App\Policies;
 
 abstract class Roles
 {
-    public const COMPANY_USER = 10;
-    public const COMPANY_MANAGER = 50;
-    public const COMPANY_ADMIN = 90;
-    public const APP_USER = 500;
-    public const APP_ADMIN = 900;
+    const COMPANY_USER = 10;
+    const COMPANY_MANAGER = 50;
+    const COMPANY_ADMIN = 90;
+    const APP_USER = 500;
+    const APP_ADMIN = 900;
     
     /**
      * Get roles data

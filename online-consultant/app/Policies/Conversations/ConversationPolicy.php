@@ -11,6 +11,7 @@ use App\Policies\Abstracts\PolicySoftDeletesInterface;
 class ConversationPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
 {
     protected $modelClass = Conversation::class;
+    protected $modelAuthorizedUserIdColumn = 'manager_id';
     
     /**
      * Determine whether the user can view any models.
@@ -46,7 +47,11 @@ class ConversationPolicy extends AbstractPolicy implements PolicySoftDeletesInte
      */
     public function update(User $user, $model)
     {
-        return $this->userCanManageAny($user) || ($this->userCan($user, Abilities::UPDATE) && $user->id === $model->manager_id);
+        if ($this->userCanManageAny($user)) {
+            return true;
+        }
+    
+        return $this->userCanHandleModel($user, Abilities::UPDATE, $model);
     }
     
     /**

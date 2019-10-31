@@ -64,11 +64,12 @@ class UserController extends Controller
             // TODO generate routes from trait property
             return $this->redirectIfNoPermission('admin.users.index', Abilities::CREATE);
         }
-        
+    
+        $currentUser = $this->getCurrentUser();
         $companiesSelectList = $this->companyService->getFormSelectCompanies();
         $allRolesSelectList = $this->roleService->getFormSelectRoles();
         
-        return view('admin.models.users.create', compact('companiesSelectList', 'allRolesSelectList'));
+        return view('admin.models.users.create', compact('currentUser', 'companiesSelectList', 'allRolesSelectList'));
     }
     
     /**
@@ -102,9 +103,10 @@ class UserController extends Controller
             return $this->redirectIfNoPermission('admin.users.index', Abilities::UPDATE);
         }
         
+        $currentUser = $this->getCurrentUser();
         $userRolesSelectList = $this->userService->getFormSelectUserRoles($user);
         
-        return view('admin.models.users.edit', compact('user', 'userRolesSelectList'));
+        return view('admin.models.users.edit', compact('user', 'currentUser', 'userRolesSelectList'));
     }
     
     /**

@@ -30,5 +30,5 @@ use Spatie\Permission\Models\Role as SpatieRole;
  */
 class Role extends SpatieRole
 {
-    public const defaultRole = Roles::APP_USER;
+    const defaultRole = Roles::APP_USER;
 }

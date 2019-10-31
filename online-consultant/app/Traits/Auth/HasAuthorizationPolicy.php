@@ -3,6 +3,7 @@
 namespace App\Traits\Auth;
 
 use App\Helpers\Models;
+use App\Helpers\Requests;
 use App\Models\User;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Translation\Translator;
@@ -51,15 +52,22 @@ trait HasAuthorizationPolicy
     
     /**
      * Log message if user tried to view page without permission
-     *
      */
     public function logUserRequestError(): void
     {
+        $request = request();
+        $requestHeaders = Requests::getRequestHeaders($request);
+        $requestData = $request->toArray();
         $message = sprintf(
-            'User #%s tried to view page "%s" without permission.',
+            "User #%s tried to view page \"%s\" without permission.\nRequest headers: %s.",
             $this->getCurrentUser()->id,
-            request()->getRequestUri()
+            $request->getRequestUri(),
+            json_encode($requestHeaders, true)
         );
+        
+        if (is_array($requestData)) {
+            $message .= sprintf("\nRequest data: %s", json_encode($requestData, true));
+        }
         
         Log::error($message);
     }

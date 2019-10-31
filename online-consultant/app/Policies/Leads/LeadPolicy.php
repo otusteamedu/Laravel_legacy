@@ -11,6 +11,7 @@ use App\Policies\Abstracts\PolicySoftDeletesInterface;
 class LeadPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
 {
     protected $modelClass = Lead::class;
+    protected $modelAuthorizedUserIdColumn = 'created_user_id';
     
     /**
      * Determine whether the user can view any models.
@@ -46,7 +47,11 @@ class LeadPolicy extends AbstractPolicy implements PolicySoftDeletesInterface
      */
     public function update(User $user, $model)
     {
-        return $this->userCanManageAny($user) || ($this->userCan($user, Abilities::UPDATE) && $user->id === $model->created_user_id);
+        if ($this->userCanManageAny($user)) {
+            return true;
+        }
+    
+        return $this->userCanHandleModel($user, Abilities::UPDATE, $model);
     }
     
     /**

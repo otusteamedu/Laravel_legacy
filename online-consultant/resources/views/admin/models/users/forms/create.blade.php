@@ -34,7 +34,7 @@
     <div class="form-row">
         <div class="col">
             {{ Form::label('roles[]', __('admin.roles.model.plural_name')) }}
-            {{ Form::select('roles[]', $allRolesSelectList, null, [
+            {{ Form::select('roles[]', $allRolesSelectList, \App\Models\Role::defaultRole, [
                 'class' => 'form-control select2' . ($errors->has('roles') ? ' is-invalid' : ''),
                 'multiple' => 'multiple',
                 'required' => ''

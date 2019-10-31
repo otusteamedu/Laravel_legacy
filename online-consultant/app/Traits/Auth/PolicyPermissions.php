@@ -5,6 +5,7 @@ namespace App\Traits\Auth;
 use App\Models\Permission;
 use App\Models\User;
 use App\Policies\Abilities;
+use Illuminate\Database\Eloquent\Model;
 
 trait PolicyPermissions
 {
@@ -56,5 +57,19 @@ trait PolicyPermissions
     public function userCanManageAny(User $user): bool
     {
         return $this->userCan($user, Abilities::MANAGE_ANY);
+    }
+    
+    /**
+     * Check if user has permission for ability and can
+     *
+     * @param  User  $user
+     * @param  string  $ability
+     * @param $model
+     *
+     * @return bool
+     */
+    public function userCanHandleModel(User $user, string $ability, Model $model): bool
+    {
+        return $user->id === $model->{$this->modelAuthorizedUserIdColumn} && $this->userCan($user, $ability);
     }
 }

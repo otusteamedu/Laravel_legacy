@@ -94,7 +94,7 @@ class CompanyController extends Controller
         
         $addressFields = Company::addressFields();
         
-        return view('admin.models.companies.edit', compact('company', 'addressFields', 'currentUser'));
+        return view('admin.models.companies.edit', compact('company', 'addressFields'));
     }
     
     /**
