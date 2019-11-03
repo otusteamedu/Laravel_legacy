@@ -5,7 +5,7 @@ namespace App\Services\Categories\Repositories;
 use App\Models\Category;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CategoryRepository {
+class EloquentCategoryRepository implements CategoryRepositoryInterface {
 
     public function find(int $id) {
         return Category::query()->find($id);
@@ -19,7 +19,7 @@ class CategoryRepository {
         return Category::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Category {
         $category = new Category();
         $category->fill($data);
         $category->save();
@@ -27,7 +27,7 @@ class CategoryRepository {
         return $category;
     }
 
-    public function updateFromArray(Category $category, array $data) {
+    public function updateFromArray(Category $category, array $data):Category {
         $category->update($data);
         return $category;
     }

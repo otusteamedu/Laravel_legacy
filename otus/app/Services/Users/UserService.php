@@ -5,7 +5,7 @@ namespace App\Services\Users;
 use App\Models\User;
 use App\Services\Users\Handlers\UserPasswordHashHandler;
 use App\Services\Users\Handlers\UserUploadPhotoHandler;
-use App\Services\Users\Repositories\UserRepository;
+use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
@@ -15,7 +15,7 @@ class UserService {
     private $userUploadPhotoHandler;
     private $userPasswordHashHandler;
 
-    public function __construct(UserRepository $userRepository, UserUploadPhotoHandler $userUploadPhotoHandler, UserPasswordHashHandler $userPasswordHashHandler) {
+    public function __construct(UserRepositoryInterface $userRepository, UserUploadPhotoHandler $userUploadPhotoHandler, UserPasswordHashHandler $userPasswordHashHandler) {
         $this->userRepository = $userRepository;
         $this->userUploadPhotoHandler = $userUploadPhotoHandler;
         $this->userPasswordHashHandler = $userPasswordHashHandler;

@@ -4,15 +4,14 @@ namespace App\Services\Materials;
 
 use App\Models\Material;
 
-use App\Services\Authors\AuthorsService;
-use App\Services\Materials\Repositories\MaterialRepository;
+use App\Services\Materials\Repositories\MaterialsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class MaterialService {
 
     private $materialRepository;
 
-    public function __construct(MaterialRepository $materialRepository) {
+    public function __construct(MaterialsRepositoryInterface $materialRepository) {
         $this->materialRepository = $materialRepository;
     }
 

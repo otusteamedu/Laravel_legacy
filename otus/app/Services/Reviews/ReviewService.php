@@ -2,29 +2,27 @@
 
 namespace App\Services\Reviews;
 
-use App\Models\Category;
-
 use App\Models\Review;
-use App\Services\Reviews\Repositories\ReviewRepository;
+use App\Services\Reviews\Repositories\ReviewsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ReviewService {
 
-    private $reviewRepository;
+    private $reviewsRepository;
 
-    public function __construct(ReviewRepository $reviewRepository) {
-        $this->reviewRepository = $reviewRepository;
+    public function __construct(ReviewsRepositoryInterface $reviewsRepository) {
+        $this->reviewsRepository = $reviewsRepository;
     }
 
     public function findReview(int $id) {
-        return $this->reviewRepository->find($id);
+        return $this->reviewsRepository->find($id);
     }
 
     /**
      * @return LengthAwarePaginator
      */
     public function searchReviews(): LengthAwarePaginator {
-        return $this->reviewRepository->search();
+        return $this->reviewsRepository->search();
     }
 
     /**
@@ -32,21 +30,21 @@ class ReviewService {
      * @return Review
      */
     public function storeReview(array $data): Review {
-        return $this->reviewRepository->createFromArray($data);
+        return $this->reviewsRepository->createFromArray($data);
     }
 
     /**
-     * @param Category $review
+     * @param Review $review
      * @param array $data
      */
-    public function updateReview(Review $category, array $data) {
-        $this->reviewRepository->updateFromArray($category, $data);
+    public function updateReview(Review $review, array $data) {
+        $this->reviewsRepository->updateFromArray($review, $data);
     }
 
     /**
      * @param array $ids
      */
     public function destroyReview(array $ids) {
-        $this->reviewRepository->destroy($ids);
+        $this->reviewsRepository->destroy($ids);
     }
 }

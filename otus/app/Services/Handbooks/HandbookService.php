@@ -3,26 +3,26 @@
 namespace App\Services\Handbooks;
 
 use App\Models\Handbook;
-use App\Services\Handbooks\Repositories\HandbookRepository;
+use App\Services\Handbooks\Repositories\HandbookRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class HandbookService {
 
-    private $authorRepository;
+    private $handbookRepository;
 
-    public function __construct(HandbookRepository $authorRepository) {
-        $this->authorRepository = $authorRepository;
+    public function __construct(HandbookRepositoryInterface $handbookRepository) {
+        $this->handbookRepository = $handbookRepository;
     }
 
     public function findHandbook(int $id) {
-        return $this->authorRepository->find($id);
+        return $this->handbookRepository->find($id);
     }
 
     /**
      * @return LengthAwarePaginator
      */
     public function searchHandbooks(): LengthAwarePaginator {
-        return $this->authorRepository->search();
+        return $this->handbookRepository->search();
     }
 
     /**
@@ -30,7 +30,7 @@ class HandbookService {
      * @return Handbook
      */
     public function storeHandbook(array $data) : Handbook {
-        return $this->authorRepository->createFromArray($data);
+        return $this->handbookRepository->createFromArray($data);
     }
 
     /**
@@ -38,13 +38,13 @@ class HandbookService {
      * @param array $data
      */
     public function updateHandbook(Handbook $author, array $data) {
-        $this->authorRepository->updateFromArray($author, $data);
+        $this->handbookRepository->updateFromArray($author, $data);
     }
 
     /**
      * @param array $ids
      */
     public function destroyHandbook(array $ids) {
-       $this->authorRepository->destroy($ids);
+       $this->handbookRepository->destroy($ids);
     }
 }

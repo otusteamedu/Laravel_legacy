@@ -13,7 +13,7 @@
                         <ul class="list-group">
                                 <li class="list-group-item">Имя - {{$user->name}}</li>
                                 <li class="list-group-item">Email - {{$user->email}}</li>
-                                <li class="list-group-item">Фотография - <img src="{{$user->photo}}"></li>
+                                <li class="list-group-item">Фотография - <img src="{{ asset('storage/' . $user->photo) }}"></li>
                                 <li class="list-group-item">Дата создания - {{$user->created_at}}</li>
                         </ul>
                     </div>

@@ -5,7 +5,7 @@ namespace App\Services\Authors\Repositories;
 use App\Models\Author;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class AuthorRepository {
+class EloquentAuthorRepository implements AuthorRepositoryInterface {
 
     public function find(int $id) {
         return Author::query()->find($id);
@@ -19,7 +19,7 @@ class AuthorRepository {
         return Author::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data):Author {
         $author = new Author();
         $author->fill($data);
         $author->save();
@@ -27,7 +27,7 @@ class AuthorRepository {
         return $author;
     }
 
-    public function updateFromArray(Author $author, array $data) {
+    public function updateFromArray(Author $author, array $data):Author {
         $author->update($data);
         return $author;
     }

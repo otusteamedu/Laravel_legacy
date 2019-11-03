@@ -3,14 +3,14 @@
 namespace App\Services\Journals;
 
 use App\Models\Journal;
-use App\Services\Journals\Repositories\JournalsRepository;
+use App\Services\Journals\Repositories\JournalsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class JournalService {
 
     private $journalsRepository;
 
-    public function __construct(JournalsRepository $journalsRepository) {
+    public function __construct(JournalsRepositoryInterface $journalsRepository) {
         $this->journalsRepository = $journalsRepository;
     }
 

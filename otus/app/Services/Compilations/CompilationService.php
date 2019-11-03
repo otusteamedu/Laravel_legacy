@@ -3,14 +3,14 @@
 namespace App\Services\Compilations;
 
 use App\Models\Compilation;
-use App\Services\Compilations\Repositories\CompilationRepository;
+use App\Services\Compilations\Repositories\CompilationRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CompilationService {
 
     private $compilationRepository;
 
-    public function __construct(CompilationRepository $compilationRepository) {
+    public function __construct(CompilationRepositoryInterface $compilationRepository) {
         $this->compilationRepository = $compilationRepository;
     }
 

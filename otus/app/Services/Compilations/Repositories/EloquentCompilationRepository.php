@@ -5,7 +5,7 @@ namespace App\Services\Compilations\Repositories;
 use App\Models\Compilation;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CompilationRepository {
+class EloquentCompilationRepository implements CompilationRepositoryInterface {
 
     public function find(int $id) {
         return Compilation::query()->find($id);
@@ -19,7 +19,7 @@ class CompilationRepository {
         return Compilation::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Compilation {
         $compilation = new Compilation();
         $compilation->fill($data);
         $compilation->save();
@@ -27,8 +27,8 @@ class CompilationRepository {
         return $compilation;
     }
 
-    public function updateFromArray(Compilation $review, array $data) {
-        $review->update($data);
-        return $review;
+    public function updateFromArray(Compilation $compilation, array $data): Compilation {
+        $compilation->update($data);
+        return $compilation;
     }
 }

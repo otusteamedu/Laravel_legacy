@@ -5,7 +5,7 @@ namespace App\Services\Reviews\Repositories;
 use App\Models\Review;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class ReviewRepository {
+class EloquentReviewsRepository implements ReviewsRepositoryInterface {
 
     public function find(int $id) {
         return Review::query()->find($id);
@@ -19,7 +19,7 @@ class ReviewRepository {
         return Review::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Review {
         $review = new Review();
         $review->fill($data);
         $review->save();
@@ -27,7 +27,7 @@ class ReviewRepository {
         return $review;
     }
 
-    public function updateFromArray(Review $review, array $data) {
+    public function updateFromArray(Review $review, array $data): Review {
         $review->update($data);
         return $review;
     }

@@ -5,7 +5,7 @@ namespace App\Services\Handbooks\Repositories;
 use App\Models\Handbook;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class HandbookRepository {
+class EloquentHandbookRepository implements HandbookRepositoryInterface {
 
     public function find(int $id) {
         return Handbook::query()->find($id);
@@ -19,7 +19,7 @@ class HandbookRepository {
         return Handbook::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Handbook {
         $handbook = new Handbook();
         $handbook->fill($data);
         $handbook->save();
@@ -27,7 +27,7 @@ class HandbookRepository {
         return $handbook;
     }
 
-    public function updateFromArray(Handbook $handbook, array $data) {
+    public function updateFromArray(Handbook $handbook, array $data): Handbook {
         $handbook->update($data);
         return $handbook;
     }

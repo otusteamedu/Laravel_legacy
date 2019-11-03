@@ -3,14 +3,14 @@
 namespace App\Services\Authors;
 
 use App\Models\Author;
-use App\Services\Authors\Repositories\AuthorRepository;
+use App\Services\Authors\Repositories\AuthorRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AuthorsService {
 
     private $authorRepository;
 
-    public function __construct(AuthorRepository $authorRepository) {
+    public function __construct(AuthorRepositoryInterface $authorRepository) {
         $this->authorRepository = $authorRepository;
     }
 

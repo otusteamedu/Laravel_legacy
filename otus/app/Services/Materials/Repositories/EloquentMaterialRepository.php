@@ -5,13 +5,13 @@ namespace App\Services\Materials\Repositories;
 use App\Models\Material;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class MaterialRepository {
+class EloquentMaterialRepository implements MaterialsRepositoryInterface {
 
     public function find(int $id) {
         return Material::query()->find($id);
     }
 
-    public function search() {
+    public function search(): LengthAwarePaginator {
         return Material::query()->orderByDesc('created_at')->paginate();
     }
 
@@ -19,7 +19,7 @@ class MaterialRepository {
         return Material::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Material {
         $material = new Material();
 
         $material->fill($data);
@@ -34,7 +34,7 @@ class MaterialRepository {
         return $material;
     }
 
-    public function updateFromArray(Material $material, array $data) {
+    public function updateFromArray(Material $material, array $data): Material {
         $material->update($data);
         return $material;
     }

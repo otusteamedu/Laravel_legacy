@@ -3,14 +3,14 @@
 namespace App\Services\SelectionMaterials;
 
 use App\Models\SelectionMaterial;
-use App\Services\SelectionMaterials\Repositories\SelectionMaterialsRepository;
+use App\Services\SelectionMaterials\Repositories\SelectionMaterialsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class SelectionMaterialsService {
 
     private $selectionMaterialsRepository;
 
-    public function __construct(SelectionMaterialsRepository $selectionMaterialsRepository) {
+    public function __construct(SelectionMaterialsRepositoryInterface $selectionMaterialsRepository) {
         $this->selectionMaterialsRepository = $selectionMaterialsRepository;
     }
 

@@ -5,7 +5,7 @@ namespace App\Services\Favorites\Repositories;
 use App\Models\Favorite;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class FavoriteRepository {
+class EloquentFavoriteRepository implements FavoriteRepositoryInterface {
 
     public function find(int $id) {
         return Favorite::query()->find($id);
@@ -19,14 +19,14 @@ class FavoriteRepository {
         return Favorite::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Favorite {
         $favorite = new Favorite();
         $favorite->fill($data);
         $favorite->save();
         return $favorite;
     }
 
-    public function updateFromArray(Favorite $favorite, array $data) {
+    public function updateFromArray(Favorite $favorite, array $data): Favorite {
         $favorite->update($data);
         return $favorite;
     }

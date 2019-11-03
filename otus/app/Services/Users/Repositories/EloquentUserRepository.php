@@ -5,7 +5,7 @@ namespace App\Services\Users\Repositories;
 use App\Models\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class UserRepository {
+class EloquentUserRepository implements UserRepositoryInterface {
 
     public function find(int $id) {
         return User::query()->find($id);
@@ -19,7 +19,7 @@ class UserRepository {
         return User::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data):User {
         $user = new User();
         $user->fill($data);
         $user->save();
@@ -27,7 +27,7 @@ class UserRepository {
         return $user;
     }
 
-    public function updateFromArray(User $user, array $data) {
+    public function updateFromArray(User $user, array $data):User {
         $user->update($data);
         return $user;
     }

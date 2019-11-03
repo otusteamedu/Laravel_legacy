@@ -5,7 +5,7 @@ namespace App\Services\SelectionMaterials\Repositories;
 use App\Models\SelectionMaterial;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class SelectionMaterialsRepository {
+class EloquentSelectionMaterialsRepository implements SelectionMaterialsRepositoryInterface {
 
     public function find(int $id) {
         return SelectionMaterial::query()->find($id);
@@ -19,7 +19,7 @@ class SelectionMaterialsRepository {
         return SelectionMaterial::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): SelectionMaterial {
         $selectionMaterial = new SelectionMaterial();
         $selectionMaterial->fill($data);
         $selectionMaterial->save();
@@ -27,7 +27,7 @@ class SelectionMaterialsRepository {
         return $selectionMaterial;
     }
 
-    public function updateFromArray(SelectionMaterial $selectionMaterial, array $data) {
+    public function updateFromArray(SelectionMaterial $selectionMaterial, array $data): SelectionMaterial {
         $selectionMaterial->update($data);
         return $selectionMaterial;
     }

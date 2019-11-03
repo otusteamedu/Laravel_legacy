@@ -5,7 +5,7 @@ namespace App\Services\Journals\Repositories;
 use App\Models\Journal;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class JournalsRepository {
+class EloquentJournalsRepository implements JournalsRepositoryInterface {
 
     public function find(int $id) {
         return Journal::query()->find($id);
@@ -19,7 +19,7 @@ class JournalsRepository {
         return Journal::destroy($ids);
     }
 
-    public function createFromArray(array $data) {
+    public function createFromArray(array $data): Journal {
         $journal = new Journal();
         $journal->fill($data);
         $journal->save();
@@ -27,7 +27,7 @@ class JournalsRepository {
         return $journal;
     }
 
-    public function updateFromArray(Journal $journal, array $data) {
+    public function updateFromArray(Journal $journal, array $data): Journal {
         $journal->update($data);
         return $journal;
     }

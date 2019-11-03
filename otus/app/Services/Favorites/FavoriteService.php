@@ -4,14 +4,14 @@ namespace App\Services\Favorites;
 
 use App\Models\Favorite;
 
-use App\Services\Favorites\Repositories\FavoriteRepository;
+use App\Services\Favorites\Repositories\FavoriteRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class FavoriteService {
 
     private $favoriteRepository;
 
-    public function __construct(FavoriteRepository $favoriteRepository) {
+    public function __construct(FavoriteRepositoryInterface $favoriteRepository) {
         $this->favoriteRepository = $favoriteRepository;
     }
 
