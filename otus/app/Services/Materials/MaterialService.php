@@ -39,17 +39,7 @@ class MaterialService {
      * @param array $data
      */
     public function updateMaterial(Material $material, array $data) {
-
-        $relatedAuthors = $material->authors()->allRelatedIds()->all();
-
-        foreach ($relatedAuthors as $id) {
-            $material->authors()->detach($id);
-        }
-
-        foreach ($data['authors_id'] as $id) {
-            $material->authors()->attach($id);
-        }
-
+        $material->authors()->sync($data['authors_id']);
         $this->materialRepository->updateFromArray($material, $data);
     }
 

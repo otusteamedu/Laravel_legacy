@@ -103,6 +103,6 @@ class MaterialsController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy(Material $material) {
-        $this->materialService->destroyMaterials([$material->id]);
+        $this->materialService->destroyMaterials($material->id);
     }
 }
