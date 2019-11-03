@@ -13,8 +13,6 @@
     }}
 
     <?php
-
-
     $arUsers = $users->mapWithKeys(static function ( $user) {
         return [
             $user->id => $user->name

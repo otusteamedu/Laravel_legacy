@@ -22,7 +22,7 @@
                                 @endforeach
                             <li class="list-group-item">
                                 <div class="checkbox">
-                                    <img src = ''>
+                                    <img src = '{{ asset('storage/' . $user->photo) }}'>
                                     <label for="checkbox">
                                         {{$user->name . ' ' . $user->email}}
                                     </label>

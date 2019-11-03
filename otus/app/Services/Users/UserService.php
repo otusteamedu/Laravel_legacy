@@ -3,6 +3,8 @@
 namespace App\Services\Users;
 
 use App\Models\User;
+use App\Services\Users\Handlers\UserPasswordHashHandler;
+use App\Services\Users\Handlers\UserUploadPhotoHandler;
 use App\Services\Users\Repositories\UserRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -10,9 +12,13 @@ use Illuminate\Http\Request;
 class UserService {
 
     private $userRepository;
+    private $userUploadPhotoHandler;
+    private $userPasswordHashHandler;
 
-    public function __construct(UserRepository $userRepository) {
+    public function __construct(UserRepository $userRepository, UserUploadPhotoHandler $userUploadPhotoHandler, UserPasswordHashHandler $userPasswordHashHandler) {
         $this->userRepository = $userRepository;
+        $this->userUploadPhotoHandler = $userUploadPhotoHandler;
+        $this->userPasswordHashHandler = $userPasswordHashHandler;
     }
 
     public function findUser(int $id) {
@@ -32,17 +38,9 @@ class UserService {
      */
     public function storeUser(Request $request): User {
         $data = $request->all();
-        $filePath = null;
 
-        if ($request->hasFile('photo')) {
-            $file = $request->file('photo');
-            $randString = substr(md5(microtime()), rand(0, 26), 5);
-            $filePath = public_path('storage/images/' .  $randString . '/');
-            $file->move($filePath, $request->file('photo')->getClientOriginalName());
-            $data['photo'] = $filePath . $request->file('photo')->getClientOriginalName();
-        }
-
-        $data['password_hash'] = 123123;
+        $data['photo'] = $this->userUploadPhotoHandler->handle($request->file('photo'));
+        $data['password_hash'] = $this->userPasswordHashHandler->handle($data['password']);
 
         return $this->userRepository->createFromArray($data);
     }
