@@ -14,7 +14,7 @@ class ReviewService {
         $this->reviewsRepository = $reviewsRepository;
     }
 
-    public function findReview(int $id) {
+    public function findReview(int $id): Review {
         return $this->reviewsRepository->find($id);
     }
 

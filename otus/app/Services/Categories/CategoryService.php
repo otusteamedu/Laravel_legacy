@@ -15,7 +15,7 @@ class CategoryService {
         $this->categoryRepository = $categoryRepository;
     }
 
-    public function findCategory(int $id) {
+    public function findCategory(int $id): Category {
         return $this->categoryRepository->find($id);
     }
 

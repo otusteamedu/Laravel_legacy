@@ -14,7 +14,7 @@ class CompilationService {
         $this->compilationRepository = $compilationRepository;
     }
 
-    public function findCompilation(int $id) {
+    public function findCompilation(int $id): Compilation {
         return $this->compilationRepository->find($id);
     }
 

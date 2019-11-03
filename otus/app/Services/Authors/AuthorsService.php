@@ -14,7 +14,7 @@ class AuthorsService {
         $this->authorRepository = $authorRepository;
     }
 
-    public function findAuthor(int $id) {
+    public function findAuthor(int $id): Author {
         return $this->authorRepository->find($id);
     }
 

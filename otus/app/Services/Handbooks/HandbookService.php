@@ -14,7 +14,7 @@ class HandbookService {
         $this->handbookRepository = $handbookRepository;
     }
 
-    public function findHandbook(int $id) {
+    public function findHandbook(int $id): Handbook {
         return $this->handbookRepository->find($id);
     }
 

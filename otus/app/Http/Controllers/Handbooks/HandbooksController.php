@@ -42,7 +42,7 @@ class HandbooksController extends Controller {
      */
     public function store(Request $request) {
         $this->handbookService->storeHandbook($request->all());
-        return redirect(route('admin.handbooks.index'), '301');
+        return redirect(route('admin.handbooks.index'), 301);
     }
 
     /**
@@ -78,7 +78,7 @@ class HandbooksController extends Controller {
      */
     public function update(Request $request, Handbook $handbook) {
         $this->handbookService->updateHandbook($handbook, $request->all());
-        return redirect(route('admin.handbooks.index'), '301');
+        return redirect(route('admin.handbooks.index'), 301);
     }
 
     /**

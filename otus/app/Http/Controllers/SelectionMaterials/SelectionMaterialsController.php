@@ -42,7 +42,7 @@ class SelectionMaterialsController extends Controller {
      */
     public function store(Request $request) {
         $this->selectionMaterialsService->storeSelectionMaterial($request->all());
-        return redirect(route('admin.selection-materials.index'), '301');
+        return redirect(route('admin.selection-materials.index'), 301);
     }
 
     /**
@@ -78,7 +78,7 @@ class SelectionMaterialsController extends Controller {
      */
     public function update(Request $request, SelectionMaterial $selectionMaterial) {
         $this->selectionMaterialsService->updateSelectionMaterial($selectionMaterial, $request->all());
-        return redirect(route('admin.selection-materials.index'), '301');
+        return redirect(route('admin.selection-materials.index'), 301);
     }
 
     /**

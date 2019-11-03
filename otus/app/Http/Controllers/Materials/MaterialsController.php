@@ -55,7 +55,7 @@ class MaterialsController extends Controller {
      */
     public function store(Request $request) {
         $this->materialService->storeMaterial($request->all());
-        return redirect(route('admin.materials.index'), '301');
+        return redirect(route('admin.materials.index'), 301);
     }
 
     /**
@@ -93,7 +93,7 @@ class MaterialsController extends Controller {
      */
     public function update(Request $request, Material $material) {
         $this->materialService->updateMaterial($material, $request->all());
-        return redirect(route('admin.materials.index'), '301');
+        return redirect(route('admin.materials.index'), 301);
     }
 
     /**

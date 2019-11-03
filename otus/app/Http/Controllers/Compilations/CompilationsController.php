@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Compilations;
 
-use App\Models\Compilation;;
+use App\Models\Compilation;
 use App\Services\Compilations\CompilationService;
-use App\Services\Materials\MaterialService;;
+use App\Services\Materials\MaterialService;
 use App\Services\SelectionMaterials\SelectionMaterialsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,7 +51,7 @@ class CompilationsController extends Controller {
      */
     public function store(Request $request) {
         $this->compilationService->storeCompilation($request->all());
-        return redirect(route('admin.compilations.index'), '301');
+        return redirect(route('admin.compilations.index'), 301);
     }
 
     /**
@@ -89,7 +89,7 @@ class CompilationsController extends Controller {
      */
     public function update(Request $request, Compilation $compilation) {
         $this->compilationService->updateCompilation($compilation, $request->all());
-        return redirect(route('admin.compilations.index'), '301');
+        return redirect(route('admin.compilations.index'), 301);
     }
 
     /**

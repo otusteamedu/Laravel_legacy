@@ -52,7 +52,7 @@ class ReviewsController extends Controller {
      */
     public function store(Request $request) {
         $this->reviewService->storeReview($request->all());
-        return redirect(route('admin.reviews.index'), '301');
+        return redirect(route('admin.reviews.index'), 301);
     }
 
     /**
@@ -90,7 +90,7 @@ class ReviewsController extends Controller {
      */
     public function update(Request $request, Review $review) {
         $this->reviewService->updateReview($review, $request->all());
-        return redirect(route('admin.reviews.index'), '301');
+        return redirect(route('admin.reviews.index'), 301);
     }
 
     /**

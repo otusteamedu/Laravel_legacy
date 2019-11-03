@@ -52,7 +52,7 @@ class JournalsController extends Controller {
      */
     public function store(Request $request) {
         $this->journalService->storeJournal($request->all());
-        return redirect(route('admin.journals.index'), '301');
+        return redirect(route('admin.journals.index'), 301);
     }
 
     /**
@@ -90,7 +90,7 @@ class JournalsController extends Controller {
      */
     public function update(Request $request, Journal $journal) {
         $this->journalService->updateJournal($journal, $request->all());
-        return redirect(route('admin.journals.index'), '301');
+        return redirect(route('admin.journals.index'), 301);
     }
 
     /**

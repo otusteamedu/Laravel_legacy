@@ -14,7 +14,7 @@ class JournalService {
         $this->journalsRepository = $journalsRepository;
     }
 
-    public function findJournal(int $id) {
+    public function findJournal(int $id): Journal {
         return $this->journalsRepository->find($id);
     }
 

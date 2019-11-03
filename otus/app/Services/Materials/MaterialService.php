@@ -15,7 +15,7 @@ class MaterialService {
         $this->materialRepository = $materialRepository;
     }
 
-    public function findMaterial(int $id) {
+    public function findMaterial(int $id): Material {
         return $this->materialRepository->find($id);
     }
 

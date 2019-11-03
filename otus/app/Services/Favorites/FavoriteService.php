@@ -15,7 +15,7 @@ class FavoriteService {
         $this->favoriteRepository = $favoriteRepository;
     }
 
-    public function findCategory(int $id) {
+    public function findFavorite(int $id): Favorite {
         return $this->favoriteRepository->find($id);
     }
 

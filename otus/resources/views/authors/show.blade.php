@@ -4,7 +4,6 @@
 
 <?php /** @var \App\Models\Author $author */?>
 @section('content')
-
     <div class="container">
         <div class="row">
             <div class="col-md-6">

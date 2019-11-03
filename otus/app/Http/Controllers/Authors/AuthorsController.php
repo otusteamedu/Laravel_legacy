@@ -44,7 +44,7 @@ class AuthorsController extends Controller {
      */
     public function store(Request $request) {
         $this->authorsService->storeAuthor($request->all());
-        return redirect(route('admin.authors.index'), '301');
+        return redirect(route('admin.authors.index'), 301);
     }
 
     /**
@@ -80,7 +80,7 @@ class AuthorsController extends Controller {
      */
     public function update(Request $request, Author $author) {
         $this->authorsService->updateAuthor($author, $request->all());
-        return redirect(route('admin.authors.index'), '301');
+        return redirect(route('admin.authors.index'), 301);
     }
 
     /**

@@ -21,7 +21,7 @@ class UserService {
         $this->userPasswordHashHandler = $userPasswordHashHandler;
     }
 
-    public function findUser(int $id) {
+    public function findUser(int $id): User {
         return $this->userRepository->find($id);
     }
 

@@ -43,7 +43,7 @@ class CategoriesController extends Controller {
      */
     public function store(Request $request) {
         $this->categoryService->storeCategory($request->all());
-        return redirect(route('admin.categories.index'), '301');
+        return redirect(route('admin.categories.index'), 301);
     }
 
     /**
@@ -79,7 +79,7 @@ class CategoriesController extends Controller {
      */
     public function update(Request $request, Category $category) {
         $this->categoryService->updateCategory($category, $request->all());
-        return redirect(route('admin.categories.index'), '301');
+        return redirect(route('admin.categories.index'), 301);
     }
 
     /**

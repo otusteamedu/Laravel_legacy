@@ -52,7 +52,7 @@ class FavoritesController extends Controller {
      */
     public function store(Request $request) {
         $this->favoriteService->storeFavorite($request->all());
-        return redirect(route('admin.favorites.index'), '301');
+        return redirect(route('admin.favorites.index'), 301);
     }
 
     /**
@@ -90,7 +90,7 @@ class FavoritesController extends Controller {
      */
     public function update(Request $request, Favorite $favorite) {
         $this->favoriteService->updateFavorite($favorite, $request->all());
-        return redirect(route('admin.favorites.index'), '301');
+        return redirect(route('admin.favorites.index'), 301);
     }
 
     /**

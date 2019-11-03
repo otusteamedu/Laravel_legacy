@@ -14,7 +14,7 @@ class SelectionMaterialsService {
         $this->selectionMaterialsRepository = $selectionMaterialsRepository;
     }
 
-    public function findSelectionMaterial(int $id) {
+    public function findSelectionMaterial(int $id): SelectionMaterial {
         return $this->selectionMaterialsRepository->find($id);
     }
 
@@ -29,7 +29,7 @@ class SelectionMaterialsService {
      * @param array $data
      * @return SelectionMaterial
      */
-    public function storeSelectionMaterial(array $data) : SelectionMaterial {
+    public function storeSelectionMaterial(array $data): SelectionMaterial {
         return $this->selectionMaterialsRepository->createFromArray($data);
     }
 
@@ -45,6 +45,6 @@ class SelectionMaterialsService {
      * @param array $ids
      */
     public function destroySelectionMaterial(array $ids) {
-       $this->selectionMaterialsRepository->destroy($ids);
+        $this->selectionMaterialsRepository->destroy($ids);
     }
 }

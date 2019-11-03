@@ -44,7 +44,7 @@ class UsersController extends Controller {
      */
     public function store(Request $request) {
         $this->userService->storeUser($request);
-        return redirect(route('admin.users.index'), '301');
+        return redirect(route('admin.users.index'), 301);
     }
 
     /**
@@ -78,7 +78,7 @@ class UsersController extends Controller {
      */
     public function update(Request $request, User $user) {
         $this->userService->updateUser($user, $request->all());
-        return redirect(route('admin.users.index'), '301');
+        return redirect(route('admin.users.index'), 301);
     }
 
     /**
