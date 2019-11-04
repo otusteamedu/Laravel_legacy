@@ -13,14 +13,12 @@ class CreateReadMaterialsTable extends Migration
      */
     public function up()
     {
-        Schema::create('read_materials', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('read_material', function (Blueprint $table) {
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('material_id')->unsigned();
-            $table->timestamps();
         });
 
-        Schema::table('read_materials', function (Blueprint $table) {
+        Schema::table('read_material', function (Blueprint $table) {
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
@@ -40,6 +38,6 @@ class CreateReadMaterialsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('read_materials');
+        Schema::dropIfExists('read_material');
     }
 }
