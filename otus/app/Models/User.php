@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use \Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
 /**
  * Class User
  * @property int id
@@ -18,6 +20,8 @@ use \Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App\Models
  */
 class User extends Authenticatable {
+
+    use Notifiable;
 
     const ADMIN_ROLE = 'admin';
     CONST EDITOR_ROLE = 'editor';
