@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Compilations;
 
 use App\Models\Compilation;
+use App\Policies\Abilities;
 use App\Services\Compilations\CompilationService;
 use App\Services\Materials\MaterialService;
 use App\Services\SelectionMaterials\SelectionMaterialsService;
@@ -20,23 +21,30 @@ class CompilationsController extends Controller {
         $this->materialService = $materialService;
         $this->selectionMaterialService = $selectionMaterialsService;
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW_ANY, Compilation::class);
+
         return \view('compilations.list', [
             'compilations' => $this->compilationService->searchCompilations()
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Compilation::class);
+
         return view('compilations.create', [
             'materials' => $this->materialService->searchMaterials(),
             'selectionMaterials' => $this->selectionMaterialService->searchSelectionMaterials(),
@@ -44,35 +52,44 @@ class CompilationsController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Compilation::class);
+
         $this->compilationService->storeCompilation($request->all());
         return redirect(route('admin.compilations.index'), 301);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Compilation $compilation
-     * @return \Illuminate\Http\Response
+     * @param Compilation $compilation
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Compilation $compilation) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW, $compilation);
+
         return view('compilations.show', [
             'compilation' => $compilation
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Compilation $compilation
-     * @return \Illuminate\Http\Response
+     * @param Compilation $compilation
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Compilation $compilation) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $compilation);
+
         return view('compilations.edit', [
             'compilation' => $compilation,
             'selectionMaterials' => $this->selectionMaterialService->searchSelectionMaterials(),
@@ -81,24 +98,29 @@ class CompilationsController extends Controller {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Compilation $compilation
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Compilation $compilation
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Compilation $compilation) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $compilation);
+
         $this->compilationService->updateCompilation($compilation, $request->all());
         return redirect(route('admin.compilations.index'), 301);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Compilation $compilation
-     * @return \Illuminate\Http\Response
+     * @param Compilation $compilation
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Compilation $compilation) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::DELETE, $compilation);
+
         $this->compilationService->destroyCompilation([$compilation->id]);
     }
 }

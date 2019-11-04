@@ -3,6 +3,16 @@
 @section('title', 'Page Title ')
 
 
+<?php
+
+$roles = [
+  App\Models\User::ADMIN_ROLE => 'Администратор',
+  App\Models\User::EDITOR_ROLE => 'Редактор',
+  null => 'Простой пользователь',
+
+];
+?>
+
 @section('content')
     {{ Form::open(
     [
@@ -26,6 +36,12 @@
 
         {{Form::label('photo', 'Фотография')}}
         {{Form::file('photo', null, ['class' => 'form-control'])}}
+    </div>
+
+
+    <div class="form-group">
+        {{Form::label('role', 'Роль')}}
+        {{Form::select('role', $roles, null,['class' => 'form-control'])}}
     </div>
 
     <div class="form-group">

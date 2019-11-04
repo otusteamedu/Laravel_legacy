@@ -3,21 +3,27 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-
+use \Illuminate\Foundation\Auth\User as Authenticatable;
 /**
  * Class User
  * @property int id
  * @property string name
  * @property string email
- * @property string password_hash
+ * @property string password
  * @property string photo
+ * @property string role
  * @property string remember_token
  * @property \DateTime created_at
  * @property \DateTime updated_at
  * @package App\Models
  */
-class User extends Model {
-    protected $fillable = ['name', 'email', 'password_hash', 'photo'];
+class User extends Authenticatable {
+
+    const ADMIN_ROLE = 'admin';
+    CONST EDITOR_ROLE = 'editor';
+
+
+    protected $fillable = ['name', 'email', 'password', 'photo', 'role'];
     protected $with = ['favorites', 'reviews'];
 
     public function readMaterials() {
@@ -31,4 +37,16 @@ class User extends Model {
     public function reviews() {
         return $this->hasMany(Review::class);
     }
+
+    public function isAdmin() {
+       return $this->role === self::ADMIN_ROLE;
+    }
+
+    public function isEditor() {
+        if ($this->isAdmin()) {
+            return true;
+        }
+        return $this->role === self::EDITOR_ROLE;
+    }
+
 }

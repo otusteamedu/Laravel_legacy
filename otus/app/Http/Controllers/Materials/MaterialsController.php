@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Materials;
 
 use App\Models\Material;
+use App\Policies\Abilities;
 use App\Services\Authors\AuthorsService;
 use App\Services\Categories\CategoryService;
 use App\Services\Handbooks\HandbookService;
@@ -23,23 +24,30 @@ class MaterialsController extends Controller {
         $this->handbookService = $handbookService;
         $this->materialService = $materialService;
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW_ANY, Material::class);
+
         return \view('materials.list', [
             'materials' => $this->materialService->searchMaterials()
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Material::class);
+
         return view('materials.create', [
             'categories' => $this->categoryService->searchCategories(),
             'authors' => $this->authorsService->searchAuthors(),
@@ -48,35 +56,44 @@ class MaterialsController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Material::class);
+
         $this->materialService->storeMaterial($request->all());
         return redirect(route('admin.materials.index'), 301);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Material $material
-     * @return \Illuminate\Http\Response
+     * @param Material $material
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Material $material) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW, $material);
+
         return view('materials.show', [
             'material' => $material
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Material $material
-     * @return \Illuminate\Http\Response
+     * @param Material $material
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Material $material) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $material);
+
         return view('materials.edit', [
             'material' => $material,
             'categories' => $this->categoryService->searchCategories(),
@@ -88,21 +105,27 @@ class MaterialsController extends Controller {
     /**
      * @param Request $request
      * @param Material $material
-     * @param AuthorsService $authorsService
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Material $material) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $material);
+
         $this->materialService->updateMaterial($material, $request->all());
         return redirect(route('admin.materials.index'), 301);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Material $material
-     * @return \Illuminate\Http\Response
+     * @param Material $material
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Material $material) {
-        $this->materialService->destroyMaterials($material->id);
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::DELETE, $material);
+
+        $this->materialService->destroyMaterials([$material->id]);
     }
 }

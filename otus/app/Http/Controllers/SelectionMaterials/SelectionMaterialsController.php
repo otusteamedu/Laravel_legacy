@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SelectionMaterials;
 
 use App\Models\SelectionMaterial;
+use App\Policies\Abilities;
 use App\Services\SelectionMaterials\SelectionMaterialsService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,80 +15,101 @@ class SelectionMaterialsController extends Controller {
     public function __construct(SelectionMaterialsService $selectionMaterialsService) {
         $this->selectionMaterialsService = $selectionMaterialsService;
     }
+
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW_ANY, SelectionMaterial::class);
+
         return \view('selection_materials.list', [
             'selectionMaterials' => $this->selectionMaterialsService->searchSelectionMaterials()
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, SelectionMaterial::class);
+
         return view('selection_materials.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, SelectionMaterial::class);
+
         $this->selectionMaterialsService->storeSelectionMaterial($request->all());
         return redirect(route('admin.selection-materials.index'), 301);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\SelectionMaterial $selectionMaterial
-     * @return \Illuminate\Http\Response
+     * @param SelectionMaterial $selectionMaterial
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(SelectionMaterial $selectionMaterial) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW, $selectionMaterial);
+
         return view('selection_materials.show', [
             'selectionMaterial' => $selectionMaterial
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\SelectionMaterial $selectionMaterial
-     * @return \Illuminate\Http\Response
+     * @param SelectionMaterial $selectionMaterial
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(SelectionMaterial $selectionMaterial) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $selectionMaterial);
+
         return view('selection_materials.edit', [
             'selectionMaterial' => $selectionMaterial
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\SelectionMaterial $selectionMaterial
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param SelectionMaterial $selectionMaterial
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, SelectionMaterial $selectionMaterial) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $selectionMaterial);
+
         $this->selectionMaterialsService->updateSelectionMaterial($selectionMaterial, $request->all());
         return redirect(route('admin.selection-materials.index'), 301);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\SelectionMaterial $selectionMaterial
-     * @return \Illuminate\Http\Response
+     * @param SelectionMaterial $selectionMaterial
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(SelectionMaterial $selectionMaterial) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::DELETE, $selectionMaterial);
+
         $this->selectionMaterialsService->destroySelectionMaterial([$selectionMaterial->id]);
     }
 }

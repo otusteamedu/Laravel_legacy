@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Journals;
 
 use App\Models\Journal;
+use App\Policies\Abilities;
 use App\Services\Handbooks\HandbookService;
 use App\Services\Journals\JournalService;
 use App\Services\Users\UserService;
@@ -22,22 +23,29 @@ class JournalsController extends Controller {
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW_ANY, Journal::class);
+
         return \view('journals.list', [
             'journals' => $this->journalService->searchJournals()
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Journal::class);
+
+
         return view('journals.create', [
             'users' => $this->userService->searchUsers(),
             'statuses' => $this->handbookService->searchHandbooks(),
@@ -45,35 +53,45 @@ class JournalsController extends Controller {
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Journal::class);
+
         $this->journalService->storeJournal($request->all());
         return redirect(route('admin.journals.index'), 301);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Journal $journal
-     * @return \Illuminate\Http\Response
+     * @param Journal $journal
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Journal $journal) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW, $journal);
+
         return view('journals.show', [
             'journal' => $journal
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Journal $journal
-     * @return \Illuminate\Http\Response
+     * @param Journal $journal
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
+
     public function edit(Journal $journal) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $journal);
+
         return view('journals.edit', [
             'journal' => $journal,
             'users' => $this->userService->searchUsers(),
@@ -82,24 +100,31 @@ class JournalsController extends Controller {
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Journal $journal
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Journal $journal
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
+
     public function update(Request $request, Journal $journal) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $journal);
+
         $this->journalService->updateJournal($journal, $request->all());
         return redirect(route('admin.journals.index'), 301);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Journal $journal
-     * @return \Illuminate\Http\Response
+     * @param Journal $journal
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
+
     public function destroy(Journal $journal) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::DELETE, $journal);
+
         $this->journalService->destroyJournal([$journal->id]);
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-Route::name('admin.')->group(function() {
+Route::name('admin.')->middleware('auth')->group(function() {
         Route::resources([
             'authors' => 'Authors\AuthorsController',
             'users' => 'Users\UsersController',
@@ -14,3 +14,7 @@ Route::name('admin.')->group(function() {
             'compilations' => 'Compilations\CompilationsController',
         ]);
 });
+
+
+Route::auth();
+Route::get('/home', 'HomeController@index')->name('home');
