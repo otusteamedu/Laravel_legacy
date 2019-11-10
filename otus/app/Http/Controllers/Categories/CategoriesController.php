@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Categories;
 
 use App\Models\Category;
+use App\Policies\Abilities;
 use App\Services\Categories\CategoryService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,79 +17,97 @@ class CategoriesController extends Controller {
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW_ANY, Category::class);
+
         return \view('categories.list', [
             'categories' => $this->categoryService->searchCategories()
         ]);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create() {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Category::class);
         return view('categories.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::CREATE, Category::class);
+
         $this->categoryService->storeCategory($request->all());
         return redirect(route('admin.categories.index'), 301);
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function show(Category $category) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::VIEW, $category);
+
         return view('categories.show', [
             'category' => $category
         ]);
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Category $category) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $category);
+
         return view('categories.edit', [
             'category' => $category
         ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Category $category
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(Request $request, Category $category) {
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::UPDATE, $category);
+
         $this->categoryService->updateCategory($category, $request->all());
         return redirect(route('admin.categories.index'), 301);
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param \App\Models\Category $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Category $category) {
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->authorize(Abilities::DELETE, $category);
+
         $this->categoryService->destroyCategories([$category->id]);
     }
 }

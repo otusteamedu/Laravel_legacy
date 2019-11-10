@@ -34,10 +34,18 @@ $factory->define(User::class, function (Faker $faker) {
     shuffle($imageUrls);
     $url = array_shift($imageUrls);
 
+    $roles = [
+        User::ADMIN_ROLE,
+        User::EDITOR_ROLE,
+    ];
+    shuffle($roles);
+    $role = array_shift($roles);
+
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'password_hash' => $faker->md5,
-        'photo' => $url
+        'password' => $faker->md5,
+        'photo' => $url,
+        'role' => $role
     ];
 });

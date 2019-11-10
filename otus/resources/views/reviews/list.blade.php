@@ -50,12 +50,6 @@
 
 <script>
 
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
     $(document).ready(function() {
 
         $('.js-destroy').on('click', function(e) {
@@ -65,6 +59,7 @@
             console.log($this.attr('href'));
             $.ajax({
                 url: $url,
+                data: { _token: '{{csrf_token()}}' },
                 type: 'DELETE',
                 success: function(result) {
                     location.reload();
