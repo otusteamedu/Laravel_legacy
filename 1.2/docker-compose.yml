@@ -8,7 +8,6 @@ services:
     volumes:
       - ./hosts:/etc/nginx/conf.d
       - ./www:/var/www
-      - ./logs:/var/log/nginx
     links:
       - db
       - php
@@ -24,13 +23,10 @@ services:
   db:
     image: mariadb:latest
     restart: always
-    volumes:
-      - ./mysql:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=123
     ports:
       - "3306:3306"
-
   memcached:
     image: memcached:latest
   adminer:
