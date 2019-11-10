@@ -34,12 +34,15 @@ class UserService {
 
     /**
      * @param Request $request
+     * @param bool $userData
      * @return User
      */
-    public function storeUser(Request $request): User {
-        $data = $request->all();
+    public function storeUser(array $data): User {
 
-        $data['photo'] = $this->userUploadPhotoHandler->handle($request->file('photo'));
+        if($data['photo']) {
+            $data['photo'] = $this->userUploadPhotoHandler->handle($data['photo']);
+
+        }
         $data['password_hash'] = $this->userPasswordHashHandler->handle($data['password']);
 
         return $this->userRepository->createFromArray($data);

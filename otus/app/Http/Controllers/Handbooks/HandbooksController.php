@@ -52,6 +52,13 @@ class HandbooksController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Handbook::class);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'code' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+        ]);
+
         $this->handbookService->storeHandbook($request->all());
         return redirect(route('admin.handbooks.index'), 301);
     }

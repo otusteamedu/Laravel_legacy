@@ -65,6 +65,13 @@ class MaterialsController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Material::class);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'name' => 'required',
+            'category_id' => 'required',
+            'status_id' => 'required',
+        ]);
+
         $this->materialService->storeMaterial($request->all());
         return redirect(route('admin.materials.index'), 301);
     }

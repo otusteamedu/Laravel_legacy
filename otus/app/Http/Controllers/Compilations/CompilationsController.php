@@ -61,6 +61,12 @@ class CompilationsController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Compilation::class);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'material_id' => 'required',
+            'compilation_id' => 'required',
+        ]);
+
         $this->compilationService->storeCompilation($request->all());
         return redirect(route('admin.compilations.index'), 301);
     }

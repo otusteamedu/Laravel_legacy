@@ -52,6 +52,11 @@ class SelectionMaterialsController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, SelectionMaterial::class);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
+
         $this->selectionMaterialsService->storeSelectionMaterial($request->all());
         return redirect(route('admin.selection-materials.index'), 301);
     }

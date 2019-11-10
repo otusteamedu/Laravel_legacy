@@ -15,5 +15,5 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  */
 class Handbook extends Model {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['code', 'name', 'description'];
 }

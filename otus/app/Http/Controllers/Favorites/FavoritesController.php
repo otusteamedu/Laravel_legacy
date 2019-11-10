@@ -61,6 +61,12 @@ class FavoritesController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Favorite::class);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'user_id' => 'required',
+            'material_id' => 'required',
+        ]);
+
         $this->favoriteService->storeFavorite($request->all());
         return redirect(route('admin.favorites.index'), 301);
     }

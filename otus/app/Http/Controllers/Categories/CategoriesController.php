@@ -47,9 +47,13 @@ class CategoriesController extends Controller {
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request) {
-
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Category::class);
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'name' => 'required',
+        ]);
 
         $this->categoryService->storeCategory($request->all());
         return redirect(route('admin.categories.index'), 301);

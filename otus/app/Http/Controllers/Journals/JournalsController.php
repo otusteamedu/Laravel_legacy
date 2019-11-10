@@ -62,6 +62,12 @@ class JournalsController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Journal::class);
 
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'user_id' => 'required',
+            'status_id' => 'required',
+        ]);
+
         $this->journalService->storeJournal($request->all());
         return redirect(route('admin.journals.index'), 301);
     }
