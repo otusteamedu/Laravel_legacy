@@ -31,7 +31,7 @@ class UserService
      * Получаем текущего авторизированного пользователя
      * @return \Illuminate\Contracts\Auth\Authenticatable|null
      */
-    public function getCurrentUser(): ?User
+    public function getCurrentUser(): ?\App\Models\User\User
     {
         $currentUser = Auth::user();
 
@@ -43,15 +43,10 @@ class UserService
      * @param $data
      * @return mixed
      */
-    public function createUser(array $data): ?User
+    public function createUser(array $data): ?\App\Models\User\User
     {
-        try {
-            $user = $this->userRepository->add($data);
-            return $user;
-        } catch (\Exception $e) {
-            report($e);
-            return null;
-        }
+        $user = $this->userRepository->add($data);
+        return $user;
     }
 
     /**
@@ -59,15 +54,9 @@ class UserService
      * @param $userId
      * @return bool
      */
-    public function activate(int $userId): bool
+    public function activate(int $userId): void
     {
-        try {
-            $this->userRepository->activate($userId);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->activate($userId);
     }
 
     /**
@@ -75,15 +64,9 @@ class UserService
      * @param $userId
      * @return bool
      */
-    public function unactivate(int $userId): bool
+    public function unactivate(int $userId): void
     {
-        try {
-            $this->userRepository->deactivate($userId);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->deactivate($userId);
     }
 
     /**
@@ -91,15 +74,10 @@ class UserService
      * @param int $userId
      * @return User|null
      */
-    public function getUserById(int $userId): ?User
+    public function getUserById(int $userId): ?\App\Models\User\User
     {
-        try {
-            $res = $this->userRepository->getById($userId);
-            return $res;
-        } catch (\Exception $e) {
-            report($e);
-            return null;
-        }
+        $user = $this->userRepository->getById($userId);
+        return $user;
     }
 
     /**
@@ -108,15 +86,9 @@ class UserService
      * @param string $newFirstName
      * @return bool
      */
-    public function editFirstName(int $userId, string $newFirstName): bool
+    public function editFirstName(int $userId, string $newFirstName): void
     {
-        try {
-            $this->userRepository->update($userId, ['first_name' => $newFirstName]);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->update($userId, ['first_name' => $newFirstName]);
     }
 
     /**
@@ -125,15 +97,9 @@ class UserService
      * @param string $newLastName
      * @return bool
      */
-    public function editLastName(int $userId, string $newLastName): bool
+    public function editLastName(int $userId, string $newLastName): void
     {
-        try {
-            $this->userRepository->update($userId, ['last_name' => $newLastName]);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->update($userId, ['last_name' => $newLastName]);
     }
 
     /**
@@ -142,15 +108,9 @@ class UserService
      * @param $newBirthday
      * @return bool
      */
-    public function editBirthday(int $userId, string $newBirthday): bool
+    public function editBirthday(int $userId, string $newBirthday): void
     {
-        try {
-            $this->userRepository->update($userId, ['birthday' => $newBirthday]);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->update($userId, ['birthday' => $newBirthday]);
     }
 
     /**
@@ -159,15 +119,9 @@ class UserService
      * @param $newRoleId
      * @return bool
      */
-    public function editRole(int $userId, int $newRoleId): bool
+    public function editRole(int $userId, int $newRoleId): void
     {
-        try {
-            $this->userRepository->update($userId, ['role_id' => $newRoleId]);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->update($userId, ['role_id' => $newRoleId]);
     }
 
     /**
@@ -175,15 +129,9 @@ class UserService
      * @param $userId
      * @return bool
      */
-    public function destroy(int $userId): bool
+    public function destroy(int $userId): void
     {
-        try {
-            $this->userRepository->delete($userId);
-            return true;
-        } catch (\Exception $e) {
-            report($e);
-            return false;
-        }
+        $this->userRepository->delete($userId);
     }
 
     /**
@@ -192,14 +140,8 @@ class UserService
      * @param string $newPassword
      * @return bool
      */
-    public function changePassword(int $userId, string $newPassword): bool
+    public function changePassword(int $userId, string $newPassword): void
     {
-        try {
-            $this->userRepository->changePassword($userId, $newPassword);
-            return true;
-        } catch (\Exception $e) {
-            error($e);
-            return false;
-        }
+        $this->userRepository->changePassword($userId, $newPassword);
     }
 }

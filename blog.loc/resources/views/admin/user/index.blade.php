@@ -22,7 +22,8 @@
 
     {{-- TODO: фильтр--}}
     <div class="table-responsive">
-        <table class="table">
+        @if(isset($users))
+            <table class="table">
             <thead>
                 <tr>
                     <th scope="col">Email</th>
@@ -66,14 +67,19 @@
                 @endforeach
             </tbody>
         </table>
+        @else
+            Нет данных
+        @endif
     </div>
 
-    {{-- Добавление пользователя --}}
-    @include('admin._particle.modal.modal_add_user')
+    @if(isset($users))
+        {{-- Добавление пользователя --}}
+        @include('admin._particle.modal.modal_add_user')
 
-    {{-- Активация пользователя --}}
-    @include('admin._particle.modal.modal_activate_user')
+        {{-- Активация пользователя --}}
+        @include('admin._particle.modal.modal_activate_user')
 
-    {{-- Деактивация пользователя --}}
-    @include('admin._particle.modal.modal_deactivate_user')
+        {{-- Деактивация пользователя --}}
+        @include('admin._particle.modal.modal_deactivate_user')
+    @endif
 @endsection

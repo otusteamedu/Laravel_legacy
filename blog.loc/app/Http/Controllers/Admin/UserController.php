@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ChangePasswordRequest;
 use App\Http\Requests\StoreUserRequest;
 use App\Services\Role\RoleService;
 use App\Services\User\UserService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
-class UserController extends MainController
+class UserController extends Controller
 {
     protected $userService;
     protected $roleService;
@@ -28,13 +30,17 @@ class UserController extends MainController
      */
     public function index(Request $request)
     {
-        $this->template = 'admin.user.index';
-        $this->data['pageTitle'] = 'Пользователи';
+        $data['pageTitle'] = 'Пользователи';
+        try {
+            $data['users'] = $this->userService->getUsers();
+            $data['roles'] = $this->roleService->getRoles();
 
-        $this->data['users'] = $this->userService->getUsers();
-        $this->data['roles'] = $this->roleService->getRoles();
+            return view('admin.user.index')->with($data);
+        } catch (\Exception $e) {
+            report($e);
 
-        return $this->renderOut();
+            return view('admin.user.index',$data)->withErrors('Возникла ошибка.');
+        }
     }
 
     /**
@@ -47,10 +53,15 @@ class UserController extends MainController
         $userData['email'] = $request->email;
         $userData['password'] = bcrypt($request->password);
         $userData['role_id'] = $request->role;
+        try {
+            $this->userService->createUser($userData);
 
-        $this->userService->createUser($userData);
+            return redirect()->route('admin.users.index')->with('success', 'Пользователь добавлен');
+        } catch (\Exception $e) {
+            report($e);
 
-        return redirect()->route('admin.users.index')->with('success', 'Пользователь добавлен');
+            return redirect()->route('admin.users.index')->with('error', 'Возникла ошибка.');
+        }
     }
 
     /**
@@ -60,19 +71,21 @@ class UserController extends MainController
      */
     public function show($id)
     {
-        $res = $user = $this->userService->getUserById($id);
+        try {
+            $user = $this->userService->getUserById($id);
+            $data['user'] = $user;
+            $data['roles'] = $this->roleService->getRoles();
+            $this->template = 'admin.user.show';
+            $data['pageTitle'] = 'Пользователь: ' . $user->email;
 
-        if($res === false) {
+            return view('admin.user.show')->with($data);
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('admin.users.index')->with('error', 'Возникла ошибка: Пользователь не найден');
+        } catch (\Exception $e) {
+            report($e);
+
             return redirect()->route('admin.users.index')->with('error', 'Возникла ошибка');
         }
-
-        $this->data['user'] = $user;
-        $this->data['roles'] = $this->roleService->getRoles();
-
-        $this->template = 'admin.user.show';
-        $this->data['pageTitle'] = 'Пользователь: ' . $user->email;
-
-        return $this->renderOut();
     }
 
     /**
@@ -83,14 +96,16 @@ class UserController extends MainController
      */
     public function destroy(Request $request)
     {
-        $userId = $request->id;
-        $res = $this->userService->destroy($userId);
+        try {
+            $userId = $request->id;
+            $this->userService->destroy($userId);
 
-        if($res === false) {
-            return redirect()->back()->with('error', 'Возникла ошибка');
+            return redirect()->route('admin.users.index')->with('success', 'Пользователь удален');
+        } catch (\Exception $e) {
+            report($e);
+
+            return redirect()->route('admin.users.index')->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->route('admin.users.index')->with('success', 'Пользователь удален');
     }
 
     /**
@@ -101,13 +116,15 @@ class UserController extends MainController
     public function active(Request $request)
     {
         $userId = $request->id;
-        $res = $this->userService->activate($userId);
+        try {
+            $this->userService->activate($userId);
 
-        if($res === false) {
+            return redirect()->back()->with('success', 'Пользователь активирован');
+        } catch (\Exception $e) {
+            report($e);
+
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->back()->with('success', 'Пользователь активирован');
     }
 
     /**
@@ -117,14 +134,16 @@ class UserController extends MainController
      */
     public function unactive(Request $request)
     {
-        $userId = $request->id;
-        $res = $this->userService->unactivate($userId);
+        try {
+            $userId = $request->id;
+            $this->userService->unactivate($userId);
 
-        if($res === false) {
+            return redirect()->back()->with('success', 'Пользователь деактивирован');
+        } catch (\Exception $e) {
+            report($e);
+
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->back()->with('success', 'Пользователь деактивирован');
     }
 
     /**
@@ -134,16 +153,17 @@ class UserController extends MainController
      */
     public function editFirstName(Request $request)
     {
-        $userId = $request->id;
-        $firstName = $request->first_name;
+        try {
+            $userId = $request->id;
+            $firstName = $request->first_name;
+            $this->userService->editFirstName($userId, $firstName);
 
-        $res = $this->userService->editFirstName($userId, $firstName);
+            return redirect()->back()->with('success', 'Пользователь изменен');
+        } catch (\Exception $e) {
+            report($e);
 
-        if($res === false) {
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->back()->with('success','Пользователь изменен');
     }
 
     /**
@@ -153,16 +173,17 @@ class UserController extends MainController
      */
     public function editLastName(Request $request)
     {
-        $userId = $request->id;
-        $lastName = $request->last_name;
+        try {
+            $userId = $request->id;
+            $lastName = $request->last_name;
+            $this->userService->editLastName($userId, $lastName);
 
-        $res = $this->userService->editLastName($userId, $lastName);
+            return redirect()->back()->with('success', 'Пользователь изменен');
+        } catch (\Exception $e) {
+            report($e);
 
-        if($res === false) {
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->back()->with('success', 'Пользователь изменен');
     }
 
     /**
@@ -172,16 +193,17 @@ class UserController extends MainController
      */
     public function editBirthday(Request $request)
     {
-        $userId = $request->id;
-        $birthday = $request->birthday;
+        try {
+            $userId = $request->id;
+            $birthday = $request->birthday;
+            $this->userService->editBirthday($userId, $birthday);
 
-        $res = $this->userService->editBirthday($userId, $birthday);
+            return redirect()->back()->with('success', 'Пользователь изменен');
+        } catch (\Exception $e) {
+            report($e);
 
-        if($res === false) {
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->back()->with('success', 'Пользователь изменен');
     }
 
     /**
@@ -191,16 +213,18 @@ class UserController extends MainController
      */
     public function editRole(Request $request)
     {
-        $userId = $request->id;
-        $roleId = $request->role;
+        try {
+            $userId = $request->id;
+            $roleId = $request->role;
+            $this->userService->editRole($userId, $roleId);
 
-        $res = $this->userService->editRole($userId, $roleId);
+            return redirect()->back()->with('success', 'Пользователь изменен');
+        } catch (\Exception $e) {
+            report($e);
 
-        if($res === false) {
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
 
-        return redirect()->back()->with('success', 'Пользователь изменен');
     }
 
     /**
@@ -210,15 +234,16 @@ class UserController extends MainController
      */
     public function changePassword(ChangePasswordRequest $request)
     {
-        $userId = $request->id;
-        $newPassword = $request->password;
+        try {
+            $userId = $request->id;
+            $newPassword = $request->password;
+            $this->userService->changePassword($userId, $newPassword);
 
-        $res = $this->userService->changePassword($userId, $newPassword);
+            return redirect()->back()->with('success', 'Пользователь изменен');
+        } catch (\Exception $e) {
+            report($e);
 
-        if($res === false) {
             return redirect()->back()->with('error', 'Возникла ошибка');
         }
-
-        return redirect()->back()->with('success', 'Пользователь изменен');
     }
 }
