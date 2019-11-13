@@ -1,0 +1,19 @@
+{
+    "name": "otus/hw7",
+    "authors": [
+        {
+            "name": "Egor Gruzdev",
+            "email": "egor.gruzdev@gmail.com"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^5.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hw7\\": "hw7/"
+        }
+    },
+    "require-dev": {
+    }
+}
