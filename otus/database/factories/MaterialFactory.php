@@ -39,11 +39,29 @@ $factory->define(Material::class, function (Faker $faker) {
         public_path() . '/files/file5.jpg',
     ];
 
+    $previewPicturesUrls = [
+        public_path() . '/files/file1.jpg',
+        public_path() . '/files/file2.jpg',
+        public_path() . '/files/file3.jpg',
+        public_path() . '/files/file4.jpg',
+        public_path() . '/files/file5.jpg',
+    ];
+
+    $types = ['Бумага', 'Аудио', 'E-BOOK'];
+    $formats = ['PDF', 'WORD'];
+
 
     shuffle($selectionMaterials);
     shuffle($filesUrls);
+    shuffle($previewPicturesUrls);
+    shuffle($formats);
+    shuffle($types);
+
     $material = array_shift($selectionMaterials);
     $file = array_shift($filesUrls);
+    $preview = array_shift($filesUrls);
+    $format = array_shift($formats);
+    $type = array_shift($types);
 
     return [
         'name' => $material,
@@ -55,6 +73,10 @@ $factory->define(Material::class, function (Faker $faker) {
             return factory(Handbook::class)->create()->id;
         },
         'file' => $file,
+        'preview_image' => $preview,
+        'format' => $format,
+        'type' => $type,
+        'description' => $faker->text(1000),
         'year_publishing' => $faker->numberBetween(1980, 2019)
     ];
 });

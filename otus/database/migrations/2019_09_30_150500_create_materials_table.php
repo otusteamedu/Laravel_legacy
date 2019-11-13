@@ -14,9 +14,13 @@ class CreateMaterialsTable extends Migration {
         Schema::create('materials', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->longText('description');
             $table->bigInteger('category_id')->unsigned();
             $table->bigInteger('status_id')->unsigned();
             $table->string('file');
+            $table->string('preview_image');
+            $table->string('type');
+            $table->string('format');
             $table->year('year_publishing')->nullable();
             $table->timestamps();
         });
