@@ -18,3 +18,8 @@ Route::middleware('auth:api')->group(function () {
         return $request->user();
     });
 });
+Route::apiResource('countries', 'Api\Cms\Countries\CountriesController', [
+    'except' => [
+        'destroy',
+    ],
+]);

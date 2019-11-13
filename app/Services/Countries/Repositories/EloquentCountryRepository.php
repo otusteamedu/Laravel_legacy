@@ -24,6 +24,16 @@ class EloquentCountryRepository implements CountryRepositoryInterface
      * @param array $with
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection
      */
+    public function getBy(array $filters = [], array $with = [])
+    {
+        return Country::with($with)->get();
+    }
+
+    /**
+     * @param array $filters
+     * @param array $with
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection
+     */
     public function search(array $filters = [], array $with = [])
     {
         return Country::with($with)->paginate();

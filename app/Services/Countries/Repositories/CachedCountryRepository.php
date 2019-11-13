@@ -11,6 +11,7 @@ namespace App\Services\Countries\Repositories;
 use App\Services\Cache\CacheKeyManager;
 use App\Services\Cache\Tag;
 use Cache;
+use Illuminate\Database\Eloquent\Collection;
 
 class CachedCountryRepository implements CachedCountryRepositoryInterface
 {
@@ -29,6 +30,16 @@ class CachedCountryRepository implements CachedCountryRepositoryInterface
     {
         $this->countryRepository = $countryRepository;
         $this->cacheKeyManager = $cacheKeyManager;
+    }
+
+    public function getBy(array $filters = [], array $with = []): Collection
+    {
+        $key = $this->cacheKeyManager->getSearchCountriesKey($filters);
+
+        return Cache::tags([Tag::CMS, Tag::COUNTRIES])
+            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($filters, $with) {
+                return $this->countryRepository->getBy($filters, $with);
+            });
     }
 
     public function search(array $filters = [], array $with = [])

@@ -13,6 +13,7 @@ use App\Services\Countries\Handlers\CreateCountryHandler;
 use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class CountriesService
 {
@@ -42,6 +43,14 @@ class CountriesService
     public function findCountry(int $id)
     {
         return $this->countryRepository->find($id);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection
+    {
+        return $this->cachedCountryRepository->getBy();
     }
 
     /**
