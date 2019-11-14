@@ -8,7 +8,7 @@ namespace App\Models;
  * @proprety int id
  * @proprety int country_id
  * @proprety string name
- * @proprety Country country
+ * @proprety CountryResource country
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City newQuery()

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\Cms\Countries;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CountriesResource;
+use App\Http\Resources\CountryResource;
 use App\Models\Country;
 use App\Policies\Abilities;
 use App\Services\Countries\CountriesService;
@@ -28,8 +30,8 @@ class CountriesController extends Controller
     {
         $this->authorize(Abilities::VIEW_ANY, Country::class);
         $countries = $this->countriesService->getAll();
-
-        return response()->json($countries);
+        $countries->load(['cities']);
+        return new CountriesResource($countries);
     }
 
     /**
@@ -49,8 +51,7 @@ class CountriesController extends Controller
         $data = $request->all();
         $data['created_user_id'] = \Auth::id();
         $country = $this->countriesService->storeCountry($data);
-
-        return response()->json($country);
+        return response()->json(new CountryResource($country));
     }
 
     /**
@@ -62,7 +63,7 @@ class CountriesController extends Controller
     {
         $this->authorize(Abilities::VIEW, Country::class);
 
-        return response()->json($country);
+        return response()->json(new CountryResource($country));
     }
 
     /**
@@ -75,14 +76,13 @@ class CountriesController extends Controller
     public function update(Request $request, Country $country)
     {
         $this->authorize(Abilities::UPDATE, $country);
-
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
             'continent_name' => 'required|max:20'
         ]);
 
-        $this->countriesService->updateCountry($country, $request->all());
-        return response()->json($country);
+        $country = $this->countriesService->updateCountry($country, $request->all());
+        return response()->json(new CountryResource($country));
     }
 
 }

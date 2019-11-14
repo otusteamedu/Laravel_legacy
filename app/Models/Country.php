@@ -6,7 +6,7 @@ use App\Services\Events\Models\Country\CountrySaved;
 use Illuminate\Support\Collection;
 
 /**
- * App\Models\Country
+ * App\Models\CountryResource
  *
  * @property string name
  * @property string continent_name

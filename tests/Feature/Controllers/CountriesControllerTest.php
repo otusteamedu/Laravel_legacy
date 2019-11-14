@@ -135,7 +135,7 @@ class CountriesControllerTest extends TestCase
 //        $data = $this->generateCountryCreateData();
 //        $this->post(route('cms.countries.store'), $data);
 //
-//        $this->assertEquals(0, Country::all()->count());
+//        $this->assertEquals(0, CountryResource::all()->count());
 //    }
 //
     /**

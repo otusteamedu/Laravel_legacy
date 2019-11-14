@@ -14,12 +14,14 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->group(function () {
-    Route::get('user', function (Request $request) {
-        return $request->user();
-    });
+    Route::apiResource('countries', 'Api\Cms\Countries\CountriesController', [
+        'except' => [
+            'destroy',
+        ],
+    ]);
 });
-Route::apiResource('countries', 'Api\Cms\Countries\CountriesController', [
-    'except' => [
-        'destroy',
-    ],
-]);
+//Route::apiResource('countries', 'Api\Cms\Countries\CountriesController', [
+//    'except' => [
+//        'destroy',
+//    ],
+//]);

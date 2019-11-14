@@ -42,8 +42,7 @@ class EloquentCountryRepository implements CountryRepositoryInterface
     public function createFromArray(array $data): Country
     {
         $country = new Country();
-        $country->create($data);
-        return $country;
+        return $country->create($data);
     }
 
     public function updateFromArray(Country $country, array $data)
