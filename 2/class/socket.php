@@ -1,4 +1,5 @@
 <?
+namespace Socket;
 
 class Socket
 {
@@ -108,7 +109,6 @@ class Socket
     {
         $len = strlen($buf);
         $bytes_sent = socket_sendto(self::getSocket(), $buf, $len, 0, $from);
-
         if ($bytes_sent == -1) {
             throw new Exception("\n\nAn error occured while sending to the socket\n\n");
         } else if ($bytes_sent != $len)
