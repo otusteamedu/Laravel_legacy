@@ -1,7 +1,6 @@
 <?
 namespace Socket;
 
-
 class ServerSocket extends Socket
 {
     /**

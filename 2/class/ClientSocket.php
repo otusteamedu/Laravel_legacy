@@ -1,8 +1,6 @@
 <?
 namespace Socket;
 
-use Socket;
-
 class ClientSocket extends Socket
 {
     private $client_sock;
