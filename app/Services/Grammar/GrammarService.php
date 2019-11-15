@@ -36,27 +36,31 @@ class GrammarService
     public function updateGrammar($data)
     {
         $grammar = new Grammar($data);
-
-        if(empty($data['id'])){
-            $updateArray=$grammar->getArrayForInsert();
-            $id = $this->grammarRepository->insertGrammar($updateArray);
-            if($id>0){
-                $updateArray['id']= $id;
-                $grammar=new Grammar($updateArray);
-                return $grammar;
-            }
+        $updateArray = $grammar->getArray();
+        if ($this->grammarRepository->updateGrammar($updateArray)) {
+            return $grammar;
+        } else {
             return 0;
-        }else {
-            $updateArray=$grammar->getArray();
-            if ($this->grammarRepository->updateGrammar($updateArray)) {
-                return $grammar;
-            } else {
-                return 0;
-            }
         }
+
+
     }
 
-    public function newGrammar(){
+    public function createGrammar($data)
+    {
+        $grammar = new Grammar($data);
+        $updateArray = $grammar->getArrayForInsert();
+        $id = $this->grammarRepository->insertGrammar($updateArray);
+        if ($id > 0) {
+            $updateArray['id'] = $id;
+            $grammar = new Grammar($updateArray);
+            return $grammar;
+        }
+        return 0;
+    }
+
+    public function newGrammar()
+    {
         $grammar = new Grammar();
         $grammar->setEmpty();
 

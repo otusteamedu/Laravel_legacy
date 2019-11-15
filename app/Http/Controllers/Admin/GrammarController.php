@@ -62,13 +62,20 @@ class GrammarController extends Controller
      */
     public function update(Request $request)
     {
-        $grammar = $this->grammarService->updateGrammar($request->all());
-        if($grammar!==0) {
-            return view('admin.grammar_detail')->with(['grammar' => $grammar]);
-        }
-        else{
+        $request=$request->all();
+
+
+            if(empty($request['id'])) {
+                $grammar = $this->grammarService->createGrammar($request);
+                if($grammar!==0)
+                return view('admin.grammar_detail')->with(['grammar' => $grammar]);
+            }else{
+                $grammar = $this->grammarService->updateGrammar($request);
+                if($grammar!==0)
+                return view('admin.grammar_detail')->with(['grammar' => $grammar]);
+            }
             return 'error';
-        }
+
     }
     /**
      * Store a newly created resource in storage.
