@@ -1,0 +1,16 @@
+{
+    "name": "Ruslan",
+    "authors": [
+        {
+            "name": "Ruslan",
+            "email": "ruslan231984@yandex.ru"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "classmap": [
+          "class/"
+        ]
+    }
+}

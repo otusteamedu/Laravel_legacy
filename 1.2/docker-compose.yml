@@ -1,0 +1,41 @@
+version: '3.3'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - "81:80"
+      - "443:443"
+    volumes:
+      - ./hosts:/etc/nginx/conf.d
+      - ./www:/var/www
+    links:
+      - db
+      - php
+  php:
+    build: ./images/php
+    volumes:
+      - ./www:/var/www
+    links:
+      - db
+      - memcached
+    ports:
+      - "9000:9000"
+  db:
+    image: mariadb:latest
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=123
+    ports:
+      - "3306:3306"
+  memcached:
+    image: memcached:latest
+  adminer:
+    image: adminer
+    ports:
+     - "8080:8080"
+    links:
+     - php
+     - db
+
+volumes:
+  mysql: {}
