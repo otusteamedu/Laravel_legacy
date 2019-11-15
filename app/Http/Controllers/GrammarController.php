@@ -3,20 +3,29 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\GrammarModel;
-use DB;
+use App\Models\Grammar;
+use App\Services\Grammar\GrammarService;
 
 class GrammarController extends Controller
 {
-    public static function getList()
+    private $grammarService;
+    public function __construct(
+        GrammarService $grammarService
+    )
     {
-        $list = GrammarModel::getList();
-        return view('list');
+        $this->grammarService = $grammarService;
+    }
+    public  function getList()
+    {
+        $list = $this->grammarService->listGrammar();
+
+        return view('list')->with(['list'=>$list]);
     }
 
-    public static function getDeatail(string $code)
+    public  function getDeatail(string $id)
     {
-        $detail = GrammarModel::getDetail($code);
-        return view('garmmar');
+        $list = $this->grammarService->listGrammar();
+        $detail = $this->grammarService->detailGrammar($id);
+        return  view('grammar')->with(['detail'=>$detail,'list'=>$list]);
     }
 }

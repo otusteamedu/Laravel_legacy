@@ -49,21 +49,9 @@
         </div>
         <div class="col-md-3 jumbotron">
             <ul class="nav flex-column">
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 1</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 2</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 3</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 4</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 5</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 6</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 7</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 8</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 9</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 10</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 11</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 12</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 13</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 14</a></li>
-                <li class="nav-item"><a href="/arabskie-bukvy/alif" class="nav-link active">Пункт 15</a></li>
+                @foreach($list as $item)
+                    <li class="nav-item"><a href="/grammatika/{{$item->getId()}}" class="nav-link active">{{$item->getName()}}</a></li>
+                @endforeach
             </ul>
         </div>
     </div>

@@ -7,7 +7,7 @@
     <hr>
     <ul class="nav flex-column">
         @foreach($list as $item)
-            <li class="nav-item"><a href="/admin/grammar/{{$item->getCode()}}" class="nav-link active">{{$item->getName()}}</a></li>
+            <li class="nav-item"><a href="/admin/grammar/{{$item->getId()}}" class="nav-link active">{{$item->getName()}}</a></li>
         @endforeach
     </ul>
     <hr>

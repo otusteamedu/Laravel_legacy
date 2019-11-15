@@ -26,9 +26,9 @@ class GrammarService
         return $list;
     }
 
-    public function detailGrammar(string $code): Grammar
+    public function detailGrammar(string $id): Grammar
     {
-        $data = $this->grammarRepository->detailGrammar($code);
+        $data = $this->grammarRepository->detailGrammar($id);
         $grammar = new Grammar($data);
         return $grammar;
     }

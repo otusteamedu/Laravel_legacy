@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('index');
 });
 Route::get('/arabskie-bukvy', 'OrthographyController@getList');
-Route::get('/arabskie-bukvy/{code}', 'OrthographyController@getDeatail');
+Route::get('/arabskie-bukvy/{id}', 'OrthographyController@getDeatail');
 Route::get('/grammatika', 'GrammarController@getList');
-Route::get('/grammatika/{code}', 'GrammarController@getDeatail');
+Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
 
 
 Route::name('admin.')->group(function () {
