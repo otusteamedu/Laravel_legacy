@@ -62,6 +62,11 @@ class GrammarController extends Controller
      */
     public function update(Grammar $grammar, Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'title' => 'required',
+        ]);
         $request = $request->all();
         $id = $this->grammarService->updateGrammar($request);
         $message = '';
@@ -84,8 +89,12 @@ class GrammarController extends Controller
      */
     public function store(Request $request)
     {
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'title' => 'required',
+        ]);
         $request = $request->all();
-
         $id = $this->grammarService->insertGrammar($request);
         $message = '';
         $error = '';
