@@ -17,7 +17,7 @@ class GrammarController extends Controller
         GrammarService $grammarService
     )
     {
-      $this->grammarService = $grammarService;
+        $this->grammarService = $grammarService;
     }
 
     /**
@@ -34,14 +34,14 @@ class GrammarController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Grammar  $grammar
+     * @param \App\Models\Grammar $grammar
      * @return \Illuminate\Http\Response
      */
-    public function show(string $grammar)
+    public function show(Grammar $grammar)
     {
-        $grammar = $this->grammarService->detailGrammar($grammar);
         return view('admin.grammar_detail')->with(['grammar' => $grammar]);
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -50,63 +50,72 @@ class GrammarController extends Controller
     public function create()
     {
         $grammar = $this->grammarService->newGrammar();
-        return view('admin.grammar_detail')->with(['grammar' => $grammar]);
+        return view('admin.grammar_detail_create')->with(['grammar' => $grammar]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Grammar  $grammar
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Grammar $grammar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Grammar $grammar, Request $request)
     {
-        $request=$request->all();
-
-
-            if(empty($request['id'])) {
-                $grammar = $this->grammarService->createGrammar($request);
-                if($grammar!==0)
-                return view('admin.grammar_detail')->with(['grammar' => $grammar]);
-            }else{
-                $grammar = $this->grammarService->updateGrammar($request);
-                if($grammar!==0)
-                return view('admin.grammar_detail')->with(['grammar' => $grammar]);
-            }
-            return 'error';
+        $request = $request->all();
+        $id = $this->grammarService->updateGrammar($request);
+        $message = '';
+        $error = '';
+        if ($id) {
+            $message = 'ОК';
+            $grammar = $this->grammarService->detailGrammar($id);
+        } else {
+            $error = 'Error';
+        }
+        return view('admin.grammar_detail')->with(['grammar' => $grammar, 'error' => $error, 'message' => $message]);
 
     }
+
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request = $request->all();
 
+        $id = $this->grammarService->insertGrammar($request);
+        $message = '';
+        $error = '';
+        if ($id) {
+            $message = 'ОК';
+            $grammar = $this->grammarService->detailGrammar($id);
+        } else {
+            $error = 'Error';
+        }
+        return view('admin.grammar_detail')->with(['grammar' => $grammar, 'error' => $error, 'message' => $message]);
+
+    }
 
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Grammar  $grammar
+     * @param \App\Models\Grammar $grammar
      * @return \Illuminate\Http\Response
      */
     public function edit(Grammar $grammar)
     {
-        //
-    }
 
+    }
 
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Grammar  $grammar
+     * @param \App\Models\Grammar $grammar
      * @return \Illuminate\Http\Response
      */
     public function destroy(Grammar $grammar)

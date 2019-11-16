@@ -13,7 +13,7 @@ class CreateGrammarTable extends Migration
      */
     public function up()
     {
-        Schema::create('grammar', function (Blueprint $table) {
+        Schema::create('grammars', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('name');

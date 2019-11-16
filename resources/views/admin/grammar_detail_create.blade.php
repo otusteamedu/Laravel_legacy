@@ -15,7 +15,7 @@
     @endif
     <hr>
     {!!
-        Form::model($grammar,['method'=>'PUT', 'url' => route('admin.grammar.update',
+        Form::model($grammar,['method'=>'POST', 'url' => route('admin.grammar.store',
             ['grammar'=>($grammar->id)])
         ])
     !!}

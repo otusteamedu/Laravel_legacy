@@ -18,53 +18,25 @@ class GrammarService
 
     public function listGrammar()
     {
-        $data = $this->grammarRepository->listGrammar();
-        $list = [];
-        foreach ($data as $item) {
-            $list[] = new Grammar($item);
-        }
-        return $list;
+        return $this->grammarRepository->listGrammar();
     }
 
-    public function detailGrammar(string $id): Grammar
+    public function detailGrammar(string $id)
     {
-        $data = $this->grammarRepository->detailGrammar($id);
-        $grammar = new Grammar($data);
-        return $grammar;
+        return $this->grammarRepository->detailGrammar($id);
     }
-
     public function updateGrammar($data)
     {
-        $grammar = new Grammar($data);
-        $updateArray = $grammar->getArray();
-        if ($this->grammarRepository->updateGrammar($updateArray)) {
-            return $grammar;
-        } else {
-            return 0;
-        }
-
-
+        return $this->grammarRepository->updateGrammar($data);
     }
-
-    public function createGrammar($data)
+    public function insertGrammar($data)
     {
-        $grammar = new Grammar($data);
-        $updateArray = $grammar->getArrayForInsert();
-        $id = $this->grammarRepository->insertGrammar($updateArray);
-        if ($id > 0) {
-            $updateArray['id'] = $id;
-            $grammar = new Grammar($updateArray);
-            return $grammar;
-        }
-        return 0;
+        return $this->grammarRepository->insertGrammar($data);
     }
 
     public function newGrammar()
     {
-        $grammar = new Grammar();
-        $grammar->setEmpty();
-
-        return $grammar;
+        return new Grammar();
     }
 
 
