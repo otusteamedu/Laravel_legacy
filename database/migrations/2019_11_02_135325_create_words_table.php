@@ -26,7 +26,7 @@ class CreateWordsTable extends Migration
 
         Schema::table('words',function(Blueprint $table){
             $table->foreign('lessen_id')
-                ->on('grammar')
+                ->on('grammars')
                 ->references('id')
                 ->onDelete('cascade');
         });

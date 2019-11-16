@@ -21,7 +21,7 @@ class CreateTestsTable extends Migration
         });
         Schema::table('tests',function(Blueprint $table){
             $table->foreign('lessen_id')
-                ->on('grammar')
+                ->on('grammars')
                 ->references('id')
                 ->onDelete('cascade');
         });

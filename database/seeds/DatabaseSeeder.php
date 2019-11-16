@@ -45,6 +45,6 @@ class DatabaseSeeder extends Seeder
 "
 
             ]];
-        DB::table('grammar')->insert($insert);
+        DB::table('grammars')->insert($insert);
     }
 }

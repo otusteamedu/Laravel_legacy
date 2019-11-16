@@ -105,7 +105,6 @@ class GrammarController extends Controller
             $error = 'Error';
         }
         return view('admin.grammar_detail')->with(['grammar' => $grammar, 'error' => $error, 'message' => $message]);
-
     }
 
 
