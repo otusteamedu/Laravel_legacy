@@ -19,7 +19,6 @@ Route::get('/arabskie-bukvy/{id}', 'OrthographyController@getDeatail');
 Route::get('/grammatika', 'GrammarController@getList');
 Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
 
-
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resource('grammar', 'Admin\GrammarController');
