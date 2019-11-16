@@ -21,7 +21,7 @@ Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
 
 
 Route::name('admin.')->group(function () {
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware('auth')->group(function () {
         Route::resource('grammar', 'Admin\GrammarController');
     });
 });
