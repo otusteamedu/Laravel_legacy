@@ -6,7 +6,8 @@ use App\Models\Grammar;
 use App\Services\Grammar\GrammarService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\String_;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Auth;
 
 class GrammarController extends Controller
 {
@@ -39,7 +40,20 @@ class GrammarController extends Controller
      */
     public function show(Grammar $grammar)
     {
-        return view('admin.grammar_detail')->with(['grammar' => $grammar]);
+        $message="";
+        $edit=true;
+        if (Gate::allows('update-grammar', $grammar)) {
+            $edit=true;
+        } else {
+            $message = 'Просмотр';
+            $edit=false;
+        }
+        return view('admin.grammar_detail')->with(
+            [
+                'grammar' => $grammar,
+                'message' => $message,
+                'edit'=>$edit
+            ]);
     }
 
     /**
@@ -62,7 +76,7 @@ class GrammarController extends Controller
      */
     public function update(Grammar $grammar, Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required',
             'code' => 'required',
             'title' => 'required',
@@ -77,7 +91,12 @@ class GrammarController extends Controller
         } else {
             $error = 'Error';
         }
-        return view('admin.grammar_detail')->with(['grammar' => $grammar, 'error' => $error, 'message' => $message]);
+        return view('admin.grammar_detail')->with([
+            'grammar' => $grammar,
+            'error' => $error,
+            'message' => $message,
+            'edit' => true
+        ]);
 
     }
 
@@ -89,7 +108,7 @@ class GrammarController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
+        $request->validate([
             'name' => 'required',
             'code' => 'required',
             'title' => 'required',
