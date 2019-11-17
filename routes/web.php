@@ -29,7 +29,7 @@ Route::name('admin.')->group(function () {
 });
 
 
-Route::get('/test', 'GrammarController@test')->name('test');
+Route::get('/admin', 'Auth\LoginController@showLoginForm');
 
 Auth::routes();
 
