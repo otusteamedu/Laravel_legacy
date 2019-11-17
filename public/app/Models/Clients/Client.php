@@ -3,6 +3,7 @@
 namespace App\Models\Clients;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Services\Events\Models\Client\ClientSaved;
 
 /**
  * Class Client
@@ -11,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Client extends Model
 {
+    protected $dispatchesEvents = ['saved' => ClientSaved::class];
+
     public function region()
     {
         return $this->hasOne('App\Models\Region', 'id', 'region_id');

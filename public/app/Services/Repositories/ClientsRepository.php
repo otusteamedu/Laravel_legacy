@@ -14,14 +14,15 @@ class ClientsRepository implements RepositoryInterface
 {
     public function index()
     {
-        return Client::with(['region'])->paginate(20);
+
+        return Client::with(['region'])->paginate(5);
     }
 
     public function store(array $data)
     {
         $model = new Client;
-        $model->name = $data->name;
-        $model->region_id = $data->region_id;
+        $model->name = $data['name'];
+        $model->region_id = $data['region_id'];
         $model->save();
     }
 

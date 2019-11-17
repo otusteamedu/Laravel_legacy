@@ -2,3 +2,5 @@
 {{ method_field('DELETE') }}
 {{ Form::submit('удалить', ['class' => 'btn btn-outline-secondary']) }}
 {{ Form::close() }}
+
+

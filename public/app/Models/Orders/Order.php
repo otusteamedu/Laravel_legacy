@@ -13,11 +13,11 @@ class Order extends Model
 {
     public function region()
     {
-        return $this->hasOne('App\Models\Region', 'id', 'region_id');
+        return $this->hasOne('App\Models\Region');
     }
 
     public function user()
     {
-        return $this->hasOne('App\Models\Clients\Client', 'id', 'client_id');
+        return $this->hasOne('App\Models\Clients\Client');
     }
 }

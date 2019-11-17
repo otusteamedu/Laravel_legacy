@@ -1,4 +1,4 @@
-@extends($layout)
+@extends('crm.layouts.nav_admin')
 
 @section('content')
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">

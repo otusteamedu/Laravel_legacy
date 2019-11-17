@@ -3,27 +3,42 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Models\Clients\Client;
+use App\Services\Cache\CacheKeys;
 use App\Services\ClientsService;
+use App\Services\Repositories\CachedRepositories\CachedClientRepository;
+use App\Services\ValidationService;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Crm\CrmController;
 
 class ClientsController extends CrmController
 {
-    private $clientsService;
+    const RULES = [
+        'name' => 'required|max:255',
+        'region_id' => 'required',
+    ];
 
-    public function __construct(ClientsService $clientsService)
+    private $clientsService;
+    private $validationService;
+    private $cacheClientRepository;
+
+    public function __construct(ClientsService $clientsService,
+                                ValidationService $validationService,
+                                CachedClientRepository $cachedClientRepository)
     {
+        $this->validationService = $validationService;
         $this->clientsService = $clientsService;
+        $this->cacheClientRepository = $cachedClientRepository;
     }
 
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $items = $this->clientsService->index();
+        $items = $this->cacheClientRepository->searchClients($request);
 
-        return view('crm.clients.index', ['items' => $items, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.clients.index', ['items' => $items, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -31,7 +46,7 @@ class ClientsController extends CrmController
      */
     public function create()
     {
-        return view('crm.clients.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.clients.create', ['leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -40,7 +55,9 @@ class ClientsController extends CrmController
      */
     public function store(Request $request)
     {
-        $this->clientsService->store($request);
+        if ($this->validationService->validate($request, self::RULES)) {
+            $this->clientsService->store($request);
+        }
 
         return redirect(route('crm.clients.index'));
     }
@@ -51,7 +68,7 @@ class ClientsController extends CrmController
      */
     public function show(Client $client)
     {
-        return view('crm.clients.edit', ['model' => $client, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.clients.edit', ['model' => $client, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -60,7 +77,7 @@ class ClientsController extends CrmController
      */
     public function edit(Client $client)
     {
-        return view('crm.clients.edit', ['model' => $client, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.clients.edit', ['model' => $client, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -70,7 +87,9 @@ class ClientsController extends CrmController
      */
     public function update(Request $request, Client $client)
     {
-        $this->clientsService->update($request, $client);
+        if ($this->validationService->validate($request, self::RULES)) {
+            $this->clientsService->update($request, $client);
+        }
 
         return redirect(route('crm.clients.index'));
     }
@@ -80,7 +99,6 @@ class ClientsController extends CrmController
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Exception
      */
-
     public function destroy(Client $client)
     {
         $this->clientsService->destroy($client);

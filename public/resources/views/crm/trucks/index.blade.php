@@ -1,4 +1,4 @@
-@extends($layout)
+@extends('crm.layouts.nav_admin')
 @section('content')
     <div>
         <div class="mt-3 mb-3">

@@ -20,13 +20,13 @@ class TrucksController extends CrmController
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = $this->trucksService->index();
 
         return view('crm.trucks.index', [
             'items' => $items,
-            'layout' => 'crm.layouts.nav_' . parent::layout(),
+            'leftNav' => $this->getLeftNav(),
             'edit' => Gate::allows('edit-transport')]);
     }
 
@@ -35,7 +35,7 @@ class TrucksController extends CrmController
      */
     public function create()
     {
-        return view('crm.trucks.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.trucks.create', ['leftNav' => $this->getLeftNav()]);
     }
 
     /**
@@ -57,7 +57,7 @@ class TrucksController extends CrmController
      */
     public function show(Truck $truck)
     {
-        return view('crm.trucks.edit',['model' => $truck, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.trucks.edit',['model' => $truck, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -66,7 +66,7 @@ class TrucksController extends CrmController
      */
     public function edit(Truck $truck)
     {
-        return view('crm.trucks.edit', ['model' => $truck, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.trucks.edit', ['model' => $truck, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**

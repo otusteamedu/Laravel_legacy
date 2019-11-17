@@ -19,11 +19,11 @@ class ScheduleController extends CrmController
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = $this->scheduleService->index();
 
-        return view('crm.schedule.index', ['items' => $items, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.schedule.index', ['items' => $items, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -31,7 +31,7 @@ class ScheduleController extends CrmController
      */
     public function create()
     {
-        return view('crm.schedule.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.schedule.create', ['leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -53,7 +53,7 @@ class ScheduleController extends CrmController
     {
         $model = $this->scheduleService->show($id);
 
-        return view('crm.schedule.edit', ['model' => $model, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.schedule.edit', ['model' => $model, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -62,7 +62,7 @@ class ScheduleController extends CrmController
      */
     public function edit(Schedule $schedule)
     {
-        return view('crm.schedule.edit', ['model' => $schedule, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.schedule.edit', ['model' => $schedule, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**

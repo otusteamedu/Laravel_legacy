@@ -24,7 +24,6 @@
             </h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <nav class="nav nav-masthead justify-content-center">
                 <a class="nav-link" href="/">Главная</a>
-                <a  class="nav-link"  href="/schedule">Расписание</a>
                 <a  class="nav-link"  href="/buses">Автобусы</a>
                 <a  class="nav-link"  href="/regions">Города</a>
                 <!-- Authentication Links -->

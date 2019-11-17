@@ -1,9 +1,9 @@
-@extends($layout)
+@extends('crm.layouts.nav_admin')
 @section('content')
     <div>
         <div class="mt-3 mb-3">
             <h3>Автоcалоны</h3>
-            {{ link_to(route('crm.clients.create'), 'добавить', ['class' => 'btn btn-outline-primary']) }}
+            {{ link_to(route('crm.clients.create'), 'добавить', ['class' => 'btn btn-outline-success']) }}
         </div>
         <div>
             <table class="table" style="max-width: 990px;">
@@ -19,14 +19,10 @@
                         <td>{{ $item->name }}</td>
                         <td>{{ $item['region']['name'] }}</td>
                         <td style="max-width: 150px;">
-                            <div class="row">
-                                <div class="col">
-                                    {{ link_to(route('crm.clients.edit', ['client' => $item]), 'изменить',
-                                    ['class' => 'btn btn-outline-primary']) }}
-                                </div>
-                                <div class="col">
+                            <div class="btn-group" role="group">
+                                {{ link_to(route('crm.clients.edit', ['client' => $item]), 'изменить',
+                                    ['class' => 'btn btn-sm btn-outline-primary']) }}
                                     @include('crm.clients.blocks.form_delete')
-                                </div>
                             </div>
                         </td>
                     </tr>
@@ -34,4 +30,5 @@
             </table>
         </div>
     </div>
+    {{ $items->links() }}
 @endsection

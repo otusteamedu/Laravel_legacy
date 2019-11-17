@@ -1,5 +1,4 @@
 @extends('crm.layouts.nav_admin')
-
 @section('content')
     <div class="container">
         <div class="row justify-content-center">

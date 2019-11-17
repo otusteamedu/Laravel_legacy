@@ -26,7 +26,7 @@ class OrdersController extends CrmController
 
         return view('crm.orders.index', [
             'items' => $items,
-            'layout' => 'crm.layouts.nav_' . parent::layout(),
+            'leftNav' => $this->getLeftNav(),
             'add' => Gate::allows('add-order')]);
     }
 
@@ -35,7 +35,7 @@ class OrdersController extends CrmController
      */
     public function create()
     {
-        return view('crm.orders.create', ['layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.orders.create', ['leftNav' => $this->getLeftNav()]);
     }
 
     /**
@@ -55,7 +55,7 @@ class OrdersController extends CrmController
      */
     public function show(Order $order)
     {
-        return view('crm.orders.edit', ['model' => $order, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.orders.edit', ['model' => $order, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**
@@ -64,7 +64,7 @@ class OrdersController extends CrmController
      */
     public function edit(Order $order)
     {
-        return view('crm.orders.edit', ['model' => $order, 'layout' => 'crm.layouts.nav_' . parent::layout()]);
+        return view('crm.orders.edit', ['model' => $order, 'leftNav' => parent::getLeftNav()]);
     }
 
     /**

@@ -8,18 +8,12 @@ use App\Services\Repositories\ClientsRepository;
 
 class ClientsService
 {
-    const RULES = [
-        'name' => 'required|max:255',
-        'region_id' => 'required',
-    ];
-
     private $clientsRepository;
     private $validationService;
 
-    public function __construct(ClientsRepository $clientsRepository, ValidationService $validationService)
+    public function __construct(ClientsRepository $clientsRepository)
     {
         $this->clientsRepository = $clientsRepository;
-        $this->validationService = $validationService;
     }
 
     public function index()
@@ -27,18 +21,11 @@ class ClientsService
         return $this->clientsRepository->index();
     }
 
-    public function validate(Request $request)
-    {
-        return $this->validationService->validate($request, self::RULES);
-    }
-
     public function store(Request $request)
     {
-        if ($this->validate($request)) {
-            $data['name'] = $request->name;
-            $data['region_id'] = $request->region_id;
-            $this->clientsRepository->store($data);
-        }
+        $data['name'] = $request->name;
+        $data['region_id'] = $request->region_id;
+        $this->clientsRepository->store($data);
     }
 
     public function edit($id)
@@ -48,11 +35,9 @@ class ClientsService
 
     public function update(Request $request, $model)
     {
-        if ($this->validate($request)) {
-            $data['name'] = $request->name;
-            $data['region_id'] = $request->region_id;
-            $this->clientsRepository->update($data, $model);
-        }
+        $data['name'] = $request->name;
+        $data['region_id'] = $request->region_id;
+        $this->clientsRepository->update($data, $model);
     }
 
     public function destroy($model)
