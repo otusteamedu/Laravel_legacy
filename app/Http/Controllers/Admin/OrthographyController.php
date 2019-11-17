@@ -15,6 +15,7 @@ class OrthographyController extends Controller
      */
     public function index()
     {
+        return view('admin.orthography');
         //
     }
 
@@ -58,6 +59,7 @@ class OrthographyController extends Controller
      */
     public function edit(Orthography $orthography)
     {
+
         //
     }
 
