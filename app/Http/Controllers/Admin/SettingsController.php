@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Settings;
 use App\Services\Setting\SettingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SettingsController extends Controller
 {
@@ -24,6 +25,9 @@ class SettingsController extends Controller
      */
     public function index()
     {
+        if (!Gate::allows('show-settings')) {
+          abort(401);
+        }
         $settings = $this->settingsService->index();
         return view('admin.settings')->with('settings',$settings);
     }
