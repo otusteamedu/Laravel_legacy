@@ -22,6 +22,9 @@ Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
 
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->middleware('auth')->group(function () {
+        Route::get('/', function() {
+            return view('admin.main');
+        });
         Route::resource('grammar', 'Admin\GrammarController');
         Route::resource('orthography', 'Admin\OrthographyController');
         Route::resource('settings', 'Admin\SettingsController')->only(['index', 'store']);
@@ -29,7 +32,7 @@ Route::name('admin.')->group(function () {
 });
 
 
-Route::get('/admin', 'Auth\LoginController@showLoginForm');
+
 
 Auth::routes();
 
