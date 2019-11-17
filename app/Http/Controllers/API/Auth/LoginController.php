@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\API\Auth;
 
+use App\Helpers\Patterns\Strategies\ResponseUserStatus\LoginJsonResponseUserStatusStrategy;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserLoginRequest;
 use App\Http\Resources\User as UserResource;
-use App\Notifications\MailEmailVerification;
+use App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Tymon\JWTAuth\JWTAuth;
@@ -25,30 +26,33 @@ class LoginController extends Controller
 
     use AuthenticatesUsers;
 
+    use LoginJsonResponseUserStatusStrategy;
+
     /**
      * Where to redirect users after login.
      *
      * @var string
      */
-    protected $redirectTo = '';
-
-    protected $auth;
+    protected $redirectTo = '',
+        $auth,
+        $userRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(JWTAuth $auth)
+    public function __construct(JWTAuth $auth, UserRepository $userRepository)
     {
         $this->auth = $auth;
+        $this->userRepository = $userRepository;
     }
 
     /**
      * Handle a login request to the application.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Http\JsonResponse
+     * @param  \App\Http\Requests\UserLoginRequest  $request
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -66,39 +70,15 @@ class LoginController extends Controller
 
         $this->incrementLoginAttempts($request);
 
-        if (!$token = $this->auth->attempt($request->only('email', 'password'))) {
-            return response()->json([
+        $token = $this->auth->attempt($request->only('email', 'password'));
+
+        return $token
+            ? $this->getUserStatusResponse($request->user(), $token, $this->userRepository)
+            : response()->json([
                 'errors' => 'incorrectly',
                 'messages' => [
                     'danger' => trans('auth.wrong_login_pass')
                 ]
             ], 422);
-        };
-
-        if ($request->user()->verified && $request->user()->publish) {
-            return response()->json([
-                'data' => new UserResource($request->user()),
-                'messages' => [
-                    'success' => trans('auth.welcome_message', ['name' => $request->user()->name])
-                ],
-                'token' => $token
-            ], 200);
-        } else if (!$request->user()->verified) {
-            $request->user()->notify(new MailEmailVerification());
-
-            return response()->json([
-                'messages' => [
-                    'warning' => trans('auth.activation_code_sent', ['email' => $request->user()->email])
-                ]
-            ], 200);
-        } else if (!$request->user()->publish) {
-
-            return response()->json([
-                'messages' => [
-                    'danger' => trans('auth.locked_out')
-                ]
-            ], 403);
-        }
-
     }
 }

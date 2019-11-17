@@ -5,11 +5,7 @@ namespace App\Http\Controllers\API\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\User as UserResource;
-use App\Http\Resources\UserList as UserListResource;
-use App\Models\User;
 use App\Repositories\UserRepository;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class UserController extends Controller
@@ -22,11 +18,11 @@ class UserController extends Controller
     }
 
     public function getAll() {
-        return Response::Json(UserListResource::collection(User::all()));
+        return Response::Json($this->repository->getAll());
     }
 
     public function getItem($id) {
-        return Response::Json(new UserResource(User::findOrFail($id)));
+        return Response::Json($this->repository->getItem($id));
     }
 
     public function create(CreateUserRequest $request) {
@@ -42,10 +38,6 @@ class UserController extends Controller
     }
 
     public function delete($id) {
-        return Response::Json(User::findOrFail($id)->delete());
-    }
-
-    public function passwordChange($id, Request $request) {
-        return Response::Json($this->repository->passwordChange($id, $request));
+        return Response::Json($this->repository->delete($id));
     }
 }

@@ -3,11 +3,8 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Requests\UserRegisterRequest;
-use App\Models\User;
 use App\Http\Controllers\Controller;
-use App\Models\VerifyUser;
-use App\Notifications\MailEmailVerification;
-use Illuminate\Support\Facades\Hash;
+use App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Tymon\JWTAuth\JWTAuth;
 
@@ -31,25 +28,26 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '';
-
-    protected $auth;
+    protected $redirectTo = '',
+        $auth,
+        $userRepository;
 
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(JWTAuth $auth)
+    public function __construct(JWTAuth $auth, UserRepository $userRepository)
     {
         $this->auth = $auth;
+        $this->userRepository = $userRepository;
     }
 
     /**
      * Handle a registration request for the application.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|\Illuminate\Http\JsonResponse
      */
     public function register(UserRegisterRequest $request)
     {
@@ -70,35 +68,26 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ])->attachRole('user');
-
-        $user->verifyUser()->create([
-            'token' => sha1(time())
-        ]);
-
-        $user->notify(new MailEmailVerification);
+        $user = $this->userRepository->createWithRoleUser($data);
+        $this->userRepository->sendEmailVerification($user);
 
         return $user;
     }
 
+    /**
+     * Check user for email confirmation and redirect on login page with success message.
+     *
+     * @param  string  $token
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function verifyUser($token)
     {
-        $verifyUser = VerifyUser::where('token', $token)->first();
-        $message = trans('auth.email_already_verified');
-        if(isset($verifyUser) ){
-            $user = $verifyUser->user;
-            if(!$user->verified) {
-                $verifyUser->user->verified = 1;
-                $verifyUser->user->save();
-                $message = trans('auth.email_verified');
-            }
-        } else {
-            return redirect(env('CLIENT_BASE_URL') . '/login?danger=' . trans('auth.email_cannot_identified'));
-        }
+        $user = $this->userRepository->getUserVerify($token);
+
+        $message = $this->userRepository->verifyUser($user)
+            ? trans('auth.email_verified')
+            : trans('auth.email_already_verified');
+
         return redirect(env('CLIENT_BASE_URL') . '/login?success=' . $message);
     }
 }
