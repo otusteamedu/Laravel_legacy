@@ -10,4 +10,9 @@ class CacheKeyManager
     {
         return Keys::CLIENTS_KEY . $request->get('page');
     }
+
+    public function getClientKeyByPage(int $page)
+    {
+        return Keys::CLIENTS_KEY . $page;
+    }
 }
