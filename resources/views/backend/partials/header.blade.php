@@ -7,5 +7,8 @@
             <a class="p-2 text-white" href="{{ route('backend.workout.index') }}">Workouts</a>
         </nav>
         <a class="btn btn-outline-primary" href="/">Return to Website</a>
+        @auth
+            <a class="btn btn-primary ml-2" href="{{ route('logout') }}">Sign out</a>
+        @endauth
     </div>
 </header>

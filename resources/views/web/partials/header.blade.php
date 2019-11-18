@@ -6,7 +6,11 @@
             <a class="p-2 text-dark" href="/dashboard">Dashboard</a>
             <a class="p-2 text-dark" href="/content">Content</a>
         </nav>
-        <a class="btn btn-outline-primary mr-2" href="{{ route('register') }}">Sign up</a>
-        <a class="btn btn-primary" href="{{ route('login') }}">Sign in</a>
+        @guest
+            <a class="btn btn-outline-primary" href="{{ route('register') }}">Sign up</a>
+            <a class="btn btn-primary ml-2" href="{{ route('login') }}">Sign in</a>
+        @else
+            <a class="btn btn-primary" href="{{ route('backend') }}">Backend</a>
+        @endguest
     </div>
 </header>
