@@ -100,11 +100,11 @@
 
 
 
-    @can(App\Policies\Abilities::UPDATE, $grammar)
+
         {{Form::submit('Сохранить',[
     'class'=>'btn btn-primary',
                 'name'=>'save'])}}
-    @endcan
+
     {!! Form::close() !!}
 
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>

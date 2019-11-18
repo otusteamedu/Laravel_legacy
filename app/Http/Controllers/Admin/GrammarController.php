@@ -70,13 +70,7 @@ class GrammarController extends Controller
      */
     public function update(Grammar $grammar, Request $request)
     {
-        if($this->authorize(Abilities::UPDATE, $grammar)){
-            return '1';
-        }else{
-            return '2';
-        }
-
-
+       $this->authorize(Abilities::UPDATE, $grammar);
         $request->validate([
             'name' => 'required',
             'code' => 'required',
