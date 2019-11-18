@@ -1,0 +1,46 @@
+{
+  "name": "gerfey/battlenet",
+  "version": "1.0.0",
+  "type": "library",
+  "description": "Library for working with the Battle.net Web APIs.",
+  "keywords": [
+    "Gerfey",
+    "API",
+    "Battle.net",
+    "Blizzard",
+    "bnet",
+    "Warcraft"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Alexander Levchenkov",
+      "email": "sanjia@live.ru",
+      "homepage": "https://github.com/gerfey",
+      "role": "Developer"
+    }
+  ],
+  "require": {
+    "php": "^7.1",
+    "ext-mbstring": "*"
+  },
+  "require-dev": {
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^6.3.3",
+    "phpunit/phpunit": "^7.3.5",
+    "psr/log": "^1.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "Gerfey\\BattleNet\\": "src/"
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Gerfey\\Tests\\": "tests/"
+    }
+  }
+}
