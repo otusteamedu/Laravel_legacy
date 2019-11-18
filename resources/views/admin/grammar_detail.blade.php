@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    @cannot(App\Policies\GrammarAbilities::UPDATE, $grammar)
+    @cannot(App\Policies\Abilities::UPDATE, $grammar)
         <div class="alert alert-warning" role="alert">
             Просмотр
         </div>
@@ -99,13 +99,12 @@
     </div>
 
 
-{{--    @if(isset($edit)&&($edit))--}}
-    @can(App\Policies\GrammarAbilities::UPDATE, $grammar)
+
+    @can(App\Policies\Abilities::UPDATE, $grammar)
         {{Form::submit('Сохранить',[
     'class'=>'btn btn-primary',
                 'name'=>'save'])}}
     @endcan
-{{--    @endif--}}
     {!! Form::close() !!}
 
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>

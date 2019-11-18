@@ -4,8 +4,9 @@
 namespace App\Policies;
 
 
-class GrammarAbilities
+class Abilities
 {
     const UPDATE = 'update';
     const STORE = 'store';
+    const VIEW = 'view';
 }

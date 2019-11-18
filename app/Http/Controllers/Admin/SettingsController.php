@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Settings;
-use App\Policies\SettingsAbilities;
+use App\Policies\Abilities;
 use App\Services\Setting\SettingService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -26,7 +26,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        if (!Gate::allows(SettingsAbilities::VIEW)) {
+        if (!Gate::allows(Abilities::VIEW)) {
           abort(401);
         }
         $settings = $this->settingsService->index();

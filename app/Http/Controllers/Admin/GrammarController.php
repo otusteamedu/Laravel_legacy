@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use App\Policies\GrammarAbilities;
+use App\Policies\Abilities;
 
 class GrammarController extends Controller
 {
@@ -70,6 +70,13 @@ class GrammarController extends Controller
      */
     public function update(Grammar $grammar, Request $request)
     {
+        if($this->authorize(Abilities::UPDATE, $grammar)){
+            return '1';
+        }else{
+            return '2';
+        }
+
+
         $request->validate([
             'name' => 'required',
             'code' => 'required',
