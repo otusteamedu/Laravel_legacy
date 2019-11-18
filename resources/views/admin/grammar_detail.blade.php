@@ -13,6 +13,12 @@
             {{$error}}
         </div>
     @endif
+
+    @cannot(App\Policies\GrammarAbilities::UPDATE, $grammar)
+        <div class="alert alert-warning" role="alert">
+            Просмотр
+        </div>
+    @endcan
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -93,11 +99,13 @@
     </div>
 
 
-    @if(isset($edit)&&($edit))
-    {{Form::submit('Сохранить',[
+{{--    @if(isset($edit)&&($edit))--}}
+    @can(App\Policies\GrammarAbilities::UPDATE, $grammar)
+        {{Form::submit('Сохранить',[
     'class'=>'btn btn-primary',
                 'name'=>'save'])}}
-    @endif
+    @endcan
+{{--    @endif--}}
     {!! Form::close() !!}
 
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>

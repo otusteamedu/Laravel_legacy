@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
+use App\Policies\GrammarAbilities;
 
 class GrammarController extends Controller
 {
@@ -41,18 +42,11 @@ class GrammarController extends Controller
     public function show(Grammar $grammar)
     {
         $message="";
-        $edit=true;
-        if (Gate::allows('update-grammar', $grammar)) {
-            $edit=true;
-        } else {
-            $message = 'Просмотр';
-            $edit=false;
-        }
+
         return view('admin.grammar_detail')->with(
             [
                 'grammar' => $grammar,
                 'message' => $message,
-                'edit'=>$edit
             ]);
     }
 
@@ -94,8 +88,7 @@ class GrammarController extends Controller
         return view('admin.grammar_detail')->with([
             'grammar' => $grammar,
             'error' => $error,
-            'message' => $message,
-            'edit' => true
+            'message' => $message
         ]);
 
     }
