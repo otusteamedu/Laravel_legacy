@@ -6,6 +6,7 @@
             <a class="p-2 text-dark" href="/dashboard">Dashboard</a>
             <a class="p-2 text-dark" href="/content">Content</a>
         </nav>
-        <a class="btn btn-outline-primary" href="/user/register">Sign up</a>
+        <a class="btn btn-outline-primary mr-2" href="{{ route('register') }}">Sign up</a>
+        <a class="btn btn-primary" href="{{ route('login') }}">Sign in</a>
     </div>
 </header>

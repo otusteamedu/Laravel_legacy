@@ -15,14 +15,6 @@ Route::get('/', function () {
     return view('web.pages.index');
 })->name('web');
 
-Route::get('/user', function () {
-    return redirect('user/register');
-})->name('web.user');
-
-Route::get('/user/register', function () {
-    return view('web.pages.user.register');
-})->name('web.user.register');
-
 Route::get('/dashboard', function () {
     return view('web.pages.dashboard.index');
 })->name('web.dashboard');
@@ -46,5 +38,3 @@ Route::prefix('backend')
     });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
