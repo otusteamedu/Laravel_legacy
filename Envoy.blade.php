@@ -1,12 +1,19 @@
 @servers(['web'=>['localhost' => '127.0.0.1']])
 @setup
   $branch='RMukhametzyanov/hw7';
-  $env=file_get_contents('./.env.deploy');
+  $env_dev=file_get_contents('./.env.deploy.dev');
+  $env_prod=file_get_contents('./.env.deploy.prod');
 @endsetup
-@story('deploy')
+@story('deploy.dev')
   git
   composer
-  env
+  env.dev
+  migrate
+@endstory
+@story('deploy.prod')
+  git
+  composer
+  env.prod
   migrate
 @endstory
 @task('git', ['on' => 'web'])
@@ -20,13 +27,18 @@
     cd ../
 @endtask
 
-@task('env')
+@task('env.dev')
   cd Laravel
-  echo "{{$env}}" >> .env
+  echo "{{$env_dev}}" >> .env
   echo "\nReady.ENV\n"
   cd ../
 @endtask
-
+@task('env.prod')
+  cd Laravel
+  echo "{{$env_prod}}" >> .env
+  echo "\nReady.ENV\n"
+  cd ../
+@endtask
 @task('migrate', ['on' => 'web'])
     cd Laravel
     php artisan key:generate
