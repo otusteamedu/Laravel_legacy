@@ -13,6 +13,12 @@
             {{$error}}
         </div>
     @endif
+
+    @cannot(App\Policies\Abilities::UPDATE, $grammar)
+        <div class="alert alert-warning" role="alert">
+            Просмотр
+        </div>
+    @endcan
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -92,14 +98,14 @@
         ])}}
     </div>
 
-    {{Form::submit('Сохранить',[
+
+
+
+        {{Form::submit('Сохранить',[
     'class'=>'btn btn-primary',
                 'name'=>'save'])}}
+
     {!! Form::close() !!}
-
-    {{--    {{Form::submit('Удалть в корзину',['class'=>'btn btn-danger', 'name'=>'remove'])}}--}}
-
-    {{--    {!! Form::close() !!}--}}
 
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
     <script>

@@ -67,6 +67,8 @@ class GrammarRepository
         if (isset($data['arabic_text'])) {
             $array['arabic_text'] = $data['arabic_text'];
         }
+        $array['create_user_id'] = auth()->user()->id;
+
         return $array;
     }
 
