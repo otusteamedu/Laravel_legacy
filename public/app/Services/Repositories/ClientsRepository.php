@@ -12,10 +12,12 @@ use App\Models\Clients\Client;
 
 class ClientsRepository implements RepositoryInterface
 {
+
+
     public function index()
     {
 
-        return Client::with(['region'])->paginate(5);
+        return Client::with(['region'])->paginate(Config::CLIENTS_PAGINATE);
     }
 
     public function store(array $data)

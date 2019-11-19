@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Cache;
 
 class CachedClientRepository
 {
-    const CACHE_TTL = 100;
+    const CACHE_TTL = 10;
 
     private $clientsService;
     private  $cacheKeyManager;
@@ -35,5 +35,17 @@ class CachedClientRepository
             function () {
                 return $this->clientsService->index();
         });
+    }
+
+    public function addCachePage($data, int $page, int $ttl)
+    {
+        $cacheKey = $this->cacheKeyManager->getClientKeyByPage($page);
+
+        Cache::tags(Tags::CLIENTS_TAG)->add(
+            $this->cacheKeyManager->getClientKeyByPage($page),
+            $data,
+            $ttl);
+
+        return $cacheKey;
     }
 }
