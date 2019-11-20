@@ -8,6 +8,7 @@ use Illuminate\Support\Collection;
 /**
  * App\Models\CountryResource
  *
+ * @property int id
  * @property string name
  * @property string continent_name
  * @property int created_user_id

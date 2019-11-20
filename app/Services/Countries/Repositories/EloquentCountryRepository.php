@@ -22,7 +22,7 @@ class EloquentCountryRepository implements CountryRepositoryInterface
     /**
      * @param array $filters
      * @param array $with
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator|Collection
+     * @return Country[]|Collection
      */
     public function getBy(array $filters = [], array $with = [])
     {

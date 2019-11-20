@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CountriesResource;
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
+use App\Models\DTO\CmsCountryDTO;
 use App\Policies\Abilities;
 use App\Services\Countries\CountriesService;
 use Illuminate\Http\Request;
@@ -30,8 +31,8 @@ class CountriesController extends Controller
     {
         $this->authorize(Abilities::VIEW_ANY, Country::class);
         $countries = $this->countriesService->getAll();
-        $countries->load(['cities']);
-        return new CountriesResource($countries);
+
+        return response()->json(new CountriesResource($countries));
     }
 
     /**
@@ -81,7 +82,13 @@ class CountriesController extends Controller
             'continent_name' => 'required|max:20'
         ]);
 
-        $country = $this->countriesService->updateCountry($country, $request->all());
+        try {
+            $this->countriesService->updateCountry($country, $request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Ok'
+            ], 200);
+        }
         return response()->json(new CountryResource($country));
     }
 

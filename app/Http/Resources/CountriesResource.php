@@ -16,6 +16,7 @@ class CountriesResource extends ResourceCollection
     {
         return [
             'data' => CountryResource::collection($this),
+            'count' => $this->count(),
         ];
     }
 }
