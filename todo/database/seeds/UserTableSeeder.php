@@ -18,6 +18,7 @@ class UserTableSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@mail.ru',
             'password' => bcrypt('secret'),
+            'api_token' => Str::random(60),
 
         ];
 
@@ -27,6 +28,7 @@ class UserTableSeeder extends Seeder
                 'name' => 'Пользователь ' . $i,
                 'email' => 'user' . $i . '@testmailg.ru',
                 'password' => bcrypt('test'),
+                'api_token' => Str::random(60),
             ];
         }
 

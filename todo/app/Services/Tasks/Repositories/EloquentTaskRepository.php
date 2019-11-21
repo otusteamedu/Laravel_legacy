@@ -47,14 +47,8 @@ class EloquentTaskRepository implements TaskRepositoryInterface
 
     public function updateFromArray(Task $task, array $data)
     {
-
-        $result = Task::where('name', $data['name'])->get();
-        if ((count($result) > 1) || (count($result) == 1 && $result[0]->id != $task->id)) {
-
-            return ['error' => 'Это имя уже успользуется'];
-        }
         $task->update($data);
-        return 1;
+        return $task;
     }
 
     public function create(array $data): Task

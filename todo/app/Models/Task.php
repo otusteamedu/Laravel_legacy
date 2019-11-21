@@ -22,6 +22,9 @@ use App\Services\Events\Models\Task\TaskDeleted;
  */
 class Task extends Model
 {
+    protected $fillable = [
+        'id', 'title','description','status_id','user_id','priority'
+    ];
     protected $dispatchesEvents = [
         'saved' => TaskSaved::class,
         'deleted' => TaskDeleted::class
