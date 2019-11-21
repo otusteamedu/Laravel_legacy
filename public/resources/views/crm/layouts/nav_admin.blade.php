@@ -58,8 +58,16 @@
                 </ul>
 
                 <h6 class="sidebar-heading d-flex align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span data-feather="users"></span>&nbsp;&nbsp;Пользователи
+                    <span data-feather="bar-chart"></span>&nbsp;&nbsp;Статистика
                 </h6>
+                <ul class="nav flex-column mb-2">
+                    @foreach ($leftNav['stats'] as $name => $route)
+                        <li class="nav-item">
+                            {{ link_to(route($route), $name, ['class' => 'nav-link']) }}
+                        </li>
+                    @endforeach
+                </ul>
+
 
             </div>
         </nav>

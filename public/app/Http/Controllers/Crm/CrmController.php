@@ -23,6 +23,7 @@ class CrmController extends Controller
             $data = ['transports' => ['Новый' => 'crm.trucks.create', 'Все' => 'crm.trucks.index'],
                 'clients' => ['Новый' => 'crm.clients.create', 'Все' => 'crm.clients.index'],
                 'schedule' => ['Показать расписание' => 'crm.schedule.index'],
+                'stats' => ['По регионам' => 'crm.stats.index'],
                 'orders' => ['Все' => 'crm.orders.index']];
         }
 
