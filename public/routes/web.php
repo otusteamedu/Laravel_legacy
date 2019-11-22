@@ -16,7 +16,8 @@ Route::name('crm.')->group(function () {
             'trucks' => 'Trucks\TrucksController',
             'clients' => 'Clients\ClientsController',
             'schedule' => 'Schedule\ScheduleController',
-            'orders' => 'Orders\OrdersController'
+            'orders' => 'Orders\OrdersController',
+            'stats' => 'Stats\StatsController'
         ]);
     });
 });

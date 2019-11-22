@@ -20,7 +20,7 @@ class OrdersController extends CrmController
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $items = $this->ordersService->index();
 
