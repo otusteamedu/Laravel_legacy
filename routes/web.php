@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 Route::get('/arabskie-bukvy', 'OrthographyController@getList');
 Route::get('/arabskie-bukvy/{id}', 'OrthographyController@getDeatail');
-Route::get('/grammatika', 'GrammarController@getList');
+Route::get('/grammatika', 'GrammarController@getList')->name('grammList');
 Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
 
 
@@ -38,3 +38,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/cc', 'HomeController@cc')->name('cc');
