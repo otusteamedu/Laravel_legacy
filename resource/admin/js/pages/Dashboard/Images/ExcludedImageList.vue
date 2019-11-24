@@ -4,16 +4,9 @@
             <div class="md-layout-item">
                 <md-card class="mt-0">
                     <md-card-content class="md-between">
-                        <router-link :to="{ name: `admin.categories.${category_type}.images`, params: { id } }">
-                            <md-button class="md-info md-just-icon">
-                                <md-icon>arrow_back</md-icon><md-tooltip md-direction="right">Назад</md-tooltip>
-                            </md-button>
-                        </router-link>
+                        <router-button-link :route="`admin.categories.${category_type}.images`" :params="{ id }" />
                         <div v-if="selectedImages.length">
-                            <md-button class="md-success md-just-icon" @click.native="onImagesAdd">
-                                <md-icon >add</md-icon>
-                                <md-tooltip md-direction="right">Добавить изображения</md-tooltip>
-                            </md-button>
+                            <control-button title="Добавить изображения" icon="add" @click="onImagesAdd" />
                         </div>
                     </md-card-content>
                 </md-card>
@@ -22,14 +15,9 @@
         <div class="md-layout">
             <div class="md-layout-item">
                 <md-card>
-                    <md-card-header class="md-card-header-icon md-card-header-green">
-                        <div class="card-icon">
-                            <md-icon>image</md-icon>
-                        </div>
-                        <h3 class="title">Каталог изображений</h3>
-                    </md-card-header>
+                    <card-icon-header title="Каталог изображений" icon="image" />
                     <md-card-content>
-                        <template v-if="imageList.length">
+                        <template v-if="items.length">
                             <md-table :value="queriedData"
                                       :md-sort.sync="currentSort"
                                       :md-sort-order.sync="currentSortOrder"
@@ -107,19 +95,11 @@
                                         <md-switch :value="!item.publish" @change="onPublishChange(item)"></md-switch>
                                     </md-table-cell>
                                     <md-table-cell md-label="Действия">
-                                        <router-link :to="{ name: 'admin.images.edit', params: { id: item.id } }">
-                                            <md-button
-                                                class="md-success md-just-icon">
-                                                <md-icon>edit</md-icon>
-                                                <md-tooltip md-direction="top">Редактировать</md-tooltip>
-                                            </md-button>
-                                        </router-link>
-                                        <md-button
-                                            class="md-danger md-just-icon"
-                                            @click.native="handleDelete(item)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip md-direction="top">Удалить</md-tooltip>
-                                        </md-button>
+                                        <router-button-link title="Редактировать" icon="edit" color="md-success"
+                                                            route="admin.images.edit"
+                                                            :params="{ id: item.id }" />
+                                        <control-button title="Удалить" icon="delete" color="md-danger"
+                                                        @click="onDelete(item)" />
                                     </md-table-cell>
                                 </md-table-row>
                             </md-table>
@@ -145,14 +125,15 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
 
-    import {Pagination} from '@/components'
-    import Fuse from 'fuse.js'
-    import swal from 'sweetalert2'
+    import { pageTitle } from '@/mixins/actions'
+    import { deleteMethod, imageAddMethod } from '@/mixins/crudMethods'
+    import { tableExtension } from '@/mixins/tableExtension'
 
     export default {
         name: 'ExcludedImageList',
+        mixins: [ pageTitle, deleteMethod, imageAddMethod, tableExtension ],
         props: {
             id: {
                 type: [Number, String],
@@ -163,151 +144,73 @@
                 default: null
             },
         },
-        components: {
-            Pagination
-        },
         data () {
             return {
-                currentSort: 'id',
-                currentSortOrder: 'asc',
                 pagination: {
                     perPage: 50,
-                    currentPage: 1,
-                    perPageOptions: [50, 200, 500, 1000],
-                    total: 0
+                    perPageOptions: [50, 200, 500, 1000]
                 },
-                searchQuery: '',
-                propsToSearch: ['id'],
-                searchedData: [],
-                fuseSearch: [],
                 responseData: false,
                 selected: []
             }
         },
         computed: {
             ...mapState({
-                imageList: state => state.images.items,
+                items: state => state.images.items,
                 title: state => state.categories.fields.title,
                 selectedImages: state => state.categories.selectedImages
             }),
-            queriedData () {
-                let result = this.imageList;
-                if(this.searchedData.length > 0){
-                    result = this.searchedData;
-                }
-                return result.slice(this.from, this.to)
-            },
-            to () {
-                let highBound = this.from + this.pagination.perPage;
-                if (this.total < highBound) {
-                    highBound = this.total
-                }
-                return highBound
-            },
-            from () {
-                return this.pagination.perPage * (this.pagination.currentPage - 1)
-            },
-            total () {
-                return this.searchedData.length > 0 ? this.searchedData.length : this.imageList.length;
-            }
         },
         methods: {
-            customSort (value) {
-                return value.sort((a, b) => {
-                    const sortBy = this.currentSort;
-                    if (this.currentSortOrder === 'desc') {
-                        if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-                            return a[sortBy] < b[sortBy] ? -1 : 1;
-                        }
-                        return a[sortBy].localeCompare(b[sortBy])
-                    }
-                    if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-                        return a[sortBy] > b[sortBy] ? -1 : 1;
-                    }
-                    return b[sortBy].localeCompare(a[sortBy])
-                })
-            },
-            handleDelete (item) {
-                swal.fire({
-                    title: 'Вы уверены?',
-                    text: `Данное действие удалит изображение «${item.id}» безвозвратно!`,
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonClass: 'md-button md-success btn-fill',
-                    cancelButtonClass: 'md-button md-danger btn-fill',
-                    confirmButtonText: 'Удалить',
-                    cancelButtonText: 'Отменить',
-                    buttonsStyling: false
-                }).then((result) => {
-                    if(result.value){
-                        this.$store.dispatch('images/deleteItem', item.id)
-                            .then(() => {
-                                swal.fire({
-                                    title: 'Изображение удалено!',
-                                    text: `«${item.id}»`,
-                                    timer: 2000,
-                                    type: 'success',
-                                    showConfirmButton: false
-                                })
-                            });
-                    }
+            ...mapActions('images', [
+                'getItems',
+                'deleteItem',
+                'changePublish'
+            ]),
+            ...mapActions({
+                getCategory: 'categories/getItem',
+                getExcludedImageList: 'categories/getExcludedImageList',
+                addSelectedImages: 'categories/addSelectedImages',
+                updateSelectedImages: 'categories/updateSelectedImages'
+            }),
+            onDelete (item) {
+                this.delete({
+                    module: 'images',
+                    id: item.id,
+                    title: item.id,
+                    alertText: `изображение «${item.id}»`,
+                    successText: 'Изображение удалено!'
                 });
             },
             onPublishChange(item) {
-                this.$store.dispatch('images/changePublish', item.id);
+                this.changePublish(item.id);
             },
             onImagesAdd() {
-                this.$store.dispatch('categories/addSelectedImages', { category_id: this.id, category_type: this.category_type })
-                    .then(() => {
-                        swal.fire({
-                            title: 'Изображения добавлены!',
-                            text: '',
-                            timer: 2000,
-                            showConfirmButton: false,
-                            type: 'success'
-                        });
-                        this.$router.push({ name: `admin.categories.${this.category_type}.images`, params: { id: this.id } });
-                    });
-            },
-            notifyVue(message) {
-                this.$notify(
-                    {
-                        message: message,
-                        icon: 'add_alert',
-                        horizontalAlign: 'center',
-                        verticalAlign: 'top',
-                        type: 'danger',
-                        timeout: 5000
-                    }
-                )
+                this.addImages({
+                    categoryType: this.category_type,
+                    id: this.id,
+                    selected: this.selectedImages
+                })
             }
         },
         created() {
-            this.$store.dispatch('categories/getItem', { category_id: this.id, category_type: this.category_type })
-                .then(() => this.$store.dispatch('categories/getExcludedImageList', { category_id: this.id, category_type: this.category_type }))
+            this.getCategory({ category_id: this.id, category_type: this.category_type })
+                .then(() => this.getExcludedImageList({ category_id: this.id, category_type: this.category_type }))
                 .then(() => {
-                    this.$store.dispatch('setPageTitle', 'Каталог изображений');
+                    this.setPageTitle('Каталог изображений');
                     this.responseData = true;
                 })
                 .catch(() => this.$router.push({ name: `admin.categories.${this.category_type}` }));
         },
         mounted () {
-            this.fuseSearch = new Fuse(this.imageList, {keys: ['id'], threshold: 0.3});
+            this.setSearch(['id']);
         },
-
         watch: {
-            searchQuery(value){
-                let result = this.imageList;
-                if (value !== '') {
-                    result = this.fuseSearch.search(this.searchQuery)
-                }
-                this.searchedData = result;
-            },
-            imageList() {
-                this.fuseSearch = new Fuse(this.imageList, {keys: ['id'], threshold: 0.3});
+            items() {
+                this.setSearch(['id']);
             },
             selected() {
-                this.$store.dispatch('categories/updateSelectedImages', this.selected);
+                this.updateSelectedImages(this.selected);
             }
         }
     }

@@ -3,111 +3,33 @@
         <div class="md-layout-item md-size-100">
             <md-card class="mt-0">
                 <md-card-content>
-                    <router-link :to="{ name: 'admin.dashboard' }">
-                        <md-button class="md-info md-just-icon">
-                            <md-icon>arrow_back</md-icon>
-                            <md-tooltip md-direction="right">В Панель управления</md-tooltip>
-                        </md-button>
-                    </router-link>
+                    <router-button-link />
                 </md-card-content>
             </md-card>
         </div>
-        <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-            <router-link :to="{ name: 'admin.categories.topics' }">
-                <stats-card header-color="blue">
-                    <template slot="header">
-                        <div class="card-icon">
-                            <md-icon>collections_bookmark</md-icon>
-                        </div>
-                        <h3 class="title">Темы</h3>
-                    </template>
-
-                    <template slot="footer">
-                        <div class="stats">
-                            <md-icon>update</md-icon>
-                            Just Updated
-                        </div>
-                    </template>
-                </stats-card>
-            </router-link>
-        </div>
-        <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-            <router-link :to="{ name: 'admin.categories.colors' }">
-                <stats-card header-color="blue">
-                    <template slot="header">
-                        <div class="card-icon">
-                            <md-icon>palette</md-icon>
-                        </div>
-                        <h3 class="title">Цвета</h3>
-                    </template>
-
-                    <template slot="footer">
-                        <div class="stats">
-                            <md-icon>update</md-icon>
-                            Just Updated
-                        </div>
-                    </template>
-                </stats-card>
-            </router-link>
-        </div>
-        <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-            <router-link :to="{ name: 'admin.categories.placements' }">
-                <stats-card header-color="blue">
-                    <template slot="header">
-                        <div class="card-icon">
-                            <md-icon>meeting_room</md-icon>
-                        </div>
-                        <!--                        <p class="category">Помещения</p>-->
-                        <h3 class="title">Помещения</h3>
-                    </template>
-
-                    <template slot="footer">
-                        <div class="stats">
-                            <md-icon>update</md-icon>
-                            Just Updated
-                        </div>
-                    </template>
-                </stats-card>
-            </router-link>
-        </div>
-        <div class="md-layout-item md-medium-size-50 md-xsmall-size-100 md-size-25">
-            <router-link :to="{ name: 'admin.categories.owners' }">
-                <stats-card header-color="blue">
-                    <template slot="header">
-                        <div class="card-icon">
-                            <md-icon>cloud</md-icon>
-                        </div>
-                        <h3 class="title">Владельцы</h3>
-                    </template>
-
-                    <template slot="footer">
-                        <div class="stats">
-                            <md-icon>update</md-icon>
-                            Just Updated
-                        </div>
-                    </template>
-                </stats-card>
-            </router-link>
-        </div>
+        <panel-card-link route="admin.categories.topics" icon="collections_bookmark" title="Темы" color="blue" />
+        <panel-card-link route="admin.categories.colors" icon="palette" title="Цвета" color="rose" />
+        <panel-card-link route="admin.categories.placements" icon="meeting_room" title="Помещения" color="green" />
+        <panel-card-link route="admin.categories.owners" icon="cloud" title="Владельцы" color="warning" />
     </div>
 </template>
 
 <script>
+    import PanelCardLink from '@/custom_components/Cards/PanelCardLink'
+    import { pageTitle } from '@/mixins/actions'
 
-    import {
-        StatsCard,
-    } from '@/components'
-
-    export default {
+    export default{
         components: {
-            StatsCard
+            PanelCardLink
         },
-        data() {
-            return {}
+        mixins: [ pageTitle ],
+        data () {
+            return {
+            }
         },
         created() {
-            this.$store.dispatch('setPageTitle', 'Категории');
-        },
-
+            this.setPageTitle('Категории');
+        }
     }
 </script>
+

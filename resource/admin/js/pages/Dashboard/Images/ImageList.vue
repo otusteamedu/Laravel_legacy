@@ -4,30 +4,15 @@
             <div class="md-layout-item">
                 <md-card class="mt-0">
                     <md-card-content class="md-between">
-                        <router-link v-if="category_type !== 'images'" :to="{ name: `admin.categories.${category_type}` }">
-                            <md-button class="md-info md-just-icon">
-                                <md-icon>arrow_back</md-icon>
-                                <md-tooltip md-direction="right">Назад</md-tooltip>
-                            </md-button>
-                        </router-link>
-                        <router-link v-else :to="{ name: 'admin.dashboard' }">
-                            <md-button class="md-info md-just-icon">
-                                <md-icon>arrow_back</md-icon>
-                                <md-tooltip md-direction="right">Назад</md-tooltip>
-                            </md-button>
-                        </router-link>
+                        <router-button-link :route="category_type !== 'images' ? `admin.categories.${category_type}` : 'admin.dashboard'" />
                         <div>
-                            <router-link v-if="category_type !== 'images'" :to="{ name: `admin.categories.${category_type}.images.excluded`, params: { id } }">
-                                <md-button class="md-success md-just-icon">
-                                    <md-icon >add</md-icon>
-                                    <md-tooltip md-direction="right">Добавить изображения</md-tooltip>
-                                </md-button>
-                            </router-link>
-                            <input class="md-file-input" type="file" multiple @change="fileInputChange" ref="fileInput" name="images[]">
-                            <md-button class="md-success md-just-icon" @click="$refs.fileInput.click()">
-                                <md-icon class="rotate-180">publish</md-icon>
-                                <md-tooltip md-direction="right">Загрузить изображения</md-tooltip>
-                            </md-button>
+                            <router-button-link v-if="category_type !== 'images'"
+                                icon="add"
+                                color="md-success"
+                                title="Добавить изображения"
+                                :route="`admin.categories.${category_type}.images.excluded`"
+                                :params="{ id }" />
+                            <upload-button @change="fileInputChange" />
                         </div>
                     </md-card-content>
                 </md-card>
@@ -39,14 +24,9 @@
                     <md-progress-bar v-if="fileProgress" class="md-info" :md-value="fileProgress"></md-progress-bar>
                 </div>
                 <md-card>
-                    <md-card-header class="md-card-header-icon md-card-header-green">
-                        <div class="card-icon">
-                            <md-icon>image</md-icon>
-                        </div>
-                        <h3 class="title">Каталог изображений</h3>
-                    </md-card-header>
+                    <card-icon-header title="Каталог изображений" icon="image" />
                     <md-card-content>
-                        <template v-if="imageList.length">
+                        <template v-if="items.length">
                             <md-table :value="queriedData"
                                       :md-sort.sync="currentSort"
                                       :md-sort-order.sync="currentSortOrder"
@@ -121,26 +101,14 @@
                                         <md-switch :value="!item.publish" @change="onPublishChange(item)"></md-switch>
                                     </md-table-cell>
                                     <md-table-cell md-label="Действия">
-                                        <md-button
-                                            v-if="category_type !== 'images'"
-                                            class="md-info md-just-icon"
-                                            @click.native="handleRemove(item)">
-                                            <md-icon>remove</md-icon>
-                                            <md-tooltip md-direction="top">Отвязать</md-tooltip>
-                                        </md-button>
-                                        <router-link :to="{ name: 'admin.images.edit', params: { id: item.id } }">
-                                            <md-button
-                                                class="md-success md-just-icon">
-                                                <md-icon>edit</md-icon>
-                                                <md-tooltip md-direction="top">Редактировать</md-tooltip>
-                                            </md-button>
-                                        </router-link>
-                                        <md-button
-                                            class="md-danger md-just-icon"
-                                            @click.native="handleDelete(item)">
-                                            <md-icon>delete</md-icon>
-                                            <md-tooltip md-direction="top">Удалить</md-tooltip>
-                                        </md-button>
+                                        <control-button v-if="category_type !== 'images'" title="Отвязать" icon="remove"
+                                            color="md-info"
+                                            @click="onRemove(item)" />
+                                        <router-button-link title="Редактировать" icon="edit" color="md-success"
+                                            :route="'admin.images.edit'"
+                                            :params="{ id: item.id }" />
+                                        <control-button title="Удалить" icon="delete" color="md-danger"
+                                            @click="onDelete(item)" />
                                     </md-table-cell>
                                 </md-table-row>
                             </md-table>
@@ -169,14 +137,15 @@
 </template>
 
 <script>
-    import { mapState } from 'vuex'
+    import { mapState, mapActions } from 'vuex'
 
-    import { Pagination } from '@/components'
-    import Fuse from 'fuse.js'
-    import swal from 'sweetalert2'
+    import { pageTitle } from '@/mixins/actions'
+    import { deleteMethod, uploadMethod } from '@/mixins/crudMethods'
+    import { tableExtension } from '@/mixins/tableExtension'
 
     export default {
         name: 'ImageList',
+        mixins: [ pageTitle, deleteMethod, uploadMethod, tableExtension ],
         props: {
             category_type: {
                 type: String,
@@ -187,171 +156,93 @@
                 default: null
             }
         },
-        components: {
-            Pagination
-        },
         data () {
             return {
-                currentSort: 'id',
-                currentSortOrder: 'asc',
                 pagination: {
                     perPage: 50,
-                    currentPage: 1,
                     perPageOptions: [50, 200, 500, 1000],
-                    total: 0
                 },
-                searchQuery: '',
-                propsToSearch: ['id'],
-                searchedData: [],
-                fuseSearch: [],
                 responseData: false,
             }
         },
         computed: {
             ...mapState({
-                imageList: state => state.images.items,
+                items: state => state.images.items,
                 fileProgress: state => state.images.fileProgress,
                 title: state => state.categories.fields.title
             }),
-            queriedData () {
-                let result = this.imageList;
-                if(this.searchedData.length > 0){
-                    result = this.searchedData;
-                }
-                return result.slice(this.from, this.to)
-            },
-            to () {
-                let highBound = this.from + this.pagination.perPage;
-                if (this.total < highBound) {
-                    highBound = this.total
-                }
-                return highBound
-            },
-            from () {
-                return this.pagination.perPage * (this.pagination.currentPage - 1)
-            },
-            total () {
-                return this.searchedData.length > 0 ? this.searchedData.length : this.imageList.length;
-            }
         },
         methods: {
+            ...mapActions('images', [
+                'getItems',
+                'deleteItem',
+                'changePublish'
+            ]),
+            ...mapActions({
+                removeImage: 'categories/removeImage',
+                getCategory: 'categories/getItem',
+                getImageList: 'categories/getImageList'
+
+            }),
             init (category) {
                 if (category !== 'images') {
-                    this.$store.dispatch('categories/getItem', { category_id: this.id, category_type: category})
-                        .then(() => this.$store.dispatch('categories/getImageList', { category_id: this.id, category_type: category }))
+                    this.getCategory({ category_id: this.id, category_type: category})
+                        .then(() => this.getImageList({ category_id: this.id, category_type: category }))
                         .then(() => {
-                            this.$store.dispatch('setPageTitle', `Изображения категории «${this.title}»`);
+                            this.setPageTitle(`Изображения категории «${this.title}»`);
                             this.responseData = true;
                         })
                         .catch(() => this.$router.push({ name: `admin.categories.${category}` }));
                 } else {
-                    this.$store.dispatch('images/getItems')
+                    this.getItems()
                         .then(() => {
-                            this.$store.dispatch('setPageTitle', 'Изображения');
+                            this.setPageTitle('Изображения');
                             this.responseData = true;
                         })
                         .catch(() => this.$router.push({ name: 'admin.dashboard' }));
                 }
             },
-            async fileInputChange (event) {
-                let files = Array.from(event.target.files);
-                if (this.category_type !== 'images') {
-                    await this.$store.dispatch('categories/uploadImages', {
-                        'category_type': this.category_type,
-                        'category_id': this.id,
-                        'files': files
-                    });
-                } else {
-                    await this.$store.dispatch('images/uploadItems', files);
-                }
-                await swal.fire({
-                    title: 'Изображения загружены!',
-                    text: '',
-                    timer: 2000,
-                    showConfirmButton: false,
-                    type: 'success'
-                });
+            fileInputChange (event) {
+                this.upload(event.target.files);
             },
-            customSort (value) {
-                return value.sort((a, b) => {
-                    const sortBy = this.currentSort;
-                    if (this.currentSortOrder === 'desc') {
-                        if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-                            return a[sortBy] < b[sortBy] ? -1 : 1;
-                        }
-                        return a[sortBy].localeCompare(b[sortBy])
-                    }
-                    if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-                        return a[sortBy] > b[sortBy] ? -1 : 1;
-                    }
-                    return b[sortBy].localeCompare(a[sortBy])
-                })
-            },
-            handleRemove (item) {
-                this.$store.dispatch('categories/removeImage', {
+            onRemove (item) {
+                this.removeImage({
                     category_type: this.category_type,
                     category_id: this.id,
                     image_id: item.id
                 })
             },
-            handleDelete (item) {
-                swal.fire({
-                    title: 'Вы уверены?',
-                    text: `Данное действие удалит изображение «${item.id}» безвозвратно!`,
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonClass: 'md-button md-success btn-fill',
-                    cancelButtonClass: 'md-button md-danger btn-fill',
-                    confirmButtonText: 'Удалить',
-                    cancelButtonText: 'Отменить',
-                    buttonsStyling: false
-                }).then((result) => {
-                    if(result.value){
-                        this.$store.dispatch('images/deleteItem', item.id)
-                            .then(() => {
-                                swal.fire({
-                                    title: 'Изображение удалено!',
-                                    text: item.id,
-                                    timer: 2000,
-                                    type: 'success',
-                                    showConfirmButton: false
-                                })
-                            });
-                    }
+            onDelete (item) {
+                this.delete({
+                    module: 'images',
+                    id: item.id,
+                    title: item.id,
+                    alertText: `изображение «${item.id}»`,
+                    successText: 'Изображение удалено!'
                 });
             },
             onPublishChange (item) {
-                this.$store.dispatch('images/changePublish', item.id);
+                this.changePublish(item.id);
             }
         },
         created () {
             this.init(this.category_type);
         },
         mounted () {
-            this.fuseSearch = new Fuse(this.imageList, {keys: ['id'], threshold: 0.3});
+            this.setSearch(['id']);
         },
         watch: {
             '$route' (to, from) {
                 this.init(to.params.category_type);
             },
-            searchQuery (value){
-                let result = this.imageList;
-                if (value !== '') {
-                    result = this.fuseSearch.search(this.searchQuery)
-                }
-                this.searchedData = result;
-            },
-            imageList () {
-                this.fuseSearch = new Fuse(this.imageList, {keys: ['id'], threshold: 0.3});
+            items () {
+                this.setSearch(['id']);
             }
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .md-file-input {
-        display: none;
-    }
     .md-table-thumb {
         object-fit: cover;
         width: 100px;

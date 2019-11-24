@@ -3,28 +3,13 @@
         <div class="md-layout-item">
             <md-card class="mt-0">
                 <md-card-content class="md-between">
-                    <router-link :to="{ name: 'admin.categories' }">
-                        <md-button class="md-info md-just-icon">
-                            <md-icon>arrow_back</md-icon>
-                            <md-tooltip md-direction="right">В панель Категорий</md-tooltip>
-                        </md-button>
-                    </router-link>
-                    <router-link :to="{ name: `admin.categories.${category_type}.create` }">
-                        <md-button class="md-success md-just-icon">
-                            <md-icon>add</md-icon>
-                            <md-tooltip md-direction="right">Создать категорию</md-tooltip>
-                        </md-button>
-                    </router-link>
+                    <router-button-link route="admin.categories" title="В панель Категорий" />
+                    <router-button-link :route="`admin.categories.${category_type}.create`" icon="add" color="md-success" title="Создать категорию" />
                 </md-card-content>
             </md-card>
             <div class="space-1"></div>
             <md-card>
-                <md-card-header class="md-card-header-icon md-card-header-green">
-                    <div class="card-icon">
-                        <md-icon>assignment</md-icon>
-                    </div>
-                    <h3 class="title">{{ table_title }}</h3>
-                </md-card-header>
+                <card-icon-header :title="table_title" icon="assignment" />
                 <md-card-content>
                     <template v-if="items.length">
                         <md-table :value="queriedData"
@@ -77,26 +62,14 @@
                                     <md-switch :value="!item.publish" @change="onPublishChange(item)"></md-switch>
                                 </md-table-cell>
                                 <md-table-cell md-label="Действия">
-                                    <router-link :to="{ name: `admin.categories.${category_type}.images`, params: { id: item.id } }">
-                                        <md-button
-                                            class="md-info md-just-icon">
-                                            <md-icon>collections</md-icon>
-                                            <md-tooltip md-direction="top">Изображения</md-tooltip>
-                                        </md-button>
-                                    </router-link>
-                                    <router-link :to="{ name: `admin.categories.${category_type}.edit`, params: { id: item.id } }">
-                                        <md-button
-                                            class="md-success md-just-icon">
-                                            <md-icon>edit</md-icon>
-                                            <md-tooltip md-direction="top">Редактировать</md-tooltip>
-                                        </md-button>
-                                    </router-link>
-                                    <md-button
-                                        class="md-danger md-just-icon"
-                                        @click.native="onDelete(item)">
-                                        <md-icon>delete</md-icon>
-                                        <md-tooltip md-direction="top">Удалить</md-tooltip>
-                                    </md-button>
+                                    <router-button-link title="Изображения" icon="collections"
+                                        :route="`admin.categories.${category_type}.images`"
+                                        :params="{ id: item.id }" />
+                                    <router-button-link title="Редактировать" icon="edit" color="md-success"
+                                        :route="`admin.categories.${category_type}.edit`"
+                                        :params="{ id: item.id }" />
+                                    <control-button title="Удалить" icon="delete" color="md-danger"
+                                        @click="onDelete(item)" />
                                 </md-table-cell>
                             </md-table-row>
                         </md-table>
@@ -123,15 +96,15 @@
 </template>
 
 <script>
-    import { Pagination } from '@/components'
-    import Fuse from 'fuse.js'
-    import swal from 'sweetalert2'
+    import { mapActions } from 'vuex'
+
+    import { pageTitle } from '@/mixins/actions'
+    import { deleteMethod } from '@/mixins/crudMethods'
+    import { tableExtension } from '@/mixins/tableExtension'
 
     export default {
         name: 'CategoryList',
-        components: {
-            Pagination
-        },
+        mixins: [ pageTitle, deleteMethod, tableExtension ],
         props: {
             category_type: {
                 type: String,
@@ -148,147 +121,66 @@
         },
         data () {
             return {
-                currentSort: '',
-                currentSortOrder: 'asc',
-                pagination: {
-                    perPage: 10,
-                    currentPage: 1,
-                    perPageOptions: [10, 15, 25, 50],
-                    total: 0
-                },
-                searchQuery: '',
-                propsToSearch: ['title', 'alias'],
-                tableData: this.items,
-                searchedData: [],
-                fuseSearch: null,
                 responseData: false
             }
-        },
-        created () {
-            this.init(this.category_type);
-        },
-        mounted () {
-            this.fuseSearch = new Fuse(this.items, {keys: ['title', 'alias'], threshold: 0.3})
         },
         computed: {
             items () {
                 return this.$store.getters['categories/items'](this.category_type);
-            },
-            queriedData () {
-                let result = this.items;
-                if(this.searchedData.length > 0){
-                    result = this.searchedData;
-                }
-                return result.slice(this.from, this.to)
-            },
-            to () {
-                let highBound = this.from + this.pagination.perPage;
-                if (this.total < highBound) {
-                    highBound = this.total
-                }
-                return highBound
-            },
-            from () {
-                return this.pagination.perPage * (this.pagination.currentPage - 1)
-            },
-            total () {
-                return this.searchedData.length > 0 ? this.searchedData.length : this.items.length;
             }
         },
         methods: {
+            ...mapActions('categories', [
+                'getItems',
+                'deleteItem',
+                'changePublish'
+            ]),
             init (category) {
                 this.responseData = false;
-                this.$store.dispatch('setPageTitle', '');
-                this.$store.dispatch('categories/getItems', category)
+                this.setPageTitle('');
+                this.getItems(category)
                     .then(() => {
-                        this.$store.dispatch('setPageTitle', this.page_title);
+                        this.setPageTitle(this.page_title);
                         this.responseData = true;
                     })
                     .catch(() => this.$router.push({ name: 'admin.categories' }));
             },
-            customSort (value) {
-                return value.sort((a, b) => {
-                    const sortBy = this.currentSort;
-                    if (this.currentSortOrder === 'asc') {
-                        if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-                            return a[sortBy] < b[sortBy] ? -1 : 1;
-                        }
-                        return a[sortBy].localeCompare(b[sortBy])
-                    }
-                    if (typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number') {
-                        return a[sortBy] > b[sortBy] ? -1 : 1;
-                    }
-                    return b[sortBy].localeCompare(a[sortBy])
+            onDelete (item) {
+                this.delete({
+                    module: 'categories',
+                    id: { category_id: item.id, category_type: this.category_type},
+                    title: item.title,
+                    alertText: `категорию «${item.title}»`,
+                    successText: 'Категория удалена!'
                 })
             },
-            onDelete (item) {
-                swal.fire({
-                    title: 'Вы уверены?',
-                    text: `Данное действие удалит категорию «${item.title}» безвозвратно!`,
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonClass: 'md-button md-success btn-fill',
-                    cancelButtonClass: 'md-button md-danger btn-fill',
-                    confirmButtonText: 'Удалить',
-                    cancelButtonText: 'Отменить',
-                    buttonsStyling: false
-                }).then((result) => {
-                    if(result.value){
-                        this.$store.dispatch('categories/deleteItem', { category_id: item.id, category_type: this.category_type})
-                            .then(() => {
-                                swal.fire({
-                                    title: 'Категория удалена!',
-                                    text: item.title,
-                                    timer: 2000,
-                                    type: 'success',
-                                    showConfirmButton: false
-                                });
-                            });
-                    }
-                });
-            },
             onPublishChange (item) {
-                this.$store.dispatch('categories/changePublish', { category_id: item.id, category_type: this.category_type });
+                this.changePublish({ category_id: item.id, category_type: this.category_type });
             }
         },
         watch: {
             '$route' (to, from) {
                 this.init(to.params.category_type);
             },
-            searchQuery (value){
-                let result = this.items;
-                if (value !== '') {
-                    result = this.fuseSearch.search(this.searchQuery)
-                }
-                this.searchedData = result;
-            },
             items () {
-                this.fuseSearch = new Fuse(this.items, {keys: ['title', 'alias'], threshold: 0.3})
+                this.setSearch(['title', 'alias']);
             }
+        },
+        created () {
+            this.init(this.category_type);
+        },
+        mounted () {
+            this.setSearch(['title', 'alias']);
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .md-card .md-card-actions{
-        border: 0;
-        margin-left: 20px;
-        margin-right: 20px;
-    }
-
     .md-table-thumb {
-        object-fit: cover;
-        width: 200px;
-        height: 100px;
+       object-fit: cover;
+       width: 200px;
+       height: 100px;
     }
-
-    .md-table-cell-container {
-        .md-just-icon {
-            margin-left: 5px;
-            margin-right: 5px;
-        }
-    }
-
     .tm-palette {
         width: 50px;
         height: 50px;
