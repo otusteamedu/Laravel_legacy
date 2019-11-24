@@ -28,6 +28,11 @@ class TrucksService
         return $this->trucksRepository->index();
     }
 
+    public function getAll()
+    {
+        return $this->trucksRepository->getAll();
+    }
+
     public function validate(Request $request)
     {
         return $this->validationService->validate($request, self::RULES);
@@ -40,7 +45,7 @@ class TrucksService
             $data['plate'] = $request->plate;
             $data['cars'] = $request->cars;
 
-            $this->trucksRepository->store($data);
+            return $this->trucksRepository->store($data);
         }
     }
 
@@ -51,7 +56,7 @@ class TrucksService
             $data['plate'] = $request->plate;
             $data['cars'] = $request->cars;
 
-            $this->trucksRepository->update($data, $model);
+            return $this->trucksRepository->update($data, $model);
         }
     }
 
