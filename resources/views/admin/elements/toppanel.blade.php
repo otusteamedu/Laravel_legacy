@@ -19,3 +19,17 @@
         @endif
     @endisset
 </div>
+
+@if ($errors->messages->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->messages->all() as $error)
+            - {{ $error }}<br />
+        @endforeach
+    </div>
+@endif
+
+@if (Session::has('statusMessage'))
+    <div class="alert alert-success">
+        {{ Session::get('statusMessage') }}
+    </div>
+@endif

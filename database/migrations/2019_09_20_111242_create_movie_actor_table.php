@@ -23,12 +23,11 @@ class CreateMovieActorTable extends Migration
         Schema::table('movie_actor', function (Blueprint $table) {
             $table->foreign('movie_id')
                 ->references('id')
-                ->on('movies')
-                ->onDelete('cascade');
+                ->on('movies');
+
             $table->foreign('actor_id')
                 ->references('id')
-                ->on('people')
-                ->onDelete('cascade');
+                ->on('people');
         });
     }
 

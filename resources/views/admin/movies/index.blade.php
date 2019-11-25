@@ -32,7 +32,8 @@
 @endsection
 
 @section('pageContent')
-    @if(count($dataList) > 0)
+	{!! $filterHtml !!}
+    @if(count($movies) > 0)
     <div class="table-responsive">
         <form action="">
             <input name="cmd" type="hidden" value="" />
@@ -47,20 +48,20 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($dataList as $item)
+                    @foreach($movies as $item)
                     <tr>
                         <td><input type="checkbox" value="{{ $item }}" role="checkitem" /></td>
                         <td>
-                            <a href="{{ route('admin.movies.edit', ['movie' => $item->id]) }}">{{ $item->id }}</a>
+                            <a href="{{ route('admin.movies.edit', ['itemId' => $item->id]) }}">{{ $item->id }}</a>
                         </td>
                         <td>{{ $item->name }}</td>
                         <td>{{ $item->sort }}</td>
                         <td>
-                            <a href="{{ route('admin.movies.edit', ['movie' => $item->id]) }}" class="i-icon i-edit text-info">
+                            <a href="{{ route('admin.movies.edit', ['itemId' => $item->id]) }}" class="i-icon i-edit text-info">
                                 <i class="fas fa-edit"></i>
                                 <span>@lang('admin.edit')</span>
                             </a>
-                            <a href="{{ route('admin.movies.destroy', ['movie' => $item->id]) }}"
+                            <a href="{{ route('admin.movies.destroy', ['itemId' => $item->id]) }}"
                                onclick="var o=document.getElementById('deleteModal').getElementsByTagName('form')[0];o.action=this.href;return false;"
                                class="i-icon i-delete text-danger" data-toggle="modal" data-target="#deleteModal">
                                 <i class="fas fa-trash"></i>

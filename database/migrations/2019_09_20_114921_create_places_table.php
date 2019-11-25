@@ -15,12 +15,12 @@ class CreatePlacesTable extends Migration
     {
         Schema::create('places', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('hall_id')->unsigned();
-            $table->bigInteger('tariff_id')->unsigned();
+            $table->bigInteger('hall_id')->unsigned()->nullable();
+            $table->bigInteger('tariff_id')->unsigned()->nullable();
             $table->bigInteger('row_number')->unsigned();
             $table->bigInteger('place_number')->unsigned();
 
-            $table->timestamps();
+            // $table->timestamps();
         });
 
         Schema::table('places', function (Blueprint $table) {
@@ -30,15 +30,13 @@ class CreatePlacesTable extends Migration
         Schema::table('places', function (Blueprint $table) {
             $table->foreign('hall_id')
                 ->references('id')
-                ->on('cinemas')
-            	->onDelete('cascade');
+                ->on('halls');
             $table->foreign('tariff_id')
                 ->references('id')
-                ->on('tariffs')
-                ->onDelete('cascade');
+                ->on('tariffs');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Movies;
 
 use App\Models\Genre;
-use App\Repositories\Genres\IGenreRepository;
+use App\Repositories\Interfaces\IGenreRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +24,7 @@ class GenreController extends Controller
     {
         //
         return view('admin.genres.index', [
-            'dataList' => $this->genreRepository->search()
+            'dataList' => $this->genreRepository->getList()
         ]);
     }
     /**

@@ -14,26 +14,25 @@ class CreateMovieRentalsTable extends Migration
     public function up()
     {
         Schema::create('movie_rentals', function (Blueprint $table) {
-            $table->bigInteger('id');
+            $table->bigIncrements('id');
             $table->bigInteger('movie_id')->unsigned();
             $table->bigInteger('cinema_id')->unsigned();
             $table->bigInteger('created_user_id')->unsigned();
-            $table->timestamps();
+            $table->dateTime('date_start_at')->nullable();
+            $table->dateTime('date_end_at')->nullable();
+            // $table->timestamps();
         });
 
         Schema::table('movie_rentals', function (Blueprint $table) {
             $table->foreign('movie_id')
                 ->references('id')
-                ->on('movies')
-            	->onDelete('cascade');
+                ->on('movies');
             $table->foreign('cinema_id')
                 ->references('id')
-                ->on('cinemas')
-                ->onDelete('cascade');
+                ->on('cinemas');
             $table->foreign('created_user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('users');
         });
     }
 

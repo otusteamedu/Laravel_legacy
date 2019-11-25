@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin\Movies;
 
 use App\Models\Person;
-use App\Repositories\People\IPersonRepository;
+use App\Repositories\Interfaces\IPersonRepository;
 use App\Services\FileService;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class PersonController extends Controller
@@ -30,7 +30,7 @@ class PersonController extends Controller
     {
         //
         return view('admin.people.index', [
-            'dataList' => $this->personRepository->search()
+            'dataList' => $this->personRepository->getList()
         ]);
     }
 
@@ -54,6 +54,7 @@ class PersonController extends Controller
     public function store(Request $request)
     {
         $person = $this->personRepository->createFromArray($request->all());
+
         $file = $request->file('photo');
         if($file) {
             $photo = $this->fileService->saveFile($file);
@@ -90,13 +91,18 @@ class PersonController extends Controller
         $person = $this->personRepository->updateFromArray($person, $request->all());
         $file = $request->file('photo');
         if($request->has('photo_delete')) {
-            $photo = $person->photo()->dissociate();
-            $this->fileService->removeFile($photo);
+            $this->fileService->removeFile($person->photo);
 
+            //$person->photo()->dissociate();
             $person->save();
         }
+
         if($file) {
-            $photo = $this->fileService->replaceFile($file, $person->photo);
+            if($person->photo)
+                $photo = $this->fileService->replaceFile($file, $person->photo);
+            else
+                $photo = $this->fileService->saveFile($file);
+
             $person->photo()->associate($photo);
             $person->save();
         }

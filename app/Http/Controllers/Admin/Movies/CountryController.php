@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin\Movies;
 
 use App\Models\Country;
-use App\Repositories\Countries\ICountryRepository;
+use App\Repositories\Interfaces\ICountryRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -24,7 +24,7 @@ class CountryController extends Controller
     {
         //
         return view('admin.countries.index', [
-            'dataList' => $this->countryRepository->search()
+            'dataList' => $this->countryRepository->getList()
         ]);
     }
 

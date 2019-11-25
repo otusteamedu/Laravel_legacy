@@ -16,34 +16,31 @@ class CreateMoviesTable extends Migration
         Schema::create('movies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name', 255);
-            $table->bigInteger('producer_id')->unsigned();
+            $table->bigInteger('producer_id')->unsigned()->nullable();
             $table->date('premiereDate')->nullable();
             $table->text('slogan')->nullable();
             $table->longText('description')->nullable();
             $table->integer('duration')->unsigned()->nullable();
             $table->enum('age_limit', ['0', '6', '12', '16', '18'])->nullable();
-            $table->bigInteger('poster_id')->unsigned();
-            $table->string('trailer_link', 100);
+            $table->bigInteger('poster_id')->unsigned()->nullable();
+            $table->string('trailer_link', 100)->nullable();
 
-            $table->bigInteger('created_user_id')->unsigned();
+            $table->bigInteger('created_user_id')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('movies', function (Blueprint $table) {
             $table->foreign('poster_id')
                 ->references('id')
-                ->on('files')
-                ->onDelete('cascade');
+                ->on('files');
 
             $table->foreign('producer_id')
                 ->references('id')
-                ->on('people')
-                ->onDelete('cascade');
+                ->on('people');
 
             $table->foreign('created_user_id')
                 ->references('id')
-                ->on('users')
-            	->onDelete('cascade');
+                ->on('users');
         });
     }
 

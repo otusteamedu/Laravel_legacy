@@ -29,7 +29,7 @@
             {{ Form::file('photo', ['class' => 'mb-1']) }}
         </div>
         @if($dataItem && $dataItem->photo)
-            <img src="{{ env('UPLOAD_HTTP') }}{{ $dataItem->photo->getPath() }}" width="100" class="mb-1" alt="" />
+            <img src="{{ config('app.upload_http') }}{{ $dataItem->photo->getPath() }}" width="100" class="mb-1" alt="" />
             <div class="form-check">
                 {{ Form::checkbox('photo_delete', $dataItem->photo->id, false, ['id' => 'photo_delete', 'class' => 'form-check-input']) }}
                 {{ Form::label('photo_delete', __('admin.delete'), ['class' => 'form-check-label']) }}

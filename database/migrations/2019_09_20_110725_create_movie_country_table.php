@@ -23,12 +23,11 @@ class CreateMovieCountryTable extends Migration
         Schema::table('movie_country', function (Blueprint $table) {
             $table->foreign('movie_id')
                 ->references('id')
-                ->on('movies')
-                ->onDelete('cascade');
+                ->on('movies');
+
             $table->foreign('country_id')
                 ->references('id')
-                ->on('countries')
-                ->onDelete('cascade');
+                ->on('countries');
         });
     }
 

@@ -2,19 +2,19 @@
 
 namespace App\Providers;
 
-use App\Repositories\Countries\CountryRepository;
-use App\Repositories\Countries\ICountryRepository;
-use App\Repositories\Movies\IMovieRepository;
-use App\Repositories\Movies\MovieRepository;
-use App\Repositories\People\IPersonRepository;
-use App\Repositories\People\PersonRepository;
+use App\Repositories\Interfaces\ICountryRepository;
+use App\Repositories\CountryRepository;
+use App\Repositories\Interfaces\IPersonRepository;
+use App\Repositories\PersonRepository;
+use App\Repositories\Interfaces\IGenreRepository;
+use App\Repositories\GenreRepository;
+
 use App\Repositories\Files\FileRepository;
 use App\Repositories\Files\IFileRepository;
-use App\Repositories\Genres\GenreRepository;
-use App\Repositories\Genres\IGenreRepository;
 use App\Services\FileService;
+
+use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 
@@ -44,18 +44,36 @@ class AppServiceProvider extends ServiceProvider
 
     private function registerBindings()
     {
+        // репозитории
         $this->app->bind(ICountryRepository::class, CountryRepository::class);
         $this->app->bind(IGenreRepository::class, GenreRepository::class);
         $this->app->bind(IPersonRepository::class, PersonRepository::class);
         $this->app->bind(IFileRepository::class, FileRepository::class);
-        $this->app->bind(IMovieRepository::class, MovieRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IMovieRepository::class, \App\Repositories\MovieRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\ICinemaRepository::class, \App\Repositories\CinemaRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IUserRepository::class, \App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IModuleRepository::class, \App\Repositories\ModuleRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IRoleRepository::class, \App\Repositories\RoleRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IUploadRepository::class, \App\Repositories\UploadRepository::class);
+
+        // сервисы
+        $this->app->bind(\App\Services\Interfaces\IUploadService::class, \App\Services\UploadService::class);
+        $this->app->bind(\App\Services\Interfaces\IMovieService::class, \App\Services\MovieService::class);
+        $this->app->bind(\App\Services\Interfaces\ICinemaService::class, \App\Services\CinemaService::class);
 
         try {
-            $fileService = new FileService(
-                env('UPLOAD_FS'),
-                $this->app->make(FileRepository::class)
-            );
-            $this->app->instance(FileService::class, $fileService);
+            $this->app->singleton(FileService::class, function (Application $app) {
+                return new FileService(
+                    config('app.upload_fs'),
+                    $app->make(FileRepository::class)
+                );
+            });
+            $this->app->singleton(\App\Services\ResizeService::class);
+            $this->app->singleton(\App\Services\OneSession::class, function (Application $app) {
+                return new \App\Services\OneSession(
+                    app('request')
+                );
+            });
         }
         catch (\Exception $e) {
         }

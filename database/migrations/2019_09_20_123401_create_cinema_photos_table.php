@@ -23,12 +23,10 @@ class CreateCinemaPhotosTable extends Migration
         Schema::table('cinema_photos', function (Blueprint $table) {
             $table->foreign('cinema_id')
                 ->references('id')
-                ->on('cinemas')
-                ->onDelete('cascade');
+                ->on('cinemas');
             $table->foreign('photo_id')
                 ->references('id')
-                ->on('files')
-                ->onDelete('cascade');
+                ->on('files');
         });
     }
 

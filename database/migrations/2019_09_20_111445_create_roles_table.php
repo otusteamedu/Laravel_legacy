@@ -25,8 +25,7 @@ class CreateRolesTable extends Migration
         Schema::table('roles', function (Blueprint $table) {
             $table->foreign('avatar_id')
                 ->references('id')
-                ->on('files')
-            	->onDelete('cascade');
+                ->on('files');
         });
     }
 

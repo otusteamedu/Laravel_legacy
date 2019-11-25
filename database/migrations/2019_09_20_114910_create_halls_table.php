@@ -15,10 +15,10 @@ class CreateHallsTable extends Migration
     {
         Schema::create('halls', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('cinema_id')->unsigned();
+            $table->bigInteger('cinema_id')->unsigned()->nullable();
             $table->string('name', 255);
             $table->integer('number')->unsigned();
-            $table->timestamps();
+            // $table->timestamps();
         });
 
         Schema::table('halls', function (Blueprint $table) {
@@ -27,11 +27,10 @@ class CreateHallsTable extends Migration
 
         Schema::table('halls', function (Blueprint $table) {
             $table->foreign('cinema_id')
-                ->references('id')->on('cinemas')
-            	->onDelete('cascade');
+                ->references('id')->on('cinemas');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

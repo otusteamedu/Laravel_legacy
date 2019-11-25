@@ -12,7 +12,9 @@
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "ext-gd": "*",
+        "ext-dom": "*"
     },
     "require-dev": {
         "facade/ignition": "^1.4",

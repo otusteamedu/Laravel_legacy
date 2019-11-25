@@ -23,6 +23,21 @@
                     'icon' => 'video'
                 ]
             ]
+        ], [
+            'href' => route('admin.security.index'),
+            'text' => __('admin.menu.security.index'),
+            'icon' => 'user-secret',
+            'items' => [
+                [
+                    'href' => '#', // route('admin.security.perms.index'),
+                    'text' => __('admin.menu.security.users'),
+                    'icon' => 'users'
+                ], [
+                    'href' => route('admin.security.perms.index'),
+                    'text' => __('admin.menu.security.perms'),
+                    'icon' => 'key'
+                ]
+            ]
         ]
     ];
 

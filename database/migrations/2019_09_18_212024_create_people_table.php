@@ -26,8 +26,7 @@ class CreatePeopleTable extends Migration
 
         Schema::table('people', function (Blueprint $table) {
             $table->foreign('photo_id')
-                ->references('id')->on('files')
-            	->onDelete('cascade');
+                ->references('id')->on('files');
         });
     }
 

@@ -123,6 +123,8 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
+    'upload_fs' => env('UPLOAD_FS'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers

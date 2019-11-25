@@ -13,7 +13,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        'App\Models\Movie' => 'App\Policies\MoviePolicy'
     ];
 
     /**
@@ -25,6 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define('view-perms', function ($user) {
+            /** @var \App\Models\User $user */
+            return $user->isRoot();
+        });
+
+        Gate::define('edit-perms', function ($user) {
+            /** @var \App\Models\User $user */
+            return $user->isRoot();
+        });
     }
 }

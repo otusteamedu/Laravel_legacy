@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Base\Repository\TListItem;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -16,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Person extends Model
 {
+    use TListItem;
     //
     protected $fillable = [
         'name',

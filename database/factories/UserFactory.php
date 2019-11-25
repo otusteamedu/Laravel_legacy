@@ -29,7 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name' => ($sex == 'male') ? $faker->firstNameMale : $faker->firstNameFemale,
         'surname' => $faker->lastName . (($sex == 'male') ? '' : 'а'),
-        'email' => $faker->unique()->safeEmail,
+        'email' => $email,
         'sex' => $sex,
         'phone'=> sprintf(
             "(%03d) %03d-%02d-%02d",

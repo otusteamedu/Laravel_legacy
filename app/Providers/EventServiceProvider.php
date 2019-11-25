@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Events\MovieEvent;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -17,7 +18,7 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         Registered::class => [
             SendEmailVerificationNotification::class,
-        ],
+        ]
     ];
 
     /**
@@ -30,5 +31,10 @@ class EventServiceProvider extends ServiceProvider
         parent::boot();
 
         //
+        Event::listen(MovieEvent::class, function(MovieEvent $event)
+        {
+            // dd($event->getMovie()->actors()->pluck('actor_id'));
+            // Обработка события...
+        });
     }
 }

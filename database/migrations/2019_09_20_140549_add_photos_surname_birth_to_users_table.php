@@ -26,8 +26,7 @@ class AddPhotosSurnameBirthToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->foreign('file_id')
                 ->references('id')
-                ->on('files')
-            	->onDelete('cascade');
+                ->on('files');
 
             $table->index('phone');
             $table->index('active');
@@ -44,7 +43,7 @@ class AddPhotosSurnameBirthToUsersTable extends Migration
         Schema::table('users', function (Blueprint $table) {
             //
             $table->dropForeign('file_id');
-            $table->dropColumn(['surname', 'file_id', 'birthday', 'phone']);
+            $table->dropColumn(['surname', 'file_id', 'sex', 'birthday', 'phone', 'active']);
         });
     }
 }

@@ -15,5 +15,13 @@ class DatabaseSeeder extends Seeder
         $this->call(UsersTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(GenresTableSeeder::class);
+        $this->call(PeopleTableSeeder::class);
+        $this->call(ModulesTableSeeder::class);
+        $this->call(ModAccessTableSeeder::class);
+        $this->call(MoviesTableSeeder::class);
+        $this->call(TariffTableSeeder::class);
+        $this->call(CinemasTableSeeder::class);
+        $this->call(MovieShowingsTableSeeder::class);
+        $this->call(ShowingPricesTableSeeder::class);
     }
 }

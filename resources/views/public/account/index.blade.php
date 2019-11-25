@@ -26,5 +26,7 @@
             </a>
         </li>
     </ul>
-    <a href="#" class="btn btn-primary shadow">@lang('public.logout')</a>
+    {{ Form::open(['url' => route('logout'), 'method' => 'post']) }}
+    {{ Form::submit(__('public.logout'), array('class' => 'btn btn-primary shadow')) }}
+    {{ Form::close() }}
 @endsection

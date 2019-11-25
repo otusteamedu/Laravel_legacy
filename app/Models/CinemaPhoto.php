@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class CinemaPhoto extends Model
+class CinemaPhoto extends Pivot
 {
-    //
+    public $timestamps = true;
 }

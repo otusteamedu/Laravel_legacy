@@ -3,7 +3,6 @@
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use function Symfony\Component\Console\Tests\Command\createClosure;
@@ -21,7 +20,9 @@ class UsersTableSeeder extends Seeder
         $adminEmail = "vit_ermakov@mail.ru";
         $rawPassword = "vit_ermakov";
         $rootRole = Role::where(['code' => 'root'])->first();
-        $registeredRole = Role::where(['code' => 'registered'])->first();
+        $roleId = \App\Models\Role::query()
+            ->where('code', '<>', 'root')
+            ->pluck('id')->toArray();
 
         if($rootRole) {
             $superAdmin = [
@@ -31,17 +32,18 @@ class UsersTableSeeder extends Seeder
                 'password' => Hash::make($rawPassword),
                 'remember_token' => Str::random(10)
             ];
-
+            /** @var User $user */
             $user = User::create($superAdmin);
             $user->roles()->attach($rootRole->id);
 
             $user->save();
         }
 
-        if($registeredRole) {
+        if(count($roleId) > 0) {
             factory(\App\Models\User::class, 10)->create()->each(
-                function (User $user) use ($registeredRole) {
-                    $user->roles()->attach($registeredRole->id);
+                function (User $user) use ($roleId) {
+                    shuffle($roleId);
+                    $user->roles()->attach($roleId[0]);
                 }
             );
         }

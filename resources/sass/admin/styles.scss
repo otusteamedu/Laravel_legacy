@@ -105,3 +105,79 @@ h3, h3 a { margin-bottom: 18px; }
     font-size: 13px;
 }
 
+.form-select {
+    width: 100%;
+}
+.filter-block {
+    margin-bottom: 20px;
+}
+.filter-block * {
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+.filter-block table {
+    width: 500px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    background-color: #f2f2f2;
+}
+.filter-block table td {
+    padding: 10px;
+    vertical-align: middle;
+    text-align: left;
+    position: relative;
+}
+.filter-block table td:first-child {
+    width: 200px;
+}
+.filter-block .input-field {
+    width: 80%;
+}
+.filter-block .input-field input,
+.filter-block .input-field select {
+    width: 100%;
+}
+.filter-block .right-cb {
+    line-height: 34px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding-top: 8px;
+}
+.r-block, .r-block li {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.upload-list {
+    margin-top: 12px;
+}
+.upload-list .item {
+    margin: 0 12px 12px 0;
+    float: left;
+    width: 160px;
+    padding: 5px;
+}
+.upload-block {
+    background-color: #f2f2f2;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+}
+.upload-list .image {
+    margin-bottom: 12px;
+    padding: 50% 0;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.upload-list .name {
+    margin-bottom: 12px;
+}
+.upload-block .actions {
+    padding: 12px 0;
+    clear: both;
+}
+.upload-block .actions .i-icon {
+    margin-right: 12px;
+    display: inline-block;
+}

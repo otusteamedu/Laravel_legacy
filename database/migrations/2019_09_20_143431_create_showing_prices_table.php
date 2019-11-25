@@ -19,18 +19,16 @@ class CreateShowingPricesTable extends Migration
             $table->bigInteger('tariff_id')->unsigned();
             $table->integer('value')->unsigned()->default(0);
 
-            $table->timestamps();
+            //$table->timestamps();
         });
 
         Schema::table('showing_prices', function (Blueprint $table) {
             $table->foreign('movie_showing_id')
                 ->references('id')
-                ->on('movie_showings')
-                ->onDelete('cascade');
+                ->on('movie_showings');
             $table->foreign('tariff_id')
                 ->references('id')
-                ->on('tariffs')
-                ->onDelete('cascade');
+                ->on('tariffs');
         });
     }
 

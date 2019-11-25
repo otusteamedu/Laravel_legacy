@@ -22,6 +22,10 @@ class RolesTableSeeder extends Seeder
                 'level' => 100,
                 'name' => 'Администратор'
             ], [
+                'code' => 'content',
+                'level' => 10,
+                'name' => 'Контент-менеджеры'
+            ], [
                 'code' => 'operator',
                 'level' => 10,
                 'name' => 'Операторы'

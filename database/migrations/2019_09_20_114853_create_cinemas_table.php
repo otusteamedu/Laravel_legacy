@@ -20,15 +20,14 @@ class CreateCinemasTable extends Migration
             $table->longText('description')->nullable();
             $table->json('location')->nullable();
 
-            $table->bigInteger('created_user_id')->unsigned();
+            $table->bigInteger('created_user_id')->unsigned()->nullable();
             $table->timestamps();
         });
 
         Schema::table('cinemas', function (Blueprint $table) {
             $table->foreign('created_user_id')
                 ->references('id')
-                ->on('users')
-            	->onDelete('cascade');
+                ->on('users');
         });
     }
 

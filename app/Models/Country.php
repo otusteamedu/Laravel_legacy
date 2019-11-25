@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Base\Repository\TListItem;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Country extends Model
 {
+    use TListItem;
     //
     protected $fillable = [
         'name'

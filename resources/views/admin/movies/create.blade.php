@@ -28,7 +28,7 @@
 @endsection
 
 @section('pageContent')
-    {{ Form::open(['url' => route('admin.movies.index'), 'files' => 'true']) }}
+    {{ Form::open(['url' => route('admin.movies.create'), 'files' => 'true', 'method' => 'post']) }}
     @include('admin.movies.elements.fields')
     {{ Form::close() }}
 @endsection

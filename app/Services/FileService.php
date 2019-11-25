@@ -4,6 +4,9 @@
 namespace App\Services;
 
 use App\Repositories\Files\IFileRepository;
+use Exception;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Filesystem\Filesystem;
 use Illuminate\Http\File;
 use App\Models\File as FileModel;
 use Illuminate\Http\UploadedFile;
@@ -11,6 +14,7 @@ use Illuminate\Support\Facades\Storage;
 
 /**
  * Управляет копированием файлов в публичные папки с синхронным добавлением в БД
+ * Работаем только с хранилищем public
  *
  * Class FileService
  * @package App\Services
@@ -28,22 +32,34 @@ class FileService
      */
     private $repository;
     /**
+     *  @var Filesystem
+     */
+    private $storage;
+    /**
      * FileService constructor.
      * @param string $basePath
      * @param IFileRepository $repository
      */
-    public function __construct(?string $basePath, IFileRepository $repository)
+    public function __construct(string $basePath, IFileRepository $repository)
     {
         $this->basePath = $basePath;
         $this->repository = $repository;
         // basePath должен заканчиваться на DIRECTORY_SEPARATOR
         if(substr($this->basePath, -1, 1) !== DIRECTORY_SEPARATOR)
             $this->basePath .= DIRECTORY_SEPARATOR;
+
+        $this->storage = Storage::disk('public');
+    }
+    /**
+     * @return Filesystem
+     */
+    public function getStorage(): Filesystem {
+        return $this->storage;
     }
     /**
      * Директория для хранения файла
      *
-     * @param File $file
+     * @param UploadedFile $file
      * @return string
      */
     private function getTargetPath(UploadedFile $file) {
@@ -52,7 +68,7 @@ class FileService
     /**
      * Защищенное имя файла
      *
-     * @param File $file
+     * @param UploadedFile $file
      * @return string
      */
     private static function getTargetName(UploadedFile $file): string {
@@ -62,7 +78,7 @@ class FileService
     }
     /**
      *
-     * @param File $file
+     * @param UploadedFile $file
      * @return string
      */
     private static function getSubdir(UploadedFile $file): string {
@@ -84,7 +100,7 @@ class FileService
     /**
      * Является ли файл картинкой
      *
-     * @param File $file
+     * @param UploadedFile $file
      * @return bool
      */
     public static function isImage(UploadedFile $file) {
@@ -94,7 +110,6 @@ class FileService
 
         return ($mimeParts[0] == 'image') && in_array($mimeParts[1], self::GetImageExtensions());
     }
-
     /**
      * @param UploadedFile $file
      * @return FileModel
@@ -119,21 +134,22 @@ class FileService
     /**
      * @param UploadedFile $file
      * @return bool
+     * @throws FileNotFoundException
      */
     private function move(UploadedFile $file): bool {
         $targetPath = $this->getTargetPath($file);
-        $storage = Storage::disk('local');
 
-        if(!$storage->makeDirectory($targetPath))
+        if(!$this->getStorage()->makeDirectory($targetPath))
             return false;
 
-        return ($file->storeAs($targetPath, self::getTargetName($file)) !== false);
+        return $this->getStorage()->put($targetPath . "/" . self::getTargetName($file), $file->get());
     }
     /**
      * Переносит файл в хранилище и сохраняет сущность в таблице БД
      *
      * @param UploadedFile $file
      * @return FileModel|null
+     * @throws FileNotFoundException
      */
     public function saveFile(UploadedFile $file): ?FileModel {
         if(!($file->isValid() && $this->move($file)))
@@ -144,22 +160,45 @@ class FileService
 
         return $photo;
     }
-
     /**
      * Удаляет файл из хранилища и сущность из БД
      *
      * @param FileModel $model
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public function removeFile(FileModel $model): bool {
         $targetPath = $this->basePath . $model->getPath();
-        $storage = Storage::disk('local');
 
-        if($storage->exists($targetPath))
-            $storage->delete($targetPath);
+        if($this->getStorage()->exists($targetPath))
+            $this->getStorage()->delete($targetPath);
 
         $model->delete();
+        return true;
+    }
+    /**
+     * Колхоз... считаем, что файл сохранен в локальном хранилище
+     * тут, видимо надо проводить процедуру копирования файла в темповую папку,
+     * чтобы потом из нее можно было получить объект для библиотеки GD
+     *
+     * @param FileModel $model
+     * @return File
+     */
+    public function getLocalFile(FileModel $model): ?File {
+        $targetPath = $this->basePath . $model->getPath();
+        if(!$this->getStorage()->exists($targetPath))
+            return null;
+
+        return new File(
+            config('filesystems.disks.public.root').$this->basePath.$model->getPath()
+        );
+    }
+    /**
+     * @param FileModel $model
+     * @return string
+     */
+    public function getAssetUrl(FileModel $model): string {
+        return asset('/storage' . $this->basePath.$model->getPath());
     }
     /**
      * @param FileModel $model
@@ -167,6 +206,6 @@ class FileService
      * @return FileModel|null
      */
     public function replaceFile(UploadedFile $file, FileModel $model): ?FileModel {
-
+        return null;
     }
 }

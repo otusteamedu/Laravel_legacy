@@ -56,7 +56,11 @@ $(function () {
     var object = document.getElementById('mapElement');
     MapLoader.loadList(null);
 
-    //$('#datetimepicker2').datetimepicker({
-    //    locale: 'ru'
-    //});
+    $('.input-date').datepicker({
+        language: 'ru',
+        locale: 'ru',
+        format: 'dd.mm.yyyy'
+    });
+
+    $('.input-phone').inputmask({ mask: "(999) 999-99-99" });
 });

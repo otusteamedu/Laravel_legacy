@@ -17,7 +17,7 @@ class CreateTariffsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 100);
             $table->float('defaultKoef', 4, 2);
-            //$table->timestamps();
+            $table->timestamps();
         });
     }
 

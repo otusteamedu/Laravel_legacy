@@ -23,12 +23,11 @@ class CreateUserRoleTable extends Migration
         Schema::table('user_role', function (Blueprint $table) {
             $table->foreign('role_id')
                 ->references('id')
-                ->on('roles')
-                ->onDelete('cascade');
+                ->on('roles');
+
             $table->foreign('user_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
+                ->on('users');
         });
     }
 

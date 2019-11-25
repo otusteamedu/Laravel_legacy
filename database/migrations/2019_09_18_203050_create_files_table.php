@@ -19,7 +19,8 @@ class CreateFilesTable extends Migration
             $table->string('file_name', 255);
             $table->string('subdir', 10);
             $table->string('original_name', 255)->nullable();
-            $table->string('content_type', 32);
+            $table->string('description', 255)->nullable();
+            $table->string('content_type', 32)->nullable();
             $table->integer('width')->default(0)->unsigned();
             $table->integer('height')->default(0)->unsigned();
             $table->integer('file_size')->default(0)->unsigned();

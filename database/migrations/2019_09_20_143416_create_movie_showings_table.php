@@ -19,20 +19,18 @@ class CreateMovieShowingsTable extends Migration
             $table->bigInteger('hall_id')->unsigned();
             $table->dateTime('datetime');
 
-            $table->timestamps();
+            // $table->timestamps();
         });
-/*
+
         Schema::table('movie_showings', function (Blueprint $table) {
             $table->foreign('movie_rental_id')
                 ->references('id')
-                ->on('movie_rentals')
-            	->onDelete('cascade');
+                ->on('movie_rentals');
             $table->foreign('hall_id')
                 ->references('id')
-                ->on('halls')
-                ->onDelete('cascade');
+                ->on('halls');
         });
-*/
+
     }
 
     /**

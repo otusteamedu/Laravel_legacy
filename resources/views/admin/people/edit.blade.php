@@ -28,7 +28,7 @@
 @endsection
 
 @section('pageContent')
-    {{ Form::model($dataItem, ['url' => route('admin.people.update', ['person' => $dataItem]), 'method' => 'put']) }}
+    {{ Form::model($dataItem, ['url' => route('admin.people.update', ['person' => $dataItem]), 'method' => 'put', 'files' => 'true']) }}
 
     @include('admin.people.elements.fields')
 

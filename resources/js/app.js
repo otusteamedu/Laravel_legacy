@@ -9,4 +9,12 @@ try {
 
 require('./_maps/loader');
 
+require('./jquery.inputmask');
+
+require('./bootstrap-datepicker');
+
+require('./moment');
+
+// require('./locale/ru');
+
 require('./script');
