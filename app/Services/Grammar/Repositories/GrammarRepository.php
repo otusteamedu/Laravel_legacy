@@ -4,6 +4,7 @@ namespace App\Services\Grammar\Repositories;
 
 use App\Models\Grammar;
 use DB;
+use Cache;
 
 class GrammarRepository
 {
@@ -21,7 +22,7 @@ class GrammarRepository
     public function updateGrammar($data)
     {
         $id = $data['id'];
-
+      //  Cache::tags(['grammar'])->put('grammar_detail_'.$id, $data);
         if (Grammar::where('id', $id)->update(self::getArray($data))) {
             return $id;
         }
@@ -30,6 +31,7 @@ class GrammarRepository
 
     public function insertGrammar($data)
     {
+        Cache::tags(['grammar'])->put('grammar_detail_'.$data['id'],600,$data);
         return Grammar::insertGetId(self::getArrayForInsert($data));
     }
 
