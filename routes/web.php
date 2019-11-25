@@ -15,6 +15,63 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 
+
+
+// вход|выход
+Route::get('/account/login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('/account/login', 'Auth\LoginController@login');
+Route::post('/account/logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('/account/register', 'Auth\RegisterController@showRegistrationForm')->name('public.account.register');
+Route::post('/account/register', 'Auth\RegisterController@register');
+
+
+Route::get('/account/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
+Route::post('/account/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+Route::get('/account/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
+Route::post('/account/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
+Route::get('/account/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
+Route::get('/account/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
+Route::post('/account/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
+
+/**/
+Route::name('admin.')->prefix('manager')->middleware(['auth', 'manager'])->group(function () {
+    Route::resource('countries', 'Admin\Movies\CountryController')->except(['show']);
+    Route::resource('genres', 'Admin\Movies\GenreController')->except(['show']);
+    Route::resource('people', 'Admin\Movies\PersonController')->except(['show']);
+    // Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
+
+    Route::name('movies.')->prefix('movies')->group(function () {
+        Route::get('', 'Admin\Movies\Movie\MovieListController@index')->name('index');
+        Route::get('/create', 'Admin\Movies\Movie\MovieFormController@create')->name('create');
+        Route::post('/create', 'Admin\Movies\Movie\MovieFormController@store')->name('store');
+        Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
+        Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
+        Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
+        //Route::post('/account/login', 'Auth\LoginController@login');
+    });
+    // Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
+
+    Route::name('security.')->prefix('security')->group(function () {
+        Route::get('', 'Admin\Security\PermController@modules')->name('index');
+        Route::get('/perms', 'Admin\Security\PermController@index')->name('perms.index');
+        Route::match(['put', 'patch'], '/perms', 'Admin\Security\PermController@save')->name('perms.save');
+        /*
+                Route::get('', 'Admin\Movies\Movie\MovieListController@index')->name('index');
+                Route::get('/create', 'Admin\Movies\Movie\MovieFormController@create')->name('create');
+                Route::post('/create', 'Admin\Movies\Movie\MovieFormController@store')->name('store');
+                Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
+                Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
+                Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
+        */
+    });
+});
+
+
+
+
+
+
 $GLOBALS = array_merge($GLOBALS, [
     'arCinemas' => [
         [
@@ -593,53 +650,4 @@ Route::get('/account/profile', function () {
 })->name('public.account.profile');
 
 
-// вход|выход
-Route::get('/account/login', 'Auth\LoginController@showLoginForm')->name('login');
-Route::post('/account/login', 'Auth\LoginController@login');
-Route::post('/account/logout', 'Auth\LoginController@logout')->name('logout');
-
-Route::get('/account/register', 'Auth\RegisterController@showRegistrationForm')->name('public.account.register');
-Route::post('/account/register', 'Auth\RegisterController@register');
-
-
-Route::get('/account/password/reset', 'Auth\ForgotPasswordController@showLinkRequestForm')->name('password.request');
-Route::post('/account/password/email', 'Auth\ForgotPasswordController@sendResetLinkEmail')->name('password.email');
-Route::get('/account/password/reset/{token}', 'Auth\ResetPasswordController@showResetForm')->name('password.reset');
-Route::post('/account/password/reset', 'Auth\ResetPasswordController@reset')->name('password.update');
-Route::get('/account/email/verify', 'Auth\VerificationController@show')->name('verification.notice');
-Route::get('/account/email/verify/{id}/{hash}', 'Auth\VerificationController@verify')->name('verification.verify');
-Route::post('/account/email/resend', 'Auth\VerificationController@resend')->name('verification.resend');
-
-/**/
-Route::name('admin.')->prefix('manager')->middleware('auth')->group(function () {
-    Route::resource('countries', 'Admin\Movies\CountryController')->except(['show']);
-    Route::resource('genres', 'Admin\Movies\GenreController')->except(['show']);
-    Route::resource('people', 'Admin\Movies\PersonController')->except(['show']);
-    // Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
-
-    Route::name('movies.')->prefix('movies')->group(function () {
-        Route::get('', 'Admin\Movies\Movie\MovieListController@index')->name('index');
-        Route::get('/create', 'Admin\Movies\Movie\MovieFormController@create')->name('create');
-        Route::post('/create', 'Admin\Movies\Movie\MovieFormController@store')->name('store');
-        Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
-        Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
-        Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
-        //Route::post('/account/login', 'Auth\LoginController@login');
-    });
-    // Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
-
-    Route::name('security.')->prefix('security')->group(function () {
-        Route::get('', 'Admin\Security\PermController@modules')->name('index');
-        Route::get('/perms', 'Admin\Security\PermController@index')->name('perms.index');
-        Route::match(['put', 'patch'], '/perms', 'Admin\Security\PermController@save')->name('perms.save');
-/*
-        Route::get('', 'Admin\Movies\Movie\MovieListController@index')->name('index');
-        Route::get('/create', 'Admin\Movies\Movie\MovieFormController@create')->name('create');
-        Route::post('/create', 'Admin\Movies\Movie\MovieFormController@store')->name('store');
-        Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
-        Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
-        Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
-*/
-    });
-});
 

@@ -75,4 +75,8 @@ class User extends Authenticatable
         return $this->isRoot() || $this->isAdmin() || $this->isOperator() ||
             $this->roles()->where(['code' => self::ROLE_REGISTERED])->get()->count() > 0;
     }
+
+    public function canUseManager(): bool {
+        return $this->roles()->where('code', '<>', self::ROLE_REGISTERED)->get()->count() > 0;
+    }
 }
