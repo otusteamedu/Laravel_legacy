@@ -1,31 +1,62 @@
-# Д3 №7. Начало админки
+# Д3 №8.  Авторизация и аутентификация
 
-На данный момент систематизирую полученный материал, но само ДЗ выполняю в облегченной форме, чтобы "прощупать" Laravel. 
-Он для меня новый, как и работа с такой реализацией ActiveRecord как Eloquent. Поэтому я решил сначала написать сырой код с дальнешим упорядочиванием.
+Разрабатываемый проект выкладываю сюда:
 
-Пока я не ввожу в обработку запросов слоя Service. Думаю, что мне пока хватит управления выборками [Repository](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw7/app/Repositories), остальную логику буду складывать в контроллер (кроме валидации и проверки прав). 
-
-Как сервис я пока планирую использовать какой-то отдельный функционал, например, загрузчик файлов [./app/Services/FileService.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw7/app/Services/FileService.php)
-
-До момента выполнения перечисленных в ближайших задачах пунктов буду работать со страницами, связанными с управлением фильмами.
-
-1. Страны [/app/Http/Controllers/Admin/Movies/CountryController.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw7/app/Http/Controllers/Admin/Movies/CountryController.php)
-2. Жанры [/app/Http/Controllers/Admin/Movies/GenreController.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw7/app/Http/Controllers/Admin/Movies/GenreController.php)
-3. Люди [/app/Http/Controllers/Admin/Movies/PersonController.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw7/app/Http/Controllers/Admin/Movies/PersonController.php)
-3. Фильмы [/app/Http/Controllers/Admin/Movies/MovieController.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw7/app/Http/Controllers/Admin/Movies/MovieController.php)
-
-Шаблоны складываю сюда
-* [/resources/views/admin](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw7/resources/views/admin)
-
-Разрабатываемую админку выкладываю сюда:
-
-* Адрес: [http://188.120.243.205/manager](http://188.120.243.205/manager)
+* Адрес: [http://188.120.243.205](http://188.120.243.205)
 * Логин: lar
 * Пароль: p1
 
-В ближайшей задачи входит:
+Административная панель под суперадмином:
+ 
+* Адрес: [http://188.120.243.205/manager](http://188.120.243.205/manager)
+* Логин: vit_ermakov@mail.ru
+* Пароль: vit_ermakov
 
-1. Добавление авторизации и разделения доступа на основе ролей 
-2. Проработка валидации, как отдельного элемента.
-3. Добавления к спискам фильтрации (каждому списку своя)
-4. Добавление групповых операций
+Формы авторизации, регистрации, восстановления пароля встраиваю 
+в свой дизайн и назначаю страницам авторизации свои адреса:  
+[/routes/web.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/routes/web.php)
+
+##Аутентификация
+
+Административная панель защищается двумя мидлварами: ['auth', 'manager'].
+Первый проверяет, чтобы пользователь был авторизован, второй - 
+[/app/Http/Middleware/CheckManager.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/app/Http/Middleware/CheckManager.php)
+проверяет, чтобы пользователь принадлежал к ролям, которые имеют права 
+работать с админпанелью.
+
+Разделение прав внутри разделов идут на основе уровней доступа к модулям.
+Под модулем я понимаю просто отдельный функционал. Я выделил такие:
+
+* Пользователи и доступ
+* Справочник фильмов
+* Кинотеатры, залы, места
+* Продажи
+
+Каждому из них соответствует список уровней доступа, например,
+
+* Доступ закрыт
+* Просмотр справочников
+* Добавление/изменение+удаление своих записей
+* Полный доступ
+
+Далее существует страница, назначения различным ролям соответсвующих
+прав к модулям: 
+[http://188.120.243.205/manager/security/perms](http://188.120.243.205/manager/security/perms).
+Тут я немного срезал угол и не стал писать сервис для работы с запросами 
+внутри контроллера: [/app/Repositories/ModuleRepository.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/app/Repositories/ModuleRepository.php)
+
+После того как права назначены, для проверки доступа к тому или иному
+объекту я использую политики Laravel. Пример для объекта фильма: 
+[/app/Policies/MoviePolicy.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/app/Policies/MoviePolicy.php).
+
+Там я с помощью функции ропозитория пользователей requiredAccess проверяю 
+достаточность прав на выполнение пользователем действий над моделью.
+
+Далее уже политика автоматически подтягивается средствами Laravel. 
+Пример [/app/Http/Controllers/Admin/Movies/Movie/MovieFormController.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/app/Http/Controllers/Admin/Movies/Movie/MovieFormController.php)
+
+Сама страница сохранения прав для разнообразия защищена с помощью Gates:
+[/app/Http/Controllers/Admin/Security/PermController.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/app/Http/Controllers/Admin/Security/PermController.php), описанных тут
+[/app/Providers/AuthServiceProvider.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw8/app/Providers/AuthServiceProvider.php). 
+
+Там же подключаются политики. Пока она одна MoviePolicy.
