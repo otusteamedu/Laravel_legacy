@@ -31,6 +31,6 @@ class UpdateStats implements ShouldQueue
      */
     public function handle()
     {
-        $this->statsService->update();
+        $this->statsService->updateRegions();
     }
 }

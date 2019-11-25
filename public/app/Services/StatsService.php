@@ -3,28 +3,24 @@
 
 namespace App\Services;
 
-use App\Models\Stats\Stat;
-use App\Models\Region;
-use App\Models\Clients\Client;
+use App\Services\Repositories\StatsRepository;
 
 class StatsService
 {
-    public function regionStats()
+    private $statsRepository;
+
+    public function __construct(StatsRepository $statsRepository)
     {
-        return Stat::paginate(50);
+        $this->statsRepository = $statsRepository;
     }
 
-    public function update()
+    public function getRegions()
     {
-        $regions = Region::select('id')->get();
-
-        foreach ($regions as $region)
-        {
-            $clientCount = Client::where('region_id', '=', $region['id'])->count();
-
-            Stat::where('region_id', $region['id'])->update(['amount' => $clientCount]);
-        }
+        return $this->statsRepository->getRegions();
     }
 
-
+    public function updateRegions()
+    {
+        $this->statsRepository->updateRegions();
+    }
 }

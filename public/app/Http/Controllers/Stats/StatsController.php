@@ -20,7 +20,7 @@ class StatsController extends CrmController
      */
     public function index(Request $request)
     {
-        $items = $this->statsService->regionStats();
+        $items = $this->statsService->getRegions();
 
         return view('crm.stats.index', ['items' => $items, 'leftNav' => parent::getLeftNav()]);
     }

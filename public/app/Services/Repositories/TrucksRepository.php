@@ -18,6 +18,11 @@ class TrucksRepository implements RepositoryInterface
         return Truck::paginate(20);
     }
 
+    public function getAll()
+    {
+        return Truck::all();
+    }
+
     public function store(array $data)
     {
         $model = new Truck;
@@ -25,6 +30,8 @@ class TrucksRepository implements RepositoryInterface
         $model->plate = $data['plate'];
         $model->cars = $data['cars'];
         $model->save();
+
+        return $model;
     }
 
     public function update(array $data, $model)
@@ -33,6 +40,8 @@ class TrucksRepository implements RepositoryInterface
         $model->plate = $data['plate'];
         $model->cars = $data['cars'];
         $model->save();
+
+        return $model;
     }
 
     public function destroy($model)
