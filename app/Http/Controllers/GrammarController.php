@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Grammar;
 use App\Services\Grammar\GrammarService;
+use Cache;
 
 class GrammarController extends Controller
 {
@@ -17,15 +18,22 @@ class GrammarController extends Controller
     }
     public  function getList()
     {
-        $list = $this->grammarService->listGrammar();
-
+        $list  = Cache::tags(['list'])->remember('grammar_list', 600, function () {
+            return $this->grammarService->listGrammar();
+        });
         return view('list')->with(['list'=>$list]);
     }
 
     public  function getDeatail(string $id)
     {
-        $list = $this->grammarService->listGrammar();
-        $detail = $this->grammarService->detailGrammar($id);
+
+        $list  = Cache::tags(['list'])->remember('grammar_list', 600, function () {
+            return $this->grammarService->listGrammar();
+        });
+        $detail  = Cache::tags(['grammar'])->remember('grammar_detail_'.$id, 600, function () use($id) {
+            return  $this->grammarService->detailGrammar($id);
+        });
+
         return  view('grammar')->with(['detail'=>$detail,'list'=>$list]);
     }
 }

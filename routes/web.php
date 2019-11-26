@@ -31,8 +31,14 @@ Route::name('admin.')->group(function () {
     });
 });
 
+Route::prefix('cache')->group(function () {
+    Route::get('/', 'CacheController@index');
+    Route::get('/clear', 'CacheController@clear');
+    Route::post('/clear_key', 'CacheController@clearKey');
+    Route::get('/heating', 'CacheController@heating');
+    Route::get('/clear_grammar_detail', 'CacheController@clearGrammarDetail');
 
-
+});
 
 Auth::routes();
 
