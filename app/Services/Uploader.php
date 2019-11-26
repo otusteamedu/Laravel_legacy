@@ -27,7 +27,7 @@ class Uploader
      */
     private $formatId;
 
-    public function __construct(Format $formatModel, ImageValidationBuilder $imageValidationBuilder) {
+    public function __construct($formatModel, ImageValidationBuilder $imageValidationBuilder) {
         $this->formats = FormatResource::collection($formatModel->all());
         $this->imageValidationBuilder = $imageValidationBuilder;
     }
