@@ -2,32 +2,39 @@
 
 namespace App\Services;
 
-use App\Models\Proportion;
+use App\Models\Format;
 use Illuminate\Support\Facades\File;
-use App\Http\Resources\Proportion as ProportionResource;
+use App\Http\Resources\Format as FormatResource;
 
 class Uploader
 {
-    protected $upload,
-              $props,
-              $uploadPath,
-              $newUploadName,
-              $validationFailed = false,
-              $proportions,
-              $proportionId;
+    protected $uploadFile,
+        $fileProps = [],
+        $uploadPath,
+        $newUploadName,
+        $validationFailed = false,
+        $formats;
 
-    public function __construct(Proportion $proportions) {
-        $this->proportions = ProportionResource::collection($proportions->all());
+    /**
+     * @var ImageValidationBuilder
+     */
+    protected $imageValidationBuilder;
+
+    /**
+     * Image format id
+     *
+     * @var int
+     */
+    private $formatId;
+
+    public function __construct($formatModel, ImageValidationBuilder $imageValidationBuilder) {
+        $this->formats = FormatResource::collection($formatModel->all());
+        $this->imageValidationBuilder = $imageValidationBuilder;
     }
 
     protected function setProps($name, $value)
     {
-        $this->props[$name] = $value;
-    }
-
-    public function getProps()
-    {
-        return $this->props;
+        $this->fileProps[$name] = $value;
     }
 
     protected function setValidationFailed($value) {
@@ -38,75 +45,68 @@ class Uploader
         return $this->validationFailed;
     }
 
+    protected function setFormatId($width, $height, $formats) {
+        if($height != 0) {
+            $ratio = $width / $height;
 
-    protected function setProportionId($w, $h) {
-        if($h != 0) {
-            $ratio = $w / $h;
-            foreach($this->proportions as $proportion) {
-                if($ratio >= $proportion->min && $ratio < $proportion->max) {
-                    $this->proportionId = $proportion->id;
+            foreach($formats as $format) {
+                if($ratio >= $format->min && $ratio < $format->max) {
+                    $this->formatId = $format->id;
                     return;
                 }
             }
         }
         $this->setValidationFailed(true);
-        abort(422, 'Пропорции изображения ' . $this->props['originalName'] . ' не входят в допустимые пределы!');
+        abort(422, 'Пропорции изображения ' . $this->fileProps['original_name'] . ' не входят в допустимые пределы!');
     }
 
-    public function getProportionId() {
-        return $this->proportionId;
+    /**
+     * Возвращает id формата изображения
+     *
+     * @param FormatResource::collection $formats
+     * @param number $ratio
+     *
+     * @return mixed
+     */
+    protected function findFormat($formats, $ratio) {
+        foreach($formats as $format) {
+            if($ratio >= $format->min && $ratio < $format->max) {
+                return $format->id;
+            }
+        }
+        return false;
     }
 
-    public function validate($upload, array $rules = [])
+    public function validate($uploadFile, $rules)
     {
         $this->clearState();
-        if ($upload->isValid()) {
-            $this->upload = $upload;
+        if ($uploadFile->isValid()) {
+            $this->uploadFile = $uploadFile;
 
-            $this->setProps('size', $this->upload->getSize());
-            $this->setProps('originalName', preg_replace('/\.' . $this->upload->getClientOriginalExtension() . '$/', '', $this->upload->getClientOriginalName()));
-            $this->setProps('extension', mb_strtolower($this->upload->getClientOriginalExtension()));
-            $this->setProps('mime', $this->upload->getMimeType());
+            $this->setProps('size', $this->uploadFile->getSize());
+            $this->setProps('original_name', $this->getOriginalName($this->uploadFile));
+            $this->setProps('extension', mb_strtolower($this->uploadFile->getClientOriginalExtension()));
+            $this->setProps('mime', $this->uploadFile->getMimeType());
 
-            if (is_array($rules) && count($rules) > 0) {
+            $this->imageValidationBuilder
+                ->init($this->fileProps, $rules)
+                ->isAllowExtension()
+                ->isAllowMime()
+                ->isAllowMinSize()
+                ->isAllowMaxSize()
+                ->isAllow();
 
-                if(isset($rules['allowedExt']) && is_array($rules['allowedExt']) && count($rules['allowedExt']) > 0) {
-                    if (!in_array($this->props['extension'], $rules['allowedExt'])) {
-                        $this->setValidationFailed(true);
-                        abort(422, 'Файл «' . $this->props['originalName'] . '» имеет недопустимое расширение. Разрешены только следующие расширения: ' . implode(', ', $rules['allowedExt']) . '!');
-                    }
-                }
-
-                if(isset($rules['allowedMime']) && is_array($rules['allowedMime']) && count($rules['allowedMime']) > 0) {
-                    if (!in_array($this->props['mime'], $rules['allowedMime'])) {
-                        $this->setValidationFailed(true);
-                        abort(422, 'Файл «' . $this->props['originalName'] . '» недопустимого типа. Разрешены только следующие MIME типы: ' . implode(', ', $rules['allowedMime']) . '!');
-                    }
-                }
-
-                if(isset($rules['minSize'])) {
-                    if ($this->props['size'] < $rules['minSize']) {
-                        $this->setValidationFailed(true);
-                        abort(422, 'Файл «' . $this->props['originalName'] . '» имеет недопустимый размер. Минимальный размер загружаемого файла - ' . round($rules['minSize'] / 1024, 1) . 'КБ!');
-                    }
-                }
-
-                if(isset($rules['maxSize'])) {
-                    if ($this->props['size'] > $rules['maxSize']) {
-                        $this->setValidationFailed(true);
-                        abort(422, 'Файл «' . $this->props['originalName'] . '» имеет недопустимый размер. Максимальный размер загружаемого файла - ' . round($rules['maxSize'] / 1048576, 1) . 'МБ!');
-                    }
-                }
-            }
         } else {
             $this->setValidationFailed(true);
-            abort(422, 'Загрузка файла «' . $this->props['originalName'] . '» не удалась или файл поврежден!');
+            abort(422, trans('image_validation.loading_failed', [
+                'file_name' => $this->fileProps['original_name']
+            ]));
         }
 
-        $this->setProportionId(getImageSize($this->upload)[0], getImageSize($this->upload)[1]);
-        $this->setProps('width', getImageSize($this->upload)[0]);
-        $this->setProps('height', getImageSize($this->upload)[1]);
-        $this->setProps('proportion_id', $this->getProportionId());
+        $this->setFormatId(getImageSize($this->uploadFile)[0], getImageSize($this->uploadFile)[1], $this->formats);
+        $this->setProps('width', getImageSize($this->uploadFile)[0]);
+        $this->setProps('height', getImageSize($this->uploadFile)[1]);
+        $this->setProps('format_id', $this->formatId);
 
         return !$this->getValidationFailed();
     }
@@ -115,7 +115,7 @@ class Uploader
     {
         if ($this->getValidationFailed()) return false;
         $basePath = $basePath ?? ltrim(config('uploads.imageUploadPath', ''));
-        $this->newUploadName = sha1($this->props['originalName'] . microtime(true)) . '.' . $this->props['extension'];
+        $this->newUploadName = sha1($this->fileProps['original_name'] . microtime(true)) . '.' . $this->fileProps['extension'];
         $newDir = substr($this->newUploadName, 0, 1) . '/' . substr($this->newUploadName, 0, 3);
 
         $this->uploadPath = str_replace('/', '.', $newDir . '/' . $this->newUploadName);
@@ -129,7 +129,7 @@ class Uploader
 
         if (File::isDirectory($newPath) && File::isWritable($newPath)) {
 
-            $this->upload->move($newPath, $this->newUploadName);
+            $this->uploadFile->move($newPath, $this->newUploadName);
 
         } else {
             abort(422, 'Директория «' . $newPath . '» недоступна для записи!');
@@ -142,11 +142,11 @@ class Uploader
     {
         return $uploadModel->create([
             'path' => $this->newUploadName,
-            'extension' => $this->props['extension'],
-            'mime' => $this->props['mime'],
-            'width' => $this->props['width'],
-            'height' => $this->props['height'],
-            'proportion_id' => $this->props['proportion_id']
+            'extension' => $this->fileProps['extension'],
+            'mime' => $this->fileProps['mime'],
+            'width' => $this->fileProps['width'],
+            'height' => $this->fileProps['height'],
+            'format_id' => $this->fileProps['format_id']
         ]);
     }
 
@@ -154,17 +154,17 @@ class Uploader
     {
         return $uploadModel->fill([
             'path' => $this->newUploadName,
-            'extension' => $this->props['extension'],
-            'mime' => $this->props['mime'],
-            'width' => $this->props['width'],
-            'height' => $this->props['height'],
-            'proportion_id' => $this->props['proportion_id']
+            'extension' => $this->fileProps['extension'],
+            'mime' => $this->fileProps['mime'],
+            'width' => $this->fileProps['width'],
+            'height' => $this->fileProps['height'],
+            'format_id' => $this->fileProps['format_id']
         ])->save();
     }
 
     protected function clearState()
     {
-        unset($this->upload, $this->request, $this->props);
+        unset($this->uploadFile, $this->request, $this->fileProps);
     }
 
     public function remove($uploadPath, $basePath = null)
@@ -174,7 +174,14 @@ class Uploader
         $pathToDelete = $basePath . $dir . '/' . $uploadPath;
         return File::delete($pathToDelete);
     }
-}
 
-// Написать необходимые комментарии для свойств и методов
-// Убрать из тела метода setProportionId $this (добавить еще один параметр $proportions)
+    /**
+     * Returns the original name of uploaded file
+     *
+     * @param $uploadFile
+     * @return string|string[]|null
+     */
+    protected function getOriginalName($uploadFile) : string {
+        return preg_replace('/\.' . $uploadFile->getClientOriginalExtension() . '$/', '', $uploadFile->getClientOriginalName());
+    }
+}
