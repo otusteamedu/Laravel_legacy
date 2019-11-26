@@ -22,7 +22,7 @@ class GrammarRepository
     public function updateGrammar($data)
     {
         $id = $data['id'];
-      //  Cache::tags(['grammar'])->put('grammar_detail_'.$id, $data);
+        Cache::tags(['grammar'])->put('grammar_detail_'.$id, $data);
         if (Grammar::where('id', $id)->update(self::getArray($data))) {
             return $id;
         }
