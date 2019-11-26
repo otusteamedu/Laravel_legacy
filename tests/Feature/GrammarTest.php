@@ -14,7 +14,7 @@ use Tests\Generators\Generator;
 
 class GrammarTest extends TestCase
 {
-  //  use RefreshDatabase;
+    use RefreshDatabase;
 //    use WithFaker;
     /**
      * A basic feature test example.
