@@ -13,11 +13,11 @@
 
 Route::get('/', function () {
     return view('index');
-});
-Route::get('/arabskie-bukvy', 'OrthographyController@getList');
-Route::get('/arabskie-bukvy/{id}', 'OrthographyController@getDeatail');
-Route::get('/grammatika', 'GrammarController@getList');
-Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
+})->name('index');
+Route::get('/arabskie-bukvy', 'OrthographyController@getList')->name('orthographyList');
+Route::get('/arabskie-bukvy/{id}', 'OrthographyController@getDeatail')->name('orthographyDetail');
+Route::get('/grammatika', 'GrammarController@getList')->name('grammarList');
+Route::get('/grammatika/{id}', 'GrammarController@getDeatail')->name('grammarDetail');
 
 
 Route::name('admin.')->group(function () {
@@ -38,3 +38,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//Route::get('/cc', 'HomeController@cc')->name('cc');
