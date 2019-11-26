@@ -4,6 +4,9 @@ namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 use App\Models\Grammar;
 use DB;
@@ -14,14 +17,16 @@ use Tests\Generators\Generator;
 
 class GrammarTest extends TestCase
 {
-    use RefreshDatabase;
-//    use WithFaker;
+
+    use DatabaseTransactions;
+
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testExample()
+
+    public function testIndex()
     {
         $response = $this->get('/');
         $response->assertStatus(200);
@@ -76,6 +81,7 @@ class GrammarTest extends TestCase
         ];
         $data = Generator::getUpdateGrammarData($id,$update);
         $this->actingAs($user)->put("admin/grammar/{$id}",$data);
+        //$this->actingAs($user)->put(route('/admin/grammar.update',['grammar'=>$id]),$data);
         $grammar=Grammar::find($id);
         foreach ($update as $key=>$item) {
             $this->assertEquals($item, $grammar->$key);
