@@ -28,13 +28,13 @@ class GrammarTest extends TestCase
 
     public function testIndex()
     {
-        $response = $this->get('/');
+        $response = $this->get(route('index'));
         $response->assertStatus(200);
     }
     public function testRedirectLogin()
     {
         $response = $this->get('/admin');
-        $response->assertRedirect('/login');
+        $response->assertRedirect(route('login'));
     }
     public function testAdminUser()
     {
@@ -43,13 +43,13 @@ class GrammarTest extends TestCase
         ]);
     }
     public function testGrammarList(){
-        $response = $this->get(route('grammList'));
+        $response = $this->get(route('grammarList'));
         $response->assertStatus(200);
     }
     public function testGrammarPages(){
         $grammar=Grammar::all();
         foreach ($grammar as $item){
-            $response = $this->get('/grammatika/'.$item->id);
+            $response = $this->get(route('grammarDetail',['id'=>$item->id]));
             $response->assertStatus(200);
         }
     }
@@ -80,8 +80,7 @@ class GrammarTest extends TestCase
             'name'=>'12343'
         ];
         $data = Generator::getUpdateGrammarData($id,$update);
-        $this->actingAs($user)->put("admin/grammar/{$id}",$data);
-        //$this->actingAs($user)->put(route('/admin/grammar.update',['grammar'=>$id]),$data);
+        $this->actingAs($user)->put(route('admin.grammar.update',['grammar'=>$id]),$data);
         $grammar=Grammar::find($id);
         foreach ($update as $key=>$item) {
             $this->assertEquals($item, $grammar->$key);
