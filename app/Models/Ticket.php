@@ -9,13 +9,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * Class Ticket
  *
  * @property int id
- * @property int movie_rental_id
+ * @property int movie_showing_id
  * @property int place_id
  * @property int created_user_id
  * @property \Illuminate\Support\Carbon $created_at
  * @property int released_user_id
  * @property \Illuminate\Support\Carbon $released_at
- * @property MovieRental movieRental
+ * @property MovieShowing movieShowing
  * @property Place place
  *
  * @package App\Models
@@ -24,8 +24,8 @@ class Ticket extends Model
 {
     public $timestamps = false;
 
-    public function movieRental() : BelongsTo {
-        return $this->belongsTo(MovieRental::class, 'movie_rental_id');
+    public function movieShowing() : BelongsTo {
+        return $this->belongsTo(MovieShowing::class, 'movie_showing_id');
     }
     public function place() : BelongsTo {
         return $this->belongsTo(Place::class, 'place_id');

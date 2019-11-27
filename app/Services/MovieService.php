@@ -4,8 +4,11 @@
 namespace App\Services;
 
 use App\Base\Service\BaseService;
+use App\Base\Service\CD;
 use App\Events\MovieEvent;
+use App\Helpers\Views\AdminHelpers;
 use App\Models\Movie;
+use App\Repositories\Interfaces\IMovieRepository;
 use App\Repositories\MovieRepository;
 use App\Services\Interfaces\IMovieService;
 use App\Services\Interfaces\IUploadService;
@@ -149,4 +152,53 @@ class MovieService extends BaseService implements IMovieService
         if($delete_poster)
             $this->uploadService->getFileService()->removeFile($delete_poster);
     }
+    /**
+     * Получить ближайшие фильмы в прокате
+     *
+     * @param int $nLastCount
+     * @param CD|null $cache
+     * @return array
+     * @throws \Exception
+     */
+    public function getSoonInRental(int $nLastCount): array {
+        /** @var IMovieRepository $repository */
+        $result = [];
+        $repository = $this->getRepository();
+        $repository->getSoonInRental($nLastCount)->map(
+            function($movie) use (&$result) {
+                /** @var Movie $movie */
+                $item = $movie->toArray();
+                $item['poster'] = $movie->poster->toArray();
+                $item['premiereDate'] = AdminHelpers::Date_db_site($item['premiereDate']);
+                $result[] = $item;
+            }
+        );
+
+        return $result;
+    }
+
+    /**
+     * Получить $nCount случайных фильмов находящихся в данный момент в прокате
+     *
+     * @param int $nCount
+     * @return array
+     * @throws \App\Base\WrongNamespaceException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function getInRentalRand(int $nCount): array {
+        /** @var IMovieRepository $repository */
+        $result = [];
+        $repository = $this->getRepository();
+        $repository->getInRentalRand($nCount)->map(
+            function($movie) use (&$result) {
+                /** @var Movie $movie */
+                $item = $movie->toArray();
+                $item['poster'] = $movie->poster->toArray();
+                $result[] = $item;
+            }
+        );
+
+        return $result;
+    }
 }
+

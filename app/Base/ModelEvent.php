@@ -29,7 +29,7 @@ class ModelEvent
      * @param Model $model
      * @param int $action
      */
-    public function __construct(Model $model, int $action) {
+    public function __construct(Model $model, int $action, Model $oldState) {
         //
         $this->model = $model;
         $this->action = $action;

@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 
 use App\Base\Repository\BaseRepository;
+use App\Base\Service\Q;
 use App\Helpers\Views\AdminHelpers;
 use App\Models\File;
 use App\Models\Movie;
@@ -212,8 +213,49 @@ class MovieRepository extends BaseRepository implements IMovieRepository
     public function getAvailGenres(): Collection {
         return $this->genreRepository->getList();
     }
+    /**
+     * Получить фильмы, которые будут скоро в показе.
+     * 1. Дата премьеры должна быть больше текущей
+     * 2. Сеансы должны существовать
+     * 3. Дата-время первого сеанса должна быть больше текущего
+     *
+     * @param int $nLastCount
+     * @return Collection
+     * @throws \App\Base\WrongNamespaceException
+     */
+    public function getSoonInRental(int $nLastCount): Collection {
+        /** @var Movie $movieModel */
+        $now = Carbon::now();
 
-    public function getSoonInRentail(): Collection {
-        return new Collection();
+        $query = $this->getModel()->newQuery()
+            ->select(['movies.*'])
+            ->join('movie_rentals', 'movies.id', '=', 'movie_rentals.movie_id')
+            ->where('movies.premiereDate', '>=', $now->format('Y-m-d'))
+            ->where('movie_rentals.date_start_at', '>', $now)
+            ->groupBy('movies.id')
+            ->orderBy('movie_rentals.date_start_at')
+            ->limit($nLastCount);
+
+        return $query->get();
+    }
+    /**
+     * @param int $nCount
+     * @return Collection
+     * @throws \App\Base\WrongNamespaceException
+     */
+    public function getInRentalRand(int $nCount): Collection {
+        $now = Carbon::now();
+
+        $query = $this->getModel()->newQuery()
+            ->select(['movies.*'])
+            ->join('movie_rentals', 'movies.id', '=', 'movie_rentals.movie_id')
+            ->where('movies.premiereDate', '<=', $now->format('Y-m-d'))
+            ->where('movie_rentals.date_start_at', '<=', $now)
+            ->where('movie_rentals.date_end_at', '>=', $now)
+            ->groupBy('movies.id')
+            ->orderByRaw('rand()')
+            ->limit($nCount);
+
+        return $query->get();
     }
 }

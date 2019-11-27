@@ -251,6 +251,8 @@ $GLOBALS = array_merge($GLOBALS, [
     ]
 ]);
 
+Route::get('/', 'Publica\StartController@index')->name('public.start');
+/*
 Route::get('/', function () {
     return view('public.start.index', [
         'premierMovies' => [
@@ -280,7 +282,7 @@ Route::get('/', function () {
         'showingMovies' => $GLOBALS['arMovies']
     ]);
 })->name('public.start');
-
+*/
 Route::get('/about', function () {
     return view('public.about.index', [
         'breadCrumbs' => [
