@@ -1,0 +1,333 @@
+<html>
+<head>
+    <title>Title Of</title>
+    <script>
+        (function(w) {
+            var Place = function (node, parent, number) {
+                this.node = node;
+                this.parent = parent;
+                this.number = number;
+                this.place = place;
+                this.type = type;
+
+                this.ctrl = {
+                    deleteBtn: null
+                }
+            };
+
+            var PlaceRow = function (node, parent, number) {
+                this.ctrl = {
+                    addPlaceBtn: null,
+                    deleteRowBtn: null
+                }
+            }
+
+            var Hall = function(node, params) {
+                this.node = node;
+                this.params = params;
+                this.ctrl = {
+                    addBtn: null,
+                    deleteBtn: null
+                }
+
+                this.rows = [];
+                this.typeSelector = null;
+                this.init();
+            };
+            Hall.prototype.init = function() {
+                var rows, i, find = Util.finder(this.node), node;
+
+
+            };
+            var TariffSelector = function(node, params) {
+                this.node = node;
+                this.params = params;
+                this.data = [];
+                this.ctrl = {};
+
+                this.init();
+            };
+
+            TariffSelector.prototype.init = function() {
+                var i, j, opts, that = this,
+                    find = Util.finder(this.node);
+                this.ctrl = {
+                    typesSelect: find.findOneRole('ts-select'),
+                    applyBtn: find.findOneRole('ts-apply')
+                };
+                if(!this.ctrl.typesSelect)
+                    return;
+                if(!this.ctrl.applyBtn)
+                    return;
+
+                opts = this.ctrl.typesSelect.options;
+                for(i = 0, j = 0; i < opts.length; i++) {
+                    if(opts[i].value > 0) {
+                        this.data[j] = new Tariff(opts[i].value, opts[i].text, opts[i].getAttribute('data-color'));
+                        opts[i].setAttribute('data-index', j);
+                        j++;
+                    }
+                }
+                this.ctrl.typesSelect.onChange = function (e) {
+                    that.onSelect(this);
+                }
+                this.ctrl.applyBtn.disabled = true;
+            };
+            TariffSelector.prototype.onSelect = function(option) {
+                var i = option.getAttribute('data-index');
+                if(!i) {
+                    this.ctrl.applyBtn.disabled = true;
+                    return;
+                }
+
+                if(typeof this.params.change == 'function')
+                    this.params.change.apply(this, [this.data[i]]);
+
+                this.ctrl.applyBtn.disabled = false;
+            };
+            TariffSelector.prototype.select = function(id) {
+                var i, index = this._find(id),
+                    options = this.ctrl.typesSelect.options;
+                if(index >= 0) {
+                    for(i = 0; i < options.length; i++) {
+                        if(i == index) {
+                            node.options[i].selected = true;
+                            index = i;
+                        }
+                        else
+                            node.options[i].selected = false;
+                    }
+                    node.selectedIndex = index;
+                }
+            };
+            TariffSelector.prototype._find = function(id) {
+                var i;
+                for(i = 0; i < this.data.length; i++)
+                    if(id == this.data[i].getId())
+                        return i;
+                return -1;
+            };
+            TariffSelector.prototype.find = function(id) {
+                var i = this._find(id);
+                return (i < 0) ? null : this.data[i];
+            };
+            TariffSelector.prototype.getData = function() {
+                return this.data;
+            };
+
+
+            var Tariff = function(id, name, color) {
+                this.id = id;
+                this.name = name;
+                this.color = color;
+            };
+            Tariff.prototype.getId = function() {
+                return this.id;
+            };
+            Tariff.prototype.getName = function() {
+                return this.name;
+            };
+            Tariff.prototype.getColor = function() {
+                return this.color;
+            };
+
+            var Util = {
+                support: function() {
+                    return !!(document.querySelectorAll && $.fancybox && $.fieldValue);
+                },
+                value: function(node, value) {
+                    var tag = node.tagName.toLowerCase(), i, index;
+                    if(typeof value == 'undefined') {
+                        if(tag == 'input') {
+                            value = node.value;
+                        }
+                        else if(tag == 'select') {
+                            if(node.selectedIndex >= 0)
+                                value = node.options[node.selectedIndex].value;
+                        }
+                        else
+                            value = node.getAttribute('data-value');
+                        return value;
+                    }
+
+                    if(tag == 'input') {
+                        node.value = value;
+                    }
+                    else if(tag == 'select') {
+                        index = -1;
+                        for(i = 0; i < node.options.length; i++) {
+                            if(node.options[i].value == value) {
+                                node.options[i].selected = true;
+                                index = i;
+                            }
+                            else
+                                node.options[i].selected = false;
+                        }
+                        node.selectedIndex = index;
+                        $(node).trigger('refresh');
+                    }
+                    else
+                        node.setAttribute('data-value', value);
+                },
+                addClass: function(node, cname) {
+                    var clas = node.className, n = clas.length;
+                    if(clas.indexOf(cname)<0)
+                        node.className = clas + (n?' ':'') + cname;
+                },
+                delClass: function(node, cname) {
+                    var clas = node.className;
+                    if(clas.indexOf(clas)>=0) {
+                        clas = clas.replace(cname, '');
+                        node.className = clas;
+                    }
+                },
+                find: function(node, search) {
+                    if(!(node && this.isNodeInDom(node)))
+                        return null;
+                    return node.querySelectorAll(search);
+                },
+                finder: function(element) {
+                    var obj = function(node) {
+                        this.node = node;
+                    };
+                    obj.prototype.find = function(search) {
+                        return Util.find(this.node, search);
+                    };
+                    obj.prototype.findOne = function(search) {
+                        var result = Util.find(this.node, search);
+                        if(result.length > 0)
+                            return result.item(0);
+                        return null;
+                    };
+                    obj.prototype.findOneRole = function(role) {
+                        var result = this.findRole(role);
+                        if(result.length > 0)
+                            return result.item(0);
+                        return null;
+                    };
+                    obj.prototype.findRole = function(role) {
+                        return this.find('[data-role="'+role+'"]');
+                    };
+
+                    return new obj(element);
+                },
+                isNodeInDom: function(node, doc) {
+                    return node === (doc || document) ? true :
+                        (node.parentNode ? this.isNodeInDom(node.parentNode) : false);
+                },
+                isNodeHidden: function(node)
+                {
+                    if (node === document)
+                        return false;
+                    else if ($.sigma.getRTStyle(node, 'display') == 'none')
+                        return true;
+                    else
+                        return (node.parentNode ? $.sigma.isNodeHidden(node.parentNode) : true);
+                }
+            };
+
+            var eventNodes = [];
+
+            w.jObserver = function(node) {
+                node = node || null;
+                var n = eventNodes.length, i;
+                for(i = 0; i < n; i++)
+                    if(node == eventNodes[i].node)
+                        return eventNodes[i];
+
+                eventNodes[n] = new jEvents(node);
+                return eventNodes[n];
+            };
+
+            var jEvents = function(node) {
+                this.node = node;
+                this.listeners = [];
+            };
+            jEvents.prototype.bind = function(type, fnHandler, ctx, pri) {
+                var i, n, priority, fi = -1, item;
+                if(!type) return;
+                if(typeof type != 'string') return;
+                if(typeof fnHandler != 'function')
+                    return;
+
+                n = this.listeners.length;
+                priority = pri || 0;
+                for(i = 0; i < n; i++)
+                    if(this.listeners[i].priority > priority)
+                        fi = i;
+
+                item = {
+                    type: type,
+                    fnHandler: fnHandler,
+                    context: ctx || null,
+                    priority: priority
+                };
+                if(fi < 0)
+                    this.listeners[n] = item;
+                else
+                    this.listeners.splice(fi, 0, item);
+            };
+            jEvents.prototype.unbind = function(type, fnHandler) {
+                var i, n = this.listeners.length, found;
+                if(!type) return;
+                if(typeof type != 'string') return;
+
+                for(i = n - 1; i >= 0 ; i--) {
+                    found = false;
+                    if(type == this.listeners[i].type) {
+                        if(typeof fnHandler != 'function')
+                            found = true;
+                        else if(fnHandler == this.listeners[i].fnHandler)
+                            found = true;
+                    }
+                    if(found)
+                        this.listeners.splice(i, 1);
+                }
+            };
+            jEvents.prototype.trigger = function(type, data, obj) {
+                var i, n = this.listeners.length, item;
+                if(!type) return;
+                if(typeof type != 'string') return;
+                data = data || {};
+                obj = obj || null;
+
+                for(i = 0; i < n; i++)
+                    if(type == this.listeners[i].type) {
+                        item = this.listeners[i];
+                        item.fnHandler.apply(item.context, [
+                            new jEvent(item.type, data, obj)
+                        ])
+                    }
+            };
+            var jEvent = function(type, data, target) {
+                this.type = type;
+                this.data = data || {};
+                this.target = target || null;
+            };
+
+            jEvent.prototype.getType = function() { return this.type; };
+            jEvent.prototype.getData = function() { return this.data; };
+            jEvent.prototype.getTarget = function() { return this.target; };
+
+        }(window))
+    </script>
+</head>
+<body>
+    <div class="container-hall" id="containerHall">
+        <div class="container-places">
+
+        </div>
+        <div class="container-ctrl" role="tariff-selector">
+            <span>Выбрать тариф:</span>
+            <select role="ts-select">
+                <option value="">[ Не выбрано ]</option>
+                <option value="1" data-color="red">Эконом</option>
+                <option value="2" data-color="green">Стандарт</option>
+                <option value="3" data-color="blue">Люкс</option>
+                <option value="4" data-color="yellow">Бизнес</option>
+            </select>
+            <input type="button" role="ts-apply" value="Выбрать" />
+        </div>
+    </div>
+</body>
+</html>
