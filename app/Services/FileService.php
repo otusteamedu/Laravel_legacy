@@ -190,7 +190,16 @@ class FileService
             return null;
 
         return new File(
-            config('filesystems.disks.public.root').$this->basePath.$model->getPath()
+            config('filesystems.disks.public.root').$targetPath
+        );
+    }
+    public function getLocalFileArray(array $fileArray): ?File {
+        $targetPath = $this->basePath . $fileArray['subdir'] . DIRECTORY_SEPARATOR . $fileArray['file_name'];
+        if(!$this->getStorage()->exists($targetPath))
+            return null;
+
+        return new File(
+            config('filesystems.disks.public.root').$targetPath
         );
     }
     /**
@@ -199,6 +208,10 @@ class FileService
      */
     public function getAssetUrl(FileModel $model): string {
         return asset('/storage' . $this->basePath.$model->getPath());
+    }
+    public function getAssetFile(File $file): string {
+        $relPath = substr($file->getPathname(), strlen(config('filesystems.disks.public.root')));
+        return asset('/storage' . $relPath);
     }
     /**
      * @param FileModel $model

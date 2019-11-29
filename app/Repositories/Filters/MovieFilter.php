@@ -9,6 +9,8 @@ use App\Base\Repository\BaseFilter;
 class MovieFilter extends BaseFilter
 {
     public function apply(array $filter, array $order) {
+        $b = $this->builder;
+
         foreach ($filter as $key => $value) {
             switch ($key) {
                 case 'name':
@@ -19,7 +21,9 @@ class MovieFilter extends BaseFilter
                         $this->builder->where('name', 'like', '%'.$value.'%');
                     break;
 
-             //   case 'genreId':
+                case 'genreId':
+
+                case 'countryId':
 
             }
         }

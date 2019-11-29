@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\MovieEvent;
+use App\Forget\MovieCache;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -35,6 +36,9 @@ class EventServiceProvider extends ServiceProvider
         {
             // dd($event->getMovie()->actors()->pluck('actor_id'));
             // Обработка события...
+            $forgetKeys = (new MovieCache($event))->getForgetKeys();
+            if(!empty($forgetKeys))
+                call_user_func_array([app('cache'), 'forget'], $forgetKeys);
         });
     }
 }

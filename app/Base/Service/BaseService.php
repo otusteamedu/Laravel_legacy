@@ -4,16 +4,17 @@
 namespace App\Base\Service;
 
 use App\Base\Factory;
-use App\Base\Repository\BaseFilter;
 use App\Base\Repository\BaseRepository;
 use App\Base\WrongNamespaceException;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class BaseService implements IBaseService
 {
+    const DEFAULT_CACHE_TTL = 900;
+
     private $baseRepository;
 
     /**
@@ -123,5 +124,83 @@ class BaseService implements IBaseService
             $this->baseRepository = Factory::getInstance()->getRepositoryFor($this);
 
         return $this->baseRepository;
+    }
+    /**
+     * Если запрашиваемый метод оканчивается на Cached, возвратив некешируемую
+     * версию метода
+     *
+     * @param $name
+     * @return string|null
+     */
+    private function notCachedMethod($name): ?string {
+        $endsOn = "Cached";
+        $len = strlen($endsOn);
+        if(substr($name, -$len, $len) == $endsOn)
+            return substr($name, 0, strlen($name)-$len);
+        return null;
+    }
+
+    /**
+     * Ищем метод в себе или репозитории по-умолчанию, выбрасываем исключение
+     *
+     * @param $name
+     * @return array
+     */
+    private function getTargetMethod($name): array {
+        if(method_exists($this, $name))
+            return [$this, $name];
+
+        try {
+            $repository = $this->getRepository();
+            if(method_exists($repository, $name))
+                return [$repository, $name];
+        }
+        catch (\Exception $e) {
+        }
+
+        throw new \InvalidArgumentException("Method [{$name}] is not supported.");
+    }
+    /**
+     * Пытаемся вызвать некеширущую версию метода, если он оканчивается на
+     * Cached, иначе пытаемся найти метод с таким же названием в репозитории по-умолчанию.
+     * Если вызывается кешированная версия метода, но без параметров кеширования последним аргуметом,
+     * делаем его по-умолчанию
+     *
+     * Результат возвращаем в виде ассоциативного массива
+     *
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     */
+    public function __call(string $name, array $arguments ) {
+        $bCacheResult = false;
+        $cacheParams = null;
+        $cachedFn = $this->notCachedMethod($name);
+
+        if($cachedFn) {
+            $name = $cachedFn;
+            $bCacheResult = true;
+            if($arguments[count($arguments)-1] instanceof CD)
+                $cacheParams = array_pop($arguments);
+            else {
+                $cacheParams = new CD(array_merge([$name], $arguments), self::DEFAULT_CACHE_TTL);
+            }
+        }
+
+        $callMethod = $this->getTargetMethod($name);
+        if($bCacheResult) {
+            $tags = $cacheParams->getTags();
+            //if(!empty($tags))
+            //   $manager->tags();
+            return app('cache')->remember(
+                $cacheParams->getKey(),
+                $cacheParams->getTTL(),
+                function () use ($callMethod, $arguments) {
+                    return call_user_func_array($callMethod, $arguments);
+                }
+            );
+        }
+
+        return call_user_func_array($callMethod, $arguments);
     }
 }

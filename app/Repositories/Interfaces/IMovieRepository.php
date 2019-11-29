@@ -20,7 +20,9 @@ interface IMovieRepository extends IBaseRepository
 
     public function getAvailGenres(): Collection;
 
-    public function getSoonInRentail(): Collection;
-
     public function detachPoster(Movie $movie): ?File;
+
+    public function getSoonInRental(int $nLastCount): Collection;
+
+    public function getInRentalRand(int $nCount): Collection;
 }

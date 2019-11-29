@@ -6,7 +6,7 @@
                 @foreach ($showingMovies as $item)
                     <div class="col-sm-4 my-3">
                         <div class="card">
-                            <a href="{{ route('public.movies.info', ['id' => $item['id']]) }}" style="background-image: url({{ asset($item['poster']) }})" class="card-img-top image"></a>
+                            <a href="{{ route('public.movies.info', ['id' => $item['id']]) }}" style="background-image: url({{ asset($item['poster_thumb_url']) }})" class="card-img-top image"></a>
                             <div class="card-body">
                                 <h5 class="card-title">
                                     <a href="{{ route('public.movies.info', ['id' => $item['id']]) }}">
