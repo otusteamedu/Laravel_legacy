@@ -1,0 +1,8 @@
+#!/usr/bin/env php -q
+<?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+use app\Application;
+
+
+(new Application())->run();
