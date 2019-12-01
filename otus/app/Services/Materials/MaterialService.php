@@ -25,8 +25,8 @@ class MaterialService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchMaterials(array $filters = [], array $with = []) {
-        return $this->cachedMaterialRepository->search($filters, $with);
+    public function searchMaterials() {
+        return $this->cachedMaterialRepository->search();
     }
 
     /**

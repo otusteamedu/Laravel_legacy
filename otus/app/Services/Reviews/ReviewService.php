@@ -24,8 +24,8 @@ class ReviewService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchReviews(array $filters = [], array $with = []): LengthAwarePaginator {
-        return $this->cachedReviewRepository->search($filters, $with);
+    public function searchReviews(): LengthAwarePaginator {
+        return $this->cachedReviewRepository->search();
     }
 
     /**

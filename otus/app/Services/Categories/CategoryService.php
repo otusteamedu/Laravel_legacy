@@ -27,8 +27,8 @@ class CategoryService {
      * @param array $with
      * @return LengthAwarePaginator
      */
-    public function searchCategories(array $filters = [], array $with = []): LengthAwarePaginator {
-        return $this->cachedCategoryRepository->search($filters, $with);
+    public function searchCategories(): LengthAwarePaginator {
+        return $this->cachedCategoryRepository->search();
     }
 
     /**

@@ -24,8 +24,8 @@ class JournalService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchJournals(array $filters = [], array $with = []): LengthAwarePaginator {
-        return $this->cachedJournalRepository->search($filters, $with);
+    public function searchJournals(): LengthAwarePaginator {
+        return $this->cachedJournalRepository->search();
     }
 
     /**

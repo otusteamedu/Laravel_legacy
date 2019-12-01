@@ -24,8 +24,8 @@ class HandbookService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchHandbooks(array $filters = [], array $with = []): LengthAwarePaginator {
-        return $this->cachedHandbookRepository->search($filters, $with);
+    public function searchHandbooks(): LengthAwarePaginator {
+        return $this->cachedHandbookRepository->search();
     }
 
     /**

@@ -24,8 +24,8 @@ class CompilationService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchCompilations(array $filters = [], array $with = []): LengthAwarePaginator {
-        return $this->cachedCompilationRepository->search($filters, $with);
+    public function searchCompilations(): LengthAwarePaginator {
+        return $this->cachedCompilationRepository->search();
     }
 
     /**

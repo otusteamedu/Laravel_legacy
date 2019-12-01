@@ -25,8 +25,8 @@ class FavoriteService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchFavorites(array $filters = [], array $with = []): LengthAwarePaginator {
-        return $this->cachedFavoriteRepository->search($filters, $with);
+    public function searchFavorites(): LengthAwarePaginator {
+        return $this->cachedFavoriteRepository->search();
     }
 
     /**
