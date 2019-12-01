@@ -8,4 +8,5 @@ class Tag {
     const COMPILATIONS = 'compilations';
     const FAVORITES = 'favorites';
     const HANDBOOKS = 'handbooks';
+    const JOURNALS = 'journals';
 }

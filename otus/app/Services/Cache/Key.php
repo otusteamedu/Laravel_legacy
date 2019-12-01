@@ -8,5 +8,6 @@ class Key {
     const COMPILATIONS_PREFIX = 'compilations';
     const FAVORITES_PREFIX = 'favorites';
     const HANDBOOKS_PREFIX = 'handbooks';
+    const JOURNALS_PREFIX = 'journals';
 
 }

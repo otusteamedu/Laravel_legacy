@@ -22,6 +22,8 @@ use App\Services\Handbooks\Repositories\CachedHandbookRepository;
 use App\Services\Handbooks\Repositories\CachedHandbookRepositoryInterface;
 use App\Services\Handbooks\Repositories\EloquentHandbookRepository;
 use App\Services\Handbooks\Repositories\HandbookRepositoryInterface;
+use App\Services\Journals\Repositories\CachedJournalRepository;
+use App\Services\Journals\Repositories\CachedJournalRepositoryInterface;
 use App\Services\Journals\Repositories\EloquentJournalsRepository;
 use App\Services\Journals\Repositories\JournalsRepositoryInterface;
 use App\Services\Materials\Repositories\EloquentMaterialRepository;
@@ -61,6 +63,8 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->bind(CachedHandbookRepositoryInterface::class, CachedHandbookRepository::class);
 
         $this->app->bind(JournalsRepositoryInterface::class, EloquentJournalsRepository::class);
+        $this->app->bind(CachedJournalRepositoryInterface::class, CachedJournalRepository::class);
+
         $this->app->bind(MaterialsRepositoryInterface::class, EloquentMaterialRepository::class);
         $this->app->bind(ReviewsRepositoryInterface::class, EloquentReviewsRepository::class);
         $this->app->bind(SelectionMaterialsRepositoryInterface::class, EloquentSelectionMaterialsRepository::class);

@@ -3,15 +3,18 @@
 namespace App\Services\Journals;
 
 use App\Models\Journal;
+use App\Services\Journals\Repositories\CachedJournalRepositoryInterface;
 use App\Services\Journals\Repositories\JournalsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class JournalService {
 
     private $journalsRepository;
+    private $cachedJournalRepository;
 
-    public function __construct(JournalsRepositoryInterface $journalsRepository) {
+    public function __construct(JournalsRepositoryInterface $journalsRepository, CachedJournalRepositoryInterface $cachedJournalRepository) {
         $this->journalsRepository = $journalsRepository;
+        $this->cachedJournalRepository = $cachedJournalRepository;
     }
 
     public function findJournal(int $id): Journal {
@@ -21,8 +24,8 @@ class JournalService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchJournals(): LengthAwarePaginator {
-        return $this->journalsRepository->search();
+    public function searchJournals(array $filters = [], array $with = []): LengthAwarePaginator {
+        return $this->cachedJournalRepository->search($filters, $with);
     }
 
     /**

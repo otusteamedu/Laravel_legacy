@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Journal\JournalSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,6 +18,10 @@ class Journal extends Model {
 
     protected $fillable = ['user_id', 'status_id'];
     protected $with = ['user', 'status'];
+
+    protected $dispatchesEvents = [
+        'saved' => JournalSaved::class
+    ];
 
     public function user() {
         return $this->hasOne(User::class, 'id', 'user_id');

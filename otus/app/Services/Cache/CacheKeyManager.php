@@ -54,12 +54,24 @@ class CacheKeyManager {
      * @param Request $request
      * @return string
      */
-    public function getRequestHandbookKey(Request $request): string {
+    public function getRequestHandbooksKey(Request $request): string {
         return $this->getKey(
             Key::HANDBOOKS_PREFIX,
             $this->generateRequestKeySuffix($request)
         );
     }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestJournalsKey(Request $request): string {
+        return $this->getKey(
+            Key::JOURNALS_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
 
     /**
      * @param array $filters
@@ -128,6 +140,21 @@ class CacheKeyManager {
     public function getSearchHandbooksKey(array $filters = []): string {
         return $this->getKey(
             Key::HANDBOOKS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
+
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchJournalsKey(array $filters = []): string {
+        return $this->getKey(
+            Key::JOURNALS_PREFIX,
             $this->generateParamsKeySuffix(array_merge(
                 [
                     'page' => request()->get('page'),
