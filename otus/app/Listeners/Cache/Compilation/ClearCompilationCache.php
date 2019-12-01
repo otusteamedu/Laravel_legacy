@@ -2,7 +2,7 @@
 
 namespace App\Listeners\Cache\Compilation;
 
-use App\Services\COmpilations\Repositories\CachedCompilationRepositoryInterface;
+use App\Services\Compilations\Repositories\CachedCompilationRepositoryInterface;
 
 class ClearCompilationCache {
     /**

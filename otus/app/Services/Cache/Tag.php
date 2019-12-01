@@ -6,4 +6,5 @@ class Tag {
     const CATEGORIES = 'categories';
     const AUTHORS = 'authors';
     const COMPILATIONS = 'compilations';
+    const FAVORITES = 'favorites';
 }

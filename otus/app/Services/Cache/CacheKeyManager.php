@@ -40,6 +40,17 @@ class CacheKeyManager {
     }
 
     /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestFavoritesKey(Request $request): string {
+        return $this->getKey(
+            Key::FAVORITES_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
+    /**
      * @param array $filters
      * @return string
      */
@@ -83,6 +94,23 @@ class CacheKeyManager {
             ))
         );
     }
+
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchFavoritesKey(array $filters = []): string {
+        return $this->getKey(
+            Key::FAVORITES_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
+
+
 
 
     /**

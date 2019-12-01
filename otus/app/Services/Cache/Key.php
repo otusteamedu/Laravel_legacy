@@ -6,4 +6,5 @@ class Key {
     const CATEGORIES_PREFIX = 'categories';
     const AUTHORS_PREFIX = 'authors';
     const COMPILATIONS_PREFIX = 'compilations';
+    const FAVORITES_PREFIX = 'favorites';
 }

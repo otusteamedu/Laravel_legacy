@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Favorite\FavoriteSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,6 +16,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Favorite extends Model {
    protected $fillable=['user_id', 'material_id'];
+
+    protected $dispatchesEvents = [
+        'saved' => FavoriteSaved::class
+    ];
 
     public function users() {
         return $this->belongsTo(User::class, 'user_id', 'id');

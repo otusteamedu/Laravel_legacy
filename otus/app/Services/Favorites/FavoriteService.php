@@ -4,15 +4,18 @@ namespace App\Services\Favorites;
 
 use App\Models\Favorite;
 
+use App\Services\Favorites\Repositories\CachedFavoriteRepositoryInterface;
 use App\Services\Favorites\Repositories\FavoriteRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class FavoriteService {
 
     private $favoriteRepository;
+    private $cachedFavoriteRepository;
 
-    public function __construct(FavoriteRepositoryInterface $favoriteRepository) {
+    public function __construct(FavoriteRepositoryInterface $favoriteRepository, CachedFavoriteRepositoryInterface $cachedFavoriteRepository) {
         $this->favoriteRepository = $favoriteRepository;
+        $this->cachedFavoriteRepository = $cachedFavoriteRepository;
     }
 
     public function findFavorite(int $id): Favorite {
@@ -22,8 +25,8 @@ class FavoriteService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchFavorites(): LengthAwarePaginator {
-        return $this->favoriteRepository->search();
+    public function searchFavorites(array $filters = [], array $with = []): LengthAwarePaginator {
+        return $this->cachedFavoriteRepository->search($filters, $with);
     }
 
     /**
