@@ -8,12 +8,14 @@ use App\Listeners\Cache\Compilation\ClearCompilationCache;
 use App\Listeners\Cache\Favorite\ClearFavoriteCache;
 use App\Listeners\Cache\Handbook\ClearHandbookCache;
 use App\Listeners\Cache\Journal\ClearJournalCache;
+use App\Listeners\Cache\Material\ClearMaterialCache;
 use App\Services\Events\Models\Author\AuthorSaved;
 use App\Services\Events\Models\Category\CategorySaved;
 use App\Services\Events\Models\Compilation\CompilationSaved;
 use App\Services\Events\Models\Favorite\FavoriteSaved;
 use App\Services\Events\Models\Handbook\HandbookSaved;
 use App\Services\Events\Models\Journal\JournalSaved;
+use App\Services\Events\Models\Material\MaterialSaved;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -46,6 +48,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         JournalSaved::class =>  [
             ClearJournalCache::class,
+        ],
+        MaterialSaved::class =>  [
+            ClearMaterialCache::class,
         ],
     ];
 

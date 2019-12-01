@@ -72,6 +72,17 @@ class CacheKeyManager {
         );
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestMaterialsKey(Request $request): string {
+        return $this->getKey(
+            Key::MATERIALS_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
 
     /**
      * @param array $filters
@@ -162,6 +173,22 @@ class CacheKeyManager {
             ))
         );
     }
+
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchMaterialsKey(array $filters = []): string {
+        return $this->getKey(
+            Key::MATERIALS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
+
 
 
 

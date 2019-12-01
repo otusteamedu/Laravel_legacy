@@ -9,5 +9,6 @@ class Key {
     const FAVORITES_PREFIX = 'favorites';
     const HANDBOOKS_PREFIX = 'handbooks';
     const JOURNALS_PREFIX = 'journals';
+    const MATERIALS_PREFIX = 'materials';
 
 }

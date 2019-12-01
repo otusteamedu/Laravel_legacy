@@ -9,4 +9,6 @@ class Tag {
     const FAVORITES = 'favorites';
     const HANDBOOKS = 'handbooks';
     const JOURNALS = 'journals';
+    const MATERIALS = 'materials';
+
 }
