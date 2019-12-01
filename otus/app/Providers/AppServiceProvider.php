@@ -18,6 +18,8 @@ use App\Services\Favorites\Repositories\CachedFavoriteRepositoryInterface;
 use App\Services\Favorites\Repositories\CachedFavoriteRepository;
 use App\Services\Favorites\Repositories\EloquentFavoriteRepository;
 use App\Services\Favorites\Repositories\FavoriteRepositoryInterface;
+use App\Services\Handbooks\Repositories\CachedHandbookRepository;
+use App\Services\Handbooks\Repositories\CachedHandbookRepositoryInterface;
 use App\Services\Handbooks\Repositories\EloquentHandbookRepository;
 use App\Services\Handbooks\Repositories\HandbookRepositoryInterface;
 use App\Services\Journals\Repositories\EloquentJournalsRepository;
@@ -56,6 +58,8 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->bind(CachedFavoriteRepositoryInterface::class, CachedFavoriteRepository::class);
 
         $this->app->bind(HandbookRepositoryInterface::class, EloquentHandbookRepository::class);
+        $this->app->bind(CachedHandbookRepositoryInterface::class, CachedHandbookRepository::class);
+
         $this->app->bind(JournalsRepositoryInterface::class, EloquentJournalsRepository::class);
         $this->app->bind(MaterialsRepositoryInterface::class, EloquentMaterialRepository::class);
         $this->app->bind(ReviewsRepositoryInterface::class, EloquentReviewsRepository::class);

@@ -51,6 +51,17 @@ class CacheKeyManager {
     }
 
     /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestHandbookKey(Request $request): string {
+        return $this->getKey(
+            Key::HANDBOOKS_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
+    /**
      * @param array $filters
      * @return string
      */
@@ -110,6 +121,20 @@ class CacheKeyManager {
         );
     }
 
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchHandbooksKey(array $filters = []): string {
+        return $this->getKey(
+            Key::HANDBOOKS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
 
 
 

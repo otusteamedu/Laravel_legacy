@@ -7,4 +7,6 @@ class Key {
     const AUTHORS_PREFIX = 'authors';
     const COMPILATIONS_PREFIX = 'compilations';
     const FAVORITES_PREFIX = 'favorites';
+    const HANDBOOKS_PREFIX = 'handbooks';
+
 }

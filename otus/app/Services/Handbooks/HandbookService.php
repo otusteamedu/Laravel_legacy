@@ -3,15 +3,18 @@
 namespace App\Services\Handbooks;
 
 use App\Models\Handbook;
+use App\Services\Handbooks\Repositories\CachedHandbookRepositoryInterface;
 use App\Services\Handbooks\Repositories\HandbookRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class HandbookService {
 
     private $handbookRepository;
+    private $cachedHandbookRepository;
 
-    public function __construct(HandbookRepositoryInterface $handbookRepository) {
+    public function __construct(HandbookRepositoryInterface $handbookRepository, CachedHandbookRepositoryInterface $cachedHandbookRepository) {
         $this->handbookRepository = $handbookRepository;
+        $this->cachedHandbookRepository = $cachedHandbookRepository;
     }
 
     public function findHandbook(int $id): Handbook {
@@ -21,8 +24,8 @@ class HandbookService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchHandbooks(): LengthAwarePaginator {
-        return $this->handbookRepository->search();
+    public function searchHandbooks(array $filters = [], array $with = []): LengthAwarePaginator {
+        return $this->cachedHandbookRepository->search($filters, $with);
     }
 
     /**

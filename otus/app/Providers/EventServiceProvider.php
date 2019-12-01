@@ -6,10 +6,12 @@ use App\Listeners\Cache\Author\ClearAuthorCache;
 use App\Listeners\Cache\Category\ClearCategoryCache;
 use App\Listeners\Cache\Compilation\ClearCompilationCache;
 use App\Listeners\Cache\Favorite\ClearFavoriteCache;
+use App\Listeners\Cache\Handbook\ClearHandbookCache;
 use App\Services\Events\Models\Author\AuthorSaved;
 use App\Services\Events\Models\Category\CategorySaved;
 use App\Services\Events\Models\Compilation\CompilationSaved;
 use App\Services\Events\Models\Favorite\FavoriteSaved;
+use App\Services\Events\Models\Handbook\HandbookSaved;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -36,6 +38,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         FavoriteSaved::class =>  [
             ClearFavoriteCache::class,
+        ],
+        HandbookSaved::class =>  [
+            ClearHandbookCache::class,
         ],
     ];
 
