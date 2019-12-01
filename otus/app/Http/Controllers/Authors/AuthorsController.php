@@ -21,7 +21,6 @@ class AuthorsController extends Controller {
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index() {
-
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::VIEW_ANY, Author::class);
 
@@ -51,6 +50,11 @@ class AuthorsController extends Controller {
 
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Author::class);
+
+        $this->validate($request, [
+            'name' => 'required',
+            'surname' => 'required'
+        ]);
 
         $this->authorsService->storeAuthor($request->all());
         return redirect(route('admin.authors.index'), 301);
@@ -94,6 +98,8 @@ class AuthorsController extends Controller {
 
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::UPDATE, $author);
+
+        dd($request->all());
 
         $this->authorsService->updateAuthor($author, $request->all());
         return redirect(route('admin.authors.index'), 301);

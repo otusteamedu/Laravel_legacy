@@ -55,7 +55,14 @@ class UsersController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, User::class);
 
-        $this->userService->storeUser($request);
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        $this->userService->storeUser($request->all());
         return redirect(route('admin.users.index'), 301);
     }
 

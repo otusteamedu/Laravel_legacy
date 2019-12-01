@@ -45,7 +45,6 @@ class ReviewsController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Review::class);
 
-
         return view('reviews.create', [
             'users' => $this->userService->searchUsers(),
             'materials' => $this->materialService->searchMaterials(),
@@ -61,6 +60,13 @@ class ReviewsController extends Controller {
 
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::CREATE, Review::class);
+
+        /** @noinspection PhpUnhandledExceptionInspection */
+        $this->validate($request, [
+            'user_id' => 'required',
+            'material_id' => 'required',
+            'review' => 'required',
+        ]);
 
         $this->reviewService->storeReview($request->all());
         return redirect(route('admin.reviews.index'), 301);
