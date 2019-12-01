@@ -1,0 +1,48 @@
+version: "3.1"
+services:
+
+    redis:
+      image: redis:alpine
+      restart: always
+      container_name: otus-hw2-redis
+      volumes:
+        - ./project/storage:/application
+      ports:
+          - 6379:6379
+
+    memcached:
+      image: sameersbn/memcached:1.5.6-2
+      ports:
+        - "11211:11211"
+
+    postgres:
+      image: postgres:11.1-alpine
+      container_name: otus-hw2-postgres
+      working_dir: /application
+      volumes:
+        - ./project:/application
+      environment:
+        - POSTGRES_USER=otus
+        - POSTGRES_PASSWORD=otus_password
+        - POSTGRES_DB=otus
+      ports:
+        - "1234:5432"
+
+    webserver:
+      image: nginx:alpine
+      container_name: otus-hw2-webserver
+      working_dir: /application
+      volumes:
+          - ./project:/application
+          - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+      ports:
+       - "80:80"
+
+    php-fpm:
+      build: phpdocker/php-fpm
+      container_name: otus-hw2-php-fpm
+      working_dir: /application
+      volumes:
+        - ./project:/application
+        - ./phpdocker/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
+
