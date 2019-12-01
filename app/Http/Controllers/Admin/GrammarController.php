@@ -76,20 +76,10 @@ class GrammarController extends Controller
             'code' => 'required',
             'title' => 'required',
         ]);
-        $request = $request->all();
-        $id = $this->grammarService->updateGrammar($request);
-        $message = '';
-        $error = '';
-        if ($id) {
-            $message = 'ОК';
-            $grammar = $this->grammarService->detailGrammar($id);
-        } else {
-            $error = 'Error';
-        }
+        $data = $request->all();
+        $grammar = $this->grammarService->updateGrammar($grammar,$data);
         return view('admin.grammar_detail')->with([
             'grammar' => $grammar,
-            'error' => $error,
-            'message' => $message
         ]);
 
     }
@@ -107,16 +97,11 @@ class GrammarController extends Controller
             'code' => 'required',
             'title' => 'required',
         ]);
-        $request = $request->all();
-        $id = $this->grammarService->insertGrammar($request);
+        $data = $request->all();
+        $grammar = $this->grammarService->insertGrammar($data);
         $message = '';
         $error = '';
-        if ($id) {
-            $message = 'ОК';
-            $grammar = $this->grammarService->detailGrammar($id);
-        } else {
-            $error = 'Error';
-        }
+
         return view('admin.grammar_detail')->with(['grammar' => $grammar, 'error' => $error, 'message' => $message]);
     }
 
