@@ -11,5 +11,5 @@ class Tag {
     const JOURNALS = 'journals';
     const MATERIALS = 'materials';
     const REVIEWS = 'reviews';
-
+    const SELECTION_MATERIALS = 'selection-materials';
 }

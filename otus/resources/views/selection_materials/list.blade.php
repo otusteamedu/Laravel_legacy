@@ -26,15 +26,15 @@
                                 </div>
                                 <div class="pull-right action-buttons">
 
-                                    <a href="{{route('admin.selection-materials.show', ['selectionMaterial' => $selectionMaterial])}}"><span
+                                    <a href="{{route('admin.selection-materials.show', ['selection_material' => $selectionMaterial])}}"><span
                                             class="glyphicon glyphicon-pencil">Подробнее</span>
                                     </a>
 
-                                    <a href="{{route('admin.selection-materials.edit', ['selectionMaterial' => $selectionMaterial])}}"><span
+                                    <a href="{{route('admin.selection-materials.edit', ['selection_material' => $selectionMaterial])}}"><span
                                             class="glyphicon glyphicon-pencil">Редактировать</span>
                                     </a>
 
-                                    <a href="{{route('admin.selection-materials.destroy', ['selectionMaterial' => $selectionMaterial])}}"  class="js-destroy trash"><span
+                                    <a href="{{route('admin.selection-materials.destroy', ['selection_material' => $selectionMaterial])}}"  class="js-destroy trash"><span
                                             class="glyphicon glyphicon-trash">Удалить</span>
                                     </a>
 

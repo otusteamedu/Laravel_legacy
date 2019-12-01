@@ -11,4 +11,5 @@ class Key {
     const JOURNALS_PREFIX = 'journals';
     const MATERIALS_PREFIX = 'materials';
     const REVIEWS_PREFIX = 'reviews';
+    const SELECTION_MATERIALS_PREFIX = 'selection-materials';
 }
