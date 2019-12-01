@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Grammar;
+//use App\Models\Grammar;
 use App\Services\Grammar\GrammarService;
 use Cache;
 
@@ -26,7 +26,6 @@ class GrammarController extends Controller
 
     public  function getDeatail(string $id)
     {
-
         $list  = Cache::tags(['list'])->remember('grammar_list', 600, function () {
             return $this->grammarService->listGrammar();
         });

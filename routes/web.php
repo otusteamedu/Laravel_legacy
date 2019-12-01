@@ -25,11 +25,22 @@ Route::name('admin.')->group(function () {
         Route::get('/', function() {
             return view('admin.main');
         });
-        Route::resource('grammar', 'Admin\GrammarController');
-        Route::resource('orthography', 'Admin\OrthographyController');
+        Route::resources([
+            'grammar'=>'Admin\GrammarController',
+            'orthography'=> 'Admin\OrthographyController'
+        ]);
         Route::resource('settings', 'Admin\SettingsController')->only(['index', 'store']);
     });
 });
+
+
+
+
+
+
+
+
+//Route::when('*', 'csrf', array('post', 'put', 'delete'));
 
 Route::prefix('cache')->group(function () {
     Route::get('/', 'CacheController@index');

@@ -16,3 +16,15 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+//Route::prefix('apigrammar')->group(function () {
+//Route::apiResource('grammar',  'Api\GrammarController');
+//});
+
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('grammar', 'Api\GrammarController', [
+        'except' => [
+            'destroy',
+        ],
+    ]);
+});

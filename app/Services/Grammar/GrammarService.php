@@ -5,6 +5,8 @@ namespace App\Services\Grammar;
 use App\Models\Grammar;
 use App\Services\Grammar\Repositories\GrammarRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Http\Resources\GrammarResource;
+use Illuminate\Http\Request;
 
 class GrammarService
 {
@@ -20,16 +22,25 @@ class GrammarService
     {
         return $this->grammarRepository->listGrammar();
     }
+    public function listGrammarJson()
+    {
+        return $this->grammarRepository->listGrammarJson();
+    }
+
 
     public function detailGrammar(string $id)
     {
         return $this->grammarRepository->detailGrammar($id);
     }
-    public function updateGrammar($data)
+    public function detailGrammarJson(string $id)
     {
-        return $this->grammarRepository->updateGrammar($data);
+        return $this->grammarRepository->detailGrammarJson($id);
     }
-    public function insertGrammar($data)
+    public function updateGrammar(Grammar $grammar, Array $data):Grammar
+    {
+        return $this->grammarRepository->updateGrammar($grammar,$data);
+    }
+    public function insertGrammar($data):Grammar
     {
         return $this->grammarRepository->insertGrammar($data);
     }
