@@ -36,7 +36,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-//        Passport::routes();
+        Passport::routes();
+        Passport::enableImplicitGrant();
 
+
+        Passport::tokensCan([
+            'manage-countries' => 'Manage countries scope',
+            'read-only-country' => 'Read only country scope',
+            'manage-cities' => 'Manage countries scope',
+            'read-only-city' => 'Read only city scope',
+        ]);
     }
 }

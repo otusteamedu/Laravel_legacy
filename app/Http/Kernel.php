@@ -6,6 +6,8 @@ use App\Http\Middleware\Localize;
 use App\Http\Middleware\LogRequests;
 use App\Http\Middleware\ShareCommonData;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Passport\Http\Middleware\CheckForAnyScope;
+use Laravel\Passport\Http\Middleware\CheckScopes;
 
 class Kernel extends HttpKernel
 {
@@ -66,6 +68,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'shareCommonData' => ShareCommonData::class,
         'localize' => Localize::class,
+        'scopes' => CheckScopes::class,
+        'scope' => CheckForAnyScope::class,
     ];
 
     /**

@@ -5,7 +5,7 @@
  * @author    Egor Gerasimchuk <egor@mister.am>
  */
 
-namespace Tests\Feature\Controllers;
+namespace Tests\Feature\Controllers\Cms;
 
 
 use App\Models\Country;
@@ -59,13 +59,10 @@ class CountriesControllerTest extends TestCase
      */
     public function testCreateCountryFailsIfContinentNameIsEmpty()
     {
-        $user = UserGenerator::createAdminUser();
-
         $data = [
             'name' => $this->faker->country,
         ];
-        $this->actingAs($user)
-            ->post(route('cms.countries.store'), $data)
+        $this->createCountry($data)
             ->assertSessionHasErrors();
 
         $this->assertDatabaseMissing('countries', [
@@ -83,13 +80,9 @@ class CountriesControllerTest extends TestCase
      */
     public function testCreateCountryFailsIfNameIsEmpty()
     {
-        $user = UserGenerator::createAdminUser();
-
-        $this->actingAs($user)
-            ->post(route('cms.countries.store'), [
-                'continent_name' => 'Europe',
-            ])
-            ->assertSessionHasErrors();
+        $this->createCountry([
+            'continent_name' => 'Europe',
+        ])->assertSessionHasErrors();
 
         $this->assertEquals(0, Country::all()->count());
     }
@@ -160,7 +153,9 @@ class CountriesControllerTest extends TestCase
     {
         $user = UserGenerator::createAdminUser();
         return $this->actingAs($user)
-            ->post(route('cms.countries.store'), $data);
+            ->post(route('cms.countries.store', [
+                'locale' => config('app.locale'),
+            ]), $data);
 
     }
 

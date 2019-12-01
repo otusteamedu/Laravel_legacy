@@ -42,12 +42,10 @@ return [
         ],
 
         'api' => [
-            'driver' => 'token',
-//            'driver' => 'passport',
+            'driver' => env('AUTH_GUARD_API_DRIVER', 'passport'),
             'provider' => 'users',
             'hash' => false,
         ],
-
     ],
 
     /*

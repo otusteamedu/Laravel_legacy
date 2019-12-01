@@ -1,26 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Api\Cms\Countries;
+namespace App\Http\Controllers\Api\Cms\Cities;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CountriesResource;
 use App\Http\Resources\CountryResource;
-use App\Models\Country;
-use App\Models\DTO\CmsCountryDTO;
+use App\Models\City;
 use App\Policies\Abilities;
-use App\Services\Countries\CountriesService;
+use App\Services\Cities\CitiesService;
 use Illuminate\Http\Request;
 
-class CountriesController extends Controller
+class CitiesController extends Controller
 {
 
-    private $countriesService;
+    /** @var CitiesService */
+    private $citiesService;
 
     public function __construct(
-        CountriesService $countriesService
+        CitiesService $citiesService
     )
     {
-        $this->countriesService = $countriesService;
+        $this->citiesService = $citiesService;
     }
 
     /**
@@ -29,8 +29,8 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        $this->authorize(Abilities::VIEW_ANY, Country::class);
-        $countries = $this->countriesService->getAll();
+        $this->authorize(Abilities::VIEW_ANY, City::class);
+        $countries = $this->citiesService->getAll();
 
         return response()->json(new CountriesResource($countries));
     }
@@ -43,7 +43,7 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize(Abilities::CREATE, Country::class);
+        $this->authorize(Abilities::CREATE, City::class);
 
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
@@ -51,39 +51,39 @@ class CountriesController extends Controller
         ]);
         $data = $request->all();
         $data['created_user_id'] = \Auth::id();
-        $country = $this->countriesService->storeCountry($data);
+        $country = $this->citiesService->storeCity($data);
         return response()->json(new CountryResource($country));
     }
 
     /**
-     * @param Country $country
+     * @param City $city
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Country $country)
+    public function show(City $city)
     {
-        $this->authorize(Abilities::VIEW, Country::class);
+        $this->authorize(Abilities::VIEW, City::class);
 
-        return response()->json(new CountryResource($country));
+        return response()->json(new CountryResource($city));
     }
 
     /**
      * @param Request $request
-     * @param Country $country
+     * @param City $country
      * @return \Illuminate\Http\JsonResponse
      * @throws \Illuminate\Auth\Access\AuthorizationException
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, City $country)
     {
         $this->authorize(Abilities::UPDATE, $country);
         $this->validate($request, [
-//            'name' => 'required|unique:countries,name|max:100',
+            'name' => 'required|unique:countries,name|max:100',
             'continent_name' => 'required|max:20'
         ]);
 
         try {
-            $this->countriesService->updateCountry($country, $request->all());
+            $this->citiesService->updateCity($country, $request->all());
         } catch (\Exception $e) {
             return response()->json([
                 'message' => 'Ok'

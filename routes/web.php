@@ -43,3 +43,5 @@ Route::auth();
 
 Route::get('/jobs', 'JobsController@index')->name('jobs.index');
 Route::get('/jobs/failed', 'JobsController@failed')->name('jobs.failed');
+
+Route::get('/home', 'HomeController@index');
