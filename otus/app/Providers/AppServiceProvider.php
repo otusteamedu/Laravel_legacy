@@ -30,6 +30,8 @@ use App\Services\Materials\Repositories\CachedMaterialRepository;
 use App\Services\Materials\Repositories\CachedMaterialRepositoryInterface;
 use App\Services\Materials\Repositories\EloquentMaterialRepository;
 use App\Services\Materials\Repositories\MaterialsRepositoryInterface;
+use App\Services\Reviews\Repositories\CachedReviewRepository;
+use App\Services\Reviews\Repositories\CachedReviewRepositoryInterface;
 use App\Services\Reviews\Repositories\EloquentReviewsRepository;
 use App\Services\Reviews\Repositories\ReviewsRepositoryInterface;
 use App\Services\SelectionMaterials\Repositories\EloquentSelectionMaterialsRepository;
@@ -71,6 +73,8 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->bind(CachedMaterialRepositoryInterface::class, CachedMaterialRepository::class);
 
         $this->app->bind(ReviewsRepositoryInterface::class, EloquentReviewsRepository::class);
+        $this->app->bind(CachedReviewRepositoryInterface::class, CachedReviewRepository::class);
+
         $this->app->bind(SelectionMaterialsRepositoryInterface::class, EloquentSelectionMaterialsRepository::class);
     }
 

@@ -10,5 +10,5 @@ class Key {
     const HANDBOOKS_PREFIX = 'handbooks';
     const JOURNALS_PREFIX = 'journals';
     const MATERIALS_PREFIX = 'materials';
-
+    const REVIEWS_PREFIX = 'reviews';
 }

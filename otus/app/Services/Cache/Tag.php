@@ -10,5 +10,6 @@ class Tag {
     const HANDBOOKS = 'handbooks';
     const JOURNALS = 'journals';
     const MATERIALS = 'materials';
+    const REVIEWS = 'reviews';
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Review\ReviewSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,10 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Review extends Model {
     protected $fillable = ['user_id', 'material_id', 'review'];
+
+    protected $dispatchesEvents = [
+        'saved' => ReviewSaved::class
+    ];
 
     public function user() {
         return $this->hasOne(User::class, 'id', 'user_id');

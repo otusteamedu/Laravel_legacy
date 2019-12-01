@@ -83,6 +83,17 @@ class CacheKeyManager {
         );
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestReviewsKey(Request $request): string {
+        return $this->getKey(
+            Key::REVIEWS_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
 
     /**
      * @param array $filters
@@ -188,7 +199,20 @@ class CacheKeyManager {
             ))
         );
     }
-
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchReviewsKey(array $filters = []): string {
+        return $this->getKey(
+            Key::REVIEWS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
 
 
 
