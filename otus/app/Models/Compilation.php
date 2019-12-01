@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Compilation\CompilationSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -16,6 +17,10 @@ use Illuminate\Database\Eloquent\Model;
 class Compilation extends Model {
     protected $fillable = ['material_id', 'compilation_id'];
     protected $with = ['material', 'compilation'];
+
+    protected $dispatchesEvents = [
+        'saved' => CompilationSaved::class
+    ];
 
     public function material() {
         return $this->hasOne(Material::class, 'id', 'material_id');

@@ -10,6 +10,8 @@ use App\Services\Categories\Repositories\CachedCategoryRepositoryInterface;
 use App\Services\Categories\Repositories\CachedCategoryRepository;
 use App\Services\Categories\Repositories\CategoryRepositoryInterface;
 use App\Services\Categories\Repositories\EloquentCategoryRepository;
+use App\Services\Compilations\Repositories\CachedCompilationRepository;
+use App\Services\Compilations\Repositories\CachedCompilationRepositoryInterface;
 use App\Services\Compilations\Repositories\CompilationRepositoryInterface;
 use App\Services\Compilations\Repositories\EloquentCompilationRepository;
 use App\Services\Favorites\Repositories\EloquentFavoriteRepository;
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider {
      * @return void
      */
     public function register() {
+
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
 
         $this->app->bind(AuthorRepositoryInterface::class, EloquentAuthorRepository::class);
@@ -45,6 +48,8 @@ class AppServiceProvider extends ServiceProvider {
         $this->app->bind(CachedCategoryRepositoryInterface::class, CachedCategoryRepository::class);
 
         $this->app->bind(CompilationRepositoryInterface::class, EloquentCompilationRepository::class);
+        $this->app->bind(CachedCompilationRepositoryInterface::class, CachedCompilationRepository::class);
+
         $this->app->bind(FavoriteRepositoryInterface::class, EloquentFavoriteRepository::class);
         $this->app->bind(HandbookRepositoryInterface::class, EloquentHandbookRepository::class);
         $this->app->bind(JournalsRepositoryInterface::class, EloquentJournalsRepository::class);

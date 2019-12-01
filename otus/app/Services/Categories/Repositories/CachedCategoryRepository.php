@@ -8,7 +8,7 @@ use Cache;
 
 class CachedCategoryRepository implements CachedCategoryRepositoryInterface {
 
-    const CACHE_SEARCH_SECONDS = 60;
+    const CACHE_SEARCH_SECONDS = 3600;
 
     /** @var CategoryRepositoryInterface */
     private $categoryRepository;

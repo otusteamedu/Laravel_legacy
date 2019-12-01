@@ -8,7 +8,7 @@ use Cache;
 
 class CachedAuthorRepository implements CachedAuthorRepositoryInterface {
 
-    const CACHE_SEARCH_SECONDS = 60;
+    const CACHE_SEARCH_SECONDS = 3600;
 
     /** @var AuthorRepositoryInterface */
     private $authorRepository;
@@ -22,7 +22,7 @@ class CachedAuthorRepository implements CachedAuthorRepositoryInterface {
     }
 
     public function search(array $filters = [], array $with = []) {
-        $key = $this->cacheKeyManager->getSearchCategoriesKey($filters);
+        $key = $this->cacheKeyManager->getSearchAuthorsKey($filters);
         $result =  Cache::tags([Tag::AUTHORS])
             ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($filters, $with) {
                 return $this->authorRepository->search($filters, $with);

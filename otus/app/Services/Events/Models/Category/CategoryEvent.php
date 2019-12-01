@@ -9,8 +9,8 @@ abstract class CategoryEvent {
     /** @var Category */
     private $category;
 
-    public function __construct(Category $country) {
-        $this->category = $country;
+    public function __construct(Category $category) {
+        $this->category = $category;
     }
 
     /**

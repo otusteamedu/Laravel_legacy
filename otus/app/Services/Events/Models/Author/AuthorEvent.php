@@ -9,8 +9,8 @@ class AuthorEvent {
     /** @var Author */
     private $author;
 
-    public function __construct(Author $country) {
-        $this->author = $country;
+    public function __construct(Author $author) {
+        $this->author = $author;
     }
 
     /**

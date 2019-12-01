@@ -5,6 +5,7 @@ namespace App\Services\Cache;
 use Illuminate\Http\Request;
 
 class CacheKeyManager {
+
     /**
      * @param Request $request
      * @return string
@@ -12,6 +13,28 @@ class CacheKeyManager {
     public function getRequestCategoriesKey(Request $request): string {
         return $this->getKey(
             Key::CATEGORIES_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestAuthorsKey(Request $request): string {
+        return $this->getKey(
+            Key::AUTHORS_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestCompilationsKey(Request $request): string {
+        return $this->getKey(
+            Key::COMPILATIONS_PREFIX,
             $this->generateRequestKeySuffix($request)
         );
     }
@@ -30,6 +53,37 @@ class CacheKeyManager {
             ))
         );
     }
+
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchAuthorsKey(array $filters = []): string {
+        return $this->getKey(
+            Key::AUTHORS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
+
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchCompilationsKey(array $filters = []): string {
+        return $this->getKey(
+            Key::COMPILATIONS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
+
 
     /**
      * @param Request $request

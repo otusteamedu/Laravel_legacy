@@ -3,15 +3,18 @@
 namespace App\Services\Compilations;
 
 use App\Models\Compilation;
+use App\Services\Compilations\Repositories\CachedCompilationRepositoryInterface;
 use App\Services\Compilations\Repositories\CompilationRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CompilationService {
 
     private $compilationRepository;
+    private $cachedCompilationRepository;
 
-    public function __construct(CompilationRepositoryInterface $compilationRepository) {
+    public function __construct(CompilationRepositoryInterface $compilationRepository, CachedCompilationRepositoryInterface $cachedCompilationRepository) {
         $this->compilationRepository = $compilationRepository;
+        $this->cachedCompilationRepository = $cachedCompilationRepository;
     }
 
     public function findCompilation(int $id): Compilation {
@@ -21,8 +24,8 @@ class CompilationService {
     /**
      * @return LengthAwarePaginator
      */
-    public function searchCompilations(): LengthAwarePaginator {
-        return $this->compilationRepository->search();
+    public function searchCompilations(array $filters = [], array $with = []): LengthAwarePaginator {
+        return $this->cachedCompilationRepository->search($filters, $with);
     }
 
     /**

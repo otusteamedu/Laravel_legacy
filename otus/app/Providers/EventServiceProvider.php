@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Listeners\Cache\Author\ClearAuthorCache;
 use App\Listeners\Cache\Category\ClearCategoryCache;
+use App\Listeners\Cache\Compilation\ClearCompilationCache;
 use App\Services\Events\Models\Author\AuthorSaved;
 use App\Services\Events\Models\Category\CategorySaved;
+use App\Services\Events\Models\Compilation\CompilationSaved;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -26,6 +28,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         AuthorSaved::class =>  [
             ClearAuthorCache::class,
+        ],
+        CompilationSaved::class =>  [
+            ClearCompilationCache::class,
         ],
     ];
 
