@@ -8,7 +8,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 interface CategoryRepositoryInterface {
     public function find(int $id);
 
-    public function search(): LengthAwarePaginator;
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator;
 
     public function destroy(array $ids);
 

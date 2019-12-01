@@ -3,7 +3,11 @@
 namespace App\Providers;
 
 use App\Services\Authors\Repositories\AuthorRepositoryInterface;
+use App\Services\Authors\Repositories\CachedAuthorRepository;
+use App\Services\Authors\Repositories\CachedAuthorRepositoryInterface;
 use App\Services\Authors\Repositories\EloquentAuthorRepository;
+use App\Services\Categories\Repositories\CachedCategoryRepositoryInterface;
+use App\Services\Categories\Repositories\CachedCategoryRepository;
 use App\Services\Categories\Repositories\CategoryRepositoryInterface;
 use App\Services\Categories\Repositories\EloquentCategoryRepository;
 use App\Services\Compilations\Repositories\CompilationRepositoryInterface;
@@ -33,8 +37,13 @@ class AppServiceProvider extends ServiceProvider {
      */
     public function register() {
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
+
         $this->app->bind(AuthorRepositoryInterface::class, EloquentAuthorRepository::class);
+        $this->app->bind(CachedAuthorRepositoryInterface::class, CachedAuthorRepository::class);
+
         $this->app->bind(CategoryRepositoryInterface::class, EloquentCategoryRepository::class);
+        $this->app->bind(CachedCategoryRepositoryInterface::class, CachedCategoryRepository::class);
+
         $this->app->bind(CompilationRepositoryInterface::class, EloquentCompilationRepository::class);
         $this->app->bind(FavoriteRepositoryInterface::class, EloquentFavoriteRepository::class);
         $this->app->bind(HandbookRepositoryInterface::class, EloquentHandbookRepository::class);

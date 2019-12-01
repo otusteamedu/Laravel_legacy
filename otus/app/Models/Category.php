@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Category\CategorySaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,5 +14,10 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  */
 class Category extends Model {
+
+    protected $dispatchesEvents = [
+        'saved' => CategorySaved::class
+    ];
+
     protected $fillable = ['name'];
 }

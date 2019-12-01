@@ -11,8 +11,11 @@ class EloquentAuthorRepository implements AuthorRepositoryInterface {
         return Author::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Author::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Author::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

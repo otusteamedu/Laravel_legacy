@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Author\AuthorSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,6 +15,11 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  */
 class Author extends Model {
+
+    protected $dispatchesEvents = [
+        'saved' => AuthorSaved::class
+    ];
+
     protected $fillable = ['name', 'surname'];
 
     public function materials() {

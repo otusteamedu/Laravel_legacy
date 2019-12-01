@@ -11,8 +11,11 @@ class EloquentHandbookRepository implements HandbookRepositoryInterface {
         return Handbook::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Handbook::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Handbook::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

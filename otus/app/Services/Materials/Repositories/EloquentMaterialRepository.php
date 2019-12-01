@@ -11,8 +11,11 @@ class EloquentMaterialRepository implements MaterialsRepositoryInterface {
         return Material::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Material::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Material::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

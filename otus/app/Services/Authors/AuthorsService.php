@@ -4,14 +4,17 @@ namespace App\Services\Authors;
 
 use App\Models\Author;
 use App\Services\Authors\Repositories\AuthorRepositoryInterface;
+use App\Services\Authors\Repositories\CachedAuthorRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class AuthorsService {
 
     private $authorRepository;
+    private $cachedAuthorRepository;
 
-    public function __construct(AuthorRepositoryInterface $authorRepository) {
+    public function __construct(AuthorRepositoryInterface $authorRepository, CachedAuthorRepositoryInterface $cachedAuthorRepository) {
         $this->authorRepository = $authorRepository;
+        $this->cachedAuthorRepository = $cachedAuthorRepository;
     }
 
     public function findAuthor(int $id): Author {
@@ -22,7 +25,7 @@ class AuthorsService {
      * @return LengthAwarePaginator
      */
     public function searchAuthors(): LengthAwarePaginator {
-        return $this->authorRepository->search();
+        return $this->cachedAuthorRepository->search();
     }
 
     /**

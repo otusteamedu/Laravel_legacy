@@ -99,8 +99,6 @@ class AuthorsController extends Controller {
         /** @noinspection PhpUnhandledExceptionInspection */
         $this->authorize(Abilities::UPDATE, $author);
 
-        dd($request->all());
-
         $this->authorsService->updateAuthor($author, $request->all());
         return redirect(route('admin.authors.index'), 301);
     }
