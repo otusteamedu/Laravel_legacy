@@ -17,6 +17,7 @@ class UsersSeeder extends Seeder
                 'name'=> 'admin',
                 'email' =>'ruslan231984@yandex.ru',
                 'password' => '$2y$10$EXMaRzdNsCYM7auJKbh.UepwFesnRgEd2KtqFHysU3Y08VzIq2fFS',
+                'api_token' => '123',
                 'created_at' => '2019-11-23 06:15:36',
                 'updated_at'=>'2019-11-23 06:15:36'
             ],
@@ -25,6 +26,7 @@ class UsersSeeder extends Seeder
                 'name'=> 'guest',
                 'email' =>'ruslan@yandex.ru',
                 'password' => '$2y$10$EXMaRzdNsCYM7auJKbh.UepwFesnRgEd2KtqFHysU3Y08VzIq2fFS',
+                'api_token' => '111',
                 'created_at' => '2019-11-23 06:15:36',
                 'updated_at'=>'2019-11-23 06:15:36'
             ]

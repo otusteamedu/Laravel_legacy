@@ -18,6 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 //Route::prefix('apigrammar')->group(function () {
-Route::apiResource('grammar',  'Api\GrammarController'
-);
+//Route::apiResource('grammar',  'Api\GrammarController');
 //});
+
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('grammar', 'Api\GrammarController', [
+        'except' => [
+            'destroy',
+        ],
+    ]);
+});
