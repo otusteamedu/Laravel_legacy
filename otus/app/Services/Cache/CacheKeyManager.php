@@ -105,6 +105,17 @@ class CacheKeyManager {
         );
     }
 
+    /**
+     * @param Request $request
+     * @return string
+     */
+    public function getRequestUsersKey(Request $request): string {
+        return $this->getKey(
+            Key::USERS_PREFIX,
+            $this->generateRequestKeySuffix($request)
+        );
+    }
+
 
     /**
      * @param array $filters
@@ -240,6 +251,22 @@ class CacheKeyManager {
             ))
         );
     }
+
+    /**
+     * @param array $filters
+     * @return string
+     */
+    public function getSearchUsersKey(array $filters = []): string {
+        return $this->getKey(
+            Key::USERS_PREFIX,
+            $this->generateParamsKeySuffix(array_merge(
+                [
+                    'page' => request()->get('page'),
+                ], $filters
+            ))
+        );
+    }
+
 
     /**
      * @param Request $request

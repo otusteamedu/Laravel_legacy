@@ -12,4 +12,5 @@ class Tag {
     const MATERIALS = 'materials';
     const REVIEWS = 'reviews';
     const SELECTION_MATERIALS = 'selection-materials';
+    const USERS = 'users';
 }

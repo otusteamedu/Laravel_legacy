@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Services\Events\Models\User\UserSaved;
 use \Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -29,6 +29,10 @@ class User extends Authenticatable {
 
     protected $fillable = ['name', 'email', 'password', 'photo', 'role'];
     protected $with = ['favorites', 'reviews'];
+
+    protected $dispatchesEvents = [
+        'saved' => UserSaved::class
+    ];
 
     public function readMaterials() {
         return $this->belongsToMany(User::class, 'read_material', 'user_id', 'material_id');

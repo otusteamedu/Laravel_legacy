@@ -12,4 +12,5 @@ class Key {
     const MATERIALS_PREFIX = 'materials';
     const REVIEWS_PREFIX = 'reviews';
     const SELECTION_MATERIALS_PREFIX = 'selection-materials';
+    const USERS_PREFIX = 'users';
 }

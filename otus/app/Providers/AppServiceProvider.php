@@ -38,6 +38,8 @@ use App\Services\SelectionMaterials\Repositories\CachedSelectionMaterialReposito
 use App\Services\SelectionMaterials\Repositories\CachedSelectionMaterialRepositoryInterface;
 use App\Services\SelectionMaterials\Repositories\EloquentSelectionMaterialsRepository;
 use App\Services\SelectionMaterials\Repositories\SelectionMaterialsRepositoryInterface;
+use App\Services\Users\Repositories\CachedUserRepository;
+use App\Services\Users\Repositories\CachedUserRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -52,6 +54,7 @@ class AppServiceProvider extends ServiceProvider {
     public function register() {
 
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
+        $this->app->bind(CachedUserRepositoryInterface::class, CachedUserRepository::class);
 
         $this->app->bind(AuthorRepositoryInterface::class, EloquentAuthorRepository::class);
         $this->app->bind(CachedAuthorRepositoryInterface::class, CachedAuthorRepository::class);

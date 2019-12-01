@@ -11,6 +11,7 @@ use App\Listeners\Cache\Journal\ClearJournalCache;
 use App\Listeners\Cache\Material\ClearMaterialCache;
 use App\Listeners\Cache\Review\ClearReviewCache;
 use App\Listeners\Cache\SelectionMaterial\ClearSelectionMaterialCache;
+use App\Listeners\Cache\User\ClearUserCache;
 use App\Services\Events\Models\Author\AuthorSaved;
 use App\Services\Events\Models\Category\CategorySaved;
 use App\Services\Events\Models\Compilation\CompilationSaved;
@@ -20,6 +21,7 @@ use App\Services\Events\Models\Journal\JournalSaved;
 use App\Services\Events\Models\Material\MaterialSaved;
 use App\Services\Events\Models\Review\ReviewSaved;
 use App\Services\Events\Models\SelectionMaterial\SelectionMaterialSaved;
+use App\Services\Events\Models\User\UserSaved;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -61,6 +63,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         SelectionMaterialSaved::class =>  [
             ClearSelectionMaterialCache::class,
+        ],
+        UserSaved::class =>  [
+            ClearUserCache::class,
         ],
     ];
 
