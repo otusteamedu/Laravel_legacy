@@ -1,5 +1,16 @@
 #!/usr/bin/env php -q
 <?php
+
+/**
+ * ДЗ: Среда разработки и PHP-сокеты
+ *
+ * In order to run in non-interactive mode:
+ *
+ * php /var/www/html/init --server
+ * php /var/www/html/init
+ *
+ */
+
 require_once __DIR__ . '/vendor/autoload.php';
 
 use app\Application;
