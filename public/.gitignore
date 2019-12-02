@@ -1,0 +1,14 @@
+config/database.php
+node_modules
+hot
+storage
+vendor
+.idea
+.vscode
+.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+.phpunit.result.cache
