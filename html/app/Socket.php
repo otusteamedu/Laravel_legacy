@@ -1,8 +1,12 @@
 <?php
 
-
 namespace app;
 
+/**
+ * Class Socket
+ * Общие параметры для сокетов
+ * @package app
+ */
 
 class Socket
 {

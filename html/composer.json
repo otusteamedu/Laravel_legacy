@@ -1,12 +1,15 @@
 {
-  "name": "vendor_name/package_name",
-  "description": "description_text",
+  "name": "KKondratenko/hw3",
+  "description": "ДЗ: Среда разработки и PHP-сокеты",
   "minimum-stability": "dev",
   "license": "proprietary",
+  "require": {
+    "php": ">=7.1"
+  },
   "authors": [
     {
-      "name": "author's name",
-      "email": "email@example.com"
+      "name": "Konstantin Kondratenko",
+      "email": "info@0x25.ru"
     }
   ],
   "autoload": {

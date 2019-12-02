@@ -26,11 +26,6 @@ services:
     volumes:
       - ./.docker/mysql/my.cnf:/etc/my.cnf
       - ./.docker/mysql/db:/var/lib/mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=db
-      - MYSQL_USER=root
-      - MYSQL_PASSWORD=root
 
   memcached:
     container_name: memcached
