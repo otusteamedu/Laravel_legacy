@@ -63,7 +63,7 @@ class MovieFormController extends AbstractFormController
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return void
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(Request $request)

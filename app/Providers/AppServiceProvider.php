@@ -55,11 +55,15 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\Interfaces\IModuleRepository::class, \App\Repositories\ModuleRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IRoleRepository::class, \App\Repositories\RoleRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IUploadRepository::class, \App\Repositories\UploadRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IUserRepository::class, \App\Repositories\UserRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IRoleRepository::class, \App\Repositories\RoleRepository::class);
 
         // сервисы
         $this->app->bind(\App\Services\Interfaces\IUploadService::class, \App\Services\UploadService::class);
         $this->app->bind(\App\Services\Interfaces\IMovieService::class, \App\Services\MovieService::class);
         $this->app->bind(\App\Services\Interfaces\ICinemaService::class, \App\Services\CinemaService::class);
+        $this->app->bind(\App\Services\Interfaces\IUserService::class, \App\Services\UserService::class);
+        $this->app->bind(\App\Services\Interfaces\IRoleService::class, \App\Services\RoleService::class);
 
         try {
             $this->app->singleton(FileService::class, function (Application $app) {

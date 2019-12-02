@@ -53,7 +53,7 @@ class PermController extends AbstractController
         $this->moduleRepository->savePermissions($request->get('permissions', []));
         $this->status(__('success.perms.stored'));
 
-        return redirect(route('admin.security.perms.index'));
+        return redirect(route('admin.security.index'));
     }
     /**
      * Display a listing of the resource.

@@ -4,6 +4,9 @@
 namespace App\Base\Controller;
 
 use App\Http\Controllers\Controller;
+use App\Services\FileService;
+use App\Services\Interfaces\IUploadService;
+use App\Services\ResizeService;
 use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
@@ -19,6 +22,15 @@ use Illuminate\Validation\ValidationException;
 
 abstract class AbstractController extends Controller
 {
+    /**
+     * @var ResizeService
+     */
+    protected $resizeService;
+    /**
+     * @var IUploadService
+     */
+    protected $uploadService;
+
     /**
      * если передается команда в переменной cmd ищем и вызываем метод в контроллере по шаблону cmd<cmd>.
      * @return RedirectResponse|null
@@ -82,5 +94,20 @@ abstract class AbstractController extends Controller
      */
     protected function status(string $message, string $key = 'statusMessage') {
         request()->session()->flash($key, $message);
+    }
+
+    public function Resizer(): ResizeService {
+        if(!$this->resizeService)
+            $this->resizeService = app()->make(ResizeService::class);
+        return $this->resizeService;
+    }
+
+    public function Uploader(): IUploadService {
+        if(!$this->uploadService)
+            $this->uploadService = app()->make(IUploadService::class);
+        return $this->uploadService;
+    }
+    public function FileService(): FileService {
+        return $this->Uploader()->getFileService();
     }
 }

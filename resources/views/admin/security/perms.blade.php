@@ -9,10 +9,10 @@
                 'url' => route('admin.index'),
                 'title' => __('admin.home')
             ], [
-                'url' => 'admin.security.index',
+                'url' => '#',
                 'title' => __('admin.menu.security.index')
             ], [
-                'url' => route('admin.security.perms.index'),
+                'url' => route('admin.security.index'),
                 'title' => __('admin.menu.security.perms')
             ]
         ];
@@ -27,7 +27,7 @@
 @endsection
 
 @section('pageContent')
-    {{ Form::open(['url' => route('admin.security.perms.index'), 'method' => 'patch']) }}
+    {{ Form::open(['url' => route('admin.security.index'), 'method' => 'patch']) }}
     <table class="table table-striped table-sm" role="list">
         <thead>
         <tr>

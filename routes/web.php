@@ -48,22 +48,22 @@ Route::name('admin.')->prefix('manager')->middleware(['auth', 'manager'])->group
         Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
         Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
         Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
-        //Route::post('/account/login', 'Auth\LoginController@login');
     });
+
+    Route::name('users.')->prefix('users')->group(function () {
+        Route::get('', 'Admin\Security\User\UserListController@index')->name('index');
+        Route::get('/create', 'Admin\Security\User\UserFormController@create')->name('create');
+        Route::post('/create', 'Admin\Security\User\UserFormController@store')->name('store');
+        Route::get('/edit/{itemId}', 'Admin\Security\User\UserFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
+        Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Security\User\UserFormController@update')->name('update');
+        Route::delete('/{itemId}', 'Admin\Security\User\UserListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
+    });
+
     // Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
 
     Route::name('security.')->prefix('security')->group(function () {
-        Route::get('', 'Admin\Security\PermController@modules')->name('index');
-        Route::get('/perms', 'Admin\Security\PermController@index')->name('perms.index');
-        Route::match(['put', 'patch'], '/perms', 'Admin\Security\PermController@save')->name('perms.save');
-        /*
-                Route::get('', 'Admin\Movies\Movie\MovieListController@index')->name('index');
-                Route::get('/create', 'Admin\Movies\Movie\MovieFormController@create')->name('create');
-                Route::post('/create', 'Admin\Movies\Movie\MovieFormController@store')->name('store');
-                Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
-                Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
-                Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
-        */
+        Route::get('', 'Admin\Security\PermController@index')->name('index');
+        Route::match(['put', 'patch'], '', 'Admin\Security\PermController@save')->name('save');
     });
 });
 

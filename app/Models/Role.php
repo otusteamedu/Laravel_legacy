@@ -21,8 +21,18 @@ class Role extends Model
 {
     use TListItem;
     //
+    const ROLE_ROOT = "root";
+    const ROLE_ADMIN = "admin";
+    const ROLE_CONTENT = "content";
+    const ROLE_OPERATOR = "operator";
+    const ROLE_REGISTERED = "registered";
 
     public function access(): BelongsToMany {
         return $this->belongsToMany(ModAccess::class , 'mod_perms' , 'access_id' , 'role_id');
+    }
+
+    public function isRoot()
+    {
+        return $this->code == self::ROLE_ROOT;
     }
 }

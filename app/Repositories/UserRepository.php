@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class UserRepository extends BaseRepository implements IUserRepository
 {
+    private $sexes;
     /**
      * @var IModuleRepository
      */
@@ -23,6 +24,17 @@ class UserRepository extends BaseRepository implements IUserRepository
     public function __construct(IModuleRepository $moduleRepository) {
         parent::__construct();
         $this->moduleRepository = $moduleRepository;
+        $this->sexes = [
+            'male',
+            'female'
+        ];
+    }
+    /**
+     * Список полов
+     * @return array
+     */
+    public function getSexes(): array {
+        return $this->sexes;
     }
     /**
      * @return User|null
@@ -49,8 +61,11 @@ class UserRepository extends BaseRepository implements IUserRepository
         // суперадминам все можно
         if($user->isRoot())
             return true;
-
+        // левый уровень доступа
         if(strlen($access) != 1)
+            return false;
+        // пользователь не активен
+        if(!$user->active)
             return false;
 
         $builder = $user->roles()

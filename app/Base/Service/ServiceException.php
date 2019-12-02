@@ -13,8 +13,7 @@ class ServiceException extends \LogicException
 {
     private $errors = [];
 
-    public function __construct($message = "", $code = 0 , Throwable $previous = null)
-    {
+    public function __construct($message = "", $code = 0 , Throwable $previous = null) {
         if(!empty($message))
             $this->add($message , $code);
         parent::__construct($message , $code , $previous);
@@ -40,7 +39,7 @@ class ServiceException extends \LogicException
         return $this->errors;
     }
     /**
-     * @return mixed
+     * @return string
      */
     public function getMessages(): string
     {

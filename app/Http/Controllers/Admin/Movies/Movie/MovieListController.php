@@ -12,8 +12,6 @@ use App\Services\ResizeService;
 class MovieListController extends AbstractListController
 {
     protected $movieService;
-    protected $fileService;
-    protected $resizeService;
 
     public function __construct(
         IMovieService $movieService,
@@ -44,8 +42,8 @@ class MovieListController extends AbstractListController
 
         /** @var Movie $item */
         foreach ($this->data as $item) {
-            if($item->poster)
-                $file = $this->fileService->getLocalFile($item->poster);
+        //    if($item->poster)
+        //        $file = $this->fileService->getLocalFile($item->poster);
             // dd($request);
         }
     }

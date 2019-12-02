@@ -22,17 +22,22 @@ class ModelEvent
      * @var int
      */
     private $action;
-
+    /**
+     * @var Model
+     */
+    private $oldState;
     /**
      * Create a new event instance.
      *
      * @param Model $model
      * @param int $action
+     * @param Model|null $oldState
      */
-    public function __construct(Model $model, int $action, Model $oldState) {
+    public function __construct(Model $model, int $action, Model $oldState = null) {
         //
         $this->model = $model;
         $this->action = $action;
+        $this->oldState = $oldState;
     }
     /**
      * @return Model
@@ -45,5 +50,11 @@ class ModelEvent
      */
     public function getAction(): int {
         return $this->action;
+    }
+    /**
+     * @return Model
+     */
+    public function getOldState(): Model {
+        return $this->oldState;
     }
 }
