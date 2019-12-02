@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\GrammarResource;
 use App\Models\Grammar;
+use App\Policies\Abilities;
 use App\Services\Grammar\GrammarService;
 use Illuminate\Http\Request;
 
@@ -73,6 +74,7 @@ class GrammarController extends Controller
      */
     public function update(Request $request, Grammar $grammar)
     {
+        $this->authorize(Abilities::UPDATE, $grammar);
         $updateData = $request->all();
         $updateData['id'] = $grammar->id;
         $update=$this->grammarService->updateGrammar($grammar,$updateData);
