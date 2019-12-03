@@ -27,6 +27,8 @@ Route::get('/about', function () {
     return view('statics.about');
 })->name('about');
 
+Route::resource('reviews', 'ReviewsController')->except(['show']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/home', 'OperationsController@index')->name('home');
     Route::resource('operation', 'OperationsController')->except(['show']);

@@ -3,19 +3,50 @@
 
 namespace App\Services;
 
-use Illuminate\Http\Request;
-use \App\Models\Operation;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Operation;
+use App\Repositories\OperationRepository;
 use Carbon\Carbon;
 
 class OperationsService
 {
-    const PERIOD_TODAY = 'today';
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public function getOperationsForPeriod($period = self::PERIOD_TODAY){
+    protected $operationRepository;
+
+    public function __construct(OperationRepository $operationRepository)
+    {
+        $this->operationRepository = $operationRepository;
+    }
+
+    public function storeOperation($data, Operation $operation){
+        $this->operationRepository->storeOperation($data, $operation);
+    }
+
+    public function updateOperation($data, Operation $operation){
+        $this->operationRepository->updateOperation($data, $operation);
+    }
+
+    public function destroyOperation($id, Operation $operation){
+        $this->operationRepository->destroyOperation($id, $operation);
+    }
+
+    public function getUserTodayOperations($userId){
+
+        $dateStart = Carbon::today();
+        $dateEnd = Carbon::tomorrow();
+
+        return $this->operationRepository->getUserOperationsForPeriod($userId, $dateStart, $dateEnd);
+
+    }
+
+    public function getUserOperationsForPeriod($userId, $period){
+
+        $period = self::defineDateStartDateEndForPeriod($period);
+        $dateStart = $period['dateStart'];
+        $dateEnd = $period['dateEnd'];
+
+        return $this->operationRepository->getUserOperationsForPeriod($userId, $dateStart, $dateEnd);
+    }
+
+    public function defineDateStartDateEndForPeriod($period){
         switch ($period){
             case 'today':
                 $dateStart = Carbon::today();
@@ -43,7 +74,8 @@ class OperationsService
                 break;
         }
 
-        return Operation::where('user_id', Auth::id())->whereBetween('updated_at', [$dateStart, $dateEnd])->with('category')->get();
+        return ['dateStart' => $dateStart, 'dateEnd' => $dateEnd];
+
     }
 
     /**

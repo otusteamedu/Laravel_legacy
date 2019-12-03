@@ -25,5 +25,10 @@ return [
     'addOperation' => 'Добавить операцию',
     'chooseCategory' => 'Выберите категорию',
     'submit' => 'Отправить',
-    'editOperation' => 'Редактировать операцию'
+    'editOperation' => 'Редактировать операцию',
+
+    'listOfReviews' => 'Отзывы',
+    'addReview' => 'Добавить отзыв',
+    'review' => 'Отзыв',
+    'editReview' => 'Редактировать отзыв',
 ];

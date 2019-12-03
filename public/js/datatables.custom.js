@@ -31,6 +31,8 @@ $(document).ready(function () {
                 period: period
             },
             success: function( result ) {
+                console.log('Успех');
+                console.log(result);
                 var obj = jQuery.parseJSON(result);
 
                 $('#count .income').html(obj.incomeCount);
@@ -57,6 +59,12 @@ $(document).ready(function () {
                         ]).draw();
                     }
                 }
+            },
+            error: function (q,w,e) {
+                console.log('Ошибка');
+                console.log(q);
+                console.log(w);
+                console.log(e);
             }
         });
     })

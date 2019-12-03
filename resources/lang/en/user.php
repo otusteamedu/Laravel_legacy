@@ -25,5 +25,10 @@ return [
     'addOperation' => 'Add operation',
     'chooseCategory' => 'Choose category',
     'submit' => 'Submit',
-    'editOperation' => 'Edit operation'
+    'editOperation' => 'Edit operation',
+
+    'listOfReviews' => 'Reviews',
+    'addReview' => 'Add review',
+    'review' => 'Review',
+    'editReview' => 'Edit review',
 ];

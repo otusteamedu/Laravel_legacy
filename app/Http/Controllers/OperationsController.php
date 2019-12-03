@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Repositories\OperationRepository;
-use \App\Services\OperationsService;
+use App\Services\OperationsService;
 use App\Models\Operation;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class OperationsController extends Controller
 {
-    private $operationService;
-    private $operationRepository;
+    protected $operationsService;
+    protected $userId;
 
-    public function __construct(OperationsService $operationService, OperationRepository $operationRepository){
-        $this->operationService = $operationService;
-        $this->operationRepository = $operationRepository;
+    public function __construct(OperationsService $operationsService){
+        $this->operationsService = $operationsService;
+        $this->userId = Auth::id();
     }
 
     /**
@@ -25,8 +25,9 @@ class OperationsController extends Controller
      */
     public function index()
     {
-        $operations = $this->operationService->getOperationsForPeriod();
-        $incomeConsumptionCount = $this->operationService->getIncomeConsumptionCount($operations);
+
+        $operations = $this->operationsService->getUserTodayOperations($this->userId);
+        $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 
         return view('users.home', [
             'operations' => $operations,
@@ -53,9 +54,16 @@ class OperationsController extends Controller
      */
     public function store(Request $request, Operation $operation)
     {
-        $this->validate($request, [ 'sum' => 'required|min:0,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
+        $this->validate($request, [ 'sum' => 'required|min:1,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
 
-        $this->operationRepository->store($request, $operation);
+        $data = [
+            'sum' => $request->input('sum'),
+            'category_id' => $request->input('category_id'),
+            'description' => $request->input('description'),
+            'user_id' => $this->userId
+            ];
+
+        $this->operationsService->storeOperation($data, $operation);
 
         return redirect()->route('home');
     }
@@ -81,9 +89,15 @@ class OperationsController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
-        $this->validate($request, [ 'sum' => 'required|min:0,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
+        $this->validate($request, [ 'sum' => 'required|min:1,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
 
-        $this->operationRepository->update($request, $operation);
+        $data = [
+            'sum' => $request->input('sum'),
+            'category_id' => $request->input('category_id'),
+            'description' => $request->input('description')
+        ];
+
+        $this->operationsService->updateOperation($data, $operation);
 
         return redirect()->route('home');
     }
@@ -96,7 +110,7 @@ class OperationsController extends Controller
      */
     public function destroy(Operation $operation)
     {
-        $operation->destroy($operation->id);
+        $this->operationsService->destroyOperation($operation->id, $operation);
 
         return redirect()->route('home');
     }
@@ -111,8 +125,8 @@ class OperationsController extends Controller
         $all = $request->all();
         $period = $all['period'];
 
-        $operations = $this->operationService->getOperationsForPeriod($period);
-        $incomeConsumptionCount = $this->operationService->getIncomeConsumptionCount($operations);
+        $operations = $this->operationsService->getUserOperationsForPeriod($this->userId, $period);
+        $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 
         return json_encode([
             'operations' => $operations,
