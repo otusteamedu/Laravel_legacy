@@ -40,4 +40,11 @@ Route::group(
         Route::delete('users/delete', 'UserController@destroy')->name('users.destroy');
         Route::patch('users/change-password', 'UserController@changePassword')->name('users.changePassword');
 
+        Route::group([
+            'namespace' => 'Blog',
+            'as' => 'blog.',
+        ], function () {
+            Route::resource('blog/posts','PostController');
+            Route::resource('blog/categories','CategoryController');
+        });
 });

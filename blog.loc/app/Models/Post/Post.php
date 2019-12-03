@@ -3,6 +3,7 @@
 namespace App\Models\Post;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Post extends Model
 {
@@ -39,5 +40,35 @@ class Post extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Models\Post\Tag', 'post_tag');
+    }
+
+    public static function addPost(
+        string $title,
+        string $image,
+        string $shortText,
+        string $text,
+        string $keywords,
+        int $userId,
+        int $categoryId,
+        datetime $publishDate
+    )
+    {
+        $slug = Str::slug(Str::ascii($title));
+
+        Post::create([
+            'status' => Post::STATUS_DRAFT,
+            'slug' => $slug,
+            'image' => $image,
+            'title' => $title,
+            'short_text' => $shortText,
+            'text' => $text,
+            'keywords' => $keywords,
+            'description' => null,
+            'canonical_url' => null,
+            'meta_tags' => null,
+            'user_id' => $userId,
+            'category_id' => $categoryId,
+            'published_at' => $publishDate,
+        ]);
     }
 }
