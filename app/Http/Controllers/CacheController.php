@@ -2,43 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Grammar;
+use App\Services\Cache\CacheService;
 use Illuminate\Http\Request;
-use Cache;
 use DB;
 
 class CacheController extends Controller
 {
-    public function index(){
+    protected $cacheService;
 
+    public function __construct(
+        CacheService $cacheService
+    )
+    {
+        $this->cacheService = $cacheService;
+    }
+
+    public function index()
+    {
         return view('cache');
     }
-    public function clear(){
 
-        Cache::flush();
+    public function clear()
+    {
+        $this->cacheService->clear();
         return 'Кэш очищен';
     }
 
-    public  function clearGrammarDetail()
+    public function clearGrammarDetail()
     {
-        Cache::tags(['grammar'])->flush();
+        $this->cacheService->clearGrammarDetail();
         return 'Страницы грамматики удалены из кэша';
     }
 
-    public  function clearKey(Request $request){
-        if(!empty($request->key)) {
-            Cache::forget($request->key);
-        }
-        return 'Ключ <u>'.$request->key.'</u> удален';
+    public function clearKey(Request $request)
+    {
+        $this->cacheService->clearKey($request->key);
+        return 'Ключ <u>' . $request->key . '</u> удален';
     }
+
     public function heating()
     {
-        $grammar=Grammar::all();
-        Cache::put('grammar_list',$grammar,600);
-        foreach ($grammar as $item){
-            Grammar::find($item->id);
-            Cache::tags(['grammar'])->put('grammar_detail_'.$item->id, $item, 600);
-        }
+        $this->cacheService->heating();
         return 'Кэш прогрет';
     }
 }
