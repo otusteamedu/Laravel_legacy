@@ -2,6 +2,7 @@
 
 
 namespace App\Base\Repository;
+use App\Base\Service\Q;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -10,7 +11,7 @@ use Illuminate\Database\Eloquent\Builder;
  * Class BaseFilter
  * @package App\Base\Repository
  */
-class BaseFilter
+abstract class BaseFilter
 {
     protected $builder;
     protected $macros;
@@ -20,14 +21,13 @@ class BaseFilter
         $this->builder = $builder;
         $this->macros = [];
     }
+
     /**
      * Этот фильтр применяется в контексте конкретной модели.
      * Все элементы массива имеют смысл только в рамках конкретной реалицации фильтра
      *
-     * @param array $filter
+     * @param Q|null $query
      * @return Builder
      */
-    public function apply(array $filter, array $order) {
-        return $this->builder;
-    }
+    abstract public function apply(Q $query): Builder;
 }

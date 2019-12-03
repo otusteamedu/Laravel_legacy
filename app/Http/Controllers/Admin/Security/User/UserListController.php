@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Security\User;
 
 use App\Base\Controller\AbstractListController;
 use App\Base\Controller\HtmlFilter\Filter;
+use App\Base\Service\Q;
 use App\Models\User;
 use App\Services\Interfaces\IUserService;
 
@@ -19,6 +20,7 @@ class UserListController extends AbstractListController
     }
 
     public function prepareAction($method, $parameters): void {
+        parent::prepareAction($method, $parameters);
         // формировать формировать список нужно тут
         $this->filter = (new Filter($this->request))
             ->add('text', 'name', ['choose_match' => true])
@@ -27,11 +29,9 @@ class UserListController extends AbstractListController
             ->filter()
             ->init();
 
-        $this->data = $this->userService->paginateByFilter(
-            $this->filter->getData(),
-            [$this->sort => $this->by],
-            $this->nav
-        );
+        $query = new Q($this->filter->getData(), [$this->sort => $this->by], $this->nav);
+        $this->data = $this->userService->paginateByFilter($query);
+        $this->nav = $query->getNav();
     }
     /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View

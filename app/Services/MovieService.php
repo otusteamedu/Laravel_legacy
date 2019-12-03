@@ -85,17 +85,15 @@ class MovieService extends BaseService implements IMovieService
     }
 
     /**
-     * @param int $itemId
+     * @param Model $movie
      * @param array $data
      * @return Model
      * @throws \App\Base\WrongNamespaceException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Exception
      */
-    public function update(int $itemId, array $data): Model {
+    public function update(Model $movie, array $data): Model {
         /** @var Movie $movie */
-        $movie = $this->findByID($itemId);
-
         $this->validateUpdate($movie, $data);
         /** @var MovieRepository $repository */
         $repository = $this->getRepository();
@@ -131,23 +129,20 @@ class MovieService extends BaseService implements IMovieService
     protected function validateRemove(Movie $movie)
     {
     }
-
     /**
-     * @param int $primary
+     * @param Model $movie
      * @throws \App\Base\WrongNamespaceException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Exception
      */
-    public function remove(int $primary)
+    public function remove(Model $movie)
     {
         /** @var Movie $movie */
-        $movie = $this->findByID($primary);
-
         $this->validateRemove($movie);
 
         event(new MovieEvent($movie, MovieEvent::DELETING));
         $delete_poster = $movie->poster;
-        parent::remove($primary);
+        parent::remove($movie);
 
         if($delete_poster)
             $this->uploadService->getFileService()->removeFile($delete_poster);
@@ -156,9 +151,9 @@ class MovieService extends BaseService implements IMovieService
      * Получить ближайшие фильмы в прокате
      *
      * @param int $nLastCount
-     * @param CD|null $cache
      * @return array
-     * @throws \Exception
+     * @throws \App\Base\WrongNamespaceException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getSoonInRental(int $nLastCount): array {
         /** @var IMovieRepository $repository */
@@ -176,7 +171,6 @@ class MovieService extends BaseService implements IMovieService
 
         return $result;
     }
-
     /**
      * Получить $nCount случайных фильмов находящихся в данный момент в прокате
      *

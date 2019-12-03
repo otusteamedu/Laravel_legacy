@@ -30,7 +30,6 @@ class UserService extends BaseService implements IUserService
      */
     protected function validateStore(array $data)
     {
-
         \Illuminate\Support\Facades\Validator::make($data, [
             'name' => ['required', 'max:255'],
             'email' => ['required', 'max:255']

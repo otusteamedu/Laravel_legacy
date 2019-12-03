@@ -45,36 +45,33 @@ class BaseService implements IBaseService
         return $this->getRepository()->getByPrimary($primary);
     }
     /**
-     * @param array $filter
-     * @param array $order
-     * @param array|null $nav
+     * @param Q|null $query
      * @return Collection
      * @throws BindingResolutionException
      * @throws WrongNamespaceException
      */
-    public function paginateByFilter(array $filter = [], array $order = [], array &$nav = null): Collection {
-        return $this->getRepository()->getList($filter, $order, $nav);
+    public function paginateByFilter(Q $query = null): Collection {
+        return $this->getRepository()->getList($query);
     }
+
     /**
-     * @param array $filter
-     * @param array $order
+     * @param Q|null $query
      * @return Collection
      * @throws BindingResolutionException
      * @throws WrongNamespaceException
      */
-    public function findByFilter(array $filter = [], array $order = []): Collection {
-        return $this->getRepository()->getList();
+    public function findByFilter(Q $query = null): Collection {
+        return $this->getRepository()->getList($query);
     }
+
     /**
-     * @param array $filter
-     * @param array $order
-     * @param array|null $nav
+     * @param Q|null $query
      * @return Model|null
      * @throws BindingResolutionException
      * @throws WrongNamespaceException
      */
-    public function findOneByFilter(array $filter = [], array $order = []): ?Model {
-        $result = $this->findByFilter($filter, $order);
+    public function findOneByFilter(Q $query = null): ?Model {
+        $result = $this->findByFilter($query);
         return $result->isEmpty() ? null : $result->first();
     }
     /**
@@ -93,18 +90,17 @@ class BaseService implements IBaseService
      * @throws BindingResolutionException
      * @throws WrongNamespaceException
      */
-    public function update(int $primary, array $data): Model {
-        $model = $this->findModel($primary);
+    public function update(Model $model, array $data): Model {
         return $this->getRepository()->updateFromArray($model, $data);
     }
+
     /**
-     * @param int $primary
-     * @throws WrongNamespaceException
+     * @param Model $model
      * @throws BindingResolutionException
+     * @throws WrongNamespaceException
      * @throws \Exception
      */
-    public function remove(int $primary) {
-        $model = $this->findModel($primary);
+    public function remove(Model $model) {
         $this->getRepository()->remove($model);
     }
     /**

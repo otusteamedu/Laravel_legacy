@@ -13,17 +13,17 @@ interface IBaseService
 
     public function findByID(int $primary): ?Model;
 
-    public function paginateByFilter(array $filter = [], array $order = [], array &$nav = null): Collection;
+    public function paginateByFilter(Q $query): Collection;
 
-    public function findByFilter(array $filter = [], array $order = []): Collection;
+    public function findByFilter(Q $query): Collection;
 
-    public function findOneByFilter(array $filter = [], array $order = []): ?Model;
+    public function findOneByFilter(Q $query): ?Model;
 
     public function store(array $data): Model;
 
-    public function update(int $primary, array $data): Model;
+    public function update(Model $model, array $data): Model;
 
-    public function remove(int $primary);
+    public function remove(Model $model);
 
     public function getRepository(): BaseRepository;
 }

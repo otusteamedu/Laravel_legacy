@@ -3,12 +3,11 @@
 
 namespace App\Repositories\Filters;
 
-
 use App\Base\Repository\BaseFilter;
 use App\Base\Service\Q;
 use Illuminate\Database\Eloquent\Builder;
 
-class MovieFilter extends BaseFilter
+class UserFilter extends BaseFilter
 {
     public function apply(Q $query): Builder {
         $builder = $this->builder;
@@ -25,15 +24,13 @@ class MovieFilter extends BaseFilter
                     else
                         $builder->where('movies.name', 'like', '%'.$value.'%');
                     break;
-                case 'genreId':
+                case 'roleId':
                     $builder
-                        ->join('movie_genre', 'movies.id', '=', 'movie_genre.genre_id');
+                        ->join('user_role', 'users.id', '=', 'user_role.role_id');
                     if(is_array($value))
-                        $builder->whereIn('movie_genre.genre_id', $value);
+                        $builder->whereIn('user_role.role_id', $value);
                     else
-                        $builder->where('movie_genre.genre_id', ' in ', $value);
-                    break;
-                case 'countryId':
+                        $builder->where('user_role.role_id', '=', $value);
                     break;
             }
         }
