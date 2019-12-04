@@ -22,19 +22,10 @@ class GrammarService
     {
         return $this->grammarRepository->listGrammar();
     }
-    public function listGrammarJson()
-    {
-        return $this->grammarRepository->listGrammarJson();
-    }
-
 
     public function detailGrammar(string $id)
     {
         return $this->grammarRepository->detailGrammar($id);
-    }
-    public function detailGrammarJson(string $id)
-    {
-        return $this->grammarRepository->detailGrammarJson($id);
     }
     public function updateGrammar(Grammar $grammar, Array $data):Grammar
     {
