@@ -29,5 +29,25 @@ abstract class BaseFilter
      * @param Q|null $query
      * @return Builder
      */
-    abstract public function apply(Q $query): Builder;
+    public function apply(Q $query): Builder {
+        $builder = $this->builder;
+        $tableName = $builder->getModel()->getTable();
+
+        if(!empty($query->select))
+            $builder->select($query->select);
+        else
+            $builder->select([$tableName.'.*']);
+/*
+        if(!empty($query->order)) {
+            foreach($query->order as $field => $order)
+                if($order == "desc")
+                    $builder->orderByDesc($field);
+                else
+                    $builder->orderBy($field);
+        }
+        else
+            $builder->orderBy($tableName.'.id');
+*/
+        return $builder;
+    }
 }

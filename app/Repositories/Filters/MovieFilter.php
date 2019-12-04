@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Builder;
 class MovieFilter extends BaseFilter
 {
     public function apply(Q $query): Builder {
+        parent::apply($query);
+
         $builder = $this->builder;
         foreach ($query->filter as $key => $value) {
             // пустые значения не участвуют в поиске
@@ -27,13 +29,19 @@ class MovieFilter extends BaseFilter
                     break;
                 case 'genreId':
                     $builder
-                        ->join('movie_genre', 'movies.id', '=', 'movie_genre.genre_id');
+                        ->join('movie_genre', 'movies.id', '=', 'movie_genre.movie_id');
                     if(is_array($value))
                         $builder->whereIn('movie_genre.genre_id', $value);
                     else
                         $builder->where('movie_genre.genre_id', ' in ', $value);
                     break;
                 case 'countryId':
+                    $builder
+                        ->join('movie_country', 'movies.id', '=', 'movie_country.movie_id');
+                    if(is_array($value))
+                        $builder->whereIn('movie_genre.country_id', $value);
+                    else
+                        $builder->where('movie_genre.country_id', ' in ', $value);
                     break;
             }
         }
