@@ -4,8 +4,9 @@
 namespace App\Services\Cache;
 
 use Cache;
+use DB;
 use App\Models\Grammar;
-
+use App\Http\Resources\GrammarResource;
 class CacheService
 {
     public function clear(){

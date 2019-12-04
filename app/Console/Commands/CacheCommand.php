@@ -16,9 +16,9 @@ class CacheCommand extends Command
      * @var string
      */
     protected $signature = 'cache 
-                            {   cacheCode? : Код Кэша котрый нужно очистить }
+                            {   --c|--cache-code= : Код Кэша котрый нужно очистить }
                             {   --H|--heating : Прогрев }
-                            {   --a|--claearAll : Очистить весь кэш }';
+                            {   --a|--claear-all : Очистить весь кэш }';
 
     /**
      * The console command description.
@@ -46,22 +46,19 @@ class CacheCommand extends Command
     public function handle()
     {
         $b=false;
-        $cacheCode=$this->argument('cacheCode');
+        $cacheCode=$this->option('cache-code');
         if(!empty($cacheCode)){
             $this->cacheService->clearKey($cacheCode);
-            $b=true;
         }
         $heating=$this->option('heating');
         if(!empty($heating)){
             $this->cacheService->heating();
-            $b=true;
         }
-        $claearAll=$this->option('claearAll');
+        $claearAll=$this->option('claear-all');
         if(!empty($claearAll)){
             $this->cacheService->clear();
-            $b=true;
         }
-        if(!$b) {
+        if((empty($claearAll))&&(empty($heating))&&(empty($claearAll))) {
             $this->info('use: php artisan list cache');
         }
     }
