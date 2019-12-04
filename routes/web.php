@@ -113,8 +113,8 @@ $GLOBALS = array_merge($GLOBALS, [
             'premiereDate' => new DateTime('2019-09-05'),
             'ageLimit' => '18',
             'slogan' => 'Поплаваем опять (You\'ll Float Again)',
-            'description' => 'Проходит 27 лет после первой встречи ребят с демоническим Пеннивайзом. 
-                Они уже выросли, и у каждого своя жизнь. Но неожиданно их спокойное существование нарушает 
+            'description' => 'Проходит 27 лет после первой встречи ребят с демоническим Пеннивайзом.
+                Они уже выросли, и у каждого своя жизнь. Но неожиданно их спокойное существование нарушает
                 странный телефонный звонок, который заставляет старых друзей вновь собраться вместе.',
             'poster' => 'images/films/7.jpg',
             'actors' => [
@@ -252,6 +252,8 @@ $GLOBALS = array_merge($GLOBALS, [
 ]);
 
 Route::get('/', 'Publica\StartController@index')->name('public.start');
+Route::get('/test', 'Publica\TestController@index')->name('public.test');
+
 /*
 Route::get('/', function () {
     return view('public.start.index', [

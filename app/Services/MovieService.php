@@ -187,7 +187,7 @@ class MovieService extends BaseService implements IMovieService
             function($movie) use (&$result) {
                 /** @var Movie $movie */
                 $item = $movie->toArray();
-                $item['poster'] = $movie->poster->toArray();
+                $item['poster'] = $movie->poster ? $movie->poster->toArray() : null;
                 $result[] = $item;
             }
         );

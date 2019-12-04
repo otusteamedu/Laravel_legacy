@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
  * @property File[]|\Illuminate\Database\Eloquent\Collection photos
+ * @property Hall[]|\Illuminate\Database\Eloquent\Collection halls
  * @property User owner
  *
  * @package App\Models
@@ -48,5 +49,10 @@ class Cinema extends Model
     public function owner() : BelongsTo
     {
         return $this->belongsTo(User::class, 'created_user_id');
+    }
+
+    public function halls() {
+        return $this
+            ->hasMany(Hall::class, 'cinema_id', 'id');
     }
 }

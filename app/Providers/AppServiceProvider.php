@@ -57,6 +57,8 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\Interfaces\IUploadRepository::class, \App\Repositories\UploadRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IUserRepository::class, \App\Repositories\UserRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IRoleRepository::class, \App\Repositories\RoleRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IHallRepository::class, \App\Repositories\HallRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IMovieShowingRepository::class, \App\Repositories\MovieShowingRepository::class);
 
         // сервисы
         $this->app->bind(\App\Services\Interfaces\IUploadService::class, \App\Services\UploadService::class);
@@ -64,6 +66,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Services\Interfaces\ICinemaService::class, \App\Services\CinemaService::class);
         $this->app->bind(\App\Services\Interfaces\IUserService::class, \App\Services\UserService::class);
         $this->app->bind(\App\Services\Interfaces\IRoleService::class, \App\Services\RoleService::class);
+        $this->app->bind(\App\Services\Interfaces\IMovieShowingService::class, \App\Services\MovieShowingService::class);
 
         try {
             $this->app->singleton(FileService::class, function (Application $app) {
