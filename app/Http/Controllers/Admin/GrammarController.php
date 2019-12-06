@@ -9,6 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
 use App\Policies\Abilities;
+use App\Jobs\UpdateGrammarJob;
+use Illuminate\Support\Facades\Log;
+use App\User;
 
 class GrammarController extends Controller
 {
@@ -76,8 +79,10 @@ class GrammarController extends Controller
             'code' => 'required',
             'title' => 'required',
         ]);
+
         $data = $request->all();
         $grammar = $this->grammarService->updateGrammar($grammar,$data);
+        $this->dispatch(new UpdateGrammarJob($grammar->id,Auth::User()->id));
         return view('admin.grammar_detail')->with([
             'grammar' => $grammar,
         ]);
