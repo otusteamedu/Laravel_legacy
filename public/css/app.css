@@ -11365,6 +11365,16 @@ html {
   footer {
     position: static !important;
   }
+
+  main {
+    min-height: calc(100vh - 153px);
+  }
+}
+
+@media (max-width: 560px) {
+  main {
+    min-height: calc(100vh - 187px);
+  }
 }
 
 .circle-doc {
