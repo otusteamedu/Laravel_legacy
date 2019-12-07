@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Helpers;
+
 class RandomMessageGenerator
 {
     private $firstWordsArray = [
