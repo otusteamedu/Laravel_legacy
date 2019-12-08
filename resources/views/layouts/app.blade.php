@@ -47,21 +47,21 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}">Main</a>
+                        <a class="nav-link" href="{{url('/')}}">@lang('Main page')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('profile')}}">User profile prototype</a>
+                        <a class="nav-link" href="{{route('profile')}}">@lang('User profile prototype')</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('page')}}">Abstract page</a>
+                        <a class="nav-link" href="{{route('page')}}">@lang('Abstract page')</a>
                     </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                            <a class="nav-link" href="{{ route('login') }}">@lang('form.auth')</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                                <a class="nav-link" href="{{ route('register') }}">@lang('form.register')</a>
                             </li>
                         @endif
                     @else
