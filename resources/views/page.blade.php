@@ -3,7 +3,7 @@
 @section('content')
     <div class="container text-center">
         <div class="display-3 text-secondary">
-            Abstract page
+            @lang('Abstract page')
 
             <div class="circle-doc">
                 <div id="circle">
