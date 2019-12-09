@@ -11,14 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::group(['as' => 'users.', 'prefix' => 'users'], function () {
+    Route::get('/', 'UserController@showList')->name('list');
+
+    Route::get('/my-page', 'UserController@showUserPage')
+        ->name('user-page')
+        ->middleware('auth');
 });
 
+Route::name('site.')->group(function () {
+    Route::get('/', 'SiteController@index')->name('index');
+    Route::get('/about', 'SiteController@showAbout')->name('about');
+});
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::group(['prefix' => 'users'], function () {
-    Route::get('/', 'UserController@showList');
-});
