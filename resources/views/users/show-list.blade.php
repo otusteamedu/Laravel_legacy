@@ -6,23 +6,23 @@
 
 @extends('layouts.main')
 
-@section('title', __('message.show-user-list-title'))
+@section('title', __('message.user.show_list.title'))
 
 @section('content')
     <main>
         <div class="container">
             <div class="row pt-5">
                 <div class="col text-center">
-                    <h2>{{ __('message.show-user-list-header') }}</h2>
+                    <h2>{{ __('message.user.show_list.title') }}</h2>
                 </div>
 
                 <table class="table">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">{{ __('message.show-user-list_table_thead_name') }}</th>
-                        <th scope="col">{{ __('message.show-user-list_table_thead_email') }}</th>
-                        <th scope="col">{{ __('message.show-user-list_table_thead_created-at') }}</th>
+                        <th scope="col">{{ __('message.user.show_list.table_thead_name') }}</th>
+                        <th scope="col">{{ __('message.user.show_list.table_thead_email') }}</th>
+                        <th scope="col">{{ __('message.user.show_list.table_thead_created_at') }}</th>
                     </tr>
                     </thead>
                     <tbody>
