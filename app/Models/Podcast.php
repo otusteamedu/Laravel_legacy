@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -41,6 +42,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $category_itunes_id
  * @property-read \App\Models\CategoryItunes|null $categoryItunes
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast whereCategoryItunesId($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\User[] $users
+ * @property-read int|null $users_count
+ * @method \Illuminate\Database\Eloquent\Builder|\App\Models\Podcast forUser(\App\User $user)
  */
 class Podcast extends Model
 {
@@ -86,5 +90,35 @@ class Podcast extends Model
             return null;
         }
         return \Storage::url($this->cover_file);
+    }
+
+    /**
+     * The users that belong to the role.
+     */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    /**
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param User $user
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeForUser($query, User $user)
+    {
+        return $query->whereHas('users', function ($q) use ($user) {
+            $q->where('user_id', '=', $user->id);
+        });
+    }
+
+    /**
+     * Определяет, относится ли данный подкаст к указанному пользователю?
+     * @param User $user
+     * @return bool
+     */
+    public function hasUser(User $user): bool
+    {
+        return $this->users->contains($user);
     }
 }

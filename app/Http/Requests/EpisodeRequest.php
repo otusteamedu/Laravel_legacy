@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Podcast;
 use Illuminate\Foundation\Http\FormRequest;
 
 class EpisodeRequest extends FormRequest
@@ -17,6 +18,21 @@ class EpisodeRequest extends FormRequest
             'name' => 'required',
             'podcast_id' => 'required|integer',
         ];
+    }
+
+    /**
+     * Проверим доступ к выбранному в выпадающем списке подкасту
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        $podcastId = $this->get('podcast_id');
+        // Пользователь что-то выбирает в выпадающем списке подкастов (выбирает подкаст для данного эпизода)
+        // это должен быть существующий подкаст
+        // и у пользователя должен быть доступ к этому подкасту
+        $podcast = Podcast::find($podcastId);
+        return $podcast && $this->user()->can('access', $podcast);
     }
 
     protected function prepareForValidation()

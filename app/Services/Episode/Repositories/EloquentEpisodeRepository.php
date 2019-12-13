@@ -5,6 +5,7 @@ namespace App\Services\Episode\Repositories;
 
 
 use App\Models\Episode;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class EloquentEpisodeRepository implements EpisodeRepositoryInterface
@@ -14,9 +15,13 @@ class EloquentEpisodeRepository implements EpisodeRepositoryInterface
         return Episode::find($id);
     }
 
-    public function search(array $filters = []): LengthAwarePaginator
+    public function search(array $filters = [], User $user = null): LengthAwarePaginator
     {
-        return Episode::orderBy('no', 'desc')->where($filters)->paginate();
+        $builder = Episode::orderBy('no', 'desc')->where($filters);
+        if ($user) {
+            $builder->forUser($user);
+        }
+        return $builder->paginate();
     }
 
     public function createFromArray(array $data): Episode

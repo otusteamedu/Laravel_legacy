@@ -5,6 +5,7 @@ namespace App\Services\Podcast\Repositories;
 
 
 use App\Models\Podcast;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class EloquentPodcastRepository implements PodcastRepositoryInterface
@@ -14,9 +15,13 @@ class EloquentPodcastRepository implements PodcastRepositoryInterface
         return Podcast::find($id);
     }
 
-    public function search(array $filters = []): LengthAwarePaginator
+    public function search(array $filters = [], User $user = null): LengthAwarePaginator
     {
-        return Podcast::with('latestEpisode')->orderBy('name')->where($filters)->paginate();
+        $builder = Podcast::with('latestEpisode')->orderBy('name')->where($filters);
+        if ($user) {
+            $builder->forUser($user);
+        }
+        return $builder->paginate();
     }
 
     public function createFromArray(array $data): Podcast
@@ -37,11 +42,19 @@ class EloquentPodcastRepository implements PodcastRepositoryInterface
 
     /**
      * Возвращает массив подкастов в формате id => name
+     * Нужно для формирования выпадающего списка подкастов в пользовательском интерфейсе
+     * @param User $user
      * @return array
      */
-    public function getPodcastsOptions(): array
+    public function getPodcastsOptions(User $user): array
     {
-        $categories = \DB::select("SELECT id, name FROM podcasts ORDER BY name");
-        return array_combine(array_column($categories, 'id'), array_column($categories, 'name'));
+        return Podcast::forUser($user)
+            ->select(['id', 'name'])
+            ->orderBy('name')
+            ->get()
+            ->mapWithKeys(function ($podcast) {
+                return [$podcast->id => $podcast->name];
+            })
+            ->toArray();
     }
 }

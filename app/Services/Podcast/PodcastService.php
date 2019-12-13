@@ -4,6 +4,7 @@ namespace App\Services\Podcast;
 
 use App\Models\Podcast;
 use App\Services\Podcast\Repositories\PodcastRepositoryInterface;
+use App\User;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\UploadedFile;
 
@@ -28,24 +29,27 @@ class PodcastService
 
     /**
      * @param array $filters
+     * @param User|null $user
      * @return LengthAwarePaginator
      */
-    public function searchPodcasts(array $filters = []): LengthAwarePaginator
+    public function searchPodcasts(array $filters = [], User $user = null): LengthAwarePaginator
     {
-        return $this->podcastRepository->search($filters);
+        return $this->podcastRepository->search($filters, $user);
     }
 
     /**
      * @param array $data
      * @return Podcast
      */
-    public function storePodcast(array $data): Podcast
+    public function storePodcast(array $data, User $user): Podcast
     {
         $podcast = $this->podcastRepository->createFromArray($data);
 
         if (!empty($data['cover'])) {
             $this->handleCoverUpload($podcast, $data['cover']);
         }
+
+        $podcast->users()->attach($user);
 
         return $podcast;
     }
@@ -82,10 +86,11 @@ class PodcastService
 
     /**
      * Возвращает массив подкастов в формате id => name
+     * @param User $user
      * @return array
      */
-    public function getPodcasts(): array
+    public function getPodcasts(User $user): array
     {
-        return $this->podcastRepository->getPodcastsOptions();
+        return $this->podcastRepository->getPodcastsOptions($user);
     }
 }

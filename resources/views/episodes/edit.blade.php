@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="content">
-        @include('episodes.common.nav', ['head_text' => __('common.episode')]);
+        @include('episodes.common.nav', ['head_text' => __('common.episode')])
 
         {{ Form::model($episode, ['route' => ['episodes.update', $episode->id], 'method' => 'put', 'files' => true]) }}
 

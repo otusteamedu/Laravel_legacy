@@ -24,7 +24,7 @@ use App\Models\Podcast;
         @if($podcasts->count())
             @include('podcasts.table')
         @else
-            <p>@lang('podcasts.no_podcasts')</p>
+            <p>@lang('podcast.no_podcasts')</p>
         @endif
 
     </div>
