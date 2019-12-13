@@ -1,0 +1,68 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto);body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a,
+ul,
+ol,
+li,
+button,
+label {
+  font-family: "Roboto", Verdana, Geneva, Tahoma, sans-serif;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: #80bb27;
+  color: white;
+  text-align: center;
+  border-bottom: 2px solid white;
+}
+
+nav h1 {
+  margin-bottom: 0px;
+}
+
+nav p {
+  text-indent: 0px;
+  text-align: center;
+  margin-bottom: 0px;
+}
+
+nav p a {
+  color: white;
+}
+
+nav p a:hover {
+  color: white;
+  -webkit-text-decoration: underline solid orange;
+          text-decoration: underline solid orange;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 20px;
+  background-color: #80bb27;
+  border-top: 2px solid white;
+}
+
+main {
+  margin-top: 80px;
+  padding: 10px;
+  text-align: center;
+}
+
+main img {
+  width: 150px;
+  margin-bottom: 20px;
+}
+
