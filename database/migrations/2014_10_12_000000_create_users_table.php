@@ -15,12 +15,19 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('source');   //добавил
+            $table->date('date');       //добавил
+            $table->string('type');     //добавил
             $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
+            $table->string('phone');    //добавил
+            $table->string('email');    //->unique();
+            //$table->timestamp('email_verified_at')->nullable(); это поле не нужно
+            $table->string('address');  //добавил
+            $table->string('comments'); //добавил
+            $table->string('is_enemy'); //добавил
+            //$table->string('password'); это поле будет переведено в таблицу User Accounts
+            //$table->rememberToken();    это поле будет переведено в таблицу User Accounts
+            //$table->timestamps();       эти поля не нужны
         });
     }
 
