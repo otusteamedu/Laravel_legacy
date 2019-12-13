@@ -1,5 +1,12 @@
 @extends('public.about.layout')
 
+@php
+    $breadCrumbs = [
+        [ 'url' => \route('public.start'), 'title' => __('public.menu.home')],
+        [ 'url' => \route('public.about'), 'title' => __('public.menu.about')]
+    ];
+@endphp
+
 @section('pageTitle')
     О сети кинотеатров &laquo;Go в Кинчик&raquo;
 @endsection

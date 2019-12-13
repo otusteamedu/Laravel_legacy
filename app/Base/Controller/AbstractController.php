@@ -110,4 +110,32 @@ abstract class AbstractController extends Controller
     public function FileService(): FileService {
         return $this->Uploader()->getFileService();
     }
+
+    public function makeThumbs(array &$data, string $field, array $thumbOpts = null) {
+        foreach ($data as &$item)
+            $this->makeThumb($item, $field, $thumbOpts);
+    }
+
+    public function makeThumb(array &$item, string $field, array $thumbOpts = null) {
+        $fs = $this->FileService();
+        $rs = $this->Resizer();
+        $bOneImage = (substr($field, -1, 1) != 's');
+
+        if(!array_key_exists($field, $item))
+            return;
+
+        $item[$field] = $fs->getLocalFileArray($item[$field]);
+        if($thumbOpts) {
+            $key = $field . '_thumb';
+            if($bOneImage) {
+                $item[$key] = $item[$field] ? $rs->ResizeImage($item[$field], $thumbOpts) : null;
+                $item[$key.'_url'] = $item[$key] ? $fs->getAssetFile($item[$key]) : null;
+            }
+        }
+        else {
+            if($bOneImage) {
+                $item[$field . '_url'] = $item[$field] ? $fs->getAssetFile($item[$field]) : null;
+            }
+        }
+    }
 }

@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @property int id
  * @property string name
+ * @property string code
  * @property float defaultKoef
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
@@ -18,6 +19,7 @@ use Illuminate\Database\Eloquent\Model;
 class Tariff extends Model
 {
     protected $fillable = [
+        'code',
         'name',
         'defaultKoef',
         'created_at',
@@ -25,6 +27,7 @@ class Tariff extends Model
     ];
 
     protected $attributes = [
+        'code' => '',
         'name' => '',
         'defaultKoef' => 1.00,
         'created_at' => '',

@@ -15,13 +15,16 @@ class TariffTableSeeder extends Seeder
         $preInstalledTariffName = [
             [
                 'defaultKoef' => 1,
-                'name' => 'Эконом'
+                'name' => 'Эконом',
+                'code' => 'economy'
             ], [
                 'defaultKoef' => 1.25,
-                'name' => 'Стандарт'
+                'name' => 'Стандарт',
+                'code' => 'standard'
             ], [
                 'defaultKoef' => 1.5,
-                'name' => 'VIP'
+                'name' => 'VIP',
+                'code' => 'vip'
             ]
         ];
 

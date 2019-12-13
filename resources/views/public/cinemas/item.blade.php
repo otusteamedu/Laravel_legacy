@@ -1,7 +1,22 @@
 @extends('public.movies.layout')
 
+@php
+    $breadCrumbs = [
+        [
+            'url' => \route('public.start'),
+            'title' => __('public.menu.home'),
+        ], [
+            'url' => \route('public.cinemas.index'),
+            'title' => __('public.menu.cinemas'),
+        ], [
+            'url' => \route('public.cinemas.item', ['id' => $cinema['id']]),
+            'title' => $cinema['name'],
+        ]
+    ];
+@endphp
+
 @section('pageTitle')
-    {{ $cinema['NAME'] }}: информация о кинотеатре
+    {{ $cinema['name'] }}: информация о кинотеатре
 @endsection
 
 @section('pageHeader')

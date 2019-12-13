@@ -59,6 +59,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\Interfaces\IRoleRepository::class, \App\Repositories\RoleRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IHallRepository::class, \App\Repositories\HallRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IMovieShowingRepository::class, \App\Repositories\MovieShowingRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IGenreRepository::class, \App\Repositories\GenreRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IPlaceRepository::class, \App\Repositories\PlaceRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IShowingPriceRepository::class, \App\Repositories\ShowingPriceRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\ITicketRepository::class, \App\Repositories\TicketRepository::class);
 
         // сервисы
         $this->app->bind(\App\Services\Interfaces\IUploadService::class, \App\Services\UploadService::class);
@@ -67,6 +71,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Services\Interfaces\IUserService::class, \App\Services\UserService::class);
         $this->app->bind(\App\Services\Interfaces\IRoleService::class, \App\Services\RoleService::class);
         $this->app->bind(\App\Services\Interfaces\IMovieShowingService::class, \App\Services\MovieShowingService::class);
+        $this->app->bind(\App\Services\Interfaces\IGenreService::class, \App\Services\GenreService::class);
+        $this->app->bind(\App\Services\Interfaces\IPlaceService::class, \App\Services\PlaceService::class);
+        $this->app->bind(\App\Services\Interfaces\IShowingPriceService::class, \App\Services\ShowingPriceService::class);
+        $this->app->bind(\App\Services\Interfaces\ITicketService::class, \App\Services\TicketService::class);
 
         try {
             $this->app->singleton(FileService::class, function (Application $app) {

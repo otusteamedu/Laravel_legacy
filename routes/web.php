@@ -11,7 +11,6 @@
 |
 */
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Log;
 
@@ -66,11 +65,6 @@ Route::name('admin.')->prefix('manager')->middleware(['auth', 'manager'])->group
         Route::match(['put', 'patch'], '', 'Admin\Security\PermController@save')->name('save');
     });
 });
-
-
-
-
-
 
 $GLOBALS = array_merge($GLOBALS, [
     'arCinemas' => [
@@ -252,148 +246,21 @@ $GLOBALS = array_merge($GLOBALS, [
 ]);
 
 Route::get('/', 'Publica\StartController@index')->name('public.start');
+Route::get('/about', 'Publica\StartController@about')->name('public.about');
 Route::get('/test', 'Publica\TestController@index')->name('public.test');
+Route::get('/movies', 'Publica\MovieController@index')->name('public.movies.search');
+Route::get('/movies/view/{id}', 'Publica\MovieController@view')->where(['id' => '[0-9]+'])->name('public.movies.view');
+Route::get('/movies/premier', 'Publica\MovieController@soon')->name('public.movies.premier');
 
-/*
-Route::get('/', function () {
-    return view('public.start.index', [
-        'premierMovies' => [
-            [
-                'id' => 1,
-                'name' => 'Большой и необрезанный',
-                'premiereDate' => new DateTime('2019-09-21'),
-                'ageLimit' => '18',
-                'slogan' => 'Никогда не знаешь где есть конец',
-                'poster' => 'images/slider/sample1.jpg'
-            ], [
-                'id' => 2,
-                'name' => 'Приключения Тома и Фрица',
-                'premiereDate' => new DateTime('2019-09-25'),
-                'ageLimit' => '0',
-                'slogan' => 'Друзья &mdash; они и в Африке опрокинут друг друга',
-                'poster' => 'images/slider/sample2.jpg'
-            ], [
-                'id' => 2,
-                'name' => 'Страх и ненависть в Три-Майл-Айленд',
-                'premiereDate' => new DateTime('2019-09-28'),
-                'ageLimit' => '12',
-                'slogan' => 'Увлекательная история мадам Кюри',
-                'poster' => 'images/slider/sample3.jpg'
-            ]
-        ],
-        'showingMovies' => $GLOBALS['arMovies']
-    ]);
-})->name('public.start');
-*/
-Route::get('/about', function () {
-    return view('public.about.index', [
-        'breadCrumbs' => [
-            [
-                'url' => \route('public.start'),
-                'title' => __('public.menu.home'),
-            ],
-            [
-                'url' => \route('public.about'),
-                'title' => __('public.menu.about'),
-            ]
-        ],
-        'cinemasList' => $GLOBALS['arCinemas']
-    ]);
-})->name('public.about');
-
-Route::get('/movies', function () {
-    return view('public.movies.index', [
-        'breadCrumbs' => [
-            [
-                'url' => \route('public.start'),
-                'title' => __('public.menu.home'),
-            ],
-            [
-                'url' => \route('public.movies.showing'),
-                'title' => __('public.menu.showing'),
-            ]
-        ],
-        'showingMovies' => $GLOBALS['arMovies']
-    ]);
-})->name('public.movies.showing');
+Route::get('/movies/showing/{id}', 'Publica\MovieShowingController@showing')->where(['id' => '[0-9]+'])->name('public.movies.showing');
+Route::get('/movies/order/{id}', 'Publica\MovieShowingController@order')->where(['id' => '[0-9]+'])->name('public.movies.order');
+Route::post('/movies/order/{id}', 'Publica\MovieShowingController@addticket')->where(['id' => '[0-9]+'])->name('public.movies.addticket');
 
 Route::get('/movies/archived', function () {
     return view('public');
 })->name('public.movies.archived');
 
-Route::get('/movies/soon', function () {
-    return view('public');
-})->name('public.movies.premier');
-
-Route::get('/movies/view/{id}', function (int $id) {
-    $found_key = array_search($id, array_column($GLOBALS['arMovies'], 'id'));
-    if($found_key === false)
-        abort(404);
-
-    $item = $GLOBALS['arMovies'][$found_key];
-    return view('public.movies.view', [
-        'breadCrumbs' => [
-            [
-                'url' => \route('public.start'),
-                'title' => __('public.menu.home'),
-            ], [
-                'url' => \route('public.movies.showing'),
-                'title' => __('public.menu.showing'),
-            ], [
-                'url' => \route('public.movies.info', ['id' => $item['id']]),
-                'title' => $item['name'],
-            ]
-        ],
-        'item' => $item,
-        'showingMovies' => [
-            [
-                'id' => 3,
-                'name' => 'Улицы разбитых фонарей 17',
-                'premiereDate' => '',
-                'ageLimit' => '',
-                'slogan' => '',
-                'poster' => 'images/films/3.jpg',
-                'description' => '',
-                'actors' => [],
-                'countries' => [],
-                'genres' => [],
-                'producer' => false,
-                'duration' => 169,
-                'trailer' => false
-            ], [
-                'id' => 4,
-                'name' => 'Протрезвевшие',
-                'premiereDate' => '',
-                'ageLimit' => '',
-                'slogan' => '',
-                'poster' => 'images/films/4.jpg',
-                'description' => '',
-                'actors' => [],
-                'countries' => [],
-                'genres' => [],
-                'producer' => false,
-                'duration' => 169,
-                'trailer' => false
-            ], [
-                'id' => 5,
-                'name' => 'Люди Икс. Что-то на 2 строчки',
-                'premiereDate' => '',
-                'ageLimit' => '',
-                'slogan' => '',
-                'poster' => 'images/films/5.jpg',
-                'description' => '',
-                'actors' => [],
-                'countries' => [],
-                'genres' => [],
-                'producer' => false,
-                'duration' => 169,
-                'trailer' => false
-            ]
-        ]
-    ]);
-})->where(['id' => '[0-9]+'])->name('public.movies.info');
-
-Route::get('/movies/order/{id}', function (int $id) {
+Route::get('/movies/order1/{id}', function (int $id) {
     $found_key = array_search($id, array_column($GLOBALS['arMovies'], 'id'));
     if($found_key === false)
         abort(404);
@@ -478,7 +345,12 @@ Route::get('/movies/order/{id}', function (int $id) {
             ]
         ]
     ]);
-})->where(['id' => '[0-9]+'])->name('public.movies.order');
+})->where(['id' => '[0-9]+'])->name('public.movies.order1');
+
+Route::get('/cinemas', 'Publica\CinemaController@index')->name('public.cinemas.index');
+Route::get('/cinemas/{id}', 'Publica\CinemaController@view')->where(['id' => '[0-9]+'])->name('public.cinemas.item');
+Route::get('/cinemas/map_data', 'Publica\CinemaController@mapData')->name('public.cinemas.json');
+
 
 Route::get('/cinemas', function () {
     return view('public.cinemas.index', [
@@ -579,32 +451,14 @@ Route::get('/cinemas/{id}', function (int $id) {
     ]);
 })->where(['id' => '[0-9]+'])->name('public.cinemas.item');
 
-Route::get('/cinema/map_data', function () {
-    return response()->json($GLOBALS['arCinemas']);
-})->name('public.cinemas.json');
+
+
+
 
 Route::middleware('auth')->get('/manager', function () {
     Log::debug('ffff');
     return view('admin.start.index');
 })->name('admin.index');
-/*
-Route::name('admin.')->group(function () {
-    Route::prefix('manager')->group(function () {
-        Route::resource('countries', 'Admin\Movies\CountryController')->except(['show']);
-        Route::resource('genres', 'Admin\Movies\GenreController')->except(['show']);
-        Route::resource('people', 'Admin\Movies\PersonController')->except(['show']);
-        Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
-    });
-});
-*/
-
-
-
-// ->where(['id' => '[0-9]+'])->name('admin.index');
-//[
-//    'countries' => 'Cms\Countries\CountriesController',
-//    'cities' => 'Cms\Cities\CitiesController',
-//]
 
 
 Route::get('/account', function () {

@@ -5,9 +5,12 @@ namespace App\Repositories;
 
 
 use App\Base\Repository\BaseRepository;
+use App\Models\MovieShowing;
+use App\Models\Place;
 use App\Models\Ticket;
 use App\Repositories\Interfaces\IShowingPriceRepository;
 use App\Repositories\Interfaces\ITicketRepository;
+use Illuminate\Database\Eloquent\Model;
 
 class TicketRepository extends BaseRepository implements ITicketRepository
 {
@@ -22,8 +25,16 @@ class TicketRepository extends BaseRepository implements ITicketRepository
         return !empty($ticket->owner);
     }
 
-    public function getPrice(Ticket $ticket): int
+    public function GetTicketPrice(Ticket $ticket): int {
+        return $this->priceRepository->getPrice($ticket->movieShowing, $ticket->place);
+    }
+
+    public function find(MovieShowing $showing , Place $place): ?Model
     {
-        $price = $this->priceRepository->getPrice($ticket->movieShowing, $ticket->place);
+        // TODO: Implement find() method.
+    }
+
+    public function createTicket(MovieShowing $showing , Place $place): Model {
+        // TODO: Implement createTicket() method.
     }
 }

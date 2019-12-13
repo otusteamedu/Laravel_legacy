@@ -138,21 +138,21 @@ mapLoader.prototype.setObjects = function(data, currentId) {
 };
 mapLoader.prototype.createPoint = function(data) {
 	var placeMark, that = this;
-	placeMark = new ymaps.Placemark([data.POINT[0], data.POINT[1]], {
-		name: data.NAME,
+	placeMark = new ymaps.Placemark([data.location[0], data.location[1]], {
+		name: data.name,
 		image: '',
 		url: '',
 		properties: [],
         text: "Идет загрузка данных...",
-		balloonContentHeader: data.NAME,
-		clusterCaption: data.NAME
+		balloonContentHeader: data.name,
+		clusterCaption: data.name
     }, {
 		balloonContentLayout: this.BalloonContentLayout,
 		balloonPanelMaxMapArea: 0,
 		preset: "islands#dotCircleIcon"
 	});
 
-	placeMark.properties.set('id', data.ID);
+	placeMark.properties.set('id', data.id);
 	placeMark.properties.set('loader', this);
 
 	placeMark.events.add('balloonopen', function (e)
@@ -163,8 +163,6 @@ mapLoader.prototype.createPoint = function(data) {
 				placeMark.properties.set(key, data[key]);
 		});
 	});
-
-
 
 	return placeMark;
 };
@@ -188,34 +186,34 @@ mapLoader.prototype.setMapBounds = function(id) {
 	}
 	else {
 		if((typeof(id) != 'undefined')) {
-			var object = this.findObj(id), point;
+			var object = this.findObj(id), location;
 			if(object) {
-				point = object.POINT;
-				//that.Map.zoomRange.get(point).then(function(res)
+                location = object.location;
+				//that.Map.zoomRange.get(location).then(function(res)
 				//{
-				//	 that.Map.setCenter(point, res[1]);
+				//	 that.Map.setCenter(location, res[1]);
 				//});
 				//object.object.balloon.open();
-				that.Map.setCenter(point, 18);
+				that.Map.setCenter(location, 18);
 			}
 		}
 		else if(this.Data.length == 1) {
-			point = this.Data[0].POINT;
-			this.Map.setCenter(point);
+            location = this.Data[0].location;
+			this.Map.setCenter(location);
 		}
 		else {
 			var min = [0, 0], max = [0, 0];
 			for(var i = 0; i < this.Data.length; i++) {
-				point = this.Data[i].POINT;
-				if(	(typeof(point[0]) == 'undefined') ||
-					(typeof(point[1]) == 'undefined'))
+                location = this.Data[i].location;
+				if(	(typeof(location[0]) == 'undefined') ||
+					(typeof(location[1]) == 'undefined'))
 					continue;
 
-				if(!min[0] || (point[0]<min[0])) min[0] = point[0];
-				if(!min[1] || (point[1]<min[1])) min[1] = point[1];
+				if(!min[0] || (location[0]<min[0])) min[0] = location[0];
+				if(!min[1] || (location[1]<min[1])) min[1] = location[1];
 
-				if(!max[0] || (point[0]>max[0])) max[0] = point[0];
-				if(!max[1] || (point[1]>max[1])) max[1] = point[1];
+				if(!max[0] || (location[0]>max[0])) max[0] = location[0];
+				if(!max[1] || (location[1]>max[1])) max[1] = location[1];
 			}
 
 			this.Map.setBounds(min, max);

@@ -1,5 +1,17 @@
 @extends('public.movies.layout')
 
+@php
+    $breadCrumbs = [
+        [
+            'url' => \route('public.start'),
+            'title' => __('public.menu.home')
+        ],  [
+            'url' => \route('public.movies.search'),
+            'title' => __('public.menu.showing')
+        ]
+    ]
+@endphp
+
 @section('pageTitle')
     Фильмы в прокате
 @endsection
@@ -16,10 +28,10 @@
                 @foreach ($showingMovies as $item)
                     <div class="col-sm-4 my-3">
                         <div class="card">
-                            <a href="{{ route('public.movies.info', ['id' => $item['id']]) }}" style="background-image: url({{ asset($item['poster']) }})" class="card-img-top image"></a>
+                            <a href="{{ route('public.movies.view', ['id' => $item['id']]) }}" style="background-image: url({{ asset($item['poster_thumb_url']) }})" class="card-img-top image"></a>
                             <div class="card-body">
                                 <h5 class="card-title">
-                                    <a href="{{ route('public.movies.info', ['id' => $item['id']]) }}">
+                                    <a href="{{ route('public.movies.view', ['id' => $item['id']]) }}">
                                         {{ $item['name'] }}
                                     </a>
                                 </h5>
@@ -29,18 +41,7 @@
                     </div>
                 @endforeach
             </div>
-            <nav aria-label="Фильмы в прокате">
-                <ul class="pagination">
-                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item" aria-current="page">
-                        <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item">
-                        <a class="page-link" href="#">След.</a>
-                    </li>
-                </ul>
-            </nav>
+            {!! $navPages['html'] !!}
         </div>
     @endif
 

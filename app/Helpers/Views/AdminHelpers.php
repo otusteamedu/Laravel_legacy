@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 class AdminHelpers
 {
     const FORMAT_SITE_DATE = "d.m.Y";
+    const FORMAT_SITE_TIME = "H:i";
     const FORMAT_SITE_DATE_TIME = "d.m.Y H:i";
 
     public static function forSelect(Collection $list): array {

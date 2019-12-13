@@ -37043,20 +37043,20 @@ mapLoader.prototype.setObjects = function (data, currentId) {
 mapLoader.prototype.createPoint = function (data) {
   var placeMark,
       that = this;
-  placeMark = new ymaps.Placemark([data.POINT[0], data.POINT[1]], {
-    name: data.NAME,
+  placeMark = new ymaps.Placemark([data.location[0], data.location[1]], {
+    name: data.name,
     image: '',
     url: '',
     properties: [],
     text: "Идет загрузка данных...",
-    balloonContentHeader: data.NAME,
-    clusterCaption: data.NAME
+    balloonContentHeader: data.name,
+    clusterCaption: data.name
   }, {
     balloonContentLayout: this.BalloonContentLayout,
     balloonPanelMaxMapArea: 0,
     preset: "islands#dotCircleIcon"
   });
-  placeMark.properties.set('id', data.ID);
+  placeMark.properties.set('id', data.id);
   placeMark.properties.set('loader', this);
   placeMark.events.add('balloonopen', function (e) {
     var value = placeMark.properties.get('id');
@@ -37092,31 +37092,31 @@ mapLoader.prototype.setMapBounds = function (id) {
   } else {
     if (typeof id != 'undefined') {
       var object = this.findObj(id),
-          point;
+          location;
 
       if (object) {
-        point = object.POINT; //that.Map.zoomRange.get(point).then(function(res)
+        location = object.location; //that.Map.zoomRange.get(location).then(function(res)
         //{
-        //	 that.Map.setCenter(point, res[1]);
+        //	 that.Map.setCenter(location, res[1]);
         //});
         //object.object.balloon.open();
 
-        that.Map.setCenter(point, 18);
+        that.Map.setCenter(location, 18);
       }
     } else if (this.Data.length == 1) {
-      point = this.Data[0].POINT;
-      this.Map.setCenter(point);
+      location = this.Data[0].location;
+      this.Map.setCenter(location);
     } else {
       var min = [0, 0],
           max = [0, 0];
 
       for (var i = 0; i < this.Data.length; i++) {
-        point = this.Data[i].POINT;
-        if (typeof point[0] == 'undefined' || typeof point[1] == 'undefined') continue;
-        if (!min[0] || point[0] < min[0]) min[0] = point[0];
-        if (!min[1] || point[1] < min[1]) min[1] = point[1];
-        if (!max[0] || point[0] > max[0]) max[0] = point[0];
-        if (!max[1] || point[1] > max[1]) max[1] = point[1];
+        location = this.Data[i].location;
+        if (typeof location[0] == 'undefined' || typeof location[1] == 'undefined') continue;
+        if (!min[0] || location[0] < min[0]) min[0] = location[0];
+        if (!min[1] || location[1] < min[1]) min[1] = location[1];
+        if (!max[0] || location[0] > max[0]) max[0] = location[0];
+        if (!max[1] || location[1] > max[1]) max[1] = location[1];
       }
 
       this.Map.setBounds(min, max);
@@ -37255,6 +37255,8 @@ __webpack_require__(/*! ./bootstrap-datepicker */ "./resources/js/bootstrap-date
 
 __webpack_require__(/*! ./moment */ "./resources/js/moment.js"); // require('./locale/ru');
 
+
+__webpack_require__(/*! ./hall */ "./resources/js/hall.js");
 
 __webpack_require__(/*! ./script */ "./resources/js/script.js");
 
@@ -38889,6 +38891,17 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/hall.js":
+/*!******************************!*\
+  !*** ./resources/js/hall.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+
 
 /***/ }),
 
@@ -46618,56 +46631,60 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports) {
 
 $(function () {
-  MapLoader = new mapLoader(document.getElementById('mapElement'), {
-    urlData: "/cinema/map_data",
-    onSelect: function onSelect(pointData) {
-      /*
-      var node, id, i, j, k, form = $('[data-role="calculator"]').get(0),
-          vars = ['regionId', 'districtId', 'pointId'], tagName, value, si, pfx;
-       for(i = 0; i < vars.length; i++)
-      {
-          for(j = 0; j < 2; j++) {
-              pfx = j ? 'old_' : '';
-              id = 'ctrl_LOCATION_' + pfx + vars[i];
-              node = document.getElementById(id);
-               if(!node) {
-                  node = form.appendChild(document.createElement('input'));
-                  node.type = 'hidden';
-                  node.name = 'LOCATION[' + pfx + vars[i] + ']';
-              }
-               tagName = node.tagName.toLowerCase();
-              value = pointData[vars[i]];
-               if(tagName == 'input')
-                  node.value = value;
-              else
-              if(tagName == 'select') {
-                  si = -1;
-                  for(k = 0; k < node.options.length; k++)
-                      if(node.options[k].value == value) {
-                          si = k;
-                          node.options[k].selected = true;
-                      }
-                      else
-                          node.options[k].selected = false;
-                  if(si >= 0)
-                      node.selectedIndex = si;
-                  else {
-                      node.parentNode.removeChild(node);
-                       node = form.appendChild(document.createElement('input'));
-                      node.type = 'hidden';
-                      node.name = 'LOCATION[' + pfx + vars[i] + ']';
-                      node.value = value;
-                  }
-              }
-          }
-      }
-       $(form).submit();
-      $.modal.closePopup();*/
-    }
-  });
   var object = document.getElementById('mapElement');
-  MapLoader.loadList(null);
-  $('.input-date').datepicker({
+
+  if (object) {
+    MapLoader = new mapLoader(object, {
+      urlData: "/cinemas/map_data",
+      onSelect: function onSelect(pointData) {
+        /*
+        var node, id, i, j, k, form = $('[data-role="calculator"]').get(0),
+            vars = ['regionId', 'districtId', 'pointId'], tagName, value, si, pfx;
+         for(i = 0; i < vars.length; i++)
+        {
+            for(j = 0; j < 2; j++) {
+                pfx = j ? 'old_' : '';
+                id = 'ctrl_LOCATION_' + pfx + vars[i];
+                node = document.getElementById(id);
+                 if(!node) {
+                    node = form.appendChild(document.createElement('input'));
+                    node.type = 'hidden';
+                    node.name = 'LOCATION[' + pfx + vars[i] + ']';
+                }
+                 tagName = node.tagName.toLowerCase();
+                value = pointData[vars[i]];
+                 if(tagName == 'input')
+                    node.value = value;
+                else
+                if(tagName == 'select') {
+                    si = -1;
+                    for(k = 0; k < node.options.length; k++)
+                        if(node.options[k].value == value) {
+                            si = k;
+                            node.options[k].selected = true;
+                        }
+                        else
+                            node.options[k].selected = false;
+                    if(si >= 0)
+                        node.selectedIndex = si;
+                    else {
+                        node.parentNode.removeChild(node);
+                         node = form.appendChild(document.createElement('input'));
+                        node.type = 'hidden';
+                        node.name = 'LOCATION[' + pfx + vars[i] + ']';
+                        node.value = value;
+                    }
+                }
+            }
+        }
+         $(form).submit();
+        $.modal.closePopup();*/
+      }
+    });
+    MapLoader.loadList(null);
+  }
+
+  $('input[role="date"]').datepicker({
     language: 'ru',
     locale: 'ru',
     format: 'dd.mm.yyyy'

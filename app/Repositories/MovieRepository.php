@@ -230,8 +230,8 @@ class MovieRepository extends BaseRepository implements IMovieRepository
         $query = $this->getModel()->newQuery()
             ->select(['movies.*'])
             ->join('movie_rentals', 'movies.id', '=', 'movie_rentals.movie_id')
-            ->where('movies.premiereDate', '>=', $now->format('Y-m-d'))
-            ->where('movie_rentals.date_start_at', '>', $now)
+            //->where('movies.premiereDate', '>=', $now->format('Y-m-d'))
+            ->where('movie_rentals.date_start_at', '>', $now->format(AdminHelpers::FORMAT_SITE_DATE_TIME))
             ->groupBy('movies.id')
             ->orderBy('movie_rentals.date_start_at')
             ->limit($nLastCount);

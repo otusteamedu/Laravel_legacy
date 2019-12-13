@@ -1,11 +1,26 @@
 @extends('public.movies.layout')
 
+@php
+    $breadCrumbs = [
+        [
+            'url' => \route('public.start'),
+            'title' => __('public.menu.home'),
+        ], [
+            'url' => \route('public.movies.search'),
+            'title' => __('public.menu.showing'),
+        ], [
+            'url' => \route('public.movies.view', ['id' => $movie['id']]),
+            'title' => $movie['name'],
+        ]
+    ];
+@endphp
+
 @section('pageTitle')
-    {{ $item['name'] }}: информация о фильме
+    {{ $movie['name'] }}: информация о фильме
 @endsection
 
 @section('pageHeader')
-    {{ $item['name'] }}: информация о фильме
+    {{ $movie['name'] }}: информация о фильме
 @endsection
 
 @section('pageContentMain')
@@ -13,20 +28,20 @@
         <div class="row">
             <div class="col-sm-5 my-3 p-0">
                 <div class="image">
-                @if($item['poster'])
-                    <i style="background-image: url({{ asset($item['poster']) }})"></i>
+                @if($movie['poster'])
+                    <i style="background-image: url({{ asset($movie['poster_url']) }})"></i>
                 @else:
                     <i class="no-photo"></i>
                 @endif
                 </div>
-                <span class="age-limit">{{ $item['ageLimit'] }}</span>
+                <span class="age-limit">{{ $movie['age_limit'] }}</span>
                 <div class="buttons">
-                    @if ($item['trailer'])
+                    @if ($movie['trailer_link'])
                         <a class="btn btn-warning shadow" href="#" role="button" id="btnTrailer">
                             <i class="fas fa-play"></i>
                             Смотреть трейлер
                         </a>
-                        <a class="btn btn-success shadow" href="{{ route('public.movies.order', ['id' => $item['id']]) }}" role="button">
+                        <a class="btn btn-success shadow" href="{{ route('public.movies.showing', ['id' => $movie['id']]) }}" role="button">
                             <i class="fas fa-cart-arrow-down"></i>
                             Купить билет
                         </a>
@@ -45,7 +60,7 @@
                         </div>
                         <script>
                             $('#btnTrailer').click(function () {
-                                var src = '{{ $item['trailer'] }}&amp;autoplay=1';
+                                var src = '{{ $movie['trailer_link'] }}&amp;autoplay=1';
                                 $('#trailerModal').modal('show');
                                 $('#trailerModal iframe').attr('src', src);
                                 return false;
@@ -62,68 +77,68 @@
                 <ul class="properties">
                     <li>
                         <span class="p-name">Наименование:</span>
-                        <span class="p-value">{{ $item['name'] }}</span>
+                        <span class="p-value">{{ $movie['name'] }}</span>
                     </li>
-                    @if (count($item['genres']) > 0)
+                    @if (count($movie['genres']) > 0)
                     <li>
                         <span class="p-name">Жанры:</span>
                         <span class="p-value">
-                            @foreach($item['genres'] as $value)
+                            @foreach($movie['genres'] as $value)
                                 {{ $value['name'] }}@if (!$loop->last), @endif
                             @endforeach
                         </span>
                     </li>
                     @endif
-                    @if ($item['premiereDate'])
+                    @if ($movie['premiereDate'])
                         <li>
                             <span class="p-name">Дата премьеры:</span>
-                            <span class="p-value">{{ $item['premiereDate']->format('d.m.Y') }}</span>
+                            <span class="p-value">{{ $movie['premiereDate'] }}</span>
                         </li>
                     @endif
-                    @if ($item['producer'])
+                    @if ($movie['producer'])
                         <li>
                             <span class="p-name">Режисер:</span>
-                            <span class="p-value">{{ $item['producer']['name'] }}</span>
+                            <span class="p-value">{{ $movie['producer']['name'] }}</span>
                         </li>
                     @endif
-                    @if (count($item['actors']) > 0)
+                    @if (count($movie['actors']) > 0)
                         <li>
                             <span class="p-name">В ролях:</span>
                             <span class="p-value">
-                            @foreach($item['actors'] as $value)
+                            @foreach($movie['actors'] as $value)
                                     {{ $value['name'] }}@if (!$loop->last), @endif
                                 @endforeach
                         </span>
                         </li>
                     @endif
-                    @if (count($item['countries']) > 0)
+                    @if (count($movie['countries']) > 0)
                         <li>
                             <span class="p-name">Страна:</span>
                             <span class="p-value">
-                            @foreach($item['countries'] as $value)
+                            @foreach($movie['countries'] as $value)
                                     {{ $value['name'] }}@if (!$loop->last), @endif
                                 @endforeach
                         </span>
                         </li>
                     @endif
-                    @if ($item['slogan'])
+                    @if ($movie['slogan'])
                         <li>
                             <span class="p-name">Слоган:</span>
-                            <span class="p-value">{{ $item['slogan'] }}</span>
+                            <span class="p-value">{{ $movie['slogan'] }}</span>
                         </li>
                     @endif
-                    @if ($item['duration'])
+                    @if ($movie['duration'])
                         <li>
                             <span class="p-name">Длительность:</span>
-                            <span class="p-value">{{ $item['duration'] }} мин.</span>
+                            <span class="p-value">{{ $movie['duration'] }} мин.</span>
                         </li>
                     @endif
                 </ul>
                 <div class="text">
-                    {{ $item['description'] }}
+                    {!! $movie['description'] !!}
                 </div>
                 <div class="buttons">
-                    <a class="btn btn-success shadow" href="{{ route('public.movies.order', ['id' => $item['id']]) }}" role="button">
+                    <a class="btn btn-success shadow" href="{{ route('public.movies.showing', ['id' => $movie['id']]) }}" role="button">
                         <i class="fas fa-cart-arrow-down"></i>
                         Купить билет
                     </a>
@@ -131,8 +146,6 @@
             </div>
         </div>
     </div>
-
     @include('public.start.elements.movieShow')
     @include('public.elements.filter')
-
 @endsection

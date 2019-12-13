@@ -11502,3 +11502,82 @@ h3 a {
   margin-bottom: 5px;
 }
 
+.order-ticket {
+  margin: 20px 0;
+}
+
+.order-ticket .place {
+  border: 1px solid #f2f2f2;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  -webkit-align-items: center;
+}
+
+.place span {
+  display: block;
+  width: 80%;
+  height: 80%;
+  border-radius: 100%;
+  cursor: pointer;
+  border-width: 3px;
+  border-style: solid;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  position: relative;
+  margin: auto;
+}
+
+.place span i {
+  position: absolute;
+  height: 20px;
+  width: 40px;
+  font-style: normal;
+  display: block;
+  top: 50%;
+  left: 50%;
+  margin-top: -10px;
+  margin-left: -20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.place-disabled span {
+  background-color: #cccccc;
+}
+
+.place-selected span {
+  color: #ffffff;
+}
+
+.place-disabled span {
+  background-color: #cccccc;
+}
+
+.place-type-vip span {
+  border-color: #8fd19e;
+}
+
+.place-type-vip.place-selected span {
+  background-color: #8fd19e;
+}
+
+.place-type-standard span {
+  border-color: #7abaff;
+}
+
+.place-type-standard.place-selected span {
+  background-color: #7abaff;
+}
+
+.place-type-economy span {
+  border-color: #f1b0b7;
+}
+
+.place-type-economy.place-selected span {
+  background-color: #f1b0b7;
+}
+
