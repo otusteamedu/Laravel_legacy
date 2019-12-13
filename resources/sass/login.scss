@@ -1,0 +1,30 @@
+@import 'common';
+
+main
+{
+  margin-top:80px;
+  padding:10px;
+  text-align: center;
+  
+  form
+  {
+    max-width:250px;
+    margin:auto;
+
+    label
+    {
+      text-align:left;
+    }
+
+    input
+    {
+      width:100%;
+      text-align:center;
+    }
+    div:last-child
+    {
+      text-align: center;
+    }
+
+  }
+}

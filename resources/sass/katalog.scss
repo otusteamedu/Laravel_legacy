@@ -1,0 +1,41 @@
+@import 'common';
+
+main
+{
+  max-width:1000px;
+  margin:auto;
+  margin-top:80px;
+  padding:10px;
+  text-align: center;
+  
+  .card
+  {
+    display:inline-block;
+
+    max-width:300px;
+    margin:auto;
+    border:1px solid grey;
+    padding:20px;
+
+    text-align: center;
+    img
+    {
+      width:150px;
+      margin-bottom:20px;
+    }
+    .description
+    {      
+      max-width:300px;
+      margin:auto;
+      p
+      {
+        text-align:left;
+      }
+    }    
+  }
+  .card:hover
+  {
+    cursor:pointer;
+    background-color: rgba(0,0,0,0.05);
+  }
+}
