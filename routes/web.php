@@ -11,18 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\LandingController;
+use App\Http\Controllers\ProjectController;
+
+Route::get('/', [LandingController::class, 'index'])->name('landing.index');
+Route::post('/try',[LandingController::class, 'try'])->name('landing.try');
 
 Auth::routes();
 
-Route::middleware('auth')->group(function() {
+Route::middleware('auth')->group(static function () {
 
-    Route::get('/settings', 'SettingsController@edit')->name('settings.edit');
-    Route::post('/settings', 'SettingsController@update')->name('settings.update');
+    Route::get('home', [HomeController::class, 'index'])->name('home');
 
-    Route::resource('podcasts', 'PodcastController')->except('show');
-    Route::resource('episodes', 'EpisodeController')->except('show');
+    Route::resource('projects', 'ProjectController');
+    Route::get('projects/{project}/commits', [ProjectController::class, 'commits'])->name('projects.commits');
 
 });

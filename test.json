@@ -1,0 +1,1899 @@
+{
+    "summary": {
+        "code": 90.8,
+        "complexity": 95.3,
+        "architecture": 91.7,
+        "style": 77.1,
+        "security issues": 0
+    },
+    "Code": [
+        {
+            "title": "Element name minimal length",
+            "insightClass": "ObjectCalisthenics\\Sniffs\\NamingConventions\\ElementNameMinimalLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 56,
+            "message": "Variable name \"q\" is only 1 chars long. Must be at least 3."
+        },
+        {
+            "title": "Element name minimal length",
+            "insightClass": "ObjectCalisthenics\\Sniffs\\NamingConventions\\ElementNameMinimalLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 57,
+            "message": "Variable name \"q\" is only 1 chars long. Must be at least 3."
+        },
+        {
+            "title": "Element name minimal length",
+            "insightClass": "ObjectCalisthenics\\Sniffs\\NamingConventions\\ElementNameMinimalLengthSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 28,
+            "message": "Variable name \"e\" is only 1 chars long. Must be at least 3."
+        },
+        {
+            "title": "Element name minimal length",
+            "insightClass": "ObjectCalisthenics\\Sniffs\\NamingConventions\\ElementNameMinimalLengthSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 29,
+            "message": "Variable name \"e\" is only 1 chars long. Must be at least 3."
+        },
+        {
+            "title": "Useless overriding method",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\UselessOverridingMethodSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 24,
+            "message": "Possible useless method overriding detected"
+        },
+        {
+            "title": "Useless overriding method",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\UselessOverridingMethodSniff",
+            "file": "app\/Providers\/EventServiceProvider.php",
+            "line": 28,
+            "message": "Possible useless method overriding detected"
+        },
+        {
+            "title": "Useless overriding method",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\UselessOverridingMethodSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 35,
+            "message": "Possible useless method overriding detected"
+        },
+        {
+            "title": "Useless overriding method",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\CodeAnalysis\\UselessOverridingMethodSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 47,
+            "message": "Possible useless method overriding detected"
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Providers\/AppServiceProvider.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Providers\/AuthServiceProvider.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Providers\/BroadcastServiceProvider.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Providers\/EventServiceProvider.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Providers\/GitOperationsServiceProvider.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Models\/User.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/VerifyCsrfToken.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/RedirectIfAuthenticated.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/TrimStrings.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/Authenticate.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/TrustProxies.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/CheckForMaintenanceMode.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Middleware\/EncryptCookies.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Requests\/ProjectRequest.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/HomeController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Controller.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Auth\/ForgotPasswordController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Auth\/LoginController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Auth\/ConfirmPasswordController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Auth\/ResetPasswordController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/Auth\/VerificationController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Services\/Analizer.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "app\/Console\/Kernel.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "routes\/channels.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "routes\/console.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "routes\/web.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Declare strict types",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DeclareStrictTypesSniff",
+            "file": "routes\/api.php",
+            "line": 1,
+            "message": "Missing declare(strict_types=1)."
+        },
+        {
+            "title": "Disallow array type hint syntax",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowArrayTypeHintSyntaxSniff",
+            "file": "app\/Models\/User.php",
+            "line": 20,
+            "message": "Usage of array type hint syntax in \"\\Illuminate\\Notifications\\DatabaseNotification[]\" is disallowed, use generic type hint syntax instead."
+        },
+        {
+            "title": "Disallow array type hint syntax",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowArrayTypeHintSyntaxSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 14,
+            "message": "Usage of array type hint syntax in \"\\App\\Models\\User[]\" is disallowed, use generic type hint syntax instead."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 17,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 29,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 40,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 52,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 64,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 76,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 88,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 25,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Disallow mixed type hint",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\DisallowMixedTypeHintSniff",
+            "file": "app\/Http\/Middleware\/RedirectIfAuthenticated.php",
+            "line": 16,
+            "message": "Usage of \"mixed\" type hint is disallowed."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/AppServiceProvider.php",
+            "line": 15,
+            "message": "Method \\App\\Providers\\AppServiceProvider::register() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/AppServiceProvider.php",
+            "line": 27,
+            "message": "Method \\App\\Providers\\AppServiceProvider::boot() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/AuthServiceProvider.php",
+            "line": 13,
+            "message": "@var annotation of property \\App\\Providers\\AuthServiceProvider::$policies does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/AuthServiceProvider.php",
+            "line": 23,
+            "message": "Method \\App\\Providers\\AuthServiceProvider::boot() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 24,
+            "message": "Method \\App\\Providers\\RouteServiceProvider::boot() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 36,
+            "message": "Method \\App\\Providers\\RouteServiceProvider::map() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 52,
+            "message": "Method \\App\\Providers\\RouteServiceProvider::mapWebRoutes() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 66,
+            "message": "Method \\App\\Providers\\RouteServiceProvider::mapApiRoutes() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/BroadcastServiceProvider.php",
+            "line": 15,
+            "message": "Method \\App\\Providers\\BroadcastServiceProvider::boot() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/EventServiceProvider.php",
+            "line": 15,
+            "message": "@var annotation of property \\App\\Providers\\EventServiceProvider::$listen does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/EventServiceProvider.php",
+            "line": 28,
+            "message": "Method \\App\\Providers\\EventServiceProvider::boot() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/GitOperationsServiceProvider.php",
+            "line": 15,
+            "message": "Method \\App\\Providers\\GitOperationsServiceProvider::register() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Providers\/GitOperationsServiceProvider.php",
+            "line": 28,
+            "message": "Method \\App\\Providers\\GitOperationsServiceProvider::boot() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/User.php",
+            "line": 42,
+            "message": "@var annotation of property \\App\\Models\\User::$fillable does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/User.php",
+            "line": 51,
+            "message": "@var annotation of property \\App\\Models\\User::$hidden does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/User.php",
+            "line": 60,
+            "message": "@var annotation of property \\App\\Models\\User::$casts does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 95,
+            "message": "Method \\App\\Models\\Policies\\ProjectPolicy::isCollaborator() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 29,
+            "message": "Property \\App\\Models\\Project::$fillable does not have @var annotation."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 32,
+            "message": "Method \\App\\Models\\Project::getHrefAttribute() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 44,
+            "message": "Method \\App\\Models\\Project::users() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 54,
+            "message": "Method \\App\\Models\\Project::scopeForUser() does not have parameter type hint for its parameter $query but it should be possible to add it based on @param annotation \"\\Illuminate\\Database\\Eloquent\\Builder\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 54,
+            "message": "Method \\App\\Models\\Project::scopeForUser() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"\\Illuminate\\Database\\Eloquent\\Builder\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 56,
+            "message": "Closure does not have void return type hint."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 13,
+            "message": "@var annotation of property \\App\\Exceptions\\Handler::$dontReport does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 22,
+            "message": "@var annotation of property \\App\\Exceptions\\Handler::$dontFlash does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 35,
+            "message": "Method \\App\\Exceptions\\Handler::report() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 47,
+            "message": "Method \\App\\Exceptions\\Handler::render() does not have parameter type hint for its parameter $request but it should be possible to add it based on @param annotation \"\\Illuminate\\Http\\Request\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 47,
+            "message": "Method \\App\\Exceptions\\Handler::render() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"\\Illuminate\\Http\\Response\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/VerifyCsrfToken.php",
+            "line": 19,
+            "message": "@var annotation of property \\App\\Http\\Middleware\\VerifyCsrfToken::$except does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/RedirectIfAuthenticated.php",
+            "line": 18,
+            "message": "Method \\App\\Http\\Middleware\\RedirectIfAuthenticated::handle() does not have parameter type hint for its parameter $request but it should be possible to add it based on @param annotation \"\\Illuminate\\Http\\Request\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/RedirectIfAuthenticated.php",
+            "line": 18,
+            "message": "Method \\App\\Http\\Middleware\\RedirectIfAuthenticated::handle() does not have parameter type hint for its parameter $guard but it should be possible to add it based on @param annotation \"string|null\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/TrimStrings.php",
+            "line": 12,
+            "message": "@var annotation of property \\App\\Http\\Middleware\\TrimStrings::$except does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/Authenticate.php",
+            "line": 15,
+            "message": "Method \\App\\Http\\Middleware\\Authenticate::redirectTo() does not have parameter type hint for its parameter $request but it should be possible to add it based on @param annotation \"\\Illuminate\\Http\\Request\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/Authenticate.php",
+            "line": 15,
+            "message": "Method \\App\\Http\\Middleware\\Authenticate::redirectTo() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"string\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/TrustProxies.php",
+            "line": 13,
+            "message": "@var annotation of property \\App\\Http\\Middleware\\TrustProxies::$proxies does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/CheckForMaintenanceMode.php",
+            "line": 12,
+            "message": "@var annotation of property \\App\\Http\\Middleware\\CheckForMaintenanceMode::$except does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Middleware\/EncryptCookies.php",
+            "line": 12,
+            "message": "@var annotation of property \\App\\Http\\Middleware\\EncryptCookies::$except does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Requests\/ProjectRequest.php",
+            "line": 14,
+            "message": "Method \\App\\Http\\Requests\\ProjectRequest::authorize() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"bool\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Requests\/ProjectRequest.php",
+            "line": 22,
+            "message": "@return annotation of method \\App\\Http\\Requests\\ProjectRequest::rules() does not specify type hint for items of its traversable return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Requests\/ProjectRequest.php",
+            "line": 24,
+            "message": "Method \\App\\Http\\Requests\\ProjectRequest::rules() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"array\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/HomeController.php",
+            "line": 9,
+            "message": "Method \\App\\Http\\Controllers\\HomeController::index() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 17,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::resourceAbilityMap() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 24,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::index() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 31,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::create() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 36,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::store() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 46,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::show() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 51,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::commits() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 56,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::edit() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 61,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::update() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 71,
+            "message": "Method \\App\\Http\\Controllers\\ProjectController::destroy() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/LoginController.php",
+            "line": 35,
+            "message": "Method \\App\\Http\\Controllers\\Auth\\LoginController::__construct() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/ConfirmPasswordController.php",
+            "line": 35,
+            "message": "Method \\App\\Http\\Controllers\\Auth\\ConfirmPasswordController::__construct() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 38,
+            "message": "Method \\App\\Http\\Controllers\\Auth\\RegisterController::__construct() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 46,
+            "message": "@param annotation of method \\App\\Http\\Controllers\\Auth\\RegisterController::validator() does not specify type hint for items of its traversable parameter $data."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 49,
+            "message": "Method \\App\\Http\\Controllers\\Auth\\RegisterController::validator() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"\\Illuminate\\Contracts\\Validation\\Validator\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 61,
+            "message": "@param annotation of method \\App\\Http\\Controllers\\Auth\\RegisterController::create() does not specify type hint for items of its traversable parameter $data."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 64,
+            "message": "Method \\App\\Http\\Controllers\\Auth\\RegisterController::create() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"\\App\\Models\\User\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/Auth\/VerificationController.php",
+            "line": 35,
+            "message": "Method \\App\\Http\\Controllers\\Auth\\VerificationController::__construct() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 14,
+            "message": "Method \\App\\Http\\Controllers\\LandingController::index() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 19,
+            "message": "Method \\App\\Http\\Controllers\\LandingController::try() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 14,
+            "message": "@var annotation of property \\App\\Http\\Kernel::$middleware does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 27,
+            "message": "@var annotation of property \\App\\Http\\Kernel::$middlewareGroups does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 51,
+            "message": "@var annotation of property \\App\\Http\\Kernel::$routeMiddleware does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 71,
+            "message": "@var annotation of property \\App\\Http\\Kernel::$middlewarePriority does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Services\/Analizer.php",
+            "line": 9,
+            "message": "Method \\App\\Services\\Analizer::analize() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 21,
+            "message": "Method \\App\\Services\\GitOperations::makeUniqueDirectory() does not have return type hint nor @return annotation for its return value."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Console\/Kernel.php",
+            "line": 13,
+            "message": "@var annotation of property \\App\\Console\\Kernel::$commands does not specify type hint for its items."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Console\/Kernel.php",
+            "line": 25,
+            "message": "Method \\App\\Console\\Kernel::schedule() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "app\/Console\/Kernel.php",
+            "line": 36,
+            "message": "Method \\App\\Console\\Kernel::commands() does not have return type hint for its return value but it should be possible to add it based on @return annotation \"void\"."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "routes\/console.php",
+            "line": 16,
+            "message": "Closure does not have void return type hint."
+        },
+        {
+            "title": "Type hint declaration",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\TypeHints\\TypeHintDeclarationSniff",
+            "file": "routes\/web.php",
+            "line": 23,
+            "message": "Closure does not have void return type hint."
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/AppServiceProvider.php",
+            "line": 29,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/AuthServiceProvider.php",
+            "line": 27,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/RouteServiceProvider.php",
+            "line": 26,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/RouteServiceProvider.php",
+            "line": 42,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/EventServiceProvider.php",
+            "line": 32,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/GitOperationsServiceProvider.php",
+            "line": 30,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Exceptions\/Handler.php",
+            "line": 16,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/VerifyCsrfToken.php",
+            "line": 22,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/CheckForMaintenanceMode.php",
+            "line": 15,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/EncryptCookies.php",
+            "line": 15,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "No empty comment",
+            "insightClass": "PhpCsFixer\\Fixer\\Comment\\NoEmptyCommentFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Console\/Kernel.php",
+            "line": 16,
+            "message": "You should change the following \n-        \/\/\n<\/>+        \n<\/>"
+        },
+        {
+            "title": "Unused parameter",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Functions\\UnusedParameterSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 19,
+            "message": "Unused parameter $user."
+        },
+        {
+            "title": "Unused parameter",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Functions\\UnusedParameterSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 42,
+            "message": "Unused parameter $user."
+        },
+        {
+            "title": "Unused parameter",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Functions\\UnusedParameterSniff",
+            "file": "app\/Services\/Analizer.php",
+            "line": 9,
+            "message": "Unused parameter $storageDir."
+        },
+        {
+            "title": "Unused parameter",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Functions\\UnusedParameterSniff",
+            "file": "app\/Console\/Kernel.php",
+            "line": 25,
+            "message": "Unused parameter $schedule."
+        },
+        {
+            "title": "Static closure",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Functions\\StaticClosureSniff",
+            "file": "routes\/channels.php",
+            "line": 14,
+            "message": "Closure not using \"$this\" should be declared static."
+        }
+    ],
+    "Complexity": [],
+    "Architecture": [
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/AppServiceProvider.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/AuthServiceProvider.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/RouteServiceProvider.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/BroadcastServiceProvider.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/EventServiceProvider.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/GitOperationsServiceProvider.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Models\/User.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Models\/Policies\/ProjectPolicy.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Models\/Project.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Exceptions\/Handler.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/VerifyCsrfToken.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/RedirectIfAuthenticated.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/TrimStrings.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/Authenticate.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/TrustProxies.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/CheckForMaintenanceMode.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Middleware\/EncryptCookies.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Requests\/ProjectRequest.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/HomeController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Controller.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/ProjectController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Auth\/ForgotPasswordController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Auth\/LoginController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Auth\/ConfirmPasswordController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Auth\/ResetPasswordController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Auth\/RegisterController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/Auth\/VerificationController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/LandingController.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Kernel.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/Analizer.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/GitOperations.php"
+        },
+        {
+            "title": "Normal classes are forbidden. Classes must be final or abstract",
+            "insightClass": "NunoMaduro\\PhpInsights\\Domain\\Insights\\ForbiddenNormalClasses",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Console\/Kernel.php"
+        },
+        {
+            "title": "Method argument space",
+            "insightClass": "PhpCsFixer\\Fixer\\FunctionNotation\\MethodArgumentSpaceFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/routes\/web.php",
+            "line": 19,
+            "message": "You should change the following \n-Route::post('\/try',[LandingController::class, 'try'])->name('landing.try');\n<\/>+Route::post('\/try', [LandingController::class, 'try'])->name('landing.try');\n<\/>"
+        }
+    ],
+    "Style": [
+        {
+            "title": "Function closing brace",
+            "insightClass": "PHP_CodeSniffer\\Standards\\PSR2\\Sniffs\\Methods\\FunctionClosingBraceSniff",
+            "file": "routes\/web.php",
+            "line": 30,
+            "message": "Function closing brace must go on the next line following the body; found 1 blank lines before brace"
+        },
+        {
+            "title": "Object operator indent",
+            "insightClass": "PHP_CodeSniffer\\Standards\\PEAR\\Sniffs\\WhiteSpace\\ObjectOperatorIndentSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 55,
+            "message": "Object operator not indented correctly; expected 12 spaces but found 13"
+        },
+        {
+            "title": "Object operator indent",
+            "insightClass": "PHP_CodeSniffer\\Standards\\PEAR\\Sniffs\\WhiteSpace\\ObjectOperatorIndentSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 56,
+            "message": "Object operator not indented correctly; expected 12 spaces but found 13"
+        },
+        {
+            "title": "Object operator indent",
+            "insightClass": "PHP_CodeSniffer\\Standards\\PEAR\\Sniffs\\WhiteSpace\\ObjectOperatorIndentSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 69,
+            "message": "Object operator not indented correctly; expected 12 spaces but found 13"
+        },
+        {
+            "title": "Object operator indent",
+            "insightClass": "PHP_CodeSniffer\\Standards\\PEAR\\Sniffs\\WhiteSpace\\ObjectOperatorIndentSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 70,
+            "message": "Object operator not indented correctly; expected 12 spaces but found 13"
+        },
+        {
+            "title": "Object operator indent",
+            "insightClass": "PHP_CodeSniffer\\Standards\\PEAR\\Sniffs\\WhiteSpace\\ObjectOperatorIndentSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 71,
+            "message": "Object operator not indented correctly; expected 12 spaces but found 13"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Providers\/AuthServiceProvider.php",
+            "line": 5,
+            "message": "Line exceeds 80 characters; contains 83 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Providers\/RouteServiceProvider.php",
+            "line": 5,
+            "message": "Line exceeds 80 characters; contains 84 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Providers\/EventServiceProvider.php",
+            "line": 7,
+            "message": "Line exceeds 80 characters; contains 84 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 20,
+            "message": "Line exceeds maximum limit of 100 characters; contains 138 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 22,
+            "message": "Line exceeds 80 characters; contains 88 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 23,
+            "message": "Line exceeds 80 characters; contains 83 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 25,
+            "message": "Line exceeds 80 characters; contains 95 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 26,
+            "message": "Line exceeds 80 characters; contains 91 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 27,
+            "message": "Line exceeds maximum limit of 100 characters; contains 101 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 28,
+            "message": "Line exceeds 80 characters; contains 88 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 29,
+            "message": "Line exceeds 80 characters; contains 90 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 30,
+            "message": "Line exceeds 80 characters; contains 94 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 31,
+            "message": "Line exceeds 80 characters; contains 99 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/User.php",
+            "line": 32,
+            "message": "Line exceeds 80 characters; contains 95 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 10,
+            "message": "Line exceeds 80 characters; contains 91 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 11,
+            "message": "Line exceeds 80 characters; contains 86 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 12,
+            "message": "Line exceeds 80 characters; contains 83 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 14,
+            "message": "Line exceeds 80 characters; contains 84 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 16,
+            "message": "Line exceeds maximum limit of 100 characters; contains 107 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 21,
+            "message": "Line exceeds 80 characters; contains 98 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 22,
+            "message": "Line exceeds 80 characters; contains 92 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 23,
+            "message": "Line exceeds 80 characters; contains 91 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 24,
+            "message": "Line exceeds 80 characters; contains 98 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Http\/Middleware\/Authenticate.php",
+            "line": 10,
+            "message": "Line exceeds 80 characters; contains 85 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 76,
+            "message": "Line exceeds 80 characters; contains 90 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 53,
+            "message": "Line exceeds 80 characters; contains 82 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 19,
+            "message": "Line exceeds 80 characters; contains 91 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 55,
+            "message": "Line exceeds 80 characters; contains 85 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Http\/Kernel.php",
+            "line": 60,
+            "message": "Line exceeds 80 characters; contains 81 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 24,
+            "message": "Line exceeds 80 characters; contains 93 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 37,
+            "message": "Line exceeds 80 characters; contains 83 characters"
+        },
+        {
+            "title": "Line length",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Files\\LineLengthSniff",
+            "file": "routes\/web.php",
+            "line": 28,
+            "message": "Line exceeds maximum limit of 100 characters; contains 110 characters"
+        },
+        {
+            "title": "Space after cast",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Formatting\\SpaceAfterCastSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 34,
+            "message": "Expected 1 space(s) after cast statement; 0 found"
+        },
+        {
+            "title": "Space after not",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Formatting\\SpaceAfterNotSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 34,
+            "message": "Expected 1 space(s) after NOT operator; 0 found"
+        },
+        {
+            "title": "Space after not",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Formatting\\SpaceAfterNotSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 22,
+            "message": "Expected 1 space(s) after NOT operator; 0 found"
+        },
+        {
+            "title": "Function call argument spacing",
+            "insightClass": "PHP_CodeSniffer\\Standards\\Generic\\Sniffs\\Functions\\FunctionCallArgumentSpacingSniff",
+            "file": "routes\/web.php",
+            "line": 19,
+            "message": "No space found after comma in argument list"
+        },
+        {
+            "title": "Trailing array comma",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Arrays\\TrailingArrayCommaSniff",
+            "file": "app\/Http\/Requests\/ProjectRequest.php",
+            "line": 27,
+            "message": "Multi-line arrays must have a trailing comma after the last element."
+        },
+        {
+            "title": "Alphabetically sorted uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\AlphabeticallySortedUsesSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 6,
+            "message": "Use statements should be sorted alphabetically. The first wrong one is App\\Models\\Project."
+        },
+        {
+            "title": "Namespace spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\NamespaceSpacingSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 4,
+            "message": "Expected 1 lines before namespace statement, found 2."
+        },
+        {
+            "title": "Namespace spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\NamespaceSpacingSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 4,
+            "message": "Expected 1 lines after namespace statement, found 2."
+        },
+        {
+            "title": "Namespace spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\NamespaceSpacingSniff",
+            "file": "app\/Services\/Analizer.php",
+            "line": 4,
+            "message": "Expected 1 lines before namespace statement, found 2."
+        },
+        {
+            "title": "Namespace spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\NamespaceSpacingSniff",
+            "file": "app\/Services\/Analizer.php",
+            "line": 4,
+            "message": "Expected 1 lines after namespace statement, found 2."
+        },
+        {
+            "title": "Namespace spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\NamespaceSpacingSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 4,
+            "message": "Expected 1 lines before namespace statement, found 2."
+        },
+        {
+            "title": "Namespace spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\NamespaceSpacingSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 4,
+            "message": "Expected 1 lines after namespace statement, found 2."
+        },
+        {
+            "title": "Unused uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff",
+            "file": "app\/Providers\/AuthServiceProvider.php",
+            "line": 6,
+            "message": "Type Illuminate\\Support\\Facades\\Gate is not used in this file."
+        },
+        {
+            "title": "Unused uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff",
+            "file": "app\/Providers\/EventServiceProvider.php",
+            "line": 8,
+            "message": "Type Illuminate\\Support\\Facades\\Event is not used in this file."
+        },
+        {
+            "title": "Unused uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff",
+            "file": "app\/Models\/User.php",
+            "line": 5,
+            "message": "Type Illuminate\\Contracts\\Auth\\MustVerifyEmail is not used in this file."
+        },
+        {
+            "title": "Unused uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff",
+            "file": "app\/Http\/Controllers\/HomeController.php",
+            "line": 5,
+            "message": "Type Illuminate\\Http\\Request is not used in this file."
+        },
+        {
+            "title": "Unused uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff",
+            "file": "app\/Http\/Controllers\/ProjectController.php",
+            "line": 7,
+            "message": "Type Illuminate\\Contracts\\Support\\Renderable is not used in this file."
+        },
+        {
+            "title": "Unused uses",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UnusedUsesSniff",
+            "file": "routes\/api.php",
+            "line": 3,
+            "message": "Type Illuminate\\Http\\Request is not used in this file."
+        },
+        {
+            "title": "Use spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UseSpacingSniff",
+            "file": "app\/Http\/Controllers\/LandingController.php",
+            "line": 7,
+            "message": "Expected 1 lines before first use statement, found 2."
+        },
+        {
+            "title": "Use spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Namespaces\\UseSpacingSniff",
+            "file": "app\/Services\/GitOperations.php",
+            "line": 7,
+            "message": "Expected 1 lines before first use statement, found 2."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/User.php",
+            "line": 20,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/User.php",
+            "line": 22,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/User.php",
+            "line": 33,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 17,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 29,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 40,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 52,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 64,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 76,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 88,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 13,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 16,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 21,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 25,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 52,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 63,
+            "message": "Expected 1 lines between description and annotations, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Models\/Project.php",
+            "line": 64,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 33,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Exceptions\/Handler.php",
+            "line": 45,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Http\/Middleware\/RedirectIfAuthenticated.php",
+            "line": 16,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Http\/Middleware\/Authenticate.php",
+            "line": 13,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 47,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Http\/Controllers\/Auth\/RegisterController.php",
+            "line": 62,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Doc comment spacing",
+            "insightClass": "SlevomatCodingStandard\\Sniffs\\Commenting\\DocCommentSpacingSniff",
+            "file": "app\/Console\/Kernel.php",
+            "line": 23,
+            "message": "Expected 1 lines between different annotations types, found 0."
+        },
+        {
+            "title": "Braces",
+            "insightClass": "PhpCsFixer\\Fixer\\Basic\\BracesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/GitOperationsServiceProvider.php",
+            "line": 18,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "Braces",
+            "insightClass": "PhpCsFixer\\Fixer\\Basic\\BracesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/ProjectController.php",
+            "line": 78,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "Braces",
+            "insightClass": "PhpCsFixer\\Fixer\\Basic\\BracesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/routes\/web.php",
+            "line": 24,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "Braces",
+            "insightClass": "PhpCsFixer\\Fixer\\Basic\\BracesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/routes\/web.php",
+            "line": 29,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "Function declaration",
+            "insightClass": "PhpCsFixer\\Fixer\\FunctionNotation\\FunctionDeclarationFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/GitOperationsServiceProvider.php",
+            "line": 17,
+            "message": "You should change the following \n-        $this->app->singleton(GitOperations::class, static function() {\n<\/>+        $this->app->singleton(GitOperations::class, static function () {\n<\/>"
+        },
+        {
+            "title": "Cast spaces",
+            "insightClass": "PhpCsFixer\\Fixer\\CastNotation\\CastSpacesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/GitOperations.php",
+            "line": 34,
+            "message": "You should change the following \n-        $options = ['depth' => (string)$depth];\n<\/>+        $options = ['depth' => (string) $depth];\n<\/>"
+        },
+        {
+            "title": "Method chaining indentation",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\MethodChainingIndentationFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/RouteServiceProvider.php",
+            "line": 55,
+            "message": "You should change the following \n-             ->namespace($this->namespace)\n<\/>-             ->group(base_path('routes\/web.php'));\n<\/>+            ->namespace($this->namespace)\n<\/>+            ->group(base_path('routes\/web.php'));\n<\/>"
+        },
+        {
+            "title": "Method chaining indentation",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\MethodChainingIndentationFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Providers\/RouteServiceProvider.php",
+            "line": 69,
+            "message": "You should change the following \n-             ->middleware('api')\n<\/>-             ->namespace($this->namespace)\n<\/>-             ->group(base_path('routes\/api.php'));\n<\/>+            ->middleware('api')\n<\/>+            ->namespace($this->namespace)\n<\/>+            ->group(base_path('routes\/api.php'));\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Models\/Project.php",
+            "line": 31,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/LandingController.php",
+            "line": 3,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/LandingController.php",
+            "line": 5,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/Analizer.php",
+            "line": 3,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/Analizer.php",
+            "line": 5,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/GitOperations.php",
+            "line": 3,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "No extra blank lines",
+            "insightClass": "PhpCsFixer\\Fixer\\Whitespace\\NoExtraBlankLinesFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/GitOperations.php",
+            "line": 5,
+            "message": "You should change the following \n-\n<\/>"
+        },
+        {
+            "title": "Ordered class elements",
+            "insightClass": "PhpCsFixer\\Fixer\\ClassNotation\\OrderedClassElementsFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/ProjectController.php",
+            "line": 17,
+            "message": "You should change the following \n-    protected function resourceAbilityMap()\n<\/>-    {\n<\/>-        $abilityMap = parent::resourceAbilityMap();\n<\/>-        $abilityMap['commits'] = 'view';\n<\/>-        return $abilityMap;\n<\/>-    }\n<\/>-\n<\/>"
+        },
+        {
+            "title": "Ordered class elements",
+            "insightClass": "PhpCsFixer\\Fixer\\ClassNotation\\OrderedClassElementsFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Http\/Controllers\/ProjectController.php",
+            "line": 77,
+            "message": "You should change the following \n+    }\n<\/>+\n<\/>+    protected function resourceAbilityMap()\n<\/>+    {\n<\/>+        $abilityMap = parent::resourceAbilityMap();\n<\/>+        $abilityMap['commits'] = 'view';\n<\/>+        return $abilityMap;\n<\/>"
+        },
+        {
+            "title": "Ordered class elements",
+            "insightClass": "PhpCsFixer\\Fixer\\ClassNotation\\OrderedClassElementsFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/GitOperations.php",
+            "line": 21,
+            "message": "You should change the following \n+    public function clone(string $git, int $depth = 1): string\n<\/>+    {\n<\/>+        $options = ['depth' => (string)$depth];\n<\/>+        $uniqueDir = $this->makeUniqueDirectory();\n<\/>+        $uniqueDirAbsolutePath = \\Storage::path($uniqueDir);\n<\/>+        $this->gitWrapper->cloneRepository($git, $uniqueDirAbsolutePath, $options);\n<\/>+\n<\/>+        return $uniqueDir;\n<\/>+    }\n<\/>+\n<\/>"
+        },
+        {
+            "title": "Ordered class elements",
+            "insightClass": "PhpCsFixer\\Fixer\\ClassNotation\\OrderedClassElementsFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Services\/GitOperations.php",
+            "line": 28,
+            "message": "You should change the following \n-\n<\/>-        return $uniqueDir;\n<\/>-    }\n<\/>-\n<\/>-    public function clone(string $git, int $depth = 1): string\n<\/>-    {\n<\/>-        $options = ['depth' => (string)$depth];\n<\/>-        $uniqueDir = $this->makeUniqueDirectory();\n<\/>-        $uniqueDirAbsolutePath = \\Storage::path($uniqueDir);\n<\/>-        $this->gitWrapper->cloneRepository($git, $uniqueDirAbsolutePath, $options);\n<\/>"
+        },
+        {
+            "title": "Ordered imports",
+            "insightClass": "PhpCsFixer\\Fixer\\Import\\OrderedImportsFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 5,
+            "message": "You should change the following \n+use App\\Models\\Project;\n<\/>"
+        },
+        {
+            "title": "Ordered imports",
+            "insightClass": "PhpCsFixer\\Fixer\\Import\\OrderedImportsFixer",
+            "file": "\/Users\/petr\/www\/phptrack.io\/app\/Models\/Policies\/ProjectPolicy.php",
+            "line": 6,
+            "message": "You should change the following \n-use App\\Models\\Project;\n<\/>"
+        }
+    ],
+    "Security": []
+}

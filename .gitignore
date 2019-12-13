@@ -11,8 +11,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /.idea/
-/laradock-p
-/storage/laradock
-.phpstorm.meta.php
-_ide_helper.php
-/_ide_helper_models.php
+/.phpstorm.meta.php
+/_ide_helper.php
+/tests/coverage-report/

@@ -1,167 +1,29 @@
-# Подкаст-публикатор: удобный инструмент с веб-интерфейсом для авторов подкастов
+# PHPTrack.io
 
-Проект представляет собой приложение Laravel 6.0.
+**PHPTrack - Continuous PHP Code Quality Monitoring**
 
-## Инструкция по первоначальной настройке и запуску после клонирования репозитория проекта
+## Installation in development environment
 
-1. Скопировать файл `.env.example` в `.env`:
-```
-cp .env.example .env
-```
+Development environment provided by https://vessel.shippingdocker.com
 
-2. Установить подготовленную среду запуска на основе Laradoc:
-```
-git clone --single-branch --branch my git@github.com:pqr/laradock-p.git
-```
-Репозиторий `pqr/laradock-p` - это форк официального репозитория Laradoc, в котором внесены некоторые изменения в настройки образов.
-Все изменения ведутся в отдельной ветке `my` - именно её мы и клонируем командой выше.
+Read Getting Started: https://vessel.shippingdocker.com/docs/get-started/
 
-3. Перейти в директорию `laradock-p` и скопировать файл `env-example` в `.env`:
+Read Everyday Usage: https://vessel.shippingdocker.com/docs/everyday-usage/
+
+Database initialization after Vessel installation:
 ```
-cd laradoc-p
-cp env-example .env
+./vessel artisan migrate:fresh --seed
 ```
 
-4. Находясь в директории `laradock-p` запустить окружение с поомщью docker-compose (на машине должен быть установлен Docker):
-```
-docker-compose up -d nginx mysql
-```
-Также для удобства **из корневой директории проекта** можно воспользоваться утилитой `make`:
-```
-make docker-compose-up
-```
+## GitHub Flow
 
-5. Дальнейшие шаги выполняются внтури Docker контейнера `workspace`, выполните следующую команду находясь в директоии `laradock-p`, чтобы зайти в него:
-```
-docker-compose exec workspace bash
-```  
-Также для удобства **из корневой директории проекта** можно воспользоваться утилитой `make`:
-```
-make docker-workspace
-```
+We use GitHub Flow as a lightweight, branch-based workflow that supports teams and projects where deployments are made regularly.
 
-5.1. Находясь внтури контейнера `workspace`, установить зависимости с помощью composer:
-```
-composer install
-```
+https://guides.github.com/introduction/flow/index.html
 
-5.2. Находясь внтури контейнера `workspace`, сгенерировать ключ приложения, который будет прописан в `.env`:
-```
-php artisan key:generate 
-```
+Deploy to prodution from `master` branch.
+No release branches, no version branches.
 
-5.3. Находясь внтури контейнера `workspace`, скомпилировать статические ресурсы (css и js), т.к. они не хранятся в репозитории в собранном виде
+## Slack
 
-В начале нужно установить необходимые npm пакеты:
-```
-yarn install
-```
-Затем запустить сборку css и js (после чего результирующие файлы должны появиться в директории `public`)
-```
-yarn development
-``` 
-
-5.4. Находясь внтури контейнера `workspace`, создать символическую ссылку для директории `storage/app/public` в `public/storage`
-(подробнее: https://laravel.com/docs/6.x/filesystem#the-public-disk)
-```
-php artisan storage:link
-```
-5.5. Находясь внтури контейнера `workspace`, выполнить миграции и наполнить базу тестовыми данными
-(подробнее: https://laravel.com/docs/6.x/filesystem#the-public-disk)
-```
-php artisan migrate --seed
-```
-
-При этом будет создан пользователь admin@example.com/password, к которому будут привязаны первые два подкаста по алфавиту.
-Остальные подкасты будут привязаны к случаным пользователям.
-
-6. Сайт должен отрываться по адресу `http://localhost:8000`
-Для входа используйте Login: `admin@example.com`, Password: `password`
-
-7. Для остановки Docker сервисов необходимо выполнить следующую команду, находясь в директории `laradock-p`
-```
-docker-compose down
-```
-Также для удобства **из корневой директории проекта** можно воспользоваться утилитой `make`:
-```
-make docker-compose-down
-```
-
-## Запуск и остановка уже настроенного приложения
-
-Если приложение уже развёрнуто, то достаточно просто запустить Doker окружение.
-Находясь в корне проекта выполнить команду:
-```
-make docker-compose-up
-```
-
-Если в процессе разработки ведётся работа над css и js файлами, то нужно запустить процесс сборки фронтенда:
-```
-make docker-yarn-dev
-```
-
-Для остановки окружения выполните команду
-```
-make docker-compose-down
-```
-
-При обновлении зависимостей в файле `composer.json`, их нужно установить с помощью команды:
-```
-make docker-composer-update
-```
-
-## Настройка окружения с помощью Laradoc
-
-Ключевые настройки окружения находятся в файле `laradock-p/.env`, вот они:
-```
-# Задаёт порт на локальной машине на котором будет виден nginx   
-NGINX_HOST_HTTP_PORT=8000
-
-# Настройки подключения к MySQL
-MYSQL_DATABASE=default
-MYSQL_USER=default
-MYSQL_PASSWORD=secret
-# Порт в переменной окружения MYSQL_PORT - это порт который будет использоваться на локальной (хост) машине, чтобы подключиться к MySQL через удобный GUI интерфейс 
-MYSQL_PORT=33061
-MYSQL_ROOT_PASSWORD=root
-
-# Директория куда будут проброшены различные volume из Docker. В частности, здесь будет volume для хранения данных MySQL
-DATA_PATH_HOST=../storage/laradock/data
-```
-
-В соответсвии с настройками окружения в `laradock-p/.env`, настраиваются и параметры подключения базе в самом Laravel проекте.
-Исходный `.env.example` в корне проекта уже содержит эти настройки, при копировании его в `.env` всё должно заработать без дополнительных правок.
-Перечислим ещё раз настройки подключения к базе данных описываемые в корне проекта в файле `.env` для ясности:
-```
-DB_CONNECTION=mysql
-# Имя хоста внутри Docker сети совпадает с именем сервиса в docker-compose.yml, т.е. просто "mysql"
-DB_HOST=mysql
-# Порт подключения к базе внутри Docker сети стандартный 3306
-DB_PORT=3306
-# Имя базы, пользователь и пароль совпадают с указанными в настройках laradock-p/.env
-DB_DATABASE=default
-DB_USERNAME=default
-DB_PASSWORD=secret
-``` 
-
-## Настройка ide-helper
-
-```
-php artisan ide-helper:generate
-php artisan ide-helper:meta
-php artisan ide-helper:model
-```
-
-## Дополнительные команды
-
-Приложение даёт ряд дополнительных artisan команд.
-Их нужно выполнять, находясь в контейнере `workspace` (для входа в контейнер выполните `make docker-workspace`).
-
-### Создание пользователя
-```
-php artisan podpub:user
-```
-
-Примечание:
-**podpub** - сокращение от Podcust Publisher. Все команды данного проекта начинаются с этого профикса.
-
+Join us on Slack: https://join.slack.com/t/phptrackio/shared_invite/enQtODY0MTY2ODc5MDYwLTAyZWRmZjQwNDg4MmZjMWNmMDVkOTAxNzY4NjJkZGMxZDBiZjU1N2Y4YjI4NjNkODM2NDM4M2QxZTYwMWYxMzc

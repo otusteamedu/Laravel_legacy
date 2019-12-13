@@ -1,7 +1,8 @@
 <?php
 
-use App\User;
+use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class UsersTableSeeder extends Seeder
 {
@@ -12,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // Первый пользователь будет admin@example.com/password
+        // First mandatory user is admin@example.com/password
         User::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
@@ -21,7 +22,7 @@ class UsersTableSeeder extends Seeder
             'remember_token' => Str::random(10),
         ]);
 
-        // Добавим ещё случайно-сгенерированных пользователей
+        // Add 5 more random users
         factory(User::class, 5)->create();
     }
 }

@@ -12,5 +12,4 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-   .styles('resources/css/bulma.min.css', 'public/css/bulma.min.css')
-   .styles('resources/css/app.css', 'public/css/app.css');
+   .sass('resources/sass/app.scss', 'public/css');
