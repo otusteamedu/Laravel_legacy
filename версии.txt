@@ -14,3 +14,4 @@
 2019.12.13 Добавил колонки в миграцию _create_users_table.php
 2019.12.13 Создал модель Item и её миграцию миграцию _create_items_table.php
 2019.12.13 Создал модель UserAccount и её миграцию миграцию _create_user_accounts_table.php
+2019.12.13 Создал модель Order и её миграцию миграцию _create_orders_table.php
