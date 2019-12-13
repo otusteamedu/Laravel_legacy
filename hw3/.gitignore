@@ -1,6 +1,0 @@
-/vendor/
-/.idea
-/settings.php
-/composer.json
-/cron/log.sqlite3
-/cron/analysis
