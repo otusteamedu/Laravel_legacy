@@ -1,0 +1,9 @@
+[submodule "translater"]
+	path = translater
+	url = https://github.com/ruslan1984/translater.git
+[submodule "packeg"]
+	path = packeg
+	url = https://github.com/ruslan1984/translater.git
+[submodule "package/translater"]
+	path = package/translater
+	url = https://github.com/ruslan1984/translater.git
