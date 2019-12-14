@@ -1,0 +1,97 @@
+*{
+  padding: 0px;
+  margin: 0px;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+body{
+  background: #000;
+}
+.bg-light{
+ background-color:transparent!important;
+}
+header{
+  padding: 20px 0 20px ;
+}
+header .btn-dark{
+  background-color: #000;
+}
+.navbar-light .navbar-toggler{
+  background: #8d81ac;
+}
+.logo a{
+  color: #8d81ac;
+  font-size: 25px;
+  font-weight: 700;
+}
+.nav-item .nav-link{
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff!important;
+  margin-right: 15px;
+}
+.navbar-nav{
+  margin-right: 30px;
+}
+.main{
+  position: relative;
+  background: #000;
+}
+.main h1{
+  font-size: 82px;
+  color: #fff;
+  font-weight: 700;
+  padding-top: 25px;
+}
+.main p{
+  font-size: 20px;
+  color: #8d81ac;
+}
+.main span{
+  font-size: 16px;
+  color: #494654;
+  display: block;
+}
+.title-main{
+  text-align: center;
+}
+.main img{
+  display: block;
+  margin: auto;
+}
+.logo a:hover{
+  text-decoration: none;
+}
+.blink {
+    animation: blink 2s infinite; /* Параметры анимации */
+   }
+   @keyframes blink {
+    from { opacity: 1; /* Непрозрачный текст */ }
+    to { opacity: 0; /* Прозрачный текст */ }
+   }
+  .content{
+    color: #fff;
+    margin-top: 35px;
+  }
+  .content h2{
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  .auth{
+    background: #000;
+    color: #fff;
+  }
+  .auth h2{
+    text-align: center;
+    padding-top: 35px;
+  }
+  .auth form{
+    padding: 20px;
+    display: block;
+    width:350px;
+    margin: 20px auto;
+  }
+  .auth .btn{
+    background: #8d81ac;
+  }
