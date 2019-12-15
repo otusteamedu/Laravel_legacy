@@ -1,30 +1,36 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 //use App\Models\Grammar;
 use App\Services\Grammar\GrammarService;
-use Cache;
+
+//use App\Http\Controllers\Controller;
+
+use App\Services\Cache\CacheService;
+
 
 class GrammarController extends Controller
 {
-    private $grammarRepositoryCache;
+    protected $grammarService;
+
     public function __construct(
-        GrammarRepositoryCache $grammarRepositoryCache
+        GrammarService $grammarService
     )
     {
-        $this->grammarRepositoryCache = $grammarRepositoryCache;
+        $this->grammarService = $grammarService;
     }
-    public  function getList()
+
+    public function getList()
     {
         $list= $this->grammarService->listGrammar();
-        return view('list')->with(['list'=>$list]);
+        return  view('list')->with(['list'=>$list]);
     }
+
     public  function getDeatail(string $id)
     {
-        $list= $this->grammarRepositoryCache->listGrammar();
-        $detail=  $this->gramgrammarRepositoryCachemarService->detailGrammar($id);
+        $list= $this->grammarService->listGrammar();
+        $detail=  $this->grammarService->detailGrammar($id);
         return  view('grammar')->with(['detail'=>$detail,'list'=>$list]);
     }
 }

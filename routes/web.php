@@ -35,13 +35,6 @@ Route::name('admin.')->group(function () {
 
 
 
-
-
-
-
-
-//Route::when('*', 'csrf', array('post', 'put', 'delete'));
-
 Route::prefix('cache')->group(function () {
     Route::get('/', 'CacheController@index');
     Route::get('/clear', 'CacheController@clear');
