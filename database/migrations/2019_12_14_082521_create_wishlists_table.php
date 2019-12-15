@@ -13,7 +13,6 @@ class CreateWishlistsTable extends Migration
      */
     public function up()
     {
-
         Schema::create('wishlists', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
@@ -23,7 +22,10 @@ class CreateWishlistsTable extends Migration
         );
 
         Schema::table('wishlists', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('cascade');
         });
     }
 
