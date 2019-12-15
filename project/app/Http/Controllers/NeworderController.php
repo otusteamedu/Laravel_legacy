@@ -6,7 +6,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Deliveryset;
+use App\Models\Item;
 use App\Models\Order;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use SimpleXMLElement;
 
@@ -18,14 +21,39 @@ class NeworderController extends Controller
      */
     public function index(SimpleXMLElement $xmlData)
     {
-        $data = [];
+        $result = [];
 
         $data['newFolder'] = (strtolower($xmlData->attributes()->newfolder) == 'yes') ? true : false;
         foreach ($xmlData->order as $order) {
             $order = $this->getDataFromOrder($order);
-
             $orderModel = new Order($order);
-            $orderModel->save();
+            if($orderModel->save()) {
+                $orderId = $orderModel->id;
+
+                if(isset($order['items'])){
+                    foreach ($order['items'] as $item) {
+                        $itemModel = new Item($item);
+                        $itemModel->order_id = $orderId;
+                        $itemModel->save();
+                    }
+                }
+                if(isset($order['packages'])){
+                    foreach ($order['packages'] as $package) {
+                        $packageModel = new Package($package);
+                        $packageModel->order_id = $orderId;
+                        $packageModel->save();
+                    }
+                }
+                if(isset($order['deliverysets'])){
+                    foreach ($order['deliverysets'] as $deliveryset) {
+                        $deliverysetModel = new Deliveryset($deliveryset);
+                        $deliverysetModel->order_id = $orderId;
+                        $deliverysetModel->save();
+                    }
+                }
+            }
+
+
         }
 
 
