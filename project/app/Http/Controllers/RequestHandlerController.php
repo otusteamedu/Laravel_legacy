@@ -14,27 +14,28 @@ class RequestHandlerController extends Controller
         $rawRequestData = $request->getContent();
         try {
             $xmlData = new SimpleXMLElement($rawRequestData);
-            $authElement = $xmlData->auth;
-
-            if(!AuthHelper::checkAuth($authElement)) {
-                $response = $this->getAurhErrorResponse();
-                return response($response, 200)->header('Content-type', 'application/xml');
-            }
-
-            $requestName = $xmlData->getName();
-            $controllerName = 'App\Http\Controllers\\'.ucfirst($requestName).'Controller';
-
-            if(!class_exists($controllerName)){
-                $response = $this->getIncorrectRequestErrorResponse();
-                return response($response, 200)->header('Content-type', 'application/xml');
-            }
-
-            $controller = new $controllerName();
-            $controller->index($xmlData);
         } catch (Exception $e) {
             $response = $this->getSyntaxErrorResponse();
             return response($response, 200)->header('Content-type', 'application/xml');
         }
+
+        $authElement = $xmlData->auth;
+
+        if(!AuthHelper::checkAuth($authElement)) {
+            $response = $this->getAurhErrorResponse();
+            return response($response, 200)->header('Content-type', 'application/xml');
+        }
+
+        $requestName = $xmlData->getName();
+        $controllerName = 'App\Http\Controllers\\'.ucfirst($requestName).'Controller';
+
+        if(!class_exists($controllerName)){
+            $response = $this->getIncorrectRequestErrorResponse();
+            return response($response, 200)->header('Content-type', 'application/xml');
+        }
+
+        $controller = new $controllerName();
+        $controller->index($xmlData);
     }
 
     private function getSyntaxErrorResponse()
