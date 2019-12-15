@@ -22,9 +22,8 @@ class CreateProductsSnapshotsTable extends Migration
     public function up()
     {
         Schema::create('products_snapshots', function (Blueprint $table) {
-            $table->unsignedBigInteger('productId');
-            $table->unsignedInteger('totalResults');
-            $table->string('productTitle');
+            $table->bigIncrements('productId');
+            $table->string('productTitle', 255);
             $table->string('productUrl');
             $table->string('imageUrl');
             $table->string('originalPrice');
@@ -37,8 +36,10 @@ class CreateProductsSnapshotsTable extends Migration
             $table->unsignedInteger('volume');
             $table->string('packageType');
             $table->unsignedInteger('lotNum');
-            $table->string('validTime');
+            $table->date('validTime');
             $table->string('localPrice');
+            $table->string('storeUrl');
+            $table->string('storeName');
             $table->text('allImageUrls');
 
             $table->timestamps();

@@ -14,7 +14,6 @@ class CreateWishlistProductsTable extends Migration
     public function up()
     {
         Schema::create('wishlist_products', function (Blueprint $table) {
-            $table->bigIncrements('id');
             $table->unsignedBigInteger('wishlist_id');
             $table->unsignedBigInteger('product_id');
             $table->double('expected_price');
@@ -22,7 +21,10 @@ class CreateWishlistProductsTable extends Migration
         });
 
         Schema::table('wishlist_products', function (Blueprint $table) {
-            $table->foreign('wishlist_id')->references('id')->on('wishlists');
+            $table->foreign('wishlist_id')
+                  ->references('id')
+                  ->on('wishlists')
+                  ->onDelete('cascade');
         }
         );
     }
