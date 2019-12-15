@@ -15,15 +15,23 @@ class RequestHandlerController extends Controller
         try {
             $xmlData = new SimpleXMLElement($rawRequestData);
             $authElement = $xmlData->auth;
-            var_dump(AuthHelper::checkAuth($authElement));
-            die;
+
             if(!AuthHelper::checkAuth($authElement)) {
                 $response = $this->getAurhErrorResponse();
                 return response($response, 200)->header('Content-type', 'application/xml');
             }
 
+            $requestName = $xmlData->getName();
+            $controllerName = 'App\Http\Controllers\\'.ucfirst($requestName).'Controller';
+
+            if(!class_exists($controllerName)){
+                $response = $this->getIncorrectRequestErrorResponse();
+                return response($response, 200)->header('Content-type', 'application/xml');
+            }
+
+            $controller = new $controllerName();
+            $controller->index($xmlData);
         } catch (Exception $e) {
-            print_r($e->getMessage());
             $response = $this->getSyntaxErrorResponse();
             return response($response, 200)->header('Content-type', 'application/xml');
         }
@@ -34,7 +42,7 @@ class RequestHandlerController extends Controller
         $response = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><request/>');
         $error = $response->addChild('error');
         $error->addAttribute('error', '1');
-        $error->addAttribute('errormsg', 'authorization error');
+        $error->addAttribute('errormsg', 'Syntax error');
 
         $response = $response->asXML();
 
@@ -43,6 +51,25 @@ class RequestHandlerController extends Controller
 
     private function getAurhErrorResponse()
     {
+        $response = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><request/>');
+        $error = $response->addChild('error');
+        $error->addAttribute('error', '2');
+        $error->addAttribute('errormsg', 'authorization error');
 
+        $response = $response->asXML();
+
+        return $response;
+    }
+
+    private function getIncorrectRequestErrorResponse()
+    {
+        $response = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><request/>');
+        $error = $response->addChild('error');
+        $error->addAttribute('error', '2');
+        $error->addAttribute('errormsg', 'Incorrect request');
+
+        $response = $response->asXML();
+
+        return $response;
     }
 }
