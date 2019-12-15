@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Grammar;
 use App\Policies\GrammarPolicy;
 use App\Models\User;
-
+use Laravel\Passport\Passport;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -37,5 +37,6 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Abilities::UPDATE, function ($user, $grammar) {
             return ($user->id == $grammar->create_user_id||($user->id==1));
         });
+        Passport::routes();
     }
 }
