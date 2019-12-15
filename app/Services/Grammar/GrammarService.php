@@ -3,43 +3,39 @@
 namespace App\Services\Grammar;
 
 use App\Models\Grammar;
-use App\Services\Grammar\Repositories\GrammarRepository;
-use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use App\Http\Resources\GrammarResource;
-use Illuminate\Http\Request;
+use App\Services\Grammar\Repositories\GrammarRepositoryCache;
+
 
 class GrammarService
 {
 
-    private $grammarRepository;
+    private $grammarRepositoryCache;
 
-    public function __construct(GrammarRepository $grammarRepository)
+    public function __construct(GrammarRepositoryCache $grammarRepositoryCache)
     {
-        $this->grammarRepository = $grammarRepository;
+        $this->grammarRepositoryCache = $grammarRepositoryCache;
     }
 
     public function listGrammar()
     {
-        return $this->grammarRepository->listGrammar();
+        return $this->grammarRepositoryCache->listGrammar();
     }
 
     public function detailGrammar(string $id)
     {
-        return $this->grammarRepository->detailGrammar($id);
+        return $this->grammarRepositoryCache->detailGrammar($id);
     }
     public function updateGrammar(Grammar $grammar, Array $data):Grammar
     {
-        return $this->grammarRepository->updateGrammar($grammar,$data);
+        return $this->grammarRepositoryCache->updateGrammar($grammar,$data);
     }
     public function insertGrammar($data):Grammar
     {
-        return $this->grammarRepository->insertGrammar($data);
+        return $this->grammarRepositoryCache->insertGrammar($data);
     }
 
     public function newGrammar()
     {
         return new Grammar();
     }
-
-
 }

@@ -18,7 +18,7 @@ Route::get('/arabskie-bukvy', 'OrthographyController@getList');
 Route::get('/arabskie-bukvy/{id}', 'OrthographyController@getDeatail');
 Route::get('/grammatika', 'GrammarController@getList')->name('grammList');
 Route::get('/grammatika/{id}', 'GrammarController@getDeatail');
-
+Route::get('/home', 'HomeController@index');
 
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->middleware('auth')->group(function () {
@@ -35,13 +35,6 @@ Route::name('admin.')->group(function () {
 
 
 
-
-
-
-
-
-//Route::when('*', 'csrf', array('post', 'put', 'delete'));
-
 Route::prefix('cache')->group(function () {
     Route::get('/', 'CacheController@index');
     Route::get('/clear', 'CacheController@clear');
@@ -53,6 +46,6 @@ Route::prefix('cache')->group(function () {
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 //Route::get('/cc', 'HomeController@cc')->name('cc');
