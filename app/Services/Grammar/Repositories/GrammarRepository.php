@@ -6,9 +6,9 @@ use App\Http\Resources\GrammarResource;
 use App\Models\Grammar;
 use DB;
 use Cache;
-//use function MongoDB\BSON\toJSON;
 
-class GrammarRepository
+
+class GrammarRepository implements IGrammarRepository
 {
 
     public function listGrammar()
@@ -16,7 +16,7 @@ class GrammarRepository
         return Grammar::all('id', 'name', 'code');
     }
 
-    public function detailGrammar(string $id)
+    public function detailGrammar(int $id)
     {
         return Grammar::find($id);
     }

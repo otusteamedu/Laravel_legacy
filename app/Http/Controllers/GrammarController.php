@@ -9,30 +9,22 @@ use Cache;
 
 class GrammarController extends Controller
 {
-    private $grammarService;
+    private $grammarRepositoryCache;
     public function __construct(
-        GrammarService $grammarService
+        GrammarRepositoryCache $grammarRepositoryCache
     )
     {
-        $this->grammarService = $grammarService;
+        $this->grammarRepositoryCache = $grammarRepositoryCache;
     }
     public  function getList()
     {
-        $list  = Cache::tags(['list'])->remember('grammar_list', 600, function () {
-            return $this->grammarService->listGrammar();
-        });
+        $list= $this->grammarService->listGrammar();
         return view('list')->with(['list'=>$list]);
     }
-
     public  function getDeatail(string $id)
     {
-        $list  = Cache::tags(['list'])->remember('grammar_list', 600, function () {
-            return $this->grammarService->listGrammar();
-        });
-        $detail  = Cache::tags(['grammar'])->remember('grammar_detail_'.$id, 600, function () use($id) {
-            return  $this->grammarService->detailGrammar($id);
-        });
-
+        $list= $this->grammarRepositoryCache->listGrammar();
+        $detail=  $this->gramgrammarRepositoryCachemarService->detailGrammar($id);
         return  view('grammar')->with(['detail'=>$detail,'list'=>$list]);
     }
 }
