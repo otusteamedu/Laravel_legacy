@@ -20,8 +20,9 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('parent_id')->unsigned()->default(0);
             $table->string('slug')->unique();
-            $table->string('title');
+            $table->string('title')->index();
             $table->text('description')->nullable();
+            $table->string('icon', 100)->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
