@@ -35,7 +35,7 @@ class RequestHandlerController extends Controller
         }
 
         $controller = new $controllerName();
-        $controller->index($xmlData);
+        return $controller->index($xmlData);
     }
 
     private function getSyntaxErrorResponse()

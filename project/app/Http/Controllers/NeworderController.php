@@ -6,6 +6,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\XmlResponseHelper;
 use App\Models\Deliveryset;
 use App\Models\Item;
 use App\Models\Order;
@@ -21,7 +22,11 @@ class NeworderController extends Controller
      */
     public function index(SimpleXMLElement $xmlData)
     {
-        $result = [];
+        $xmlResponseMainElemantName = 'neworder';
+
+        $result = [
+            $xmlResponseMainElemantName => []
+        ];
 
         $data['newFolder'] = (strtolower($xmlData->attributes()->newfolder) == 'yes') ? true : false;
         foreach ($xmlData->order as $order) {
@@ -29,6 +34,14 @@ class NeworderController extends Controller
             $orderModel = new Order($order);
             if($orderModel->save()) {
                 $orderId = $orderModel->id;
+                $result[$xmlResponseMainElemantName][] = [
+                    '@value' => 'Success',
+                    '@attributes' => [
+                        'id' => $orderId,
+                        'error' => 0,
+                        'errormsg' => ''
+                    ]
+                ];
 
                 if(isset($order['items'])){
                     foreach ($order['items'] as $item) {
@@ -51,12 +64,20 @@ class NeworderController extends Controller
                         $deliverysetModel->save();
                     }
                 }
+            } else {
+                $result[$xmlResponseMainElemantName][] = [
+                    '@value' => 'Failed',
+                    '@attributes' => [
+                        'id' => '',
+                        'error' => 3,
+                        'errormsg' => 'The creating if new order failed'
+                    ]
+                ];
             }
-
-
         }
-
-
+        $response = XmlResponseHelper::ParseXMLToArray($result);
+        return response($response->asXML(), 200)
+            ->header('Content-type', 'application/xml');
     }
 
     /**
