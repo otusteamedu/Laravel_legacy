@@ -7,9 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * Class User
+ * App\Models\User
  *
- * @package App\Models
  * @property int $id
  * @property string $name
  * @property string $email
