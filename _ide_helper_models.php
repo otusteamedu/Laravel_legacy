@@ -17,13 +17,14 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BaseModel query()
+ * @mixin \Eloquent
  */
 	class BaseModel extends \Eloquent {}
 }
 
 namespace App\Models{
 /**
- * App\Models\ProductsSnapshot
+ * App\Models\Products
  *
  * @property int $productId
  * @property string $productTitle
@@ -46,30 +47,61 @@ namespace App\Models{
  * @property string $allImageUrls
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products where30daysCommission($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereAllImageUrls($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereCommission($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereCommissionRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereEvaluateScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereLocalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereLotNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereOriginalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products wherePackageType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereProductTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereProductUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereSalePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereStoreName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereStoreUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereValidTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereVolume($value)
+ * @mixin \Eloquent
+ */
+	class Products extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * App\Models\ProductsSnapshot
+ *
+ * @property int $id
+ * @property int $productId
+ * @property string $originalPrice
+ * @property string $salePrice
+ * @property string $localPrice
+ * @property string $discount
+ * @property string $validTime
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot where30daysCommission($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereAllImageUrls($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereCommission($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereCommissionRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereDiscount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereEvaluateScore($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereLocalPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereLotNum($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereOriginalPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot wherePackageType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereProductTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereProductUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereSalePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereStoreName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereStoreUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereValidTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProductsSnapshot whereVolume($value)
+ * @mixin \Eloquent
  */
 	class ProductsSnapshot extends \Eloquent {}
 }
@@ -78,7 +110,6 @@ namespace App\Models{
 /**
  * Class User
  *
- * @property array wishlists
  * @package App\Models
  * @property int $id
  * @property string $name
@@ -92,6 +123,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Wishlist[] $wishlists
  * @property-read int|null $wishlists_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -106,6 +138,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 	class User extends \Eloquent {}
 }
@@ -127,6 +160,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereUserId($value)
+ * @mixin \Eloquent
+ * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WishlistProduct[] $products
+ * @property-read int|null $products_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\WishlistProduct[] $wishlistProducts
+ * @property-read int|null $wishlist_products_count
  */
 	class Wishlist extends \Eloquent {}
 }
@@ -148,6 +187,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct whereProductId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct whereWishlistId($value)
+ * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ProductsSnapshot[] $productSnapshots
+ * @property-read int|null $product_snapshots_count
  */
 	class WishlistProduct extends \Eloquent {}
 }

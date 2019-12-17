@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Schema;
  *       1.1 listPromotionProduct
  *          1.1.3 Output Parameter
  */
-
 class CreateProductsSnapshotsTable extends Migration
 {
     /**
@@ -22,27 +21,21 @@ class CreateProductsSnapshotsTable extends Migration
     public function up()
     {
         Schema::create('products_snapshots', function (Blueprint $table) {
-            $table->bigIncrements('productId');
-            $table->string('productTitle', 255);
-            $table->string('productUrl');
-            $table->string('imageUrl');
+            $table->integerIncrements('id');
+            $table->unsignedBigInteger('productId');
             $table->string('originalPrice');
             $table->string('salePrice');
-            $table->string('discount');
-            $table->unsignedInteger('evaluateScore');
-            $table->string('commission');
-            $table->string('commissionRate');
-            $table->string('30daysCommission');
-            $table->unsignedInteger('volume');
-            $table->string('packageType');
-            $table->unsignedInteger('lotNum');
-            $table->date('validTime');
             $table->string('localPrice');
-            $table->string('storeUrl');
-            $table->string('storeName');
-            $table->text('allImageUrls');
-
+            $table->string('discount');
+            $table->date('validTime');
             $table->timestamps();
+        });
+
+        Schema::table('products_snapshots', function (Blueprint $table) {
+            $table->foreign('productId')
+                ->references('productId')
+                ->on('products')
+                ->onDelete('cascade');
         });
     }
 
