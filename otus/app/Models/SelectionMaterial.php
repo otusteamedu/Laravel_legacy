@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\SelectionMaterial\SelectionMaterialSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -14,4 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SelectionMaterial extends Model {
     protected $fillable = ['name'];
+
+    protected $dispatchesEvents = [
+        'saved' => SelectionMaterialSaved::class
+    ];
 }

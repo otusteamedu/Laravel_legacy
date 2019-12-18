@@ -11,8 +11,11 @@ class EloquentUserRepository implements UserRepositoryInterface {
         return User::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return User::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return User::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

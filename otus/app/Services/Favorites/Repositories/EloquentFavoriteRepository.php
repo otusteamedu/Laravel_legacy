@@ -11,8 +11,11 @@ class EloquentFavoriteRepository implements FavoriteRepositoryInterface {
         return Favorite::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Favorite::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Favorite::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

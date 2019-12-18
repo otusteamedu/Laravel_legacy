@@ -6,7 +6,7 @@
 @section('content')
     {{ Form::open(
             [
-                'url' => route('admin.selection-materials.update', ['selectionMaterial' => $selectionMaterial]),
+                'url' => route('admin.selection-materials.update', ['selection_material' => $selectionMaterial]),
                 'method' => 'PUT'
             ]
          )

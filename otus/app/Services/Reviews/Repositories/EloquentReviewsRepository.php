@@ -11,8 +11,11 @@ class EloquentReviewsRepository implements ReviewsRepositoryInterface {
         return Review::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Review::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Review::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

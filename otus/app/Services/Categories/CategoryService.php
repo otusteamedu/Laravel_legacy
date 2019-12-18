@@ -4,15 +4,18 @@ namespace App\Services\Categories;
 
 use App\Models\Category;
 
+use App\Services\Categories\Repositories\CachedCategoryRepositoryInterface;
 use App\Services\Categories\Repositories\CategoryRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CategoryService {
 
     private $categoryRepository;
+    private $cachedCategoryRepository;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository) {
+    public function __construct(CategoryRepositoryInterface $categoryRepository, CachedCategoryRepositoryInterface $cachedCategoryRepository) {
         $this->categoryRepository = $categoryRepository;
+        $this->cachedCategoryRepository = $cachedCategoryRepository;
     }
 
     public function findCategory(int $id): Category {
@@ -20,10 +23,12 @@ class CategoryService {
     }
 
     /**
+     * @param array $filters
+     * @param array $with
      * @return LengthAwarePaginator
      */
     public function searchCategories(): LengthAwarePaginator {
-        return $this->categoryRepository->search();
+        return $this->cachedCategoryRepository->search();
     }
 
     /**

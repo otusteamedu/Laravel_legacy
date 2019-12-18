@@ -5,6 +5,7 @@ namespace App\Services\Users;
 use App\Models\User;
 use App\Services\Users\Handlers\UserPasswordHashHandler;
 use App\Services\Users\Handlers\UserUploadPhotoHandler;
+use App\Services\Users\Repositories\CachedUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
@@ -14,11 +15,18 @@ class UserService {
     private $userRepository;
     private $userUploadPhotoHandler;
     private $userPasswordHashHandler;
+    private $cachedUserRepository;
 
-    public function __construct(UserRepositoryInterface $userRepository, UserUploadPhotoHandler $userUploadPhotoHandler, UserPasswordHashHandler $userPasswordHashHandler) {
+    public function __construct(
+        UserRepositoryInterface $userRepository,
+        UserUploadPhotoHandler $userUploadPhotoHandler,
+        UserPasswordHashHandler $userPasswordHashHandler,
+        CachedUserRepository $cachedUserRepository
+    ) {
         $this->userRepository = $userRepository;
         $this->userUploadPhotoHandler = $userUploadPhotoHandler;
         $this->userPasswordHashHandler = $userPasswordHashHandler;
+        $this->cachedUserRepository = $cachedUserRepository;
     }
 
     public function findUser(int $id): User {
@@ -29,7 +37,7 @@ class UserService {
      * @return LengthAwarePaginator
      */
     public function searchUsers(): LengthAwarePaginator {
-        return $this->userRepository->search();
+        return $this->cachedUserRepository->search();
     }
 
     /**

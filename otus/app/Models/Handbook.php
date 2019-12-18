@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Handbook\HandbookSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -15,5 +16,10 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  */
 class Handbook extends Model {
+
+    protected $dispatchesEvents = [
+        'saved' => HandbookSaved::class
+    ];
+
     protected $fillable = ['code', 'name', 'description'];
 }

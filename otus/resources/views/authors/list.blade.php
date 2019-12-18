@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+{{--@extends('reading_room_user_page.index')--}}
 @section('title', 'Page List ')
 {{ Html::style('css/custom.css') }}
 

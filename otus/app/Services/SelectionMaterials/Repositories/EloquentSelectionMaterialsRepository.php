@@ -11,8 +11,11 @@ class EloquentSelectionMaterialsRepository implements SelectionMaterialsReposito
         return SelectionMaterial::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return SelectionMaterial::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return SelectionMaterial::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

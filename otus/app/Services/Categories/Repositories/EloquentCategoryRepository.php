@@ -11,8 +11,11 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface {
         return Category::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Category::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Category::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

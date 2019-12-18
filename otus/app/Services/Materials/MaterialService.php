@@ -4,15 +4,18 @@ namespace App\Services\Materials;
 
 use App\Models\Material;
 
+use App\Services\Materials\Repositories\CachedMaterialRepositoryInterface;
 use App\Services\Materials\Repositories\MaterialsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class MaterialService {
 
     private $materialRepository;
+    private $cachedMaterialRepository;
 
-    public function __construct(MaterialsRepositoryInterface $materialRepository) {
+    public function __construct(MaterialsRepositoryInterface $materialRepository, CachedMaterialRepositoryInterface $cachedMaterialRepository) {
         $this->materialRepository = $materialRepository;
+        $this->cachedMaterialRepository = $cachedMaterialRepository;
     }
 
     public function findMaterial(int $id): Material {
@@ -23,7 +26,7 @@ class MaterialService {
      * @return LengthAwarePaginator
      */
     public function searchMaterials() {
-        return $this->materialRepository->search();
+        return $this->cachedMaterialRepository->search();
     }
 
     /**
@@ -39,7 +42,6 @@ class MaterialService {
      * @param array $data
      */
     public function updateMaterial(Material $material, array $data) {
-        $material->authors()->sync($data['authors_id']);
         $this->materialRepository->updateFromArray($material, $data);
     }
 

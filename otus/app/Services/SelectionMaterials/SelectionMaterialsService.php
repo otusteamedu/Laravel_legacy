@@ -3,15 +3,18 @@
 namespace App\Services\SelectionMaterials;
 
 use App\Models\SelectionMaterial;
+use App\Services\SelectionMaterials\Repositories\CachedSelectionMaterialRepositoryInterface;
 use App\Services\SelectionMaterials\Repositories\SelectionMaterialsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class SelectionMaterialsService {
 
     private $selectionMaterialsRepository;
+    private $cachedSelectionMaterialRepository;
 
-    public function __construct(SelectionMaterialsRepositoryInterface $selectionMaterialsRepository) {
+    public function __construct(SelectionMaterialsRepositoryInterface $selectionMaterialsRepository, CachedSelectionMaterialRepositoryInterface $cachedSelectionMaterialRepository) {
         $this->selectionMaterialsRepository = $selectionMaterialsRepository;
+        $this->cachedSelectionMaterialRepository = $cachedSelectionMaterialRepository;
     }
 
     public function findSelectionMaterial(int $id): SelectionMaterial {
@@ -22,7 +25,7 @@ class SelectionMaterialsService {
      * @return LengthAwarePaginator
      */
     public function searchSelectionMaterials(): LengthAwarePaginator {
-        return $this->selectionMaterialsRepository->search();
+        return $this->cachedSelectionMaterialRepository->search();
     }
 
     /**

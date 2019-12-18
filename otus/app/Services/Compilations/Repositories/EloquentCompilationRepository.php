@@ -11,8 +11,11 @@ class EloquentCompilationRepository implements CompilationRepositoryInterface {
         return Compilation::query()->find($id);
     }
 
-    public function search(): LengthAwarePaginator {
-        return Compilation::query()->orderByDesc('created_at')->paginate();
+    public function search(array $filters = [], array $with = []): LengthAwarePaginator {
+        return Compilation::query()
+            ->orderByDesc('created_at')
+            ->with($with)
+            ->paginate();
     }
 
     public function destroy(array $ids) {

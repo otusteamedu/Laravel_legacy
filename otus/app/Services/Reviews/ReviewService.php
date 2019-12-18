@@ -3,15 +3,18 @@
 namespace App\Services\Reviews;
 
 use App\Models\Review;
+use App\Services\Reviews\Repositories\CachedReviewRepositoryInterface;
 use App\Services\Reviews\Repositories\ReviewsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ReviewService {
 
     private $reviewsRepository;
+    private $cachedReviewRepository;
 
-    public function __construct(ReviewsRepositoryInterface $reviewsRepository) {
+    public function __construct(ReviewsRepositoryInterface $reviewsRepository, CachedReviewRepositoryInterface $cachedReviewRepository) {
         $this->reviewsRepository = $reviewsRepository;
+        $this->cachedReviewRepository = $cachedReviewRepository;
     }
 
     public function findReview(int $id): Review {
@@ -22,7 +25,7 @@ class ReviewService {
      * @return LengthAwarePaginator
      */
     public function searchReviews(): LengthAwarePaginator {
-        return $this->reviewsRepository->search();
+        return $this->cachedReviewRepository->search();
     }
 
     /**

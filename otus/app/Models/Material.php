@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Material\MaterialSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,6 +24,10 @@ use Illuminate\Database\Eloquent\Model;
 class Material extends Model {
     protected $fillable = ['name', 'category_id', 'status_id', 'file', 'year_publishing', 'preview_image', 'format', 'type', 'description'];
     protected $with = ['category', 'authors','readUsers', 'status', 'reviews'];
+
+    protected $dispatchesEvents = [
+        'saved' => MaterialSaved::class
+    ];
 
     public function category() {
         return $this->hasOne(Category::class, 'id', 'category_id');
