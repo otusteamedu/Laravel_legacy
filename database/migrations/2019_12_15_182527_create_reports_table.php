@@ -15,13 +15,13 @@ class CreateReportsTable extends Migration
     {
         Schema::create('reports', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('projects_id')->unsigned();
+            $table->bigInteger('project_id')->unsigned();
             $table->string('status');
-            $table->index('projects_id');
+            $table->index('project_id');
         });
 
         Schema::table('reports', function (Blueprint $table) {
-            $table->foreign('projects_id')
+            $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')
                 ->onDelete('cascade');
