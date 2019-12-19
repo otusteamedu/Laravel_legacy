@@ -17,9 +17,16 @@ Route::name('cms.')->group(function () {
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',
             'cities' => 'Cms\Cities\CitiesController',
+        ], [
+            'except' => [
+                'destroy',
+            ],
         ]);
     });
 });
 Route::view('/home', 'home')->name('home');
 Route::view('/', 'welcome');
 Route::auth();
+
+
+//Route::get('/cities', 'CitiesListController');

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Cms\Countries;
 
+use App\Http\Controllers\Cms\Countries\Requests\StoreCountryRequest;
+use App\Http\Controllers\Cms\Countries\Requests\UpdateCountryRequest;
 use App\Policies\Abilities;
-use Gate;
-use Auth;
-use Log;
+use View;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
-use App\Services\SimpleBar;
-use App\Services\SimpleFoo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
@@ -27,15 +25,16 @@ class CountriesController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
-        return view('countries.index', [
-            'countries' => $this->countriesService->searchCountries(),
+        View::share([
+            'countries' => Country::paginate(),
         ]);
+
+        return view('countries.index');
     }
 
     /**
@@ -50,21 +49,13 @@ class CountriesController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCountryRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreCountryRequest $request)
     {
-//        $this->authorize(Abilities::CREATE, Country::class);
+        $data = $request->getFormData();
 
-        $this->validate($request, [
-            'name' => 'required|unique:countries,name|max:100',
-            'continent_name' => 'required|max:20'
-        ]);
-        $data = $request->all();
-        $data['created_user_id'] = Auth::id();
         $this->countriesService->storeCountry($data);
 
         return redirect(route('cms.countries.index'));
@@ -84,22 +75,17 @@ class CountriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
+     * @param UpdateCountryRequest $request
+     * @param Country $country
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Country $country)
+    public function update(UpdateCountryRequest $request, Country $country)
     {
         $this->authorize(Abilities::UPDATE, $country);
 
-        $this->validate($request, [
-            'name' => 'required|unique:countries,name|max:100',
-            'continent_name' => 'required|max:20'
-        ]);
-
         $this->countriesService->updateCountry($country, $request->all());
+        $country->update($request->all());
 
         return redirect(route('cms.countries.index'));
     }
@@ -128,13 +114,5 @@ class CountriesController extends Controller
     public function destroy(Country $country)
     {
         //
-    }
-
-    /**
-     * @return \App\Models\User|null
-     */
-    private function getCurrentUser()
-    {
-        return \Auth::user();
     }
 }

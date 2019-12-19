@@ -23,6 +23,12 @@ class EloquentCountryRepository implements CountryRepositoryInterface
         return Country::paginate();
     }
 
+    public function getCountriesByContinentName(string $continentName)
+    {
+        return Country::where('continent_name', $continentName)
+            ->get();
+    }
+
     public function createFromArray(array $data): Country
     {
         $country = new Country();

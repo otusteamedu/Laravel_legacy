@@ -10,6 +10,7 @@ namespace App\Services\Countries\Handlers;
 
 use App\Models\Country;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
+use Carbon\Carbon;
 
 class CreateCountryHandler
 {
@@ -26,6 +27,9 @@ class CreateCountryHandler
 
     public function handle(array $data): Country
     {
+        $data['created_at'] = Carbon::create()->subDay();
+        $data['name'] = ucfirst($data['name']);
+
         return $this->countryRepository->createFromArray($data);
     }
 

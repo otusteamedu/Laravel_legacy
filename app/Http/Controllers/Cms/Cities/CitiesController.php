@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Cms\Cities;
 
+use App\Http\Controllers\Cms\Cities\Requests\StoreCityRequest;
 use App\Models\City;
+use App\Services\Cities\CitiesService;
 use App\Services\Countries\CountriesService;
 use App\Services\SimpleFoo;
 use Illuminate\Http\Request;
@@ -11,14 +13,17 @@ use App\Http\Controllers\Controller;
 class CitiesController extends Controller
 {
     protected $countriesService;
+    protected $citiesService;
     protected $simpleFoo;
 
     public function __construct(
         CountriesService $countriesService,
+        CitiesService $citiesService,
         SimpleFoo $simpleFoo
     )
     {
         $this->countriesService = $countriesService;
+        $this->citiesService = $citiesService;
         $this->simpleFoo = $simpleFoo;
     }
     /**
@@ -42,18 +47,19 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        //
+        return view('cities.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCityRequest $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
-        //
+        $data = $request->getFormData();
+        $this->citiesService->createCity($data);
+
+        return redirect(route('cms.cities.index'));
     }
 
     /**
