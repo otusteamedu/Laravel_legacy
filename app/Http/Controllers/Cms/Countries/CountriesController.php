@@ -33,17 +33,6 @@ class CountriesController extends Controller
      */
     public function index(Request $request)
     {
-//        if (Gate::allows('countries.view')) {
-//            Log::info('Allows');
-//        } else {
-//            Log::info('Not allowed');
-//        }
-//        Gate::authorize('countries.view');
-
-        if (!$this->getCurrentUser()->can(Abilities::VIEW_ANY, Country::class)) {
-            abort(403);
-        }
-
         return view('countries.index', [
             'countries' => $this->countriesService->searchCountries(),
         ]);
@@ -56,7 +45,7 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        $this->authorize(Abilities::CREATE, Country::class);
+//        $this->authorize(Abilities::CREATE, Country::class);
         return view('countries.create');
     }
 
@@ -68,7 +57,7 @@ class CountriesController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize(Abilities::CREATE, Country::class);
+//        $this->authorize(Abilities::CREATE, Country::class);
 
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
@@ -116,15 +105,13 @@ class CountriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
-     * @return \Illuminate\Http\Response
+     * @param Country $country
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Request $request, Country $country)
+    public function show(Country $country)
     {
-        $this->authorize(Abilities::VIEW, $country);
+
+//        $this->authorize(Abilities::VIEW, $country);
 
         return view('countries.show', [
             'country' => $country,

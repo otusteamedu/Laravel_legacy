@@ -12,16 +12,8 @@
 */
 
 
-//Route::get('/countries', 'Cms\Countries\CountriesIndexController')->name('cms.countries.index');
-//Route::get('/countries/create', 'Cms\CountriesController@create')->name('cms.countries.create');
-//Route::get('/countries/{country}', 'Cms\CountriesController@show')->name('cms.countries.show');
-
-//Route::middleware(['shareCommonData'])->group(function () {
-//
-//});
-
 Route::name('cms.')->group(function () {
-    Route::prefix('cms')->middleware('auth.basic')->group(function () {
+    Route::prefix('cms')->group(function () {
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',
             'cities' => 'Cms\Cities\CitiesController',

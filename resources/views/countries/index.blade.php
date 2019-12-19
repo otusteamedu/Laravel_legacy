@@ -9,7 +9,7 @@
     @php
         $breadcrumbs = [
             [
-                'url' => '/',
+                'url' => route('home'),
                 'title' => __('messages.home'),
             ],
             [

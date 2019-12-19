@@ -13,11 +13,11 @@
                     'title' => __('messages.home'),
                 ],
                 [
-                    'url' => '/countries',
+                    'url' => route('cms.countries.index'),
                     'title' => __('messages.countries'),
                 ],
                 [
-                    'url' => '/countries/create',
+                    'url' => route('cms.countries.create'),
                     'title' => __('messages.addCountry'),
                 ],
             ];

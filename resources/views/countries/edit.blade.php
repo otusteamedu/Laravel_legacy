@@ -13,7 +13,7 @@
                     'title' => __('messages.home'),
                 ],
                 [
-                    'url' => '/cms/countries',
+                    'url' => route('cms.countries.index'),
                     'title' => __('messages.countries'),
                 ],
                 [
