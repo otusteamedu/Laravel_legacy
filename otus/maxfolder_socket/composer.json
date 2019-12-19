@@ -1,0 +1,31 @@
+{
+    "name": "mfolder/socket",
+    "description": "socket chat",
+    "type": "library",
+    "require": {
+        "illuminate/support": "^6.0",
+        "ext-sockets": "*"
+    },
+    "require-dev": {
+        "illuminate/support": "^6.0",
+        "ext-sockets": "*"
+    },
+    "authors": [
+        {
+            "name": "Max Folder",
+            "email": "maxfolder55@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MaxFolder\\Socket\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "MaxFolder\\Socket\\ServiceProvider"
+            ]
+        }
+    }
+}
