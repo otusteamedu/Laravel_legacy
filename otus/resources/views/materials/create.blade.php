@@ -33,6 +33,13 @@ $arStatuses = $statuses->mapWithKeys(static function ( $status) {
 
     <div class="form-group">
 
+        {{Form::label('description', 'Описание')}}
+        {{Form::text('description', null, ['class' => 'form-control'])}}
+    </div>
+
+
+    <div class="form-group">
+
         {{Form::label('category', 'Категория')}}
         {{Form::select('category_id',$arCategories, null, ['class' => 'form-control'])}}
     </div>
@@ -50,8 +57,26 @@ $arStatuses = $statuses->mapWithKeys(static function ( $status) {
 
     <div class="form-group">
 
+        {{Form::label('type', 'Тип')}}
+        {{Form::text('type', null, ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+
+        {{Form::label('формат', 'Формат')}}
+        {{Form::text('format', null, ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+
         {{Form::label('file', 'Файл')}}
         {{Form::file('file', null, ['class' => 'form-control'])}}
+    </div>
+
+    <div class="form-group">
+
+        {{Form::label('preview_image', 'Превью картинки')}}
+        {{Form::file('preview_image', null, ['class' => 'form-control'])}}
     </div>
 
     <div class="form-group">
