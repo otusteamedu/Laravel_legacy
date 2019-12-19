@@ -30,6 +30,7 @@ use App\Services\Reviews\Repositories\CachedReviewRepository;
 use App\Services\Reviews\Repositories\EloquentReviewsRepository;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\App;
 
 class CacheWarmUp extends Command {
 
@@ -48,7 +49,7 @@ class CacheWarmUp extends Command {
      *
      * @var string
      */
-    protected $signature = 'cache:warmUp 
+    protected $signature = 'cache:warm-up 
                             {entity? : model name (Author, Category etc). } 
                             {--all : select all entities}
                             {--select : select entity from list}';
@@ -59,15 +60,6 @@ class CacheWarmUp extends Command {
      * @var string
      */
     protected $description = 'warming up entities cache';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct() {
-        parent::__construct();
-    }
 
     /**
      * @param CacheKeyManager $cacheKeyManager
@@ -142,7 +134,7 @@ class CacheWarmUp extends Command {
         ];
 
         if ($cachedRepositoryList[$entityClass]) {
-            return new $cachedRepositoryList[$entityClass]($eloquentRepository, $cacheKeyManager);
+           return  App::make($cachedRepositoryList[$entityClass],[$eloquentRepository, $cacheKeyManager]);
         }
 
         return null;
@@ -162,7 +154,7 @@ class CacheWarmUp extends Command {
         ];
 
         if ($eloquentRepository[$entityClass]) {
-            return new $eloquentRepository[$entityClass];
+           return App::make($eloquentRepository[$entityClass]);
         }
         return null;
     }
