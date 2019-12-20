@@ -17,6 +17,6 @@ class Report extends Model
     protected $fillable = [
         'id',
         'project_id',
-        'status'
+        'status',
     ];
 }
