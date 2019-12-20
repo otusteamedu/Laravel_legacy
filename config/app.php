@@ -176,6 +176,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\GitOperationsServiceProvider::class,
         App\Providers\PhpInsightsServiceProvider::class,
+        App\Providers\PhpLocServiceProvider::class
 
     ],
 
