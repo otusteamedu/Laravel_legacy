@@ -15,3 +15,8 @@
 2019.12.13 Создал модель Item и её миграцию миграцию _create_items_table.php
 2019.12.13 Создал модель UserAccount и её миграцию миграцию _create_user_accounts_table.php
 2019.12.13 Создал модель Order и её миграцию миграцию _create_orders_table.php
+
+2019.12.20 Переименовал поле C в таблице create_user_accounts_table : C => discount_coefficient
+2019.12.20 Переместил классы моделей из app/ => app/Models
+           Прописал в каждом классе namespace App\Models;
+           В composer.json в autoload psr-4 добавил  "App\\Models": "app/Models"
