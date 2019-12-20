@@ -25,7 +25,7 @@
         "laravel/ui": "^1.1",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
-        "phploc/phploc": "^5.0",
+        "phptrack/laravel-phploc": "^1.0",
         "phpunit/phpunit": "^8.0",
         "shipping-docker/vessel": "^4.1"
     },
