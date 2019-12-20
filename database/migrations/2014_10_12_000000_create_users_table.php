@@ -14,6 +14,8 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
+            # Column methods   : https://laravel.com/docs/6.x/migrations#columns    
+            # Column modifiers : https://laravel.com/docs/6.x/migrations#column-modifiers        
             $table->bigIncrements('id');
             $table->string('source');   //добавил
             $table->date('date');       //добавил

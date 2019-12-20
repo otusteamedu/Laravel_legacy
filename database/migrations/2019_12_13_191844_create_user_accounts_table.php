@@ -20,7 +20,7 @@ class CreateUserAccountsTable extends Migration
             $table->string('login')->unique();
             $table->string('password');
             $table->integer('cum_sum');
-            $table->double('C');
+            $table->double('discount_coefficient');
             $table->timestamps();
         });
     }
