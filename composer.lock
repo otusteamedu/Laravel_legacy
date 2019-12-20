@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "452253fb2a8580d7347c4434d8f47c30",
+    "content-hash": "fbae1fa16beb2043db685bcdf8ae31b0",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -3284,16 +3284,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v4.4.1",
+            "version": "v4.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "f0aea3df20d15635b3cb9730ca5eea1c65b7f201"
+                "reference": "82437719dab1e6bdd28726af14cb345c2ec816d0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/f0aea3df20d15635b3cb9730ca5eea1c65b7f201",
-                "reference": "f0aea3df20d15635b3cb9730ca5eea1c65b7f201",
+                "url": "https://api.github.com/repos/symfony/console/zipball/82437719dab1e6bdd28726af14cb345c2ec816d0",
+                "reference": "82437719dab1e6bdd28726af14cb345c2ec816d0",
                 "shasum": ""
             },
             "require": {
@@ -3356,7 +3356,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-12-01T10:06:17+00:00"
+            "time": "2019-12-17T10:32:23+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -3703,7 +3703,7 @@
         },
         {
             "name": "symfony/finder",
-            "version": "v4.4.1",
+            "version": "v4.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
@@ -6195,6 +6195,61 @@
                 "stub"
             ],
             "time": "2019-10-03T11:07:50+00:00"
+        },
+        {
+            "name": "phptrack/laravel-phploc",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phptrack/laravel-phploc.git",
+                "reference": "7bcdcc924f351a8db91c56f744ebc86990cb530e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phptrack/laravel-phploc/zipball/7bcdcc924f351a8db91c56f744ebc86990cb530e",
+                "reference": "7bcdcc924f351a8db91c56f744ebc86990cb530e",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0",
+                "php": ">=7.2",
+                "phploc/phploc": "@stable"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4",
+                "phpunit/phpunit": "^8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "PHPTrack\\PhpLoc\\PhpLocServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PHPTrack\\PhpLoc\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Petr Myazin",
+                    "email": "petr.myazin@gmail.com"
+                }
+            ],
+            "description": "Laravel Package for PHPLOC - a tool for quickly measuring the size of a PHP project. This package provides artisan command phploc:run and config file config/phploc.php",
+            "homepage": "https://github.com/phptrack/laravel-phploc",
+            "keywords": [
+                "laravel",
+                "phploc",
+                "phptrack"
+            ],
+            "time": "2019-12-20T12:27:43+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
