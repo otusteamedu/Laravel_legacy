@@ -12,6 +12,7 @@ use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use App\Policies\Abilities;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
@@ -60,7 +61,7 @@ class WorkoutController extends Controller
     {
         $this->authorize(Abilities::VIEW_ANY, Workout::class);
         return view('backend.pages.workout.index', [
-            'workouts' => $this->workoutService->paginate(),
+            'workouts' => $this->workoutService->getByUser(Auth::user()),
         ]);
     }
 
@@ -73,22 +74,14 @@ class WorkoutController extends Controller
     public function create()
     {
         $this->authorize(Abilities::CREATE, Workout::class);
-        $users = [
-            // @todo Брать значение по умолчанию из конфига
-            '' => '– Please select –'
-        ];
-        foreach ($this->userService->all() as $user) {
-            $users[$user->id] = $user->name;
-        }
         $locations = [
             // @todo Брать значение по умолчанию из конфига
             '' => '– Please select –'
         ];
-        foreach ($this->locationService->all() as $location) {
+        foreach ($this->locationService->getByUser(Auth::user()) as $location) {
             $locations[$location->id] = $location->name;
         }
         return view('backend.pages.workout.create', [
-            'users' => $users,
             'locations' => $locations,
         ]);
     }
@@ -103,7 +96,9 @@ class WorkoutController extends Controller
     public function store(WorkoutStoreFormRequest $request)
     {
         $this->authorize(Abilities::CREATE, Workout::class);
-        $this->workoutService->create($request->all());
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $this->workoutService->create($data);
         // @todo Сообщение об успешном создании записи
         return redirect(route('backend.workout.index'));
     }
@@ -129,23 +124,15 @@ class WorkoutController extends Controller
     public function edit(Workout $workout)
     {
         $this->authorize(Abilities::UPDATE, $workout);
-        $users = [
-            // @todo Брать значение по умолчанию из конфига
-            '' => '– Please select –'
-        ];
-        foreach ($this->userService->all() as $user) {
-            $users[$user->id] = $user->name;
-        }
         $locations = [
             // @todo Брать значение по умолчанию из конфига
             '' => '– Please select –'
         ];
-        foreach ($this->locationService->all() as $location) {
+        foreach ($this->locationService->getByUser(Auth::user()) as $location) {
             $locations[$location->id] = $location->name;
         }
         return view('backend.pages.workout.edit', [
             'workout' => $workout,
-            'users' => $users,
             'locations' => $locations,
         ]);
     }

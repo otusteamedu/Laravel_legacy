@@ -29,10 +29,6 @@ class LocationUpdateFormRequest extends FormRequest
         // @todo Дублирует код LocationStoreFormRequest
         // @todo Валидировать составной unique
         return [
-            'user_id' => [
-                'required',
-                'exists:users,id',
-            ],
             'name' => [
                 'required',
                 'max:255',

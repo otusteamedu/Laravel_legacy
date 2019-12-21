@@ -11,6 +11,7 @@ use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
 use App\Policies\Abilities;
+use Illuminate\Support\Facades\Auth;
 
 class LocationController extends Controller
 {
@@ -48,7 +49,7 @@ class LocationController extends Controller
     {
         $this->authorize(Abilities::VIEW_ANY, Location::class);
         return view('backend.pages.location.index', [
-            'locations' => $this->locationService->paginate(),
+            'locations' => $this->locationService->getByUser(Auth::user()),
         ]);
     }
 
@@ -61,16 +62,7 @@ class LocationController extends Controller
     public function create()
     {
         $this->authorize(Abilities::CREATE, Location::class);
-        $users = [
-            // @todo Брать значение по умолчанию из конфига
-            '' => '– Please select –'
-        ];
-        foreach ($this->userService->all() as $user) {
-            $users[$user->id] = $user->name;
-        }
-        return view('backend.pages.location.create', [
-            'users' => $users,
-        ]);
+        return view('backend.pages.location.create');
     }
 
     /**
@@ -83,7 +75,9 @@ class LocationController extends Controller
     public function store(LocationStoreFormRequest $request)
     {
         $this->authorize(Abilities::CREATE, Location::class);
-        $this->locationService->create($request->all());
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $this->locationService->create($data);
         // @todo Сообщение об успешном создании записи
         return redirect(route('backend.location.index'));
     }
@@ -109,16 +103,8 @@ class LocationController extends Controller
     public function edit(Location $location)
     {
         $this->authorize(Abilities::UPDATE, $location);
-        $users = [
-            // @todo Брать значение по умолчанию из конфига
-            '' => '– Please select –'
-        ];
-        foreach ($this->userService->all() as $user) {
-            $users[$user->id] = $user->name;
-        }
         return view('backend.pages.location.edit', [
             'location' => $location,
-            'users' => $users,
         ]);
     }
 

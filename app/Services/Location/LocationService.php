@@ -29,26 +29,14 @@ class LocationService implements LocationServiceInterface {
     }
 
     /**
-     * Get all of the records from the database.
+     * Find and paginate a collection of records.
      *
-     * @param  array  $columns
-     * @return Collection|static[]
+     * @param  array  $conditions
+     * @return Location|Collection|static[]|static|null
      */
-    public function all(array $columns = ['*'])
+    public function search(array $conditions = [])
     {
-        return $this->locationRepository->all($columns);
-    }
-
-    /**
-     * Paginate the given query.
-     *
-     * @param  int  $perPage
-     * @param  array  $columns
-     * @return Collection|static[]
-     */
-    public function paginate(int $perPage = 15, array $columns = ['*'])
-    {
-        return $this->locationRepository->paginate($perPage, $columns);
+        return $this->locationRepository->search($conditions);
     }
 
     /**
@@ -57,21 +45,9 @@ class LocationService implements LocationServiceInterface {
      * @param  int  $id
      * @return Location|Collection|static[]|static|null
      */
-    public function find(int $id)
+    public function findById(int $id)
     {
         return $this->locationRepository->find($id);
-    }
-
-    /**
-     * Find a record by an attribute/value.
-     *
-     * @param  string  $attribute
-     * @param  string  $value
-     * @return Location|Collection|static[]|static|null
-     */
-    public function findBy(string $attribute, string $value)
-    {
-        return $this->locationRepository->findBy($attribute, $value);
     }
 
     /**
@@ -102,6 +78,7 @@ class LocationService implements LocationServiceInterface {
      *
      * @param  Location  $location
      * @return mixed
+     * @throws \Exception
      */
     public function delete(Location $location)
     {
@@ -109,18 +86,18 @@ class LocationService implements LocationServiceInterface {
     }
 
     /**
-     * Find a record by User.
+     * Find all of the records by User.
      *
      * @param  User  $user
      * @return Location|Collection|static[]|static|null
      */
     public function getByUser(User $user)
     {
-        // TODO
+        return $this->search(['user_id' => $user->id]);
     }
 
     /**
-     * Find a record by Workout.
+     * Find all of the records by Workout.
      *
      * @param  Workout  $workout
      * @return Location|Collection|static[]|static|null

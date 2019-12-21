@@ -11,26 +11,14 @@ use Illuminate\Database\Eloquent\Collection;
 class LocationRepository implements LocationRepositoryInterface {
 
     /**
-     * Get all of the records from the database.
+     * Find and paginate a collection of records.
      *
-     * @param  array  $columns
-     * @return Collection|static[]
+     * @param  array  $conditions
+     * @return Location|Collection|static[]|static|null
      */
-    public function all(array $columns = ['*'])
+    public function search(array $conditions = [])
     {
-        return Location::all($columns);
-    }
-
-    /**
-     * Paginate the given query.
-     *
-     * @param  int  $perPage
-     * @param  array  $columns
-     * @return Collection|static[]
-     */
-    public function paginate(int $perPage = 15, array $columns = ['*'])
-    {
-        return Location::paginate($perPage, $columns);
+        return Location::where($conditions)->paginate();
     }
 
     /**
@@ -39,21 +27,9 @@ class LocationRepository implements LocationRepositoryInterface {
      * @param  int  $id
      * @return Location|Collection|static[]|static|null
      */
-    public function find(int $id)
+    public function findById(int $id)
     {
-        // TODO: Implement find() method.
-    }
-
-    /**
-     * Find a record by an attribute/value.
-     *
-     * @param  string  $attribute
-     * @param  string  $value
-     * @return Location|Collection|static[]|static|null
-     */
-    public function findBy(string $attribute, string $value)
-    {
-        // TODO: Implement findBy() method.
+        // TODO: Implement findById() method.
     }
 
     /**

@@ -17,21 +17,12 @@ use Illuminate\Database\Eloquent\Collection;
 interface LocationRepositoryInterface
 {
     /**
-     * Get all of the records from the database.
+     * Find and paginate a collection of records.
      *
-     * @param  array  $columns
-     * @return Collection|static[]
+     * @param  array  $conditions
+     * @return Location|Collection|static[]|static|null
      */
-    public function all(array $columns = ['*']);
-
-    /**
-     * Paginate the given query.
-     *
-     * @param  int  $perPage
-     * @param  array  $columns
-     * @return Collection|static[]
-     */
-    public function paginate(int $perPage = 15, array $columns = ['*']);
+    public function search(array $conditions = []);
 
     /**
      * Find a record by its primary key.
@@ -39,16 +30,7 @@ interface LocationRepositoryInterface
      * @param  int  $id
      * @return Location|Collection|static[]|static|null
      */
-    public function find(int $id);
-
-    /**
-     * Find a record by an attribute/value.
-     *
-     * @param  string  $attribute
-     * @param  string  $value
-     * @return Location|Collection|static[]|static|null
-     */
-    public function findBy(string $attribute, string $value);
+    public function findById(int $id);
 
     /**
      * Create a record and fill it with values.

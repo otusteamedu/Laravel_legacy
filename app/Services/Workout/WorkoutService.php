@@ -29,26 +29,14 @@ class WorkoutService implements WorkoutServiceInterface {
     }
 
     /**
-     * Get all of the records from the database.
+     * Find and paginate a collection of records.
      *
-     * @param  array  $columns
-     * @return Collection|static[]
+     * @param  array  $conditions
+     * @return Workout|Collection|static[]|static|null
      */
-    public function all(array $columns = ['*'])
+    public function search(array $conditions = [])
     {
-        return $this->workoutRepository->all($columns);
-    }
-
-    /**
-     * Paginate the given query.
-     *
-     * @param  int  $perPage
-     * @param  array  $columns
-     * @return Collection|static[]
-     */
-    public function paginate(int $perPage = 15, array $columns = ['*'])
-    {
-        return $this->workoutRepository->paginate($perPage, $columns);
+        return $this->workoutRepository->search($conditions);
     }
 
     /**
@@ -57,21 +45,9 @@ class WorkoutService implements WorkoutServiceInterface {
      * @param  int  $id
      * @return Workout|Collection|static[]|static|null
      */
-    public function find(int $id)
+    public function findById(int $id)
     {
         return $this->workoutRepository->find($id);
-    }
-
-    /**
-     * Find a record by an attribute/value.
-     *
-     * @param  string  $attribute
-     * @param  string  $value
-     * @return Workout|Collection|static[]|static|null
-     */
-    public function findBy(string $attribute, string $value)
-    {
-        return $this->workoutRepository->findBy($attribute, $value);
     }
 
     /**
@@ -116,7 +92,7 @@ class WorkoutService implements WorkoutServiceInterface {
      */
     public function getByUser(User $user)
     {
-        // TODO
+        return $this->search(['user_id' => $user->id]);
     }
 
     /**

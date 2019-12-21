@@ -29,10 +29,6 @@ class WorkoutUpdateFormRequest extends FormRequest
         // @todo Дублирует код WorkoutStoreFormRequest
         // @todo Валидировать составной unique
         return [
-            'user_id' => [
-                'required',
-                'exists:users,id',
-            ],
             'name' => [
                 'required',
                 'max:255',
