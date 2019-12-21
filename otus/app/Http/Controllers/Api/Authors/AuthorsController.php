@@ -57,8 +57,6 @@ class AuthorsController extends Controller {
      */
     public function update(Request $request, Author $author) {
         $this->authorsService->updateAuthor($author, $request->all());
-
-        return json_encode(['result' => true]);
     }
 
     /**
