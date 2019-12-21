@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Services\Authors\Repositories\AuthorRepositoryInterface;
 use App\Services\Authors\Repositories\CachedAuthorRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class AuthorsService {
 
@@ -27,6 +28,14 @@ class AuthorsService {
     public function searchAuthors(): LengthAwarePaginator {
         return $this->cachedAuthorRepository->search();
     }
+
+    /**
+     * @return Collection
+     */
+    public function getAll(): Collection {
+        return $this->cachedAuthorRepository->getBy();
+    }
+
 
     /**
      * @param array $data

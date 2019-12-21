@@ -34,4 +34,8 @@ class EloquentAuthorRepository implements AuthorRepositoryInterface {
         $author->update($data);
         return $author;
     }
+
+    public function getBy(array $filters = [], array $with = []) {
+        return Author::with($with)->get();
+    }
 }
