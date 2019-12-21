@@ -1,0 +1,35 @@
+.tm-product-counter {
+  display: flex;
+  width: 85px;
+  align-items: center;
+  background: $global-inverse-color;
+  border: $global-border-width solid $global-emphasis-border;
+  box-sizing: border-box;
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -moz-appearance: textfield;
+    appearance: none;
+    margin: 0;
+  }
+  input {
+    font-size: $global-font-size;
+    font-weight: normal;
+    text-align: center;
+    border: 0 none;
+  }
+  &__controls {
+    > span {
+      display: block;
+      color: $global-muted-color;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      &.active {
+        color: $global-emphasis-color;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -1,0 +1,40 @@
+.tm-tab {
+    &__container {
+        @include media-desk($s) {
+            height: 30px;
+            overflow-y: hidden;
+        }
+    }
+}
+.tm-main {
+    .uk-tab {
+        overflow-x: auto;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+        @include media-desk($s) {
+            padding-bottom: 30px;
+        }
+        @include media-mob($s) {
+            flex-wrap: wrap;
+        }
+        > * {
+            > a {
+                padding: 0;
+                margin: 0;
+            }
+            @include media-mob($s) {
+                &:not(:last-child) {
+                    padding-bottom: 5px;
+                }
+                &:not(:first-child) {
+                    padding-top: 5px;
+                }
+                >a {
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

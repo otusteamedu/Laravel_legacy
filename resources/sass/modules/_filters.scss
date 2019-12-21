@@ -1,0 +1,43 @@
+// .tm-filters {
+//     padding: 5px 0;
+//     border-top: 1px solid $global-border;
+//     border-bottom: 1px solid $global-border;
+//     &.uk-active {
+//         top: 60px !important;
+//         @include media-mob($m){
+//             top: 80px !important;
+//         }
+//         @include media-mob($xl){
+//             top: 106px !important;
+//         }
+//     }
+// }
+
+.tm-filter {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+    &.uk-active {
+        width: 50px !important;
+        right: 100px;
+        opacity: 1;
+        height: 60px;
+        @include media-mob($s){
+            width: 60px !important;
+            right: 70px;
+        }
+
+    }
+    // opacity: 0;
+    // &.uk-active {
+    //     opacity: 1;
+    // }
+    // padding: $global-small-margin 0;
+    // width: 30px;
+    // height: 30px;
+    // top: 200px;
+    // right: 0;
+    // z-index: 1;
+    // box-shadow: $global-medium-box-shadow;
+}

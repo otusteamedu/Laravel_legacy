@@ -1,0 +1,54 @@
+.tm-frontispiece {
+    // height: 100vh;
+    overflow: hidden;
+    &__container {
+        // height: 100vh;
+        @include media-desk($m) {
+            justify-content: center;
+        }
+        padding: $global-medium-margin $global-small-gutter;
+        @include media-mob ($s) {
+            padding: $global-gutter;
+        }
+        @include media-mob($m) {
+            padding: $global-medium-margin;
+        }
+        @include media-mob($m) {
+            padding: $global-medium-margin $global-medium-margin $global-medium-margin 0;
+        }
+        @include media-mob($xl) {
+            padding: $global-large-margin $global-medium-margin $global-large-margin 0;
+        }
+        @include media-portrait(){
+            justify-content: center;
+            width: 100%;
+            padding: $global-medium-margin;
+        }
+        @include media-desk-portrait($s){
+            padding: $global-margin;
+        }
+        @include media-desk-portrait($xs){
+            padding: $global-small-gutter;
+        }
+    }
+    // &__content {
+        // overflow: auto;
+        // padding-right: $global-small-margin;
+        // @include media-mob($xl) {
+        //     padding-right: $global-margin;
+        // }
+    // }
+    .uk-accordion {
+        .uk-accordion-title {
+            font-family: $base-heading-font-family;
+            text-transform: uppercase;
+        }
+        .tm-accordion-subtitle {
+            &:hover, &:focus {
+                color: $accordion-title-hover-color;
+                text-decoration: none;
+                outline: none;
+            }
+        }
+    }
+}

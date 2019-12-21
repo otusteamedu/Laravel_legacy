@@ -1,0 +1,90 @@
+//.tm-footer {
+//    padding: $global-margin 0;
+//    margin-top: auto !important;
+//    @include media-mob($l){
+//        margin-bottom: 0;
+//    }
+//    &__content {
+//        display: flex;
+//        flex-direction: column;
+//        flex-wrap: wrap;
+//        align-items: center;
+//        .tm-logo {
+//            margin-bottom: $global-margin;
+//        }
+//        @include media-mob($m){
+//            .tm-logo {
+//                margin-bottom: 0;
+//            }
+//            flex-direction: row;
+//            justify-content: space-between;
+//        }
+//    }
+//    &__contacts {
+//        display: flex;
+//        flex-direction: column;
+//        flex-wrap: wrap;
+//        align-items: center;
+//        font-size: 1.2rem;
+//        font-weight: normal;
+//        > * {
+//            &:not(:last-child) {
+//                margin-bottom: $global-small-margin;
+//            }
+//        }
+//        .tm-socials {
+//            margin-bottom: $global-small-margin;
+//        }
+//        @include media-mob($m){
+//            flex-direction: row;
+//            font-size: 1rem;
+//            > * {
+//                &:not(:last-child) {
+//                    margin-bottom: 0;
+//                    margin-right: $global-margin;
+//                }
+//            }
+//            .tm-socials {
+//                margin-bottom: 0;
+//            }
+//        }
+//    }
+//    &__bottom {
+//        display: flex;
+//        flex-direction: column;
+//        flex-wrap: wrap;
+//        margin-top: $global-small-margin;
+//        align-items: center;
+//        @include media-mob($m){
+//            flex-direction: row-reverse;
+//            justify-content: space-between;
+//        }
+//    }
+//    &__links, &__copyright {
+//        font-size: 12px;
+//        font-weight: normal;
+//    }
+//    &__links {
+//        margin-bottom: $global-margin;
+//        text-align: center;
+//        a {
+//            display: inline-block;
+//            line-height: 1;
+//            &:not(:last-child) {
+//                padding-right: $global-small-margin;
+//                margin-right: $global-small-margin;
+//                border-right: 1px solid $inverse-global-border;
+//            }
+//            .uk-dark & {
+//                color: $global-color;
+//                &:not(:last-child) {
+//                    border-color: $global-border;
+//                }
+//            }
+//        }
+//        @include media-mob($m){
+//            margin-bottom: 0;
+//            margin-left: $global-gutter;
+//        }
+//    }
+//}

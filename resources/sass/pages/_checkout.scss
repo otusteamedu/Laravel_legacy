@@ -1,0 +1,35 @@
+.tm-checkout{
+  &__delivery {
+    &-item {
+      display: flex;
+      flex-wrap: wrap;
+      &:not(:last-child) {
+        margin-bottom: $global-small-margin;
+      }
+      @include media-mob($hm) {
+        &:not(:last-child) {
+          margin-bottom: $global-margin;
+        }
+      }
+      .uk-text-muted {
+        width: 100%;
+        padding-left: 18px + $global-small-margin;
+      }
+    }
+    &-heading {
+      flex: 1;
+      padding-left: $global-small-margin;
+    }
+    .uk-radio {
+      flex: none;
+      margin-top: .6rem;
+    }
+  }
+  &__lead {
+    &-data {
+      &:not(:first-child) {
+        margin-top: $global-small-margin;
+      }
+    }
+  }
+}

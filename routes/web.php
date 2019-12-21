@@ -12,5 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('pages.index');
+})->name('home');
+
+Route::get('materials', function () {
+    return view('pages.materials');
+})->name('materials');
+
+Route::get('login', function () {
+    return view('auth.login');
+})->name('login');
+
+Route::get('registration', function () {
+    return view('auth.registration');
+})->name('registration');
+
+Route::get('reset-password', function () {
+    return view('auth.reset-password');
+})->name('reset-password');

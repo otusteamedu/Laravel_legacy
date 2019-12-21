@@ -1,1 +1,23 @@
+//@import "./variables";
+@import "./fonts";
 
+// 2. Import default variables and available mixins.
+@import "./uikit/variables-theme";
+
+
+// 1. Your custom variables and variable overwrites.
+@import "./variables";
+@import "./mixins";
+
+@import "~uikit/src/scss/mixins.scss";
+
+
+// 3. Your custom mixin overwrites.
+
+@import "./uikit/mixins";
+
+// 4. Import UIkit components.
+@import "./uikit/import";
+
+// 5. Common styles
+@import "./import";

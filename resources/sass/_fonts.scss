@@ -1,0 +1,11 @@
+@import "./mixins";
+
+// @include font-face("source-sans-pro", "../fonts/SourceSansProExtraLight/SourceSansProExtraLight", 200);
+// @include font-face("source-sans-pro", "../fonts/SourceSansProLight/SourceSansProLight", 300);
+// @include font-face("source-sans-pro", "../fonts/SourceSansProRegular/SourceSansProRegular");
+@include font-face("OpenSans", "../fonts/OpenSansLight/OpenSansLight", 200);
+@include font-face("OpenSans", "../fonts/OpenSansRegular/OpenSansRegular");
+@include font-face("Lato", "../fonts/LatoHairline/LatoHairline", 100);
+@include font-face("Lato", "../fonts/LatoThin/LatoThin", 200);
+@include font-face("Lato", "../fonts/LatoLight/LatoLight", 300);
+@include font-face("Lato", "../fonts/LatoRegular/LatoRegular");

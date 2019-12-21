@@ -1,0 +1,148 @@
+.tm-page {
+    // // background-color: #222222;
+    // &::before {
+    //     content: '';
+    //     position: fixed;
+    //     display: block;
+    //     background-image: url('../img/bg/bg-profile.webp');
+    //     background-position: center;
+    //     background-size: cover;
+    //     height: 100vh;
+    //     width: 100vw;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     z-index: -10;
+    //     opacity: 1;
+    //     will-change: opacity;
+    //     transition: opacity .5s ease .5s;
+    //     // animation: fade-in 1s .5s forwards;
+    // }
+    // &::after {
+    //     content: '';
+    //     position: fixed;
+    //     display: block;
+    //     height: 100vh;
+    //     width: 100vw;
+    //     top: 0;
+    //     bottom: 0;
+    //     left: 0;
+    //     right: 0;
+    //     z-index: 0;
+    //     will-change: background;
+    //     background-color: #185370;
+    //     // animation: html-fade-in 1s ease .5s forwards;
+    //     // background: radial-gradient(circle at top right, rgba(#001C38, .94) 0%, rgba(#001C38,.8) 40%, rgba(#001C38,.82) 100%);
+    //     // background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%) right top, linear-gradient(155deg, #154979 0%, rgba(#115e9c,.8) 50%, #103558 100%);
+    //     // background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 40%) right top, linear-gradient(155deg, #45525f 0%, rgba(#748ca0,1) 50%, #444c53 100%);
+    //     // background: radial-gradient(circle at top right, rgba(#001C38, 0.94) 0%, rgba(#0D6C96, 0.65) 40%, rgba(#044E6F, 0.72) 60%, rgba(#00172E, 0.82) 100%);
+    //     // background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%) right top, radial-gradient(circle at top right, rgba(#001C38, .94) 0%, rgba(#0D6C96, .65) 40%, rgba(#044E6F, .72) 60%, rgba(#00172E, .8) 100%) right top;
+    //     // background: radial-gradient(circle at top right, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 40%) right top, radial-gradient(circle at top right, rgba(rgb(133, 139, 146), .94) 0%, rgba(rgb(241, 251, 255), .75) 40%, rgba(rgb(237, 249, 255), .82) 60%, rgba(rgb(108, 115, 121), .8) 100%) right top;
+    //     // background: radial-gradient(circle at top right, rgba(185, 185, 185, 0.2) 0%, rgba(255, 255, 255, 0) 40%) right top, linear-gradient(155deg, rgba(rgb(196, 200, 204), 1) 0%, rgba(rgb(232, 237, 238), 1) 45%, rgba(rgb(226, 230, 233), 1) 60%, rgba(rgb(163, 169, 173), 1) 100%) right top;
+    //     background: radial-gradient(circle at top right, #0D4968 0%, #185370 40%, #185370 60%, #093256 100%);
+    // }
+    // body {
+    //     position: relative;
+    //     z-index: 1;
+    // }
+    //&__content {
+    //    display: flex;
+    //    flex-direction: column;
+    //    min-height: 100vh;
+    //}
+    //.tm-page__hero {
+    //    .uk-background-fixed {
+    //        background-repeat: no-repeat;
+    //        background-position: center top;
+    //        background-size: auto 40vh;
+    //        @include media-mob($xs){
+    //            background-size: 650px;
+    //        }
+    //        @include media-mob($s){
+    //            background-size: 870px;
+    //        }
+    //        @include media-mob($hm){
+    //            background-size: 950px;
+    //            background-position: left top;
+    //        }
+    //        @include media-mob($l){
+    //            background-position: left 80px;
+    //            background-size: 1150px;
+    //        }
+    //        @include media-mob($hxl){
+    //            background-size: 1200px;
+    //        }
+    //        @include media-mob($xl){
+    //            background-position: left 106px;
+    //            background-size: 1300px;
+    //        }
+    //        @include media-mob($qhd){
+    //            background-size: auto 80vh;
+    //        }
+    //        @include media-pointer-coarse(){
+    //            background-position: -$global-medium-margin top;
+    //        }
+    //    }
+    //    &__section {
+    //        padding-bottom: 0;
+    //    }
+    //    &__title-card {
+    //        width: 100%;
+    //        margin-top: 28vh;
+    //        // .uk-card-secondary {
+    //            // background: rgba($global-secondary-background, .95);
+    //        // }
+    //        @include media-mob($s){
+    //            margin-top: $global-medium-margin;
+    //            width: 50%;
+    //        }
+    //        @include media-mob($m){
+    //            width: $width-large-width;
+    //        }
+    //        // @include media-mob($l){
+    //            // background: $global-secondary-background;
+    //        // }
+    //    }
+    //    &__lead-card {
+    //        margin-top: $global-large-margin;
+    //        margin-bottom: $global-medium-margin;
+    //        @include media-mob($se){
+    //            margin-top: $global-xlarge-margin;
+    //        }
+    //        @include media-mob($l){
+    //            margin-bottom: $global-xlarge-margin;
+    //        }
+    //        @include media-mob($qhd){
+    //            margin-top: $global-xlarge-margin * 2;
+    //            margin-bottom: $global-xlarge-margin;
+    //        }
+    //        @include media-pointer-coarse(){
+    //            // margin-top: $global-xlarge-margin;
+    //            margin-bottom: $global-large-margin;
+    //        }
+    //    }
+    //}
+    //.tm-hits {
+    //    &__slider {
+    //        &-container {
+    //            margin: 0 -$global-small-gutter;
+    //            @include media-mob($s){
+    //                margin: 0 -$global-gutter;
+    //            }
+    //            @include media-mob($m){
+    //                margin: 0 -$global-medium-margin;
+    //            }
+    //        }
+    //        &-image {
+    //            height: $height-small-height;
+    //            @include media-mob($s){
+    //                height: 200px;
+    //            }
+    //            @include media-mob($xl){
+    //                height: $height-medium-height;
+    //            }
+    //        }
+    //    }
+    //}
+}

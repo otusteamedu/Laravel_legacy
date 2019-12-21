@@ -1,0 +1,64 @@
+.tm-card {
+    &__number, &__aura {
+        position: relative;
+        overflow: hidden;
+        min-height: 15rem;
+        &::before {
+            position: absolute;
+            display: block;
+            opacity: .1;
+        }
+    }
+    &__number {
+        &::before {
+            content: attr(data-num);
+            right: -1rem;
+            bottom: -2.2rem;
+            font-family: $base-heading-font-family;
+            font-weight: 100;
+            font-size: 19rem;
+            text-align: right;
+            line-height: 1;
+        }
+    }
+    &__aura {
+        position: relative;
+        overflow: hidden;
+        min-height: 15rem;
+        &::before {
+            content: url('../img/svg/bg-aura.svg');
+            right: -3rem;
+            bottom: -3rem;
+            width: 17rem;
+            height: 17rem;
+        }
+    }
+    // &__image {
+    //     margin: 2px 1px;
+    //     img {
+    //         width: 100%;
+    //     }
+    //     .uk-card-body {
+    //         @include media-desk($s){
+    //             padding: $global-small-margin / 2 $global-small-margin;
+    //         }
+    //     }
+    //     .uk-card-title {
+    //         font-size: 1rem;
+    //         line-height: 1;
+    //     }
+    //     &-likes {
+    //         line-height: 1;
+    //         &-count {
+    //             font-size: $global-small-font-size;
+    //             font-weight: normal;
+    //             color: $global-muted-color;
+    //             margin-right: .1rem;
+    //         }
+    //         .uk-icon {
+    //             font-size: $global-small-font-size;
+    //             color: $global-muted-color;
+    //         }
+    //     }
+    // }
+}

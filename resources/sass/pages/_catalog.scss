@@ -1,0 +1,16 @@
+.tm-colors {
+    &__content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    &__item {
+        width: 98px;
+        height: 98px;
+        a {
+            display: block;
+            width: inherit;
+            height: inherit;
+        }
+    }
+}

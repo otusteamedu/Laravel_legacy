@@ -1,0 +1,20 @@
+.tm-clock {
+    svg {
+        rect {
+            transform: rotate(-360deg);
+            transform-origin: center center;
+            &.arrow-large {
+                animation: rotate 120s linear infinite;
+            }
+            &.arrow-small {
+                animation: rotate 10s linear infinite;
+            }
+        }
+    }
+}
+
+@keyframes rotate {
+    100% {
+        transform: rotate(0);
+    }
+}

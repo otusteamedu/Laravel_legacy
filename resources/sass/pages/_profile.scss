@@ -1,0 +1,98 @@
+.tm-profile {
+  &::before {
+    content: '';
+    position: fixed;
+    display: block;
+    background-image: url('../img/bg/bg-profile.webp');
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: -10;
+    opacity: 1;
+    will-change: opacity;
+    transition: opacity .5s ease .5s;
+    // animation: fade-in 1s .5s forwards;
+}
+  &::after {
+    display: none;
+  }
+  &__section {
+    padding-left: 4px;
+    padding-right: 4px;
+    @include media-mob($s) {
+      padding-left: 8px;
+      padding-right: 8px;
+    }
+  }
+  &__container {
+    box-shadow: $global-medium-box-shadow;
+    padding: $global-gutter ($global-small-gutter - 4px);
+    // border-radius: 5px;
+    // @include media-mob($hm) {
+    //   padding-top: $global-margin;
+    // }
+    // @include media-mob($xl) {
+    //   padding-top: $global-medium-margin;
+    // }
+    @include media-mob($s) {
+      padding: $global-medium-margin ($global-gutter - 8px);
+    }
+    @include media-mob($m) {
+      padding: $global-medium-margin ($global-medium-gutter - 8px);
+    }
+    @include media-mob($l) {
+      padding: $global-medium-margin $global-large-margin;
+    }
+    @include media-mob($xxl) {
+      // padding-top: $global-large-margin;
+      padding: 60px 100px;
+    }
+  }
+  &__header {
+    @include media-mob($s) {
+      display: flex;
+      align-items: center;
+    }
+  }
+  &__avatar {
+    width: 80px;
+    height: 80px;
+    margin-bottom: $global-small-margin;
+    background: $global-secondary-background;
+    box-shadow: $global-medium-box-shadow;
+    @include media-mob($s) {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 0;
+      margin-right: $global-gutter;
+    }
+    img {
+      width: inherit;
+      height: auto;
+      display: block;
+    }
+  }
+  &__list {
+    > li {
+      &:nth-child(n+2) {
+        margin-top: $global-margin;
+      }
+      @include media-mob($xl) {
+        &:nth-child(n+2) {
+          margin-top: $global-gutter;
+        }
+      }
+    }
+  }
+  // &__footer {
+    // text-align: right;
+  // }
+  hr {
+    border-color: $global-border;
+  }
+}

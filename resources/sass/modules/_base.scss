@@ -1,0 +1,31 @@
+// B A S E
+html {
+    &.tm-teal-bg {
+        &::before {
+            content: '';
+            position: fixed;
+            display: block;
+            height: 100vh;
+            width: 100vw;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 0;
+            will-change: background;
+            background-color: #185370;
+            background: radial-gradient(circle at top right, #0D4968 0%, #185370 40%, #185370 60%, #093256 100%);
+        }
+    }
+    &.tm-cover-bg {
+        &::before {
+            content: '';
+            background-position: center;
+            background-size: cover;
+        }
+    }
+    body {
+        position: relative;
+        z-index: 1;
+    }
+}

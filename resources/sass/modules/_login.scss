@@ -1,0 +1,32 @@
+.tm-login {
+    &__header {
+        @include media-desk($s) {
+            text-align: center;
+        }
+    }
+    &__socials {
+        @include media-desk($s) {
+            display: flex;
+            justify-content: center;
+        }
+    }
+    &__footer {
+        @include media-desk($s) {
+            width: 100%;
+            text-align: center;
+        }
+    }
+    .uk-accordion {
+        .uk-accordion-title {
+            font-family: $base-heading-font-family;
+            text-transform: uppercase;
+        }
+        .tm-accordion-subtitle {
+            &:hover, &:focus {
+                color: $accordion-title-hover-color;
+                text-decoration: none;
+                outline: none;
+            }
+        }
+    }
+}

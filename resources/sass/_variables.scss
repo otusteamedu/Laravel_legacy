@@ -1,0 +1,98 @@
+//
+// Typography
+//
+// $global-font-family: "source-sans-pro", sans-serif;
+// $global-font-family: "source-sans-pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+// $base-primary-heading-font-family: "firasans", sans-serif;
+// $base-primary-heading-font-weight: 700;
+// $base-heading-font-family: "firasans", sans-serif;
+
+// $base-strong-font-weight: normal;
+// $base-heading-font-weight: 200;
+
+// Color
+
+$logo-color: #3CC4FC;
+$accent-color: #24ADED;
+$primary-gradient: linear-gradient(to top right,#0171CD,#159AD1);
+$primary-transparent-gradient: linear-gradient(to top right,rgba(#0171CD, .97),rgba(#159AD1, .97));
+$primary-section-gradient: linear-gradient(to top right, #0171CD, #159AD1);
+$secondary-section-gradient: linear-gradient(to top right, #202325, #2F3036);
+
+$navbar-border: 1px solid rgba(#54A9FD, .08);
+$navbar-local-border-color: #1D1D1F;
+
+// Border
+$global-emphasis-border: #A7A7A7;
+
+// Brakepoints
+$se: '340px';
+$xs: '560px';
+$s: '640px';
+$hm: '768px';
+$m: '960px';
+$l: '1200px';
+$hxl: '1400px';
+$xl: '1600px';
+$xxl: '1800px';
+$qhd: '1921px';
+
+// Transition
+$transition-timing-function: cubic-bezier(0.645, 0.045, 0.355, 1);
+
+// Navbar
+$navbar-height: 48px;
+
+// UiKit Variables Theme
+$global-primary-background: #24ADED; // Не переопределяется!!!
+$global-xxlarge-font-size: 3rem;
+//$global-secondary-background: #313338;
+$global-success-background: #19BA38;
+
+$global-font-family: "OpenSans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$base-body-font-weight: 200;
+$global-font-size: 20px;
+$global-small-font-size: 14px;
+$base-strong-font-weight: normal;
+$base-heading-font-family: "Lato", $global-font-family;
+$base-heading-font-weight: 300;
+$base-heading-text-transform: uppercase;
+$base-h5-font-size: 1rem;
+$button-font-size: 1rem;
+$button-large-font-size: 1rem;
+$button-small-font-size: .8rem;
+$card-small-body-padding-horizontal: $global-margin;
+$card-small-body-padding-vertical: $global-margin;
+$card-secondary-background: $secondary-section-gradient;
+$container-max-width: 1000px;
+$container-large-max-width: 1400px;
+$container-small-max-width: 1000px;
+$icon-button-background: #DFDFDF;
+$icon-button-color: $global-emphasis-color;
+$icon-button-hover-background: darken($icon-button-background, 5%);
+$icon-button-hover-color: $global-emphasis-color;
+$icon-button-active-background: darken($icon-button-background, 10%);
+$icon-button-active-color: $global-emphasis-color;
+$form-danger-background: #FEF0F0;
+$box-shadow-bottom-background: rgba(#000,.5);
+
+$navbar-background: $global-secondary-background;
+$navbar-nav-item-height: 48px;
+$navbar-nav-item-color: $global-emphasis-color;
+$navbar-nav-item-font-size: 15px;
+$navbar-nav-item-hover-color: $global-primary-background;
+$navbar-nav-item-onclick-color: $global-primary-background;
+$navbar-nav-item-active-color: $global-primary-background;
+$text-bold-font-weight: normal;
+$transition-duration: 0.2s;
+
+$card-large-body-padding-horizontal-l: 55px;
+$card-large-body-padding-vertical-l: 55px;
+
+$inverse-global-color: rgba($global-inverse-color, 0.65);
+$inverse-navbar-nav-item-color: $global-inverse-color;
+$inverse-navbar-nav-item-hover-color: $global-inverse-color;
+$inverse-navbar-nav-item-onclick-color: $global-inverse-color;
+$inverse-navbar-nav-item-active-color: $global-inverse-color;
+

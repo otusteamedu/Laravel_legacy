@@ -1,0 +1,45 @@
+.tm-albums {
+    .albums {
+        position: relative;
+        padding-top: $global-large-margin;
+        .albums-side {
+            width: 50%;
+            overflow: hidden;
+        }
+        @include media-mob($s) {
+            padding-top: 0;
+        }
+    }
+    &__content {
+        position: absolute;
+        padding: 0 $global-small-gutter;
+        z-index: 2;
+        left: 0;
+        top: 0;
+        text-align: center;
+        .uk-card-primary {
+            background: $primary-transparent-gradient;
+            background-image: $primary-transparent-gradient;
+        }
+        @include media-mob($s) {
+            width: $width-large-width;
+            position: relative;
+            left: inherit;
+            top: inherit;
+            padding: 0;
+            margin: 0 -$global-small-margin;
+            .uk-card-primary {
+                background: $primary-gradient;
+            }
+            .uk-card-body {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        @include media-mob($m) {
+            width: $width-xlarge-width;
+        }
+    }
+}

@@ -1,0 +1,209 @@
+//.tm-main {
+    //.uk-section {
+    //    position: relative;
+    //}
+    //.tm-materials {
+    //    .uk-container {
+    //        padding-right: 0;
+    //    }
+    //    .uk-slider {
+    //        padding-bottom: $global-margin;
+    //    }
+    //    .uk-slider-items {
+    //        li {
+    //            width: 250px;
+    //            @include media-mob($hxl) {
+    //                width: 350px;
+    //            }
+    //        }
+    //    }
+    //}
+    //.tm-quick-order {
+    //    height: 500px;
+    //    text-align: center;
+    //    @include media-mob($s) {
+    //        text-align: left;
+    //        height: 600px;
+    //    }
+    //    @include media-mob($m) {
+    //        height: 700px;
+    //    }
+    //    @include media-mob($hxl) {
+    //        height: 900px;
+    //    }
+    //    &__content {
+    //        max-width: $width-xlarge-width;
+    //    }
+    //    .tm-clock {
+    //        position: absolute;
+    //        width: 100vw;
+    //        height: auto;
+    //        top: 50%;
+    //        left: 0;
+    //        transform: translateY(-50%);
+    //        opacity: .08;
+    //        @include media-mob($s) {
+    //            width: auto;
+    //            height: 500px;
+    //            left: $global-gutter;
+    //        }
+    //        @include media-mob($m) {
+    //            height: 600px;
+    //            left: $global-medium-margin;
+    //        }
+    //        @include media-mob($l) {
+    //            height: 600px;
+    //            left: 50%;
+    //            transform: translate(-70%,-50%);
+    //        }
+    //        @include media-mob($hxl) {
+    //            height: 700px;
+    //        }
+    //        svg {
+    //            width: inherit;
+    //            height: inherit;
+    //        }
+    //    }
+    //}
+    //.tm-placements {
+    //    .uk-container {
+    //        position: relative;
+    //    }
+    //    &__title {
+    //        @include media-mob($s) {
+    //            position: absolute;
+    //            top: $global-small-margin;
+    //            left: $global-gutter;
+    //            z-index: 1;
+    //        }
+    //        @include media-mob($m) {
+    //            top: $global-margin;
+    //            left: $global-medium-margin;
+    //        }
+    //    }
+    //    &__background {
+    //        height: 300px;
+    //        display: flex;
+    //        align-items: flex-end;
+    //        @include media-mob($s) {
+    //            height: 70vh;
+    //            min-height: 300px;
+    //            max-height: 50vw;
+    //        }
+    //    }
+    //    &__card {
+    //        width: calc(100% - #{$global-gutter});
+    //        margin-left: $global-small-gutter;
+    //        margin-top: -$global-margin;
+    //        @include media-mob($s) {
+    //            width: $width-large-width;
+    //            margin-top: -$global-large-margin;
+    //            margin-left: auto;
+    //            margin-right: $global-gutter;
+    //        }
+    //        @include media-mob($m) {
+    //            margin-right: $global-medium-margin;
+    //        }
+    //        @include media-mob($l) {
+    //            margin-top: -$global-xlarge-margin;
+    //        }
+    //        @include media-mob($xl) {
+    //            width: $width-xlarge-width;
+    //            margin-right: 10vw;
+    //        }
+    //    }
+    //    .uk-switcher {
+    //        @include media-desk($s) {
+    //            margin: 0 -$global-small-gutter;
+    //        }
+    //    }
+    //}
+    //.tm-feedback {
+    //    &__container {
+    //        @include media-range($xs, $m) {
+    //            margin: 0 auto;
+    //            width: $form-width-large;
+    //        }
+    //    }
+    //}
+    // .tm-topics {
+    //     .uk-card-small {
+    //         .uk-card-body {
+    //             @include media-desk($m) {
+    //                 padding: 5px 10px;
+    //             }
+    //             .uk-card-title {
+    //                 font-size: 1rem;
+    //                 // font-weight: normal;
+    //                 line-height: 1;
+    //                 // color: $global-muted-color;
+    //             }
+    //             .uk-icon {
+    //                 color: $global-muted-color;
+    //             }
+    //         }
+    //     }
+    // }
+    //.uk-tab {
+    //    overflow-x: auto;
+    //    overflow-y: hidden;
+    //    flex-wrap: nowrap;
+    //    -webkit-overflow-scrolling: touch;
+    //    @include media-desk($s) {
+    //        padding-bottom: 30px;
+    //    }
+    //    @include media-mob($s) {
+    //        flex-wrap: wrap;
+    //    }
+    //    > * {
+    //        > a {
+    //            padding: 0;
+    //            margin: 0;
+    //        }
+    //        @include media-mob($s) {
+    //            &:not(:last-child) {
+    //                padding-bottom: 5px;
+    //            }
+    //            &:not(:first-child) {
+    //                padding-top: 5px;
+    //            }
+    //            >a {
+    //                padding: 0;
+    //                margin: 0;
+    //            }
+    //        }
+    //    }
+    //}
+    //.tm-instruction {
+    //    &__card {
+    //        @include media-mob($s){
+    //            &:not(:last-child) {
+    //                margin-bottom: $global-gutter;
+    //            }
+    //        }
+    //        @include media-mob($m){
+    //            &:not(:last-child) {
+    //                margin-bottom: $global-medium-margin;
+    //            }
+    //        }
+    //        @include media-desk($s) {
+    //            .uk-card-body {
+    //                padding-left: 0;
+    //                padding-right: 0;
+    //            }
+    //        }
+    //        &-canvas {
+    //            height: 250px;
+    //            @include media-mob($l){
+    //                height: 300px;
+    //            }
+    //            @include media-mob($hxl){
+    //                height: 350px;
+    //            }
+    //            @include media-mob($xxl){
+    //                height: 400px;
+    //            }
+    //        }
+    //    }
+    //}
+//}

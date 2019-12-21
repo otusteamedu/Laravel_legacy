@@ -1,0 +1,362 @@
+.tm-hero {
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - #{$navbar-height * 2});
+    align-items: center;
+    position: relative;
+    @include media-mob($m){
+        align-items: inherit;
+        height: calc(100vh - #{$navbar-height});
+    }
+    @include media-portrait() {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    @include media-mob-portrait($s) {
+        max-width: 370px;
+    }
+    @include media-mob-range($m, $l) {
+        max-width: 650px;
+    }
+    @include media-mob-range($l, $xl) {
+        max-width: 770px;
+    }
+    @include media-desk-landscape($m) {
+        height: inherit;
+        padding-bottom: $global-margin;
+        padding-top: $global-margin;
+    }
+    @include media-desk-portrait($xs) {
+        height: inherit;
+        min-height: calc(100vh - #{$navbar-height * 2});
+    }
+    @include media-desk-portrait($se) {
+        height: inherit;
+    }
+    &__container {
+        @include media-portrait() {
+            flex-direction: column;
+            flex-grow: 1;
+        }
+        @include media-mob($m) {
+            align-items: center;
+        }
+        @include media-desk-landscape($m) {
+            justify-content: center;
+        }
+        @include media-desk-portrait($xs) {
+            width: 290px;
+        }
+        @include media-desk-portrait($se) {
+            width: 250px;
+        }
+    }
+    &__strip-block {
+        @include media-mob-portrait($m) {
+            width: 440px;
+        }
+        @include media-desk-landscape($m) {
+            display: none;
+        }
+    }
+    &__strip {
+        height: 40vh;
+        @include media-mob($m) {
+            height: 80vh;
+        }
+        @include media-portrait() {
+            height: 35vh;
+        }
+        @include media-mob-portrait($m) {
+            height: 45vh;
+        }
+    }
+    &__strip-roll {
+        position: absolute;
+        bottom: 0;
+        max-width: inherit;
+        height: auto;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 85%);
+        @include media-mob-portrait($s) {
+            width: 550px;
+        }
+        @include media-mob-portrait($m) {
+            width: 610px;
+        }
+        @include media-mob-landscape($m) {
+            width: 465px;
+        }
+        @include media-mob-landscape($l) {
+            width: 540px;
+        }
+        @include media-mob-landscape($xl) {
+            width: 720px;
+        }
+        @include media-desk-portrait($xs) {
+            width: 385px;
+        }
+        @include media-desk-portrait($se) {
+            width: 335px;
+        }
+    }
+    &__content {
+        @include media-portrait() {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            margin-top: 7vh !important;
+        }
+        @include media-mob-portrait($m) {
+            width: 440px;
+            margin-top: 7vh !important;
+        }
+        @include media-mob-landscape($m) {
+            margin-top: $global-margin;
+        }
+        @include media-mob-landscape($l) {
+            margin-top: $global-medium-margin;
+        }
+        @include media-mob-landscape($xl) {
+            margin-top: $global-large-margin;
+        }
+        @include media-desk-landscape($m) {
+            width: 390px;
+        }
+    }
+    &__heading {
+        position: relative;
+        @include media-mob-portrait($s) {
+            margin-top: $global-margin;
+        }
+        @include media-mob-landscape($m) {
+            padding-left: $global-margin;
+        }
+        @include media-mob-landscape($xl) {
+            padding-left: $global-medium-margin;
+        }
+    }
+    &__brand-name, &__title, &__lead {
+        display: block;
+    }
+    &__brand-name {
+        margin-bottom: $global-small-gutter;
+        @include media-mob-portrait($s) {
+            font-size: 92px;
+        }
+        @include media-mob-portrait($m) {
+            font-size: 102px;
+        }
+        @include media-mob($l) {
+            font-size: 85.5px;
+        }
+        @include media-mob($xl) {
+            font-size: 110px;
+        }
+        @include media-desk-landscape($m) {
+            font-size: 90px;
+        }
+        @include media-desk-portrait($xs) {
+            font-size: 65px;
+        }
+        @include media-desk-portrait($se) {
+            font-size: 55px;
+        }
+    }
+    &__title {
+        margin-bottom: $global-small-margin;
+        font-weight: $base-body-font-weight;
+        @include media-mob-portrait($s) {
+            font-size: 45.3px;
+        }
+        @include media-mob-portrait($m) {
+            font-size: 50px;
+        }
+        @include media-mob-landscape($m) {
+            font-size: 35px;
+        }
+        @include media-mob-landscape($l) {
+            font-size: 42px;
+        }
+        @include media-mob-landscape($xl) {
+            font-size: 54px;
+        }
+        @include media-desk-landscape($m) {
+            font-size: 44px;
+        }
+        @include media-desk-portrait($xs) {
+            font-size: 32px;
+        }
+        @include media-desk-portrait($se) {
+            font-size: 27px;
+        }
+    }
+    &__lead {
+        color: $inverse-global-color;
+        line-height: 1.4;
+        @include media-mob-portrait($s) {
+            font-size: 22px;
+        }
+        @include media-mob-portrait($m) {
+            font-size: 24.5px;
+        }
+        @include media-mob-landscape($l) {
+            font-size: 20.5px;
+        }
+        @include media-mob-landscape($xl) {
+            font-size: 26.5px;
+        }
+        @include media-desk-landscape($m) {
+            font-size: 21.5px;
+        }
+        @include media-desk-portrait($se) {
+            font-size: 13.5px;
+        }
+    }
+    &__socials {
+        font-size: 12px;
+        > a {
+            color: rgba($global-inverse-color, 0.5) !important;
+        }
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: $global-small-margin !important;
+        @include media-portrait() {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: $global-margin !important;
+            width: 220px;
+        }
+        @include media-mob-portrait($se) {
+            width: 260px;
+        }
+        @include media-mob-portrait($s) {
+            width: 370px;
+            font-size: 16px;
+            margin-bottom: $global-gutter !important;
+        }
+        @include media-mob-portrait($m) {
+            width: 410px;
+        }
+        @include media-desk-landscape($m) {
+            width: 360px;
+        }
+        @include media-mob-landscape($xs) {
+            font-size: 14px;
+        }
+        @include media-mob-landscape($m) {
+            display: block;
+            position: absolute;
+            top: calc(50% - #{$global-large-margin});
+            right: calc(100% + #{$global-margin});
+            transform: translateY(-50%);
+            text-align: right;
+            & > a {
+                display: block;
+                &:not(:last-child) {
+                    margin-bottom: $global-medium-margin;
+                }
+            }
+            &::before {
+                content: '';
+                position: absolute;
+                top: -($global-medium-margin + $global-small-margin);
+                right: 0;
+                width: 50vw;
+                height: 1px;
+                background: $inverse-global-border;
+            }
+        }
+        @include media-mob-landscape($l) {
+            font-size: 16px;
+            right: calc(100% + #{$global-large-margin});
+            transform: translateY(-50%);
+            text-align: right;
+            & > a {
+                display: block;
+                &:not(:last-child) {
+                    margin-bottom: $global-medium-margin;
+                }
+            }
+            &::before {
+                top: -($global-medium-margin + $global-small-margin);
+            }
+        }
+        @include media-mob-landscape($xl) {
+            top: calc(50% - #{$global-large-margin} - #{$global-gutter});
+            font-size: 1rem;
+            right: calc(100% + #{$global-medium-margin});
+        }
+        @include media-mob-landscape($xxl) {
+            top: calc(50% - #{$global-large-margin});
+            right: calc(100% + #{$global-large-margin});
+            & > a {
+                &:not(:last-child) {
+                    margin-bottom: $global-large-margin;
+                }
+            }
+            &::before {
+                top: -$global-large-margin;
+            }
+        }
+        @include media-mob-landscape($qhd) {
+            top: calc(50% - #{$global-large-margin});
+            right: calc(100% + #{$global-xlarge-margin});
+        }
+    }
+    &__phone, &__email {
+        &.uk-link-reset {
+            color: $global-inverse-color !important;
+        }
+    }
+    &__phone {
+        position: relative;
+        display: block;
+        text-align: right;
+        &::after {
+            content: '';
+            position: absolute;
+            display: none;
+            top: calc(100% + #{$global-small-margin});
+            right: 0;
+            height: 50vh;
+            width: 1px;
+            background: $inverse-global-border;
+        }
+        margin-top: $global-margin;
+        @include media-mob-portrait($s) {
+            margin-top: $global-medium-margin;
+        }
+        @include media-mob-landscape($m) {
+            margin-top: $global-medium-margin;
+            &::after {
+                display: block;
+            }
+        }
+        @include media-mob-landscape($xl) {
+            margin-top: $global-large-margin;
+        }
+    }
+    &__email {
+        display: none;
+        position: absolute;
+        left: 100%;
+        bottom: $global-small-margin;
+        &::before {
+            content: '';
+            position: absolute;
+            display: block;
+            bottom: -$global-small-margin;
+            left: 0;
+            width: 50vw;
+            height: 1px;
+            background: $inverse-global-border;
+        }
+        @include media-mob-landscape($m) {
+            display: block;
+        }
+    }
+}

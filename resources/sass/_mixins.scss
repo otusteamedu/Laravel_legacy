@@ -1,0 +1,86 @@
+@mixin font-face($font-family, $file-path, $weight: normal, $style: normal, $asset-pipeline: false ) {
+    @font-face {
+        font-family: $font-family;
+        font-weight: $weight;
+        font-style: $style;
+        @if $asset-pipeline == true {
+            src: font-url('#{$file-path}.woff') format('woff'), font-url('#{$file-path}.woff2') format('woff2')
+        }
+        @else {
+            src: url('#{$file-path}.woff') format('woff'), url('#{$file-path}.woff2') format('woff2')
+        }
+    }
+}
+
+@mixin object-fit($fit: fill, $position: null) {
+    -o-object-fit: $fit;
+    object-fit: $fit;
+    @if $position {
+        -o-object-position: $position;
+        object-position: $position;
+        font-family: 'object-fit: #{$fit}; object-position: #{$position}';
+    } @else {
+        font-family: 'object-fit: #{$fit}';
+    }
+}
+
+// Media
+@mixin media-mob($break) {
+    @media screen and (min-width: $break){
+        @content;
+    }
+}
+
+@mixin media-desk($break) {
+    @media screen and (max-width: calc(#{$break} - 1px)){
+        @content;
+    }
+}
+
+@mixin media-range($break-min, $break-max) {
+    @media screen and (min-width: $break-min) and (max-width: $break-max) {
+        @content;
+    }
+}
+
+@mixin media-mob-range($break-min, $break-max) {
+    @media screen and (min-width: $break-min) and (max-width: calc(#{$break-max} - 1px)) {
+        @content;
+    }
+}
+
+@mixin media-mob-portrait($break) {
+    @media screen and (min-width: $break) and (orientation: portrait){
+        @content;
+    }
+}
+
+@mixin media-desk-portrait($break) {
+    @media screen and (max-width: calc(#{$break} - 1px)) and (orientation: portrait){
+        @content;
+    }
+}
+
+@mixin media-portrait() {
+    @media screen and (orientation: portrait){
+        @content;
+    }
+}
+
+@mixin media-mob-landscape($break) {
+    @media screen and (min-width: $break) and (orientation: landscape){
+        @content;
+    }
+}
+
+@mixin media-desk-landscape($break) {
+    @media screen and (max-width: calc(#{$break} - 1px)) and (orientation: landscape){
+        @content;
+    }
+}
+
+@mixin media-pointer-coarse() {
+    @media(pointer: coarse){
+        @content;
+    }
+}

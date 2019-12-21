@@ -1,0 +1,29 @@
+.tm-form {
+    &__buttons {
+        display: flex;
+        flex-direction: column;
+        @include media-mob($s) {
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+        }
+        > {
+            :not(:last-child) {
+                margin-bottom: $global-margin;
+                @include media-mob($s) {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+    &__error {
+        display: flex;
+        align-items: center;
+        font-size: 13px;
+        font-weight: normal;
+        margin-top: 2px;
+        .uk-icon {
+            margin-right: .2rem;
+        }
+    }
+}

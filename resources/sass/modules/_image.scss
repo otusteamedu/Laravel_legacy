@@ -1,0 +1,36 @@
+.tm-image {
+    padding: 1px;
+    box-sizing: border-box;
+    img {
+        width: 100%;
+    }
+    &__link {
+        width: 100%;
+    }
+    &__footer {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        line-height: 1;
+        padding: $global-small-margin / 2;
+        @include media-mob($s) {
+            padding: $global-small-margin;
+        }
+    }
+    &__article {
+        &-prefix {
+            margin-right: .2rem;
+        }
+        &-number {
+            color: $global-inverse-color;
+        }
+    }
+    &__likes {
+        margin-bottom: -2px;
+        color: $inverse-global-color;
+        cursor: pointer;
+        &.like {
+            color: $global-inverse-color;
+        }
+    }
+}

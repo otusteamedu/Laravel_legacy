@@ -1,0 +1,32 @@
+.tm-catalog {
+    >:nth-child(n+2) {
+        margin-top: $global-small-margin;
+        @include media-mob($xl) {
+            margin-top: $global-small-gutter;
+        }
+    }
+    .tm-catalog__item-title {
+        cursor: pointer;
+    }
+    &__item {
+        &-title {
+            line-height: 1.3;
+            &::before {
+                margin-top: -3px;
+            }
+            @include media-desk($s) {
+                font-size: 1rem;
+            }
+        }
+        &-img {
+            display: block;
+            width: 70px;
+            height: 40px;
+            margin-right: $global-small-margin;
+        }
+        &-content {
+            padding-left: $global-margin;
+            padding-bottom: $global-small-margin;
+        }
+    }
+}

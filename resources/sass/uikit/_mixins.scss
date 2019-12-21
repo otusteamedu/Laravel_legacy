@@ -1,0 +1,377 @@
+// Accordion
+@mixin hook-accordion-title(){
+    .tm-parent > & {
+        &::before {
+            content: "";
+            width: 1.4em;
+            height: 1.4em;
+            margin-left: 10px;
+            float: right;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: 50% 50%;
+        }
+    }
+    .tm-parent.uk-open > & {
+        &::before {
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
+        }
+    }
+    // &.uk-empty {
+    // overflow: hidden;
+    // &::before {
+    //     display: none !important;
+    // }
+    // & + .uk-accordion-content {
+    // overflow: hidden !important;
+    // height: 0 !important;
+    // position: absolute !important;
+    // visibility: hidden !important;
+    // transition: none !important;
+    // transform: none !important;
+    // padding: 0 !important;
+    // margin: 0 !important;
+    // }
+    // }
+}
+
+@mixin hook-accordion-content(){
+    // height: 0;
+    // max-height: 0;
+    // overflow: hidden;
+    // transition: max-height .5s ease-in-out;
+
+    // .uk-open > & {
+    // max-height: 700px;
+    // }
+    transition: all .3s ease;
+}
+
+// Background
+
+@mixin hook-background-misc(){
+    .uk-background-primary {
+        background-image: $primary-gradient;
+    }
+}
+
+// Base
+
+@mixin hook-base-body(){
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    font-size: 15px;
+    @include media-mob($se) {
+        font-size: 16px
+    }
+    @include media-mob($s) {
+        font-size: 17px;
+    }
+    // @include media-mob($m) {
+    //     font-size: 17px;
+    // }
+    @include media-mob($l) {
+        font-size: 18px;
+    }
+}
+
+@mixin hook-base-misc(){
+    h1, .uk-h1 {
+        font-size: 2.25rem;
+        font-weight: 200;
+        @include media-mob($m) {
+            font-size: 2.8rem;
+        }
+        @include media-mob($xl) {
+            font-size: $global-xxlarge-font-size * .85;
+        }
+        @include media-mob($xxl) {
+            font-size: $global-xxlarge-font-size;
+        }
+    }
+    // h2, .uk-h2 {
+    // font-weight: 200;
+    // }
+}
+
+// Button
+
+@mixin hook-button(){
+    // text-transform: uppercase;
+    // font-weight: normal;
+    border-radius: 500px;
+    box-shadow: $global-small-box-shadow;
+}
+
+// @mixin hook-button-primary(){
+//     background-image: linear-gradient(155deg, #329FD9 0%,#0A7BC3 100%);
+// }
+
+@mixin hook-button-text(){
+    border-radius: 0;
+    box-shadow: none;
+}
+
+@mixin hook-button-link(){
+    border-radius: 0;
+    box-shadow: none;
+}
+
+// Card
+
+@mixin hook-card-primary(){
+    background: $card-primary-background;
+    background-image: $primary-gradient;
+}
+
+// Divider
+
+@mixin hook-divider-small(){
+    content: "";
+    display: inline-block;
+    width: 80px;
+    max-width: 100%;
+    border-top: 2px solid #32beff;
+    vertical-align: top;
+    border-image: $primary-gradient;
+    border-image-slice: 1;
+}
+
+@mixin hook-inverse-divider-small(){
+    border-image: none;
+    border-color: $inverse-global-color;
+}
+
+// Icon
+
+@mixin hook-icon-button(){
+    // border: 1px solid $global-primary-background;
+    // color: $global-primary-background;
+    // transition: all .25s ease;
+}
+@mixin hook-icon-button-hover(){
+    // border-color: $icon-button-hover-color;
+}
+
+// Form
+@mixin hook-form(){
+    // border: 1px solid $global-emphasis-border;
+    // font-weight: normal;
+    background: $global-muted-background;
+    color: $global-emphasis-color;
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill {
+        border: 0;
+        -webkit-text-fill-color: $global-muted-background;
+        color: $global-emphasis-color;
+        -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+}
+@mixin hook-inverse-form(){
+    &:-webkit-autofill:focus,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill {
+        border: 0;
+        -webkit-text-fill-color: $inverse-global-color;
+        color: $inverse-global-color;
+        -webkit-box-shadow: 0 0 0px 1000px transparent inset;
+        transition: background-color 5000s ease-in-out 0s;
+    }
+}
+@mixin hook-form-focus(){
+    background: $global-muted-background;
+}
+@mixin hook-form-danger(){
+    border-color: $form-danger-border;
+    &::-ms-input-placeholder { color: rgba($form-danger-color, .5) !important; }
+    &::placeholder { color: rgba($form-danger-color, .5); }
+    background: $form-danger-background;
+}
+@mixin hook-form-label(){
+    font-size: 13px;
+    // font-weight: normal;
+}
+@mixin hook-form-radio(){
+    border: $global-border-width solid $global-muted-color;
+}
+@mixin hook-form-radio-checked(){
+    border: $global-border-width solid $global-primary-background;
+}
+
+// Heading
+
+@mixin hook-heading-misc(){
+    .uk-heading-small {
+        font-weight: 200;
+        @include media-mob($s) {
+            font-weight: 100;
+        }
+        // @include media-desk($s) {
+        //     & + .uk-divider-small {
+        //         margin-top: $global-small-margin;
+        //     }
+        // }
+    }
+    .uk-heading-medium,
+    .uk-heading-large,
+    .uk-heading-xlarge,
+    .uk-heading-2xlarge {
+        font-weight: 100;
+    }
+    .uk-heading-xlarge {
+        // font-size: 4rem;
+        @include media-desk($xs) {
+            font-size: 2.4rem;
+        }
+        @include media-desk($xxl) {
+            font-size: 6rem;
+        }
+    }
+}
+
+@mixin hook-heading-small(){
+    line-height: 1.2;
+    @include media-desk($xs) {
+        font-size: 2.1rem;
+    }
+    @include media-desk($se) {
+        font-size: 1.9rem;
+    }
+}
+
+// Link
+
+@mixin hook-link-misc(){
+    // a.uk-link:hover,
+    // .uk-link a:hover,
+    // a.uk-link-muted:hover,
+    // .uk-link-muted a:hover,
+    // a.uk-link-text:hover,
+    // .uk-link-text a:hover {
+    // text-decoration: none !important;
+    // }
+}
+@mixin hook-inverse-link-muted(){
+    color: rgba($global-inverse-color, 0.8);
+}
+@mixin hook-inverse-link-muted-hover(){
+    color: $global-inverse-color;
+}
+
+// Navbar
+
+@mixin hook-navbar(){
+    max-height: $navbar-height;
+}
+
+@mixin hook-navbar-container(){
+    // border-bottom: $navbar-border;
+    >.uk-container .uk-navbar-left {
+        margin-left: -$global-small-gutter;
+    }
+    >.uk-container .uk-navbar-right {
+        margin-right: -$global-small-gutter;
+    }
+}
+
+// @mixin hook-navbar-transparent(){
+// border-bottom: $navbar-border;
+// }
+
+@mixin hook-navbar-nav-item(){
+    position: relative;
+    font-weight: normal;
+    transition: $transition-duration;
+    transition-timing-function: $transition-timing-function;
+    transition-property: opacity;
+    // @include media-desk($hxl){
+    //     padding: 0 $global-small-margin;
+    // }
+    // @include media-desk($xl){
+    //     font-size: $global-small-font-size;
+    // }
+    // @include media-desk($hxl){
+    //     font-size: $global-small-font-size * .9;
+    // }
+}
+
+@mixin hook-navbar-nav-item-hover(){
+    opacity: .65;
+}
+
+@mixin hook-navbar-nav-item-active(){
+    opacity: .65;
+}
+
+@mixin hook-navbar-misc(){
+    .uk-navbar-nav > li > a,    // Nav item
+    .uk-navbar-item,            // Content item
+    .uk-navbar-toggle {         // Clickable item
+        min-height: $navbar-height;
+    }
+    .uk-navbar-nav > li {
+        position: relative;
+        &::before {
+            content: '';
+            display: block;
+            position: absolute;
+            z-index: -1;
+            height: 3px;
+            background-color: #32beff;
+            transition: $transition-duration;
+            transition-timing-function: $transition-timing-function;
+            transition-property: opacity, top;
+            top: -3px;
+            left: 13px;
+            right: 13px;
+            opacity: 0;
+        }
+        &.uk-active, &:hover {
+            position: relative;
+            z-index: 1;
+            &::before {
+                top: 0;
+                opacity: 1;
+            }
+        }
+    }
+    // .uk-navbar-container>.uk-container .uk-navbar-left {
+    //     margin-left: -$global-small-gutter;
+    //     margin-right: -$global-small-gutter;
+    // }
+    .uk-navbar-container>.uk-container .uk-navbar-right {
+        margin-right: -$global-small-margin;
+    }
+}
+
+// Section
+
+@mixin hook-section-primary(){
+    background-image: $primary-section-gradient;
+}
+@mixin hook-section-secondary(){
+    background-image: $secondary-section-gradient;
+}
+@mixin hook-section-default(){
+    background: $global-background;
+    background-image: url('/img/svg/section-background-image-lines.svg');
+    background-position-x: 50%;
+}
+
+@mixin hook-section-misc(){
+    // .uk-section-xlarge {
+    //     @include media-desk($m) {
+    //         padding-top: 70px;
+    //         padding-bottom: 70px;
+    //     }
+    // }
+}
+
+// Text
+
+@mixin hook-text-background(){
+    background-image: $primary-gradient;
+}

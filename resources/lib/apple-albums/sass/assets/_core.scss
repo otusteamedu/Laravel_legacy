@@ -1,0 +1,165 @@
+@import 'mixin';
+@import 'variables';
+
+@import '../../node_modules/mathsass/dist/math';
+
+@function shift ($w) {
+    $a: 2;
+    $b: 8;
+    @return ( $w * pow($a, $w / $b ) ) / $b;
+}
+
+@function trasitionDelay ($w, $h) {
+    $a: 2;
+    $b: 6;
+    $delay: ( $h * pow( $a, ( $h / $b ) ) / ( $b + $w ) ) + shift($w);
+    @return $delay;
+}
+
+.albums {
+    display: flex;
+    &-side {
+        position: relative;
+        z-index: 1;
+        width: ($artworkSize + $artworkGutter) * $albumSizeWidth;
+        height: ($artworkSize + $artworkGutter) * $albumSizeHeight;
+        @include media($l) {
+            width: ($artworkSize-l + $artworkGutter-l) * $albumSizeWidth;
+            height: ($artworkSize-l + $artworkGutter-l) * $albumSizeHeight;
+        }
+    }
+    &-right {
+        margin-left: $artworkGutter / 2;
+        @include media($l) {
+            margin-left: $artworkGutter-l / 2;
+        }
+        .artwork {
+            transform: translate3d(-$artworkGutter, $artworkGutter, 0);
+            @include media($l) {
+                transform: translate3d(-$artworkGutter-l, $artworkGutter-l, 0);
+            }
+        }
+    }
+    &-left {
+        margin-right: $artworkGutter / 2;
+        @include media($l) {
+            margin-right: $artworkGutter-l / 2;
+        }
+        .artwork {
+            transform: translate3d($artworkGutter, $artworkGutter, 0);
+            @include media($l) {
+                transform: translate3d($artworkGutter-l, $artworkGutter-l, 0);
+            }
+        }
+    }
+    &.start {
+        .albums-right {
+            .artwork {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+        .albums-left {
+            .artwork {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+    }
+    .artwork {
+        position: absolute;
+        z-index: 1;
+        opacity: 0;
+        transition-property: transform, opacity, -webkit-transform;
+        transition-duration: 1.8s;
+        transition-timing-function: cubic-bezier(0.135, 0.785, 0.22, 1);
+        will-change: transform, opacity;
+        &-image, &-image-alt {
+            z-index: 1;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 986px 821px;
+            background-repeat: no-repeat;
+            background-image: $sprite-path;
+            @include media($l) {
+                background-size: 1470px 1224px;
+            }
+            @media (-webkit-min-device-pixel-ratio: 1.5) {
+                background-image: $sprite-path-2x;
+            }
+        }
+        &-image-alt {
+            opacity: 0;
+            &.active {
+                opacity: 1;
+                transition: opacity 1s cubic-bezier(0.645, 0.045, 0.355, 1);
+            }
+        }
+    }
+}
+
+@for $s from 1 through $sizesCount {
+    [data-artwork-size="#{$s}"] {
+        width: $artworkSize * $s + ($artworkGutter * ($s - 1));
+        height: $artworkSize * $s + ($artworkGutter * ($s - 1));
+        @include media($l) {
+            width: $artworkSize-l * $s + ($artworkGutter-l * ($s - 1));
+            height: $artworkSize-l * $s + ($artworkGutter-l * ($s - 1));
+        }
+    }
+    @for $w from 0 through $albumSizeWidth {
+        @for $h from 0 through $albumSizeHeight {
+            $halfHeightFloor: floor($albumSizeHeight / 2);
+            $size: $s - 1;
+            $shift: $halfHeightFloor - $size;
+            [data-artwork-screen-position="#{$w},#{$h}"][data-artwork-size="#{$s}"] {
+                @if $h < $shift {
+                    transition-delay: trasitionDelay($w, $shift - $h) * 1s;
+                } @else {
+                    transition-delay: trasitionDelay($w, $h - $shift) * 1s;
+                }
+            }
+        }
+    }
+}
+
+@for $w from 0 through $albumSizeWidth {
+    @for $h from 0 through $albumSizeHeight {
+        [data-artwork-screen-position="#{$w},#{$h}"] {
+            top: ($artworkGutter + $artworkSize) * $h;
+            @include media($l) {
+                top: ($artworkGutter-l + $artworkSize-l) * $h;
+            }
+        }
+        [data-artwork-screen-position="#{$w},#{$h}"] {
+            .albums-left & {
+                right: ($artworkGutter + $artworkSize) * $w;
+                @include media($l) {
+                    right: ($artworkGutter-l + $artworkSize-l) * $w;
+                }
+            }
+        }
+        [data-artwork-screen-position="#{$w},#{$h}"] {
+            .albums-right & {
+                left: ($artworkGutter + $artworkSize) * $w;
+                @include media($l) {
+                    left: ($artworkGutter-l + $artworkSize-l) * $w;
+                }
+            }
+        }
+    };
+}
+
+@for $h from 0 through $spriteHorizontalCount {
+    @for $v from 0 through $spriteVerticalCount {
+        [data-artwork-sprite="#{$h},#{$v}"] {
+            background-position: (-($artworkSize + $artworkGutter) * $h) (-($artworkSize + $artworkGutter) * $v);
+            @include media($l) {
+                background-position: (-($artworkSize-l + $artworkGutter-l) * $h) (-($artworkSize-l + $artworkGutter-l) * $v);
+            }
+        }
+    }
+}

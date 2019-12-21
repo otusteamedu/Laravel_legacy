@@ -1,0 +1,36 @@
+.tm-logo {
+    svg {
+        fill: $logo-color;
+    }
+}
+// .tm-footer {
+    // .tm-logo {
+    //     display: flex;
+    //     align-items: center;
+        // &__sign {
+        //     width: 50px;
+        //     height: 50px;
+        //     margin-right: .1rem;
+        //     svg {
+        //         width: inherit;
+        //         height: inherit;
+        //     }
+        // }
+        // &__name {
+        //     font-family: $base-heading-font-family;
+        //     font-size: 2rem;
+        //     text-transform: uppercase;
+        //     font-weight: 200;
+        //     line-height: 1;
+        //     letter-spacing: .02em;
+        // }
+        // @include media-mob($m){
+        //     width: 150px;
+        //     height: 50px;
+        // }
+        // @include media-mob($xl){
+        //     width: 180px;
+        //     height: 60px;
+        // }
+    // }
+// }

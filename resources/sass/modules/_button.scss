@@ -1,0 +1,26 @@
+.tm-button {
+  &__primary {
+    background: $global-primary-background;
+    color: $global-inverse-color;
+    &:hover {
+      background: darken($global-primary-background, 5%);
+      color: $global-inverse-color;
+    }
+    &:active {
+      background: darken($global-primary-background, 10%);
+      color: $global-inverse-color;
+    }
+  }
+  &-success {
+    background: $global-success-background;
+    color: $global-inverse-color;
+    &:hover {
+      background: darken($global-success-background, 5%);
+      color: $global-inverse-color;
+    }
+    &:active {
+      background: darken($global-success-background, 10%);
+      color: $global-inverse-color;
+    }
+  }
+}
