@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Materials;
 
+use App\Jobs\MaterialAdd;
+use App\Jobs\Queue;
 use App\Models\Material;
 use App\Policies\Abilities;
 use App\Services\Authors\AuthorsService;
 use App\Services\Categories\CategoryService;
 use App\Services\Handbooks\HandbookService;
 use App\Services\Materials\MaterialService;
+use App\Services\Users\UserService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -72,7 +75,8 @@ class MaterialsController extends Controller {
             'status_id' => 'required',
         ]);
 
-        $this->materialService->storeMaterial($request->all());
+        $material = $this->materialService->storeMaterial($request->all());
+        MaterialAdd::dispatch($material)->onQueue(Queue::MEDIUM_PRIORITY);
         return redirect(route('admin.materials.index'), 301);
     }
 
