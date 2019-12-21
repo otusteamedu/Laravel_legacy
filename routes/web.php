@@ -25,9 +25,12 @@ Route::get('/content', function () {
 
 Route::get('/backend', function () {
     return view('backend.pages.index');
-})->name('backend');
+})
+    ->name('backend')
+    ->middleware('auth');
 
 Route::prefix('backend')
+    ->middleware('auth')
     ->namespace('Backend')
     ->name('backend.')
     ->group(function () {

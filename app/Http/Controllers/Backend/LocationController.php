@@ -10,6 +10,7 @@ use App\Services\Location\LocationService;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use App\Policies\Abilities;
 
 class LocationController extends Controller
 {
@@ -40,10 +41,12 @@ class LocationController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, Location::class);
         return view('backend.pages.location.index', [
             'locations' => $this->locationService->paginate(),
         ]);
@@ -52,10 +55,12 @@ class LocationController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Location::class);
         $users = [
             // @todo Брать значение по умолчанию из конфига
             '' => '– Please select –'
@@ -72,10 +77,12 @@ class LocationController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  LocationStoreFormRequest  $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(LocationStoreFormRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Location::class);
         $this->locationService->create($request->all());
         // @todo Сообщение об успешном создании записи
         return redirect(route('backend.location.index'));
@@ -96,10 +103,12 @@ class LocationController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  Location  $location
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Location $location)
     {
+        $this->authorize(Abilities::UPDATE, $location);
         $users = [
             // @todo Брать значение по умолчанию из конфига
             '' => '– Please select –'
@@ -118,10 +127,12 @@ class LocationController extends Controller
      *
      * @param  LocationUpdateFormRequest  $request
      * @param  Location  $location
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(LocationUpdateFormRequest $request, Location $location)
     {
+        $this->authorize(Abilities::UPDATE, $location);
         $this->locationService->update($location, $request->all());
         // @todo Сообщение об успешном обновлении записи
         return redirect(route('backend.location.index'));
@@ -131,10 +142,12 @@ class LocationController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Location  $location
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Location $location)
     {
+        $this->authorize(Abilities::DELETE, $location);
         // @todo Промежуточная форма подтверждения
         $this->locationService->delete($location);
         // @todo Сообщение об успешном удалении записи

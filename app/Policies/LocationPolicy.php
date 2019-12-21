@@ -19,7 +19,7 @@ class LocationPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->isAdmin;
+        return Auth::check();
     }
 
     /**
