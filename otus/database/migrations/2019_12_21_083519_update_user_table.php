@@ -11,13 +11,13 @@ class UpdateUserTable extends Migration {
      * @return void
      */
     public function up() {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('api_token', 80)
-                ->after('password')
-                ->unique()
-                ->nullable()
-                ->default(null);
-        });
+//        Schema::table('users', function (Blueprint $table) {
+//            $table->string('api_token', 80)
+//                ->after('password')
+//                ->unique()
+//                ->nullable()
+//                ->default(null);
+//        });
     }
 
     /**

@@ -54,9 +54,10 @@ class AuthorsController extends Controller {
     /**
      * @param Request $request
      * @param Author $author
+     * @return Author
      */
     public function update(Request $request, Author $author) {
-        $this->authorsService->updateAuthor($author, $request->all());
+        return $this->authorsService->updateAuthor($author, $request->all());
     }
 
     /**
