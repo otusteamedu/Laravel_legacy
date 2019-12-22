@@ -46,9 +46,10 @@ class AuthorsService {
     /**
      * @param Author $author
      * @param array $data
+     * @return Author
      */
     public function updateAuthor(Author $author, array $data) {
-        $this->authorRepository->updateFromArray($author, $data);
+        return $this->authorRepository->updateFromArray($author, $data);
     }
 
     /**
