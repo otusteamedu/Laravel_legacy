@@ -67,6 +67,8 @@ class CacheWarmUp extends Command {
     public function handle(CacheKeyManager $cacheKeyManager) {
         $options = $this->options();
         $arguments = $this->arguments();
+        $dateStart = new \DateTime();
+        echo 'start ' . $dateStart->format('d.m.Y H:i:s');
 
         if (!$options['all'] && !$options['select'] && !$arguments['entity']) {
             echo "no entity select \n\r";
@@ -87,6 +89,9 @@ class CacheWarmUp extends Command {
         if ($this->isEntityExist($arguments['entity'])) {
           $this->createEntityCache($this->entities[$arguments['entity']], $cacheKeyManager);
         }
+        $dateEnd = new \DateTime();
+        echo "\n\r";
+        echo 'stop ' . $dateEnd->format('d.m.Y H:i:s');
     }
 
     private function createCacheForAllEntities(CacheKeyManager $cacheKeyManager) {
