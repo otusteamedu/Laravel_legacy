@@ -29,10 +29,8 @@ class AuthorsService {
         return $this->cachedAuthorRepository->search();
     }
 
-    /**
-     * @return Collection
-     */
-    public function getAll(): Collection {
+
+    public function getAll() {
         return $this->cachedAuthorRepository->getBy();
     }
 
