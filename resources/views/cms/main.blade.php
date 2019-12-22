@@ -7,7 +7,7 @@
     <meta name="description" content="Мониторинг и поддержка Ваших сайтов 24/7">
     <link rel="icon" type="image/png" href="{{asset('theme/favicons/favicon.ico')}}" sizes="16x16">
     <link rel="stylesheet" href="{{asset('theme/fonts/font-awesome-4.3.0/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('theme/css/admin.css')}}">
+    <link rel="stylesheet" href="{{asset('theme/css/cms.css')}}">
 </head>
 <body>
 <header>
@@ -61,6 +61,6 @@
 
 
 
-<script src="{{asset('theme/js/admin.js')}}"></script>
+<script src="{{asset('theme/js/cms.js')}}"></script>
 </body>
 </html>
