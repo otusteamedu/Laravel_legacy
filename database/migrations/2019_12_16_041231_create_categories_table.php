@@ -22,7 +22,7 @@ class CreateCategoriesTable extends Migration
             $table->string('slug')->unique();
             $table->string('title')->index();
             $table->text('description')->nullable();
-            $table->string('icon', 100)->nullable();
+            $table->text('icon')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
