@@ -55,9 +55,9 @@ class UserService implements UserServiceInterface {
      * @param  int  $id
      * @return User|Collection|static[]|static|null
      */
-    public function find(int $id)
+    public function findById(int $id)
     {
-        return $this->userRepository->find($id);
+        return $this->userRepository->findById($id);
     }
 
     /**
