@@ -12,7 +12,7 @@ class LocationsTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\User::all() as $user) {
-            factory(\App\Models\Location::class, 3)->create([
+            factory(\App\Models\Location::class, 30)->create([
                 'user_id' => $user->id,
             ]);
         }
