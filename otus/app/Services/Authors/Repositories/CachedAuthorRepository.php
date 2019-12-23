@@ -34,4 +34,14 @@ class CachedAuthorRepository implements CachedAuthorRepositoryInterface {
     public function clearSearchCache() {
         Cache::tags([Tag::AUTHORS])->flush();
     }
+
+    public function getBy(array $filters = [], array $with = []) {
+        $key = $this->cacheKeyManager->getSearchAuthorsKey($filters);
+        $result =  Cache::tags([Tag::AUTHORS])
+            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($filters, $with) {
+                return $this->authorRepository->getBy($filters, $with);
+            });
+
+        return $result;
+    }
 }

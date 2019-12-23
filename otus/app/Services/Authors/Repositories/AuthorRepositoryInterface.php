@@ -15,4 +15,6 @@ interface AuthorRepositoryInterface {
     public function createFromArray(array $data): Author;
 
     public function updateFromArray(Author $author, array $data): Author;
+
+    public function getBy(array $filters = [], array $with = []);
 }

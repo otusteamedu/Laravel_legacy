@@ -46,6 +46,7 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $faker->md5,
         'photo' => $url,
-        'role' => $role
+        'role' => $role,
+        'api_token' => Str::random(60),
     ];
 });

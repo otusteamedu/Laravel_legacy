@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->timestamps();
             $table->rememberToken();
+            $table->string('api_token', 80)->unique()->nullable()->default(null);
         });
     }
 
