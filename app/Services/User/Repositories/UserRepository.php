@@ -39,9 +39,9 @@ class UserRepository implements UserRepositoryInterface {
      * @param  int  $id
      * @return User|Collection|static[]|static|null
      */
-    public function find(int $id)
+    public function findById(int $id)
     {
-        // TODO: Implement find() method.
+        return User::find($id);
     }
 
     /**
@@ -64,9 +64,7 @@ class UserRepository implements UserRepositoryInterface {
      */
     public function create(array $data)
     {
-        $user = new User();
-        $user->create($data);
-        return $user;
+        return User::create($data);
     }
 
     /**

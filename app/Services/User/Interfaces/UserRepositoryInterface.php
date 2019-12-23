@@ -39,7 +39,7 @@ interface UserRepositoryInterface
      * @param  int  $id
      * @return User|Collection|static[]|static|null
      */
-    public function find(int $id);
+    public function findById(int $id);
 
     /**
      * Find a record by an attribute/value.

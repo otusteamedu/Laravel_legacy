@@ -29,7 +29,7 @@ class LocationRepository implements LocationRepositoryInterface {
      */
     public function findById(int $id)
     {
-        // TODO: Implement findById() method.
+        return Location::find($id);
     }
 
     /**
@@ -40,9 +40,7 @@ class LocationRepository implements LocationRepositoryInterface {
      */
     public function create(array $data)
     {
-        $location = new Location();
-        $location->create($data);
-        return $location;
+        return Location::create($data);
     }
 
     /**
