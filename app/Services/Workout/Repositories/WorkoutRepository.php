@@ -29,7 +29,7 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
      */
     public function findById(int $id)
     {
-        // TODO: Implement findById() method.
+        return Workout::find($id);
     }
 
     /**
@@ -40,9 +40,7 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
      */
     public function create(array $data)
     {
-        $workout = new Workout();
-        $workout->create($data);
-        return $workout;
+        return Workout::create($data);
     }
 
     /**

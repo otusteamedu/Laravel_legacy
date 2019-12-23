@@ -47,7 +47,7 @@ class LocationService implements LocationServiceInterface {
      */
     public function findById(int $id)
     {
-        return $this->locationRepository->find($id);
+        return $this->locationRepository->findById($id);
     }
 
     /**

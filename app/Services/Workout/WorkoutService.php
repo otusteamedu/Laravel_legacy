@@ -47,7 +47,7 @@ class WorkoutService implements WorkoutServiceInterface {
      */
     public function findById(int $id)
     {
-        return $this->workoutRepository->find($id);
+        return $this->workoutRepository->findById($id);
     }
 
     /**
