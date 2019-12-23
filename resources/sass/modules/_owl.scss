@@ -1,0 +1,21 @@
+.owl-carousel {
+  .card-title {
+    font-size: 1.125rem;
+    font-weight: 500;
+    line-height: 1.2;
+  }
+
+  .card-img-top-bg {
+    width: 100%;
+    height: 180px;
+
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .card-text {
+    height: 3em;
+    overflow: hidden;
+  }
+}

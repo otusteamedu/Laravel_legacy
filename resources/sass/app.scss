@@ -1,0 +1,13 @@
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import '../../node_modules/owl.carousel/dist/assets/owl.carousel.min.css';
+@import '../../node_modules/owl.carousel/dist/assets/owl.theme.default.css';
+@import 'variables';
+@import 'modules/carousel';
+@import 'modules/owl';
+@import 'modules/styles';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
