@@ -10,6 +10,7 @@ namespace App\Services\Countries\Handlers;
 
 use App\Models\Country;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
+use App\Services\SMS\SMSService;
 use Carbon\Carbon;
 
 class CreateCountryHandler
@@ -17,20 +18,30 @@ class CreateCountryHandler
 
     private $countryRepository;
 
+    private $sendSMSCreatedCountryHandler;
+
     public function __construct(
-        CountryRepositoryInterface $countryRepository
+        CountryRepositoryInterface $countryRepository,
+        SendSMSCreatedCountryHandler $sendSMSCreatedCountryHandler
     )
     {
         $this->countryRepository = $countryRepository;
+        $this->sendSMSCreatedCountryHandler = $sendSMSCreatedCountryHandler;
     }
 
-
+    /**
+     * @param array $data
+     * @return Country
+     */
     public function handle(array $data): Country
     {
         $data['created_at'] = Carbon::create()->subDay();
         $data['name'] = ucfirst($data['name']);
 
-        return $this->countryRepository->createFromArray($data);
+        $country = $this->countryRepository->createFromArray($data);
+
+        $this->sendSMSCreatedCountryHandler->handle($country);
+        return $country;
     }
 
 }

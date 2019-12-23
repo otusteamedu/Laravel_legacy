@@ -55,8 +55,6 @@ class CountriesService
     {
         $country = $this->createCountryHandler->handle($data);
 
-        // do some logic
-
         return $country;
     }
 

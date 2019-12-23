@@ -5,12 +5,12 @@ namespace App\Http\Controllers\Cms\Countries;
 use App\Http\Controllers\Cms\Countries\Requests\StoreCountryRequest;
 use App\Http\Controllers\Cms\Countries\Requests\UpdateCountryRequest;
 use App\Policies\Abilities;
+use App\Services\SimpleFoo;
 use View;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Validation\ValidationException;
 
 class CountriesController extends Controller
 {
@@ -18,9 +18,13 @@ class CountriesController extends Controller
     protected $countriesService;
 
     public function __construct(
-        CountriesService $countriesService
+        CountriesService $countriesService,
+        SimpleFoo $simpleFoo
     )
     {
+        $simpleFoo->saveFoo();
+
+
         $this->countriesService = $countriesService;
     }
 
@@ -31,7 +35,7 @@ class CountriesController extends Controller
     public function index(Request $request)
     {
         View::share([
-            'countries' => Country::paginate(),
+            'countries' => $this->countriesService->searchCountries(),
         ]);
 
         return view('countries.index');
