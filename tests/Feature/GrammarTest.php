@@ -81,5 +81,8 @@ class GrammarTest extends TestCase
             $this->assertEquals($item, $grammar->$key);
         }
     }
+    public function test404(){
+        $this->get('/wewqe')->assertStatus(404);
+    }
 
 }

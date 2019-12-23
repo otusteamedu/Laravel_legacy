@@ -16,8 +16,10 @@ use App\User;
 //Route::prefix('apigrammar')->group(function () {
 //Route::apiResource('grammar',  'Api\GrammarController');
 //});
-
-Route::middleware('auth:api')->group(function () {
+//
+Route::middleware(['auth:api'])
+    ->name('api.')
+    ->group(function () {
     Route::apiResource('grammar', 'Api\GrammarController', [
         'except' => [
             'destroy',
