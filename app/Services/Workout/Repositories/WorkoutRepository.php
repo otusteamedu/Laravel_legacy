@@ -18,7 +18,7 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
      */
     public function search(array $conditions = [])
     {
-        return Workout::where($conditions)->paginate();
+        return Workout::where($conditions)->with('user')->paginate();
     }
 
     /**

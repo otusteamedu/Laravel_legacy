@@ -61,7 +61,7 @@ class WorkoutController extends Controller
     {
         $this->authorize(Abilities::VIEW_ANY, Workout::class);
         return view('backend.pages.workout.index', [
-            'workouts' => $this->workoutService->getByUser(Auth::user()),
+            'workouts' => $this->workoutService->getByUserCached(Auth::user()),
         ]);
     }
 
