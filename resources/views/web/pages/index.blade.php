@@ -10,7 +10,7 @@
             vulputate velit esse molestie consequat.</p>
         <p>Feel free to sign up anytime!</p>
         <p>
-            <a href="/user/register" class="btn btn-lg btn-primary my-2">Sign up</a>
+            <a href="{{ route('register') }}" class="btn btn-lg btn-primary my-2">Sign up</a>
         </p>
     </div>
 @endsection

@@ -32,12 +32,6 @@
                     {{ Form::text('distance', $location->distance, array('class'=>'form-control')) }}
                 </div>
             </div>
-            <div class="col-sm-4 col-md-4">
-                <div class="form-group">
-                    {{ Form::label('user_id', 'User') }}
-                    {{ Form::select('user_id', $users, $location->user_id, array('class'=>'form-control')) }}
-                </div>
-            </div>
         </div>
         <div class="form-group">
             {{ Form::submit('Submit', array('class' => 'btn btn-success')) }}

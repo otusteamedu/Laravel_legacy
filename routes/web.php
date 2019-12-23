@@ -15,14 +15,6 @@ Route::get('/', function () {
     return view('web.pages.index');
 })->name('web');
 
-Route::get('/user', function () {
-    return redirect('user/register');
-})->name('web.user');
-
-Route::get('/user/register', function () {
-    return view('web.pages.user.register');
-})->name('web.user.register');
-
 Route::get('/dashboard', function () {
     return view('web.pages.dashboard.index');
 })->name('web.dashboard');
@@ -33,9 +25,12 @@ Route::get('/content', function () {
 
 Route::get('/backend', function () {
     return view('backend.pages.index');
-})->name('backend');
+})
+    ->name('backend')
+    ->middleware('auth');
 
 Route::prefix('backend')
+    ->middleware('auth')
     ->namespace('Backend')
     ->name('backend.')
     ->group(function () {
@@ -44,3 +39,6 @@ Route::prefix('backend')
             'workout' => 'WorkoutController',
         ]);
     });
+
+Auth::routes();
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');

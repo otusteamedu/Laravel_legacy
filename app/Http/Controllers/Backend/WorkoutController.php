@@ -11,6 +11,8 @@ use App\Services\Workout\WorkoutService;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Response;
+use App\Policies\Abilities;
+use Illuminate\Support\Facades\Auth;
 
 class WorkoutController extends Controller
 {
@@ -52,38 +54,34 @@ class WorkoutController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, Workout::class);
         return view('backend.pages.workout.index', [
-            'workouts' => $this->workoutService->paginate(),
+            'workouts' => $this->workoutService->getByUser(Auth::user()),
         ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
-        $users = [
-            // @todo Брать значение по умолчанию из конфига
-            '' => '– Please select –'
-        ];
-        foreach ($this->userService->all() as $user) {
-            $users[$user->id] = $user->name;
-        }
+        $this->authorize(Abilities::CREATE, Workout::class);
         $locations = [
             // @todo Брать значение по умолчанию из конфига
             '' => '– Please select –'
         ];
-        foreach ($this->locationService->all() as $location) {
+        foreach ($this->locationService->getByUser(Auth::user()) as $location) {
             $locations[$location->id] = $location->name;
         }
         return view('backend.pages.workout.create', [
-            'users' => $users,
             'locations' => $locations,
         ]);
     }
@@ -92,11 +90,15 @@ class WorkoutController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  WorkoutStoreFormRequest  $request
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function store(WorkoutStoreFormRequest $request)
     {
-        $this->workoutService->create($request->all());
+        $this->authorize(Abilities::CREATE, Workout::class);
+        $data = $request->all();
+        $data['user_id'] = Auth::id();
+        $this->workoutService->create($data);
         // @todo Сообщение об успешном создании записи
         return redirect(route('backend.workout.index'));
     }
@@ -116,27 +118,21 @@ class WorkoutController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  Workout  $workout
-     * @return Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit(Workout $workout)
     {
-        $users = [
-            // @todo Брать значение по умолчанию из конфига
-            '' => '– Please select –'
-        ];
-        foreach ($this->userService->all() as $user) {
-            $users[$user->id] = $user->name;
-        }
+        $this->authorize(Abilities::UPDATE, $workout);
         $locations = [
             // @todo Брать значение по умолчанию из конфига
             '' => '– Please select –'
         ];
-        foreach ($this->locationService->all() as $location) {
+        foreach ($this->locationService->getByUser(Auth::user()) as $location) {
             $locations[$location->id] = $location->name;
         }
         return view('backend.pages.workout.edit', [
             'workout' => $workout,
-            'users' => $users,
             'locations' => $locations,
         ]);
     }
@@ -146,10 +142,12 @@ class WorkoutController extends Controller
      *
      * @param  WorkoutUpdateFormRequest  $request
      * @param  Workout  $workout
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(WorkoutUpdateFormRequest $request, Workout $workout)
     {
+        $this->authorize(Abilities::UPDATE, $workout);
         $this->workoutService->update($workout, $request->all());
         // @todo Сообщение об успешном обновлении записи
         return redirect(route('backend.workout.index'));
@@ -159,10 +157,12 @@ class WorkoutController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  Workout  $workout
-     * @return Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy(Workout $workout)
     {
+        $this->authorize(Abilities::DELETE, $workout);
         // @todo Промежуточная форма подтверждения
         $this->workoutService->delete($workout);
         // @todo Сообщение об успешном удалении записи
