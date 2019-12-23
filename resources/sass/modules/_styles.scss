@@ -1,0 +1,9 @@
+.list-params{
+  font-size: 12px;
+  .list-params--key{
+    color: $gray;
+  }
+  .list-params--value{
+    color: $dark-gray;
+  }
+}
