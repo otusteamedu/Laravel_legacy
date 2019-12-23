@@ -57,6 +57,7 @@ class AuthorsController extends Controller {
      */
     public function update(Request $request, Author $author) {
         $this->authorsService->updateAuthor($author, $request->all());
+        return response()->json($author);
     }
 
     /**
@@ -67,5 +68,6 @@ class AuthorsController extends Controller {
      */
     public function destroy(Author $author) {
         $this->authorsService->destroyAuthors([$author->id]);
+        return response()->json([]);
     }
 }
