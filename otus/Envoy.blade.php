@@ -3,7 +3,8 @@
 @story('deploy')
 git
 composer
-tests
+migrate
+cache
 @endstory
 
 @task('git')
@@ -14,6 +15,19 @@ git clone https://github.com/MaxFolder/Laravel.git
 @task('composer')
 cd /home/maxfolder/workspace/vhosts/envoy
 composer install
+@endtask
+
+@task('migrate')
+cd /home/maxfolder/workspace/vhosts/envoy
+php artisan migrate
+@endtask
+
+@task('cache')
+cd /home/maxfolder/workspace/vhosts/envoy
+php artisan cache:clear
+php artisan route:clear
+php artisan config:clear
+php artisan view:clear
 @endtask
 
 
