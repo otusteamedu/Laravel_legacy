@@ -141,4 +141,12 @@ class WorkoutService implements WorkoutServiceInterface
     {
         // TODO
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function clearSearchCache(array $conditions = ['user_id' => 0])
+    {
+        $this->workoutCachedRepository->clearSearchCache($conditions);
+    }
 }

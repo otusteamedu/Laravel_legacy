@@ -45,4 +45,17 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
         );
     }
 
+    /**
+     * Clear search cache.
+     *
+     * @param  array  $conditions
+     *   - user_id
+     */
+    public function clearSearchCache(array $conditions = ['user_id' => 0])
+    {
+        Cache::tags([
+            'Workout.User:'.$conditions['user_id']
+        ])->flush();
+    }
+
 }

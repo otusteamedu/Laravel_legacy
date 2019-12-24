@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\Workout\ClearWorkoutCache;
+use App\Services\Events\Models\Workout\WorkoutDeleted;
+use App\Services\Events\Models\Workout\WorkoutSaved;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -14,11 +17,17 @@ class EventServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $listen = [
-        Registered::class => [
+    protected $listen = array(
+        Registered::class => array(
             SendEmailVerificationNotification::class,
-        ],
-    ];
+        ),
+        WorkoutSaved::class => array(
+            ClearWorkoutCache::class,
+        ),
+        WorkoutDeleted::class => array(
+            ClearWorkoutCache::class,
+        ),
+    );
 
     /**
      * Register any events for your application.

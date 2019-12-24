@@ -25,4 +25,12 @@ interface WorkoutCachedRepositoryInterface
      */
     public function searchCached(array $conditions = [], array $filters = []);
 
+    /**
+     * Clear search cache.
+     *
+     * @param  array  $conditions
+     *   - user_id
+     */
+    public function clearSearchCache(array $conditions = ['user_id' => 0]);
+
 }
