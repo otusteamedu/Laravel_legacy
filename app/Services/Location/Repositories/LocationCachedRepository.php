@@ -26,13 +26,17 @@ class LocationCachedRepository implements LocationCachedRepositoryInterface {
      * Find and paginate a cached collection of records.
      *
      * @param  array  $conditions
+     *   - user_id
      * @param  array  $filters
      * @return Location|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [], array $filters = [])
+    public function searchCached(array $conditions = ['user_id' => 0], array $filters = [])
     {
         $cacheKey = CacheService::getCacheKey(array_merge($conditions, $filters));
-        return Cache::remember(
+
+        return Cache::tags([
+            'Location.User:'.$conditions['user_id']
+        ])->remember(
             $cacheKey,
             CacheService::CACHE_TTL,
             function () use ($conditions, $filters) {
