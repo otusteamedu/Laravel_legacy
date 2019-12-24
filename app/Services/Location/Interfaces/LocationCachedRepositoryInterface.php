@@ -22,9 +22,10 @@ interface LocationCachedRepositoryInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Location|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [], array $filters = []);
+    public function searchCached(array $conditions = [], array $filters = [], string $path = '');
 
     /**
      * Clear search cache.

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Workout\Repositories;
 
+use App\Models\User;
 use App\Services\Cache\CacheService;
 use App\Services\Workout\Interfaces\WorkoutCachedRepositoryInterface;
 use App\Models\Workout;
@@ -28,9 +29,10 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
      * @param  array  $conditions
      *   - user_id
      * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = ['user_id' => 0], array $filters = [])
+    public function searchCached(array $conditions = ['user_id' => 0], array $filters = [], string $path = '')
     {
         $cacheKey = CacheService::getCacheKey(array_merge($conditions, $filters));
 
@@ -39,8 +41,8 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
         ])->remember(
             $cacheKey,
             CacheService::CACHE_TTL,
-            function () use ($conditions, $filters) {
-                return $this->workoutRepository->search($conditions, $filters);
+            function () use ($conditions, $filters, $path) {
+                return $this->workoutRepository->search($conditions, $filters, $path);
             }
         );
     }
@@ -56,6 +58,19 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
         Cache::tags([
             'Workout.User:'.$conditions['user_id']
         ])->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function warmupCacheByUser(User $user)
+    {
+        $conditions = [
+            'user_id' => $user->id
+        ];
+        $filters = [];
+        // @todo Прогревать кэш для всех страниц
+        $this->searchCached($conditions, $filters, route('backend.workout.index'));
     }
 
 }

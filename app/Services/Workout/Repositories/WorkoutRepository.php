@@ -15,17 +15,22 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
      *
      * @todo Использовать $filters
      */
-    public function search(array $conditions = [], array $filters = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
-        return Workout::where($conditions)
+        $result = Workout::where($conditions)
             ->with('user')
             ->with('location')
             ->orderBy('started_at', 'desc')
             ->paginate();
+        if ($path !== '') {
+            $result->withPath($path);
+        }
+        return $result;
     }
 
     /**

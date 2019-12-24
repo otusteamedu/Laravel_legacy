@@ -21,9 +21,10 @@ interface LocationRepositoryInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Location|Collection|static[]|static|null
      */
-    public function search(array $conditions = [], array $filters = []);
+    public function search(array $conditions = [], array $filters = [], string $path = '');
 
     /**
      * Find a record by its primary key.

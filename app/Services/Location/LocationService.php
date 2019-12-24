@@ -44,9 +44,10 @@ class LocationService implements LocationServiceInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Location|Collection|static[]|static|null
      */
-    public function search(array $conditions = [], array $filters = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
         return $this->locationRepository->search($conditions, $filters);
     }
@@ -56,9 +57,10 @@ class LocationService implements LocationServiceInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Location|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [], array $filters = [])
+    public function searchCached(array $conditions = [], array $filters = [], string $path = '')
     {
         return $this->locationCachedRepository->searchCached($conditions, $filters);
     }

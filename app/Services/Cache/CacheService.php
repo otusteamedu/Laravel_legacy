@@ -7,6 +7,7 @@ namespace App\Services\Cache;
 use App\Models\User;
 use App\Services\Cache\Interfaces\CacheServiceInterface;
 use App\Services\Location\LocationService;
+use App\Services\Workout\WorkoutService;
 
 class CacheService implements CacheServiceInterface
 {
@@ -18,9 +19,15 @@ class CacheService implements CacheServiceInterface
      */
     private $locationService;
 
-    public function __construct(LocationService $locationService)
+    /**
+     * @var WorkoutService
+     */
+    private $workoutService;
+
+    public function __construct(LocationService $locationService, WorkoutService $workoutService)
     {
         $this->locationService = $locationService;
+        $this->workoutService = $workoutService;
     }
 
     public static function getCacheKey(array $params = []): string
@@ -31,5 +38,6 @@ class CacheService implements CacheServiceInterface
     public function warmupCacheByUser(User $user): void
     {
         $this->locationService->warmupCacheByUser($user);
+        $this->workoutService->warmupCacheByUser($user);
     }
 }

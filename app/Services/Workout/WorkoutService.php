@@ -42,9 +42,10 @@ class WorkoutService implements WorkoutServiceInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
      */
-    public function search(array $conditions = [], array $filters = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
         return $this->workoutRepository->search($conditions, $filters);
     }
@@ -54,9 +55,10 @@ class WorkoutService implements WorkoutServiceInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [], array $filters = [])
+    public function searchCached(array $conditions = [], array $filters = [], string $path = '')
     {
         return $this->workoutCachedRepository->searchCached($conditions, $filters);
     }
@@ -148,5 +150,13 @@ class WorkoutService implements WorkoutServiceInterface
     public function clearSearchCache(array $conditions = ['user_id' => 0])
     {
         $this->workoutCachedRepository->clearSearchCache($conditions);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function warmupCacheByUser(User $user)
+    {
+        $this->workoutCachedRepository->warmupCacheByUser($user);
     }
 }

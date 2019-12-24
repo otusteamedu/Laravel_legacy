@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Workout\Interfaces;
 
+use App\Models\User;
 use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -21,9 +22,10 @@ interface WorkoutCachedRepositoryInterface
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [], array $filters = []);
+    public function searchCached(array $conditions = [], array $filters = [], string $path = '');
 
     /**
      * Clear search cache.
@@ -32,5 +34,13 @@ interface WorkoutCachedRepositoryInterface
      *   - user_id
      */
     public function clearSearchCache(array $conditions = ['user_id' => 0]);
+
+    /**
+     * Warmup cache by user.
+     *
+     * @param  User  $user
+     * @return mixed
+     */
+    public function warmupCacheByUser(User $user);
 
 }
