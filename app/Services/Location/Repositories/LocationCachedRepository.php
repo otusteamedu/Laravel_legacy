@@ -45,4 +45,17 @@ class LocationCachedRepository implements LocationCachedRepositoryInterface {
         );
     }
 
+    /**
+     * Clear search cache.
+     *
+     * @param  array  $conditions
+     *   - user_id
+     */
+    public function clearSearchCache(array $conditions = ['user_id' => 0])
+    {
+        Cache::tags([
+            'Location.User:'.$conditions['user_id']
+        ])->flush();
+    }
+
 }

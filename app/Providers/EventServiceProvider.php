@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\Location\ClearLocationCache;
 use App\Listeners\Cache\Workout\ClearWorkoutCache;
+use App\Services\Events\Models\Location\LocationDeleted;
+use App\Services\Events\Models\Location\LocationSaved;
 use App\Services\Events\Models\Workout\WorkoutDeleted;
 use App\Services\Events\Models\Workout\WorkoutSaved;
 use Illuminate\Support\Facades\Event;
@@ -26,6 +29,12 @@ class EventServiceProvider extends ServiceProvider
         ),
         WorkoutDeleted::class => array(
             ClearWorkoutCache::class,
+        ),
+        LocationSaved::class => array(
+            ClearLocationCache::class,
+        ),
+        LocationDeleted::class => array(
+            ClearLocationCache::class,
         ),
     );
 
