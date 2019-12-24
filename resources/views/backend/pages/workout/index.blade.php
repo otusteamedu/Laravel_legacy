@@ -21,7 +21,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Distance</th>
                     <th scope="col">Started</th>
-                    <th scope="col">Duration</th>
+                    <th scope="col">Location</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -31,7 +31,7 @@
                         <th>{{ link_to(route('backend.workout.edit', ['workout' => $workout->id]), $workout->name) }}</th>
                         <th>{{ $workout->distance }}</th>
                         <td>{{ $workout->started_at }}</td>
-                        <td>{{ $workout->duration }}</td>
+                        <td>{{ $workout->location->name ?? '–' }}</td>
                     </tr>
                 @endforeach
                 </tbody>

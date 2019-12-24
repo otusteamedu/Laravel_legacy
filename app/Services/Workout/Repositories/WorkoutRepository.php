@@ -23,6 +23,7 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
     {
         return Workout::where($conditions)
             ->with('user')
+            ->with('location')
             ->orderBy('started_at', 'desc')
             ->paginate();
     }
