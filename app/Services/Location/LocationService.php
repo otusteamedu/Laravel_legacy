@@ -151,4 +151,13 @@ class LocationService implements LocationServiceInterface
     {
         $this->locationCachedRepository->clearSearchCache($conditions);
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function warmupCacheByUser(User $user)
+    {
+        $this->locationCachedRepository->warmupCacheByUser($user);
+    }
+
 }

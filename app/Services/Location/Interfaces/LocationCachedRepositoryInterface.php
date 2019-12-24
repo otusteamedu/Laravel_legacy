@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Services\Location\Interfaces;
 
 use App\Models\Location;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 
 /**
@@ -32,5 +33,13 @@ interface LocationCachedRepositoryInterface
      *   - user_id
      */
     public function clearSearchCache(array $conditions = ['user_id' => 0]);
+
+    /**
+     * Warmup cache by user.
+     *
+     * @param  User  $user
+     * @return mixed
+     */
+    public function warmupCacheByUser(User $user);
 
 }

@@ -15,16 +15,21 @@ class LocationRepository implements LocationRepositoryInterface {
      *
      * @param  array  $conditions
      * @param  array  $filters
+     * @param  string  $path
      * @return Location|Collection|static[]|static|null
      *
      * @todo Использовать $filters
      */
-    public function search(array $conditions = [], array $filters = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
-        return Location::where($conditions)
+        $result = Location::where($conditions)
             ->with('user')
             ->orderBy('created_at', 'desc')
             ->paginate();
+        if ($path !== '') {
+            $result->withPath($path);
+        }
+        return $result;
     }
 
     /**

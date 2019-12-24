@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * Interface LocationServiceInterface
  */
-interface LocationServiceInterface extends LocationRepositoryInterface
+interface LocationServiceInterface extends LocationRepositoryInterface, LocationCachedRepositoryInterface
 {
     /**
      * Find records by User.
