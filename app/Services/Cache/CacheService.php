@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Services\Cache;
 
-use App\Services\Cache\Interfaces\CacheKeyServiceInterface;
+use App\Services\Cache\Interfaces\CacheServiceInterface;
 
-class CacheKeyService implements CacheKeyServiceInterface
+class CacheService implements CacheServiceInterface
 {
 
     const CACHE_TTL = 600;

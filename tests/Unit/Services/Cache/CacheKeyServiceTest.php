@@ -2,14 +2,14 @@
 
 namespace Tests\Unit\Services\Cache;
 
-use App\Services\Cache\CacheKeyService;
+use App\Services\Cache\CacheService;
 use Tests\TestCase;
 
 class CacheKeyServiceTest extends TestCase
 {
 
     /**
-     * Test CacheKeyService::getCacheKey() method.
+     * Test CacheService::getCacheKey() method.
      *
      * @return void
      */
@@ -17,7 +17,7 @@ class CacheKeyServiceTest extends TestCase
         $params = [
             'page' => 1
         ];
-        $cacheKey = CacheKeyService::getCacheKey($params);
+        $cacheKey = CacheService::getCacheKey($params);
         $this->assertEquals('cache.params:page=1', $cacheKey);
     }
 
