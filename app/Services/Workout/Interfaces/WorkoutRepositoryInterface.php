@@ -20,9 +20,10 @@ interface WorkoutRepositoryInterface
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function search(array $conditions = []);
+    public function search(array $conditions = [], array $filters = []);
 
     /**
      * Find a record by its primary key.

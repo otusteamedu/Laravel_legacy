@@ -40,22 +40,24 @@ class WorkoutService implements WorkoutServiceInterface {
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function search(array $conditions = [])
+    public function search(array $conditions = [], array $filters = [])
     {
-        return $this->workoutRepository->search($conditions);
+        return $this->workoutRepository->search($conditions, $filters);
     }
 
     /**
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [])
+    public function searchCached(array $conditions = [], array $filters = [])
     {
-        return $this->workoutCachedRepository->searchCached($conditions);
+        return $this->workoutCachedRepository->searchCached($conditions, $filters);
     }
 
     /**
@@ -108,9 +110,10 @@ class WorkoutService implements WorkoutServiceInterface {
      * Find records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function getByUser(User $user)
+    public function getByUser(User $user, array $filters = [])
     {
         return $this->search(['user_id' => $user->id]);
     }
@@ -119,11 +122,12 @@ class WorkoutService implements WorkoutServiceInterface {
      * Find cached records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function getByUserCached(User $user)
+    public function getByUserCached(User $user, array $filters = [])
     {
-        return $this->searchCached(['user_id' => $user->id]);
+        return $this->searchCached(['user_id' => $user->id], $filters);
     }
 
     /**

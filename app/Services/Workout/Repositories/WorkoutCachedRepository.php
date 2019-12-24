@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services\Workout\Repositories;
 
-use App\Services\Cache\CacheKeyService;
+use App\Services\Cache\CacheService;
 use App\Services\Workout\Interfaces\WorkoutCachedRepositoryInterface;
 use App\Models\Workout;
 use Illuminate\Database\Eloquent\Collection;
@@ -26,14 +26,15 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
      * Find and paginate a cached collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = [])
+    public function searchCached(array $conditions = [], array $filters = [])
     {
-        $cacheKey = CacheKeyService::getCacheKey($conditions);
+        $cacheKey = CacheService::getCacheKey(array_merge($conditions, $filters));
         return Cache::remember(
             $cacheKey,
-            CacheKeyService::CACHE_TTL,
+            CacheService::CACHE_TTL,
             function () use ($conditions) {
                 return $this->workoutRepository->search($conditions);
             }

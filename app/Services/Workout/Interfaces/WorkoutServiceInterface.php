@@ -18,17 +18,19 @@ interface WorkoutServiceInterface extends WorkoutRepositoryInterface, WorkoutCac
      * Find records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function getByUser(User $user);
+    public function getByUser(User $user, array $filters = []);
 
     /**
      * Find cached records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function getByUserCached(User $user);
+    public function getByUserCached(User $user, array $filters = []);
 
     /**
      * Find records by Location.

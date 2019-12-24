@@ -10,6 +10,7 @@ use App\Services\Location\LocationService;
 use App\Services\Workout\WorkoutService;
 use App\Services\User\UserService;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Policies\Abilities;
 use Illuminate\Support\Facades\Auth;
@@ -57,11 +58,14 @@ class WorkoutController extends Controller
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
         $this->authorize(Abilities::VIEW_ANY, Workout::class);
+        $filters = [
+            'page' => $request->get('page'),
+        ];
         return view('backend.pages.workout.index', [
-            'workouts' => $this->workoutService->getByUserCached(Auth::user()),
+            'workouts' => $this->workoutService->getByUserCached(Auth::user(), $filters),
         ]);
     }
 

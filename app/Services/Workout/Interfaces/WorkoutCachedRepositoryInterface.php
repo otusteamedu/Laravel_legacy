@@ -20,8 +20,9 @@ interface WorkoutCachedRepositoryInterface
      * Find and paginate a cached collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function searchCached(array $conditions = []);
+    public function searchCached(array $conditions = [], array $filters = []);
 
 }
