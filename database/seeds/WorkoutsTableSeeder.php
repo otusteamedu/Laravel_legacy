@@ -12,10 +12,13 @@ class WorkoutsTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\User::all() as $user) {
-            factory(\App\Models\Workout::class, 100)->create([
-                'user_id' => $user->id,
-                'location_id' => $user->locations()->inRandomOrder()->first()->id,
-            ]);
+            for ($i = 0; $i < 100; $i++) {
+                $locationId = rand(0, 1) ? $user->locations()->inRandomOrder()->first()->id : null;
+                factory(\App\Models\Workout::class, 1)->create([
+                    'user_id' => $user->id,
+                    'location_id' => $locationId,
+                ]);
+            }
         }
     }
 }
