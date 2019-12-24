@@ -5,7 +5,7 @@ namespace Tests\Unit\Services\Cache;
 use App\Services\Cache\CacheService;
 use Tests\TestCase;
 
-class CacheKeyServiceTest extends TestCase
+class CacheServiceTest extends TestCase
 {
 
     /**
