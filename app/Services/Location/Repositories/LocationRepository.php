@@ -14,11 +14,17 @@ class LocationRepository implements LocationRepositoryInterface {
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
      * @return Location|Collection|static[]|static|null
+     *
+     * @todo Использовать $filters
      */
-    public function search(array $conditions = [])
+    public function search(array $conditions = [], array $filters = [])
     {
-        return Location::where($conditions)->paginate();
+        return Location::where($conditions)
+            ->with('user')
+            ->orderBy('created_at', 'desc')
+            ->paginate();
     }
 
     /**

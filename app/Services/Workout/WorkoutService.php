@@ -12,7 +12,8 @@ use App\Services\Workout\Repositories\WorkoutCachedRepository;
 use App\Services\Workout\Repositories\WorkoutRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class WorkoutService implements WorkoutServiceInterface {
+class WorkoutService implements WorkoutServiceInterface
+{
 
     /**
      * @var WorkoutRepository $workoutRepository
@@ -115,7 +116,7 @@ class WorkoutService implements WorkoutServiceInterface {
      */
     public function getByUser(User $user, array $filters = [])
     {
-        return $this->search(['user_id' => $user->id]);
+        return $this->search(['user_id' => $user->id], $filters);
     }
 
     /**

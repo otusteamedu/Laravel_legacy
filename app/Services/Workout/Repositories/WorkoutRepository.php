@@ -24,7 +24,6 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
         return Workout::where($conditions)
             ->with('user')
             ->orderBy('started_at', 'desc')
-            ->orderBy('id', 'desc')
             ->paginate();
     }
 

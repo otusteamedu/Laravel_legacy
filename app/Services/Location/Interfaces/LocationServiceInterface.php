@@ -15,12 +15,22 @@ use Illuminate\Database\Eloquent\Collection;
 interface LocationServiceInterface extends LocationRepositoryInterface
 {
     /**
-     * Find a record by User.
+     * Find records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Location|Collection|static[]|static|null
      */
-    public function getByUser(User $user);
+    public function getByUser(User $user, array $filters = []);
+
+    /**
+     * Find cached records by User.
+     *
+     * @param  User  $user
+     * @param  array  $filters
+     * @return Location|Collection|static[]|static|null
+     */
+    public function getByUserCached(User $user, array $filters = []);
 
     /**
      * Find a record by Workout.

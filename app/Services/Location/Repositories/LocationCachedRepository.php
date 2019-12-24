@@ -2,24 +2,24 @@
 
 declare(strict_types=1);
 
-namespace App\Services\Workout\Repositories;
+namespace App\Services\Location\Repositories;
 
 use App\Services\Cache\CacheService;
-use App\Services\Workout\Interfaces\WorkoutCachedRepositoryInterface;
-use App\Models\Workout;
+use App\Services\Location\Interfaces\LocationCachedRepositoryInterface;
+use App\Models\Location;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Cache;
 
-class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
+class LocationCachedRepository implements LocationCachedRepositoryInterface {
 
     /**
-     * @var WorkoutRepository $workoutRepository
+     * @var LocationRepository $locationRepository
      */
-    private $workoutRepository;
+    private $locationRepository;
 
-    public function __construct(WorkoutRepository $workoutRepository)
+    public function __construct(LocationRepository $locationRepository)
     {
-        $this->workoutRepository = $workoutRepository;
+        $this->locationRepository = $locationRepository;
     }
 
     /**
@@ -27,7 +27,7 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
      *
      * @param  array  $conditions
      * @param  array  $filters
-     * @return Workout|Collection|static[]|static|null
+     * @return Location|Collection|static[]|static|null
      */
     public function searchCached(array $conditions = [], array $filters = [])
     {
@@ -36,7 +36,7 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
             $cacheKey,
             CacheService::CACHE_TTL,
             function () use ($conditions, $filters) {
-                return $this->workoutRepository->search($conditions, $filters);
+                return $this->locationRepository->search($conditions, $filters);
             }
         );
     }
