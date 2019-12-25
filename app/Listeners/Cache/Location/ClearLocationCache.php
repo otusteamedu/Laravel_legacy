@@ -28,7 +28,7 @@ class ClearLocationCache
     public function handle(LocationEvent $event)
     {
         $this->locationCachedRepository->clearSearchCache([
-            'user_id' => $event->getLocation()->user->id,
+            'user_id' => $event->getLocation()->user_id,
         ]);
     }
 }

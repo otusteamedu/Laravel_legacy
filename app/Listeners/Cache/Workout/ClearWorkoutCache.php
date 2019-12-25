@@ -28,7 +28,7 @@ class ClearWorkoutCache
     public function handle(WorkoutEvent $event)
     {
         $this->workoutCachedRepository->clearSearchCache([
-            'user_id' => $event->getWorkout()->user->id,
+            'user_id' => $event->getWorkout()->user_id,
         ]);
     }
 }
