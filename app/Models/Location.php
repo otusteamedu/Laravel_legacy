@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Location\LocationDeleted;
+use App\Services\Events\Models\Location\LocationSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -22,6 +24,14 @@ class Location extends Model
         'name',
         'distance',
         'user_id',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => LocationSaved::class,
+        'deleted' => LocationDeleted::class,
     ];
 
     public function user()

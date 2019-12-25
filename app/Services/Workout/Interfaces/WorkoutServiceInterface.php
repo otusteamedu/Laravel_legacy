@@ -12,18 +12,28 @@ use Illuminate\Database\Eloquent\Collection;
 /**
  * Interface WorkoutServiceInterface
  */
-interface WorkoutServiceInterface extends WorkoutRepositoryInterface
+interface WorkoutServiceInterface extends WorkoutRepositoryInterface, WorkoutCachedRepositoryInterface
 {
     /**
-     * Find a record by User.
+     * Find records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function getByUser(User $user);
+    public function getByUser(User $user, array $filters = []);
 
     /**
-     * Find a record by Location.
+     * Find cached records by User.
+     *
+     * @param  User  $user
+     * @param  array  $filters
+     * @return Workout|Collection|static[]|static|null
+     */
+    public function getByUserCached(User $user, array $filters = []);
+
+    /**
+     * Find records by Location.
      *
      * @param  Location  $location
      * @return Workout|Collection|static[]|static|null

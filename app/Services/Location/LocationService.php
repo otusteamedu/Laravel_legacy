@@ -8,10 +8,12 @@ use App\Services\Location\Interfaces\LocationServiceInterface;
 use App\Models\Location;
 use App\Models\User;
 use App\Models\Workout;
+use App\Services\Location\Repositories\LocationCachedRepository;
 use App\Services\Location\Repositories\LocationRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class LocationService implements LocationServiceInterface {
+class LocationService implements LocationServiceInterface
+{
 
     /**
      * @var LocationRepository
@@ -19,24 +21,48 @@ class LocationService implements LocationServiceInterface {
     private $locationRepository;
 
     /**
+     * @var LocationCachedRepository $locationCachedRepository
+     */
+    private $locationCachedRepository;
+
+    /**
      * LocationService constructor.
      *
      * @param  LocationRepository  $locationRepository
+     * @param  LocationCachedRepository  $locationCachedRepository
      */
-    public function __construct(LocationRepository $locationRepository)
-    {
+    public function __construct(
+        LocationRepository $locationRepository,
+        LocationCachedRepository $locationCachedRepository
+    ) {
         $this->locationRepository = $locationRepository;
+        $this->locationCachedRepository = $locationCachedRepository;
     }
 
     /**
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
+     * @param  string  $path
      * @return Location|Collection|static[]|static|null
      */
-    public function search(array $conditions = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
-        return $this->locationRepository->search($conditions);
+        return $this->locationRepository->search($conditions, $filters);
+    }
+
+    /**
+     * Find and paginate a collection of records.
+     *
+     * @param  array  $conditions
+     * @param  array  $filters
+     * @param  string  $path
+     * @return Location|Collection|static[]|static|null
+     */
+    public function searchCached(array $conditions = [], array $filters = [], string $path = '')
+    {
+        return $this->locationCachedRepository->searchCached($conditions, $filters);
     }
 
     /**
@@ -89,11 +115,24 @@ class LocationService implements LocationServiceInterface {
      * Find all of the records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Location|Collection|static[]|static|null
      */
-    public function getByUser(User $user)
+    public function getByUser(User $user, array $filters = [])
     {
-        return $this->search(['user_id' => $user->id]);
+        return $this->search(['user_id' => $user->id], $filters);
+    }
+
+    /**
+     * Find cached records by User.
+     *
+     * @param  User  $user
+     * @param  array  $filters
+     * @return Location|Collection|static[]|static|null
+     */
+    public function getByUserCached(User $user, array $filters = [])
+    {
+        return $this->searchCached(['user_id' => $user->id], $filters);
     }
 
     /**
@@ -106,4 +145,21 @@ class LocationService implements LocationServiceInterface {
     {
         // TODO
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function clearSearchCache(array $conditions = ['user_id' => 0])
+    {
+        $this->locationCachedRepository->clearSearchCache($conditions);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function warmupCacheByUser(User $user)
+    {
+        $this->locationCachedRepository->warmupCacheByUser($user);
+    }
+
 }

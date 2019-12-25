@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Workout\WorkoutDeleted;
+use App\Services\Events\Models\Workout\WorkoutSaved;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -25,6 +27,14 @@ class Workout extends Model
         'started_at',
         'duration',
         'location_id',
+    ];
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'saved' => WorkoutSaved::class,
+        'deleted' => WorkoutDeleted::class,
     ];
 
     public function user()

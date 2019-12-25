@@ -8,35 +8,59 @@ use App\Models\Location;
 use App\Services\Workout\Interfaces\WorkoutServiceInterface;
 use App\Models\Workout;
 use App\Models\User;
+use App\Services\Workout\Repositories\WorkoutCachedRepository;
 use App\Services\Workout\Repositories\WorkoutRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class WorkoutService implements WorkoutServiceInterface {
+class WorkoutService implements WorkoutServiceInterface
+{
 
     /**
-     * @var WorkoutRepository
+     * @var WorkoutRepository $workoutRepository
      */
     private $workoutRepository;
+
+    /**
+     * @var WorkoutCachedRepository $workoutCachedRepository
+     */
+    private $workoutCachedRepository;
 
     /**
      * WorkoutService constructor.
      *
      * @param  WorkoutRepository  $workoutRepository
+     * @param  WorkoutCachedRepository  $workoutCachedRepository
      */
-    public function __construct(WorkoutRepository $workoutRepository)
+    public function __construct(WorkoutRepository $workoutRepository, WorkoutCachedRepository $workoutCachedRepository)
     {
         $this->workoutRepository = $workoutRepository;
+        $this->workoutCachedRepository = $workoutCachedRepository;
     }
 
     /**
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
      */
-    public function search(array $conditions = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
-        return $this->workoutRepository->search($conditions);
+        return $this->workoutRepository->search($conditions, $filters);
+    }
+
+    /**
+     * Find and paginate a collection of records.
+     *
+     * @param  array  $conditions
+     * @param  array  $filters
+     * @param  string  $path
+     * @return Workout|Collection|static[]|static|null
+     */
+    public function searchCached(array $conditions = [], array $filters = [], string $path = '')
+    {
+        return $this->workoutCachedRepository->searchCached($conditions, $filters);
     }
 
     /**
@@ -78,6 +102,7 @@ class WorkoutService implements WorkoutServiceInterface {
      *
      * @param  Workout  $workout
      * @return mixed
+     * @throws \Exception
      */
     public function delete(Workout $workout)
     {
@@ -85,18 +110,31 @@ class WorkoutService implements WorkoutServiceInterface {
     }
 
     /**
-     * Find a record by User.
+     * Find records by User.
      *
      * @param  User  $user
+     * @param  array  $filters
      * @return Workout|Collection|static[]|static|null
      */
-    public function getByUser(User $user)
+    public function getByUser(User $user, array $filters = [])
     {
-        return $this->search(['user_id' => $user->id]);
+        return $this->search(['user_id' => $user->id], $filters);
     }
 
     /**
-     * Find a record by Location.
+     * Find cached records by User.
+     *
+     * @param  User  $user
+     * @param  array  $filters
+     * @return Workout|Collection|static[]|static|null
+     */
+    public function getByUserCached(User $user, array $filters = [])
+    {
+        return $this->searchCached(['user_id' => $user->id], $filters);
+    }
+
+    /**
+     * Find records by Location.
      *
      * @param  Location  $location
      * @return Workout|Collection|static[]|static|null
@@ -104,5 +142,21 @@ class WorkoutService implements WorkoutServiceInterface {
     public function getByLocation(Location $location)
     {
         // TODO
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function clearSearchCache(array $conditions = ['user_id' => 0])
+    {
+        $this->workoutCachedRepository->clearSearchCache($conditions);
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function warmupCacheByUser(User $user)
+    {
+        $this->workoutCachedRepository->warmupCacheByUser($user);
     }
 }

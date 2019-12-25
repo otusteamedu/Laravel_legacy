@@ -14,11 +14,23 @@ class WorkoutRepository implements WorkoutRepositoryInterface {
      * Find and paginate a collection of records.
      *
      * @param  array  $conditions
+     * @param  array  $filters
+     * @param  string  $path
      * @return Workout|Collection|static[]|static|null
+     *
+     * @todo Использовать $filters
      */
-    public function search(array $conditions = [])
+    public function search(array $conditions = [], array $filters = [], string $path = '')
     {
-        return Workout::where($conditions)->paginate();
+        $result = Workout::where($conditions)
+            ->with('user')
+            ->with('location')
+            ->orderBy('started_at', 'desc')
+            ->paginate();
+        if ($path !== '') {
+            $result->withPath($path);
+        }
+        return $result;
     }
 
     /**
