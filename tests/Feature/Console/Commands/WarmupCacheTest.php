@@ -3,10 +3,13 @@
 namespace Tests\Feature\Console\Commands;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class WarmupCacheTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Create User instance.
      *
@@ -18,7 +21,7 @@ class WarmupCacheTest extends TestCase
     }
 
     /**
-     * A basic test example.
+     * Test Artisan cache:warmup command.
      *
      * @return void
      */
@@ -30,4 +33,17 @@ class WarmupCacheTest extends TestCase
             ->expectsOutput('Warmed up cache for '.$user->name)
             ->assertExitCode(0);
     }
+
+    /**
+     * Test Artisan cache:warmup command (no users).
+     *
+     * @return void
+     */
+    public function testWarmupCacheNoUsers()
+    {
+        $this->artisan('cache:warmup')
+            ->expectsOutput('No users found')
+            ->assertExitCode(0);
+    }
+
 }
