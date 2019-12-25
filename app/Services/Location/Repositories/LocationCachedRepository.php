@@ -38,7 +38,7 @@ class LocationCachedRepository implements LocationCachedRepositoryInterface
         $cacheKey = CacheService::getCacheKey(array_merge($conditions, $filters));
 
         return Cache::tags([
-            'Location.User:'.$conditions['user_id']
+            CacheService::getCacheUserTagByModel(Location::class).$conditions['user_id']
         ])->remember(
             $cacheKey,
             CacheService::CACHE_TTL,
@@ -57,7 +57,7 @@ class LocationCachedRepository implements LocationCachedRepositoryInterface
     public function clearSearchCache(array $conditions = ['user_id' => 0])
     {
         Cache::tags([
-            'Location.User:'.$conditions['user_id']
+            CacheService::getCacheUserTagByModel(Location::class).$conditions['user_id']
         ])->flush();
     }
 

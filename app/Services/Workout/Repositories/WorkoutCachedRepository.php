@@ -37,7 +37,7 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
         $cacheKey = CacheService::getCacheKey(array_merge($conditions, $filters));
 
         return Cache::tags([
-            'Workout.User:'.$conditions['user_id']
+            CacheService::getCacheUserTagByModel(Workout::class).$conditions['user_id']
         ])->remember(
             $cacheKey,
             CacheService::CACHE_TTL,
@@ -56,7 +56,7 @@ class WorkoutCachedRepository implements WorkoutCachedRepositoryInterface {
     public function clearSearchCache(array $conditions = ['user_id' => 0])
     {
         Cache::tags([
-            'Workout.User:'.$conditions['user_id']
+            CacheService::getCacheUserTagByModel(Workout::class).$conditions['user_id']
         ])->flush();
     }
 
