@@ -20,4 +20,14 @@ class ProjectsService
         return $this->projectsRepository->getProjects($paginate);
     }
 
+    public function saveForm($data)
+    {
+        return $this->projectsRepository->createProjects($data);
+    }
+
+    public function updateForm($data)
+    {
+        return $this->projectsRepository->updateProjects($data);
+    }
+
 }

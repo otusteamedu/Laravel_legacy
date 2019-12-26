@@ -34,7 +34,7 @@
                             <a class="nav-link" href="#link-0">Календарь отчетов</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-1">Работа с проектами</a>
+                            <a class="nav-link" href="{{route('csm.projects.index')}}">Работа с проектами</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#link-2">Работа с отчетами</a>
@@ -50,17 +50,10 @@
             </nav>
         </div>
         <div class="col-md-8 col-lg-9 content-container" style="background-color: #ffe0b2">
-            <h1 class="h3 text-center mt-5">Календарь отчетов</h1>
-            <hr class="mb-5">
-            <section >
-                <p style="height: 5000px;">Контент...</p>
-            </section>
+            @yield('content')
         </div>
     </div>
 </div>
-
-
-
 <script src="{{asset('theme/js/cms.js')}}"></script>
 </body>
 </html>

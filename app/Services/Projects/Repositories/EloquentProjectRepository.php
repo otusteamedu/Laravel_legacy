@@ -3,7 +3,6 @@
 
 namespace App\Services\Projects\Repositories;
 
-
 use App\Models\Project;
 
 class EloquentProjectRepository
@@ -15,5 +14,17 @@ class EloquentProjectRepository
             ->select($columns)
             ->paginate($paginate);
         return $result;
+    }
+
+    public function createProjects($data)
+    {
+       $project = new Project();
+        return $project->create($data);
+    }
+
+    public function updateProjects($data)
+    {
+        $project = new Project();
+        return $project->update($data);
     }
 }
