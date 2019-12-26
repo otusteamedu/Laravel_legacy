@@ -3,12 +3,12 @@
 namespace Tests\Feature\Controllers\Api;
 
 use App\Models\Grammar;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Laravel\Passport\Passport;
 use Tests\Generators\Generator;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
-use App\User;
+//use Illuminate\Foundation\Testing\RefreshDatabase;
+//use Illuminate\Foundation\Testing\WithFaker;
 
 class GrammarControllerTest extends TestCase
 {
@@ -22,7 +22,7 @@ class GrammarControllerTest extends TestCase
      */
     public function testIndex()
     {
-        $user=User::find(1);
+        $user=UserGenerator::getAdminUser();
         Passport::actingAs($user);
         $this->json(
             'GET',
@@ -32,7 +32,7 @@ class GrammarControllerTest extends TestCase
 
     public function testGrammarPage()
     {
-        $user=User::find(1);
+        $user=UserGenerator::getAdminUser();
         Passport::actingAs($user);
 
         $grammar=Grammar::first();
@@ -44,7 +44,7 @@ class GrammarControllerTest extends TestCase
     }
     public function testUpdateGrammarPage(){
 
-        $user=User::find(1);
+        $user=UserGenerator::getAdminUser();
         Passport::actingAs($user);
         $grammar=Grammar::first();
         $update=[
@@ -58,7 +58,7 @@ class GrammarControllerTest extends TestCase
 
     public function testCreateGrammarPage(){
 
-        $user=User::find(1);
+        $user = UserGenerator::getAdminUser();
         Passport::actingAs($user);
         //$grammar=Grammar::first();
         $data = Generator::getCreateGrammarData();
