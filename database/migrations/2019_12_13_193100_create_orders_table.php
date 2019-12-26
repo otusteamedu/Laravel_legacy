@@ -15,7 +15,7 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->date('date');
             $table->integer('sum');
             $table->string('number');
@@ -25,6 +25,14 @@ class CreateOrdersTable extends Migration
             $table->string('comments');
             $table->string('on_control');
             $table->timestamps();
+        });
+
+        // добавляем внешние ключи
+        Schema::table('orders', function (Blueprint $table) {
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('restrict');
         });
     }
 

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserAccountsTable extends Migration
+class CreateAccountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,23 @@ class CreateUserAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_accounts', function (Blueprint $table) {
+        Schema::create('accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('source');
             $table->string('login')->unique();
             $table->string('password');
             $table->integer('cum_sum');
             $table->double('discount_coefficient');
             $table->timestamps();
+        });
+
+        // добавляем внешние ключи
+        Schema::table('accounts', function (Blueprint $table) {
+            $table->foreign('user_id')
+                  ->references('id')
+                  ->on('users')
+                  ->onDelete('restrict');
         });
     }
 
@@ -32,6 +40,6 @@ class CreateUserAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_accounts');
+        Schema::dropIfExists('accounts');
     }
 }

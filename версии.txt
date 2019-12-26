@@ -20,3 +20,19 @@
 2019.12.20 Переместил классы моделей из app/ => app/Models
            Прописал в каждом классе namespace App\Models;
            В composer.json в autoload psr-4 добавил  "App\\Models": "app/Models"
+
+
+Занятие 12
+==========
+2019.12.26 Переименовал модель UserAccount => Account для простоты. Также переименовал миграцию.
+
+2019.12.26 Добавил foreign key в миграцию _create_user_accounts_table.php
+2019.12.26 Добавил foreign key в миграцию _create_orders_table.php
+
+2019.12.26 Добавил отношение one-to-one в модель User.
+2019.12.26 Добавил отношение has-many в модель User.
+2019.12.26 Добавил отношение belongs-to в модель Order.
+
+
+
+

@@ -36,4 +36,20 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Get the account record associated with the user.
+     */
+    public function account()
+    {
+        return $this->hasOne('App\Models\Account');
+    }
+
+    /**
+     * Get orders for the user.
+     */
+    public function orders()
+    {
+        return $this->hasMany('App\Models\Order');
+    }
 }

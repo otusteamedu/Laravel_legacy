@@ -28,8 +28,7 @@ class CreateUsersTable extends Migration
             $table->string('comments'); //добавил
             $table->string('is_enemy'); //добавил
             //$table->string('password'); это поле будет переведено в таблицу User Accounts
-            //$table->rememberToken();    это поле будет переведено в таблицу User Accounts
-            //$table->timestamps();       эти поля не нужны
+            //$table->rememberToken();    это поле будет переведено в таблицу User Accounts            
         });
     }
 
