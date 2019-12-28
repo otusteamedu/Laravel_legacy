@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2ba3c34791e4fb39a76b39f36dcdad08",
+    "content-hash": "fe41e3f298402d3a93aad1d2f19b8060",
     "packages": [
         {
             "name": "dmitrykirillov/activity-parser",
@@ -55,16 +55,16 @@
         },
         {
             "name": "dmitrykirillov/activity-parser-laravel",
-            "version": "dev-master",
+            "version": "v0.0.1-alpha",
             "source": {
                 "type": "git",
                 "url": "https://github.com/DmitryKirillov/activity-parser-laravel.git",
-                "reference": "f9fc019b6fcd6898aa34c82c36b406d7b8d688f2"
+                "reference": "ae5c0bceee7ec94ad14e1f9a61f9a40a8c81d19b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/DmitryKirillov/activity-parser-laravel/zipball/f9fc019b6fcd6898aa34c82c36b406d7b8d688f2",
-                "reference": "f9fc019b6fcd6898aa34c82c36b406d7b8d688f2",
+                "url": "https://api.github.com/repos/DmitryKirillov/activity-parser-laravel/zipball/ae5c0bceee7ec94ad14e1f9a61f9a40a8c81d19b",
+                "reference": "ae5c0bceee7ec94ad14e1f9a61f9a40a8c81d19b",
                 "shasum": ""
             },
             "require": {
@@ -98,7 +98,7 @@
                 }
             ],
             "description": "Laravel package for PHP parser for files created by fitness app",
-            "time": "2019-12-28T16:04:16+00:00"
+            "time": "2019-12-28T17:11:08+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -4994,7 +4994,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "dmitrykirillov/activity-parser-laravel": 20
+        "dmitrykirillov/activity-parser-laravel": 15
     },
     "prefer-stable": true,
     "prefer-lowest": false,
