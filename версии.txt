@@ -33,6 +33,21 @@
 2019.12.26 Добавил отношение has-many в модель User.
 2019.12.26 Добавил отношение belongs-to в модель Order.
 
+2019.12.26 поменял локаль Faker'a в config/app.php
+
+2019.12.27 
+  Создал фабрики
+    UserFactory
+    AccountFactory
+    ItemFactory
+    OrderFactory
+
+  Создал сидеры  
+    UsersTableSeeder
+    ItemsTableSeeder
+
+
+
 
 
 

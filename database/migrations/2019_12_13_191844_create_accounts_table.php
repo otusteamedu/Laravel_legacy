@@ -17,7 +17,7 @@ class CreateAccountsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
             $table->string('source');
-            $table->string('login')->unique();
+            $table->string('login');
             $table->string('password');
             $table->integer('cum_sum');
             $table->double('discount_coefficient');

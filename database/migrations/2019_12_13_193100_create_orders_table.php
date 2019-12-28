@@ -23,8 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('processed_by');
             $table->string('comments');
-            $table->string('on_control');
-            $table->timestamps();
+            $table->string('on_control');            
         });
 
         // добавляем внешние ключи
