@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use DmitryKirillov\ActivityParserLaravel\Console\Commands\ParseTCX;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +24,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->commands([
+            ParseTCX::class
+        ]);
     }
 }
