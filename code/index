@@ -1,0 +1,14 @@
+#!/usr/bin/env php -q
+<?php
+require_once __DIR__ . '/vendor/autoload.php';
+
+if(!Hb\Application::canRun()){
+    die('smth went wrong!');
+}
+
+try {
+    $app = Hb\Application::getAppInstance();
+    $app->run();
+} catch (\Hb\Socket\Exception $e){
+    die($e->getMessage());
+}

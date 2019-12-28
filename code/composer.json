@@ -1,0 +1,18 @@
+{
+    "name": "hb/sockets",
+    "description": "sockets",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Ira Beer",
+            "email": "happybeer13@gmail.com"
+        }
+    ],
+    "require": {
+    },
+    "autoload": {
+        "psr-4": {
+            "Hb\\" : "src/"
+        }
+    }
+}
