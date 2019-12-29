@@ -8,13 +8,11 @@ use Tests\Generators\GrammarGenerator;
 use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
-//use Illuminate\Foundation\Testing\RefreshDatabase;
-//use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GrammarControllerTest extends TestCase
 {
-
-    //use RefreshDatabase;
+    use DatabaseTransactions;
 
     /**
      * A basic feature test example.

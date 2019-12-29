@@ -2,19 +2,16 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\Grammar;
 use DB;
 use App\User;
 use Tests\Generators\GrammarGenerator;
-
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GrammarTest extends TestCase
 {
-    //  use RefreshDatabase;
-//    use WithFaker;
+    use DatabaseTransactions;
     /**
      * A basic feature test example.
      *
