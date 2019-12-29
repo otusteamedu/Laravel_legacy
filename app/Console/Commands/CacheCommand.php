@@ -25,7 +25,7 @@ class CacheCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Work with cache';
     protected $cacheService;
     /**
      * Create a new command instance.
@@ -45,7 +45,6 @@ class CacheCommand extends Command
      */
     public function handle()
     {
-        $b=false;
         $cacheCode=$this->option('cache-code');
         if(!empty($cacheCode)){
             $this->cacheService->clearKey($cacheCode);
