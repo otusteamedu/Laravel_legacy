@@ -8,14 +8,13 @@ use Tests\Generators\GrammarGenerator;
 use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
-//use Illuminate\Foundation\Testing\RefreshDatabase;
-//use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class GrammarControllerTest extends TestCase
 {
-
-    //use RefreshDatabase;
-
+    use DatabaseTransactions;
+    use WithFaker;
     /**
      * A basic feature test example.
      *
@@ -56,8 +55,9 @@ class GrammarControllerTest extends TestCase
         $user = UserGenerator::getAdminUser();
         Passport::actingAs($user);
         $grammar = Grammar::first();
+
         $update = [
-            'name' => '12343'
+            'name' => $this->faker->name
         ];
         $response = $this->json('PUT', route('api.grammar.update', [
             'grammar' => $grammar->id
@@ -75,7 +75,7 @@ class GrammarControllerTest extends TestCase
         Passport::actingAs($user);
         $grammar = Grammar::first();
         $update = [
-            'name' => '11111'
+            'name' => $this->faker->name
         ];
         $this->json('PUT', route('api.grammar.update', [
             'grammar' => $grammar->id
