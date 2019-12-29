@@ -12,8 +12,6 @@ class CommentsTableSeed extends Seeder
      */
     public function run()
     {
-        factory(Comment::class, 50)->create()->each(function ($comment) {
-            factory(Comment::class)->make()->save();
-        });
+        factory(Comment::class, 50)->create();
     }
 }
