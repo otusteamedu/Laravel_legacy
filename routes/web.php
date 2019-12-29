@@ -12,3 +12,5 @@
 */
 
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
+
+Route::get('/admin/{any}', 'AdminSpaController@index')->where('any', '.*');
