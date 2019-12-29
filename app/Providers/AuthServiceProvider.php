@@ -34,6 +34,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Abilities::VIEW, function ($user) {
             return $user->id == 1;
         });
+        Gate::define(Abilities::CREATE, function ($user) {
+            return $user->id == 1;
+        });
         Gate::define(Abilities::UPDATE, function ($user, $grammar) {
             return ($user->id == $grammar->create_user_id||($user->id==1));
         });

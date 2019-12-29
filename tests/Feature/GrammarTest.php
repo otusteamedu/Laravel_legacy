@@ -8,51 +8,58 @@ use Tests\TestCase;
 use App\Models\Grammar;
 use DB;
 use App\User;
-use Tests\Generators\Generator;
-
+use Tests\Generators\GrammarGenerator;
 
 
 class GrammarTest extends TestCase
 {
-  //  use RefreshDatabase;
+    //  use RefreshDatabase;
 //    use WithFaker;
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testExample()
+
+
+    public function testIndex()
     {
         $response = $this->get('/');
         $response->assertStatus(200);
     }
+
     public function testRedirectLogin()
     {
         $response = $this->get('/admin');
         $response->assertRedirect('/login');
     }
+
     public function testAdminUser()
     {
-       $this->assertDatabaseHas('users',[
-          'name'=>'admin'
+        $this->assertDatabaseHas('users', [
+            'name' => 'admin'
         ]);
     }
-    public function testGrammarList(){
+
+    public function testGrammarList()
+    {
         $response = $this->get(route('grammList'));
         $response->assertStatus(200);
     }
-    public function testGrammarPages(){
-        $grammar=Grammar::all();
-        foreach ($grammar as $item){
-            $response = $this->get('/grammatika/'.$item->id);
+
+    public function testGrammarPages()
+    {
+        $grammar = Grammar::all();
+        foreach ($grammar as $item) {
+            $response = $this->get('/grammatika/' . $item->id);
             $response->assertStatus(200);
         }
     }
 
     public function testAdminGrammar()
     {
-        $user=User::find(1);
-        $response=$this->actingAs($user)
+        $user = User::find(1);
+        $response = $this->actingAs($user)
             ->get(route('admin.grammar.index'));
         $response->assertStatus(200);
     }
@@ -61,27 +68,30 @@ class GrammarTest extends TestCase
     public function testCreateAdminGrammar()
     {
         $user = User::find(1);
-        $data = Generator::getCreateGrammarData();
-        $count=Grammar::all()->count();
-        $this->actingAs($user)->post(route('admin.grammar.store'),$data);
-        $this->assertEquals($count+1, Grammar::all()->count());
+        $data = GrammarGenerator::getCreateGrammarData();
+        $count = Grammar::all()->count();
+        $this->actingAs($user)->post(route('admin.grammar.store'), $data);
+        $this->assertEquals($count + 1, Grammar::all()->count());
+
     }
 
     public function testUpdateAdminGrammar()
     {
         $user = User::find(1);
-        $id=1;
-        $update=[
-            'name'=>'12343'
+        $id = 1;
+        $update = [
+            'name' => '12343'
         ];
-        $data = Generator::getUpdateGrammarData($id,$update);
-        $this->actingAs($user)->put("admin/grammar/{$id}",$data);
-        $grammar=Grammar::find($id);
-        foreach ($update as $key=>$item) {
+        $data = GrammarGenerator::getUpdateGrammarData($id, $update);
+        $this->actingAs($user)->put("admin/grammar/{$id}", $data);
+        $grammar = Grammar::find($id);
+        foreach ($update as $key => $item) {
             $this->assertEquals($item, $grammar->$key);
         }
     }
-    public function test404(){
+
+    public function test404()
+    {
         $this->get('/wewqe')->assertStatus(404);
     }
 

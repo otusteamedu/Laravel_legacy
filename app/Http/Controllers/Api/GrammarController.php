@@ -54,6 +54,7 @@ class GrammarController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize(Abilities::CREATE);
         $request->validate([
             'name' => 'required',
             'code' => 'required',
