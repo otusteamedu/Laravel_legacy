@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
+use App\Models\Role;
 
 class RolesTableSeed extends Seeder
 {
@@ -12,35 +13,13 @@ class RolesTableSeed extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert([
-            'title' => 'PRIVATE_ENTREPRENEUR',
-            'description' => 'Частный предприниматель',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-        DB::table('roles')->insert([
-            'title' => 'WHOLESALER',
-            'description' => 'Оптовик',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-        DB::table('roles')->insert([
-            'title' => 'ADMIN',
-            'description' => 'админ',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-        DB::table('roles')->insert([
-            'title' => 'TOP_MANAGER',
-            'description' => 'топ менеджер',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
-        DB::table('roles')->insert([
-            'title' => 'MANAGER',
-            'description' => 'менеджер',
-            'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
-            'updated_at' => Carbon::now()->format('Y-m-d H:i:s'),
-        ]);
+        $rolesSeedsData = config('seed.roles');
+
+        foreach ($rolesSeedsData as $item) {
+            factory(Role::class)->make([
+                'title' => $item['title'],
+                'description' => $item['description'],
+            ])->save();
+        }
     }
 }
