@@ -14,7 +14,7 @@
             <p class="lead">
                 Не веришь? Попробуй сам!
             </p>
-            <router-link class="btn btn-outline-primary" :to="{ name: 'registration' }">Регистрация</router-link>
+            <router-link class="btn btn-outline-primary" :to="{ name: 'site.registration' }">Регистрация</router-link>
         </div>
     </div>
 </template>
