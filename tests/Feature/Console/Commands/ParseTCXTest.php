@@ -5,7 +5,7 @@ namespace Feature\Console\Commands;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
-class ParceTCXTest extends TestCase
+class ParseTCXTest extends TestCase
 {
     /**
      * Test if Artisan command exists.
