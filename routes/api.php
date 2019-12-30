@@ -13,10 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-//Route::middleware('auth:api')->get('/user', function (Request $request) {
-//    return $request->user();
-//});
-
 Route::name('admin.')
     ->prefix('admin')
     ->namespace('Admin')
@@ -25,5 +21,17 @@ Route::name('admin.')
         ->prefix('user')
         ->group(function () {
         Route::name('list')->get('list', 'UsersController@index');
+        Route::name('getUser')->get('get-user/{id}', 'UsersController@getUser');
     });
 });
+
+Route::name('admin.')
+    ->prefix('admin')
+    ->namespace('Admin')
+    ->group(function() {
+        Route::name('role.')
+            ->prefix('role')
+            ->group(function () {
+                Route::name('list')->get('list', 'RolesController@getList');
+            });
+    });

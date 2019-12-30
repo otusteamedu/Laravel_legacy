@@ -41,6 +41,16 @@ class UsersController extends Controller
         return $this->usersService->getUsersList();
     }
 
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function getUser(int $id)
+    {
+        return $this->usersService->getUserById($id);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

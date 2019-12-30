@@ -4,6 +4,7 @@
 namespace App\Services\Admin\Users;
 
 
+use App\Services\Admin\Users\Handlers\GetUserByIdHandler;
 use App\Services\Admin\Users\Handlers\GetUsersListHandler;
 
 /**
@@ -18,14 +19,21 @@ class UsersService
     private $getUsersListHandler;
 
     /**
+     * @var GetUserByIdHandler
+     */
+    private $getUserById;
+    /**
      * UsersService constructor.
      * @param GetUsersListHandler $getUsersListHandler
+     * @param GetUserByIdHandler $getUserByIdHandler
      */
     public function __construct(
-        GetUsersListHandler $getUsersListHandler
+        GetUsersListHandler $getUsersListHandler,
+        GetUserByIdHandler $getUserByIdHandler
     )
     {
         $this->getUsersListHandler = $getUsersListHandler;
+        $this->getUserById = $getUserByIdHandler;
     }
 
 
@@ -35,5 +43,15 @@ class UsersService
     public function getUsersList()
     {
         return $this->getUsersListHandler->handle();
+    }
+
+
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function getUserById(int $id)
+    {
+        return $this->getUserById->handle($id);
     }
 }
