@@ -4,8 +4,102 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "510d7a3753750f0b21361db5ecf492fc",
+    "content-hash": "fe41e3f298402d3a93aad1d2f19b8060",
     "packages": [
+        {
+            "name": "dmitrykirillov/activity-parser",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DmitryKirillov/activity-parser.git",
+                "reference": "5e7ad3baf6b7e766c0fb2c5eaf01f70a59b5de00"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DmitryKirillov/activity-parser/zipball/5e7ad3baf6b7e766c0fb2c5eaf01f70a59b5de00",
+                "reference": "5e7ad3baf6b7e766c0fb2c5eaf01f70a59b5de00",
+                "shasum": ""
+            },
+            "require": {
+                "ext-libxml": "*",
+                "ext-simplexml": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": ">=7.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "DmitryKirillov\\ActivityParser\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Kirillov",
+                    "email": "esteps.kirillov@gmail.com"
+                }
+            ],
+            "description": "PHP parser for files created by fitness applications (TCX)",
+            "keywords": [
+                "fitness",
+                "parser",
+                "tcx",
+                "workout"
+            ],
+            "time": "2019-12-27T18:56:59+00:00"
+        },
+        {
+            "name": "dmitrykirillov/activity-parser-laravel",
+            "version": "v0.0.1-alpha",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/DmitryKirillov/activity-parser-laravel.git",
+                "reference": "ae5c0bceee7ec94ad14e1f9a61f9a40a8c81d19b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/DmitryKirillov/activity-parser-laravel/zipball/ae5c0bceee7ec94ad14e1f9a61f9a40a8c81d19b",
+                "reference": "ae5c0bceee7ec94ad14e1f9a61f9a40a8c81d19b",
+                "shasum": ""
+            },
+            "require": {
+                "dmitrykirillov/activity-parser": "dev-master",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "DmitryKirillov\\ActivityParserLaravel\\PackageServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DmitryKirillov\\ActivityParserLaravel\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Dmitry Kirillov",
+                    "email": "esteps.kirillov@gmail.com"
+                }
+            ],
+            "description": "Laravel package for PHP parser for files created by fitness app",
+            "time": "2019-12-28T17:11:08+00:00"
+        },
         {
             "name": "dnoegel/php-xdg-base-dir",
             "version": "0.1",
@@ -4899,7 +4993,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "dmitrykirillov/activity-parser-laravel": 15
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
