@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "bootstrap-vue": "^2.1.0",
+        "laravel-vue-pagination": "^2.3.1",
         "vue-material": "^1.0.0-beta-11",
         "vue-router": "^3.1.3"
     }
