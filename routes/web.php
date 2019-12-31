@@ -27,6 +27,16 @@ Route::get('/login', function () {
     return view('front.login');
 });
 
-Route::get('/admin', function () {
-    return view('admin.main');
+Route::get('/cms', function () {
+    return view('cms.main');
+});
+
+Route::name('csm.')->group(function (){
+    Route::prefix('cms')->group(function (){
+    Route::resources([
+        'projects' => 'Cms\Projects\ProjectsController',
+    ]);
+
+
+    });
 });
