@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Товар
+ */
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Пользователь. Лид, если ничего не купил. Покупатель - если купил.
+ */
+
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;

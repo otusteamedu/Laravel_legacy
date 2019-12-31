@@ -46,6 +46,14 @@
     UsersTableSeeder
     ItemsTableSeeder
 
+Занятие 12.2
+============
+2019.12.31
+Корректировка задания 12.2
+  Добавил PHPdoc комментарии
+  Вернул поля password и rememberToken в миграцию _create_users_table
+  Вычленил из UsersTableSeeder => AccountsTableSeeder и OrdersTableSeeder
+
 
 
 
