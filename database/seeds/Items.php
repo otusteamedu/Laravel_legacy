@@ -10,7 +10,7 @@ class Items
   {
     $items =[]; // массив с данными о товарах (фруктах)
 
-    $item = [
+    $items[] = [
       'name' => 'Яблоко жёлтое',
       'picture' => 'apple-yellow.svg',
       'tag' => 'фрукт, сладкий, сезонный',
@@ -18,9 +18,7 @@ class Items
       'price' => 80
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Яблоко красное',
       'picture' => 'apple-red.svg',
       'tag' => 'фрукт, кисло-сладкий, сезонный',
@@ -28,9 +26,7 @@ class Items
       'price' => 90
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Яблоко зелёное',
       'picture' => 'apple-green.svg',
       'tag' => 'фрукт, кислый',
@@ -38,9 +34,7 @@ class Items
       'price' => 100
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Груши кубанские',
       'picture' => 'pear.svg',
       'tag' => 'фрукт, сладкий, сезонный',
@@ -48,9 +42,7 @@ class Items
       'price' => 140
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Персики волосатые',
       'picture' => 'peach.svg',
       'tag' => 'фрукт, сладкий, сезонный',
@@ -58,9 +50,7 @@ class Items
       'price' => 180
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Сливи озимые',
       'picture' => 'plum.svg',
       'tag' => 'фрукт, сладкий',
@@ -68,9 +58,7 @@ class Items
       'price' => 70
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Виноград кишмиш',
       'picture' => 'grape.svg',
       'tag' => 'ягода, сладкий',
@@ -78,17 +66,13 @@ class Items
       'price' => 150
     ];
 
-    array_push($items,$item);
-
-    $item = [
+    $items[] = [
       'name' => 'Арбуз',
       'picture' => 'watermelon.svg',
       'tag' => 'ягода, сладкий',
       'description' => 'Астраханский арбуз. Звонкий, спелый, ароматный. Собран собственными руками на даче.',
       'price' => 20
     ];
-
-    array_push($items,$item);
 
     return $items;
   }

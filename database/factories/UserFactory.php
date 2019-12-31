@@ -31,7 +31,9 @@ $factory->define(User::class, function (Faker $faker) {
         'email' => $faker->unique()->safeEmail,  
         'email_verified_at' => now(),
         'address' => $faker->address,
-        //'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-        //'remember_token' => Str::random(10),
+        // Внимание! В будущем планирую отвязать эти данные от пользователя
+        // и перенести в акаунт
+        'password' => '123',
+        'remember_token' => Str::random(10),
     ];
 });

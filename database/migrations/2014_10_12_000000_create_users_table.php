@@ -28,8 +28,11 @@ class CreateUsersTable extends Migration
             $table->string('comments')->default(''); //добавил
             $table->string('is_enemy')->default(''); //добавил
             $table->timestamps();
-            //$table->string('password'); это поле будет переведено в таблицу User Accounts
-            //$table->rememberToken();    это поле будет переведено в таблицу User Accounts            
+            // Себе на будущее : по плану хочу отвязать пароль, логин, токен от пользователя и 
+            // перенести в специально созданную для этого сущность Account.
+            // В этом задании, оставляю эти стандартные поля здесь.
+            $table->string('password');
+            $table->rememberToken();
         });
     }
 

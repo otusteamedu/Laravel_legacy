@@ -11,12 +11,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(UsersTableSeeder::class);
-        //$this->call(ItemsTableSeeder::class);
-        /**
-         * При генерациии каждого пользователя сразу же вызываются фабрики 
-         * для создания Accounts и Orders.
-         * Поэтому не стал создавать AccountsTableSeeder.php и OrdersTableSeeder.php
-         */
+        $this->call(UsersTableSeeder::class);       // засей таблицу пользователей
+        $this->call(AccountsTableSeeder::class);    // засей таблицу акаунтов
+        $this->call(OrdersTableSeeder::class);      // засей таблицу заказов
     }
 }

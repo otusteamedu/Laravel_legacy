@@ -17,7 +17,7 @@ class CreateItemsTable extends Migration
             $table->bigIncrements('id');
             $table->string('tag');
             $table->string('name');
-            $table->string('available')->default(true);   
+            $table->unsignedTinyInteger('available')->default(true);   
             $table->string('picture');
             $table->integer('price_full');
             $table->integer('price_minus30');
