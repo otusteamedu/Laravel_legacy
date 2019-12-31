@@ -16,15 +16,19 @@ class EloquentProjectRepository
         return $result;
     }
 
-    public function createProjects($data)
+    public function createProject(array $data) : Project
     {
-       $project = new Project();
+        $project = new Project();
         return $project->create($data);
     }
 
-    public function updateProjects($data)
+    public function updateProject(Project $project, array $data)
     {
-        $project = new Project();
         return $project->update($data);
+    }
+
+    public function delProject(int $id)
+    {
+        return Project::destroy($id);
     }
 }

@@ -18,8 +18,12 @@
                     <th scope="row">{{$value->id}}</th>
                     <td>{{$value->name}}</td>
                     <td>
-                        <a href="{{route('csm.projects.edit',$value->id)}}" class="btn btn-dark">Изменить</a>
-                        <a href="{{route('csm.projects.destroy',$value->id)}}" class="btn btn-danger">Удалить</a>
+                        <div class="row">
+                            <a href="{{route('csm.projects.edit',$value->id)}}" class="btn btn-dark">Изменить</a>
+                            {{Form::open(['route'=>['csm.projects.destroy',$value->id],'method' => 'DELETE'])}}
+                            {{Form::submit('Удалить',['class' => 'btn btn-danger ml-1'])}}
+                            {{Form::close()}}
+                        </div>
                     </td>
                 </tr>
             @endforeach

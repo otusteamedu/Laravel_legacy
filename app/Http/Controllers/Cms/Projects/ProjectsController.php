@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Cms\Projects;
 
+use App\Http\Controllers\Cms\Requests\ProjectUpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\Projects\Requests\ProjectStoreRequest;
+use App\Models\Project;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Http\Request;
 
@@ -73,9 +75,9 @@ class ProjectsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Project $project)
     {
-        return view('cms.Projects.edit', compact('id'));
+        return view('cms.Projects.edit', compact('project'));
     }
 
     /**
@@ -85,17 +87,14 @@ class ProjectsController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(ProjectUpdateRequest $request, Project $project)
     {
         $data = $request->getFormData();
-        $result = $this->projectsService->updateForm($data);
-
+        $result = $this->projectsService->updateForm($project, $data);
         if ($result) {
             return redirect()
                 ->route('csm.projects.index')
                 ->with(['status' => 'Проект успешно изменен']);
-        }else{
-
         }
     }
 
@@ -107,6 +106,11 @@ class ProjectsController extends Controller
      */
     public function destroy($id)
     {
-        dd('Удалить');
+        $result = $this->projectsService->delForm($id);
+        if ($result) {
+            return redirect()
+                ->route('csm.projects.index')
+                ->with(['status' => 'Проект успешно удален']);
+        }
     }
 }

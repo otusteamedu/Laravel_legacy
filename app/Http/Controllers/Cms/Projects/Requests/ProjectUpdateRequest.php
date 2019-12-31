@@ -34,7 +34,7 @@ class ProjectUpdateRequest extends FormRequest
     {
         $data = $this->request->all();
         $data = Arr::except($data, [
-            '_token',
+            '_token','_method'
         ]);
         return $data;
     }
@@ -44,9 +44,9 @@ class ProjectUpdateRequest extends FormRequest
         return [
             'name.required'       => "Заполните название проекта",
             'report_day.required' => "Заполните дату отчета",
-            'report_day.integer'    => "Поле отчета должно быть числом",
-            'report_day.min'    => "Число отчета должно быть больше 0",
-            'report_day.max'    => "Число отчета должно быть меньше 31",
+            'report_day.integer'  => "Поле отчета должно быть числом",
+            'report_day.min'      => "Число отчета должно быть больше 0",
+            'report_day.max'      => "Число отчета должно быть меньше 31",
         ];
     }
 }

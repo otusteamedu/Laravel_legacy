@@ -32,7 +32,6 @@ class ProjectStoreRequest extends FormRequest
 
     public function getFormData()
     {
-        $this->request->flash();
         $data = $this->request->all();
         $data = Arr::except($data, [
             '_token',
