@@ -10,4 +10,14 @@ main
     width:150px;
     margin-bottom:20px;
   }
+
+  form#profile
+  {
+    max-width:400px;
+    margin:auto;
+    div label, input
+    {
+      text-align:left;
+    }    
+  }
 }

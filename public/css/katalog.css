@@ -55,6 +55,10 @@ footer {
   border-top: 2px solid white;
 }
 
+.center {
+  text-align: center;
+}
+
 main {
   max-width: 1000px;
   margin: auto;

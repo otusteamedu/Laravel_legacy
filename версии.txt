@@ -54,6 +54,12 @@
   Вернул поля password и rememberToken в миграцию _create_users_table
   Вычленил из UsersTableSeeder => AccountsTableSeeder и OrdersTableSeeder
 
+Занятие 14
+==========
+2020.01.01  
+  Добавил форму в home.blade.php
+  
+
 
 
 

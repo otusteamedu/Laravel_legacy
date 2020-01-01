@@ -55,6 +55,10 @@ footer {
   border-top: 2px solid white;
 }
 
+.center {
+  text-align: center;
+}
+
 main {
   margin-top: 80px;
   padding: 10px;
@@ -64,5 +68,15 @@ main {
 main img {
   width: 150px;
   margin-bottom: 20px;
+}
+
+main form#profile {
+  max-width: 400px;
+  margin: auto;
+}
+
+main form#profile div label,
+main form#profile input {
+  text-align: left;
 }
 
