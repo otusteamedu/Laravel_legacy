@@ -36459,7 +36459,9 @@ var staticRenderFns = [
                     _c("a", { attrs: { href: "/" } }, [_vm._v("Каталог")])
                   ]),
                   _c("li", [
-                    _c("a", { attrs: { href: "#" } }, [_vm._v("Материалы")])
+                    _c("a", { attrs: { href: "/materials" } }, [
+                      _vm._v("Материалы")
+                    ])
                   ]),
                   _c("li", [
                     _c("a", { attrs: { href: "#" } }, [_vm._v("Информация")])
@@ -36481,12 +36483,16 @@ var staticRenderFns = [
                       _c("a", { attrs: { href: "", "data-uk-icon": "search" } })
                     ]),
                     _c("li", [
-                      _c("a", { attrs: { href: "", "data-uk-icon": "bag" } }, [
-                        _c("span", { staticClass: "uk-badge" }, [_vm._v("1")])
-                      ])
+                      _c(
+                        "a",
+                        { attrs: { href: "/cart", "data-uk-icon": "bag" } },
+                        [_c("span", { staticClass: "uk-badge" }, [_vm._v("1")])]
+                      )
                     ]),
                     _c("li", [
-                      _c("a", { attrs: { href: "", "data-uk-icon": "user" } })
+                      _c("a", {
+                        attrs: { href: "/login", "data-uk-icon": "user" }
+                      })
                     ])
                   ]
                 ),

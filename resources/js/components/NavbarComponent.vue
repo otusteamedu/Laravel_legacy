@@ -9,7 +9,7 @@
                     .uk-navbar-center(class="uk-visible@m")
                         ul.uk-navbar-nav
                             li.uk-active: a(href="/") Каталог
-                            li: a(href="#") Материалы
+                            li: a(href="/materials") Материалы
                             li: a(href="#") Информация
                             li: a(href="#") Портфолио
                             li: a(href="#") Контакты
@@ -17,8 +17,8 @@
                         ul.uk-navbar-nav.tm-navbar-icon(class="uk-visible@m")
                             li: a(href="" data-uk-icon="search")
                             //- li: a(href="" data-uk-icon="heart"): span.uk-badge 756
-                            li: a(href="" data-uk-icon="bag"): span.uk-badge 1
-                            li: a(href="" data-uk-icon="user")
+                            li: a(href="/cart" data-uk-icon="bag"): span.uk-badge 1
+                            li: a(href="/login" data-uk-icon="user")
                         a.uk-navbar-toggle(href="#menu" data-uk-toggle data-uk-icon="menu" class="uk-hidden@m")
 </template>
 
