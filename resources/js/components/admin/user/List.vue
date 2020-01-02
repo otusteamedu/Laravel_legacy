@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <h3>Нажмите на пользователя для редактирования</h3>
         <pagination :data="usersList" @pagination-change-page="getUsersList"></pagination>
         <table class="table">
             <thead class="thead-dark">
@@ -13,7 +14,11 @@
             <tbody>
             <tr v-for="user in usersList.data">
                 <th scope="row">{{ user.id }}</th>
-                <td>{{ user.username }}</td>
+                <td>
+                    <router-link :to="{ name: 'admin.user.edit', params: {id: user.id}}">
+                        {{ user.username }}
+                    </router-link>
+                </td>
                 <td>{{ user.email }}</td>
                 <td>{{ user.role }}</td>
             </tr>
@@ -33,9 +38,6 @@
         data() {
             return {
                 usersList: {},
-                firstPageUrl: '',
-                lastPageUrl: '',
-                nextPageUrl: '',
             }
         },
         methods: {

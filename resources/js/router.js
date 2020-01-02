@@ -19,7 +19,8 @@ import AdminLayout from './components/admin/Layout';
 import AdminMain from './components/admin/Main';
 // Admin/User
 import UserLayout from './components/admin/user/Layout';
-import List from './components/admin/user/List';
+import UsersList from './components/admin/user/List';
+import UserEdit from './components/admin/user/Edit';
 
 const routes = [
     {
@@ -89,7 +90,12 @@ const routes = [
                     {
                         path: 'list',
                         name: 'admin.user.list',
-                        component: List
+                        component: UsersList
+                    },
+                    {
+                        path: 'edit/:id',
+                        name: 'admin.user.edit',
+                        component: UserEdit
                     }
                 ]
             }
