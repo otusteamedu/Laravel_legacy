@@ -254,98 +254,28 @@ Route::get('/movies/premier', 'Publica\MovieController@soon')->name('public.movi
 
 Route::get('/movies/showing/{id}', 'Publica\MovieShowingController@showing')->where(['id' => '[0-9]+'])->name('public.movies.showing');
 Route::get('/movies/order/{id}', 'Publica\MovieShowingController@order')->where(['id' => '[0-9]+'])->name('public.movies.order');
-Route::post('/movies/order/{id}', 'Publica\MovieShowingController@addticket')->where(['id' => '[0-9]+'])->name('public.movies.addticket');
+Route::get('/movies/showing/tickets', 'Publica\MovieShowingController@ticketData')->name('public.movies.showing.tickets');
+
+Route::get('/order/getsession', 'Publica\OrderController@sessionData')->name('public.order.getsession');
+Route::any('/order/addticket', 'Publica\OrderController@addTicket')->name('public.order.addticket');
+Route::any('/order/removeticket', 'Publica\OrderController@removeTicket')->name('public.order.removeticket');
+Route::any('/order/removeitem', 'Publica\OrderController@removeItem')->name('public.order.removeitem');
+
+Route::get('/order/checkout', 'Publica\OrderController@checkoutOrder')->name('public.order.checkout');
+Route::post('/order/checkout', 'Publica\OrderController@confirmOrder')->name('public.order.confirm');
+Route::get('/order/confirmed', 'Publica\OrderController@confirmedOrder')->name('public.order.confirmed');
+Route::get('/order/auth', 'Publica\OrderController@authOrder')->name('public.order.auth');
+Route::post('/order/register', 'Publica\OrderController@quickRegister')->name('public.order.register');
+
+Route::get('/order/pay', 'Publica\PaymentController@inputData')->name('public.payment.input');
+Route::post('/order/pay', 'Publica\PaymentController@addPayTask')->name('public.payment.pay');
+Route::get('/order/status', 'Publica\PaymentController@getStatus')->name('public.payment.status');
+Route::get('/order/checkCode', 'Publica\PaymentController@checkCode')->name('public.payment.check');
+Route::get('/order/confirmed1', 'Publica\PaymentController@confirm')->name('public.payment.check');
 
 Route::get('/movies/archived', function () {
     return view('public');
 })->name('public.movies.archived');
-
-Route::get('/movies/order1/{id}', function (int $id) {
-    $found_key = array_search($id, array_column($GLOBALS['arMovies'], 'id'));
-    if($found_key === false)
-        abort(404);
-
-    $item = $GLOBALS['arMovies'][$found_key];
-
-    $cinemas = $GLOBALS['arCinemas'];
-    $format = 'Y-m-d H:i';
-
-    return view('public.movies.order', [
-        'breadCrumbs' => [
-            [
-                'url' => \route('public.start'),
-                'title' => __('public.menu.home'),
-            ], [
-                'url' => \route('public.movies.showing'),
-                'title' => __('public.menu.showing'),
-            ], [
-                'url' => \route('public.movies.info', ['id' => $item['id']]),
-                'title' => $item['name'],
-            ], [
-                'url' => \route('public.movies.order', ['id' => $item['id']]),
-                'title' => __('public.orderTicket'),
-            ]
-        ],
-        'movie' => $item,
-        'movieShowing' => [
-            [
-                'cinema' => $cinemas[0],
-                'showings' => [
-                    [
-                        'id' => 12131,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 09:40')
-                    ], [
-                        'id' => 12731,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 11:30')
-                    ], [
-                        'id' => 12134,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 17:30')
-                    ], [
-                        'id' => 14131,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 20:00')
-                    ], [
-                        'id' => 12731,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 22:10')
-                    ]
-                ]
-            ], [
-                'cinema' => $cinemas[2],
-                'showings' => [
-                    [
-                        'id' => 12131,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 12:00')
-                    ], [
-                        'id' => 12731,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 17:30')
-                    ], [
-                        'id' => 12134,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 21:20')
-                    ]
-                ]
-            ], [
-                'cinema' => $cinemas[4],
-                'showings' => [
-                    [
-                        'id' => 12131,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 09:40')
-                    ], [
-                        'id' => 12731,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 11:30')
-                    ], [
-                        'id' => 12134,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 17:30')
-                    ], [
-                        'id' => 14131,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 20:00')
-                    ], [
-                        'id' => 12731,
-                        'date' => DateTime::createFromFormat($format, '2019-09-15 22:10')
-                    ]
-                ]
-            ]
-        ]
-    ]);
-})->where(['id' => '[0-9]+'])->name('public.movies.order1');
 
 Route::get('/cinemas', 'Publica\CinemaController@index')->name('public.cinemas.index');
 Route::get('/cinemas/{id}', 'Publica\CinemaController@view')->where(['id' => '[0-9]+'])->name('public.cinemas.item');

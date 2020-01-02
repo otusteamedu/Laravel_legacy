@@ -11222,6 +11222,27 @@ h3 a {
   margin-bottom: 18px;
 }
 
+.clearfix:after {
+  content: ".";
+  clear: both;
+  display: block;
+  height: 0;
+  font-size: 0;
+  visibility: hidden;
+}
+
+.clearfix {
+  display: inline-block;
+}
+
+* html .clearfix {
+  height: 1%;
+}
+
+.clearfix {
+  display: block;
+}
+
 .page-wrapper {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.25);
   padding-top: 57.6px;
@@ -11579,5 +11600,125 @@ h3 a {
 
 .place-type-economy.place-selected span {
   background-color: #f1b0b7;
+}
+
+.loading-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: table;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.loading-layer td {
+  width: 100%;
+  height: 100%;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.places-selected ul {
+  margin: 0 0 30px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.places-selected li {
+  float: left;
+  width: 31.33%;
+  margin: 0 2% 12px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.places-selected .ticket-wrapper {
+  border: 1px solid #212529;
+  font-size: 14px;
+  position: relative;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.places-selected .ticket-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 24px;
+  width: 24px;
+  line-height: 24px;
+  text-align: center;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.places-selected .ticket-place {
+  margin-bottom: 5px;
+  color: #ffffff;
+  background-color: #212529;
+  line-height: 24px;
+  height: 24px;
+  overflow: hidden;
+  width: 100%;
+  padding: 0 6px;
+  white-space: nowrap;
+}
+
+.places-selected .ticket-price {
+  color: #212529;
+  background-color: #ffc107;
+  font-weight: 700;
+  margin-left: 6px;
+  line-height: 24px;
+  padding: 0 6px;
+  float: left;
+  border-radius: 5px;
+}
+
+.places-selected .ticket-status {
+  padding: 0 6px;
+  line-height: 24px;
+  font-size: 12px;
+  color: green;
+  clear: both;
+  white-space: nowrap;
+}
+
+.places-selected .ticket-wrapper.status-disabled {
+  border: 1px solid #999999;
+}
+
+.places-selected .status-disabled .ticket-place {
+  background-color: #999999;
+}
+
+.places-selected .status-disabled .ticket-status {
+  color: red;
+}
+
+.message-status {
+  margin-bottom: 10px;
+  overflow: hidden;
+  position: relative;
+  height: 35px;
+}
+
+.message-status div {
+  position: relative;
+  margin-top: -60px;
+  opacity: 0;
+  transition: all 0.4s ease-out;
+  padding: 6px 12px;
+  display: inline-block;
+}
+
+.message-status.showed div {
+  margin-top: 0;
+  opacity: 1;
 }
 

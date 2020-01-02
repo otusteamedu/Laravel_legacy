@@ -43,7 +43,7 @@ class UserRepository extends BaseRepository implements IUserRepository
     public function currentUser(): ?User
     {
         /** @var User $user */
-        $user = $this->getByPrimary(Auth::id());
+        $user = Auth::id() ? $this->getByPrimary(Auth::id()) : null;
         return $user ?? null;
     }
 

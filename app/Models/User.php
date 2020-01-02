@@ -92,4 +92,7 @@ class User extends Authenticatable
     public function isActive(): bool {
         return $this->active;
     }
+    public function fullName(): string {
+        return trim($this->surname . ' ' . $this->name);
+    }
 }

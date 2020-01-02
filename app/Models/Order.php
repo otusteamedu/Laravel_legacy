@@ -11,10 +11,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int id
  * @property int buyer_id
  * @property int owner_id
- * @property string name
  * @property string session_id
  * @property string number
+ * @property integer count
  * @property integer total
+ * @property string name
  * @property string phone
  * @property string email
  * @property \Illuminate\Support\Carbon $ordered_at
@@ -29,6 +30,21 @@ class Order extends Model
 {
     public $timestamps = true;
 
+    protected $fillable = [
+        'buyer_id',
+        'owner_id',
+        'session_id',
+        'ordered_at',
+        'number',
+        'count',
+        'total',
+        'name',
+        'phone',
+        'email',
+        'status',
+        'created_at',
+        'updated_at'
+    ];
 
     public function owner() : BelongsTo
     {

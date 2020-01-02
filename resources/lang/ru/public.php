@@ -11,7 +11,8 @@ return [
         'about' => 'О сети',
         'showing' => 'Фильмы в прокате',
         'cinemas' => 'Кинотеатры',
-        'reviews' => 'Отзывы'
+        'reviews' => 'Отзывы',
+        'checkout' => 'Бронирование'
     ],
     'account' => [
         'index' => 'Личный кабинет',
@@ -50,5 +51,50 @@ return [
     'deleteconfirm' => 'Вы действительно хотите удалить выбранный элемент?',
     'deletetitle' => ':name: удаление',
     'cancel' => 'Отмена',
-    'fieldsrequired' => 'обязательно для заполнения'
+    'fieldsrequired' => 'обязательно для заполнения',
+    'ticket' => [
+        'ticket_name' => 'Билет на фильм ":movie". Сеанс :time / :date',
+        'cinema_name' => 'Кинотеатр',
+        'cinema_value' => '":name", :address',
+        'movie_name' => 'Фильм',
+        'movie_value' => ':name',
+        'hall_name' => 'Зал',
+        'hall_value' => '№:number ":name"',
+        'place_name' => 'Место',
+        'place_value' => 'Ряд :row место :place',
+        'showing_name' => 'Сеанс',
+        'showing_value' => 'Дата :date, время :time',
+    ],
+    'order' => [
+        'ticketSuccessAdd' => 'Билет успешно добавлен',
+        'ticketSuccessRemove' => 'Билет успешно удален',
+        'ticketErrorAdd' => 'Ошибка бронирования места',
+        'ticketErrorRemove' => 'Ошибка удаления брони',
+        'ticketStatusEnabled' => 'Доступен к заказу',
+        'ticketStatusDisabled' => 'Не доступен',
+        'empty' => 'Нет билетов к бронированию',
+        'delete' => 'Удалить',
+        'delete_confirm' => 'Вы уверены?',
+        'available' => 'Доступно',
+        'not_available' => 'Не доступно',
+        'name' => 'Ваше имя',
+        'phone' => 'Контактный телефон',
+        'email' => 'E-mail для оповещений',
+        'order_confirm' => 'Подтвердить',
+        'status' => 'Статус заказа',
+        'confirmed' => 'Бронь успешно подтверждена!',
+        'confirmed_description' => 'Номер вашей брони: <b>:order_number</b>.<br /><br />
+            Она будет действовать в течении <b>:timeout мин.</b>, в течение которых вы должны ее оплатить.<br /><br />
+            По истечению этого срока бронь на выбранные места снимается.',
+        'summary' => 'Всего билетов: :count. К оплате :total руб.'
+    ],
+    'payment' => [
+        'payment_description' => 'К оплате: :total руб.',
+        'button_do' => 'Оплатить',
+        'card_number' => 'Номер карты',
+        'card_term' => 'Срок действия карты',
+        'card_csv' => 'CSV код',
+        'sms_check_code' => 'Проверочный код из SMS',
+        ''
+    ]
 ];

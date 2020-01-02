@@ -38,7 +38,7 @@
                             <label for="datetimepicker2" class="col-sm-3 px-0 col-form-label">Выбрать дату</label>
                             <div class="form-group col-sm-6">
                                 <div class="input-group date shadow" id="datetimepicker2" data-target-input="nearest">
-                                    <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" role="date" placeholder="Дата" value="{{ $filter_date }}"/>
+                                    <input name="filter_date" type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" role="date" placeholder="Дата" value="{{ $filter_date }}"/>
                                     <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>

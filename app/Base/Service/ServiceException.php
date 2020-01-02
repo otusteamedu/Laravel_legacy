@@ -26,10 +26,16 @@ class ServiceException extends \LogicException
      * @param int $code
      */
     public function add($message, $code = 0) {
-        array_push($this->errors, [
-            'code' => $code,
-            'message' => $message
-        ]);
+        if(is_array($message)) {
+            if(array_key_exists('message', $message)
+                && !empty($message['message']))
+            array_push($this->errors, $message);
+        }
+        else
+            array_push($this->errors, [
+                'code' => $code,
+                'message' => $message
+            ]);
     }
     /**
      * @return array
@@ -44,10 +50,19 @@ class ServiceException extends \LogicException
     public function getMessages(): string
     {
         $result = [];
-        foreach($this->errors as $error)
-            $result .= "[".$error['code']."] " . $error['message'];
+        foreach($this->errors as $error) {
+            $strError = "";
+            if($error['code'] > 0)
+                $strError .= "[".$error['code']."] ";
+            $strError .= $error['message'];
+            $result[] = $strError;
+        }
 
         $glue = php_sapi_name() == 'cli' ? "\n" : "<br />";
+        $msg = $this->getMessage();
+        if(strlen($msg) > 0)
+            return $msg.": " . $glue . implode($glue, $result);
+
         return implode($glue, $result);
     }
     /**
@@ -57,5 +72,15 @@ class ServiceException extends \LogicException
     public function assert() {
         if(count($this->errors) > 0)
             throw $this;
+    }
+
+    /**
+     * @param ServiceException $exception
+     * @return ServiceException
+     */
+    public function merge(ServiceException $exception) {
+        $errors = $exception->getErrors();
+        foreach ($errors as $message)
+            $this->add($message);
     }
 }

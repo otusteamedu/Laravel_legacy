@@ -12,6 +12,7 @@ use App\Services\Interfaces\IMovieService;
 use App\Services\Interfaces\IMovieShowingService;
 use App\Services\Interfaces\IPlaceService;
 use App\Services\Interfaces\IShowingPriceService;
+use App\Services\Interfaces\ITicketService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -95,7 +96,13 @@ class MovieShowingController extends AbstractController
         );
     }
 
-    public function addticket(int $showingId, Request $request): View {
+    public function ticketData(Request $request, ITicketService $service) {
+        $showing_movie_id = (int) $request->get('showing_movie_id', 0);
 
+        /** @var MovieShowing $showingModel */
+        $showingModel = $this->movieShowingService->findModel($showing_movie_id);
+
+        $result = $service->getShowingTickets($showingModel);
+        return response()->json($result);
     }
 }

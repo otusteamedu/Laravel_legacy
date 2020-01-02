@@ -99,4 +99,30 @@ class MovieShowingService extends BaseService implements IMovieShowingService
 
         return $result;
     }
+
+    /**
+     * Просрочен ли сеанс
+     * @param MovieShowing $showing
+     * @return bool
+     */
+    public function ShowingIsExpired(MovieShowing $showing): bool {
+        $now = Carbon::now();
+        return $showing->datetime->lte($now);
+    }
+    /**
+     * Проверка существования связанных объектов
+     * @param MovieShowing $showing
+     * @return bool
+     */
+    public function IsValid(MovieShowing $showing): bool
+    {
+        $rental = $showing->movieRental;
+        if(!$rental || !$rental->cinema || !$rental->movie)
+            return false;
+
+        if(!$showing->hall->cinema->is($rental->cinema))
+            return false;
+
+        return true;
+    }
 }

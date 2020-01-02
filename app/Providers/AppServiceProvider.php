@@ -63,6 +63,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Repositories\Interfaces\IPlaceRepository::class, \App\Repositories\PlaceRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\IShowingPriceRepository::class, \App\Repositories\ShowingPriceRepository::class);
         $this->app->bind(\App\Repositories\Interfaces\ITicketRepository::class, \App\Repositories\TicketRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IOrderRepository::class, \App\Repositories\OrderRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IOrderItemRepository::class, \App\Repositories\OrderItemRepository::class);
+        $this->app->bind(\App\Repositories\Interfaces\IPaymentRepository::class, \App\Repositories\PaymentRepository::class);
 
         // сервисы
         $this->app->bind(\App\Services\Interfaces\IUploadService::class, \App\Services\UploadService::class);
@@ -75,6 +78,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(\App\Services\Interfaces\IPlaceService::class, \App\Services\PlaceService::class);
         $this->app->bind(\App\Services\Interfaces\IShowingPriceService::class, \App\Services\ShowingPriceService::class);
         $this->app->bind(\App\Services\Interfaces\ITicketService::class, \App\Services\TicketService::class);
+        $this->app->bind(\App\Services\Interfaces\IOrderService::class, \App\Services\OrderService::class);
+        $this->app->bind(\App\Services\Interfaces\IOrderItemService::class, \App\Services\OrderItemService::class);
+        $this->app->bind(\App\Services\Interfaces\IPaymentService::class, \App\Services\PaymentService::class);
 
         try {
             $this->app->singleton(FileService::class, function (Application $app) {

@@ -11,7 +11,7 @@ class CinemaController extends AbstractController {
     private $cinemaService;
 
     /**
-     * StartController constructor.
+     * CinemaController constructor.
      * @param ICinemaService $cinemaService
      */
     public function __construct(

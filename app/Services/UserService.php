@@ -7,6 +7,7 @@ namespace App\Services;
 use App\Base\Service\BaseService;
 use App\Events\UserEvent;
 use App\Models\User;
+use App\Repositories\UserRepository;
 use App\Services\Interfaces\IUploadService;
 use App\Services\Interfaces\IUserService;
 use Illuminate\Validation\ValidationException;
@@ -66,5 +67,15 @@ class UserService extends BaseService implements IUserService
         event(new UserEvent($user, UserEvent::STORED));
 
         return $user;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function currentUser(): ?User
+    {
+        /** @var UserRepository $repository */
+        $repository = $this->getRepository();
+        return $repository->currentUser();
     }
 }

@@ -38,71 +38,85 @@
          data-movie-name="{{ $movie['name'] }}"
          data-movie-duration="{{ $movie['duration'] }}"
     >
-        <form class="places-selected" data-role="selected">
-            <div data-role="input"></div>
-            <ul data-role="items"></ul>
-            <input type="submit" class="btn btn-success shadow" value="Заказать" data-role="button" />
-        </form>
-        <div class="i-title"><span>Выберите места и нажмите кнопку заказать</span></div>
         <div class="container-fluid order-ticket i-iblock">
             <div class="row align-items-start m-0">
-                <div class="col-md-6" data-role="hall" class="hall-area">
-                @foreach($places as $place)
-                    <div class="place-item"
-                         data-role="place"
-                         data-place-id="{{ $place['id'] }}"
-                         data-place-row="{{ $place['row_number'] }}"
-                         data-place-place="{{ $place['place_number'] }}"
-                         data-tariff-id="{{ $place['tariff']['id'] }}"
-                         data-tariff-code="{{ $place['tariff']['code'] }}"
-                         data-tariff-name="{{ $place['tariff']['name'] }}">
-                        <span><i>{{ $place['place_number'] }}</i></span>
-                    </div>
-                @endforeach
-                </div>
                 <div class="col-md-6">
                     <h5><b>Фильм</b></h5>
                     <table class="table-sm table-bordered table-striped" width="100%">
                         <tbody>
                         <tr>
-                            <td><b>Название:</b></td>
+                            <td width="30%"><b>Название:</b></td>
                             <td>{{ $movie['name'] }}</td>
                         </tr>
                         <tr>
-                            <td><b>Длительность:</b></td>
+                            <td width="30%"><b>Длительность:</b></td>
                             <td>{{ $movie['duration'] }} мин.</td>
                         </tr>
                         </tbody>
-                    </table>
-                    <br />
-                    <h5><b>Сеанс</b></h5>
-                    <table class="table-sm table-bordered table-striped" width="100%">
-                        <tbody>
-                        <tr>
-                            <td width="25%"><b>Дата:</b></td>
-                            <td width="25%">{{ $showing['date'] }}</td>
-                            <td width="25%"><b>Время:</b></td>
-                            <td width="25%">{{ $showing['time'] }} мин.</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <br />
+                    </table><br /><br />
+                </div>
+                <div class="col-md-6">
                     <h5><b>Место</b></h5>
                     <table class="table-sm table-bordered table-striped" width="100%">
                         <tbody>
                         <tr>
-                            <td><b>Кинотеатр:</b></td>
-                            <td>{{ $hall['cinema']['name'] }}<br />
-                                <small>{{ $hall['cinema']['address'] }}</small>
-                            </td>
+                            <td width="30%"><b>Кинотеатр:</b></td>
+                            <td>{{ $hall['cinema']['name'] }}. Зал: №{{ $hall['number'] }}&nbsp;&laquo;{{ $hall['name'] }}&raquo;</td>
                         </tr>
                         <tr>
-                            <td><b>Зал:</b></td>
-                            <td>№{{ $hall['number'] }}&nbsp;&laquo;{{ $hall['name'] }}&raquo;</td>
+                            <td width="30%"><b>Адрес:</b></td>
+                            <td>{{ $hall['cinema']['address'] }}</td>
                         </tr>
                         </tbody>
-                    </table>
-                    <br />
+                    </table><br /><br />
+                </div>
+                <div class="col-md-6">
+                    <h5><b>Сеанс</b></h5>
+                    <table class="table-sm table-bordered table-striped" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="30%"><b>Дата:</b></td>
+                            <td>{{ $showing['date'] }}</td>
+                        </tr>
+                        </tbody>
+                    </table><br /><br />
+                </div>
+                <div class="col-md-6">
+                    <h5><b>&nbsp;</b></h5>
+                    <table class="table-sm table-bordered table-striped" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="30%"><b>Время:</b></td>
+                            <td>{{ $showing['time'] }} мин.</td>
+                        </tr>
+                        </tbody>
+                    </table><br /><br />
+                </div>
+            </div>
+            <div class="row align-items-start m-0">
+                <div class="col-md-6">
+                    <div data-role="hall" class="hall-area">
+                    @foreach($places as $place)
+                        <div class="place-item"
+                             data-role="place"
+                             data-place-id="{{ $place['id'] }}"
+                             data-place-row="{{ $place['row_number'] }}"
+                             data-place-place="{{ $place['place_number'] }}"
+                             data-tariff-id="{{ $place['tariff']['id'] }}"
+                             data-tariff-code="{{ $place['tariff']['code'] }}"
+                             data-tariff-name="{{ $place['tariff']['name'] }}">
+                            <span><i>{{ $place['place_number'] }}</i></span>
+                        </div>
+                    @endforeach
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <h6>Выберите места и нажмите кнопку заказать</h6>
+                    <div class="message-status" data-role="message"></div>
+                    <div class="places-selected" data-role="order">
+                        <ul data-role="items" class="clearfix"></ul>
+                        <input data-role="checkout" type="submit" class="btn btn-success shadow" value="Заказать" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,67 +132,283 @@
     </div>
     <script type="text/javascript">
         (function(w, $) {
-            var MovieShowing = function(node, prices) {
+            var MovieShowing = function(node, prices, params) {
                 this.node = node;
+                this.params = params;
 
                 this.data = Util.getOpts(node, {}, 'showing');
                 this.hall = null;
-                this.prices = this.initPrices(prices);
+                this.order = null;
+                this.message = null;
+
+                this.prices = prices;
             };
             MovieShowing.prototype.init = function() {
-                var node;
+                var node, that = this;
+
                 node = Util.FindRole('hall', this.node);
                 if(node.length > 0) {
                     this.hall = new Hall(node[0], this);
                     this.hall.init();
                 }
-
-            };
-            MovieShowing.prototype.getResult = function() {
-                var i, item, price,
-                    places = this.hall.places,
-                    result = {
-                        showing: this.data,
-                        places: []
-                    };
-
-                for(i = 0; i < places.length; i++) {
-                    if(places[i].selected) {
-                        price = this.prices.findByKey(places[i].tariff.getId(), 'tariffId');
-                        result[result.length] = {
-                            id: places[i].id,
-                            row: places[i].row,
-                            place: places[i].place,
-                            price: price.getValue()
-                        };
-                    }
+                node = Util.FindRole('order', this.node);
+                if(node.length > 0) {
+                    this.order = new Order(node[0], this);
+                    this.order.init();
+                }
+                node = Util.FindRole('message', this.node);
+                if(node.length > 0) {
+                    this.message = new Message(node[0], this);
+                    this.message.init();
                 }
 
-                return result;
-            };
-            MovieShowing.prototype.initPrices = function(data) {
-                var i, result;
-                if(!data) return;
-                result = new collection();
-                for(i = 0; i < data.length; i++) {
-                    result.addWithKey(
-                        new Price(data[i].id, data[i].tariff_id, data[i].value),
-                        'tariffId'
-                    );
-                }
-                return result;
+                this.update();
             };
             MovieShowing.prototype.update = function() {
-                console.log(this.getResult());
+                var that = this;
+                if(!that.hall)
+                    return;
+
+                this.hall.loadTickets(function() {
+                    if(!that.order)
+                        return;
+                    that.order.loadOrder(function() {
+                        that.order.update();
+                        that.hall.update();
+                    });
+                });
+            };
+            MovieShowing.prototype.fallback = function() {
+
             };
 
-            var TicketOrdered = function() {
-                this.placeId = 0;
-                this.showingId = 0;
-                this.orderId = 0;
-                this.orderItemId = 0;
+            var Message = function(node) {
+                this.node = node;
+                this.timeout = null;
+            };
+            Message.prototype.init = function() {
+                this.clean();
+            };
+            Message.prototype.clean = function() {
+                //this.node.innerHTML = '&nbsp;';
+                this.node.className = 'message-status';
+            };
+            Message.prototype.text = function(value, type) {
+                if(type == 'error')
+                    this.node.innerHTML = '<div class="bg-danger text-white">' + value + '</div>';
+                else
+                    this.node.innerHTML = '<div class="bg-success text-white">' + value + '</div>';
+                this.node.className = 'message-status showed';
+            };
+            Message.prototype.flash = function(data) {
+                var type, message, that = this;
+                if(!data.status) {
+                    type = 'error';
+                    message = data.toString();
+                }
+                else {
+                    type = data.status.toLowerCase();
+                    message = data.message
+                }
+                if('errorsuccess'.indexOf(type) < 0)
+                    type = 'error';
+
+                if(this.timeout) {
+                    clearTimeout(this.timeout);
+                    this.timeout = null;
+                }
+                this.text(message, type);
+                setTimeout(function() {
+                    that.clean();
+                    that.timeout = null;
+                }, 4000);
             };
 
+            var Order = function(node, parent) {
+                this.node = node;
+                this.parent = parent;
+
+                this.nodeButton = null;
+                this.nodeList = null;
+                this.nodeCount = null;
+                this.nodeTotal = null;
+
+                this.query = new Query();
+                this.data = null;
+                this.items = [];
+            };
+            Order.prototype.init = function() {
+                var that = this, node;
+                node = Util.FindRole('items', this.node);
+                this.show(false);
+                if(node.length > 0)
+                    this.nodeList = node[0];
+
+                node = Util.FindRole('checkout', this.node);
+                if(node.length > 0) {
+                    this.nodeButton = node[0];
+                    this.nodeButton.onclick = function() {
+                        that.checkout();
+                        return false;
+                    }
+                }
+            };
+            Order.prototype.checkout = function() {
+                if(this.data.total > 0)
+                    location.href = this.parent.params.urlOrder.checkout;
+            };
+            Order.prototype.clearOrder = function() {
+                var i, n = this.items.length;
+                for(i = n - 1; i >= 0; i--) {
+                    this.removeItem(i);
+                }
+                this.items = [];
+            };
+            Order.prototype.removeItem = function(index) {
+                var item = this.items[index];
+                this.nodeList.removeChild(item.node);
+                this.items.splice(index, 1);
+            };
+            Order.prototype.initOrder = function() {
+                var i, item, li;
+                this.clearOrder();
+                if(this.data.total > 0) {
+                    this.show(true);
+                    for(i in this.data.items) {
+                        item = new OrderItem(
+                            this.nodeList.appendChild(document.createElement('li')),
+                            this,
+                            this.data.items[i]
+                        );
+                        item.init();
+                        this.items[this.items.length] = item;
+                    }
+                }
+                else {
+                    this.show(false);
+                }
+            };
+            Order.prototype.show = function(bShow) {
+                bShow = bShow || false;
+                this.node.style.display = bShow ? '' : 'none';
+            };
+            Order.prototype.update = function() {
+                this.initOrder();
+            };
+            Order.prototype.loadOrder = function(callback) {
+                var that = this,
+                    queryUrl = this.parent.params.urlOrder.list;
+
+                this.query.get(queryUrl, null, 'get').success(
+                    function (data) {
+                        that.data = data;
+                        if(typeof callback == 'function')
+                            callback.apply(that);
+                    }
+                ).error(
+                    function() {parent
+                        that.parent.fallback.apply(that);
+                    }
+                ).spinOn(this.node);
+            };
+            Order.prototype.addPlace = function(place, callback) {
+                var that = this,
+                    shwg = this.parent,
+                    queryUrl = shwg.params.urlOrder.add;
+
+                this.query.get(
+                    queryUrl, {
+                        showing_movie_id: this.parent.data.id,
+                        place_id: place.id
+                    }, 'get').success(
+                    function (data) {
+                        shwg.message.flash(data);
+                        shwg.update();
+                        if(typeof callback == 'function')
+                            callback.apply(that, [data]);
+                    }
+                ).error(
+                    function() {
+                        that.parent.fallback.apply(that);
+                    }
+                ).spinOn(place.parent.node);
+            };
+            Order.prototype.removePlace = function(place, callback) {
+                var that = this,
+                    shwg = this.parent,
+                    queryUrl = shwg.params.urlOrder.remove;
+
+                this.query.get(
+                    queryUrl, {
+                        showing_movie_id: this.parent.data.id,
+                        place_id: place.id
+                    }, 'get').success(
+                    function (data) {
+                        shwg.message.flash(data);
+                        shwg.update();
+                        if(typeof callback == 'function')
+                            callback.apply(that, [data]);
+                    }
+                ).error(
+                    function() {
+                        that.parent.fallback.apply(that);
+                    }
+                ).spinOn(place.parent.node);
+            };
+            Order.prototype.removeOrderItem = function(item, callback) {
+                var that = this,
+                    shwg = this.parent,
+                    queryUrl = shwg.params.urlOrder.removeitem;
+
+                this.query.get(
+                    queryUrl, {
+                        item_id: item.data.id
+                    }, 'get').success(
+                    function (data) {
+                        shwg.message.flash(data);
+                        shwg.update();
+                        if(typeof callback == 'function')
+                            callback.apply(that, [data]);
+                    }
+                ).error(
+                    function() {
+                        that.parent.fallback.apply(that);
+                    }
+                ).spinOn(this.node);
+            };
+            var OrderItem = function(node, parent, data) {
+                this.node = node;
+                this.parent = parent;
+                this.data = data;
+            };
+            OrderItem.prototype.init = function() {
+                var node, i, that = this;
+                this.node.innerHTML = this.getContent(this.data);
+                node = Util.FindRole('item-delete', this.node);
+                if(node.length > 0) {
+                    node = node[0];
+                    node.onclick = function() {
+                        that.clickDetele();
+                        return false;
+                    }
+                }
+            };
+            OrderItem.prototype.clickDetele = function() {
+                this.parent.removeOrderItem(this);
+            };
+            OrderItem.prototype.getContent = function(itemData) {
+                var available = !!parseInt(itemData.available),
+                    msg = this.parent.parent.params.messages;
+
+                return '<div class="ticket-wrapper status-' + (available ? 'enabled' : 'disabled') + '">'+
+                    '<span data-role="item-delete" class="ticket-delete"><i class="fas fa-times-circle" aria-hidden="true"></i></span>' +
+                    '<div class="ticket-content">'+
+                    '<div class="ticket-place">' + itemData.description.place.value + '</div>' +
+                    '<div class="ticket-price">' + itemData.price + '&nbsp;руб.</div>' +
+                    '<div class="ticket-status">' + (available ? msg.ticketStatusEnabled : msg.ticketStatusDisabled) + '</div>' +
+                    '</div>' +
+                    '</div>';
+            };
 
             var Hall = function (node, parent) {
                 this.node = node;
@@ -190,6 +420,9 @@
                 this.rowLabels = [];
                 this.maxRow = 0;
                 this.maxPlace = 0;
+
+                this.data = [];
+                this.query = new Query();
             };
             Hall.prototype.init = function() {
                 var node, i, item, that = this;
@@ -210,6 +443,22 @@
                     that.makePlacesPositions();
                 })
             };
+            Hall.prototype.loadTickets = function(callback) {
+                var that = this,
+                    queryUrl = this.parent.params.urlTicket.list;
+
+                this.query.get(queryUrl, {showing_movie_id: this.parent.data.id}, 'get').success(
+                    function (data) {
+                        that.data = data;
+                        if(typeof callback == 'function')
+                            callback.apply(that);
+                    }
+                ).error(
+                    function() {
+                        that.parent.fallback.apply(that);
+                    }
+                ).spinOn(this.node);
+            };
             Hall.prototype.makePlacesPositions = function() {
                 var i, w = this.node.offsetWidth, place;
                 h = parseInt(w/this.maxPlace*this.maxRow);
@@ -228,7 +477,37 @@
                 }
             };
             Hall.prototype.update = function() {
-                this.parent.update();
+                var statusMap = [], i, key, item, available,
+                    oData = this.parent.order.data;
+                for(i = 0; i < this.data.length; i++) {
+                    item = this.data[i];
+                    key = item.movie_showing_id + ':' + item.place_id;
+                    statusMap[key] = item.id;
+                }
+                for(i = 0; i < oData.items.length; i++) {
+                    item = oData.items[i].ticket;
+                    if(!item)
+                        continue;
+                    available = parseInt(oData.items[i].available);
+                    if(!available)
+                        continue;
+                    key = item.movie_showing_id + ':' + item.place_id;
+                    statusMap[key] = 0;
+                }
+
+                for(i = 0; i < this.places.length; i++) {
+                    item = this.places[i];
+                    key = this.parent.data.id + ':' + item.id;
+                    this.places[i].disabled = false;
+                    this.places[i].selected = false;
+                    if(typeof statusMap[key] != 'undefined') {
+                        if(statusMap[key])
+                            this.places[i].disabled = true;
+                        else
+                            this.places[i].selected = true;
+                    }
+                    this.places[i].update();
+                }
             };
             Hall.prototype.initCss = function() {
                 this.node.style.position = 'relative';
@@ -236,7 +515,6 @@
             Hall.prototype.setHeight = function(h) {
                 this.node.style.height = h + 'px';
             };
-
             var Place = function (node, parent) {
                 var data;
                 this.node = node;
@@ -250,9 +528,8 @@
                 data = Util.getOpts(node, {}, 'tariff');
                 this.tariff = new Tariff(data.id, data.code, data.name);
 
-                this.disabled = !!node.getAttribute('data-disabled');
-                this.selected = !!node.getAttribute('data-selected');
-                this.own = !!node.getAttribute('data-own');
+                this.disabled = false;
+                this.selected = false;
             };
             Place.prototype.init = function() {
                 var that = this;
@@ -263,18 +540,28 @@
                 this.update();
             };
             Place.prototype.click = function() {
+                var that = this;
                 if(this.disabled)
                     return;
-                this.selected = !this.selected;
-                this.update();
-                this.parent.update();
+
+                if(this.selected) {
+                    this.showing().order.removePlace(this, function() {
+                        that.selected = false;
+                    });
+                }
+                else {
+                    this.showing().order.addPlace(this, function() {
+                        that.selected = true;
+                    });
+                }
+            };
+            Place.prototype.showing = function() {
+                return this.parent.parent;
             };
             Place.prototype.update = function() {
                 var className = 'place';
                 if(this.disabled)
                     className += ' place-disabled';
-                else if(this.own)
-                    className += ' place-own';
                 else {
                     className += ' place-type-' + this.tariff.getCode().toLowerCase();
                     if(this.selected)
@@ -315,74 +602,9 @@
             };
             Price.prototype.getValue = function() {
                 return this.value;
-            }
+            };
 
             w.jMovieShowing = MovieShowing;
-
-            var collection = function() {
-                this.items = [];
-                this.cache = [];
-            };
-
-            collection.prototype.setCache = function(keys) {
-                var i, key;
-                for(i = 0; i < this.items.length; i++) {
-                    key = this.cacheKey(this.items[i], keys);
-                    this.cache[this.cache.length] = i;
-                }
-            };
-            collection.prototype.add = function(item) {
-                this.items[this.items.length] = item;
-            };
-            collection.prototype.addWithKey = function(item, field) {
-                var value = item[field],
-                    i = this.items.length;
-                this.items[i] = item;
-                this.cache[value] = i;
-            };
-            collection.prototype.findByKey = function(item, key) {
-                var i = (typeof this.cache[key] == 'undefined') ? -1 : this.cache[key];
-                return (i >= 0) ? this.items[i] : null;
-            };
-            collection.prototype.cacheKey = function(item, keys) {
-                var i, key = [];
-                if(keys) {
-                    for(i in keys)
-                        key[key.length] = i + ':' + keys[i];
-                }
-                else {
-                    for(i in item)
-                        key[key.length] = i + ':' + item[i];
-                }
-                return key.join(';');
-            };
-            collection.prototype.findBy = function(needle) {
-                var i, j, found;
-                if(!needle)
-                    return null;
-                for(i = 0; i < this.items.length; i++) {
-                    found = true;
-                    for(j in needle) {
-                        if(this.items[i][j] != needle[j]) {
-                            found = false;
-                            break;
-                        }
-                    }
-                    if(found)
-                        return this.items[i];
-                }
-                return null;
-            };
-            collection.prototype.quickBy = function(value) {
-                var key = this.cacheKey(value),
-                    i = (typeof this.cache[key] == 'undefined') ? -1 : this.cache[key];
-                return (i >= 0) ? this.items[i] : null;
-            };
-            collection.prototype.walk = function(func) {
-                var i;
-                for(i = 0; i < this.items.length; i++)
-                    func.apply(this, [i, this.items[i]]);
-            };
 
             var Util = {
                 Find: function(search, attr, context) {
@@ -482,18 +704,167 @@
                         elem.addEventListener(evType, fn, false);
                     else if (elem.attachEvent)
                         //elem.attachEvent('on' + evType, fn)
-                        elem.attachEvent("on"+evType, function(e) { return fn.apply(elem, [e]) })
+                        elem.attachEvent("on" + evType, function(e) { return fn.apply(elem, [e]) })
                     else
                         elem['on' + evType] = fn
+                },
+                // получить связанный объект
+                _allNodes: [],
+                get_node: function(creator, node) {
+                    var n = this._allNodes.length, i, factory;
+                    for(i = 0; i < n; i++)
+                        if((node == this._allNodes[i].node)
+                            && (this._allNodes[i].constructor == creator))
+                            return this._allNodes[i];
+                    factory = creator.bind.apply(
+                        creator,
+                        [null].concat(Array.prototype.slice.call(arguments, 1))
+                    );
+                    this._allNodes[n] = new factory();
+                    return this._allNodes[n];
                 }
             };
 
+            // method
+            /*
+            var Query = function(node, url, params, method) {
+                node = typeof(node)=='string' ? document.getElementById(node) : node;
+                node = node || document.body;
+                return Util.get_node(_Query, node, url, params, method);
+            };
+            */
+            var Query = function() {
+                this.handle = null;
+                this.nodeWait = null;
+
+                this.fnError = null;
+                this.fnSuccess = null;
+                this.target = null;
+
+                // this.reset();
+            };
+            Query.prototype.reset = function() {
+                this.fnError = null;
+                this.fnSuccess = null;
+                this.target = null;
+            };
+            Query.prototype.isHolded = function() {
+                return (this.handle != null);
+            };
+            Query.prototype.error = function(fnError) {
+                this.fnError = fnError;
+                return this;
+            };
+            Query.prototype.success = function(fnSuccess) {
+                this.fnSuccess = fnSuccess;
+                return this;
+            };
+            Query.prototype.spinOn = function(target) {
+                this.target = target;
+                return this;
+            };
+            Query.prototype.wait = function(bShow) {
+                if(bShow) {
+                    if(!this.target)
+                        return;
+                    if(!this.nodeWait) {
+                        this.nodeWait = this.target.appendChild(
+                            document.createElement('div')
+                        );
+                        this.nodeWait.className = 'loading-layer';
+
+                        this.nodeWait.style.position = 'absolute';
+                        this.nodeWait.style.top = '0px';
+                        this.nodeWait.style.right = '0px';
+                        this.nodeWait.style.bottom = '0px';
+                        this.nodeWait.style.left = '0px';
+                        this.nodeWait.style.width = '100%';
+                        this.nodeWait.style.height = '100%';
+
+                        this.nodeWait.innerHTML = '<div class="d-table-cell" style="text-align:center;vertical-align:middle">' +
+                            '<div class="spinner-border" role="status">' +
+                            '<span class="sr-only">Loading...</span>' +
+                            '</div>' +
+                            '</div>';
+                    }
+                }
+                else {
+                    if(this.nodeWait) {
+                        this.nodeWait.parentNode.removeChild(this.nodeWait);
+                        this.nodeWait = null;
+                    }
+                }
+            };
+            Query.prototype.close = function(callback, data) {
+                this.wait(false);
+                this.handle = null;
+                if(typeof callback == 'function')
+                {
+                    if(data !== null)
+                        callback.apply(this, [data]);
+                    else
+                        callback.apply(this);
+                }
+            };
+            Query.prototype.getUrl = function(queryUrl, params) {
+                var parts = [];
+                for(var i in params)
+                    parts[parts.length] = i + '=' + params[i];
+                queryUrl += ((queryUrl.indexOf('?') >= 0) ? '&' : '?');
+                queryUrl += parts.join('&');
+
+                return queryUrl;
+            };
+            Query.prototype.get = function(url, params, method) {
+                var that = this;
+                if(that.isHolded())
+                    return;
+
+                that.reset();
+                setTimeout(function () {
+                    that.wait(true);
+                    params = params || {};
+                    method = (method || 'GET').toUpperCase();
+                    if('GETPOSTPATCHPUTDELETE'.indexOf(method) < 0)
+                        method = 'GET';
+
+                    that.handle = $.ajax({
+                        url: that.getUrl(url, params),
+                        method: method,
+                        success: function(data) {
+                            that.close(that.fnSuccess, data);
+                        },
+                        error: function() {
+                            that.close(that.fnError, null);
+                        },
+                        dataType: 'json'
+                    });
+                }, 100);
+
+                return this;
+            };
         }(window, jQuery));
     </script>
 
     <script type="text/javascript">
-        var object = new jMovieShowing(document.getElementById('nodeShowing'), @json($prices));
+        var object = new jMovieShowing(document.getElementById('nodeShowing'), @json($prices), {
+            urlOrder: {
+                list: "{{ route('public.order.getsession') }}",
+                add: "{{ route('public.order.addticket') }}",
+                remove: "{{ route('public.order.removeticket') }}",
+                removeitem: "{{ route('public.order.removeitem') }}",
+                checkout: "{{ route('public.order.checkout') }}"
+            },
+            urlTicket: {
+                list: "{{ route('public.movies.showing.tickets') }}"
+            },
+            messages: {
+                ticketStatusEnabled: "{{ __('public.order.ticketStatusEnabled') }}",
+                ticketStatusDisabled: "{{ __('public.order.ticketStatusDisabled') }}"
+            }
+        });
         object.init();
     </script>
+
 @endsection
 

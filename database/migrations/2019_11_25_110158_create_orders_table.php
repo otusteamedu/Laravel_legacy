@@ -16,16 +16,18 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->bigIncrements('id');
 
-            $table->bigInteger('buyer_id')->unsigned();
-            $table->bigInteger('owner_id')->unsigned();
+            $table->bigInteger('buyer_id')->unsigned()->nullable();
+            $table->bigInteger('owner_id')->unsigned()->nullable();
 
             $table->string('session_id', 40)->nullable();
             $table->string('number', 40)->nullable();
             $table->dateTime('ordered_at')->nullable();
-            $table->integer('total')->nullable();
+            $table->integer('count')->nullable()->unsigned();
+            $table->integer('total')->nullable()->unsigned();
             $table->string('name', 255)->nullable();
             $table->string('phone', 255)->nullable();
             $table->string('email', 255)->nullable();
+            $table->enum('status', ['cart', 'done', 'canceled'])->default('cart');
 
             $table->timestamps();
         });
@@ -38,6 +40,9 @@ class CreateOrdersTable extends Migration
             $table->foreign('owner_id')
                 ->references('id')
                 ->on('users');
+
+            $table->unique('session_id');
+            $table->index('status');
         });
     }
 
