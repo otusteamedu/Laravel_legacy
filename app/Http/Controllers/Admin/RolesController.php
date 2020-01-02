@@ -32,6 +32,6 @@ class RolesController extends Controller
      */
     public function getList()
     {
-        return $this->service->getRolesList();
+        return $this->service->getRolesList()->toJson();
     }
 }

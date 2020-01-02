@@ -5,6 +5,7 @@ namespace App\Services\Admin\Users\Handlers;
 
 
 use App\Services\Admin\Users\Repositories\UsersRepository;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -31,10 +32,10 @@ class GetUserByIdHandler
 
     /**
      * @param int $id
-     * @return string
+     * @return Collection
      */
     public function handle(int $id)
     {
-        return $this->usersRepository->getUserById($id)->toJson();
+        return new Collection($this->usersRepository->getUserById($id));
     }
 }

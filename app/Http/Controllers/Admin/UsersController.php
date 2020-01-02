@@ -33,12 +33,11 @@ class UsersController extends Controller
     /**
      * Возвращает список пользователей в формате json с пагинацией
      *
-     * @param UsersService $service
      * @return string
      */
-    public function index(UsersService $service)
+    public function index()
     {
-        return $this->usersService->getUsersList();
+        return $this->usersService->getUsersList()->toJson();
     }
 
 
@@ -48,7 +47,7 @@ class UsersController extends Controller
      */
     public function getUser(int $id)
     {
-        return $this->usersService->getUserById($id);
+        return $this->usersService->getUserById($id)->toJson();
     }
 
     /**

@@ -3,7 +3,6 @@
 
 namespace App\Services\Admin\Users\Repositories;
 
-use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -12,8 +11,6 @@ use Illuminate\Support\Facades\DB;
  */
 class UsersRepository
 {
-
-
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
@@ -26,7 +23,6 @@ class UsersRepository
             ->paginate(20);
     }
 
-
     /**
      * @param int $id
      * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
@@ -35,7 +31,7 @@ class UsersRepository
     {
         return DB::table('users', 'u')
             ->select([
-                'u.id',
+                'u.id as id',
                 'u.username',
                 'u.email',
                 'u.role_id',

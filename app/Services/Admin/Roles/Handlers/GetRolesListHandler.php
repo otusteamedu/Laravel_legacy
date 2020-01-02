@@ -30,10 +30,10 @@ class GetRolesListHandler
 
 
     /**
-     * @return string
+     * @return \App\Models\Role[]|\Illuminate\Database\Eloquent\Collection
      */
     public function handle()
     {
-        return $this->rolesRepository->getList()->toJson();
+        return $this->rolesRepository->getList();
     }
 }

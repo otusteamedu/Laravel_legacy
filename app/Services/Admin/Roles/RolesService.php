@@ -28,8 +28,9 @@ class RolesService
         $this->getRolesListHandler = $getRolesListHandler;
     }
 
+
     /**
-     * @return string
+     * @return \App\Models\Role[]|\Illuminate\Database\Eloquent\Collection
      */
     public function getRolesList()
     {

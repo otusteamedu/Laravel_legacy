@@ -28,10 +28,10 @@ class GetUsersListHandler
 
 
     /**
-     * @return string
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function handle()
     {
-        return $this->usersRepository->getList()->toJson();
+        return $this->usersRepository->getList();
     }
 }
