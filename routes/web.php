@@ -31,11 +31,12 @@ Route::get('/cms', function () {
     return view('cms.main');
 });
 
-Route::name('csm.')->group(function (){
-    Route::prefix('cms')->group(function (){
-    Route::resources([
-        'projects' => 'Cms\Projects\ProjectsController',
-    ]);
+Route::name('csm.')->group(function () {
+    Route::prefix('cms')->group(function () {
+        Route::resources([
+            'projects' => 'Cms\Projects\ProjectsController',
+            'tasks'    => 'Cms\Tasks\TasksController',
+        ]);
 
 
     });
