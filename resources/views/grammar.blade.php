@@ -10,5 +10,16 @@
         <div class="h2 text-right">
             {!! $detail->arabic_text !!}
         </div>
+        @if($tests)
+<h2>Задания</h2>
+            @foreach($tests as $key=>$t)
+                <div>
+                    <b>{{($key+1).") ".$t->name}}</b>
+                </div>
+                <div>
+                    {!!$t->text!!}
+                </div>
+            @endforeach
+        @endif
     </div>
 @endsection

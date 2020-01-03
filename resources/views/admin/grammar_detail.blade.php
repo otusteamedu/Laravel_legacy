@@ -61,16 +61,16 @@
     </div>
     <hr>
     <div class="row form-group">
-        {{Form::label( 'grammar_text','Грамматика',['class'=>'font-weight-bold col-lg-2'])}}
+        {{Form::label( 'grammar_text','Грамматика',['class'=>'font-weight-bold'])}}
         {{Form::textarea    ('grammar_text',$grammar->grammar_text,[
             'class'=>'form-control editor col-lg-10',
             'id'=>'grammar_text'
         ])}}
     </div>
     <div class="row form-group">
-        {{Form::label('arabic_text', 'Арабский текст',['class'=>'font-weight-bold col-lg-2'])}}
+        {{Form::label('arabic_text', 'Арабский текст',['class'=>'font-weight-bold'])}}
         {{Form::textarea    ('arabic_text',$grammar->arabic_text,[
-            'class'=>'form-control arabic_editor col-lg-10',
+            'class'=>'form-control editor col-lg-10',
             'id'=>'arabic_text'
         ])}}
     </div>
@@ -98,27 +98,67 @@
         ])}}
     </div>
 
-
-
-
-        {{Form::submit('Сохранить',[
+    {{Form::submit('Сохранить',[
     'class'=>'btn btn-primary',
-                'name'=>'save'])}}
+            'name'=>'save'])}}
 
     {!! Form::close() !!}
 
+    <hr>
+    <h1>Тесты</h1>
+
+        @forelse($test as $t)
+            {!!
+    Form::model($test,['method'=>'PUT', 'url' => route('admin.tests.update',$t->id )
+    ])
+    !!}
+            {{ Form::token()}}
+            <div class="row form-group">
+                {{Form::label('id', 'ID',['class'=>'col-lg-2'])}}
+                {{Form::text('id',$t->id,[
+                    'class'=>'form-control col-lg-10',
+                    'id'=>'meta_description',
+                    'readonly'=> 'true'
+                ])}}
+            </div>
+            <div class="row form-group">
+                {{Form::label('name', 'Вопрос',['class'=>'col-lg-2'])}}
+                {{Form::text('name', $t->name,[
+                    'class'=>'form-control col-lg-10',
+                    'id'=>'id'
+                ])}}
+            </div>
+            <div class="row form-group">
+                {{Form::label('text', 'Варианты ответов',['class'=>'col-lg-2'])}}
+                {{Form::textarea('text',$t->text,[
+                    'class'=>'form-control editor col-lg-10',
+                    'id'=>'text'
+                ])}}
+            </div>
+                {{Form::text('lessen_id',$t->lessen_id,['hidden'=>'true'])}}
+            {{Form::submit('Обновить',[
+                    'class'=>'btn btn-primary',
+                    'name'=>'save'])}}
+            {!! Form::close() !!}
+            <hr>
+        @empty
+            <p>тестов нет</p>
+        @endforelse
+
+
+
+
+
     <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
     <script>
-        ClassicEditor
-            .create(document.querySelector('.editor'))
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('.arabic_editor'))
-            .catch(error => {
-                console.error(error);
-            });
+        var editors = document.querySelectorAll('.editor');
+        editors.forEach((item) => {
+            ClassicEditor
+                .create(item)
+                .catch(error => {
+                    console.error(error);
+                });
+        });
     </script>
 
 

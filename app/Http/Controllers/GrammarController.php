@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 //use Illuminate\Http\Request;
 //use App\Models\Grammar;
+use App\Models\Test;
 use App\Services\Grammar\GrammarService;
 
 //use Cache;
@@ -30,7 +31,12 @@ class GrammarController extends Controller
 
         $list = $this->grammarService->listGrammar();
         $detail = $this->grammarService->detailGrammar($id);
-
-        return view('grammar')->with(['detail' => $detail, 'list' => $list]);
+        $tests = Test::where(['lessen_id' => $id, 'status' => 0])->get();
+        return view('grammar')->with(
+            [
+                'detail' => $detail,
+                'list' => $list,
+                'tests' => $tests
+            ]);
     }
 }

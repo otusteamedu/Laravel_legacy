@@ -11,7 +11,7 @@ class GrammarService
 {
 
     private $grammarRepositoryCache;
-
+    private $grammarRepository;
     public function __construct(
         GrammarRepository $grammarRepository,
         GrammarRepositoryCache $grammarRepositoryCache)
@@ -23,6 +23,14 @@ class GrammarService
     public function listGrammar()
     {
         return $this->grammarRepositoryCache->listGrammar();
+    }
+    public function list()
+    {
+        $list=Grammar::all(['id', 'name']);
+        foreach ($list as $l){
+            $result[$l['id']]=$l['name'];
+        }
+        return $result;
     }
 
     public function detailGrammar(string $id)

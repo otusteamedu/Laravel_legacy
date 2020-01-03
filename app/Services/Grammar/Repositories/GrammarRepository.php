@@ -15,7 +15,6 @@ class GrammarRepository implements IGrammarRepository
     {
         return Grammar::all('id', 'name', 'code');
     }
-
     public function detailGrammar(int $id)
     {
         return Grammar::find($id);

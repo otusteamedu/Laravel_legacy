@@ -27,11 +27,21 @@ Route::name('admin.')->group(function () {
         });
         Route::resources([
             'grammar'=>'Admin\GrammarController',
-            'orthography'=> 'Admin\OrthographyController'
+            'orthography'=> 'Admin\OrthographyController',
+            'tests'=> 'Admin\TestsController',
+            'words'=> 'Admin\WordsController'
         ]);
         Route::resource('settings', 'Admin\SettingsController')->only(['index', 'store']);
     });
 });
+//Route::middleware('auth')->group(function(){
+//    Route::resources([
+//
+//    ]);
+//});
+
+
+
 
 
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Grammar;
+use App\Models\Test;
 use App\Services\Grammar\GrammarService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -45,11 +46,12 @@ class GrammarController extends Controller
     public function show(Grammar $grammar)
     {
         $message="";
-
+        $test=Test::where(['lessen_id'=>$grammar->id,'status'=>0])->get();
         return view('admin.grammar_detail')->with(
             [
                 'grammar' => $grammar,
                 'message' => $message,
+                'test' => $test
             ]);
     }
 
@@ -107,7 +109,11 @@ class GrammarController extends Controller
         $message = '';
         $error = '';
 
-        return view('admin.grammar_detail')->with(['grammar' => $grammar, 'error' => $error, 'message' => $message]);
+        return view('admin.grammar_detail')->with([
+            'grammar' => $grammar,
+            'error' => $error,
+            'message' => $message
+        ]);
     }
 
 

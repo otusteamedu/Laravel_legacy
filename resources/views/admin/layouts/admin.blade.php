@@ -31,8 +31,9 @@
 {{--                <li class="nav-item"><a href="/admin" class="nav-link ">Страницы</a></li>--}}
                     <li class="nav-item"><a href="/admin/grammar" class="nav-link ">Грамматика</a></li>
                     <li class="nav-item"><a href="/admin/orthography" class="nav-link ">Орфография</a></li>
+                    <li class="nav-item"><a href="/admin/tests" class="nav-link ">Тесты</a></li>
 {{--                <li class="nav-item"><a href="/admin" class="nav-link ">Медиа</a></li>--}}
-{{--                <li class="nav-item"><a href="/admin" class="nav-link ">Слова</a></li>--}}
+                    <li class="nav-item"><a href="/admin/words" class="nav-link ">Слова</a></li>
                     <li class="nav-item"><hr><a href="/admin/settings" class="nav-link ">Настройки</a></li>
             </ul>
         </div>

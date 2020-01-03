@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('cache -a')->everyMinute();
-        $schedule->command('cache -H')->everyMinute();
+        //$schedule->command('cache -a')->everyMinute();
+        //$schedule->command('cache -H')->everyMinute();
     }
 
     /**
