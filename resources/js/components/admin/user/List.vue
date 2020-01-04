@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+        <router-link :to="{ name: 'admin.user.create'}" class="btn btn-primary">
+            Создать нового пользователя
+        </router-link>
         <h3>Нажмите на пользователя для редактирования</h3>
         <pagination :data="usersList" @pagination-change-page="getUsersList"></pagination>
         <table class="table">

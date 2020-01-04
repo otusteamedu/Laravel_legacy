@@ -21,6 +21,7 @@ import AdminMain from './components/admin/Main';
 import UserLayout from './components/admin/user/Layout';
 import UsersList from './components/admin/user/List';
 import UserEdit from './components/admin/user/Edit';
+import UserCreate from './components/admin/user/Create';
 
 const routes = [
     {
@@ -96,6 +97,11 @@ const routes = [
                         path: 'edit/:id',
                         name: 'admin.user.edit',
                         component: UserEdit
+                    },
+                    {
+                        path: 'create',
+                        name: 'admin.user.create',
+                        component: UserCreate
                     }
                 ]
             }

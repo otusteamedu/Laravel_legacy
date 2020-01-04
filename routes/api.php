@@ -24,7 +24,7 @@ Route::name('admin.')
         Route::name('list')->get('list', 'UsersController@index');
         Route::name('getUser')->get('get-user/{id}', 'UsersController@getUser');
         Route::name('update')->match(['patch', 'put'], 'update/{user}', 'UsersController@update');
-//        Route::name('store')->post('save', 'UsersController@store');
+        Route::name('create')->post('create', 'UsersController@create');
     });
 });
 
