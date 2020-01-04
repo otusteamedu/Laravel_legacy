@@ -77,17 +77,6 @@ class UsersController extends Controller
         ], $status);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
 
     /**
      * @param UpdateUserRequest $request
@@ -99,16 +88,5 @@ class UsersController extends Controller
         $data = $request->getData();
         $result = $this->usersService->updateUserData($user, $data);
         return $result ? response('Success', 200) : response('Unsuccess', 400);
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
