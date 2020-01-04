@@ -4,12 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class Texture extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function users()
+    public function orders()
     {
-        return $this->belongsTo('App\Models\Address');
+        return $this->hasManyThrough('App\Models\Order', 'App\Models\OrderItem');
     }
 }

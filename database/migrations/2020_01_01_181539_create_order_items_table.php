@@ -15,10 +15,7 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigIncrements('order_id');
-            $table->foreign('order_id')->references('id')->on('orders')
-                ->onDelete('cascade')->onUpdate('cascade');
-
+            $table->bigInteger('order_id')->unsigned();
             $table->bigInteger('image_id')->unsigned();
             $table->string('image_crop', 100);
             $table->integer('texture_id')->unsigned();
@@ -26,6 +23,11 @@ class CreateOrderItemsTable extends Migration
             $table->smallInteger('height')->unsigned();
             $table->smallInteger('cost')->unsigned();
             $table->timestamps();
+        });
+
+        Schema::table('order_items', function(Blueprint $table) {
+            $table->foreign('order_id')->references('id')->on('orders')
+                ->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
