@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Admin\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
 
 /**
  * Class StoreUserRequest
  * @package App\Http\Controllers\Admin\Requests
  */
-class StoreUserRequest extends FormRequest
+class CreateUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,9 +29,20 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'required',
-            'email' => 'email',
+            'username' => 'unique:users|required',
+            'email' => 'unique:users|email|required',
             'role_id' => 'integer|required',
+            'password' => 'required'
         ];
+    }
+
+    public function getData()
+    {
+        return Arr::only($this->all(), [
+            'username',
+            'email',
+            'role_id',
+            'password'
+        ]);
     }
 }

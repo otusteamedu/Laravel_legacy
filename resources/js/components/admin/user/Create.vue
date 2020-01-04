@@ -10,17 +10,17 @@
         <form>
             <div class="form-group">
                 <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="username"
+                <input type="text" class="form-control" id="username" placeholder="username" required
                        v-model="username">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email"
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Email" required
                        v-model="userEmail">
             </div>
             <div class="form-group">
                 <label for="role">Роль пользователя</label>
-                <select class="form-control" id="role" v-model="userRoleId">
+                <select class="form-control" id="role" v-model="userRoleId" required>
                     <option v-for="role in rolesList" v-bind:value="role.id">
                         {{ role.title }}
                     </option>
@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="password">Пароль</label>
-                <input type="password" class="form-control" id="password" placeholder="123456"
+                <input type="password" class="form-control" id="password" placeholder="123456" required
                     v-model="password">
             </div>
             <button v-if="!isCreateSuccess" v-on:click.prevent="sendData" class="btn btn-primary">Создать пользователя</button>

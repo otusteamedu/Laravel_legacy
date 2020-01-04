@@ -52,4 +52,13 @@ class UsersRepository
             ->where('u.id', '=', $id)
             ->first();
     }
+
+    /**
+     * @param array $data
+     * @return User
+     */
+    public function createUser(array $data)
+    {
+        return User::create($data);
+    }
 }

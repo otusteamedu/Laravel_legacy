@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Admin\Requests\StoreUserRequest;
+use App\Http\Controllers\Admin\Requests\CreateUserRequest;
 use App\Http\Controllers\Admin\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller;
 use App\Models\User;
@@ -52,15 +52,29 @@ class UsersController extends Controller
         return $this->usersService->getUserById($id)->toJson();
     }
 
+
     /**
-     * Сохранения данных пользователя
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param CreateUserRequest $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function store(StoreUserRequest $request, User $user)
+    public function create(CreateUserRequest $request)
     {
-        dd($user->update($request->all()));
+        $data = $request->getData();
+        $result = $this->usersService->createUser($data);
+
+        if ($result) {
+            $success = true;
+            $userId = $result;
+            $status = 200;
+        } else {
+            $success = false;
+            $userId = false;
+            $status = 400;
+        }
+        return response([
+            'success' => $success,
+            'id' => $userId
+        ], $status);
     }
 
     /**

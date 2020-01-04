@@ -5,6 +5,7 @@ namespace App\Services\Admin\Users;
 
 
 use App\Models\User;
+use App\Services\Admin\Users\Handlers\CreateUserHandler;
 use App\Services\Admin\Users\Handlers\GetUserByIdHandler;
 use App\Services\Admin\Users\Handlers\GetUsersListHandler;
 use App\Services\Admin\Users\Handlers\UpdateUserHandler;
@@ -31,20 +32,28 @@ class UsersService
     private $updateUserHandler;
 
     /**
+     * @var CreateUserHandler
+     */
+    private $createUserHandler;
+
+    /**
      * UsersService constructor.
      * @param GetUsersListHandler $getUsersListHandler
      * @param GetUserByIdHandler $getUserByIdHandler
      * @param UpdateUserHandler $updateUserHandler
+     * @param CreateUserHandler $createUserHandler
      */
     public function __construct(
         GetUsersListHandler $getUsersListHandler,
         GetUserByIdHandler $getUserByIdHandler,
-        UpdateUserHandler $updateUserHandler
+        UpdateUserHandler $updateUserHandler,
+        CreateUserHandler $createUserHandler
     )
     {
         $this->updateUserHandler = $updateUserHandler;
         $this->getUsersListHandler = $getUsersListHandler;
         $this->getUserById = $getUserByIdHandler;
+        $this->createUserHandler = $createUserHandler;
     }
 
     /**
@@ -73,5 +82,15 @@ class UsersService
     public function getUserById(int $id)
     {
         return $this->getUserById->handle($id);
+    }
+
+
+    /**
+     * @param array $data
+     * @return bool|int
+     */
+    public function createUser(array $data)
+    {
+        return $this->createUserHandler->handle($data);
     }
 }
