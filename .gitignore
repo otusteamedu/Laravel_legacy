@@ -1,0 +1,16 @@
+/node_modules
+/public/hot
+/public/storage
+/storage/*.key
+/vendor
+/.idea
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+.env
+/public/js/bootstrap.min.js
+/public/js/jquery-3.2.1.slim.min.js
+/public/js/popper.min.js
+.DS_Store
