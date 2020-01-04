@@ -122,11 +122,11 @@ class TasksController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        $this->authorize(Abilities::DELETE,User::class, Task::class);
+        $this->authorize('delete', $task);
 
-        $result = $this->taskService->deleteForm($id);
+        $result = $this->taskService->deleteForm($task->id);
 
         if ($result) {
             return redirect()
