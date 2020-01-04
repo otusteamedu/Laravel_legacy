@@ -129,14 +129,4 @@ class ProjectController extends Controller
         return redirect(route('projects.index'))
             ->with('success', trans('projects.delete_success', ['url' => $project->url]));
     }
-
-    public function analyze(Project $project, RunService $runService, Request $request)
-    {
-        $run = $runService->createRunForProject($project, $request->user(), $request->ip());
-        ProjectAnalyzeJob::dispatch($run);
-
-        return redirect(route('projects.show', $project))
-            ->with('success', trans('projects.analyze_queued'));
-    }
-
 }

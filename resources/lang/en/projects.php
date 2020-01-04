@@ -23,8 +23,5 @@ return [
     'delete' => 'Delete Project',
     'delete_confirmation' => 'Delete this Project?',
     'delete_success' => 'Project :url has been deleted',
-    'analyze_button' => 'Analyze Last Commit',
-    'analyze_button_in_progress' => 'Analyzing...',
-    'analyze_queued' => 'Analyze job queued, results will be available on Commits tab',
     'error_commit_not_found' => 'Commit not found',
 ];
