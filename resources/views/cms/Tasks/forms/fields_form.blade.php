@@ -11,7 +11,7 @@
     {{Form::textarea('description',null, ['rows'=>'3','class' => 'form-control','placeholder'=>'Введите описание проекта'])}}
 </div>
 <div class="form-group">
-    {{Form::label('user_id','Урл проекта:')}}
+    {{Form::label('user_id','Кому поставлена:')}}
     {{Form::select('user_id',$users, null, ['class' => 'form-control'])}}
 </div>
 <div class="form-group">
