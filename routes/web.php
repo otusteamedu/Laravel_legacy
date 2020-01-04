@@ -32,7 +32,7 @@ Route::get('/cms', function () {
 });
 
 Route::name('csm.')->group(function () {
-    Route::prefix('cms')->group(function () {
+    Route::prefix('cms')->middleware(['auth'])->group(function () {
         Route::resources([
             'projects' => 'Cms\Projects\ProjectsController',
             'tasks'    => 'Cms\Tasks\TasksController',
@@ -41,3 +41,11 @@ Route::name('csm.')->group(function () {
 
     });
 });
+
+
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

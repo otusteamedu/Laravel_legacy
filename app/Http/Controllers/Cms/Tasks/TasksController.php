@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Tasks\TasksService;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,8 @@ class TasksController extends Controller
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW, Task::class);
+
         $data = $this->taskService->getForm(config('pages.COUNT_TASKS_CMS'));
         return view('cms.Tasks.index', compact('data'));
     }
@@ -42,6 +45,8 @@ class TasksController extends Controller
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Task::class);
+
         return view('cms.Tasks.add', ['projects' => $this->projects, 'users' => $this->users]);
     }
 
@@ -82,7 +87,10 @@ class TasksController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('cms.Tasks.edit', ['task' => $task,
+        $this->authorize(Abilities::VIEW, Task::class);
+
+        return view('cms.Tasks.edit', [
+            'task' => $task,
             'users' => $this->users,
             'projects' => $this->projects
         ]);
@@ -116,6 +124,8 @@ class TasksController extends Controller
      */
     public function destroy($id)
     {
+        $this->authorize(Abilities::DELETE,User::class, Task::class);
+
         $result = $this->taskService->deleteForm($id);
 
         if ($result) {
