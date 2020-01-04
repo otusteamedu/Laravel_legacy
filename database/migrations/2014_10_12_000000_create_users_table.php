@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->smallInteger('role_id');
             $table->rememberToken();
             $table->text('description')->nullable();
-            $table->string('icon', 100)->nullable();
+            $table->text('icon')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
