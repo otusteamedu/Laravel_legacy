@@ -1,0 +1,40 @@
+@import 'common';
+
+main
+{
+  margin:80px auto;
+  padding:10px;
+  text-align: center;
+
+    form#profile
+    {
+        max-width:500px;
+        margin:auto;
+        table
+        {
+            td:first-child
+            {
+                width:100px;
+                text-align: right;
+            }
+            td:last-child
+            {
+                text-align: left;
+                input
+                {
+                    text-align: left;
+                    margin-bottom:0px;
+                }
+            }
+        }
+        div:last-child
+        {
+            text-align: center;
+        }
+        label
+        {
+            text-align: left;
+        }
+    }
+
+}

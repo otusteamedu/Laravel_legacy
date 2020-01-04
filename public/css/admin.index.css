@@ -76,7 +76,10 @@ main {
 }
 
 main img {
-  width: 200px;
   margin-bottom: 20px;
+}
+
+main table {
+  text-align: left;
 }
 

@@ -1,6 +1,6 @@
 {{-- также можно использовать @if($errors->any()) --}}
 @if(count($errors)>0)
-  <div class="callout danger">  
+  <div id="errors" class="callout alert">
     <ul>
       @foreach($errors->all() as $error)
         <li>{{$error}}</li>

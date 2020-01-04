@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
@@ -29,8 +29,16 @@ Route::get('/register', function () {
 
 Route::get('/home', function () {
     return view('pages/home');
-});
+});*/
+
+//Route::get('/home','UserController@show');
 
 Route::get('/katalog', function () {
     return view('pages/katalog');
 });
+
+Route::resource('users','UserController');
+
+/*Route::get('/admin/index','UserController@index');
+Route::get('/admin/users/{id}','UserController@show');*/
+

@@ -13,8 +13,10 @@
         <div><img src="img/minion.svg"></div>
         <h4>Личный кабинет</h4>
         <p>пользователя</p>
-        <form id="profile" method="POST" action="users.update">
-            {{ csrf_field() }}
+        <form id="profile" method="POST" action="users/{{$user->id}}">
+            @csrf
+            @method('PATCH')
+
             <div>
                 <label>Ваше имя</label>
                 <input type="text" name="fio" class="{{$errors->has('fio')?'red-border':''}}" value="{{ old('fio') }}">
@@ -44,11 +46,11 @@
             @include('blocks.errors')
 
             <div class="center">
-                <button type="submit" class="button primary">Сохранить</button>
+                <button type="submit" class="button primary">Сохранить изменения</button>
             </div>
             
             <div class="center">
-                <a>Удалить мой акаунт</a>
+                <a href="users.destroy">Удалить мой акаунт</a>
             </div>            
 
         </form>      

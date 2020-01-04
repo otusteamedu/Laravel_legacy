@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             $table->string('address');
             $table->string('processed_by');
             $table->string('comments');
-            $table->string('on_control');            
+            $table->string('on_control');
         });
 
         // добавляем внешние ключи
@@ -31,7 +31,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('user_id')
                   ->references('id')
                   ->on('users')
-                  ->onDelete('restrict');
+                  ->onDelete('cascade');
         });
     }
 
