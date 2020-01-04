@@ -24,7 +24,7 @@ class CategoriesTableSeeder extends Seeder
             'type' => 'colors'
         ]);
         factory(App\Models\Category::class, 5)->create([
-            'type' => 'placements'
+            'type' => 'interiors'
         ]);
     }
 }
