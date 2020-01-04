@@ -24,7 +24,7 @@ class ProjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'git' => 'required'
+            'url' => 'required'
         ];
     }
 }

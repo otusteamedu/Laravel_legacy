@@ -1,1 +1,1 @@
-{!! Form::text('git', 'git')->attrs(['autofocus' => 'on']) !!}
+{!! Form::text('url', 'url')->attrs(['autofocus' => 'on']) !!}

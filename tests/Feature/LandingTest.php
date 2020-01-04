@@ -16,7 +16,7 @@ class LandingTest extends TestCase
         $this->get('/')
             ->assertStatus(200)
             ->assertSee(trans('landing.slogan'))
-            ->assertSee(trans('landing.try_respository'))
+            ->assertSee(trans('landing.run_url'))
             ->assertSee(trans('landing.submit'));
     }
 }

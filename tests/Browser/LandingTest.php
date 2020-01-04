@@ -4,21 +4,21 @@ namespace Tests\Browser;
 
 use Tests\DuskTestCase;
 use Laravel\Dusk\Browser;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class LandingTest extends DuskTestCase
 {
-    public function testBasicExample()
+    public function testAnalyzeButtonDisabledOnSubmit()
     {
         $this->browse(static function (Browser $browser) {
             $browser->visit('/')
                 ->assertSee(config('app.name'))
-                ->type('repository', 'dummy')
-                ->click('@analyze-button');
+                ->type('url', 'dummy');
 
-            //$browser->assertButtonDisabled('@analyze-button');
+            // prevent browser to navigate to next page on form submit
+            $browser->script("$('[dusk=analyze-button]').closest('form').on('submit', (e) => e.preventDefault())");
 
-            $browser->waitForRoute('landing.try');
+            $browser->click('@analyze-button');
+            $browser->waitFor('button[dusk="analyze-button"][disabled]');
         });
     }
 }

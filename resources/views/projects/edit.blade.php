@@ -22,8 +22,13 @@
             </div>
         </div>
 
-        {!!Form::submit(trans('projects.form.update'))!!}
+        {!!Form::submit(trans('projects.form.save'))->attrs(['data-disable-with'=>trans('projects.form.save_in_progress')]) !!}
         {!! Form::close() !!}
+
+
+        <div class="mt-5">
+        @include('projects.partials.delete')
+        </div>
 
 
     </div>

@@ -1,5 +1,5 @@
 <div class="d-flex align-items-center">
-    <h1 class="title">{{ $project->git }}</h1>
+    <h1 class="title">{{ $project->url }}</h1>
     <div class="pl-5">
         <a href="{{ route('projects.index') }}">@lang('projects.back')</a>
     </div>

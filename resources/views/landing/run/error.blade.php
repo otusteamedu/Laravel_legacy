@@ -5,5 +5,5 @@
         {{ $error }}
     </div>
 
-    @include('landing.partials.try_form')
+    @include('landing.partials.run_form')
 @endsection

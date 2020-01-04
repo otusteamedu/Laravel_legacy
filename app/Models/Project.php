@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\UrlHelpers;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -23,19 +24,21 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereUpdatedAt($value)
  * @property-read mixed $href
+ * @property string $url
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereUrl($value)
+ * @property-write mixed $raw
+ * @property int|null $repository_id
+ * @property-read \App\Models\Repository $repositories
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Project whereRepositoryId($value)
+ * @property-read \App\Models\Repository|null $repository
  */
 class Project extends Model
 {
-    protected $fillable = ['git'];
-
+    protected $fillable = ['url'];
 
     public function getHrefAttribute()
     {
-        if (!$this->git || mb_stripos($this->git, 'http') !== 0) {
-            return '';
-        }
-
-        return $this->git;
+        return UrlHelpers::getHref($this->url);
     }
 
     /**
@@ -44,6 +47,11 @@ class Project extends Model
     public function users()
     {
         return $this->belongsToMany(User::class);
+    }
+
+    public function repository()
+    {
+        return $this->belongsTo(Repository::class);
     }
 
     /**
@@ -67,4 +75,5 @@ class Project extends Model
     {
         return $this->users->contains($user);
     }
+
 }

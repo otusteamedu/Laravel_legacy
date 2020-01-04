@@ -15,12 +15,11 @@ class PhpInsightsTest extends TestCase
 
         // Clone this project itself first
         $repository = app()->basePath();
-        $storagePath = $gitOperations->clone($repository);
-        $path = \Storage::path($storagePath);
+        $sourceDir = $gitOperations->clone($repository);
 
-        // Create PhpInsights analyzer instance against clonned repo
+        // Create PhpInsights analyzer instance against cloned repo
         $phpInsigts = resolve(PhpInsights::class);
-        $data = $phpInsigts->run($path);
+        $data = $phpInsigts->run($sourceDir);
 
         $this->assertIsArray($data['summary']);
 
@@ -29,6 +28,8 @@ class PhpInsightsTest extends TestCase
         $this->assertArrayHasKey('complexity', $summary);
         $this->assertArrayHasKey('architecture', $summary);
         $this->assertArrayHasKey('style', $summary);
-        $this->assertArrayHasKey('security issues', $summary);
+        $this->assertArrayHasKey('security_issues', $summary);
+
+        $gitOperations->cleanupSourceDir($sourceDir);
     }
 }

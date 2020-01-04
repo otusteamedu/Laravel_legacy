@@ -15,7 +15,7 @@
 
         @include('projects.partials.form_fields')
 
-        {!!Form::submit(trans('projects.form.create'))!!}
+        {!!Form::submit(trans('projects.form.create'))->attrs(['data-disable-with' => _('projects.form.create_in_progress')]) !!}
 
         {!! Form::close() !!}
 

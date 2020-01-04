@@ -6,8 +6,9 @@ namespace App\Http\Controllers;
 
 use App\Services\Analyzers\PhpInsights;
 use App\Services\GitOperations;
-use GitWrapper\Exception\GitException;
+use App\Services\RepositoryService;
 use Illuminate\Http\Request;
+use Symfony\Component\Process\Process;
 
 class LandingController extends Controller
 {
@@ -16,25 +17,5 @@ class LandingController extends Controller
         return view('landing.index');
     }
 
-    public function try(Request $request, GitOperations $gitOperations, PhpInsights $phpInsights)
-    {
-        $repository = $request->get('repository');
-        if (!$repository) {
-            return redirect('/');
-        }
 
-        try {
-            $storagePath = $gitOperations->clone($repository);
-        } catch (GitException $e) {
-            return view('landing.try.error', ['error' => $e->getMessage(), 'repository' => $repository]);
-        }
-
-        $path = \Storage::path($storagePath);
-        $result = $phpInsights->run($path);
-
-        \Storage::deleteDirectory($storagePath);
-
-        $result['repository'] = $repository;
-        return view('landing.try.result', $result);
-    }
 }

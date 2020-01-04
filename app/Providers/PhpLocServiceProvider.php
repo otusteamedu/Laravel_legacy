@@ -2,30 +2,30 @@
 
 namespace App\Providers;
 
-use App\Console\PhpLocCommand;
+use App\Services\Analyzers\PhpLoc;
 use Illuminate\Support\ServiceProvider;
 
 class PhpLocServiceProvider extends ServiceProvider
 {
-    public function boot()
-    {
-    }
-
+    /**
+     * Register services.
+     *
+     * @return void
+     */
     public function register()
     {
-        $this->app->singleton('command.phploc', function () {
-            return new PhpLocCommand();
+        $this->app->singleton(PhpLoc::class, static function($app) {
+            /** @var \Illuminate\Contracts\Foundation\Application $app */
+            return new PhpLoc($app->basePath() . '/vendor/bin/phploc');
         });
-        $this->commands('command.phploc');
     }
 
     /**
-     * Get the services provided by the provider.
+     * Bootstrap services.
      *
-     * @return array
+     * @return void
      */
-    public function provides()
+    public function boot()
     {
-        return ['command.phploc'];
     }
 }

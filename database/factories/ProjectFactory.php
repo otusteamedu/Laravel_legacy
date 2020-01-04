@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Project::class, function (Faker $faker) {
     return [
-        'git' => $faker->url,
+        'url' => $faker->url,
     ];
 });

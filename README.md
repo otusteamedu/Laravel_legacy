@@ -2,6 +2,8 @@
 
 **PHPTrack - Continuous PHP Code Quality Monitoring**
 
+[![codecov.io](https://codecov.io/gh/phptrack/phptrack.io/branch/master/graphs/badge.svg)](https://codecov.io/gh/phptrack/phptrack.io/)
+
 ## Installation in development environment
 
 Development environment provided by https://vessel.shippingdocker.com
@@ -27,3 +29,12 @@ No release branches, no version branches.
 ## Slack
 
 Join us on Slack: https://join.slack.com/t/phptrackio/shared_invite/enQtODY0MTY2ODc5MDYwLTAyZWRmZjQwNDg4MmZjMWNmMDVkOTAxNzY4NjJkZGMxZDBiZjU1N2Y4YjI4NjNkODM2NDM4M2QxZTYwMWYxMzc
+
+## Codecov
+
+Code Coverage: https://codecov.io/gh/phptrack/phptrack.io
+
+## Roadmap
+
+Look at Trello: https://trello.com/b/ObfhtUhB/phptrackio-development-plan
+

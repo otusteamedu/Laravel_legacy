@@ -8,6 +8,9 @@ require('./bootstrap');
 
 require('jquery-ujs');
 
+require('./loc-chart');
+require('./insights-chart');
+
 // window.Vue = require('vue');
 
 /**

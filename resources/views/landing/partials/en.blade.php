@@ -13,6 +13,8 @@
     </p>
 </div>
 
+<div class="row">
+    <div class="col-md-6 col-sm-12">
 <p>Инструменты статического анализа кода хорошо зарекомендовали себя в различных экосистемах и языках
     программирования.</p>
 
@@ -26,6 +28,13 @@
 <p><strong>{{ config('app.name') }}</strong> позволяет не только запустить проверку кода, но и накапливает метрики со временем, в
     результате виден прогресс, есть наглядная визуализация. Под капотом работают всё те же инструменты, упомянутые выше,
     но оформленные в красивой и удобной SaaS оболочке.</p>
+
+    </div>
+    <div class="col-md-6 col-sm-12">
+        <img src="screenshots/screenshot1.png" class="img-thumbnail rounded" alt="Example Screenshot">
+    </div>
+
+</div>
 
 <h2>Как это работает</h2>
 <ul>
@@ -47,7 +56,7 @@
 </ul>
 
 <div class="mt-5">
-    @include('landing.partials.try_form')
+    @include('landing.partials.run_form')
 </div>
 
 <h4 class="mt-5">Альтернативная модель работы, без доступа исходным кодам</h4>

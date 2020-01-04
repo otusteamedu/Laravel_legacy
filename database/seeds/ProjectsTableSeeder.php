@@ -14,7 +14,7 @@ class ProjectsTableSeeder extends Seeder
     public function run()
     {
         $project = Project::create([
-            'git' => 'https://github.com/phptrack/phptrack.io',
+            'url' => 'https://github.com/phptrack/phptrack.io',
         ]);
 
         $adminUser = User::where(['email' => 'admin@example.com'])->first();

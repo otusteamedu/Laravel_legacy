@@ -11,7 +11,7 @@ return [
 
     // Array of files to exclude from analysis, for example ['config/config.php', '1.php']
     // default: nothing to exclude
-    'names-exclude' => [],
+    'names-exclude' => ['_ide_helper.php'],
 
     // Array of directories to exclude from analysis, for example ['vendor', 'bootstrap', 'storage', 'resources']
     // default: ['vendor', 'bootstrap', 'storage']
@@ -23,12 +23,4 @@ return [
     // CSV filename to write analysis result, for example 'results/phploc.csv'
     // default: do not write to file
     'log-csv' => null,
-
-    // JSON filename to write analysis result, for example 'results/phploc.json'
-    // default: do not write to file
-    'log-json' => null,
-
-    // XML filename to write analysis result, for example 'results/phploc.xml'
-    // default: do not write to file
-    'log-xml' => null,
 ];
