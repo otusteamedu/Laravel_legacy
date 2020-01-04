@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Admin\Requests\StoreUserRequest;
+use App\Http\Controllers\Admin\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Services\Admin\Users\UsersService;
-use Illuminate\Http\Request;
 
 /**
  * Class UsersController
@@ -51,14 +53,14 @@ class UsersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Сохранения данных пользователя
      *
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request, User $user)
     {
-        //
+        dd($user->update($request->all()));
     }
 
     /**
@@ -72,16 +74,17 @@ class UsersController extends Controller
         //
     }
 
+
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateUserRequest $request
+     * @param User $user
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //
+        $data = $request->getData();
+        $result = $this->usersService->updateUserData($user, $data);
+        return $result ? response('Success', 200) : response('Unsuccess', 400);
     }
 
     /**

@@ -3,6 +3,7 @@
 
 namespace App\Services\Admin\Users\Repositories;
 
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -11,6 +12,15 @@ use Illuminate\Support\Facades\DB;
  */
 class UsersRepository
 {
+    /**
+     * @param User $user
+     * @param array $data
+     * @return bool
+     */
+    public function updateUser(User $user, array $data)
+    {
+        return $user->update($data);
+    }
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */

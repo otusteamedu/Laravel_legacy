@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+//Route::resource('test', 'TestController');
 
 Route::name('admin.')
     ->prefix('admin')
@@ -22,6 +23,8 @@ Route::name('admin.')
         ->group(function () {
         Route::name('list')->get('list', 'UsersController@index');
         Route::name('getUser')->get('get-user/{id}', 'UsersController@getUser');
+        Route::name('update')->match(['patch', 'put'], 'update/{user}', 'UsersController@update');
+//        Route::name('store')->post('save', 'UsersController@store');
     });
 });
 
