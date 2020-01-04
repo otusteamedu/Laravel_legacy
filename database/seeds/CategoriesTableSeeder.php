@@ -1,17 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Faker\Generator as Faker;
 
 class CategoriesTableSeeder extends Seeder
 {
-    private $faker;
-
-    public function __construct(Faker $faker)
-    {
-        $this->faker = $faker;
-    }
-
     /**
      * Run the database seeds.
      *
