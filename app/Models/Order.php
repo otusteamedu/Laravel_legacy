@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property string name
  * @property string phone
  * @property string email
+ * @property string status
  * @property \Illuminate\Support\Carbon $ordered_at
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
@@ -28,6 +29,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class Order extends Model
 {
+    const STATUS_SESSION = 'cart';
+    const STATUS_CONFIRMED = 'confirmed';
+    const STATUS_DONE = 'done';
+    const STATUS_CANCELED = 'canceled';
+
     public $timestamps = true;
 
     protected $fillable = [

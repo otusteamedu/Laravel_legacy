@@ -3,7 +3,6 @@
 
 namespace App\Http\Controllers\Publica;
 
-
 use App\Base\Controller\AbstractController;
 use App\Models\User;
 use App\Services\Interfaces\IOrderService;
@@ -13,10 +12,18 @@ use Illuminate\Http\Request;
 
 class PaymentController extends AbstractController
 {
+    /**
+     * @var IOrderService
+     */
     private $orderService;
+    /**
+     * @var IPaymentService
+     */
     private $paymentService;
+    /**
+     * @var IUserService
+     */
     private $userService;
-
     /**
      * PaymentController constructor.
      * @param IOrderService $orderService
@@ -33,13 +40,18 @@ class PaymentController extends AbstractController
         $this->userService = $userService;
     }
 
-    public function inputData(Request $request)  {
+    public function createPayment(Request $request)  {
+
+    }
+
+    public function processPayment(Request $request)  {
         /** @var User $user */
         $user = $this->userService->currentUser();
         if(!$user)
             return redirect(route('public.order.auth'));
 
-
+        $order_number =
+        $payment_id =
 
         return view('public.order.payinput'//,
         //    compact('contactData', 'items', 'summary')

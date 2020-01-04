@@ -267,11 +267,12 @@ Route::get('/order/confirmed', 'Publica\OrderController@confirmedOrder')->name('
 Route::get('/order/auth', 'Publica\OrderController@authOrder')->name('public.order.auth');
 Route::post('/order/register', 'Publica\OrderController@quickRegister')->name('public.order.register');
 
-Route::get('/order/pay', 'Publica\PaymentController@inputData')->name('public.payment.input');
-Route::post('/order/pay', 'Publica\PaymentController@addPayTask')->name('public.payment.pay');
+Route::get('/order/pay', 'Publica\PaymentController@createPayment')->name('public.payment.pay');
+Route::get('/order/input', 'Publica\PaymentController@inputPayment')->name('public.payment.input');
+Route::post('/order/input', 'Publica\PaymentController@processPayment')->name('public.payment.process');
 Route::get('/order/status', 'Publica\PaymentController@getStatus')->name('public.payment.status');
-Route::get('/order/checkCode', 'Publica\PaymentController@checkCode')->name('public.payment.check');
-Route::get('/order/confirmed1', 'Publica\PaymentController@confirm')->name('public.payment.check');
+Route::get('/order/paysuccess', 'Publica\PaymentController@successPayment')->name('public.payment.success');
+Route::get('/order/payerror', 'Publica\PaymentController@errorPayment')->name('public.payment.error');
 
 Route::get('/movies/archived', function () {
     return view('public');

@@ -92,9 +92,9 @@ return [
         'payment_description' => 'К оплате: :total руб.',
         'button_do' => 'Оплатить',
         'card_number' => 'Номер карты',
+        'card_person' => 'Имя держателя карты',
         'card_term' => 'Срок действия карты',
         'card_csv' => 'CSV код',
-        'sms_check_code' => 'Проверочный код из SMS',
-        ''
+        'check_code' => 'Проверочный код из SMS'
     ]
 ];
