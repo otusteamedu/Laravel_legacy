@@ -23,6 +23,7 @@ use App\Policies\ReviewPolicy;
 use App\Policies\SelectionMaterialPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider {
     /**
@@ -50,7 +51,7 @@ class AuthServiceProvider extends ServiceProvider {
      */
     public function boot() {
         $this->registerPolicies();
-
-        //
+        Passport::routes();
+        Passport::enableImplicitGrant();
     }
 }

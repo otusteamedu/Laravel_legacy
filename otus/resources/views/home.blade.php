@@ -13,8 +13,7 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                        <a href="{{route('token')}}">Получить токен</a>
                 </div>
             </div>
         </div>

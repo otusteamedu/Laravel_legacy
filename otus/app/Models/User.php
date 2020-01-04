@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\Events\Models\User\UserSaved;
 use \Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * Class User
@@ -21,7 +22,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable {
 
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     const ADMIN_ROLE = 'admin';
     CONST EDITOR_ROLE = 'editor';
