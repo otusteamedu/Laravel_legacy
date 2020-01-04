@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Notifications\MailEmailVerification;
 use App\Notifications\MailResetPassword;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -20,7 +22,7 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'verified',
+        'name', 'email', 'password', 'verified', 'publish'
     ];
 
     /**
@@ -31,6 +33,15 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+//    protected $casts = [
+//        'email_verified_at' => 'datetime',
+//    ];
 
     protected $with = ['roles:id,name,display_name'];
 
@@ -62,6 +73,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         $this->notify(new MailResetPassword($token));
     }
 
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new MailEmailVerification);
+    }
+
     public function verifyUser()
     {
         return $this->hasOne(VerifyUser::class);
@@ -73,5 +89,12 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     public function address() {
         return $this->belongsTo('App\Models\Address');
+    }
+
+    public function scopeGetUserVerify($query, $token)
+    {
+        return $query->whereHas('verifyUser', function (Builder $query) use ($token) {
+            $query->where('token', 'like', $token);
+        })->firstOrFail();
     }
 }
