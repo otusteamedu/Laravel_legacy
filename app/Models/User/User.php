@@ -3,9 +3,20 @@
 namespace App\Models\User;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * Class User
+ * @package App\Models\User
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $icon
+ * @property string $email
+ * @property Group $group
+ */
 class User extends Authenticatable
 {
     use Notifiable;
@@ -16,7 +27,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'icon', 'email',
+        'password', 'group_id',
     ];
 
     /**
@@ -29,11 +41,10 @@ class User extends Authenticatable
     ];
 
     /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
+     * @return BelongsTo
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class);
+    }
 }
