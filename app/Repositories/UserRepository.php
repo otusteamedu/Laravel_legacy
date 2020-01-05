@@ -52,10 +52,11 @@ class UserRepository implements UserRepositoryInterface
      *
      * @author Denis Abidov
      * @param array
+     * @return User
      */
     public function store(array $data)
     {
-        User::create($data);
+        return User::create($data);
     }
 
     // создадим ещё какую-нибудь функцию

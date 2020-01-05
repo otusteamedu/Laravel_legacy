@@ -9,19 +9,22 @@ use App\Http\Requests\StoreUserRequest;
 use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
+use App\Services\UserService;
 
 class UserController extends Controller
 {
     ////////////////////////// Добавил для паттерна Репозиторий
     protected $user;
+    protected $userService;
     /**
      * UserController constructor.
      *
      * @param UserRepositoryInterface $user
      */
-    public function __construct(UserRepositoryInterface $user)
+    public function __construct(UserRepositoryInterface $user, UserService $userService)
     {
         $this->user = $user;
+        $this->userService = $userService;
     }
     /////////////////////////////////////////////////////////////
     /**
@@ -57,12 +60,17 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $data=$request->all();
-        $data=Arr::except($data,['_token']);
-        // было
-        // User::create($data);
-        // стало
-        $users = $this->user->store($data);
+        // Было
+        // $data=$request->all();
+        // $data=Arr::except($data,['_token']);
+            // было
+            // User::create($data);
+            // стало
+        // $users = $this->user->store($data);
+
+        //стало
+        $data=$request->getFormData();
+        $users = $this->userService->storeUser($data);
         return redirect('/users/');
     }
 

@@ -103,6 +103,8 @@ Services/UserService.php
 
 Обновил работу с реквестами : добавил Requests\FormRequest.
 
+Часть 4 :
+Интегрирую сервис UserService в контроллер UserController.
 
 
 
