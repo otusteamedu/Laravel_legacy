@@ -10,8 +10,39 @@
         <div class="h2 text-right">
             {!! $detail->arabic_text !!}
         </div>
+
+        @if(!empty($words))
+
+
+            @foreach($words as $key=>$w)
+                @if($key===0)
+                    <br>
+                    <h2>Слова</h2>
+                    <div class="row">
+                        <div  class="col-md-4">Ар мн</div>
+                        <div  class="col-md-4">Ар</div>
+                        <div  class="col-md-4">Рус</div>
+                    </div>
+                @endif
+                <div class="row">
+                    <div  class="col-md-4">
+                        {{$w->ar_word_mn}}
+                    </div>
+                    <div  class="col-md-4">
+                        {{$w->ar_word}}
+                    </div>
+                    <div class="col-md-4">
+                        {{$w->rus_word}}
+                    </div>
+                </div>
+
+            @endforeach
+        @endif
+
+
         @if($tests)
-<h2>Задания</h2>
+            <br>
+            <h2>Задания</h2>
             @foreach($tests as $key=>$t)
                 <div>
                     <b>{{($key+1).") ".$t->name}}</b>

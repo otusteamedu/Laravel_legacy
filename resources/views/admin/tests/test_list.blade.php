@@ -1,5 +1,5 @@
-@extends('admin.layouts.admin')
-@section('content')
+{{--@extends('admin.layouts.admin')--}}
+{{--@section('content')--}}
 <h1>Тесты</h1>
 <hr>
 @forelse($tests as $t)
@@ -73,7 +73,7 @@
 </div>
 <div class="row form-group">
     {{Form::label('lessen_id', 'Урок',['class'=>'col-lg-2'])}}
-    {{Form::select('lessen_id', $listGrammar,$t->lessen_id)}}
+    {{Form::select('lessen_id', $listGrammar,'')}}
 </div>
 {{Form::submit('Добавить',[
 'class'=>'btn btn-primary',
@@ -83,15 +83,5 @@
 
 
 
-<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
-<script>
-    var editors = document.querySelectorAll('.editor');
-    editors.forEach((item) => {
-        ClassicEditor
-            .create(item)
-            .catch(error => {
-                console.error(error);
-            });
-    });
-</script>
-@endsection
+
+{{--@endsection--}}

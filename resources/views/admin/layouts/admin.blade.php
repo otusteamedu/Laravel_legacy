@@ -45,4 +45,15 @@
 
 </footer>
 </body>
+<script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
+<script>
+    var editors = document.querySelectorAll('.editor');
+    editors.forEach((item) => {
+        ClassicEditor
+            .create(item)
+            .catch(error => {
+                console.error(error);
+            });
+    });
+</script>
 </html>

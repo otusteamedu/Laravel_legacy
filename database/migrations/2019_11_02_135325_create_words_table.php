@@ -15,13 +15,14 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->timestamps();
             $table->string('ar_word');
-            $table->string('ar_word_mn');
+            $table->string('ar_word_mn')->nullable();
             $table->string('rus_word');
-            $table->string('rus_word_mn');
+            $table->string('rus_word_mn')->nullable();
             $table->enum('word_type', ['ism', 'figl', 'harf']);
-            $table->enum('fig_simpol', ['A', 'I', 'U']);
-            $table->unsignedBigInteger('lessen_id');
+            $table->enum('fig_simpol', ['A', 'I', 'U'])->nullable();
+            $table->unsignedBigInteger('lessen_id')->nullable();
         });
 
         Schema::table('words',function(Blueprint $table){

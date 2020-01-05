@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Grammar;
 use App\Models\Test;
+use App\Models\Word;
 use App\Services\Grammar\GrammarService;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -34,7 +35,7 @@ class GrammarController extends Controller
     public function index()
     {
         $list = $this->grammarService->listGrammar();
-        return view('admin.grammar_list')->with(['list' => $list]);
+        return view('admin.grammar.grammar_list')->with(['list' => $list]);
     }
 
     /**
@@ -45,13 +46,17 @@ class GrammarController extends Controller
      */
     public function show(Grammar $grammar)
     {
-        $message="";
-        $test=Test::where(['lessen_id'=>$grammar->id,'status'=>0])->get();
-        return view('admin.grammar_detail')->with(
+        $message = "";
+        $tests = Test::where(['lessen_id' => $grammar->id, 'status' => 0])->get();
+        $words = Word::where(['lessen_id' => $grammar->id])->get();
+        $listGrammar = $this->grammarService->list();
+        return view('admin.grammar.grammar_detail')->with(
             [
                 'grammar' => $grammar,
                 'message' => $message,
-                'test' => $test
+                'tests' => $tests,
+                'words' => $words,
+                'listGrammar' => $listGrammar
             ]);
     }
 
@@ -83,9 +88,9 @@ class GrammarController extends Controller
         ]);
 
         $data = $request->all();
-        $grammar = $this->grammarService->updateGrammar($grammar,$data);
-        $this->dispatch(new UpdateGrammarJob($grammar->id,Auth::User()->id));
-        return view('admin.grammar_detail')->with([
+        $grammar = $this->grammarService->updateGrammar($grammar, $data);
+        $this->dispatch(new UpdateGrammarJob($grammar->id, Auth::User()->id));
+        return view('admin.grammar.grammar_detail')->with([
             'grammar' => $grammar,
         ]);
 
@@ -109,7 +114,7 @@ class GrammarController extends Controller
         $message = '';
         $error = '';
 
-        return view('admin.grammar_detail')->with([
+        return view('admin.grammar.grammar_detail')->with([
             'grammar' => $grammar,
             'error' => $error,
             'message' => $message

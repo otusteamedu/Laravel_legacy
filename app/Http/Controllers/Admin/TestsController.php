@@ -33,7 +33,7 @@ class TestsController extends Controller
     {
         $tests = $this->testService->listTest();
         $listGrammar = $this->grammarService->list();
-        return view('admin.test_list')->with([
+        return view('admin.tests.test_list_page')->with([
             'tests' => $tests,
             'listGrammar'=>$listGrammar
         ]);
