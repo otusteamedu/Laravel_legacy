@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int id
  * @property int buyer_id
  * @property int owner_id
+ * @property string payment_id
  * @property string session_id
  * @property string number
  * @property integer count
@@ -24,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon $updated_at
  * @property User owner
  * @property User buyer
+ * @property Payment payment
  *
  * @package App\Models
  */
@@ -39,6 +41,7 @@ class Order extends Model
     protected $fillable = [
         'buyer_id',
         'owner_id',
+        'payment_id',
         'session_id',
         'ordered_at',
         'number',
@@ -59,5 +62,9 @@ class Order extends Model
     public function buyer() : BelongsTo
     {
         return $this->belongsTo(User::class, 'buyer_id');
+    }
+    public function payment() : BelongsTo
+    {
+        return $this->belongsTo(Payment::class, 'payment_id');
     }
 }

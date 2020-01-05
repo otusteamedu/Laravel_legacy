@@ -31,16 +31,23 @@ use App\Models\Payment;
 interface IPaymentService extends IBaseService
 {
     // получить/создать текущую актуальную оплату по заказу
-    public function receiveOrderPayment(Order $order): ?Payment;
+    public function receiveOrderPayment(Order $order): Payment;
     // получить платеж по ИД
-    public function getPayment(string $payment_id): Payment;
+    public function getPayment(string $payment_id): ?Payment;
     // получить платеж по ИД и проверить
     public function getValidPayment(string $payment_id): Payment;
+    // получить удачную оплату
+    public function getDonePayment(Order $order): ?Payment;
+    // хватает ли прав на оплату заказа
+    public function authOrder(Order $order): bool;
+    // не прошло ли время, отведенное на оплату
+    public function checkTTL(Payment $payment): bool;
 
     public function inputCardData(Payment $payment, array $data): Payment;
     public function sendCardData(Payment $payment): bool;
     public function inputCheckData(Payment $payment, string $check_code): Payment;
     public function sendCheckData(Payment $payment): bool;
 
+    public function finalizePayment(Payment $payment): void;
 }
 

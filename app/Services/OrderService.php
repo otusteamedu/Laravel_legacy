@@ -4,8 +4,11 @@
 namespace App\Services;
 
 use App\Base\Service\BaseService;
+use App\Base\Service\Q;
+use App\Helpers\Views\AdminHelpers;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\User;
 use App\Repositories\Interfaces\Adapters\IProduct;
 use App\Repositories\Interfaces\IOrderRepository;
@@ -13,6 +16,7 @@ use App\Services\Exceptions\OrderException;
 use App\Services\Exceptions\TicketException;
 use App\Services\Interfaces\IOrderItemService;
 use App\Services\Interfaces\IOrderService;
+use App\Services\Interfaces\IPaymentService;
 use App\Services\Interfaces\IUserService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
@@ -29,6 +33,7 @@ class OrderService extends BaseService implements IOrderService
         IUserService $userService)
     {
         parent::__construct();
+
         $this->orderItemService = $itemService;
         $this->oneSession = $oneSession;
         $this->userService = $userService;
@@ -55,7 +60,8 @@ class OrderService extends BaseService implements IOrderService
         $data = [
             'session_id' => $session_id,
             'count' => 0,
-            'total' => 0
+            'total' => 0,
+            'status' => Order::STATUS_SESSION
         ];
         if($owner)
             $data['owner_id'] = $owner->id;
@@ -201,22 +207,65 @@ class OrderService extends BaseService implements IOrderService
             'name' => $contactData['name'],
             'phone' => $contactData['phone'],
             'email' => $contactData['email'],
-            'status' => 'confirmed'
+            'status' => Order::STATUS_CONFIRMED
         ];
 
         /** @var Order $order */
         $order = $repository->updateFromArray($order, $data);
+        $this->releaseItems($order, true);
+
+        return $order;
+    }
+
+    private function releaseItems(Order $order, bool $bRelease = true) {
+        $buyer = $order->buyer;
+        $items = $this->orderItemService->getOrderItems($order);
+        /** @var OrderItem $item */
+        foreach ($items as $item) {
+            $product = $this->orderItemService->getProduct($item);
+            if(!$product)
+                continue;
+            if($bRelease)
+                $product->Release($buyer);
+            else
+                $product->CancelRelease();
+            $this->orderItemService->UpdateItem($item);
+        }
+    }
+
+    private function validatePayOrder(Order $order, Payment $payment) {
+        if(!$this->userService->currentUser())
+            throw new OrderException(__('errors.orders.place_access'));
+    }
+
+    public function payOrder(Order $order, Payment $payment): Order {
+        $this->validatePayOrder($order, $payment);
+
+        /** @var IOrderRepository $repository */
+        $repository = $this->getRepository();
+        /** @var Order $order */
+        $order = $repository->updateFromArray($order, [
+            'status' => Order::STATUS_DONE,
+            'payment_id' => $payment->payment_id
+        ]);
+        return $order;
+    }
+
+    public function cancelOrder(Order $order): Order {
+        /** @var IOrderRepository $repository */
+        $repository = $this->getRepository();
+        /** @var Order $order */
+        $order = $repository->updateFromArray($order, [
+            'status' => Order::STATUS_CANCELED
+        ]);
+        $this->releaseItems($order, false);
+
         return $order;
     }
 
     public function placeOrder(User $buyer, array $products, array $contactData): Order
     {
         return new Order();
-    }
-
-    public function payOrder(Order $order): Order
-    {
-        return $order;
     }
 
     public function summaryOrderSession(): array
@@ -252,5 +301,23 @@ class OrderService extends BaseService implements IOrderService
         $order = $this->getOrderSession();
         $this->orderItemService->removeProduct($order, $product);
         return $order;
+    }
+
+    public function getMyOrderList(string $status = null): array {
+        $buyer = $this->userService->currentUser();
+        $filter = ['buyerId' => $buyer->id, 'isOrdered' => 'y'];
+        if(in_array($status, [Order::STATUS_CONFIRMED, Order::STATUS_CANCELED, Order::STATUS_DONE]))
+            $filter['status'] = $status;
+
+        $result = [];
+        $items = $this->findByFilter((new Q($filter)));
+        /** @var Order $item */
+        foreach($items as $item) {
+            $order = $item->toArray();
+            $order['ordered_at'] = AdminHelpers::Datetime_db_site($order['ordered_at']);
+
+            $result[] = $order;
+        }
+        return $result;
     }
 }

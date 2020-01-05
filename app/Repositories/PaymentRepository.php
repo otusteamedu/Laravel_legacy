@@ -19,11 +19,14 @@ class PaymentRepository extends BaseRepository implements IPaymentRepository
             ->get()->first();
     }
 
-    public function getActiveOrderPayment(Order $order): ?Payment
+    public function getActiveOrderPayment(Order $order, string $stage = null): ?Payment
     {
-        return $this->getModel()->newQuery()
+        $builder = $this->getModel()->newQuery()
             ->where('order_id', $order->id)
-            ->where('is_error', '<', 1)
-            ->get()->first();
+            ->where('is_error', '<', 1);
+        if(!is_null($stage))
+            $builder->where('stage', $stage);
+
+        return $builder->get()->first();
     }
 }

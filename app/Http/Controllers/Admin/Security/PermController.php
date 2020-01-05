@@ -7,9 +7,11 @@ namespace App\Http\Controllers\Admin\Security;
 use App\Base\Controller\AbstractController;
 use App\Repositories\Interfaces\IModuleRepository;
 use App\Repositories\Interfaces\IRoleRepository;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class PermController extends AbstractController
 {
@@ -26,7 +28,7 @@ class PermController extends AbstractController
 
     /**
      * Показать модули и права для установки, тут обойдемся без сервисов
-     * @return \Illuminate\Http\Response
+     * @return View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
@@ -58,7 +60,7 @@ class PermController extends AbstractController
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
     public function modules()
     {

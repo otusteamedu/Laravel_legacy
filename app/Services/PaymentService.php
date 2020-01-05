@@ -66,7 +66,7 @@ class PaymentService extends BaseService implements IPaymentService
 
         /** @var Payment $payment */
         $payment = $repository->createFromArray([
-            'stage' => Payment::STATUS_NEW,
+            'stage' => Payment::STAGE_CREATED,
             'payment_data' => [],
             'order_id' => $order->id,
             'is_error' => false,
@@ -79,28 +79,40 @@ class PaymentService extends BaseService implements IPaymentService
         return $payment;
     }
 
+    public function getDonePayment(Order $order): ?Payment {
+        /** @var IPaymentRepository $repository */
+        $repository = $this->getRepository();
+
+        return $repository->getActiveOrderPayment($order, Payment::STAGE_DONE);
+    }
+    public function findByUuid(string $payment_id): ?Payment {
+
+    }
     public function getValidPayment(string $payment_id): Payment {
         $payment = $this->getPayment($payment_id);
+        if(!$payment)
+            throw new PaymentException(__('errors.payment.not_exists', ['payment_id' => $payment_id]));
+
         $this->validatePayment($payment);
 
         return $payment;
     }
-    public function getPayment(string $payment_id): Payment {
-        $payment = $this->findByUuid($payment_id);
-        if(!$payment)
-            throw new PaymentException(__('errors.payment.not_exists', ['payment_id' => $payment_id]));
+    public function getPayment(string $payment_id): ?Payment {
+        /** @var IPaymentRepository $repository */
+        $repository = $this->getRepository();
 
-        return $payment;
+        return $repository->getPaymentByUuid($payment_id);
+    }
+    public function authOrder(Order $order): bool {
+        $user = $this->userService->currentUser();
+        return $user && ($user->id == $order->buyer_id);
     }
     /**
      * Оплатить можно только свой заказ в статусе подтвержден
      * @param Order $order
      */
     private function validateOrder(Order $order) {
-        $user = $this->userService->currentUser();
-
-        if( !$user ||
-            ($user->id != $order->buyer_id) ||
+        if( !$this->authOrder($order) ||
             $order->status != Order::STATUS_CONFIRMED)
             throw new OrderException(__('errors.payment.order_wrong'));
     }
@@ -112,6 +124,9 @@ class PaymentService extends BaseService implements IPaymentService
         $this->validateOrder($payment->order);
         $this->checkTTL($payment);
 
+        if($payment->is_blocked)
+            throw new PaymentException(__('errors.payment.blocked'));
+
         if($payment->is_error)
             throw new PaymentException(__('errors.payment.error', ['message' => $payment->message]));
 
@@ -120,26 +135,27 @@ class PaymentService extends BaseService implements IPaymentService
     }
     /**
      * @param Payment $payment
+     * @return bool
      */
-    private function checkTTL(Payment $payment) {
-        if($payment->is_error)
-            return;
-
+    public function checkTTL(Payment $payment): bool {
         $now = Carbon::now();
         $expired = $payment->updated_at->addSeconds((int) $this->config['payment_ttl']);
         if($now->gt($expired)) {
             $this->setError($payment, __('errors.payment.expired'));
+            return false;
         }
+
+        return true;
     }
-    private function setStageStatus(Payment $payment, string $stage, string $message): Payment {
+    private function setStageStatus(Payment $payment, string $stage, string $message = null): Payment {
         /** @var IPaymentRepository $repository */
         $repository = $this->getRepository();
 
+        $data = ['stage' => $stage];
+        if($message)
+            $data['message'] = $message;
         /** @var Payment $payment */
-        $payment = $repository->updateFromArray($payment, [
-            'stage' => $stage,
-            'message' => $message
-        ]);
+        $payment = $repository->updateFromArray($payment, $data);
 
         return $payment;
     }
@@ -159,19 +175,27 @@ class PaymentService extends BaseService implements IPaymentService
 
         return $payment;
     }
+    private function blockPayment(Payment $payment, bool $bBlocked = true): Payment {
+        /** @var IPaymentRepository $repository */
+        $repository = $this->getRepository();
+        /** @var Payment $payment */
+        $payment = $repository->updateFromArray($payment, [
+            'is_blocked' => $bBlocked,
+        ]);
+        return $payment;
+    }
     /**
      * @param array $cardData
      */
-
     private function validateCardData(array $cardData) {
         \Illuminate\Support\Facades\Validator::make($cardData, [
-            'card_number' => ['required', 'digits:16'],
+            'card_number' => ['required', 'regex:/^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$/i'],
             'card_person' => ['required'],
             'card_term' => ['required', 'regex:/^[0-9]{2}\/[0-9]{2}$/i'],
             'card_csv' => ['required', 'digits:3'],
         ], [
             'card_number.required' => __('errors.required', ['field' => __('public.payment.card_number')]),
-            'card_number.digits' => __('errors.digits', ['field' => __('public.payment.card_number'), 'value' => 16]),
+            'card_number.regex' => __('errors.digits', ['field' => __('public.payment.card_number'), 'value' => 16]),
             'card_person.required' => __('errors.required', ['field' => __('public.payment.card_person')]),
             'card_term.required' => __('errors.required', ['field' => __('public.payment.card_term')]),
             'card_term.regex' => __('errors.wrong', ['field' => __('public.payment.card_term')]),
@@ -188,20 +212,20 @@ class PaymentService extends BaseService implements IPaymentService
     private function validateInput(Payment $payment, array $data) {
         $this->validatePayment($payment);
 
-        if($payment->stage != Payment::STATUS_NEW)
+        if($payment->stage != Payment::STAGE_CREATED)
             throw new PaymentException(__('errors.payment.wrong_stage_input'));
 
         $this->validateCardData($data);
     }
     public function inputCardData(Payment $payment, array $data): Payment {
-        $this->validateInput($payment, array $data);
+        $this->validateInput($payment, $data);
 
         /** @var IPaymentRepository $repository */
         $repository = $this->getRepository();
 
         /** @var Payment $payment */
         $payment = $repository->updateFromArray($payment, [
-            'stage' => Payment::STATUS_INPUT,
+            'stage' => Payment::STAGE_CARD_INPUT,
             'payment_data' => $data,
             'updated_at' => Carbon::now()
         ]);
@@ -219,7 +243,7 @@ class PaymentService extends BaseService implements IPaymentService
                 ],
                 $payment->payment_data
             ),
-            'check'
+            Payment::STAGE_CARD_CHECKED
         );
         if(!$result)
             return false;
@@ -237,7 +261,7 @@ class PaymentService extends BaseService implements IPaymentService
     private function validateCheck(Payment $payment, string $check_code) {
         $this->validatePayment($payment);
 
-        if($payment->stage != Payment::STATUS_INPUT)
+        if($payment->stage != Payment::STAGE_CARD_CHECKED)
             throw new PaymentException(__('errors.payment.wrong_stage_check'));
 
         $this->validateCheckData($check_code);
@@ -252,7 +276,7 @@ class PaymentService extends BaseService implements IPaymentService
         /** @var Payment $payment */
         $payment_data['check_code'] = $check_code;
         $payment = $repository->updateFromArray($payment, [
-            'stage' => Payment::STATUS_CHECK,
+            'stage' => Payment::STAGE_CODE_INPUT,
             'payment_data' => $payment_data,
             'updated_at' => Carbon::now()
         ]);
@@ -270,40 +294,71 @@ class PaymentService extends BaseService implements IPaymentService
                 ],
                 $payment->payment_data
             ),
-            Payment::STATUS_DONE
+            Payment::STAGE_CODE_CHECKED
         );
     }
 
     private function sendQuery(Payment $payment, array $form_params, string $newStage): bool {
         $client = new \GuzzleHttp\Client();
+        $bResult = false;
 
         try {
+            $this->blockPayment($payment, true);
             $response = $client->request('POST' , $this->config['payment_gateway'] , [
                 'form_params' => $form_params
             ]);
-
             if($response->getStatusCode() != 200) {
                 $this->setError($payment , __('errors.payment.http' , [
                     'message' => '['.$response->getStatusCode().']'.$response->getReasonPhrase()
                 ]));
-
-                return false;
             }
+            else {
+                $result = json_decode($response->getBody());
+                if($result->status != self::RES_SUCCESS) {
+                    $this->setError(
+                        $payment ,
+                        __('errors.payment.common', ['message' => $result->message])
+                    );
+                }
+                else
+                    $bResult = true;
 
-            $result = json_decode($response->getBody());
-            if($result['status'] != self::RES_SUCCESS) {
-                $this->setError($payment , __('errors.payment.common' , [
-                    'message' => $result['message']
-                ]));
-                return false;
+                $this->setStageStatus($payment, $newStage, $result->message);
             }
         }
         catch (GuzzleException $ex) {
             $this->setError($payment, __('errors.payment.http', ['message' => $ex->getMessage()]));
-            return false;
+        }
+        finally {
+            $this->blockPayment($payment, false);
         }
 
-        $this->setStageStatus($payment, $newStage, $result['message']);
-        return true;
+        return $bResult;
+    }
+
+    /**
+     * Финализировать можно оплату после проверки кода SMS
+     *
+     * @param Payment $payment
+     * @param array $data
+     */
+    private function validateFinalize(Payment $payment) {
+        $this->validatePayment($payment);
+
+        if($payment->stage != Payment::STAGE_CODE_CHECKED)
+            throw new PaymentException(__('errors.payment.wrong_stage_input'));
+    }
+    /**
+     * Устанавливаем статус платежу и заказу
+     *
+     * @param Payment $payment
+     */
+    public function finalizePayment(Payment $payment): void {
+        $this->blockPayment($payment, false);
+        $this->validateFinalize($payment);
+
+        $this->setStageStatus($payment, Payment::STAGE_DONE);
+
+        $this->orderService->payOrder($payment->order, $payment);
     }
 }

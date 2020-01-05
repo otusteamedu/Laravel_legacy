@@ -9,25 +9,28 @@ use Illuminate\Support\Str;
 /**
  * Class Payment
  *
- * @property string payment_id
- * @property int order_id
- * @property string stage
- * @property string message
- * @property bool is_error
- * @property array payment_data
- * @property int total
+ * @property string $payment_id
+ * @property int $order_id
+ * @property string $stage
+ * @property string $message
+ * @property bool $is_error
+ * @property bool $is_blocked
+ * @property array $payment_data
+ * @property int $total
  * @property \Illuminate\Support\Carbon $created_at
  * @property \Illuminate\Support\Carbon $updated_at
- * @property Order order
+ * @property Order $order
  *
  * @package App\Models
  */
 class Payment extends Model
 {
-    const STATUS_NEW = 'new';
-    const STATUS_INPUT = 'input';
-    const STATUS_CHECK = 'check';
-    const STATUS_DONE = 'done';
+    const STAGE_CREATED = 'created';
+    const STAGE_CARD_INPUT = 'card_input';
+    const STAGE_CARD_CHECKED = 'card_checked';
+    const STAGE_CODE_INPUT = 'code_input';
+    const STAGE_CODE_CHECKED = 'code_checked';
+    const STAGE_DONE = 'done';
 
     public $timestamps = true;
 

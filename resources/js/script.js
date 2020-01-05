@@ -63,5 +63,8 @@ $(function () {
         format: 'dd.mm.yyyy'
     });
 
-    $('.input-phone').inputmask({ mask: "(999) 999-99-99" });
+    $('.input-phone,input[role="phone"]').inputmask({ mask: "(999) 999-99-99" });
+    $('input[role="card_number"]').inputmask({ mask: "9999-9999-9999-9999" });
+    $('input[role="card_term"]').inputmask({ mask: "99/99" });
+    $('input[role="card_csv"]').inputmask({ mask: "999" });
 });

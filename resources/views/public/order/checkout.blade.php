@@ -1,4 +1,4 @@
-@extends('public.movies.layout')
+@extends('public.order.layout')
 
 @php
     $breadCrumbs = [

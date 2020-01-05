@@ -6,13 +6,15 @@ return [
     'myorder' => 'Мой заказ',
     'login' => 'Войти',
     'logout' => 'Выйти',
+    'go_back' => 'Вернуться',
     'menu' => [
         'home' => 'Главная',
         'about' => 'О сети',
         'showing' => 'Фильмы в прокате',
         'cinemas' => 'Кинотеатры',
         'reviews' => 'Отзывы',
-        'checkout' => 'Бронирование'
+        'checkout' => 'Бронирование',
+        'payment' => 'Оплата'
     ],
     'account' => [
         'index' => 'Личный кабинет',
@@ -77,24 +79,47 @@ return [
         'delete_confirm' => 'Вы уверены?',
         'available' => 'Доступно',
         'not_available' => 'Не доступно',
+        'number' => 'Номер заказа',
+        'total' => 'Сумма',
+        'ordered_at' => 'Дата заказа',
+        'status' => 'Статус заказа',
+        'status_confirmed' => 'Подтвержден',
+        'status_canceled' => 'Отменен',
+        'status_done' => 'Оплачен',
         'name' => 'Ваше имя',
         'phone' => 'Контактный телефон',
         'email' => 'E-mail для оповещений',
         'order_confirm' => 'Подтвердить',
-        'status' => 'Статус заказа',
         'confirmed' => 'Бронь успешно подтверждена!',
         'confirmed_description' => 'Номер вашей брони: <b>:order_number</b>.<br /><br />
             Она будет действовать в течении <b>:timeout мин.</b>, в течение которых вы должны ее оплатить.<br /><br />
             По истечению этого срока бронь на выбранные места снимается.',
-        'summary' => 'Всего билетов: :count. К оплате :total руб.'
+        'summary' => 'Всего билетов: :count. К оплате :total руб.',
+        'order_number' => 'Номер заказа: :order_number',
+        'done' => 'Заказ оплачен',
+        'done_description' => 'Номер вашей брони: <b>:order_number</b>.<br /><br />
+            Ваша бронь подтверждена. Ждем вас в нашем кинотеатре',
+        'list' => 'Мои заказы'
     ],
     'payment' => [
         'payment_description' => 'К оплате: :total руб.',
         'button_do' => 'Оплатить',
+        'button_send' => 'Отправить',
+        'card_data' => 'Данные для оплаты',
         'card_number' => 'Номер карты',
         'card_person' => 'Имя держателя карты',
-        'card_term' => 'Срок действия карты',
+        'card_term' => 'Срок окончания действия',
         'card_csv' => 'CSV код',
-        'check_code' => 'Проверочный код из SMS'
+        'check_data' => 'Верификация оплаты кодом из SMS',
+        'check_code' => 'Проверочный код из SMS',
+        'payment_input_title' => 'Оплата заказа',
+        'payment_status_title' => 'Статус оплаты',
+        'payment_id' => 'Номер оплаты: :payment_id',
+        'stage_done' => 'Оплата на сумму :total руб. успешно проведена',
+        'is_error' => 'В процессе оплаты произошла ошибка',
+        'try_again' => 'Попытаться еще раз',
+        'wait_server' => 'Подождите идет обмен с сервисом оплаты',
+        'status' => 'Статус оплаты',
+        'redirecting' => 'Идет перенаправление'
     ]
 ];

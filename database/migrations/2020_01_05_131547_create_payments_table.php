@@ -17,9 +17,10 @@ class CreatePaymentsTable extends Migration
             $table->uuid('payment_id')->primary();
 
             $table->bigInteger('order_id')->unsigned();
-            $table->enum('stage', ['new', 'input', 'check', 'done'])->default('new');
+            $table->enum('stage', ['created', 'card_input', 'card_checked', 'code_input', 'code_checked', 'done'])->default('created');
             $table->string('message', 255)->nullable();
             $table->boolean('is_error')->default(false);
+            $table->boolean('is_blocked')->default(false);
             $table->json('payment_data')->nullable();
             $table->integer('total')->nullable()->unsigned();
 

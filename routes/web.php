@@ -44,18 +44,18 @@ Route::name('admin.')->prefix('manager')->middleware(['auth', 'manager'])->group
         Route::get('', 'Admin\Movies\Movie\MovieListController@index')->name('index');
         Route::get('/create', 'Admin\Movies\Movie\MovieFormController@create')->name('create');
         Route::post('/create', 'Admin\Movies\Movie\MovieFormController@store')->name('store');
-        Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
+        Route::get('/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@edit')->where(['itemId' => '[0-9]+'])->name('edit');
         Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Movies\Movie\MovieFormController@update')->name('update');
-        Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
+        Route::delete('/{itemId}', 'Admin\Movies\Movie\MovieListController@destroy')->where(['itemId' => '[0-9]+'])->name('destroy');
     });
 
     Route::name('users.')->prefix('users')->group(function () {
         Route::get('', 'Admin\Security\User\UserListController@index')->name('index');
         Route::get('/create', 'Admin\Security\User\UserFormController@create')->name('create');
         Route::post('/create', 'Admin\Security\User\UserFormController@store')->name('store');
-        Route::get('/edit/{itemId}', 'Admin\Security\User\UserFormController@edit')->where(['id' => '[0-9]+'])->name('edit');
+        Route::get('/edit/{itemId}', 'Admin\Security\User\UserFormController@edit')->where(['itemId' => '[0-9]+'])->name('edit');
         Route::match(['put', 'patch'], '/edit/{itemId}', 'Admin\Security\User\UserFormController@update')->name('update');
-        Route::delete('/{itemId}', 'Admin\Security\User\UserListController@destroy')->where(['id' => '[0-9]+'])->name('destroy');
+        Route::delete('/{itemId}', 'Admin\Security\User\UserListController@destroy')->where(['itemId' => '[0-9]+'])->name('destroy');
     });
 
     // Route::resource('movies', 'Admin\Movies\MovieController')->except(['show']);
@@ -267,12 +267,14 @@ Route::get('/order/confirmed', 'Publica\OrderController@confirmedOrder')->name('
 Route::get('/order/auth', 'Publica\OrderController@authOrder')->name('public.order.auth');
 Route::post('/order/register', 'Publica\OrderController@quickRegister')->name('public.order.register');
 
-Route::get('/order/pay', 'Publica\PaymentController@createPayment')->name('public.payment.pay');
-Route::get('/order/input', 'Publica\PaymentController@inputPayment')->name('public.payment.input');
-Route::post('/order/input', 'Publica\PaymentController@processPayment')->name('public.payment.process');
-Route::get('/order/status', 'Publica\PaymentController@getStatus')->name('public.payment.status');
-Route::get('/order/paysuccess', 'Publica\PaymentController@successPayment')->name('public.payment.success');
-Route::get('/order/payerror', 'Publica\PaymentController@errorPayment')->name('public.payment.error');
+// оплата
+Route::middleware('auth')->group(function () {
+    Route::get('/order/pay', 'Publica\PaymentController@createPayment')->name('public.payment.pay');
+    Route::get('/order/payinput', 'Publica\PaymentController@inputFormPayment')->name('public.payment.input');
+    Route::post('/order/payinput', 'Publica\PaymentController@inputSavePayment')->name('public.payment.save');
+    Route::any('/order/payprocess', 'Publica\PaymentController@processPayment')->name('public.payment.process');
+    Route::get('/order/paystatus', 'Publica\PaymentController@paymentStatus')->name('public.payment.status');
+});
 
 Route::get('/movies/archived', function () {
     return view('public');
@@ -387,7 +389,7 @@ Route::get('/cinemas/{id}', function (int $id) {
 
 
 Route::middleware('auth')->get('/manager', function () {
-    Log::debug('ffff');
+    //Log::debug('ffff');
     return view('admin.start.index');
 })->name('admin.index');
 
@@ -407,12 +409,15 @@ Route::get('/account', function () {
     ]);
 })->name('public.account.index');
 
-Route::get('/account/order', function () {
+Route::get('/account/order/{number}', function () {
     return view('public.account.order');
 })->name('public.account.order');
 
-Route::get('/account/ordered', function () {
-    return view('public.account.ordered');
+Route::get('/account/ordered', function (\Illuminate\Http\Request $request, \App\Services\OrderService $orderService) {
+    $status = (string) $request->get('status');
+    $ordersList = $orderService->getMyOrderList($status);
+
+    return view('public.account.ordered', compact('ordersList'));
 })->name('public.account.ordered');
 
 /*

@@ -6,6 +6,7 @@ namespace App\Services\Interfaces;
 use App\Base\Service\IBaseService;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\Payment;
 use App\Models\User;
 use App\Repositories\Interfaces\Adapters\IProduct;
 
@@ -32,6 +33,9 @@ interface IOrderService extends IBaseService
     public function updateOrderSession(): Order;
     public function clearOrderSession(): Order;
     public function confirmOrderSession(array $contactData): Order;
+    public function payOrder(Order $order, Payment $payment): Order;
+    public function cancelOrder(Order $order): Order;
+
     public function placeOrder(User $buyer, array $products, array $contactData): Order;
     public function summaryOrderSession(): array;
 }

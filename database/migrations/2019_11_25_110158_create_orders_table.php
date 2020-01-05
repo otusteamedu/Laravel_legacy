@@ -18,6 +18,7 @@ class CreateOrdersTable extends Migration
 
             $table->bigInteger('buyer_id')->unsigned()->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable();
+            $table->uuid('payment_id')->unsigned()->nullable();
 
             $table->string('session_id', 40)->nullable();
             $table->string('number', 40)->nullable();
@@ -27,7 +28,7 @@ class CreateOrdersTable extends Migration
             $table->string('name', 255)->nullable();
             $table->string('phone', 255)->nullable();
             $table->string('email', 255)->nullable();
-            $table->enum('status', ['cart', 'done', 'canceled'])->default('cart');
+            $table->enum('status', ['cart', 'confirmed', 'canceled', 'done'])->default('cart');
 
             $table->timestamps();
         });
@@ -41,7 +42,11 @@ class CreateOrdersTable extends Migration
                 ->references('id')
                 ->on('users');
 
-            $table->unique('session_id');
+            $table->foreign('payment_id')
+                ->references('payment_id')
+                ->on('payments');
+
+            $table->index('session_id');
             $table->index('status');
         });
     }

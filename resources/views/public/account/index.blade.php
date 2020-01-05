@@ -16,11 +16,6 @@
             </a>
         </li>
         <li>
-            <a href="{{ route('public.account.order') }}">
-                @lang('public.account.order')
-            </a>
-        </li>
-        <li>
             <a href="{{ route('public.account.ordered') }}">
                 @lang('public.account.ordered')
             </a>
