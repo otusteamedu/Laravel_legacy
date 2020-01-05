@@ -19,8 +19,8 @@ class CreateTexturesTable extends Migration
             $table->string('thumb_path', 100);
             $table->string('sample_path', 100);
             $table->string('background_path', 100);
-            $table->smalInteger('width')->unsigned();
-            $table->smalInteger('price')->unsigned();
+            $table->smallInteger('width')->unsigned();
+            $table->smallInteger('price')->unsigned();
             $table->tinyInteger('publish')->unsigned()->default(0);
             $table->text('description')->nullable();
             $table->timestamps();

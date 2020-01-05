@@ -15,16 +15,17 @@ class CreateCategoryImageTable extends Migration
     {
         Schema::create('category_image', function (Blueprint $table) {
             $table->bigInteger('category_id')->unsigned();
+            $table->bigInteger('image_id')->unsigned();
+            $table->string('category_type', 20);
+            $table->primary(['category_id', 'image_id']);
+        });
+
+        Schema::table('category_image', function(Blueprint $table) {
             $table->foreign('category_id')->references('id')->on('categories')
                 ->onDelete('cascade')->onUpdate('cascade');
 
-            $table->bigInteger('image_id')->unsigned();
             $table->foreign('image_id')->references('id')->on('images')
                 ->onDelete('cascade')->onUpdate('cascade');
-
-            $table->string('category_type', 20);
-
-            $table->primary(['category_id', 'image_id']);
         });
     }
 
