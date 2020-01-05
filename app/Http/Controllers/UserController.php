@@ -14,7 +14,6 @@ class UserController extends Controller
 {
     ////////////////////////// Добавил для паттерна Репозиторий
     protected $user;
-
     /**
      * UserController constructor.
      *

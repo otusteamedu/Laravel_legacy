@@ -1,5 +1,5 @@
 <?php
-
+/** Для работы со всеми обращениями к БД. */
 namespace App\Repositories;
 
 interface UserRepositoryInterface
@@ -41,4 +41,7 @@ interface UserRepositoryInterface
      */
     public function store(array $data);
 
+    // создадим ещё какую-нибудь функцию
+    // функций можно насоздавать сколько нужно
+    public function getUserByName(string $name);
 }

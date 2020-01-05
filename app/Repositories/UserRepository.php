@@ -57,4 +57,11 @@ class UserRepository implements UserRepositoryInterface
     {
         User::create($data);
     }
+
+    // создадим ещё какую-нибудь функцию
+    // функций можно насоздавать сколько нужно
+    public function getUserByName(string $name)
+    {
+        User::where('name',$name)->first();
+    }
 }

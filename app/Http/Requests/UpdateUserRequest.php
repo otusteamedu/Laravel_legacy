@@ -3,7 +3,13 @@
 namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
-use Illuminate\Foundation\Http\FormRequest;
+
+/*
+ * Вызывался стандартный FormRequest :
+ * use Illuminate\Foundation\Http\FormRequest;
+ * но мы же его переопределили на свой :
+ */
+use App\Http\Requests\FormRequest;
 
 // получи предопределённые списки значений из config/shop.php
 define('USER_SOURCES', config('shop.sources'));

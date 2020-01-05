@@ -92,6 +92,16 @@
 
   Немного изменил UserController.php, где и использую паттерн Репозиторий.
 
+Часть 3 :
+Добавил handler'ы.
+Бизнес-логику можно вывести в handler'ы.
+Services/StoreUserHandler.php
+
+Добавил сервисы.
+Они вызывают handlerы.
+Services/UserService.php
+
+Обновил работу с реквестами : добавил Requests\FormRequest.
 
 
 
