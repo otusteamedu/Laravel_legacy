@@ -8,20 +8,33 @@ use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\Task;
 use App\Models\User;
+use App\Services\Projects\ProjectsService;
 use App\Services\Tasks\TasksService;
+use App\Services\Users\UsersService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class TasksController extends Controller
 {
     protected $taskService;
-    protected $users;
-    protected $projects;
+    protected $projectsService;
+    protected $userService;
 
-    public function __construct(TasksService $service)
-    {
+    public function __construct(
+        TasksService $service,
+        ProjectsService $projectsService,
+        UsersService $userService
+    ) {
         $this->taskService = $service;
-        $this->users = $this->taskService->getFormUsers();
-        $this->projects = $this->taskService->getFormProjects();
+        $this->projectsService = $projectsService;
+        $this->userService = $userService;
+    }
+
+    public function shareUserAndProjects()
+    {
+        $users = $this->userService->getFormUsers();
+        $projects = $this->projectsService->getFormProjects();
+        View::share(['users' => $users, 'projects' => $projects,]);
     }
 
     /**
@@ -31,8 +44,8 @@ class TasksController extends Controller
      */
     public function index()
     {
-        $data = $this->taskService->getForm(config('pages.COUNT_TASKS_CMS'));
-        return view('cms.Tasks.index', compact('data'));
+        $data = $this->taskService->getTask(config('pages.COUNT_TASKS_CMS'));
+        return view('cms.tasks.index', compact('data'));
     }
 
     /**
@@ -42,7 +55,8 @@ class TasksController extends Controller
      */
     public function create()
     {
-        return view('cms.Tasks.add', ['projects' => $this->projects, 'users' => $this->users]);
+        $this->shareUserAndProjects();
+        return view('cms.tasks.add');
     }
 
     /**
@@ -54,13 +68,12 @@ class TasksController extends Controller
     public function store(TaskStoreRequest $request)
     {
         $data = $request->getFormData();
-        $result = $this->taskService->getFormCreate($data);
+        $result = $this->taskService->createTask($data);
 
-        if ($result) {
-            return redirect()
-                ->route('csm.tasks.index')
-                ->with(['status' => 'Задача успешно добавлена']);
-        }
+        return redirect()
+            ->route('csm.tasks.index')
+            ->with(['status' => 'Задача успешно добавлена']);
+
     }
 
     /**
@@ -82,10 +95,8 @@ class TasksController extends Controller
      */
     public function edit(Task $task)
     {
-        return view('cms.Tasks.edit', ['task' => $task,
-            'users' => $this->users,
-            'projects' => $this->projects
-        ]);
+        $this->shareUserAndProjects();
+        return view('cms.tasks.edit', compact('task'));
     }
 
     /**
@@ -98,13 +109,12 @@ class TasksController extends Controller
     public function update(TaskUpdateRequest $request, Task $task)
     {
         $data = $request->getFormData();
-        $result = $this->taskService->updateForm($task, $data);
+        $result = $this->taskService->updateTask($task, $data);
 
-        if ($result) {
-            return redirect()
-                ->route('csm.tasks.index')
-                ->with(['status' => 'Задача успешно обновлена']);
-        }
+        return redirect()
+            ->route('cms.tasks.index')
+            ->with(['status' => 'Задача успешно обновлена']);
+
 
     }
 
@@ -114,15 +124,12 @@ class TasksController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Task $task)
     {
-        $result = $this->taskService->deleteForm($id);
+        $result = $this->taskService->deleteTask($task);
 
-        if ($result) {
-            return redirect()
-                ->route('csm.tasks.index')
-                ->with(['status' => 'Задача успешно удалена']);
-        }
-
+        return redirect()
+            ->route('csm.tasks.index')
+            ->with(['status' => 'Задача успешно удалена']);
     }
 }

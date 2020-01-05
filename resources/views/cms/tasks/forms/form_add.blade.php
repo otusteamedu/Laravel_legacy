@@ -1,5 +1,5 @@
 {{Form::open(['route' => 'csm.tasks.store'])}}
-@include('cms.Tasks.forms.fields_form')
+@include('cms.tasks.forms.fields_form')
 {{Form::close()}}
 
 

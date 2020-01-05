@@ -16,33 +16,24 @@ class TasksService
         $this->tasksRepository = $tasksRepository;
     }
 
-    public function getForm(int $paginate)
+    public function getTask(int $paginate)
     {
-        return $this->tasksRepository->getTasks($paginate);
+        return $this->tasksRepository->getForm($paginate);
     }
 
-    public function updateForm(Task $task, array $data)
+    public function updateTask(Task $task, array $data)
     {
-        return $this->tasksRepository->updateTask($task, $data);
+        return $this->tasksRepository->updateForm($task, $data);
     }
 
-    public function deleteForm(int $id)
+    public function deleteTask(Task $task)
     {
-        return $this->tasksRepository->destroyTask($id);
+        return $this->tasksRepository->destroyTask($task);
     }
 
-    public function getFormCreate(array $data)
+    public function createTask(array $data)
     {
-        return $this->tasksRepository->createTask($data);
+        return $this->tasksRepository->getFormCreate($data);
     }
 
-    public function getFormProjects()
-    {
-        return $this->tasksRepository->getProjects();
-    }
-
-    public function getFormUsers()
-    {
-        return $this->tasksRepository->getUsers();
-    }
 }

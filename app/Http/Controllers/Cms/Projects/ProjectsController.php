@@ -28,7 +28,7 @@ class ProjectsController extends Controller
     public function index()
     {
         $data = $this->projectsService->getAll(config('pages.COUNT_PROJECTS_CMS'));
-        return view('cms.Projects.index', compact('data'));
+        return view('cms.projects.index', compact('data'));
     }
 
     /**
@@ -38,7 +38,7 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('cms.Projects.add');
+        return view('cms.projects.add');
     }
 
     /**
@@ -79,7 +79,7 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('cms.Projects.edit', compact('project'));
+        return view('cms.projects.edit', compact('project'));
     }
 
     /**
