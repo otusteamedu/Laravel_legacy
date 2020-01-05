@@ -106,6 +106,45 @@ Services/UserService.php
 Часть 4 :
 Интегрирую сервис UserService в контроллер UserController.
 
+Часть 5 :
+Реплицирую структуру папок, как в проекте у Егора.
+Получилось слишком сложно и запутанно. Очень труднозапоминаемые пути к папкам.
+
+[app]
+    [Models]
+        Account.php
+        Item.php
+        Order.php
+        User.php
+
+    [Http]
+        [Controllers]
+            [CMS]
+                [Users]
+                    [Requests]
+                        CreateUserRequest.php
+                        UpdateUserRequest.php
+                    UsersController.php
+        [Requests]
+            FormRequest.php
+
+    [Services]
+        [Users]
+            [Handlers]
+                CreateUserHandler.php
+            [Repositories]
+                UserRepository.php
+                UserRepositoryInterface.php
+            UsersService.php
+            UsersServiceProvider.php
+
+    Также пришлось добавлять конструкцию в routes/web.php
+    Пришлось убрать 'cms' из Route::prefix('')
+
+    Зарегистрировал класс и интерфес репозиториев по своему, через UsersServiceProvider.php
+
+
+
 
 
 

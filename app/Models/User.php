@@ -23,7 +23,7 @@ class User extends Authenticatable
     /*protected $fillable = [
         'name', 'email', 'password',
     ];*/
-    // все переменные - mass assignable, иначе не смогу сохранить поля модели User внутри UserController@store()
+    // все переменные - mass assignable, иначе не смогу сохранить поля модели User внутри UsersController@store()
     protected $guarded = [];
 
     /**

@@ -1,30 +1,29 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\CMS\Users;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Requests\UpdateUserRequest;
-use App\Http\Requests\StoreUserRequest;
-use App\Repositories\UserRepositoryInterface;
+use App\Http\Controllers\CMS\Users\Requests\UpdateUserRequest;
+use App\Http\Controllers\CMS\Users\Requests\CreateUserRequest;
+use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
-use Illuminate\Support\Arr;
-use App\Services\UserService;
+use App\Services\Users\UsersService;
+use App\Http\Controllers\Controller;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     ////////////////////////// Добавил для паттерна Репозиторий
     protected $user;
-    protected $userService;
+    protected $usersService;
     /**
-     * UserController constructor.
+     * UsersController constructor.
      *
      * @param UserRepositoryInterface $user
      */
-    public function __construct(UserRepositoryInterface $user, UserService $userService)
+    public function __construct(UserRepositoryInterface $user, UsersService $userService)
     {
         $this->user = $user;
-        $this->userService = $userService;
+        $this->usersService = $userService;
     }
     /////////////////////////////////////////////////////////////
     /**
@@ -38,7 +37,7 @@ class UserController extends Controller
         // $users = User::all();
         // стало
         $users = $this->user->all();
-
+        //dd("Попал в UsersController@index");
         return view('pages.admin.index')->withUsers($users);
     }
 
@@ -55,10 +54,10 @@ class UserController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     * @param StoreUserRequest $request
+     * @param CreateUserRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(StoreUserRequest $request)
+    public function store(CreateUserRequest $request)
     {
         // Было
         // $data=$request->all();
@@ -70,7 +69,7 @@ class UserController extends Controller
 
         //стало
         $data=$request->getFormData();
-        $users = $this->userService->storeUser($data);
+        $users = $this->usersService->createUser($data);
         return redirect('/users/');
     }
 
@@ -132,7 +131,7 @@ class UserController extends Controller
             'address' => request('address'),
             'comments' => request('comments'),
         ];
-        $this->user->update($user->id,$data);
+        $this->user->update($user,$data);
         return redirect('/users/'.$user->id);
     }
 

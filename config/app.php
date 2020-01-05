@@ -161,7 +161,10 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        App\Repositories\BackendServiceProvider::class,//добавил
+        // добавил свои сервис-провайдеры:
+        // БЫЛО просто так : App\Repositories\UsersServiceProvider::class,
+        // а стало
+        App\Services\Users\UsersServiceProvider::class,
 
         /*
          * Package Service Providers...

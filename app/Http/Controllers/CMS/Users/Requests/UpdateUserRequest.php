@@ -1,14 +1,12 @@
 <?php
 
-namespace App\Http\Requests;
-
-use Illuminate\Validation\Rule;
-
 /*
  * Вызывался стандартный FormRequest :
  * use Illuminate\Foundation\Http\FormRequest;
  * но мы же его переопределили на свой :
  */
+namespace App\Http\Controllers\CMS\Users\Requests;
+use Illuminate\Validation\Rule;
 use App\Http\Requests\FormRequest;
 
 // получи предопределённые списки значений из config/shop.php

@@ -1,11 +1,11 @@
 <?php
-/** Description of StoreUserHandler.php */
-namespace App\Services;
+/** Description of CreateUserHandler.php */
+namespace App\Services\Users\Handlers;
 
 use App\Models\User;
-use App\Repositories\UserRepositoryInterface;
+use App\Services\Users\Repositories\UserRepositoryInterface;
 
-class StoreUserHandler
+class CreateUserHandler
 {
     private $userRepository;
 
@@ -30,7 +30,7 @@ class StoreUserHandler
         // Пример 2 : дата создания = дата вчерашнего дня
         // $data['date'] = Carbon::create()->subDay();
         // как всё будет готово,
-        return $this->userRepository->store($data);
+        return $this->userRepository->create($data);
     }
 }
 
