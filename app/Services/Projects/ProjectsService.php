@@ -36,4 +36,9 @@ class ProjectsService
         return $this->projectsRepository->delProject($id);
     }
 
+    public function getFormProjects()
+    {
+        return $this->projectsRepository->getAllProjects();
+    }
+
 }

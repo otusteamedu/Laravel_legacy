@@ -31,4 +31,9 @@ class EloquentProjectRepository
     {
         return Project::destroy($id);
     }
+
+    public function getAllProjects()
+    {
+        return Project::pluck('name', 'id');
+    }
 }

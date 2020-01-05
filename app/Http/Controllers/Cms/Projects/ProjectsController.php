@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Cms\Projects;
 
-use App\Http\Controllers\Cms\Requests\ProjectUpdateRequest;
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\Projects\Requests\ProjectStoreRequest;
+use App\Http\Controllers\Cms\Requests\ProjectUpdateRequest;
+use App\Http\Controllers\Cms\Requests\TaskUpdateRequest;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Cms\Projects\Requests\TaskStoreRequest;
 use App\Models\Project;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Http\Request;
@@ -26,7 +28,7 @@ class ProjectsController extends Controller
     public function index()
     {
         $data = $this->projectsService->getAll(config('pages.COUNT_PROJECTS_CMS'));
-        return view('cms.Projects.index', compact('data'));
+        return view('cms.projects.index', compact('data'));
     }
 
     /**
@@ -36,7 +38,7 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        return view('cms.Projects.add');
+        return view('cms.projects.add');
     }
 
     /**
@@ -77,7 +79,7 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('cms.Projects.edit', compact('project'));
+        return view('cms.projects.edit', compact('project'));
     }
 
     /**

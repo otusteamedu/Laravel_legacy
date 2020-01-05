@@ -40,7 +40,7 @@
                             <a class="nav-link" href="#link-2">Работа с отчетами</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-3">Работа с задачами</a>
+                            <a class="nav-link" href="{{route('csm.tasks.index')}}">Работа с задачами</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#link-4">Работа с пользователями</a>
