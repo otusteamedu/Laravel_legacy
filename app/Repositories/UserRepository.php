@@ -11,9 +11,9 @@ class UserRepository implements UserRepositoryInterface
      * @param int
      * @return collection
      */
-    public function get($user_id)
+    public function get($id)
     {
-        return User::find($user_id);
+        return User::find($id);
     }
 
     /**
@@ -31,9 +31,9 @@ class UserRepository implements UserRepositoryInterface
      *
      * @param int
      */
-    public function delete($user_id)
+    public function delete($id)
     {
-        User::destroy($user_id);
+        User::destroy($id);
     }
 
     /**
@@ -42,8 +42,19 @@ class UserRepository implements UserRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($user_id, array $user_data)
+    public function update($id, array $data)
     {
-        User::find($user_id)->update($user_data);
+        User::find($id)->update($data);
+    }
+
+    /**
+     * Create a user.
+     *
+     * @author Denis Abidov
+     * @param array
+     */
+    public function store(array $data)
+    {
+        User::create($data);
     }
 }

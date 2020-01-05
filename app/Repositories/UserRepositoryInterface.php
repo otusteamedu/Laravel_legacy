@@ -9,7 +9,7 @@ interface UserRepositoryInterface
      *
      * @param int
      */
-    public function get($user_id);
+    public function get($id);
 
     /**
      * Get's all users.
@@ -23,7 +23,7 @@ interface UserRepositoryInterface
      *
      * @param int
      */
-    public function delete($user_id);
+    public function delete($id);
 
     /**
      * Updates a user.
@@ -31,6 +31,14 @@ interface UserRepositoryInterface
      * @param int
      * @param array
      */
-    public function update($user_id, array $user_data);
+    public function update($id, array $data);
+
+    /**
+     * Create a user.
+     *
+     * @author Denis Abidov
+     * @param array
+     */
+    public function store(array $data);
 
 }

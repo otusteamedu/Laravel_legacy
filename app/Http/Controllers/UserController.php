@@ -6,11 +6,25 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\StoreUserRequest;
+use App\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use Illuminate\Support\Arr;
 
 class UserController extends Controller
 {
+    ////////////////////////// Добавил для паттерна Репозиторий
+    protected $user;
+
+    /**
+     * UserController constructor.
+     *
+     * @param UserRepositoryInterface $user
+     */
+    public function __construct(UserRepositoryInterface $user)
+    {
+        $this->user = $user;
+    }
+    /////////////////////////////////////////////////////////////
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +32,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        // было
+        // $users = User::all();
+        // стало
+        $users = $this->user->all();
+
         return view('pages.admin.index')->withUsers($users);
     }
 
@@ -42,7 +60,10 @@ class UserController extends Controller
     {
         $data=$request->all();
         $data=Arr::except($data,['_token']);
-        User::create($data);
+        // было
+        // User::create($data);
+        // стало
+        $users = $this->user->store($data);
         return redirect('/users/');
     }
 
@@ -81,6 +102,7 @@ class UserController extends Controller
         // входящий запрос валидный
         // $requestValidated = $request->validated();
 
+        /* было
         $user->source = request('source');
         $user->type = request('type');
         $user->operator = request('operator');
@@ -90,7 +112,20 @@ class UserController extends Controller
         $user->address = request('address');
         //dd( "комментарий : [".request('comments')."]");
         $user->comments = request('comments');
-        $user->save();
+        $user->save();*/
+
+        // стало
+        $data = [
+            'source' => request('source'),
+            'type' => request('type'),
+            'operator' => request('operator'),
+            'name' => request('name'),
+            'phone' => request('phone'),
+            'email' => request('email'),
+            'address' => request('address'),
+            'comments' => request('comments'),
+        ];
+        $this->user->update($user->id,$data);
         return redirect('/users/'.$user->id);
     }
 
