@@ -15,7 +15,8 @@ class DatabaseSeeder extends Seeder
         // $this->call(UsersTableSeeder::class);
 
         $this->call([
-            UsersTableSeeder::class,
+//            UsersTableSeeder::class,
+            LaratrustSeeder::class,
             FormatsTableSeeder::class,
             ImagesTableSeeder::class,
             TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
