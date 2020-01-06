@@ -27,10 +27,11 @@
 @endsection
 
 @section('pageContentMain')
-    <div class="i-title"><span>Выбрать сеанс</span></div>
     <div class="container-fluid movie-showing-list i-iblock">
         <div class="row align-items-start m-0">
-            <div class="col-md-6 cinema p-0 py-3"></div>
+            <div class="col-md-6 cinema p-0 py-3">
+                <h4>Выбрать сеанс</h4>
+            </div>
             <div class="col-md-6 cinema p-0 py-3">
                 <form action="" method="get" class="">
                     <div class="i-content container-fluid">
@@ -59,7 +60,7 @@
                         <div class="container-fluid cinema-item i-iblock p-0">
                             <div class="row align-items-start">
                                 <div class="col-4 col-md-2 image p-0">
-                                    <a title="{{ $item['cinema']['name'] }}" href="{{ route('public.cinemas.item', ['id' => $item['cinema']['id']]) }}"></a>
+                                    <a title="{{ $item['cinema']['name'] }}" href="{{ route('public.cinemas.item', ['id' => $item['cinema']['id']]) }}" style="background-image: url({{ asset($item['photo_thumb_url']) }})"></a>
                                 </div>
                                 <div class="col-8 col-md-10 desc">
                                     <div class="name">
@@ -82,7 +83,22 @@
                 </div>
             @endforeach
         @else
-            <div class="px-2 py-5 text-center">Нет доступных сеансов</div>
+            <div class="px-2 py-5 text-center">Нет доступных сеансов на <b>{{ $filter_date }}</b></div>
+            <br />
+        @endif
+        @if (count($availableDates) > 0)
+            <div class="px-2 py-5 text-center">
+                <p>Сеансы на другие дни:</p>
+                @foreach ($availableDates as $date)
+                    @if($date['available'])
+                        <a class="btn btn-warning shadow mb-2" href="{{ route('public.movies.showing', ['id' => $movie['id'], 'filter_date' => $date['date']]) }}">
+                            {{ $date['date'] }}
+                        </a>
+                    @else
+                        <span class="btn btn-secondary shadow mb-2">{{ $date['date'] }}</span>
+                    @endif
+                @endforeach
+            </div>
         @endif
     </div>
     <br /><br />

@@ -225,15 +225,16 @@ class MovieRepository extends BaseRepository implements IMovieRepository
      */
     public function getSoonInRental(int $nLastCount): Collection {
         /** @var Movie $movieModel */
-        $now = Carbon::now();
+        $now = Carbon::now()->addDay();
 
         $query = $this->getModel()->newQuery()
             ->select(['movies.*'])
-            ->join('movie_rentals', 'movies.id', '=', 'movie_rentals.movie_id')
-            //->where('movies.premiereDate', '>=', $now->format('Y-m-d'))
-            ->where('movie_rentals.date_start_at', '>', $now->format(AdminHelpers::FORMAT_SITE_DATE_TIME))
+            //->join('movie_rentals', 'movies.id', '=', 'movie_rentals.movie_id')
+            ->where('movies.premiereDate', '>=', $now->format('Y-m-d'))
+            //->whereRaw('min(movie_rentals.date_start_at) > "?"', [$now->format('Y-m-d')])
             ->groupBy('movies.id')
-            ->orderBy('movie_rentals.date_start_at')
+            //->orderBy('movie_rentals.date_start_at')
+            ->orderBy('movies.premiereDate')
             ->limit($nLastCount);
 
         return $query->get();

@@ -19,7 +19,7 @@ interface IMovieShowingRepository extends IBaseRepository
      * @param Carbon $date_to
      * @return array
      */
-    public function availableDates(Carbon $date_from, Carbon $date_to): array;
+    public function availableDates(Carbon $date_from = null, Carbon $date_to = null): array;
     /**
      * Узнать на какие даты есть какие-то сеансы на конкретный фильм.
      *
@@ -28,7 +28,7 @@ interface IMovieShowingRepository extends IBaseRepository
      * @param Carbon $date_to
      * @return array
      */
-    public function availableMovieDates(Movie $movie, Carbon $date_from, Carbon $date_to): array;
+    public function availableMovieDates(Movie $movie, Carbon $date_from = null, Carbon $date_to = null): array;
     /**
      * Узнать на какие даты есть какие-то сеансы на любые фильмы в конкретном кинотеатре.
      *
@@ -37,7 +37,7 @@ interface IMovieShowingRepository extends IBaseRepository
      * @param Carbon $date_to
      * @return array
      */
-    public function availableCinemaDates(Cinema $cinema, Carbon $date_from, Carbon $date_to): array;
+    public function availableCinemaDates(Cinema $cinema, Carbon $date_from = null, Carbon $date_to = null): array;
     /**
      * Узнать список сеансов на фильм в конкретную дату.
      *

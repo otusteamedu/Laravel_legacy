@@ -63,7 +63,7 @@ class CinemaService extends BaseService implements ICinemaService
             foreach ($data['photos'] as $photo) {
                 if($photo instanceof UploadedFile) {
                     $fileModel = $this->uploadService->getFileService()->saveFile($photo);
-                    $data['photos_id'] = $fileModel->id;
+                    $data['photos_id'][] = $fileModel->id;
                 }
             }
 
@@ -110,11 +110,14 @@ class CinemaService extends BaseService implements ICinemaService
         return $result;
     }
 
-    public function FindMovie(int $cinemaId): array {
+    public function FindCinema(int $cinemaId): array {
         /** @var Cinema $cinema */
         $cinema = $this->findModel($cinemaId);
 
+
         $result = $cinema->toArray();
+        $result['photos'] = $cinema->photos ? $cinema->photos->toArray() : [];
+
         return $result;
     }
 }

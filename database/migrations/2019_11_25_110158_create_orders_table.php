@@ -18,7 +18,6 @@ class CreateOrdersTable extends Migration
 
             $table->bigInteger('buyer_id')->unsigned()->nullable();
             $table->bigInteger('owner_id')->unsigned()->nullable();
-            $table->uuid('payment_id')->unsigned()->nullable();
 
             $table->string('session_id', 40)->nullable();
             $table->string('number', 40)->nullable();
@@ -41,10 +40,6 @@ class CreateOrdersTable extends Migration
             $table->foreign('owner_id')
                 ->references('id')
                 ->on('users');
-
-            $table->foreign('payment_id')
-                ->references('payment_id')
-                ->on('payments');
 
             $table->index('session_id');
             $table->index('status');

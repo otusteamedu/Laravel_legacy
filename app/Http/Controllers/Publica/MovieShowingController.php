@@ -13,6 +13,7 @@ use App\Services\Interfaces\IMovieShowingService;
 use App\Services\Interfaces\IPlaceService;
 use App\Services\Interfaces\IShowingPriceService;
 use App\Services\Interfaces\ITicketService;
+use App\Services\ResizeService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -57,9 +58,14 @@ class MovieShowingController extends AbstractController
         }
 
         $moviesShowing = $this->movieShowingService->getMovieShowings($date, $model);
+        $this->makeThumbs($moviesShowing, 'photo',
+            ['type' => ResizeService::RESIZE_CROPPING, 'width' => 120, 'height' => 80]);
+
+        $availableDates = $this->movieShowingService->availableMovieDates($model);
+
         $movie = $model->toArray();
         return view('public.movies.showing',
-            compact('movie', 'moviesShowing', 'filter_date')
+            compact('movie', 'moviesShowing', 'filter_date', 'availableDates')
         );
     }
 

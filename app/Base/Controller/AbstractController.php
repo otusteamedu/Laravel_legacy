@@ -121,20 +121,30 @@ abstract class AbstractController extends Controller
         $rs = $this->Resizer();
         $bOneImage = (substr($field, -1, 1) != 's');
 
-        if(!array_key_exists($field, $item))
+        if(!array_key_exists($field, $item) || empty($item[$field]))
             return;
 
-        $item[$field] = $fs->getLocalFileArray($item[$field]);
-        if($thumbOpts) {
-            $key = $field . '_thumb';
-            if($bOneImage) {
-                $item[$key] = $item[$field] ? $rs->ResizeImage($item[$field], $thumbOpts) : null;
-                $item[$key.'_url'] = $item[$key] ? $fs->getAssetFile($item[$key]) : null;
+        $key = $field . '_thumb';
+        if($bOneImage) {
+            $item[$field] = $fs->getLocalFileArray($item[$field]);
+            $item[$field.'_url'] = $item[$field] ? $fs->getAssetFile($item[$field]) : null;
+            if($thumbOpts) {
+                $item[$key] = $item[$field] ? $rs->ResizeImage($item[$field] , $thumbOpts) : null;
+                $item[$key . '_url'] = $item[$key] ? $fs->getAssetFile($item[$key]) : null;
             }
         }
         else {
-            if($bOneImage) {
-                $item[$field . '_url'] = $item[$field] ? $fs->getAssetFile($item[$field]) : null;
+            $item[$field.'_url'] = [];
+            $item[$key] = [];
+            $item[$key.'_url'] = [];
+            foreach($item[$field] as $file) {
+                $file = $fs->getLocalFileArray($file);
+                if($file) {
+                    $item[$field.'_url'][] = $fs->getAssetFile($file);
+                    $fileResized = $rs->ResizeImage($file, $thumbOpts);
+                    $item[$key][] = $fileResized;
+                    $item[$key.'_url'][] = $fs->getAssetFile($fileResized);
+                }
             }
         }
     }

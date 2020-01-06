@@ -11,4 +11,6 @@ interface ICinemaService extends IBaseService
     public function availableCinemas(Carbon $date_from, Carbon $date_to = null): array;
 
     public function cinemaList(): array;
+
+    public function FindCinema(int $cinemaId): array;
 }

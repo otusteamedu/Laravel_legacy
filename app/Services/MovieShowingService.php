@@ -5,6 +5,7 @@ namespace App\Services;
 
 
 use App\Base\Service\BaseService;
+use App\Helpers\Views\AdminHelpers;
 use App\Models\Cinema;
 use App\Models\Movie;
 use App\Models\MovieShowing;
@@ -13,6 +14,7 @@ use App\Services\Interfaces\ICinemaService;
 use App\Services\Interfaces\IMovieService;
 use App\Services\Interfaces\IMovieShowingService;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class MovieShowingService extends BaseService implements IMovieShowingService
 {
@@ -85,8 +87,9 @@ class MovieShowingService extends BaseService implements IMovieShowingService
             if(!array_key_exists($movie->id, $movieMap)) {
                 $index = count($movieMap);
                 $movieMap[$movie->id] = $index;
+                $genres = $movie->genres ? $movie->genres->toArray() : [];
                 $result[$index] = [
-                    'movie' => $movie->toArray(),
+                    'movie' => array_merge($movie->toArray(), ['genres' => $genres]),
                     'photo' => $movie->poster ? $movie->poster->toArray() : null,
                     'showings' => []
                 ];
@@ -124,5 +127,40 @@ class MovieShowingService extends BaseService implements IMovieShowingService
             return false;
 
         return true;
+    }
+
+    public function availableMovieDates(Movie $movie, Carbon $date_from = null, Carbon $date_to = null): array {
+        /** @var IMovieShowingRepository $repository */
+        $repository = $this->getRepository();
+        return $this->formatDates(
+            $repository->availableMovieDates($movie, $date_from, $date_to)
+        );
+    }
+    public function availableCinemaDates(Cinema $cinema, Carbon $date_from = null, Carbon $date_to = null): array {
+        /** @var IMovieShowingRepository $repository */
+        $repository = $this->getRepository();
+        return $this->formatDates(
+            $repository->availableCinemaDates($cinema, $date_from, $date_to)
+        );
+    }
+    public function availableDates(Carbon $date_from = null, Carbon $date_to = null): array {
+        /** @var IMovieShowingRepository $repository */
+        $repository = $this->getRepository();
+        return $this->formatDates(
+            $repository->availableDates($date_from, $date_to)
+        );
+    }
+
+    private function formatDates(array $dates) {
+        $result = [];
+        $now = Carbon::now()->floorDay();
+        foreach ($dates as $dateStr) {
+            $date = Carbon::createFromFormat('Y-m-d', $dateStr);
+            $result[] = [
+                'date' => $date->format(AdminHelpers::FORMAT_SITE_DATE),
+                'available' => $now->lte($date)
+            ];
+        }
+        return $result;
     }
 }

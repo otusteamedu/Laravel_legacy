@@ -25,11 +25,11 @@ class CinemasTableSeeder extends Seeder
             [
                 'name' => 'Россия',
                 'photos' => [
-                    'cinemas/rossia/1.jpg',
-                    'cinemas/rossia/2.jpg',
-                    'cinemas/rossia/3.jpg',
-                    'cinemas/rossia/4.jpg',
-                    'cinemas/rossia/5.jpg'
+                    'rossia/1.jpg',
+                    'rossia/2.jpg',
+                    'rossia/3.jpg',
+                    'rossia/4.jpg',
+                    'rossia/5.jpg'
                 ],
                 'description' => 'Здание кинотеатра «Россия» было построено в 1957—1961 годах на Пушкинской площади
                     на месте снесённого в 1937 году Страстного монастыря. Кинотеатр открылся ко 2-му Московскому международному
@@ -48,11 +48,11 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Ударник',
                 'photos' => [
-                    'cinemas/udarnik/1.jpg',
-                    'cinemas/udarnik/2.jpg',
-                    'cinemas/udarnik/3.jpg',
-                    'cinemas/udarnik/4.jpg',
-                    'cinemas/udarnik/5.jpg'
+                    'udarnik/1.jpg',
+                    'udarnik/2.jpg',
+                    'udarnik/3.jpg',
+                    'udarnik/4.jpg',
+                    'udarnik/5.jpg'
                 ],
                 'description' => '<p>«Ударник» стал первым кинотеатром, созданным специально для звукового кино. Долгие годы оставаясь
                     самым крупным кинотеатром Москвы с залом вместимостью 1500 человек, он несколько десятилетий носил неофициальный
@@ -69,9 +69,9 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Иллюзион',
                 'photos' => [
-                    'cinemas/illuzion/1.jpg',
-                    'cinemas/illuzion/2.jpg',
-                    'cinemas/illuzion/3.jpg'
+                    'illuzion/1.jpg',
+                    'illuzion/2.jpg',
+                    'illuzion/3.jpg'
                 ],
                 'description' => '<p>«Иллюзион» на протяжении своего существования занимался популяризацией шедевров мирового кинематографа,
                     которые составляли основу его репертуара. При этом некоторые из фильмов Госфильмофонда были недоступны для показа в
@@ -85,8 +85,8 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Космос',
                 'photos' => [
-                    'cinemas/kosmos/1.jpg',
-                    'cinemas/kosmos/2.jpg'
+                    'kosmos/1.jpg',
+                    'kosmos/2.jpg'
                 ],
                 'description' => '<p>Кинотеатр «Космос» построен в 1967 году.</p>
                     <p>В год Олимпиады в Москве (1980 г.), рядом с «Космосом» в самолете появился детский кинотеатр «Илюша». До наших
@@ -101,9 +101,9 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Родина',
                 'photos' => [
-                    'cinemas/rodina/1.jpg',
-                    'cinemas/rodina/2.jpg',
-                    'cinemas/rodina/3.jpg'
+                    'rodina/1.jpg',
+                    'rodina/2.jpg',
+                    'rodina/3.jpg'
                 ],
                 'description' => '<p>Здание кинотеатра построено в 1938 году по проекту архитекторов Якова Корнфельда и Виктора Калмыкова в
                     стиле постконструктивизма. В отличие от большинства зданий, построенных по подобным проектам (в Твери, Смоленске,
@@ -120,10 +120,10 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Октябрь',
                 'photos' => [
-                    'cinemas/october/1.jpg',
-                    'cinemas/october/2.jpg',
-                    'cinemas/october/3.jpg',
-                    'cinemas/october/4.jpg'
+                    'october/1.jpg',
+                    'october/2.jpg',
+                    'october/3.jpg',
+                    'october/4.jpg'
                 ],
                 'description' => 'Киноконцертный зал в Москве на Новом Арбате. Построен в 1967 году по проекту архитекторов М. Посохина,
                     А. Мндоянца, Ю. Попова, А. Жбакова, В. Турчиновича, Г. Умнова, инженеров С. Школьникова и В. Николаева. Его фасад
@@ -136,8 +136,8 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Реутов Парк',
                 'photos' => [
-                    'cinemas/reutov/1.jpg',
-                    'cinemas/reutov/2.jpg'
+                    'reutov/1.jpg',
+                    'reutov/2.jpg'
                 ],
                 'description' => '<p>Кинотеатр «Каро 10 Реутов» в Москве — это целый кинокомплекс, состоящий из 10 кинозалов,
                     оборудованных инновационной техникой: лучшее экранное оборудование, цифровые проекторы, 3-х мерный звук
@@ -150,7 +150,7 @@ class CinemasTableSeeder extends Seeder
             ], [
                 'name' => 'Ангара',
                 'photos' => [
-                    'cinemas/angara/1.jpg'
+                    'angara/1.jpg'
                 ],
                 'description' => '<p>После реконструкции площадь бывшего кинотеатра увеличится в четыре раза, часть помещений
                     предназначена для развития малого бизнеса.</p>
@@ -196,19 +196,19 @@ class CinemasTableSeeder extends Seeder
 
             if(!empty($item['photos'])) {
                 $data['photos'] = [];
-                foreach ($item['photos'] as $photoPath)
-                $fileName = $imagePath . "/" . $photoPath;
-                $fz = getimagesize($fileName);
-                $data['photos'][] = new \Illuminate\Http\UploadedFile(
-                    $fileName, basename($fileName),
-                    $fz['mime'],
-                    UPLOAD_ERR_OK,
-                    true
-                );
+                foreach ($item['photos'] as $photoPath) {
+                    $fileName = $imagePath . "/" . $photoPath;
+                    $fz = getimagesize($fileName);
+                    $data['photos'][] = new \Illuminate\Http\UploadedFile(
+                        $fileName, basename($fileName),
+                        $fz['mime'],
+                        UPLOAD_ERR_OK,
+                        true
+                    );
+                }
             }
 
             $cinema = $service->store($data);
-
             $nHalls = random_int(2, 5);
 
             for ($number = 1; $number <= $nHalls; $number++) {

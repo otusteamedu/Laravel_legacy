@@ -11,6 +11,7 @@ use App\Models\Movie;
 use App\Repositories\Interfaces\IMovieShowingRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class MovieShowingRepository extends BaseRepository implements IMovieShowingRepository
 {
@@ -24,30 +25,44 @@ class MovieShowingRepository extends BaseRepository implements IMovieShowingRepo
         return true;
     }
     private function prepareFrom(Carbon $date): Carbon {
-        return $date->ceilDay();
+        return $date->floorDay();
     }
-    /**
-     * @inheritDoc
-     */
-    public function availableDates(Carbon $date_from, Carbon $date_to): array
-    {
 
+    private function availableDatesQuery(Movie $movie = null, Cinema $cinema = null, Carbon $date_from = null, Carbon $date_to = null) {
+        $query = DB::table('movie_showings')
+            ->selectRaw('date(movie_showings.`datetime`) as `date`')
+            ->join('movie_rentals', 'movie_rentals.id', 'movie_showings.movie_rental_id')
+            ->groupBy('date')
+            ->orderBy('movie_showings.datetime');
 
-        return [];
+        if($movie)
+            $query->where('movie_rentals.movie_id', '=', $movie->id);
+        if($cinema)
+            $query->where('movie_rentals.cinema_id', '=', $movie->id);
+        if($date_from)
+            $query->where('movie_rentals.datetime', '>=', $date_from->ceilDay());
+        if($date_to)
+            $query->where('movie_rentals.datetime', '<', $date_to->addDay()->floorDay());
+
+        return $query;
     }
     /**
      * @inheritDoc
      */
-    public function availableMovieDates(Movie $movie , Carbon $date_from , Carbon $date_to): array
-    {
-        return [];
+    public function availableDates(Carbon $date_from = null, Carbon $date_to = null): array {
+        return $this->availableDatesQuery(null, null, $date_from, $date_to)->pluck('date')->toArray();
     }
     /**
      * @inheritDoc
      */
-    public function availableCinemaDates(Cinema $cinema , Carbon $date_from , Carbon $date_to): array
-    {
-        return [];
+    public function availableMovieDates(Movie $movie, Carbon $date_from = null, Carbon $date_to = null): array {
+        return $this->availableDatesQuery($movie, null, $date_from, $date_to)->pluck('date')->toArray();
+    }
+    /**
+     * @inheritDoc
+     */
+    public function availableCinemaDates(Cinema $cinema, Carbon $date_from = null, Carbon $date_to = null): array {
+        return $this->availableDatesQuery(null, $cinema, $date_from, $date_to)->pluck('date')->toArray();
     }
 
     /**
