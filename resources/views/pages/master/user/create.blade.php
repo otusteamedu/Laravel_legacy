@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="input-field col s12">
-                        <button type="submit" class="waves-effect waves-light btn red lighten-2">Сохранить</button>
+                        <button type="submit" class="waves-effect waves-light btn pink lighten-2">Сохранить</button>
                     </div>
                 </form>
             </div>

@@ -62,17 +62,17 @@
     </main>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large red">
+        <a class="btn-floating btn-large pink">
             <i class="large material-icons">dehaze</i>
         </a>
         <ul>
             <li>
-                <a class="btn-floating red" href="{{ route('master.user.edit', ['id' => 1]) }}">
+                <a class="btn-floating pink" href="{{ route('master.user.edit', ['id' => 1]) }}">
                     <i class="material-icons">mode_edit</i>
                 </a>
             </li>
             <li>
-                <a class="btn-floating red" href="{{ route('master.user.create_record', ['id' => 1]) }}">
+                <a class="btn-floating pink" href="{{ route('master.user.create_record', ['id' => 1]) }}">
                     <i class="material-icons">add</i>
                 </a>
             </li>
