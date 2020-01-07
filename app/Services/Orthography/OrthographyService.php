@@ -29,6 +29,10 @@ class OrthographyService
     public function update(Orthography $orthography, Array $data)
     {
         return $orthography->update($data);
-        //return $this->orthographyRepository->updateGrammar($orthography,$data);
+    }
+    public function detail($id):Orthography
+    {
+        return Orthography::find($id);
+        //return $orthography->update($data);
     }
 }
