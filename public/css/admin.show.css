@@ -70,13 +70,25 @@ div#errors {
 }
 
 main {
-  margin-top: 80px;
+  margin: 80px auto;
   padding: 10px;
+}
+
+main h4 {
   text-align: center;
 }
 
-main img {
-  width: 200px;
-  margin-bottom: 20px;
+main div#data {
+  max-width: 500px;
+  margin: auto;
+}
+
+main div#data table tr td:first-child {
+  width: 100px;
+  text-align: right;
+}
+
+main div#data table tr td:last-child {
+  text-align: left;
 }
 

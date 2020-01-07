@@ -5,19 +5,13 @@ main
   margin-top:80px;
   padding:10px;
   text-align: center; 
+
   img
   {
-    width:150px;
     margin-bottom:20px;
   }
-
-  form#profile
+  table
   {
-    max-width:400px;
-    margin:auto;
-    div label, input
-    {
-      text-align:left;
-    }    
+    text-align: left;
   }
 }

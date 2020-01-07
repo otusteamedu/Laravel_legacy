@@ -70,13 +70,35 @@ div#errors {
 }
 
 main {
-  margin-top: 80px;
+  margin: 80px auto;
   padding: 10px;
   text-align: center;
 }
 
-main img {
-  width: 200px;
-  margin-bottom: 20px;
+main form#profile {
+  max-width: 500px;
+  margin: auto;
+}
+
+main form#profile table td:first-child {
+  width: 100px;
+  text-align: right;
+}
+
+main form#profile table td:last-child {
+  text-align: left;
+}
+
+main form#profile table td:last-child input {
+  text-align: left;
+  margin-bottom: 0px;
+}
+
+main form#profile div:last-child {
+  text-align: center;
+}
+
+main form#profile label {
+  text-align: left;
 }
 

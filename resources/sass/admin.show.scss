@@ -1,0 +1,32 @@
+@import 'common';
+
+main
+{
+  margin:80px auto;
+  padding:10px;
+
+  h4
+  {
+    text-align: center;
+  }
+
+  div#data
+  {
+    max-width:500px;
+    margin:auto;
+    table tr
+    {
+        td:first-child
+        {
+            width:100px;
+            text-align: right;
+        }
+
+        td:last-child
+        {
+           text-align: left;
+        }
+    }
+  }
+
+}

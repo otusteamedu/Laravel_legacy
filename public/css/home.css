@@ -55,6 +55,20 @@ footer {
   border-top: 2px solid white;
 }
 
+.is-invalid {
+  border: 1px solid red;
+  background-color: rgba(255, 0, 0, 0.02);
+  color: darkred;
+}
+
+div#errors {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
 main {
   margin-top: 80px;
   padding: 10px;
@@ -64,5 +78,15 @@ main {
 main img {
   width: 150px;
   margin-bottom: 20px;
+}
+
+main form#profile {
+  max-width: 400px;
+  margin: auto;
+}
+
+main form#profile div label,
+main form#profile input {
+  text-align: left;
 }
 

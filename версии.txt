@@ -35,14 +35,14 @@
 
 2019.12.26 поменял локаль Faker'a в config/app.php
 
-2019.12.27 
+2019.12.27
   Создал фабрики
     UserFactory
     AccountFactory
     ItemFactory
     OrderFactory
 
-  Создал сидеры  
+  Создал сидеры
     UsersTableSeeder
     ItemsTableSeeder
 
@@ -53,6 +53,96 @@
   Добавил PHPdoc комментарии
   Вернул поля password и rememberToken в миграцию _create_users_table
   Вычленил из UsersTableSeeder => AccountsTableSeeder и OrdersTableSeeder
+
+Занятие 14
+==========
+2020.01.01
+
+  Задача : создать простейшую админку, через которую я вручную могу добавлять, обновлять, удалять пользователей.
+
+  Часть 1 : Написал работающие CRUD-операции.
+
+  Создал вьюшки:
+    views/pages/admin/
+        index.blade.php     - показать список всех пользователей
+        show.blade.php      - показать информацию по конкретному пользователю. Редактировать нельзя.
+        edit.blade.php      - показать информацию по конкретному пользователю с возможностью ввода данных и их сохранения.
+        create.blade.php    - показать форму, где можно ввести данные нового пользователя и сохранить их.
+
+  Для каждой новой вьюшки создал их CSS-файлы и прописал эти CSS-файлы внутри webpack.mix.js
+
+  Сгенерировал ресурсный контроллер UserController.php
+
+  Создал папку, а в ней - отдельные реквест-классы.
+  Эти реквест-классы использую в контроллере UserController.php для того, чтобы валидировать данные из форм вьюшек.
+  app\Http\Requests\
+    StoreUserRequest.php
+    UpdateUserRequest.php
+
+  2020.01.05
+  Часть 2 : Паттерн Репозиторий.
+  Статья : https://www.larashout.com/how-to-use-repository-pattern-in-laravel
+
+  Создал app\Repositories\
+            UserRepository.php
+            UserRepositoryInterface.php
+            BackendServiceProvider.php
+
+  В config\app.php, в списке сервис-провайдеров, прописал BackendServiceProvider.
+
+  Немного изменил UserController.php, где и использую паттерн Репозиторий.
+
+Часть 3 :
+Добавил handler'ы.
+Бизнес-логику можно вывести в handler'ы.
+Services/StoreUserHandler.php
+
+Добавил сервисы.
+Они вызывают handlerы.
+Services/UserService.php
+
+Обновил работу с реквестами : добавил Requests\FormRequest.
+
+Часть 4 :
+Интегрирую сервис UserService в контроллер UserController.
+
+Часть 5 :
+Реплицирую структуру папок, как в проекте у Егора.
+Получилось слишком сложно и запутанно. Очень труднозапоминаемые пути к папкам.
+
+[app]
+    [Models]
+        Account.php
+        Item.php
+        Order.php
+        User.php
+
+    [Http]
+        [Controllers]
+            [CMS]
+                [Users]
+                    [Requests]
+                        CreateUserRequest.php
+                        UpdateUserRequest.php
+                    UsersController.php
+        [Requests]
+            FormRequest.php
+
+    [Services]
+        [Users]
+            [Handlers]
+                CreateUserHandler.php
+            [Repositories]
+                UserRepository.php
+                UserRepositoryInterface.php
+            UsersService.php
+            UsersServiceProvider.php
+
+    Также пришлось добавлять конструкцию в routes/web.php
+    Пришлось убрать 'cms' из Route::prefix('')
+
+    Зарегистрировал класс и интерфес репозиториев по своему, через UsersServiceProvider.php
+
 
 
 

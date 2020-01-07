@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
 });
 
@@ -29,8 +29,26 @@ Route::get('/register', function () {
 
 Route::get('/home', function () {
     return view('pages/home');
-});
+});*/
+
+//Route::get('/home','UsersController@show');
 
 Route::get('/katalog', function () {
     return view('pages/katalog');
 });
+
+Route::name('cms.')->group(function () {
+    Route::prefix('')->group(function () {
+        Route::resources([
+            'users' => 'CMS\Users\UsersController',
+        ], [
+            'except' => [
+            ],
+        ]);
+    });
+});
+//Route::resource('users','CMS\Users\UsersController');
+
+/*Route::get('/admin/index','UsersController@index');
+Route::get('/admin/users/{id}','UsersController@show');*/
+

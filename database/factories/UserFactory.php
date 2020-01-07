@@ -18,19 +18,27 @@ use Illuminate\Support\Str;
 
 $factory->define(User::class, function (Faker $faker) {
     // перечень сайтов - источников лидов
-    $sources = ['fruit-shop.ru', 'sweet-fruits.ru', 'juicy-fruits', 'crazy-banana.com'];
+    // задаётся в config/shop.php
+    $sources = config('shop.sources');
+
     // категория посетителей сайтов
-    $types = ['лид','покупатель','конкурент'];
+    $types = config('shop.types');
+
+    // оператор, который работает с данным пользоваетелем
+    $operators = config('shop.operators');
+
 
     return [
         'source'=>$faker->randomElement($sources),
         'date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
         'type'=>$faker->randomElement($types),
+        'operator'=>$faker->randomElement($operators),
         'name' => $faker->name,
         'phone' => $faker->phoneNumber,
-        'email' => $faker->unique()->safeEmail,  
+        'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
-        'address' => $faker->address,
+        'address' => $faker->city,
+        'comments' => '',
         // Внимание! В будущем планирую отвязать эти данные от пользователя
         // и перенести в акаунт
         'password' => '123',

@@ -14,24 +14,25 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            # Column methods   : https://laravel.com/docs/6.x/migrations#columns    
-            # Column modifiers : https://laravel.com/docs/6.x/migrations#column-modifiers        
+            # Column methods   : https://laravel.com/docs/6.x/migrations#columns
+            # Column modifiers : https://laravel.com/docs/6.x/migrations#column-modifiers
             $table->bigIncrements('id');
             $table->string('source')->default('');   //добавил
-            $table->date('date');                    //добавил
+            $table->date('date')->default(now());                    //добавил
             $table->string('type')->default('');     //добавил
+            $table->string('operator')->default('');
             $table->string('name')->default('');
             $table->string('phone')->default('');    //добавил
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable(); //это поле не нужно
             $table->string('address')->default('');  //добавил
-            $table->string('comments')->default(''); //добавил
+            $table->string('comments')->nullable(); //добавил
             $table->string('is_enemy')->default(''); //добавил
             $table->timestamps();
-            // Себе на будущее : по плану хочу отвязать пароль, логин, токен от пользователя и 
+            // Себе на будущее : по плану хочу отвязать пароль, логин, токен от пользователя и
             // перенести в специально созданную для этого сущность Account.
             // В этом задании, оставляю эти стандартные поля здесь.
-            $table->string('password');
+            $table->string('password')->nullable();
             $table->rememberToken();
         });
     }
