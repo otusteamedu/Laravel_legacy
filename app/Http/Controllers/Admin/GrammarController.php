@@ -93,7 +93,6 @@ class GrammarController extends Controller
         return view('admin.grammar.grammar_detail')->with([
             'grammar' => $grammar,
         ]);
-
     }
 
     /**
