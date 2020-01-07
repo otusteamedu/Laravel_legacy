@@ -22,6 +22,10 @@ class WordService
     public function list(){
         return Word::all();
     }
+    public function detail(string $id)
+    {
+        return Word::where(['lessen_id' => $id])->get();
+    }
     public function update(Word $test, Array $data){
         $test->update($data);
     }

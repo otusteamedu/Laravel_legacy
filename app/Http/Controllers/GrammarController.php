@@ -2,22 +2,25 @@
 
 namespace App\Http\Controllers;
 
-//use Illuminate\Http\Request;
-//use App\Models\Grammar;
-use App\Models\Test;
-use App\Models\Word;
+
+use App\Services\Test\TestService;
+use App\Services\Word\WordService;
 use App\Services\Grammar\GrammarService;
 
-//use Cache;
 
 class GrammarController extends Controller
 {
+    private $testService;
+    private $wordService;
     private $grammarService;
-
     public function __construct(
+        TestService $testService,
+        WordService $wordService,
         GrammarService $grammarService
     )
     {
+        $this->testService = $testService;
+        $this->wordService = $wordService;
         $this->grammarService = $grammarService;
     }
 
@@ -29,11 +32,10 @@ class GrammarController extends Controller
 
     public function getDeatail(string $id)
     {
-
         $list = $this->grammarService->listGrammar();
         $detail = $this->grammarService->detailGrammar($id);
-        $tests = Test::where(['lessen_id' => $id, 'status' => 0])->get();
-        $words = Word::where(['lessen_id' => $id])->get();
+        $tests = $this->testService->detail($id);
+        $words = $this->wordService->detail($id);
         return view('grammar')->with(
             [
                 'detail' => $detail,

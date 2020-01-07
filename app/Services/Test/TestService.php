@@ -23,6 +23,11 @@ class TestService
     public function listTest(){
         return Test::all();
     }
+
+    public function detail(int $id)
+    {
+        return Test::where(['lessen_id' => $id, 'status' => 0])->get();
+    }
     public function updateTest(Test $test, Array $data){
         $test->update($data);
     }
