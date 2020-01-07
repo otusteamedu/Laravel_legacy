@@ -16,7 +16,6 @@ use App\Services\FileService;
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,7 +38,20 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
-        View::share('cartCount', 1);
+        view()->composer('public.elements.myorder', function(\Illuminate\View\View $view) {
+            /** @var \App\Services\Interfaces\IOrderService $orderService */
+            $orderService = $this->app->get(\App\Services\Interfaces\IOrderService::class);
+            $view->with('summary', $orderService->summaryOrderSession());
+        });
+        view()->composer('public.elements.auth', function(\Illuminate\View\View $view) {
+            /** @var \App\Services\Interfaces\IUserService $userService */
+            $userService = $this->app->get(\App\Services\Interfaces\IUserService::class);
+            $user = $userService->currentUser();
+
+            $view->with('isLoggedIn', ($user != null));
+            $view->with('loggedUser', ($user ? $user->toArray() : []));
+        });
+        // View::share('cartCount', 1);
     }
 
     private function registerBindings()

@@ -148,21 +148,22 @@ class OrderController extends AbstractController
     }
 
     public function checkoutOrder(Request $request)  {
+        $summary = $this->orderService->summaryOrderSession();
         /** @var User $user */
         $user = $this->userService->currentUser();
-        if(!$user)
+        if(!$user && ($summary['count'] > 0))
             return redirect(route('public.order.auth'));
 
         $this->orderService->updateOrderSession();
         $order = $this->orderService->getOrderSession();
         $items = $this->orderService->getOrderItems($order);
-        $summary = $this->orderService->summaryOrderSession();
+
 
         $contactData = array_merge(
             [
-                'name' => $user->fullName(),
-                'phone' => $user->phone,
-                'email' => $user->email
+                'name' => $user ? $user->fullName() : '',
+                'phone' => $user ? $user->phone : '',
+                'email' => $user ? $user->email : ''
             ],
             $request->old('contact', [])
         );

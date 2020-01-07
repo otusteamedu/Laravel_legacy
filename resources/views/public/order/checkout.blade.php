@@ -31,7 +31,13 @@
                     @foreach($items as $item)
                     <tr>
                         <td>
-                            {{ $item['name'] }}
+                        <!-- {{ $item['name'] }} -->
+                            @foreach($item['description'] as $key => $value)
+                                <div class="prop-item p-{{ $key }}">
+                                    <span class="prop-name"><b>{{ $value['name'] }}:</b></span><br />
+                                    <span class="prop-value">{{ $value['value'] }}</span>
+                                </div>
+                            @endforeach
                             @if(!$item['available'])
                                 <br/><div class="alert alert-danger px-1 py-0 d-inline-block my-1">@lang('public.order.not_available')</div>
                             @endif

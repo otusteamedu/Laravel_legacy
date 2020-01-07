@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -32,18 +33,22 @@ class LoginController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        $this->redirectTo = route('public.account.index');
+        $this->redirectTo = $request->input('redirectTo');
+        if(empty($this->redirectTo))
+            $this->redirectTo = route('public.account.index');
         $this->middleware('guest')->except('logout');
     }
     /**
      * Show the application's login form.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function showLoginForm()
     {
-        return view('public.account.login');
+        return view('public.account.login', [
+            'redirectTo' => $this->redirectTo
+        ]);
     }
 }

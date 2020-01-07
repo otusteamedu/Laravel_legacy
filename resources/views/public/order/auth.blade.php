@@ -29,7 +29,7 @@
             <div class="col-md-5 p-0">
                 <h5><b>1. Вы уже бронировали онлайн</b></h5>
                 <div style="background-color: #f2f2f2; padding: 10px 15px;">
-                    Тогда <a href="{{ route('login', ['routeTo' => route('public.order.checkout')]) }}" class="btn btn-success">войдите</a> на сайт
+                    Тогда <a href="{{ route('login', ['redirectTo' => route('public.order.checkout')]) }}" class="btn btn-success">войдите</a> на сайт
                     или <a href="{{ route('password.request') }}" class="btn btn-primary">вспомните пароль</a>
                 </div>
             </div>
