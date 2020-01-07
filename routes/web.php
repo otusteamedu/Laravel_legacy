@@ -84,7 +84,7 @@ Route::get('/order/checkout', 'Publica\OrderController@checkoutOrder')->name('pu
 Route::post('/order/checkout', 'Publica\OrderController@confirmOrder')->name('public.order.confirm');
 Route::get('/order/confirmed', 'Publica\OrderController@confirmedOrder')->name('public.order.confirmed');
 Route::get('/order/auth', 'Publica\OrderController@authOrder')->name('public.order.auth');
-Route::post('/order/register', 'Publica\OrderController@quickRegister')->name('public.order.register');
+Route::post('/order/auth', 'Publica\OrderController@quickRegister')->name('public.order.register');
 
 // оплата
 Route::middleware('auth')->group(function () {
@@ -134,25 +134,6 @@ Route::get('/account/ordered', function (\Illuminate\Http\Request $request, \App
 
     return view('public.account.ordered', compact('ordersList'));
 })->name('public.account.ordered');
-
-/*
-Route::get('/account/register', function () {
-    return view('public.account.register', [
-        'breadCrumbs' => [
-            [
-                'url' => \route('public.start'),
-                'title' => __('public.menu.home'),
-            ], [
-                'url' => \route('public.account.index'),
-                'title' => __('public.account.index'),
-            ], [
-                'url' => \route('public.account.register'),
-                'title' => __('public.account.register'),
-            ]
-        ]
-    ]);
-})->name('public.account.register');
-*/
 
 Route::get('/account/profile', function () {
 

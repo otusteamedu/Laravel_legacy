@@ -17,6 +17,7 @@ use App\Services\Interfaces\IPlaceService;
 use App\Services\Interfaces\ITicketService;
 use App\Services\Interfaces\IUserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
@@ -213,19 +214,47 @@ class OrderController extends AbstractController
         return view('public.order.confirmed', ['order' => $order->toArray()]);
     }
 
-    public function payOrder(Request $request): View {
-        //$
+    public function authOrder(Request $request) {
+        // получаем данные из формы и объеденяем их с ранее введенными данными
+        $data = $request->input('register', []);
+        if(!is_array($data)) $data = [];
 
-        return view('public.order.checkout'//,
+        $data = array_merge(
+            [
+                'name' => '',
+                'surname' => '',
+                'phone' => '',
+                'email' => ''
+            ],
+            $data
+        );
+
+        return view('public.order.auth'//,
         //compact('movie', 'places', 'hall', 'showing', 'prices')
         );
     }
 
-    public function authOrder(Request $request) {
-
-    }
-
     public function quickRegister(Request $request) {
+        // получаем данные из формы и объеденяем их с ранее введенными данными
+        $data = $request->input('register', []);
+        if(!is_array($data)) $data = [];
 
+        try {
+            $user = $this->userService->quickRegister($data);
+            Auth::guard()->login($user);
+            $this->status(__('public.order.registered'));
+        }
+        catch (ValidationException $exception) {
+            return redirect(route('public.order.auth'))
+                ->withErrors($exception->errors())
+                ->withInput();
+        }
+        catch (ServiceException $exception) {
+            return redirect(route('public.order.auth'))
+                ->withErrors($exception->getMessages(), 'messages')
+                ->withInput();
+        }
+
+        return redirect(route('public.order.checkout'));
     }
 }

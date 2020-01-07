@@ -1,6 +1,6 @@
 <?php
 
-$sleep = 10; // фейковая задержка
+$sleep = 6; // фейковая задержка
 $rightSmsCode = "123456";
 $result = [
     'status' => 'error',
@@ -35,7 +35,7 @@ function checkTerm($value): bool {
     return ($now <= $expired);
 }
 
-// sleep($sleep);
+sleep($sleep);
 
 if($cmd == 'input') {
     if($total <= 0)
