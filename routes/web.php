@@ -13,8 +13,8 @@
 
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
-Route::get('/test', function () {
-
-});
+//Route::get('/test', function () {
+//
+//});
 
 
