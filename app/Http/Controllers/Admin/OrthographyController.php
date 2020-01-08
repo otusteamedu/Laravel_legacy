@@ -42,7 +42,8 @@ class OrthographyController extends Controller
      */
     public function create()
     {
-        //
+        $orthography = $this->orthographyService->new();
+        return view('admin.orthography.create')->with(['detail' => $orthography]);
     }
 
     /**
@@ -53,7 +54,17 @@ class OrthographyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'code' => 'required',
+            'title' => 'required',
+        ]);
+        $data = $request->all();
+        $orthography = $this->orthographyService->insert($data);
+        return view('admin.orthography.detail')->with([
+            'orthography' => $orthography,
+
+        ]);
     }
 
     /**

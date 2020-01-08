@@ -11,6 +11,6 @@
         @endforeach
     </ul>
     <hr>
-{{--    <a href="{{route('admin.orthography.create')}}">Создать страницу Орфография</a>--}}
+    <a href="{{route('admin.orthography.create')}}">Создать страницу Орфография</a>
 @endsection
 

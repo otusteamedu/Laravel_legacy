@@ -35,4 +35,12 @@ class OrthographyService
     {
         return $this->orthographyRepository->update($orthography,$data,$file);
     }
+    public function new():Orthography
+    {
+        return new Orthography();
+    }
+    public function insert(Array $data):Orthography
+    {
+        return $this->orthographyRepository->insert($data);
+    }
 }

@@ -34,9 +34,9 @@ class OrthographyRepository implements IOrthographyRepository
 
     public function insert(Array $data):Orthography
     {
-        $grammar = new Orthography();
-        $gr= $grammar->create($data);
-        Cache::tags(['grammar'])->put("grammar_detail_{$gr->id}", $gr,600);
+        $orthography = new Orthography();
+        $gr = $orthography->create($data);
+        Cache::tags(['orthography'])->put("orthography_detail_{$gr->id}", $gr, 600);
         return $gr;
     }
 }
