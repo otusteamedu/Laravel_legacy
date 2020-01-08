@@ -8,9 +8,9 @@ use App\Models\Grammar;
 
 interface IGrammarRepository
 {
-    public function listGrammar();
-    public function detailGrammar(int $id);
-    public function updateGrammar(Grammar $grammar, Array $data):Grammar;
-    public function insertGrammar(Array $data):Grammar;
+    public function list();
+    public function detail(int $id);
+    public function update(Grammar $grammar, Array $data):Grammar;
+    public function insert(Array $data):Grammar;
 
 }

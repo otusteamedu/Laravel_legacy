@@ -11,27 +11,31 @@ use Cache;
 class GrammarRepository implements IGrammarRepository
 {
 
-    public function listGrammar()
+    public function list()
     {
         return Grammar::all('id', 'name', 'code');
     }
-    public function detailGrammar(int $id)
+    public function detail(int $id)
     {
         return Grammar::find($id);
     }
 
-    public function updateGrammar(Grammar $grammar, Array $data):Grammar
+    public function update(Grammar $grammar, Array $data):Grammar
     {
         $grammar->update($data);
         Cache::tags(['grammar'])->put('grammar_detail_' . $grammar->id, $data,600);
         return $grammar;
     }
 
-    public function insertGrammar(Array $data):Grammar
+    public function insert(Array $data):Grammar
     {
         $grammar = new Grammar();
         $gr= $grammar->create($data);
         Cache::tags(['grammar'])->put("grammar_detail_{$gr->id}", $gr,600);
         return $gr;
+    }
+    public function delete(Grammar $grammar){
+        $data['deleted_at']=date();
+        $grammar->update($data);
     }
 }

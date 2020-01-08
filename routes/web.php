@@ -16,34 +16,24 @@ Route::get('/', function () {
 });
 Route::get('/arabskie-bukvy', 'OrthographyController@list')->name('opthList');
 Route::get('/arabskie-bukvy/{id}', 'OrthographyController@detail')->name('opthDetail');
-Route::get('/grammatika', 'GrammarController@getList')->name('grammList');
-Route::get('/grammatika/{id}', 'GrammarController@getDeatail')->name('grammDetail');
+Route::get('/grammatika', 'GrammarController@list')->name('grammList');
+Route::get('/grammatika/{id}', 'GrammarController@detail')->name('grammDetail');
 Route::get('/home', 'HomeController@index');
 
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->middleware('auth')->group(function () {
-        Route::get('/', function() {
+        Route::get('/', function () {
             return view('admin.main');
         });
         Route::resources([
-            'grammar'=>'Admin\GrammarController',
-            'orthography'=> 'Admin\OrthographyController',
-            'tests'=> 'Admin\TestsController',
-            'words'=> 'Admin\WordsController'
+            'grammar' => 'Admin\GrammarController',
+            'orthography' => 'Admin\OrthographyController',
+            'tests' => 'Admin\TestsController',
+            'words' => 'Admin\WordsController'
         ]);
         Route::resource('settings', 'Admin\SettingsController')->only(['index', 'store']);
     });
 });
-//Route::middleware('auth')->group(function(){
-//    Route::resources([
-//
-//    ]);
-//});
-
-
-
-
-
 
 
 Route::prefix('cache')->group(function () {
@@ -57,6 +47,3 @@ Route::prefix('cache')->group(function () {
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
-
-//Route::get('/cc', 'HomeController@cc')->name('cc');

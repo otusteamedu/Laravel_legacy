@@ -34,8 +34,8 @@ class GrammarController extends Controller
      */
     public function index()
     {
-        $list = $this->grammarService->listGrammar();
-        return view('admin.grammar.grammar_list')->with(['list' => $list]);
+        $list = $this->grammarService->list();
+        return view('admin.grammar.list')->with(['list' => $list]);
     }
 
     /**
@@ -49,8 +49,8 @@ class GrammarController extends Controller
         $message = "";
         $tests = Test::where(['lessen_id' => $grammar->id, 'status' => 0])->get();
         $words = Word::where(['lessen_id' => $grammar->id])->get();
-        $listGrammar = $this->grammarService->list();
-        return view('admin.grammar.grammar_detail')->with(
+        $listGrammar = $this->grammarService->listGrammar();
+        return view('admin.grammar.detail')->with(
             [
                 'grammar' => $grammar,
                 'message' => $message,
@@ -67,8 +67,8 @@ class GrammarController extends Controller
      */
     public function create()
     {
-        $grammar = $this->grammarService->newGrammar();
-        return view('admin.grammar_detail_create')->with(['grammar' => $grammar]);
+        $grammar = $this->grammarService->new();
+        return view('admin.grammar.create')->with(['grammar' => $grammar]);
     }
 
     /**
@@ -88,9 +88,9 @@ class GrammarController extends Controller
         ]);
 
         $data = $request->all();
-        $grammar = $this->grammarService->updateGrammar($grammar, $data);
+        $grammar = $this->grammarService->update($grammar, $data);
         $this->dispatch(new UpdateGrammarJob($grammar->id, Auth::User()->id));
-        return view('admin.grammar.grammar_detail')->with([
+        return view('admin.grammar.detail')->with([
             'grammar' => $grammar,
         ]);
     }
@@ -109,11 +109,11 @@ class GrammarController extends Controller
             'title' => 'required',
         ]);
         $data = $request->all();
-        $grammar = $this->grammarService->insertGrammar($data);
+        $grammar = $this->grammarService->insert($data);
         $message = '';
         $error = '';
 
-        return view('admin.grammar.grammar_detail')->with([
+        return view('admin.grammar.detail')->with([
             'grammar' => $grammar,
             'error' => $error,
             'message' => $message
@@ -141,6 +141,6 @@ class GrammarController extends Controller
      */
     public function destroy(Grammar $grammar)
     {
-        //
+         $this->grammarService->delete( $grammar);
     }
 }

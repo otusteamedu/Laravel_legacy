@@ -20,11 +20,11 @@ class GrammarService
         $this->grammarRepositoryCache = $grammarRepositoryCache;
     }
 
-    public function listGrammar()
-    {
-        return $this->grammarRepositoryCache->listGrammar();
-    }
     public function list()
+    {
+        return $this->grammarRepositoryCache->list();
+    }
+    public function listGrammar()
     {
         $list=Grammar::all(['id', 'name']);
         foreach ($list as $l){
@@ -33,22 +33,26 @@ class GrammarService
         return $result;
     }
 
-    public function detailGrammar(string $id)
+    public function detail(string $id)
     {
-        return $this->grammarRepositoryCache->detailGrammar($id);
+        return $this->grammarRepositoryCache->detail($id);
     }
-    public function updateGrammar(Grammar $grammar, Array $data):Grammar
+    public function update(Grammar $grammar, Array $data):Grammar
     {
-        return $this->grammarRepository->updateGrammar($grammar,$data);
+        return $this->grammarRepository->update($grammar,$data);
     }
-    public function insertGrammar($data):Grammar
+    public function insert($data):Grammar
     {
-        return $this->grammarRepository->insertGrammar($data);
+        return $this->grammarRepository->insert($data);
     }
 
-    public function newGrammar()
+    public function new()
     {
         return new Grammar();
+    }
+    public function delete(Grammar $grammar)
+    {
+        return $this->grammarRepository->delete($grammar);
     }
 
 

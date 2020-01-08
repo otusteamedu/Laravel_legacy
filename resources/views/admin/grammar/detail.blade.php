@@ -102,6 +102,18 @@
     'class'=>'btn btn-primary',
             'name'=>'save'])}}
 
+
+
+    {!!
+        Form::model($grammar,['method'=>'DELETE', 'url' => route('admin.grammar.destroy',
+            ['grammar'=>($grammar->id)])
+        ])
+    !!}
+
+    {{Form::submit('Удалить',[
+        'class'=>'btn btn-danger',
+        'name'=>'delete'])}}
+
     {!! Form::close() !!}
 
     <hr><br>

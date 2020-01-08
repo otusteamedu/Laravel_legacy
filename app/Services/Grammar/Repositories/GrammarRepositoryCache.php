@@ -16,17 +16,17 @@ class GrammarRepositoryCache implements IGrammarRepositoryCache
         $this->grammarRepository = $grammarRepository;
     }
 
-    public function listGrammar()
+    public function list()
     {
         return Cache::tags(['list'])->remember('grammar_list', 600, function () {
-            return $this->grammarRepository->listGrammar();
+            return $this->grammarRepository->list();
         });
     }
 
-    public function detailGrammar($id)
+    public function detail($id)
     {
         return Cache::tags(['grammar'])->remember('grammar_detail_' . $id, 600, function () use ($id) {
-            return $this->grammarRepository->detailGrammar($id);
+            return $this->grammarRepository->detail($id);
         });
     }
 }

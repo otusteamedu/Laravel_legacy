@@ -24,19 +24,19 @@ class GrammarController extends Controller
         $this->grammarService = $grammarService;
     }
 
-    public function getList()
+    public function list()
     {
-        $list = $this->grammarService->listGrammar();
-        return view('list')->with(['list' => $list]);
+        $list = $this->grammarService->list();
+        return view('grammar.list')->with(['list' => $list]);
     }
 
-    public function getDeatail(string $id)
+    public function detail(string $id)
     {
-        $list = $this->grammarService->listGrammar();
-        $detail = $this->grammarService->detailGrammar($id);
+        $list = $this->grammarService->list();
+        $detail = $this->grammarService->detail($id);
         $tests = $this->testService->detail($id);
         $words = $this->wordService->detail($id);
-        return view('grammar')->with(
+        return view('grammar.detail')->with(
             [
                 'detail' => $detail,
                 'list' => $list,

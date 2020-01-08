@@ -44,16 +44,16 @@ class GrammarTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function testGrammarPages()
-    {
-      //  $grammar = Grammar::all();
-  //      foreach ($grammar as $item) {
-        //echo "\n/grammatika/1\n";
-       //     $response = $this->get('/grammatika/1');
-        //    $response->assertStatus(200);
-//
-    //    }
-    }
+//    public function testGrammarPages()
+//    {
+//      //  $grammar = Grammar::all();
+//  //      foreach ($grammar as $item) {
+//        //echo "\n/grammatika/1\n";
+//        //   $response = $this->get('/grammatika/1');
+//        //   $response->assertStatus(200);
+////
+//    //    }
+//    }
 
     public function testAdminGrammar()
     {
