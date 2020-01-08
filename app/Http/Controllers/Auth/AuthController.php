@@ -36,7 +36,7 @@ class AuthController extends Controller
 
     /**
      * @param LoginFormRequest $request
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\JsonResponse|\Illuminate\Http\Response
      */
     public function login(LoginFormRequest $request)
     {

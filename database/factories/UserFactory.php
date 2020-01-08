@@ -21,7 +21,7 @@ use App\Models\Role;
 $factory->define(User::class, function (Faker $faker) {
     $roleId = Role::all()->random()->id;
     return [
-        'username' => $faker->unique()->userName,
+        'name' => $faker->unique()->userName,
         'email' => $faker->unique()->safeEmail,
         'email_verified_at' => now(),
         'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

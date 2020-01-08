@@ -27,7 +27,7 @@ class UsersRepository
     public function getList()
     {
         return DB::table('users', 'u')
-            ->select(['u.id', 'u.username', 'u.email', 'roles.description as role'])
+            ->select(['u.id', 'u.name', 'u.email', 'roles.description as role'])
             ->join('roles', 'u.role_id', '=', 'roles.id')
             ->orderBy('u.id')
             ->paginate(20);
@@ -42,7 +42,7 @@ class UsersRepository
         return DB::table('users', 'u')
             ->select([
                 'u.id as id',
-                'u.username',
+                'u.name',
                 'u.email',
                 'u.role_id',
                 'u.created_at',
