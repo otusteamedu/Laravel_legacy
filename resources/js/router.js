@@ -31,7 +31,7 @@ const routes = [
             {
                 path: '',
                 name: 'site.home',
-                component: Home
+                component: Home,
             },
             {
                 path: 'about',
@@ -78,11 +78,14 @@ const routes = [
     {
         path: '/admin',
         component: AdminLayout,
+        meta: {
+            auth: true
+        },
         children: [
             {
                 path: '',
                 name: 'admin.main',
-                component: AdminMain,
+                component: AdminMain
             },
             {
                 path: 'user',

@@ -18,8 +18,11 @@ import websanovaHttp from '@websanova/vue-auth/drivers/http/axios.1.x';
 import websanovaRouter from '@websanova/vue-auth/drivers/router/vue-router.2.x';
 
 Vue.use(VueAxios, axios);
+Vue.axios.defaults.baseURL = 'http://otus.project.com/api';
 Vue.use(VueRouter);
 Vue.use(VueBootstrap);
+
+Vue.router = router;
 
 Vue.use(VueAuth, {
     auth: websanovaAuth,
@@ -32,5 +35,5 @@ Vue.component('pagination', LaravelPagination);
 const app = new Vue({
     el: '#app',
     components: {App},
-    router,
+    router
 });

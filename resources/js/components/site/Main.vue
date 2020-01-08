@@ -9,7 +9,10 @@
                 <router-link class="p-2 text-dark" :to="{ name: 'site.contacts' }">Контакты</router-link>
                 <router-link class="p-2 text-dark" :to="{ name: 'site.prices' }">Цены</router-link>
             </nav>
-            <router-link class="btn btn-outline-primary" :to="{ name: 'site.registration' }">Регистрация</router-link>
+            <router-link v-if="!$auth.check()" class="btn btn-outline-primary" :to="{ name: 'site.login' }">Войти</router-link>
+            <router-link v-if="!$auth.check()" class="btn btn-outline-primary" :to="{ name: 'site.registration' }">Регистрация</router-link>
+            <router-link v-if="$auth.check()" class="btn btn-outline-primary" :to="{ name: 'admin.main' }">Личный кабинет</router-link>
+            <a v-if="$auth.check()" class="btn btn-outline-primary" href="#" @click.prevent="$auth.logout()">Выйти</a>
         </div>
         <div class="container">
             <router-view></router-view>
@@ -43,5 +46,10 @@
     </div>
 </template>
 <script>
-    export default {}
+    export default {
+        mounted() {
+            console.log('Component Main mounted');
+            console.log('Check login', this.$auth.check());
+        }
+    }
 </script>
