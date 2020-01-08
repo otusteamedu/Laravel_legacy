@@ -22,9 +22,6 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Comment extends BaseModel
 {
     /** @inheritDoc  */
-    protected $table = 'comments';
-
-    /** @inheritDoc  */
     protected $fillable = [
         'content', 'user_id',
         'post_id', 'comment_id',

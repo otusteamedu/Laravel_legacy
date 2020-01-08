@@ -16,7 +16,7 @@ class CreateRightsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID права');
             $table->string('name')->comment('Название права');
             $table->string('right')->unique()->comment('Право');

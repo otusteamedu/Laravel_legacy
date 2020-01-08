@@ -16,7 +16,7 @@ class CreateRubricsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID рубрики');
             $table->string('name')->comment('Название рубрики');
             $table->string('slug')->unique()->comment('Адрес');

@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('content')->comment('Текст комментария');
             $table->unsignedInteger('user_id')->nullable(false)->comment('ID пользователя');
@@ -25,7 +25,7 @@ class CreateCommentsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::table(self::TABLE, static function (Blueprint $table) {
+        Schema::table(self::TABLE, function (Blueprint $table) {
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')

@@ -17,9 +17,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Right extends BaseModel
 {
-    /** @inheritDoc  */
-    protected $table = 'rights';
-
     /** @inheritDoc */
     public $timestamps = false;
 

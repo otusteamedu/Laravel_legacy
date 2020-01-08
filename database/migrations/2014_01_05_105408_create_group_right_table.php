@@ -15,12 +15,12 @@ class CreateGroupRightTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->unsignedInteger('group_id')->nullable(false)->comment('ID группы');
             $table->unsignedInteger('right_id')->nullable(false)->comment('ID права');
         });
 
-        Schema::table(self::TABLE, static function (Blueprint $table) {
+        Schema::table(self::TABLE, function (Blueprint $table) {
             $table->unique(['group_id', 'right_id']);
             $table->foreign('group_id')
                 ->references('id')

@@ -15,12 +15,12 @@ class CreatePostRubricTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->unsignedInteger('post_id')->nullable(false)->comment('ID новости');
             $table->unsignedInteger('rubric_id')->nullable(false)->comment('ID рубрики');
         });
 
-        Schema::table(self::TABLE, static function (Blueprint $table) {
+        Schema::table(self::TABLE, function (Blueprint $table) {
             $table->unique(['post_id', 'rubric_id']);
             $table->foreign('post_id')
                 ->references('id')

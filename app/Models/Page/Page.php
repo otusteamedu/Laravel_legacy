@@ -18,9 +18,6 @@ use App\Models\BaseModel;
 class Page extends BaseModel
 {
     /** @inheritDoc  */
-    protected $table = 'pages';
-
-    /** @inheritDoc  */
     protected $fillable = [
         'name', 'content', 'slug',
         'title', 'keywords', 'description',

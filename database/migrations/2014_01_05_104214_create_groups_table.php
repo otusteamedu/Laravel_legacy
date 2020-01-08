@@ -16,7 +16,7 @@ class CreateGroupsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID группы');
             $table->string('name')->comment('Название группы');
             $table->timestamps();

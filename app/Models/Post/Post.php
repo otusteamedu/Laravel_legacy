@@ -28,9 +28,6 @@ use Illuminate\Support\Collection;
 class Post extends BaseModel
 {
     /** @inheritDoc  */
-    protected $table = 'posts';
-
-    /** @inheritDoc  */
     protected $fillable = [
         'name', 'image', 'content', 'link', 'slug',
         'title', 'keywords', 'description', 'user_id',

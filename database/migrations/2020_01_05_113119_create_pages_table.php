@@ -14,7 +14,7 @@ class CreatePagesTable extends Migration
      */
     public function up()
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID');
             $table->string('name')->comment('Наззвание страницы');
             $table->text('content')->comment('Содержание');

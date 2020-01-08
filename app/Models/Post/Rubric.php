@@ -21,9 +21,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Rubric extends BaseModel
 {
     /** @inheritDoc  */
-    protected $table = 'rubrics';
-
-    /** @inheritDoc  */
     protected $fillable = [
         'name', 'slug', 'title',
         'keywords', 'description',

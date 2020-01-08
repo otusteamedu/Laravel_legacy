@@ -19,9 +19,6 @@ use Illuminate\Database\Eloquent\Collection;
 class Group extends BaseModel
 {
     /** @inheritDoc  */
-    protected $table = 'groups';
-
-    /** @inheritDoc  */
     protected $fillable = [
         'name',
     ];

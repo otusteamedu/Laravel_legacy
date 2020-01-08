@@ -16,7 +16,7 @@ class CreatePostsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create(self::TABLE, static function (Blueprint $table) {
+        Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID новости');
             $table->string('name')->comment('Заголовок новости');
             $table->string('image')->comment('Изображение');
@@ -31,7 +31,7 @@ class CreatePostsTable extends Migration
             $table->softDeletes();
         });
 
-        Schema::table(self::TABLE, static function (Blueprint $table) {
+        Schema::table(self::TABLE, function (Blueprint $table) {
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
