@@ -31,7 +31,7 @@ class WordsController extends Controller
     public function index()
     {
         $words = $this->wordService->list();
-        $listGrammar = $this->grammarService->list();
+        $listGrammar = $this->grammarService->listGrammar();
         return view('admin.words.words_page')->with([
             'words'=>$words,
             'listGrammar' => $listGrammar

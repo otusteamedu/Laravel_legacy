@@ -32,7 +32,7 @@ class TestsController extends Controller
     public function index()
     {
         $tests = $this->testService->listTest();
-        $listGrammar = $this->grammarService->list();
+        $listGrammar = $this->grammarService->listGrammar();
         return view('admin.tests.test_list_page')->with([
             'tests' => $tests,
             'listGrammar'=>$listGrammar
