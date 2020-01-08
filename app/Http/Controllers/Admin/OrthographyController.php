@@ -97,13 +97,6 @@ class OrthographyController extends Controller
 
         $data = $request->all();
         $file = $request->file();
-//        dd($file);
-//        dd($request->file('harf_free_img')->getClientOriginalName());
-        //dd($file['harf_free_img']);
-        //$file = $request->file('harf_free_img')->move('1','harf_free_img.gif');
-        //$filename = $file->getClientOriginalName();
-
-//        $file->move('images', $filename);
         $this->orthographyService->update($orthography, $data,$file);
 
         return view('admin.orthography.detail')->with(['detail' => $orthography]);
