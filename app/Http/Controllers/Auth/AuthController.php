@@ -17,10 +17,6 @@ class AuthController extends Controller
      * @var AuthService
      */
     private $authService;
-    /**
-     * @var bool
-     */
-    public $loginAfterSignUp = true;
 
     /**
      * Create a new AuthController instance.
