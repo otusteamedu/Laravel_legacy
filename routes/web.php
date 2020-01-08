@@ -11,14 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+
+Route::get('/', 'HomeController@index');
 Route::get('/arabskie-bukvy', 'OrthographyController@list')->name('opthList');
 Route::get('/arabskie-bukvy/{id}', 'OrthographyController@detail')->name('opthDetail');
 Route::get('/grammatika', 'GrammarController@list')->name('grammList');
 Route::get('/grammatika/{id}', 'GrammarController@detail')->name('grammDetail');
-Route::get('/home', 'HomeController@index');
+
 
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->middleware('auth')->group(function () {

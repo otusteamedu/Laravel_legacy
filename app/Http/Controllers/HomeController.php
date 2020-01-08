@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Grammar\GrammarService;
+use App\Services\Orthography\OrthographyService;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\CodeCoverage;
 
@@ -12,9 +14,17 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    private $grammarService;
+    private $orthographyService;
+
+    public function __construct(
+        GrammarService $grammarService,
+        OrthographyService $orthographyService
+    )
     {
-      //  $this->middleware('auth');
+        $this->grammarService = $grammarService;
+        $this->orthographyService = $orthographyService;
+        //  $this->middleware('auth');
     }
 
     /**
@@ -24,7 +34,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $listGrammar = $this->grammarService->list();
+        $listOrthography = $this->orthographyService->list();
+        return view('index')->with([
+            'listGrammar' => $listGrammar,
+            'listOrthography' => $listOrthography
+        ]);
     }
 
     public function cc()
