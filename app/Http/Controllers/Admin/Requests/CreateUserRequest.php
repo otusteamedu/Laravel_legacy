@@ -32,7 +32,7 @@ class CreateUserRequest extends FormRequest
             'name' => 'required|string',
             'email' => 'unique:users|email|required',
             'role_id' => 'integer|required|exists:roles,id',
-            'password' => 'required'
+            'password' => 'required|string'
         ];
     }
 

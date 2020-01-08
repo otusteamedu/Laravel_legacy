@@ -19,7 +19,7 @@ Route::namespace('Auth')
         Route::post('login', 'AuthController@login')->name('login');
         Route::post('register', 'AuthController@register')->name('register');
         Route::post('logout', 'AuthController@logout')->name('logout');
-        Route::post('refresh', 'AuthController@refresh')->name('refresh');;
+        Route::get('refresh', 'AuthController@refresh')->name('refresh');;
     });
 
 Route::name('admin.')
