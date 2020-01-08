@@ -4,10 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFailedJobsTable extends Migration
+class CreateGroupsTable extends Migration
 {
     /** @var string  */
-    protected const TABLE = 'failed_jobs';
+    protected const TABLE = 'groups';
 
     /**
      * Run the migrations.
@@ -17,12 +17,10 @@ class CreateFailedJobsTable extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE, static function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->text('connection');
-            $table->text('queue');
-            $table->longText('payload');
-            $table->longText('exception');
-            $table->timestamp('failed_at')->useCurrent();
+            $table->bigIncrements('id')->comment('ID группы');
+            $table->string('name')->comment('Название группы');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 

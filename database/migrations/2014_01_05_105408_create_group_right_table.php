@@ -4,10 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUsersTable extends Migration
+class CreateGroupRightTable extends Migration
 {
     /** @var string  */
-    protected const TABLE = 'users';
+    protected const TABLE = 'group_right';
     /**
      * Run the migrations.
      *
@@ -16,21 +16,19 @@ class CreateUsersTable extends Migration
     public function up(): void
     {
         Schema::create(self::TABLE, static function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->string('name')->comment('Имя пользователя');
-            $table->string('icon')->comment('Аватарка пользователя');
-            $table->string('email')->unique()->comment('Email пользователя');
-            $table->string('password')->comment('Пароль');
             $table->unsignedInteger('group_id')->nullable(false)->comment('ID группы');
-            $table->rememberToken();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->unsignedInteger('right_id')->nullable(false)->comment('ID права');
         });
 
         Schema::table(self::TABLE, static function (Blueprint $table) {
+            $table->unique(['group_id', 'right_id']);
             $table->foreign('group_id')
                 ->references('id')
                 ->on('groups')
+                ->onDelete('restrict');
+            $table->foreign('right_id')
+                ->references('id')
+                ->on('rights')
                 ->onDelete('restrict');
         });
     }
