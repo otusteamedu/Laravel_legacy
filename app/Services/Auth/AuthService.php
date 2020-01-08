@@ -5,6 +5,8 @@ namespace App\Services\Auth;
 
 
 use App\Services\Auth\Handlers\RegisterUserHandler;
+use App\Services\Auth\Repositories\AuthRepository;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class AuthService
@@ -12,6 +14,11 @@ use App\Services\Auth\Handlers\RegisterUserHandler;
  */
 class AuthService
 {
+
+    /**
+     * @var AuthRepository
+     */
+    private $authRepository;
     /**
      * @var RegisterUserHandler
      */
@@ -21,9 +28,13 @@ class AuthService
      * AuthService constructor.
      * @param RegisterUserHandler $registerUserHandler
      */
-    public function __construct(RegisterUserHandler $registerUserHandler)
+    public function __construct(
+        RegisterUserHandler $registerUserHandler,
+        AuthRepository $authRepository
+    )
     {
         $this->registerUserHandler = $registerUserHandler;
+        $this->authRepository = $authRepository;
     }
 
 
@@ -59,5 +70,17 @@ class AuthService
     public function refreshToken()
     {
         return auth()->refresh();
+    }
+
+    /**
+     * Для получения фронтом данных пользователя
+     * todo возможно, стоит возвращать меньше данных
+     *
+     * @return \App\Models\User
+     */
+    public function getUser()
+    {
+        $id = Auth::user()->id;
+        return $this->authRepository->getUser($id);
     }
 }

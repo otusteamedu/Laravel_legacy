@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,7 +17,8 @@ Route::namespace('Auth')
         Route::post('login', 'AuthController@login')->name('login');
         Route::post('register', 'AuthController@register')->name('register');
         Route::post('logout', 'AuthController@logout')->name('logout');
-        Route::get('refresh', 'AuthController@refresh')->name('refresh');;
+        Route::get('refresh', 'AuthController@refresh')->name('refresh');
+        Route::get('user', 'AuthController@getUser')->name('auth.getUser');
     });
 
 Route::name('admin.')

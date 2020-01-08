@@ -7,6 +7,7 @@ use App\Http\Controllers\Auth\Requests\RegisterFormRequest;
 use App\Http\Controllers\Controller;
 use App\Services\Auth\AuthService;
 
+
 /**
  * Class AuthController
  * @package App\Http\Controllers\Auth
@@ -111,5 +112,19 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60
         ])
             ->header('Authorization', $token);
+    }
+
+    /**
+     * Возвращает данные о пользователе
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
+    public function getUser()
+    {
+        $user = $this->authService->getUser();
+        return response([
+            'status' => 'success',
+            'data' => $user
+        ]);
     }
 }

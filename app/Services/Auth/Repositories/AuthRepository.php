@@ -20,4 +20,13 @@ class AuthRepository
     {
         return User::create($data);
     }
+
+    /**
+     * @param $id integer
+     * @return User
+     */
+    public function getUser($id)
+    {
+        return User::find($id);
+    }
 }
