@@ -58,8 +58,8 @@
 {{ Form::token()}}
 
 <div class="row form-group">
-    {{Form::label('name', 'Вопрос',['class'=>'col-lg-2'])}}
-    {{Form::text('name', '',[
+    {{Form::label('test_name', 'Вопрос',['class'=>'col-lg-2'])}}
+    {{Form::text('test_name', '',[
         'class'=>'form-control col-lg-10',
         'id'=>'id'
     ])}}

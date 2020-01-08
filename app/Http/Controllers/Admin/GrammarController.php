@@ -46,6 +46,7 @@ class GrammarController extends Controller
      */
     public function show(Grammar $grammar)
     {
+
         $message = "";
         $tests = Test::where(['lessen_id' => $grammar->id, 'status' => 0])->get();
         $words = Word::where(['lessen_id' => $grammar->id])->get();
@@ -80,18 +81,26 @@ class GrammarController extends Controller
      */
     public function update(Grammar $grammar, Request $request)
     {
+
         $this->authorize(Abilities::UPDATE, $grammar);
+
         $request->validate([
             'name' => 'required',
             'code' => 'required',
             'title' => 'required',
         ]);
 
+        $tests = Test::where(['lessen_id' => $grammar->id, 'status' => 0])->get();
+        $words = Word::where(['lessen_id' => $grammar->id])->get();
+        $listGrammar = $this->grammarService->listGrammar();
         $data = $request->all();
         $grammar = $this->grammarService->update($grammar, $data);
-        $this->dispatch(new UpdateGrammarJob($grammar->id, Auth::User()->id));
+        // $this->dispatch(new UpdateGrammarJob($grammar->id, Auth::User()->id));
         return view('admin.grammar.detail')->with([
             'grammar' => $grammar,
+            'tests' => $tests,
+            'words' => $words,
+            'listGrammar' => $listGrammar
         ]);
     }
 
@@ -103,20 +112,27 @@ class GrammarController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'name' => 'required',
             'code' => 'required',
             'title' => 'required',
         ]);
         $data = $request->all();
+        $tests = Test::where(['lessen_id' => $data->id, 'status' => 0])->get();
+        $words = Word::where(['lessen_id' => $data->id])->get();
+
         $grammar = $this->grammarService->insert($data);
         $message = '';
         $error = '';
 
+
         return view('admin.grammar.detail')->with([
             'grammar' => $grammar,
             'error' => $error,
-            'message' => $message
+            'message' => $message,
+            'tests' => $tests,
+            'words' => $words
         ]);
     }
 
@@ -141,6 +157,6 @@ class GrammarController extends Controller
      */
     public function destroy(Grammar $grammar)
     {
-         $this->grammarService->delete( $grammar);
+        $this->grammarService->delete($grammar);
     }
 }
