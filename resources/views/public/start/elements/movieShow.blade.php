@@ -13,7 +13,7 @@
                                         {{ $item['name'] }}
                                     </a>
                                 </h5>
-                                <a class="btn btn-primary shadow" href="{{ route('public.movies.order', ['id' => $item['id']]) }}" role="button">Купить билет</a>
+                                <a class="btn btn-primary shadow" href="{{ route('public.movies.showing', ['id' => $item['id']]) }}" role="button">Купить билет</a>
                             </div>
                         </div>
                     </div>

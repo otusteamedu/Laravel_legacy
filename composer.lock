@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7e6c4e263d77ff48cab2b06f603792dc",
+    "content-hash": "3a5a4b61165211c692e83bb409b9a1ec",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -658,6 +658,60 @@
             "time": "2018-09-29T18:48:56+00:00"
         },
         {
+            "name": "laravel/envoy",
+            "version": "v1.6.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/laravel/envoy.git",
+                "reference": "34ff218d94facf7506d0c86eb8347178e4f5b585"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/laravel/envoy/zipball/34ff218d94facf7506d0c86eb8347178e4f5b585",
+                "reference": "34ff218d94facf7506d0c86eb8347178e4f5b585",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~4.1 || ~5.0 || ^6.0",
+                "nategood/httpful": "~0.2",
+                "symfony/console": "~3.0 || ~4.0 || ^5.0",
+                "symfony/process": "~3.0 || ~4.0 || ^5.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^7.0"
+            },
+            "bin": [
+                "bin/envoy"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Laravel\\Envoy\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Taylor Otwell",
+                    "email": "taylor@laravel.com"
+                }
+            ],
+            "description": "Elegant SSH tasks for PHP.",
+            "keywords": [
+                "laravel",
+                "ssh"
+            ],
+            "time": "2019-11-28T11:29:09+00:00"
+        },
+        {
             "name": "laravel/framework",
             "version": "v6.2.0",
             "source": {
@@ -1098,6 +1152,56 @@
                 "psr-3"
             ],
             "time": "2019-08-30T09:56:44+00:00"
+        },
+        {
+            "name": "nategood/httpful",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nategood/httpful.git",
+                "reference": "8ba7fa7eb409902db906772bf50488f8a92a61af"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nategood/httpful/zipball/8ba7fa7eb409902db906772bf50488f8a92a61af",
+                "reference": "8ba7fa7eb409902db906772bf50488f8a92a61af",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Httpful": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nate Good",
+                    "email": "me@nategood.com",
+                    "homepage": "http://nategood.com"
+                }
+            ],
+            "description": "A Readable, Chainable, REST friendly, PHP HTTP Client",
+            "homepage": "http://github.com/nategood/httpful",
+            "keywords": [
+                "api",
+                "curl",
+                "http",
+                "requests",
+                "rest",
+                "restful"
+            ],
+            "time": "2019-12-29T22:14:13+00:00"
         },
         {
             "name": "nesbot/carbon",
@@ -5233,7 +5337,8 @@
     "platform": {
         "php": "^7.2",
         "ext-dom": "*",
-        "ext-gd": "*"
+        "ext-gd": "*",
+        "ext-json": "*"
     },
     "platform-dev": []
 }

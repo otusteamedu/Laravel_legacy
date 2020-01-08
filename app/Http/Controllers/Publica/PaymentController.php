@@ -44,7 +44,7 @@ use Illuminate\Validation\ValidationException;
  *          Если успех обновляем страницу ввода данных
  *      code_input - аналогично card_input
  *      code_checked - аналогично card_checked
- *      после успешного code_checked мы устанавливаем заказ облаченным, а оплату в статус done
+ *      после успешного code_checked мы устанавливаем заказ оплаченным, а оплату в статус done
  *
  * @package App\Http\Controllers\Publica
  */
