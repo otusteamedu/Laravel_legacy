@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2>Редактирование пользователя {{ username }}</h2>
+        <h2>Редактирование пользователя {{ name }}</h2>
         <div v-if="isCreateSuccess" class="alert alert-success" role="alert">
             Пользователь успешно создан! Редирект на страницу редактирования ...
         </div>
@@ -9,9 +9,9 @@
         </div>
         <form>
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="username" required
-                       v-model="username">
+                <label for="name">Наименование</label>
+                <input type="text" class="form-control" id="name" placeholder="name" required
+                       v-model="name">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -46,7 +46,7 @@
         data() {
             return {
                 rolesList: [],
-                username: null,
+                name: null,
                 userRoleId: null,
                 userEmail: null,
                 password: null,
@@ -58,8 +58,8 @@
             sendData() {
                 this.isCreateSuccess = false;
                 this.hasCreateErrors = false;
-                axios.post('/api/admin/user/create', {
-                    username: this.username,
+                axios.post('/admin/user/create', {
+                    name: this.name,
                     email: this.userEmail,
                     role_id: this.userRoleId,
                     password: this.password
@@ -78,7 +78,7 @@
                     });
             },
             getRolesList() {
-                axios.get('/api/admin/role/list')
+                axios.get('/admin/role/list')
                     .then(response => {
                         this.rolesList = response.data;
                         console.log(response.data);

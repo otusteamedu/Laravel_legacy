@@ -45,7 +45,7 @@
         },
         methods: {
             getUsersList(page = 1) {
-                axios.get('/api/admin/user/list?page=' + page)
+                axios.get('/admin/user/list?page=' + page)
                     .then(response => {
                         this.usersList = response.data;
                     });

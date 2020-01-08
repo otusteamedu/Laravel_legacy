@@ -29,9 +29,9 @@ class CreateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'username' => 'unique:users|required',
+            'name' => 'required|string',
             'email' => 'unique:users|email|required',
-            'role_id' => 'integer|required',
+            'role_id' => 'integer|required|exists:roles,id',
             'password' => 'required'
         ];
     }
@@ -39,7 +39,7 @@ class CreateUserRequest extends FormRequest
     public function getData()
     {
         return Arr::only($this->all(), [
-            'username',
+            'name',
             'email',
             'role_id',
             'password'
