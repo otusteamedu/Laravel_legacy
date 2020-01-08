@@ -64,7 +64,7 @@
     <div class="row form-group">
         {{Form::label('arabic_text', 'Арабский текст',['class'=>'font-weight-bold col-lg-2'])}}
         {{Form::textarea    ('arabic_text',$grammar->arabic_text,[
-            'class'=>'form-control arabic_editor col-lg-10',
+            'class'=>'form-control editor col-lg-10',
             'id'=>'arabic_text'
         ])}}
     </div>
@@ -96,24 +96,6 @@
     'class'=>'btn btn-primary',
                 'name'=>'save'])}}
     {!! Form::close() !!}
-
-    {{--    {{Form::submit('Удалть в корзину',['class'=>'btn btn-danger', 'name'=>'remove'])}}--}}
-
-    {{--    {!! Form::close() !!}--}}
-
-    <script src="https://cdn.ckeditor.com/ckeditor5/15.0.0/classic/ckeditor.js"></script>
-    <script>
-        ClassicEditor
-            .create(document.querySelector('.editor'))
-            .catch(error => {
-                console.error(error);
-            });
-        ClassicEditor
-            .create(document.querySelector('.arabic_editor'))
-            .catch(error => {
-                console.error(error);
-            });
-    </script>
 
 
 @endsection
