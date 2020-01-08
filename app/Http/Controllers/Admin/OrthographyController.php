@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Services\Orthography\OrthographyService;
 use App\Policies\Abilities;
 
+//use Illuminate\Support\Facades\Storage;
+//use Form;
+//use App;
+//use App\File;
+
 class OrthographyController extends Controller
 {
     private $orthographyService;
@@ -91,7 +96,15 @@ class OrthographyController extends Controller
         ]);
 
         $data = $request->all();
-        $this->orthographyService->update($orthography, $data);
+        $file = $request->file();
+//        dd($file);
+//        dd($request->file('harf_free_img')->getClientOriginalName());
+        //dd($file['harf_free_img']);
+        //$file = $request->file('harf_free_img')->move('1','harf_free_img.gif');
+        //$filename = $file->getClientOriginalName();
+
+//        $file->move('images', $filename);
+        $this->orthographyService->update($orthography, $data,$file);
 
         return view('admin.orthography.detail')->with(['detail' => $orthography]);
     }

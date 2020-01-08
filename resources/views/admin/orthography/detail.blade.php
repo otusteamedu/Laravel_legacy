@@ -7,8 +7,13 @@
     <hr>
 
 
-    {!! Form::model($detail,['method'=>'PUT', 'url' => route('admin.orthography.update',
-            ['orthography'=>($detail->id)])
+    {!! Form::model($detail,['method'=>'PUT',
+            'url' => route('admin.orthography.update',
+
+            [
+            'orthography'=>($detail->id),
+            ]),
+            'enctype'=>"multipart/form-data"
         ])!!}
     {{ Form::token()}}
 
@@ -78,78 +83,80 @@
 
 <h1>Графическое начертание</h1>
     <div class="row form-group">
-        {{ Form::label('harf_free_img', 'Свободное',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_free_img', $detail->harf_free_img,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_free_img'
-        ] ) }}
+        {{ Form::label('harf_free_img', 'Свободное',[
+        'class'=>'col-lg-2'
+        ]) }}
+        {{ Form::file('harf_free_img')}}
+        @if($detail->harf_free_img)
+            <img width="100" src="{{$detail->harf_free_img}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_first_img', 'В начале',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_first_img', $detail->harf_first_img,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_first_img'
-        ] ) }}
+        {{ Form::file('harf_first_img')}}
+        @if($detail->harf_first_img)
+            <img width="100" src="{{$detail->harf_first_img}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_center_img', 'В середине',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_center_img', $detail->harf_center_img,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_center_img'
-        ] ) }}
+        {{ Form::file('harf_center_img')}}
+        @if($detail->harf_center_img)
+            <img width="100" src="{{$detail->harf_center_img}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_last_img', 'В конце',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_last_img', $detail->harf_last_img,[
-            'class'=>'form-control col-lg-10',
-            'id'=>''
-        ] ) }}
+        {{ Form::file('harf_last_img')}}
+        @if($detail->harf_last_img)
+            <img width="100" src="{{$detail->harf_last_img}}" alt="">
+        @endif
     </div>
 
     <h1>Звуки</h1>
     <div class="row form-group">
         {{ Form::label('harf_name_sound', 'Название',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_name_sound', $detail->harf_name_sound,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_name_sound'
-        ] ) }}
+        {{ Form::file('harf_name_sound')}}
+        @if($detail->harf_name_sound)
+            <img width="100" src="{{$detail->harf_name_sound}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_fatha_sound', 'Звук с фатхой',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_fatha_sound', $detail->harf_fatha_sound,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_fatha_sound'
-        ] ) }}
+        {{ Form::file('harf_fatha_sound')}}
+        @if($detail->harf_fatha_sound)
+            <img width="100" src="{{$detail->harf_fatha_sound}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_kesra_sound', 'Звык с касрой',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_kesra_sound', $detail->harf_kesra_sound,[
-            'class'=>'form-control col-lg-10',
-            'id'=>''
-        ] ) }}
+        {{ Form::file('harf_kesra_sound')}}
+        @if($detail->harf_kesra_sound)
+            <img width="100" src="{{$detail->harf_kesra_sound}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_damma_sound', 'Звук с даммой',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_damma_sound', $detail->harf_damma_sound,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_damma_sound'
-        ] ) }}
+        {{ Form::file('harf_damma_sound')}}
+        @if($detail->harf_damma_sound)
+            <img width="100" src="{{$detail->harf_damma_sound}}" alt="">
+        @endif
     </div>
     <div class="row form-group">
         {{ Form::label('harf_saken_sound', 'Звук с сакеном',['class'=>'col-lg-2']) }}
-        {{ Form::text('harf_saken_sound', $detail->harf_saken_sound,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'harf_saken_sound'
-        ] ) }}
+        {{ Form::file('harf_saken_sound')}}
+        @if($detail->harf_saken_sound)
+            <img width="100" src="{{$detail->harf_saken_sound}}" alt="">
+        @endif
     </div>
 
     <h1>Картинка</h1>
     <div class="row form-group">
         {{ Form::label('img_tell', 'Картинка',['class'=>'col-lg-2']) }}
-        {{ Form::text('img_tell', $detail->img_tell,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'img_tell'
-        ] ) }}
+        {{ Form::file('img_tell')}}
+        @if($detail->img_tell)
+            <img width="100" src="{{$detail->img_tell}}" alt="">
+        @endif
     </div>
     <h1>Произношение</h1>
     <div class="row form-group">

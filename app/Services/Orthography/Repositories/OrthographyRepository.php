@@ -20,10 +20,15 @@ class OrthographyRepository implements IOrthographyRepository
         return Orthography::find($id);
     }
 
-    public function update(Orthography $orthography, Array $data):Orthography
+    public function update(Orthography $orthography, Array $data,Array $file=[]):Orthography
     {
+        foreach ($file as $key=>$f){
+            $data[$key]="/img/harf/{$key}/{$data['code']}/".$f->getClientOriginalName();
+            $f->move("img/harf/{$key}/{$data['code']}",$f->getClientOriginalName());
+        }
+
         $orthography->update($data);
-        Cache::tags(['grammar'])->put('grammar_detail_' . $orthography->id, $data,600);
+        Cache::tags(['orthography'])->put('orthography_detail_' . $orthography->id, $data,600);
         return $orthography;
     }
 

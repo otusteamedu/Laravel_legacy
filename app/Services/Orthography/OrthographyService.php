@@ -18,21 +18,21 @@ class OrthographyService
         OrthographyRepositoryCache $orthographyRepositoryCache)
     {
         $this->orthographyRepository = $orthographyRepository;
-        $this->orthographyRepositoryCache = $orthographyRepositoryCache;
+        $this->orthographyRepositoryCache= $orthographyRepositoryCache;
     }
 
     public function list()
     {
-        return Orthography::all('id', 'name');
+        return $this->orthographyRepositoryCache->list();//  Orthography::all('id', 'name');
     }
 
-    public function update(Orthography $orthography, Array $data)
-    {
-        return $orthography->update($data);
-    }
+
     public function detail($id):Orthography
     {
-        return Orthography::find($id);
-        //return $orthography->update($data);
+        return $this->orthographyRepository->detail($id);
+    }
+    public function update(Orthography $orthography, Array $data ,Array $file=[])
+    {
+        return $this->orthographyRepository->update($orthography,$data,$file);
     }
 }
