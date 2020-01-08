@@ -41,8 +41,10 @@ class AuthController extends Controller
         if (!$token) {
             return response([
                 'status' => 'error',
-                'error' => 'invalid.credentials',
-                'msg' => 'Invalid Credentials.'
+                'errors' => [
+                    'invalid.credentials'
+                ],
+                'message' => 'Invalid Credentials.'
             ], 400);
         }
         return $this->respondWithToken($token);
