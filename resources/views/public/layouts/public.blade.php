@@ -45,6 +45,7 @@
             @yield('pageH1')
 
             <div class="page-content">
+                @include('public.elements.messages')
                 @yield('pageContent')
             </div>
         </div>

@@ -26,7 +26,9 @@ class UsersTableSeeder extends Seeder
 
         if($rootRole) {
             $superAdmin = [
-                'name' => "Администратор",
+                'name' => "Админ",
+                'surname' => "Админов",
+                'phone' => '(999) 999-99-99',
                 'email' => $adminEmail,
                 'email_verified_at' => now(),
                 'password' => Hash::make($rawPassword),

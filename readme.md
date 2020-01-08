@@ -1,168 +1,389 @@
-# Д3 №10. Кэширование
+# Проектная работа "Онлайн-бронирование билетов в сети 'Go в кинчик'". Пояснительная записка
 
-Вопрос с кешированием в Laravel, делится на 3 части:
+**Целью работы** является изучение возможностей фреймворка Laravel в разрезе 
+реализации нетривиального проекта. Задачи:
 
-1. Настройки обработчика кеширования
-2. Вопрос сохранения данных в кеше
-3. Вопрос сброса кеша
+1. Изучить и задействовать в проекте базовые возможности фреймворка: 
+    * роутинг запросов
+    * представление данных на веб-странице
+    * авторизацию/аутенфикацию
+    * кеширование
+    * работу со слоем данных
+    * менеджером очередей
+    * развертывание
+    * тестирование
+    * внедрение зависимостей
+    * обработка событий.
 
-## Настройки обработчика кеширования
+2. Понять и наработать подход для реализации проекта в котором присутствует множество взаимосвязанных объектов. 
+По выходу из проекта я должен: 
+    * иметь представление на какие слои делить код приложения и как распределять между ними ответственность
+    * понимать каким образом проводить операции (изменение/удаление и т.д.) над взаимосвязанными объектами, особенно 
+    при начилии разных уровней доступа к объектам в цепочке
+    * иметь готовый шаблон действий при программировании обработки запросов
 
-С этим пунктом нет особых проблем нет, попробовал Memcached, Redis. Все работает. Пока вернул обратно на file, так как на сервере куда я выкладываю работу нет возможности ставить ПО. Позже рассмотрю вариант выкладывания на Яндекс.Облако.
+В ходе реализации проекта вопросы удалось решить для себя частично.
 
-## Вопрос сохранения данных в кеше
+**На данный момент не удалось** понять тему тестирования ПО, а точнее как сделать так, чтобы написание тестов
+было не бесполезной тратой времени, а давало уверенность, что разрабатываемая программа при зеленых тестах 
+является стабильной. Т.е. пока у меня нет взаимосвязи между зелеными тестами и качеством программы. 
+Ведь при написании тестов, которые охватывают все возможные случаи запросов пользоватетей при разных исходных
+состояниях системы займет на порядок больше времени, чем написание кода, что нереально при работе над 
+реальным заказом. Написание же двух тестов (позитивный/негативный) на метод по момему мнению не несет никакой 
+смысловой нагрузки, кроме галочки, что "Тесты написаны".
 
-Обдумывая этот вопрос в рамках тестового проекта, я пришел к выводу, что кеширование я буду
-использовать как фичу к методам сервисов. Например, у сервиса [/app/Services/MovieService.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Services/MovieService.php) будут реализованы методы работы с сущностями, которые будут запрашивать данные из хранилища без кеша:
+**На данный момент не удалось** понять (не успел) каким образом разделять приложение на Front-End и Back-End. 
+Но тут, в отличии от тестирования, дело непродолжительного времени. 
+В проекте для вывода данных используем Blade-шаблоны.
 
-* **getSoonInRental(int $nLastCount): array**
-* **getInRentalRand(int $nCount): array**
-* и т.д...
+## Общее описание проекта
 
-и для них нужно реализовать копии, например **getSoonInRentalCached(int $nLastCount, CD cacheParams)**, которые будут запрашивать те же данные, но только опосредованно через кеширование, как бы обертывая исходный метод. Так как это будет одинаковых код для всех вызовов сделаем его типовым даже не отражая спецификацию этого метода в интерфейсе сервиса.
+* Проект находится по адресу [http://188.120.243.205/](http://188.120.243.205/). 
+* Проект делался по мотивам Яндекс.Афиши
+* Развертывание осуществяется с помощью скрипта [Envoy](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/Envoy.blade.php), 
+который я запускаю со своего домашнего компьютера.
+* Сущности описаны в файле [Entity.odt](https://yadi.sk/i/VmuM2U0lPd1laA). 
+Правда со времени написания файла они немного расширились.
+* Исходное рамочное задание я описывал в чате с преподавателем. Оттуда я убрал 
+пункты про API и скопировал его в корень - [todo.txt](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/todo.txt)
+* Основной репозиторий - [https://github.com/otusteamedu/Laravel/tree/VYermakov/master](https://github.com/otusteamedu/Laravel/tree/VYermakov/master). Оттуда клонируется на бой.
 
-Для этого:
-1. вводим структуру, содержащую настройки кеширования [App\Base\Service\CD](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Base/Service/CD.php), где можно указывать необходимые параметры кеширования - ключ, теги, TTL
-2. в рамках базового сервиса [App\Base\Service\BaseService](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Base/Service/BaseService.php) реализуем магический метод __call
+Визуализация публичной части сделана с помощью [шаблонов Blade](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/resources/views/public). 
+Каждый логически отдельный раздел на сайте отображается с помощью шаблонов из отдельной папки со своим лейаутом. 
+Повторяющися элементы выделены в [отдельные файлы](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/resources/views/public/elements). 
+Общие для всех страниц данные (имя пользователя, количество заказываемых билетов) прикреплены к соответствующим 
+файлам-шаблонам с помощью ``view()->composer()`` в [AppServiceProvider.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Providers/AppServiceProvider.php)
 
-```php
-/**
-     * Пытаемся вызвать некеширущую версию метода, если он оканчивается на
-     * Cached, иначе пытаемся найти метод с таким же названием в репозитории по-умолчанию.
-     * Если вызывается кешированная версия метода, но без параметров кеширования последним аргуметом,
-     * делаем его по-умолчанию
-     *
-     * Результат возвращаем в виде ассоциативного массива
-     *
-     * @param string $name
-     * @param array $arguments
-     * @return mixed
-     */
-    public function __call(string $name, array $arguments )
-```
+* Там же в [AppServiceProvider.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Providers/AppServiceProvider.php)
+описаны все DI
+* [Модели](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/app/Models) находятся на своем месте. В них описаны
+хинты для IDE.
+* [Миграции, сиды, фабрики](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/database) также находятся в стандартном месте.
+Все данные для отображения вводились с помощью сидов, которые парсились с какого-то сайта.
+* Как это ни странно, но и [для роутов](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/routes/web.php) я не 
+нашел никаких причин менять их стандартное положение. 
 
-Там же для кучи реализуем возможность проброса запроса напрямую в связанный репозиторий, для случаев, когда в методе сервиса не реализуется никакой дополнительной логики. Последнюю возможность я буду использовать редко, так как спецификацию метода надо отразить в интерфейсе. 
+## Описание информационных страниц
 
-По моей задумке не уровне репозитория будет реализовываться работа только с базой данных и возвращать она будет коллекцию моделей, чтобы далее на уровне сервиса легко было бы подтягивать связанные сущности. Пример [App\Repositories\MovieRepository](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Repositories/MovieRepository.php):
+### 1. [Главная страница](http://188.120.243.205/).
 
-```php
-/**
-     * Получить фильмы, которые будут скоро в показе.
-     * 1. Дата премьеры должна быть больше текущей
-     * 2. Сеансы должны существовать
-     * 3. Дата-время первого сеанса должна быть больше текущего
-     *
-     * @param int $nLastCount
-     * @return Collection
-     * @throws \App\Base\WrongNamespaceException
-     */
-    public function getSoonInRental(int $nLastCount): Collection
-```
+Отвечает контроллер - [Publica/StartController::index](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Http/Controllers/Publica/StartController.php).
 
-Сервис должен обработать данные до уровня DTO для вставки в шаблонизатор или ответ API. Пример: [App\Services\MovieService](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Services/MovieService.php).
-
-```php
-    /**
-     * Получить ближайшие фильмы в прокате
-     *
-     * @param int $nLastCount
-     * @param CD|null $cache
-     * @return array
-     * @throws \Exception
-     */
-    public function getSoonInRental(int $nLastCount): array {
-        /** @var IMovieRepository $repository */
-        $result = [];
-        $repository = $this->getRepository();
-        $repository->getSoonInRental($nLastCount)->map(
-            function($movie) use (&$result) {
-                /** @var Movie $movie */
-                $item = $movie->toArray();
-                $item['poster'] = $movie->poster->toArray();
-                $item['premiereDate'] = AdminHelpers::Date_db_site($item['premiereDate']);
-                $result[] = $item;
-            }
-        );
-        return $result;
-    }
-```
-
-Теперь сводим все это вместе в контроллере, используя кеширующую версию метода getSoonInRental(int $nLastCount): [App\Http\Controllers\Publica\StartController](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Http/Controllers/Publica/StartController.php)
-
-
-```php
-    public function index()
-    {
-        $fs = $this->fileService;
-        $rs = $this->resizeService;
-        $premierMovies = $this->movieService->getSoonInRentalCached(4, new CD('top_premier', 3600*24, ['top_premier', 'all_movies']));
-        array_walk($premierMovies, function (&$movie) use ($fs) {
-            /** @var FileService $fs */
-            $movie['poster'] = $fs->getLocalFileArray($movie['poster']);
-            $movie['poster_url'] = $movie['poster'] ? $fs->getAssetFile($movie['poster']) : null;
-        });
-        $showingMovies = $this->movieService->getInRentalRandCached(6, new CD('rand_showing', 3600*12, ['rand_premier', 'all_movies']));
-        array_walk($showingMovies, function (&$movie) use ($fs, $rs) {
-            $movie['poster'] = $fs->getLocalFileArray($movie['poster']);
-            $movie['poster_thumb'] = $movie['poster'] ? $rs->ResizeImage($movie['poster'], [
-                'type' => ResizeService::RESIZE_CROPPING,
-                'width' => 360,
-                'height' => 215
-            ]) : null;
-            $movie['poster_thumb_url'] = $movie['poster_thumb'] ? $fs->getAssetFile($movie['poster_thumb']) : null;
-        });
-        return view('public.start.index', compact('premierMovies','showingMovies'));
-    }
-```
-
-**Ура! все работает.**
-
-## Вопрос сброса кеша
-
-Данные в кеш мы загнали, а теперь вопрос как его оттуда сбросить. Особенно в случае когда в проекте будет пару десятков связанных зависимостей.
-
-Точка сброса кеша - это обработчик события, вызанного из метода сервиса. Например, добавляется новый фильм, выбрасывается событие добавления **MovieEvent::STORED** в [App\Services\MovieService](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Services/MovieService.php)
-
-```php
-    public function store(array $data): Model {
-// ...
-        event(new MovieEvent($movie, MovieEvent::STORED));
-//...
-    }
-```
-
-Далее для инкапсулирования логики обработки сброса кеша, ассоциированного с моделю, используем наследника [App\Base\ModelCache](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Base/ModelCache.php) - [App\Forget\MovieCache](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Forget/MovieCache.php).
-
-Сам класс забывания я не проработал, просто возвращаю там все ключи. По идее надо в случае добавления нового фильма, у которого дата премьеры большая, текущей возвращать только ['top_premier']. Но на конкретной реализации я сейчас останавливаться не буду. Просто набрасываю шаблон для дальнейших размышлений.
-
-Само сбрасывание кеша происходит в обработчике событий, там где регистрируются подписчики - [/app/Providers/EventServiceProvider.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/hw10/app/Providers/EventServiceProvider.php).
-
-```php
-    public function boot()
-    {
-        parent::boot();
-        //
-        Event::listen(MovieEvent::class, function(MovieEvent $event)
-        {
-            // dd($event->getMovie()->actors()->pluck('actor_id'));
-            // Обработка события...
-            $forgetKeys = (new MovieCache($event))->getForgetKeys();
-            if(!empty($forgetKeys))
-                call_user_func_array([app('cache'), 'forget'], $forgetKeys);
-        });
-    }
-```
+* **Скоро в прокате!**. В данный блок выводятся ближайшие N фильмов, на которые еще не было сеансов.  
+* **Фильтр для поиска фильмов!**. Формируется на основе введенных в БД жанров, кинотеатров, 
+можно указать дату сеанса, которая по-умолчанию устанавливается текущей.
+* **В прокате!**. Выводятся случайные N фильмов (при обновлении страницы не меняются, так как действует кеширование), у которых есть 
+сеансы на сегодня.
+* **Карта кинотеатров**. Данные для карты запрашиваются в формате JSON 
+[CinemaController::mapData](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Http/Controllers/Publica/CinemaController.php). 
 
 ---
 
-Разрабатываемый проект выкладываю сюда:
+Данные, которые меняются редко, здесь и везде кешируются. Кеш организован следующим способом:
 
-* Адрес: [http://188.120.243.205](http://188.120.243.205)
-* Логин: lar
-* Пароль: p1
+1. Для методов сервисов, например ``MovieService::getSoonInRental(int $nLastCount): array``, с помощью магического
+метода __call реализован неявный метод ``MovieService::getSoonInRentalCached(int $nLastCount, CD $cacheParams): array``, 
+который кеширует результат выполнения исходного метода.
+2. [App\Base\Service\CD] - структура, содержащая настройки кеширования - ключ, теги, TTL
+3. Сброс кеша осуществяется по событиям сохранения соответствующих сущностей.
 
-Административная панель под суперадмином:
+Более подробно это описано в [ДЗ№10](https://github.com/otusteamedu/Laravel/tree/VYermakov/hw10)
+
+**Для обрезания картинок** до нужного на вьюхе размера (тумб) создан сервис 
+[ResizeService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/ResizeService.php).
+
+### 2. Фильмы
+
+1. [Поиск фильма в прокате](http://188.120.243.205/movies). Тут отображаются фильмы в прокате
+на выбранную дату по всем кинотеатрам
+2. Страница фильма (пример - [Петька в космосе](http://188.120.243.205/movies/view/11))
+3. Покупка билета (пример - [Петька в космосе](http://188.120.243.205/movies/showing/11)). 
+Тут доступные сеансы возможно фильтровать по дате. Список с датами доступных сеансов
+(в т.ч. прошедшими для отладочных целей) присутствует ниже. 
+Выбранные сеансы группируются по кинотеатрам.
+
+---
+
+**Фильтрация фильмов и других моделей** осуществляется по следующему принципу:
+
+1. В базовом сервисе [BaseService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Base/Service/BaseService.php) 
+реализован метод ``BaseService::findByFilter(Q $query = null): Collection``, 
+который вызывает метод ``BaseRepository::getList(Q $query = null): Collection`` 
+связанного наследника [BaseRepository](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Base/Repository/BaseRepository.php).  
+Тот в свою очередь подтягивает нужный фильтр, пример [MovieFilter](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Repositories/Filters/MovieFilter.php), 
+[UserFilter](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Repositories/Filters/UserFilter.php).
+Все связи основаны на DI и осуществляются [в Factory](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Base/Factory.php). Это дает возможность в несложных случаях, где выборка идет методом последовательного 
+ограничения, программировать фильтрацию не на основе отдельных методов, а на основе ассоциативных массивов. 
+Это в свою очередь дало бы в связке с компонентом фильтрации 
+[HtmlFilter](https://github.com/otusteamedu/Laravel/tree/VYermakov/master/app/Base/Controller/HtmlFilter) 
+ускорение разработки страниц списков с произвольной фильтрацией в админ-панели. На данный момент компонент не доделан.
+2. Структура App\Base\Service\Q - помогает вводить параметры выбора/фильтрации/сортировки. Причем параметры фильтрации не 
+обязательно должны быть связаны напрямую с какими-то колонками в таблицах. Вся логика фильтрации скрывается в конкретном 
+наследнике [BaseFilter](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Base/Repository/BaseFilter.php).
+
+### 3. Кинотеатры
+
+1. [Список кинотеатров](http://188.120.243.205/cinemas) с дублированием на карте. 
+Данный список меняется очень редко.
+2. Страница кинотеатра (пример - [Реутов Парк](http://188.120.243.205/cinemas/7)).
+Здесь кроме описательных блоков - важный блок доступные сеансы, с возможностью фильтрации сеансов по дате. 
+В отличии от аналогичного блока со стороны фильма, выбранные сеансы группируются по фильмам.
+
+## 4. Выбор билета
+
+После клика на сеанс открывается страница покупки билета на определенный фильм в 
+определенном кинчике в определенном зале этого кинчика на указанную дату.
+
+1. Выбор осуществляется из прямоугольного (для простоты) зала. JS этого компонента
+(нативный JS) свален в файлик [/resources/js/hall.js](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/resources/js/hall.js).
+2. Цены на билеты отличаются в зависимости от класса мест.
+3. Места могут быть заняты (заблокированы для покупки). Это происходит в том случае, если 
+продан билет (Ticket) на это место и этот сеанс ранее.
+4. Билет на сеанс-место генерируется при первой попытке отложить его для бронирования и 
+более не удаляется из БД.
+5. Билет может находится в нереализованном и реализованном состоянии. В первом случае он является разделяемым и может существовать в 
+списке для бронирования у нескольких пользователей. Иначе - об этом оповещается система заказа и пользователь не сможет 
+завершить бронирование с заблокированными билетами.
+6. Билет может быть куплен при выполнении следующих условий:
+
+    * Билет целостен - существуют все связанные с билетом объекты - фильм, сеанс, прокат, кинотеатр, зал
+    * Сеанс не просрочен
+    * Билет не куплен (не реализован)
+    * У билета есть цена > 0
+    
+7. В случае, если билет заблокировался для продажи после того как был положен в список
+бронирования, он пометится соответствующим сообщением, а процедура бронирования 
+не будет возможна.
+
+Задействованные сервисы:
+
+* [TicketService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/TicketService.php) - управление билетами
+* [PlaceService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/TicketService.php) - управление местами
+* [MovieShowingService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/MovieShowingService.php) - управление сеансами
+* [OrderService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/OrderService.php) - формирование списков для брони
+* [ShowingPriceService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/ShowingPriceService.php) - определение цен билетов.
+В данный момент определение идет просто на основе тарифа. Но если будет необходима какая-то система скидок и т.д., то 
+определение цены будет завязана на некий менеджер скидок, ссылка на который понадобится в классе  ``ShowingPriceService``
+
+## 5. Заказ билетов
+
+После выбора билетов, посетитель переходит на страницу [бронирования мест](http://188.120.243.205/order/checkout).
+Процедура подтверждения брони:
+
+1. Бронировать места можно только будучи авторизованным юзером, поэтому в ином 
+случае происходит переадресация на страницу [знакомства](http://188.120.243.205/order/auth), 
+где посетитель может либо авторизоваться, либо зарегиться.
+Если пользователь перейдет на страницу авторизации, то после успешной авторизации 
+его вернет обратно на страницу заказа.
+2. Логически объекты в списке бронирования - это не есть билеты, а именно позиции заказа.
+Проводником (адаптером) между билетом и позицией в списке пронирования служит адаптер 
+[TicketProduct](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Repositories/Adapters/TicketProduct.php), 
+реализующий интерфейс 
+[IProduct](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Repositories/Interfaces/Adapters/IProduct.php).
+3. При развитии проекта (которого правда не будет :-D) объектом для покупки может быть не только билет, но и 
+какие-то снеки, подарочные карты, а чтобы система заказа могла из отличить в позиции корзины сохраняется FQCN 
+соответствующего адаптера и уникальный ключ выборки этого объекта.
+4. Пока список бронирования не подтвержден `стаутс = cart`, при каждом обращении к нему вызывается метод ``OrderService::updateOrderSession``, 
+который синхронизирует состояния позиций для бронирования и билетов.
+5. После подтверждения заказа `стаутс = confirmed`, указанные в заказе билеты блокируются на 30 мин., в течении которых 
+посетитель должен подтвердить бронь. 
+
+----
+
+```php
+/**
+ * Interface IProduct
+ * Адаптер между объектом, который можно купить и позицией заказа
+ */
+interface IProduct
+{
+    /**
+     * Идентификатор, по которому будем искать исходных объект со стороны корзины
+     */
+    public function GetId(): int;
+    /**
+     * Найти себя по индентификатору, сохраненному в корзине/заказе
+     */
+    public static function getById(int $id): ?IProduct;
+    /**
+     * Узнать стоимость. В общем случае может быть завязана на систему скидок и прочее
+     */
+    public function GetPrice(): int;
+    /**
+     * Проверить доступность для покупки
+     */
+    public function GetAvailable(): bool;
+    /**
+     * Имя, под которым объект будет храниться в корзине/заказе
+     */
+    public function GetName(): string;
+    /**
+     * Описание объекта в виде пар название-значение
+     */
+    public function GetDescription(): array;
+    /**
+     * Покупаемый объект должен быть реализован. В терминах корзины - значит продан.
+     * В понятии покупаемого объекта - значит заблокирован
+     */
+    public function Release(User $user): void;
+    /**
+     * Отмена реализации
+     */
+    public function CancelRelease(): void;
+    /**
+     * Реализован ли объект?
+     */
+    public function IsReleased(): bool;
+
+    /**
+     * У каждого продукта должна быть возможность самостоятельного определения возможности его добавление к заказа
+     * Пример: билет не может быть добавлен несколько раз, а попкорн может.
+     */
+    public function validateOrderAdd(Order $order): bool;
+```
+
+
+## 6. Оплата заказа
+
+**Свой** заказ, находящийся, в статусе `confirmed` посетитель может оплатить. 
+
+Система оплаты состоит из двух частей:
+
+1. Форм, реализующих диалог с посетителем и последовательный ввод данных для оплаты.
+Эта часть реализована в контроллере 
+[PaymentController](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Http/Controllers/Publica/PaymentController.php), 
+[PaymentService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/PaymentService.php) 
+и о ней пойдет речь далее. В модели оплаты 
+[Payment](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Models/Payment.php) я поигрался с идентификатором
+сделав его UUID.
+2. Некий микросервис, который осуществляет обмен с процессинговым центром банка 
+[http://188.120.243.205/fake_gateway.php](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/public/fake_gateway.php).
+Как нетрудно догадаться микросервис ни с кем не соединяется, а только обозначает бурную деятельность задержкой в 6 секунд и 
+разными ответами на введенные данные карт:
+
+    * Правильным считается номер карты, оканчивающийся на четную цифру
+    * Проверочный код SMS должен быть 123456
+
+**В процесс оплаты заложена следующая логика:**
+
+1. Для простоты я исключил установку разных параметров для обмена, которые требуются в реалиных службах оплаты, 
+считая, что это все проблемы микросервиса.
+2. Клиент может оплатить заказ если:
+
+    * Не прошло время жизни платежа - 30 секунд (устанавливается в настройках)
+    * Заказ, связанный с оплатой принадлежит текущему пользователю - оплатить можно только свой заказ
+    * Заказ должен находится в статусе `confirmed "подтвержден"`, иные статусы отвергаются.
+
+3. Оплата проходит по шагам (stage), может существовать неограниченное число попыток оплаты, но текущая попытка может быть 
+только одна и пока она не перейдет в статус `is_error` нельзя создать новую.
+
+4. Шаги (stage):
+    created - объект создан ожидаем ввод данных карты
+    card_input - данные карты успешно введены, ожидается отправка данных в сервис оплаты.
+    card_checked - данные карты проверены внешним сервисом.
+    code_input - введен проверочный код
+    code_checked - проверочный код проверен внешним сервисом
+    done - оплата завершена успешно
+
+5. Переход оплаты в статус `done` автоматически переведет связанный с ней заказ в статус `done`, что согласно п.2 заблокирует 
+создание новых попыток оплаты.
+
+Новый заказ, оплата, регистрация подтверждаются соответствующими письмами.
+
+
+## Принципы обработки запросов и написания кода
+
+Обработка запросов на получение каких либо данных GET относительно проста и состоит из следующих этапов:
+
+1. Проверка прав пользователя на использование метода. Как правило целиком на весь метод
+2. Проверка кеша на уже сгенерированные данные
+3. Генерация путем обращения с соответствующему методу сервиса, который дергает соответствующий метод репозитория.
+4. Разделение обязанностей между репозиторием и сервисом:
+    
+    * Репозиторий извлекает данные из хранилища в зависимости от его типа
+    * Сервис готовит данные для передачи в вид
+
+Обработка запроса пользователя на внос каких либо данных POST, PUT, PATCH рассмотрим на примере 
+[PaymentController::inputSavePayment(Request $request)](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Http/Controllers/Publica/PaymentController.php). 
+В общем случае состоит из: 
+
+1. Проверка прав пользователя на использование метода.
+2. Данные передаются в сервис, который замотан в блок
+
+```php
+        try {
+            // тут сервис делает какую-то операцию
+            $payment = $this->paymentService->getValidPayment($payment_id);
+            // ....
+        catch (ServiceException $exception) {
+            // ServiceException - это ошибка в бизнес-логике, например внешний сервис выдал неверный код,
+            // или при удалении пользователя, другой сервис начал удалять заказы, а там другой сервис начал удалять оплаты, 
+            // на удаление которых у текущего пользователя не прав
+            return $redirectTo
+                ->withErrors($exception->getMessages(), 'messages')
+                ->withInput();
+        }
+        catch (ValidationException $exception) {
+            // тут простые ошибки ввода данных. Поле пустое, содержит не те символы
+            return $redirectTo
+                ->withErrors($exception->errors())
+                ->withInput();
+        }
+        // все хорошо
+        return $redirectTo;
+    }
+```
+3. Исключение бизнес логики ServiceException может как собирать несколько исключений в одно, так и мержиться 
+с другими исключениями из подзапросов.
+
+4. Остальные исключения пробрасываются (не работает БД например, переменная должна быть массивом, а она null) выше и 
+выдаются счастливому пользователю в виде ошибки 500. Эти ошибки пользователь никак не сможет исправить и уже 
+должна будут выискиваться в логах и правиться один раз и навсегда программистом.
+
+5. Кроме проверки данных и дергания соответствующего репозитория в методе сервиса должна быть генерация соответсвующего события, 
+чтобы все заинтересованные и заранее нам неизвестные слушатели могли событие изменения чего-либо обработать.
+
+В итоге внутри сервиса методы должны выглядеть как-то так (на примере [UserService](https://github.com/otusteamedu/Laravel/blob/VYermakov/master/app/Services/UserService.php)):
  
-* Адрес: [http://188.120.243.205/manager](http://188.120.243.205/manager)
-* Логин: vit_ermakov@mail.ru
-* Пароль: vit_ermakov
+```php
+    private function validateQuickRegister(array $data) {
+        $this->validateQuickRegisterData($data);
+        $ex = new UserException;
+        if(!AdminHelpers::normalizePhone($data['phone']))
+            $ex->add(__('errors.users.phone_format'));
+        if($this->findByPhone($data['phone']))
+            $ex->add(__('errors.users.phone_exists'));
+        if($this->findByEmail($data['email']))
+            $ex->add(__('errors.users.email_exists'));
+        $ex->assert();
+    }
+
+    private function validateQuickRegisterData(array $data) {
+        \Illuminate\Support\Facades\Validator::make($data, [
+            'name' => ['required', 'max:255'],
+            'email' => ['required', 'max:255'],
+            'phone' => ['required', 'max:255'],
+        ], [
+            'name.required' => __('errors.required', ['field' => __('public.user.name')]),
+            'email.required' => __('errors.required', ['field' => __('public.user.email')]),
+            'phone.required' => __('errors.required', ['field' => __('public.user.phone')])
+        ])->validate();
+    }
+
+    public function quickRegister(array $data): User
+    {
+        $this->validateQuickRegister($data);
+
+        /** @var IUserRepository $repository */
+        $repository = $this->getRepository();
+        $data['active'] = true;
+        $data['password_raw'] = AdminHelpers::generatePassword();
+        $data['password'] = Hash::make($data['password_raw']);
+        /** @var User $user */
+        $user = $repository->createFromArray($data);
+
+        event(new UserEvent($user, UserEvent::STORED, $data));
+
+        return $user;
+    }
+```

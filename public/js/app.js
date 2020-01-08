@@ -37043,20 +37043,20 @@ mapLoader.prototype.setObjects = function (data, currentId) {
 mapLoader.prototype.createPoint = function (data) {
   var placeMark,
       that = this;
-  placeMark = new ymaps.Placemark([data.POINT[0], data.POINT[1]], {
-    name: data.NAME,
+  placeMark = new ymaps.Placemark([data.location[0], data.location[1]], {
+    name: data.name,
     image: '',
     url: '',
     properties: [],
     text: "Идет загрузка данных...",
-    balloonContentHeader: data.NAME,
-    clusterCaption: data.NAME
+    balloonContentHeader: data.name,
+    clusterCaption: data.name
   }, {
     balloonContentLayout: this.BalloonContentLayout,
     balloonPanelMaxMapArea: 0,
     preset: "islands#dotCircleIcon"
   });
-  placeMark.properties.set('id', data.ID);
+  placeMark.properties.set('id', data.id);
   placeMark.properties.set('loader', this);
   placeMark.events.add('balloonopen', function (e) {
     var value = placeMark.properties.get('id');
@@ -37092,31 +37092,31 @@ mapLoader.prototype.setMapBounds = function (id) {
   } else {
     if (typeof id != 'undefined') {
       var object = this.findObj(id),
-          point;
+          location;
 
       if (object) {
-        point = object.POINT; //that.Map.zoomRange.get(point).then(function(res)
+        location = object.location; //that.Map.zoomRange.get(location).then(function(res)
         //{
-        //	 that.Map.setCenter(point, res[1]);
+        //	 that.Map.setCenter(location, res[1]);
         //});
         //object.object.balloon.open();
 
-        that.Map.setCenter(point, 18);
+        that.Map.setCenter(location, 18);
       }
     } else if (this.Data.length == 1) {
-      point = this.Data[0].POINT;
-      this.Map.setCenter(point);
+      location = this.Data[0].location;
+      this.Map.setCenter(location);
     } else {
       var min = [0, 0],
           max = [0, 0];
 
       for (var i = 0; i < this.Data.length; i++) {
-        point = this.Data[i].POINT;
-        if (typeof point[0] == 'undefined' || typeof point[1] == 'undefined') continue;
-        if (!min[0] || point[0] < min[0]) min[0] = point[0];
-        if (!min[1] || point[1] < min[1]) min[1] = point[1];
-        if (!max[0] || point[0] > max[0]) max[0] = point[0];
-        if (!max[1] || point[1] > max[1]) max[1] = point[1];
+        location = this.Data[i].location;
+        if (typeof location[0] == 'undefined' || typeof location[1] == 'undefined') continue;
+        if (!min[0] || location[0] < min[0]) min[0] = location[0];
+        if (!min[1] || location[1] < min[1]) min[1] = location[1];
+        if (!max[0] || location[0] > max[0]) max[0] = location[0];
+        if (!max[1] || location[1] > max[1]) max[1] = location[1];
       }
 
       this.Map.setBounds(min, max);
@@ -37255,6 +37255,8 @@ __webpack_require__(/*! ./bootstrap-datepicker */ "./resources/js/bootstrap-date
 
 __webpack_require__(/*! ./moment */ "./resources/js/moment.js"); // require('./locale/ru');
 
+
+__webpack_require__(/*! ./hall */ "./resources/js/hall.js");
 
 __webpack_require__(/*! ./script */ "./resources/js/script.js");
 
@@ -38889,6 +38891,721 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/hall.js":
+/*!******************************!*\
+  !*** ./resources/js/hall.js ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function (w, $) {
+  var MovieShowing = function MovieShowing(node, prices, params) {
+    this.node = node;
+    this.params = params;
+    this.data = Util.getOpts(node, {}, 'showing');
+    this.hall = null;
+    this.order = null;
+    this.message = null;
+    this.prices = prices;
+  };
+
+  MovieShowing.prototype.init = function () {
+    var node,
+        that = this;
+    node = Util.FindRole('hall', this.node);
+
+    if (node.length > 0) {
+      this.hall = new Hall(node[0], this);
+      this.hall.init();
+    }
+
+    node = Util.FindRole('order', this.node);
+
+    if (node.length > 0) {
+      this.order = new Order(node[0], this);
+      this.order.init();
+    }
+
+    node = Util.FindRole('message', this.node);
+
+    if (node.length > 0) {
+      this.message = new Message(node[0], this);
+      this.message.init();
+    }
+
+    this.update();
+  };
+
+  MovieShowing.prototype.update = function () {
+    var that = this;
+    if (!that.hall) return;
+    this.hall.loadTickets(function () {
+      if (!that.order) return;
+      that.order.loadOrder(function () {
+        that.order.update();
+        that.hall.update();
+      });
+    });
+  };
+
+  MovieShowing.prototype.fallback = function () {};
+
+  var Message = function Message(node) {
+    this.node = node;
+    this.timeout = null;
+  };
+
+  Message.prototype.init = function () {
+    this.clean();
+  };
+
+  Message.prototype.clean = function () {
+    //this.node.innerHTML = '&nbsp;';
+    this.node.className = 'message-status';
+  };
+
+  Message.prototype.text = function (value, type) {
+    if (type == 'error') this.node.innerHTML = '<div class="bg-danger text-white">' + value + '</div>';else this.node.innerHTML = '<div class="bg-success text-white">' + value + '</div>';
+    this.node.className = 'message-status showed';
+  };
+
+  Message.prototype.flash = function (data) {
+    var type,
+        message,
+        that = this;
+
+    if (!data.status) {
+      type = 'error';
+      message = data.toString();
+    } else {
+      type = data.status.toLowerCase();
+      message = data.message;
+    }
+
+    if ('errorsuccess'.indexOf(type) < 0) type = 'error';
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+
+    this.text(message, type);
+    setTimeout(function () {
+      that.clean();
+      that.timeout = null;
+    }, 4000);
+  };
+
+  var Order = function Order(node, parent) {
+    this.node = node;
+    this.parent = parent;
+    this.nodeButton = null;
+    this.nodeList = null;
+    this.nodeCount = null;
+    this.nodeTotal = null;
+    this.query = new Query();
+    this.data = null;
+    this.items = [];
+  };
+
+  Order.prototype.init = function () {
+    var that = this,
+        node;
+    node = Util.FindRole('items', this.node);
+    this.show(false);
+    if (node.length > 0) this.nodeList = node[0];
+    node = Util.FindRole('checkout', this.node);
+
+    if (node.length > 0) {
+      this.nodeButton = node[0];
+
+      this.nodeButton.onclick = function () {
+        that.checkout();
+        return false;
+      };
+    }
+  };
+
+  Order.prototype.checkout = function () {
+    if (this.data.total > 0) location.href = this.parent.params.urlOrder.checkout;
+  };
+
+  Order.prototype.clearOrder = function () {
+    var i,
+        n = this.items.length;
+
+    for (i = n - 1; i >= 0; i--) {
+      this.removeItem(i);
+    }
+
+    this.items = [];
+  };
+
+  Order.prototype.removeItem = function (index) {
+    var item = this.items[index];
+    this.nodeList.removeChild(item.node);
+    this.items.splice(index, 1);
+  };
+
+  Order.prototype.initOrder = function () {
+    var i, item, li;
+    this.clearOrder();
+
+    if (this.data.total > 0) {
+      this.show(true);
+
+      for (i in this.data.items) {
+        item = new OrderItem(this.nodeList.appendChild(document.createElement('li')), this, this.data.items[i]);
+        item.init();
+        this.items[this.items.length] = item;
+      }
+    } else {
+      this.show(false);
+    }
+  };
+
+  Order.prototype.show = function (bShow) {
+    bShow = bShow || false;
+    this.node.style.display = bShow ? '' : 'none';
+  };
+
+  Order.prototype.update = function () {
+    this.initOrder();
+  };
+
+  Order.prototype.loadOrder = function (callback) {
+    var that = this,
+        queryUrl = this.parent.params.urlOrder.list;
+    this.query.get(queryUrl, null, 'get').success(function (data) {
+      that.data = data;
+      if (typeof callback == 'function') callback.apply(that);
+    }).error(function () {
+      parent;
+      that.parent.fallback.apply(that);
+    }).spinOn(this.node);
+  };
+
+  Order.prototype.addPlace = function (place, callback) {
+    var that = this,
+        shwg = this.parent,
+        queryUrl = shwg.params.urlOrder.add;
+    this.query.get(queryUrl, {
+      showing_movie_id: this.parent.data.id,
+      place_id: place.id
+    }, 'get').success(function (data) {
+      shwg.message.flash(data);
+      shwg.update();
+      if (typeof callback == 'function') callback.apply(that, [data]);
+    }).error(function () {
+      that.parent.fallback.apply(that);
+    }).spinOn(place.parent.node);
+  };
+
+  Order.prototype.removePlace = function (place, callback) {
+    var that = this,
+        shwg = this.parent,
+        queryUrl = shwg.params.urlOrder.remove;
+    this.query.get(queryUrl, {
+      showing_movie_id: this.parent.data.id,
+      place_id: place.id
+    }, 'get').success(function (data) {
+      shwg.message.flash(data);
+      shwg.update();
+      if (typeof callback == 'function') callback.apply(that, [data]);
+    }).error(function () {
+      that.parent.fallback.apply(that);
+    }).spinOn(place.parent.node);
+  };
+
+  Order.prototype.removeOrderItem = function (item, callback) {
+    var that = this,
+        shwg = this.parent,
+        queryUrl = shwg.params.urlOrder.removeitem;
+    this.query.get(queryUrl, {
+      item_id: item.data.id
+    }, 'get').success(function (data) {
+      shwg.message.flash(data);
+      shwg.update();
+      if (typeof callback == 'function') callback.apply(that, [data]);
+    }).error(function () {
+      that.parent.fallback.apply(that);
+    }).spinOn(this.node);
+  };
+
+  var OrderItem = function OrderItem(node, parent, data) {
+    this.node = node;
+    this.parent = parent;
+    this.data = data;
+  };
+
+  OrderItem.prototype.init = function () {
+    var node,
+        i,
+        that = this;
+    this.node.innerHTML = this.getContent(this.data);
+    node = Util.FindRole('item-delete', this.node);
+
+    if (node.length > 0) {
+      node = node[0];
+
+      node.onclick = function () {
+        that.clickDetele();
+        return false;
+      };
+    }
+  };
+
+  OrderItem.prototype.clickDetele = function () {
+    this.parent.removeOrderItem(this);
+  };
+
+  OrderItem.prototype.getContent = function (itemData) {
+    var available = !!parseInt(itemData.available),
+        msg = this.parent.parent.params.messages;
+    return '<div class="ticket-wrapper status-' + (available ? 'enabled' : 'disabled') + '">' + '<span data-role="item-delete" class="ticket-delete"><i class="fas fa-times-circle" aria-hidden="true"></i></span>' + '<div class="ticket-content">' + '<div class="ticket-place">' + itemData.description.place.value + '</div>' + '<div class="ticket-price">' + itemData.price + '&nbsp;руб.</div>' + '<div class="ticket-status">' + (available ? msg.ticketStatusEnabled : msg.ticketStatusDisabled) + '</div>' + '</div>' + '</div>';
+  };
+
+  var Hall = function Hall(node, parent) {
+    this.node = node;
+    this.parent = parent;
+    this.id = node.getAttribute('data-id');
+    this.name = node.getAttribute('data-name');
+    this.places = [];
+    this.rowLabels = [];
+    this.maxRow = 0;
+    this.maxPlace = 0;
+    this.data = [];
+    this.query = new Query();
+  };
+
+  Hall.prototype.init = function () {
+    var node,
+        i,
+        item,
+        that = this;
+    node = Util.FindRole('place', this.node);
+    this.initCss();
+
+    for (i = 0; i < node.length; i++) {
+      item = new Place(node[i], this);
+      item.init();
+      if (item.row > this.maxRow) this.maxRow = item.row;
+      if (item.place > this.maxPlace) this.maxPlace = item.place;
+      this.places[i] = item;
+    }
+
+    this.makePlacesPositions();
+    Util.attach(window, 'resize', function () {
+      that.makePlacesPositions();
+    });
+  };
+
+  Hall.prototype.loadTickets = function (callback) {
+    var that = this,
+        queryUrl = this.parent.params.urlTicket.list;
+    this.query.get(queryUrl, {
+      showing_movie_id: this.parent.data.id
+    }, 'get').success(function (data) {
+      that.data = data;
+      if (typeof callback == 'function') callback.apply(that);
+    }).error(function () {
+      that.parent.fallback.apply(that);
+    }).spinOn(this.node);
+  };
+
+  Hall.prototype.makePlacesPositions = function () {
+    var i,
+        w = this.node.offsetWidth,
+        place;
+    h = parseInt(w / this.maxPlace * this.maxRow);
+    this.setHeight(h);
+    w = parseInt(w / this.maxPlace);
+    h = parseInt(h / this.maxRow);
+
+    for (i = 0; i < this.places.length; i++) {
+      place = this.places[i];
+      this.places[i].setDimensions(w, h, (place.place - 1) * w, (place.row - 1) * h);
+    }
+  };
+
+  Hall.prototype.update = function () {
+    var statusMap = [],
+        i,
+        key,
+        item,
+        available,
+        oData = this.parent.order.data;
+
+    for (i = 0; i < this.data.length; i++) {
+      item = this.data[i];
+      key = item.movie_showing_id + ':' + item.place_id;
+      statusMap[key] = item.id;
+    }
+
+    for (i = 0; i < oData.items.length; i++) {
+      item = oData.items[i].ticket;
+      if (!item) continue;
+      available = parseInt(oData.items[i].available);
+      if (!available) continue;
+      key = item.movie_showing_id + ':' + item.place_id;
+      statusMap[key] = 0;
+    }
+
+    for (i = 0; i < this.places.length; i++) {
+      item = this.places[i];
+      key = this.parent.data.id + ':' + item.id;
+      this.places[i].disabled = false;
+      this.places[i].selected = false;
+
+      if (typeof statusMap[key] != 'undefined') {
+        if (statusMap[key]) this.places[i].disabled = true;else this.places[i].selected = true;
+      }
+
+      this.places[i].update();
+    }
+  };
+
+  Hall.prototype.initCss = function () {
+    this.node.style.position = 'relative';
+  };
+
+  Hall.prototype.setHeight = function (h) {
+    this.node.style.height = h + 'px';
+  };
+
+  var Place = function Place(node, parent) {
+    var data;
+    this.node = node;
+    this.parent = parent;
+    data = Util.getOpts(node, {}, 'place');
+    this.id = data.id;
+    this.row = parseInt(data.row);
+    this.place = parseInt(data.place);
+    data = Util.getOpts(node, {}, 'tariff');
+    this.tariff = new Tariff(data.id, data.code, data.name);
+    this.disabled = false;
+    this.selected = false;
+  };
+
+  Place.prototype.init = function () {
+    var that = this;
+    this.initCss();
+    Util.attach(this.node, 'click', function (e) {
+      that.click();
+    });
+    this.update();
+  };
+
+  Place.prototype.click = function () {
+    var that = this;
+    if (this.disabled) return;
+
+    if (this.selected) {
+      this.showing().order.removePlace(this, function () {
+        that.selected = false;
+      });
+    } else {
+      this.showing().order.addPlace(this, function () {
+        that.selected = true;
+      });
+    }
+  };
+
+  Place.prototype.showing = function () {
+    return this.parent.parent;
+  };
+
+  Place.prototype.update = function () {
+    var className = 'place';
+    if (this.disabled) className += ' place-disabled';else {
+      className += ' place-type-' + this.tariff.getCode().toLowerCase();
+      if (this.selected) className += ' place-selected';
+    }
+    this.node.className = className;
+  };
+
+  Place.prototype.initCss = function () {
+    this.node.style.position = 'absolute';
+  };
+
+  Place.prototype.setDimensions = function (w, h, l, t) {
+    this.node.style.top = t + 'px';
+    this.node.style.left = l + 'px';
+    this.node.style.width = w + 'px';
+    this.node.style.height = h + 'px';
+  };
+
+  var Tariff = function Tariff(id, code, name) {
+    this.id = id;
+    this.code = code;
+    this.name = name;
+  };
+
+  Tariff.prototype.getId = function () {
+    return this.id;
+  };
+
+  Tariff.prototype.getCode = function () {
+    return this.code;
+  };
+
+  Tariff.prototype.getName = function () {
+    return this.name;
+  };
+
+  var Price = function Price(id, tariffId, value) {
+    this.id = id;
+    this.tariffId = tariffId;
+    this.value = value;
+  };
+
+  Price.prototype.getValue = function () {
+    return this.value;
+  };
+
+  w.jMovieShowing = MovieShowing;
+  var Util = {
+    Find: function Find(search, attr, context) {
+      var i,
+          j,
+          elems,
+          cls,
+          find,
+          tilda = false,
+          dot = false,
+          res = [];
+      if (!context) context = document.body;
+
+      if (search[0] == '~') {
+        tilda = true;
+        search = search.substr(1);
+      } else if (search[0] == '.') {
+        dot = true;
+        search = search.substr(1);
+        attr = 'class';
+      }
+
+      if (!attr) attr = 'id';
+
+      if (attr == 'id') {
+        find = document.getElementById(search);
+        return find ? [find] : 0;
+      } else {
+        if (tilda || !context.querySelector) {
+          tag = '*';
+          elems = context.getElementsByTagName(tag);
+
+          for (i = 0; i < elems.length; i++) {
+            if (find = elems[i].getAttribute(attr)) {
+              if (dot) {
+                cls = find ? find.split(' ') : [];
+
+                for (j = 0; j < cls.length; j++) {
+                  if (cls[j] == search) res[res.length] = elems[i];
+                }
+              } else if (tilda) {
+                if (find.indexOf(search) >= 0) res[res.length] = elems[i];
+              } else if (find == search) res[res.length] = elems[i];
+            }
+          }
+
+          return res;
+        } else {
+          find = '[' + attr + '="' + search + '"]';
+          elems = context.querySelectorAll(find);
+
+          for (i = 0; i < elems.length; i++) {
+            res[res.length] = elems[i];
+          }
+        }
+      }
+
+      return res;
+    },
+    FindRole: function FindRole(search, context) {
+      return this.Find(search, 'data-role', context);
+    },
+    getOpts: function getOpts(node, params, pfx) {
+      var a = node.attributes,
+          p;
+      if (!params) params = {};
+      if (pfx) pfx = 'data-' + pfx.toLowerCase() + '-';else pfx = 'data-';
+
+      for (var i = 0; i < a.length; i++) {
+        if (a[i].name.indexOf(pfx) == 0) {
+          p = a[i].name.substr(pfx.length).toLowerCase();
+          p = p.replace(/\-([a-z])/g, function (s) {
+            return s[1].toUpperCase();
+          });
+          params[p] = a[i].value;
+        }
+      }
+
+      return params;
+    },
+    getChar: function getChar(e) {
+      e = e || event;
+
+      if (e.which == null) {
+        if (e.keyCode < 32) return null;
+        return String.fromCharCode(e.keyCode);
+      }
+
+      if (e.which != 0 && e.charCode != 0) {
+        if (e.which < 32) return null;
+        return String.fromCharCode(e.which);
+      }
+
+      return null;
+    },
+    inArray: function inArray(arr, val, f) {
+      var res;
+      if (typeof f !== 'string') f = false;
+
+      for (var i in arr) {
+        res = false;
+        if (f !== false) res = arr[i][f] == val;else res = arr[i] == val;
+        if (res) return i;
+      }
+
+      return -1;
+    },
+    attach: function attach(elem, evType, fn) {
+      if (elem.addEventListener) elem.addEventListener(evType, fn, false);else if (elem.attachEvent) //elem.attachEvent('on' + evType, fn)
+        elem.attachEvent("on" + evType, function (e) {
+          return fn.apply(elem, [e]);
+        });else elem['on' + evType] = fn;
+    },
+    // получить связанный объект
+    _allNodes: [],
+    get_node: function get_node(creator, node) {
+      var n = this._allNodes.length,
+          i,
+          factory;
+
+      for (i = 0; i < n; i++) {
+        if (node == this._allNodes[i].node && this._allNodes[i].constructor == creator) return this._allNodes[i];
+      }
+
+      factory = creator.bind.apply(creator, [null].concat(Array.prototype.slice.call(arguments, 1)));
+      this._allNodes[n] = new factory();
+      return this._allNodes[n];
+    }
+  }; // method
+
+  /*
+  var Query = function(node, url, params, method) {
+      node = typeof(node)=='string' ? document.getElementById(node) : node;
+      node = node || document.body;
+      return Util.get_node(_Query, node, url, params, method);
+  };
+  */
+
+  var Query = function Query() {
+    this.handle = null;
+    this.nodeWait = null;
+    this.fnError = null;
+    this.fnSuccess = null;
+    this.target = null; // this.reset();
+  };
+
+  Query.prototype.reset = function () {
+    this.fnError = null;
+    this.fnSuccess = null;
+    this.target = null;
+  };
+
+  Query.prototype.isHolded = function () {
+    return this.handle != null;
+  };
+
+  Query.prototype.error = function (fnError) {
+    this.fnError = fnError;
+    return this;
+  };
+
+  Query.prototype.success = function (fnSuccess) {
+    this.fnSuccess = fnSuccess;
+    return this;
+  };
+
+  Query.prototype.spinOn = function (target) {
+    this.target = target;
+    return this;
+  };
+
+  Query.prototype.wait = function (bShow) {
+    if (bShow) {
+      if (!this.target) return;
+
+      if (!this.nodeWait) {
+        this.nodeWait = this.target.appendChild(document.createElement('div'));
+        this.nodeWait.className = 'loading-layer';
+        this.nodeWait.style.position = 'absolute';
+        this.nodeWait.style.top = '0px';
+        this.nodeWait.style.right = '0px';
+        this.nodeWait.style.bottom = '0px';
+        this.nodeWait.style.left = '0px';
+        this.nodeWait.style.width = '100%';
+        this.nodeWait.style.height = '100%';
+        this.nodeWait.innerHTML = '<div class="d-table-cell" style="text-align:center;vertical-align:middle">' + '<div class="spinner-border" role="status">' + '<span class="sr-only">Loading...</span>' + '</div>' + '</div>';
+      }
+    } else {
+      if (this.nodeWait) {
+        this.nodeWait.parentNode.removeChild(this.nodeWait);
+        this.nodeWait = null;
+      }
+    }
+  };
+
+  Query.prototype.close = function (callback, data) {
+    this.wait(false);
+    this.handle = null;
+
+    if (typeof callback == 'function') {
+      if (data !== null) callback.apply(this, [data]);else callback.apply(this);
+    }
+  };
+
+  Query.prototype.getUrl = function (queryUrl, params) {
+    var parts = [];
+
+    for (var i in params) {
+      parts[parts.length] = i + '=' + params[i];
+    }
+
+    queryUrl += queryUrl.indexOf('?') >= 0 ? '&' : '?';
+    queryUrl += parts.join('&');
+    return queryUrl;
+  };
+
+  Query.prototype.get = function (url, params, method) {
+    var that = this;
+    if (that.isHolded()) return;
+    that.reset();
+    setTimeout(function () {
+      that.wait(true);
+      params = params || {};
+      method = (method || 'GET').toUpperCase();
+      if ('GETPOSTPATCHPUTDELETE'.indexOf(method) < 0) method = 'GET';
+      that.handle = $.ajax({
+        url: that.getUrl(url, params),
+        method: method,
+        success: function success(data) {
+          that.close(that.fnSuccess, data);
+        },
+        error: function error() {
+          that.close(that.fnError, null);
+        },
+        dataType: 'json'
+      });
+    }, 100);
+    return this;
+  };
+})(window, jQuery);
 
 /***/ }),
 
@@ -46618,62 +47335,75 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 /***/ (function(module, exports) {
 
 $(function () {
-  MapLoader = new mapLoader(document.getElementById('mapElement'), {
-    urlData: "/cinema/map_data",
-    onSelect: function onSelect(pointData) {
-      /*
-      var node, id, i, j, k, form = $('[data-role="calculator"]').get(0),
-          vars = ['regionId', 'districtId', 'pointId'], tagName, value, si, pfx;
-       for(i = 0; i < vars.length; i++)
-      {
-          for(j = 0; j < 2; j++) {
-              pfx = j ? 'old_' : '';
-              id = 'ctrl_LOCATION_' + pfx + vars[i];
-              node = document.getElementById(id);
-               if(!node) {
-                  node = form.appendChild(document.createElement('input'));
-                  node.type = 'hidden';
-                  node.name = 'LOCATION[' + pfx + vars[i] + ']';
-              }
-               tagName = node.tagName.toLowerCase();
-              value = pointData[vars[i]];
-               if(tagName == 'input')
-                  node.value = value;
-              else
-              if(tagName == 'select') {
-                  si = -1;
-                  for(k = 0; k < node.options.length; k++)
-                      if(node.options[k].value == value) {
-                          si = k;
-                          node.options[k].selected = true;
-                      }
-                      else
-                          node.options[k].selected = false;
-                  if(si >= 0)
-                      node.selectedIndex = si;
-                  else {
-                      node.parentNode.removeChild(node);
-                       node = form.appendChild(document.createElement('input'));
-                      node.type = 'hidden';
-                      node.name = 'LOCATION[' + pfx + vars[i] + ']';
-                      node.value = value;
-                  }
-              }
-          }
-      }
-       $(form).submit();
-      $.modal.closePopup();*/
-    }
-  });
   var object = document.getElementById('mapElement');
-  MapLoader.loadList(null);
-  $('.input-date').datepicker({
+
+  if (object) {
+    MapLoader = new mapLoader(object, {
+      urlData: "/cinemas/map_data",
+      onSelect: function onSelect(pointData) {
+        /*
+        var node, id, i, j, k, form = $('[data-role="calculator"]').get(0),
+            vars = ['regionId', 'districtId', 'pointId'], tagName, value, si, pfx;
+         for(i = 0; i < vars.length; i++)
+        {
+            for(j = 0; j < 2; j++) {
+                pfx = j ? 'old_' : '';
+                id = 'ctrl_LOCATION_' + pfx + vars[i];
+                node = document.getElementById(id);
+                 if(!node) {
+                    node = form.appendChild(document.createElement('input'));
+                    node.type = 'hidden';
+                    node.name = 'LOCATION[' + pfx + vars[i] + ']';
+                }
+                 tagName = node.tagName.toLowerCase();
+                value = pointData[vars[i]];
+                 if(tagName == 'input')
+                    node.value = value;
+                else
+                if(tagName == 'select') {
+                    si = -1;
+                    for(k = 0; k < node.options.length; k++)
+                        if(node.options[k].value == value) {
+                            si = k;
+                            node.options[k].selected = true;
+                        }
+                        else
+                            node.options[k].selected = false;
+                    if(si >= 0)
+                        node.selectedIndex = si;
+                    else {
+                        node.parentNode.removeChild(node);
+                         node = form.appendChild(document.createElement('input'));
+                        node.type = 'hidden';
+                        node.name = 'LOCATION[' + pfx + vars[i] + ']';
+                        node.value = value;
+                    }
+                }
+            }
+        }
+         $(form).submit();
+        $.modal.closePopup();*/
+      }
+    });
+    MapLoader.loadList(null);
+  }
+
+  $('input[role="date"]').datepicker({
     language: 'ru',
     locale: 'ru',
     format: 'dd.mm.yyyy'
   });
-  $('.input-phone').inputmask({
+  $('.input-phone,input[role="phone"]').inputmask({
     mask: "(999) 999-99-99"
+  });
+  $('input[role="card_number"]').inputmask({
+    mask: "9999-9999-9999-9999"
+  });
+  $('input[role="card_term"]').inputmask({
+    mask: "99/99"
+  });
+  $('input[role="card_csv"]').inputmask({
+    mask: "999"
   });
 });
 

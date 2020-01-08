@@ -15,11 +15,14 @@ class CreateOrderItemsTable extends Migration
     {
         Schema::create('order_items', function (Blueprint $table) {
             $table->bigIncrements('id');
+
             $table->bigInteger('order_id')->unsigned();
             $table->bigInteger('product_id')->unsigned();
+            $table->string('product_class', 255);
 
             $table->integer('price')->nullable();
             $table->string('name', 255)->nullable();
+            $table->json('description')->nullable();
             $table->boolean('available')->default(true);
         });
 
@@ -29,6 +32,7 @@ class CreateOrderItemsTable extends Migration
                 ->on('orders');
 
             $table->index('available');
+            $table->index(['product_id', 'product_class']);
         });
     }
 

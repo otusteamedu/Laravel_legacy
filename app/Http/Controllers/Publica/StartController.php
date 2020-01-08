@@ -4,67 +4,67 @@
 namespace App\Http\Controllers\Publica;
 
 
+use App\Base\Controller\AbstractController;
 use App\Base\Service\CD;
-use App\Http\Controllers\Controller;
-use App\Services\FileService;
+use App\Services\Interfaces\ICinemaService;
+use App\Services\Interfaces\IGenreService;
 use App\Services\Interfaces\IMovieService;
 use App\Services\ResizeService;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-class StartController extends Controller
+class StartController extends AbstractController
 {
     /**
      * @var IMovieService
      */
     private $movieService;
-    /**
-     * @var ResizeService
-     */
-    private $resizeService;
-    /**
-     * @var FileService
-     */
-    private $fileService;
+    private $genreService;
+    private $cinemaService;
 
     /**
      * StartController constructor.
      * @param IMovieService $movieService
-     * @param ResizeService $resizeService
-     * @param FileService $fileService
+     * @param IGenreService $genreService
+     * @param ICinemaService $cinemaService
      */
     public function __construct(
         IMovieService $movieService,
-        ResizeService $resizeService,
-        FileService $fileService)
-    {
+        IGenreService $genreService,
+        ICinemaService $cinemaService
+    ) {
         $this->movieService = $movieService;
-        $this->fileService = $fileService;
-        $this->resizeService = $resizeService;
+        $this->genreService = $genreService;
+        $this->cinemaService = $cinemaService;
     }
 
-    public function index()
+    public function index(Request $request): View
     {
-        $fs = $this->fileService;
-        $rs = $this->resizeService;
+        $fs = $this->FileService();
+        $rs = $this->Resizer();
 
         $premierMovies = $this->movieService->getSoonInRentalCached(4, new CD('top_premier', 3600*24, ['top_premier', 'all_movies']));
-        array_walk($premierMovies, function (&$movie) use ($fs) {
-            /** @var FileService $fs */
-            $movie['poster'] = $fs->getLocalFileArray($movie['poster']);
-            $movie['poster_url'] = $movie['poster'] ? $fs->getAssetFile($movie['poster']) : null;
-        });
-
+        $this->makeThumbs($premierMovies, 'poster');
         $showingMovies = $this->movieService->getInRentalRandCached(6, new CD('rand_showing', 3600*12, ['rand_premier', 'all_movies']));
-        array_walk($showingMovies, function (&$movie) use ($fs, $rs) {
-            $movie['poster'] = $fs->getLocalFileArray($movie['poster']);
-            $movie['poster_thumb'] = $movie['poster'] ? $rs->ResizeImage($movie['poster'], [
-                'type' => ResizeService::RESIZE_CROPPING,
-                'width' => 360,
-                'height' => 215
-            ]) : null;
+        $this->makeThumbs($showingMovies, 'poster',
+            ['type' => ResizeService::RESIZE_CROPPING, 'width' => 360, 'height' => 215]);
 
-            $movie['poster_thumb_url'] = $movie['poster_thumb'] ? $fs->getAssetFile($movie['poster_thumb']) : null;
-        });
+        $filter_date = $request->get('filter_date', '');
+        $filter_genreId = $request->get('filter_genreId', '');
+        $filter_cinemaId = $request->get('filter_cinemaId', '');
+        $filter_genres = $this->genreService->availableGenres(Carbon::now());
+        $filter_cinemas = $this->cinemaService->availableCinemas(Carbon::now());
 
-        return view('public.start.index', compact('premierMovies','showingMovies'));
+        return view('public.start.index', compact(
+            'premierMovies','showingMovies', 'filter_date', 'filter_genreId',
+            'filter_cinemaId', 'filter_genres', 'filter_cinemas'
+        ));
+    }
+    public function about(): View {
+        $cinemasList = $this->cinemaService->cinemaList();
+        return view('public.about.index', compact(
+            'cinemasList'
+        ));
     }
 }

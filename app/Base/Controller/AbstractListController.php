@@ -35,12 +35,12 @@ abstract class AbstractListController extends AbstractController
     }
 
     public function prepareAction($method, $parameters): void {
-        // принимаем фильтр
-        // п
         $this->nav = [
             'per_page' => (int) $this->request->get('per_page', 20)
         ];
-        $this->limit = (int) $this->request->get('list_limit', 20);
+        $this->sort = $this->request->get('sort', 'id');
+        $this->by = $this->request->get('by', 'asc');
+
         $this->data = [];
 
         parent::prepareAction($method, $parameters);

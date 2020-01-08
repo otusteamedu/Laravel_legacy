@@ -10,7 +10,7 @@
         <div class="carousel-inner">
             @foreach ($premierMovies as $item)
             <div class="carousel-item @if ($loop->first) active @endif">
-                <a class="item clearfix" href="{{ route('public.movies.info', ['id' => $item['id']]) }}">
+                <a class="item clearfix" href="{{ route('public.movies.view', ['id' => $item['id']]) }}">
                     <div class="image" style="background-image: url({{ asset($item['poster_url']) }});"></div>
                     <div class="desc bg-secondary">
                         <div class="desc-in">

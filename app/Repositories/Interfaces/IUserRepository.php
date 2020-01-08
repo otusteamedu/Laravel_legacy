@@ -22,4 +22,8 @@ interface IUserRepository extends IBaseRepository
      * @return bool
      */
     public function requiredAccess(User $user, $moduleId, string $access): bool;
+    /**
+     * @return array
+     */
+    public function getSexes(): array;
 }

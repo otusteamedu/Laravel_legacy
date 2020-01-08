@@ -7,8 +7,11 @@ namespace App\Services;
 use App\Base\Service\BaseService;
 use App\Events\CinemaEvent;
 use App\Models\Cinema;
+use App\Models\File;
+use App\Repositories\CinemaRepository;
 use App\Services\Interfaces\ICinemaService;
 use App\Services\Interfaces\IUploadService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
@@ -60,7 +63,7 @@ class CinemaService extends BaseService implements ICinemaService
             foreach ($data['photos'] as $photo) {
                 if($photo instanceof UploadedFile) {
                     $fileModel = $this->uploadService->getFileService()->saveFile($photo);
-                    $data['photos_id'] = $fileModel->id;
+                    $data['photos_id'][] = $fileModel->id;
                 }
             }
 
@@ -74,5 +77,47 @@ class CinemaService extends BaseService implements ICinemaService
         event(new CinemaEvent($cinema, CinemaEvent::STORED));
 
         return $cinema;
+    }
+    /**
+     * @param Carbon $date_from
+     * @param Carbon|null $date_to
+     * @return array
+     * @throws \App\Base\WrongNamespaceException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function availableCinemas(Carbon $date_from , Carbon $date_to = null): array
+    {
+        /** @var CinemaRepository $repository */
+        $repository = $this->getRepository();
+        return $repository->getList()->toArray();
+    }
+
+    public function cinemaList(): array {
+        $result = [];
+        /** @var CinemaRepository $repository */
+        $repository = $this->getRepository();
+
+        $cinemas = $repository->getList();
+        /** @var Cinema $cinema */
+        foreach ($cinemas as $cinema) {
+            $item = $cinema->toArray();
+            /** @var File $photo */
+            $photo = $cinema->photos()->first();
+            $item['photo'] = $photo ? $photo->toArray() : null;
+            $result[] = $item;
+        }
+
+        return $result;
+    }
+
+    public function FindCinema(int $cinemaId): array {
+        /** @var Cinema $cinema */
+        $cinema = $this->findModel($cinemaId);
+
+
+        $result = $cinema->toArray();
+        $result['photos'] = $cinema->photos ? $cinema->photos->toArray() : [];
+
+        return $result;
     }
 }

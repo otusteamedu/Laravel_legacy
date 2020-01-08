@@ -3,7 +3,7 @@
         <ul>
             @foreach ($cinemasList as $item)
             <li>
-                <a href="{{ route('public.cinemas.item', ['id' => $item['ID']]) }}">{{ $item['NAME'] }}</a>
+                <a href="{{ route('public.cinemas.item', ['id' => $item['id']]) }}">{{ $item['name'] }}</a>
             </li>
             @endforeach
         </ul>

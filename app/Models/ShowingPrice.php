@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property int id
  * @property int movie_showing_id
  * @property int tariff_id
- * @property float value
+ * @property int value
  * @property MovieShowing movieShowing
  * @property Tariff tariff
  *

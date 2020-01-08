@@ -16,9 +16,7 @@ interface IBaseRepository
      */
     public function getByPrimary(int $primary): ?Model;
 
-    public function getList(array $filter = [], array $order = [], array &$nav = null): Collection;
-
-    public function getQList(Q $query): Collection;
+    public function getList(Q $query = null): Collection;
 
     public function createFromArray(array $data): Model;
 

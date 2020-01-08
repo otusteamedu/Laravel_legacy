@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Base\Service\BaseService;
 use App\Base\Service\CD;
+use App\Base\Service\Q;
 use App\Events\MovieEvent;
 use App\Helpers\Views\AdminHelpers;
 use App\Models\Movie;
@@ -12,6 +13,7 @@ use App\Repositories\Interfaces\IMovieRepository;
 use App\Repositories\MovieRepository;
 use App\Services\Interfaces\IMovieService;
 use App\Services\Interfaces\IUploadService;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Validation\ValidationException;
@@ -85,17 +87,15 @@ class MovieService extends BaseService implements IMovieService
     }
 
     /**
-     * @param int $itemId
+     * @param Model $movie
      * @param array $data
      * @return Model
      * @throws \App\Base\WrongNamespaceException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Exception
      */
-    public function update(int $itemId, array $data): Model {
+    public function update(Model $movie, array $data): Model {
         /** @var Movie $movie */
-        $movie = $this->findByID($itemId);
-
         $this->validateUpdate($movie, $data);
         /** @var MovieRepository $repository */
         $repository = $this->getRepository();
@@ -131,34 +131,100 @@ class MovieService extends BaseService implements IMovieService
     protected function validateRemove(Movie $movie)
     {
     }
-
     /**
-     * @param int $primary
+     * @param Model $movie
      * @throws \App\Base\WrongNamespaceException
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      * @throws \Exception
      */
-    public function remove(int $primary)
+    public function remove(Model $movie)
     {
         /** @var Movie $movie */
-        $movie = $this->findByID($primary);
-
         $this->validateRemove($movie);
 
         event(new MovieEvent($movie, MovieEvent::DELETING));
         $delete_poster = $movie->poster;
-        parent::remove($primary);
+        parent::remove($movie);
 
         if($delete_poster)
             $this->uploadService->getFileService()->removeFile($delete_poster);
+    }
+
+    /**
+     * @param Carbon|Carbon[2] $date
+     * @param array $navPages
+     * @param array $filters
+     * @return array
+     * @throws \App\Base\WrongNamespaceException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function FindMovies($date, array &$navPages, array $filters = []): array {
+        $dateTo = null;
+        if(is_array($date)) {
+            if(count($date) > 1)
+                $dateTo = $date[1];
+            $date = $date[0];
+        }
+
+        $query = (new Q)
+            ->filter(
+                array_merge(
+                    [
+                        'date' => $date,
+                        'dateTo' => $dateTo
+                    ],
+                    $filters
+                )
+            )
+            ->order(['movie_rentals.date_start_at' => 'asc'])
+            ->nav($navPages);
+
+        $result = [];
+        $this->paginateByFilter($query)->map(
+            function($movie) use (&$result) {
+                /** @var Movie $movie */
+                $item = $movie->toArray();
+                $item['poster'] = $movie->poster ? $movie->poster->toArray() : null;
+                $item['genres'] = $movie->genres ? $movie->genres->toArray() : null;
+                $item['countries'] = $movie->countries ? $movie->countries->toArray() : null;
+
+                $result[] = $item;
+            }
+        );
+
+        $navPages = $query->getNav();
+
+        return $result;
+    }
+
+    /**
+     * Подготовить фильм для показа
+     *
+     * @param int $movieId
+     * @return array
+     * @throws \App\Base\WrongNamespaceException
+     */
+    public function FindMovie(int $movieId): array {
+        /** @var Movie $movie */
+        $movie = $this->findModel($movieId);
+
+        $result = $movie->toArray();
+        $result['poster'] = $movie->poster ? $movie->poster->toArray() : null;
+        $result['producer'] = $movie->producer ? $movie->producer->toArray() : null;
+        $result['actors'] = $movie->actors ? $movie->actors->toArray() : null;
+        $result['genres'] = $movie->genres ? $movie->genres->toArray() : null;
+        $result['countries'] = $movie->countries ? $movie->countries->toArray() : null;
+        $result['premiereDate'] = AdminHelpers::Date_db_site($result['premiereDate']);
+
+        return $result;
     }
     /**
      * Получить ближайшие фильмы в прокате
      *
      * @param int $nLastCount
-     * @param CD|null $cache
      * @return array
-     * @throws \Exception
+     * @throws \App\Base\WrongNamespaceException
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function getSoonInRental(int $nLastCount): array {
         /** @var IMovieRepository $repository */
@@ -176,7 +242,6 @@ class MovieService extends BaseService implements IMovieService
 
         return $result;
     }
-
     /**
      * Получить $nCount случайных фильмов находящихся в данный момент в прокате
      *
@@ -193,7 +258,7 @@ class MovieService extends BaseService implements IMovieService
             function($movie) use (&$result) {
                 /** @var Movie $movie */
                 $item = $movie->toArray();
-                $item['poster'] = $movie->poster->toArray();
+                $item['poster'] = $movie->poster ? $movie->poster->toArray() : null;
                 $result[] = $item;
             }
         );

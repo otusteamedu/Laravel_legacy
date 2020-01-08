@@ -16,5 +16,6 @@ require('./bootstrap-datepicker');
 require('./moment');
 
 // require('./locale/ru');
+require('./hall');
 
 require('./script');

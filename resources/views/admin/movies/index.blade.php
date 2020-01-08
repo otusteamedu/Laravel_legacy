@@ -72,6 +72,7 @@
                     @endforeach
                 </tbody>
             </table>
+            {!! $navHtml !!}
         </form>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">

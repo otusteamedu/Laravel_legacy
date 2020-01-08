@@ -22,6 +22,9 @@ class MovieShowing extends Model
     //
     public $timestamps = false;
 
+    protected $casts = [
+        'datetime' => 'datetime'
+    ];
     public function hall() : BelongsTo {
         return $this->belongsTo(Hall::class, 'hall_id');
     }

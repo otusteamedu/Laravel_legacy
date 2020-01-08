@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property \Illuminate\Support\Carbon $released_at
  * @property MovieShowing movieShowing
  * @property Place place
+ * @property User creator
+ * @property User owner
  *
  * @package App\Models
  */

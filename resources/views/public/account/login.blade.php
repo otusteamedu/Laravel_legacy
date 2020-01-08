@@ -22,6 +22,7 @@
 @section('pageContentMain')
 
 {{ Form::open(['url' => route('login'), 'method' => 'post']) }}
+{{ Form::hidden('redirectTo', $redirectTo) }}
 <div class="form-group row align-items-center">
     <div class="col-sm-4 col-form-label">
         {{ Form::label('email', __('public.account.email')) }}

@@ -1,76 +1,154 @@
 @extends('public.movies.layout')
 
+@php
+    $breadCrumbs = [
+        [
+            'url' => \route('public.start'),
+            'title' => __('public.menu.home'),
+        ], [
+            'url' => \route('public.movies.search'),
+            'title' => __('public.menu.showing'),
+        ], [
+            'url' => \route('public.movies.view', ['id' => $movie['id']]),
+            'title' => $movie['name'],
+        ], [
+            'url' => \route('public.movies.showing', ['id' => $movie['id']]),
+            'title' => __('public.showings'),
+        ], [
+            'url' => \route('public.movies.order', ['id' => $movie['id']]),
+            'title' => __('public.order_ticket'),
+        ]
+    ];
+@endphp
+
 @section('pageTitle')
     {{ $movie['name'] }}: заказ билета
 @endsection
 
 @section('pageHeader')
-    {{ $movie['name'] }}: заказ билета
+    Заказ билета
 @endsection
 
 @section('pageContentMain')
-    @if (count($movieShowing) > 0)
-        <div class="i-title"><span class="">Купить билет</span></div>
-        <div class="container-fluid movie-showing-list i-iblock">
+    <div id="nodeShowing"
+         data-role="showing"
+         data-showing-id="{{ $showing['id'] }}"
+         data-showing-date="{{ $showing['date'] }}"
+         data-showing-time="{{ $showing['time'] }}"
+         data-movie-name="{{ $movie['name'] }}"
+         data-movie-duration="{{ $movie['duration'] }}"
+    >
+        <div class="container-fluid order-ticket i-iblock">
             <div class="row align-items-start m-0">
-                <div class="col-md-6 cinema p-0 py-3">
+                <div class="col-md-6">
+                    <h5><b>Фильм</b></h5>
+                    <table class="table-sm table-bordered table-striped" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="30%"><b>Название:</b></td>
+                            <td>{{ $movie['name'] }}</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><b>Длительность:</b></td>
+                            <td>{{ $movie['duration'] }} мин.</td>
+                        </tr>
+                        </tbody>
+                    </table><br /><br />
                 </div>
-                <div class="col-md-6 cinema p-0 py-3">
-                    <form action="" method="get" class="">
-                        <div class="i-content container-fluid">
-                            <div class="row">
-                                <label for="datetimepicker2" class="col-sm-5 col-form-label">Выбрать дату</label>
-                                <div class="form-group col-sm-7">
-                                    <div class="input-group date shadow" id="datetimepicker2" data-target-input="nearest">
-                                        <input type="text" class="form-control datetimepicker-input" data-target="#datetimepicker2" placeholder="Дата" value="{{ (new Datetime("now"))->format("d.m.Y") }}"/>
-                                        <div class="input-group-append" data-target="#datetimepicker2" data-toggle="datetimepicker">
-                                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
+                <div class="col-md-6">
+                    <h5><b>Место</b></h5>
+                    <table class="table-sm table-bordered table-striped" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="30%"><b>Кинотеатр:</b></td>
+                            <td>{{ $hall['cinema']['name'] }}. Зал: №{{ $hall['number'] }}&nbsp;&laquo;{{ $hall['name'] }}&raquo;</td>
+                        </tr>
+                        <tr>
+                            <td width="30%"><b>Адрес:</b></td>
+                            <td>{{ $hall['cinema']['address'] }}</td>
+                        </tr>
+                        </tbody>
+                    </table><br /><br />
+                </div>
+                <div class="col-md-6">
+                    <h5><b>Сеанс</b></h5>
+                    <table class="table-sm table-bordered table-striped" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="30%"><b>Дата:</b></td>
+                            <td>{{ $showing['date'] }}</td>
+                        </tr>
+                        </tbody>
+                    </table><br /><br />
+                </div>
+                <div class="col-md-6">
+                    <h5><b>&nbsp;</b></h5>
+                    <table class="table-sm table-bordered table-striped" width="100%">
+                        <tbody>
+                        <tr>
+                            <td width="30%"><b>Время:</b></td>
+                            <td>{{ $showing['time'] }} мин.</td>
+                        </tr>
+                        </tbody>
+                    </table><br /><br />
                 </div>
             </div>
-            @foreach ($movieShowing as $item)
-                <div class="row align-items-start m-0">
-                    <div class="col-md-6 cinema p-0 py-3">
-                        <div class="container-fluid cinema-item i-iblock p-0">
-                            <div class="row align-items-start">
-                                <div class="col-4 col-md-2 image p-0">
-                                    <a title="{{ $item['cinema']['NAME'] }}" href="{{ route('public.cinemas.item', ['id' => $item['cinema']['ID']]) }}" style="background-image: url({{ asset($item['cinema']['PICTURE']) }})"></a>
-                                </div>
-                                <div class="col-8 col-md-10 desc">
-                                    <div class="name">
-                                        <a href="{{ route('public.cinemas.item', ['id' => $item['cinema']['ID']]) }}">{{ $item['cinema']['NAME'] }}</a>
-                                    </div>
-                                    <div class="text">
-                                        {{ $item['cinema']['ADDRESS'] }}
-                                    </div>
-                                </div>
-                            </div>
+            <div class="row align-items-start m-0">
+                <div class="col-md-6">
+                    <div data-role="hall" class="hall-area">
+                    @foreach($places as $place)
+                        <div class="place-item"
+                             data-role="place"
+                             data-place-id="{{ $place['id'] }}"
+                             data-place-row="{{ $place['row_number'] }}"
+                             data-place-place="{{ $place['place_number'] }}"
+                             data-tariff-id="{{ $place['tariff']['id'] }}"
+                             data-tariff-code="{{ $place['tariff']['code'] }}"
+                             data-tariff-name="{{ $place['tariff']['name'] }}">
+                            <span><i>{{ $place['place_number'] }}</i></span>
                         </div>
-                    </div>
-                    <div class="col-md-6 showings desc p-0 py-3">
-                        @foreach ($item['showings'] as $showing)
-                            <a class="btn btn-warning shadow mb-2" href="#" role="button">
-                                {{ $showing['date']->format('H:i') }}
-                            </a>
-                        @endforeach
+                    @endforeach
                     </div>
                 </div>
-            @endforeach
+                <div class="col-md-6">
+                    <h6>Выберите места и нажмите кнопку заказать</h6>
+                    <div class="message-status" data-role="message"></div>
+                    <div class="places-selected" data-role="order">
+                        <ul data-role="items" class="clearfix"></ul>
+                        <input data-role="checkout" type="submit" class="btn btn-success shadow" value="Заказать" />
+                    </div>
+                </div>
+            </div>
         </div>
-    @endif
+    </div>
     <br /><br />
     <div class="container-fluid">
-        <a class="btn btn-primary shadow" href="{{ route('public.movies.info', ['id' => $movie['id']]) }}" role="button">
+        <a class="btn btn-primary shadow" href="{{ route('public.movies.view', ['id' => $movie['id']]) }}" role="button">
             О фильме
         </a>
-        <a class="btn btn-primary shadow" href="{{ route('public.movies.showing') }}" role="button">
+        <a class="btn btn-primary shadow" href="{{ route('public.movies.search') }}" role="button">
             Вернуться
         </a>
     </div>
-    @include('public.elements.filter')
+    <script type="text/javascript">
+        var object = new jMovieShowing(document.getElementById('nodeShowing'), @json($prices), {
+            urlOrder: {
+                list: "{{ route('public.order.getsession') }}",
+                add: "{{ route('public.order.addticket') }}",
+                remove: "{{ route('public.order.removeticket') }}",
+                removeitem: "{{ route('public.order.removeitem') }}",
+                checkout: "{{ route('public.order.checkout') }}"
+            },
+            urlTicket: {
+                list: "{{ route('public.movies.showing.tickets') }}"
+            },
+            messages: {
+                ticketStatusEnabled: "{{ __('public.order.ticketStatusEnabled') }}",
+                ticketStatusDisabled: "{{ __('public.order.ticketStatusDisabled') }}"
+            }
+        });
+        object.init();
+    </script>
+
 @endsection
+

@@ -45,31 +45,32 @@ class BaseRepository implements IBaseRepository
     /**
      * Получить объект запроса на основе массива ограничений
      *
-     * @param array $filter
+     * @param Q $query
      * @return Builder
      * @throws WrongNamespaceException
      */
-    private function filterQuery(array $filter = [], array $order = []) : Builder {
+    private function filterQuery(Q $query = null) : Builder {
         $builder = $this->getModel()->newQuery();
-        return $this->getFilter($builder)->apply($filter, $order);
+        return $query ? $this->getFilter($builder)->apply($query) : $builder;
     }
+
     /**
-     * @param array $filter
-     * @param array $order
-     * @param array|null $nav
+     * @param Q $query
      * @return Collection
      * @throws WrongNamespaceException
      */
-    public function getList(array $filter = [], array $order = [], array &$nav = null): Collection {
-        $builder = $this->filterQuery($filter, $order);
+    public function getList(Q $query = null): Collection {
+        $builder = $this->filterQuery($query);
 
-        if($nav !== null) {
+        if($query && $query->haveNav()) {
+            $nav = $query->getNav();
             $perPage = isset($nav['per_page']) && is_scalar($nav['per_page']) ? intval($nav['per_page']) : null;
             if(empty($perPage)) $perPage = null;
 
             $paginator = $builder->paginate($perPage);
             $nav = $paginator->toArray();
             $nav['html'] = $paginator->links()->toHtml();
+            $query->nav($nav);
 
             return $paginator->getCollection();
         }
@@ -77,12 +78,8 @@ class BaseRepository implements IBaseRepository
         return $builder->get();
     }
 
-    public function getQList(Q $query): Collection {
-
-    }
-
-    public function getItems(array $filter = [], array $order = [], array &$nav = null): array {
-        return $this->getList($filter, $order, $nav)->all();
+    public function getItems(Q $query): array {
+        return $this->getList($query)->all();
     }
 
     /**

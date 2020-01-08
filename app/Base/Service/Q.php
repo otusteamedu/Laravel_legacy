@@ -22,45 +22,39 @@ class Q
         array $order = [],
         array $nav = [],
         array $select = []
-    )
-    {
+    ) {
         $this->filter = $filter;
         $this->order = $order;
         $this->nav = $nav;
+        // пока этот элемент не используем
         $this->select = $select;
     }
 
     public function filter(array $data): Q {
-        $query = is_object($this) ? $this : new self();
-        $query->filter = $data;
-
-        return $query;
+        $this->filter = $data;
+        return $this;
     }
 
     public function order(array $data): Q {
-        $query = is_object($this) ? $this : new self();
-        $query->order = $data;
-
-        return $query;
+        $this->order = $data;
+        return $this;
     }
 
     public function select(array $data): Q {
-        $query = is_object($this) ? $this : new self();
-        $query->select = $data;
-
-        return $query;
+        $this->select = $data;
+        return $this;
     }
 
     public function nav(array $data): Q {
-        $query = is_object($this) ? $this : new self();
-        $query->nav = $data;
-
-        return $query;
+        $this->nav = $data;
+        return $this;
     }
 
     public function getNav() {
         return $this->nav;
     }
 
-
+    public function haveNav() {
+        return !empty($this->nav);
+    }
 }

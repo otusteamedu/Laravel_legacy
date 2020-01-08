@@ -4,6 +4,9 @@
 namespace App\Base\Controller;
 
 use App\Http\Controllers\Controller;
+use App\Services\FileService;
+use App\Services\Interfaces\IUploadService;
+use App\Services\ResizeService;
 use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
@@ -19,6 +22,15 @@ use Illuminate\Validation\ValidationException;
 
 abstract class AbstractController extends Controller
 {
+    /**
+     * @var ResizeService
+     */
+    protected $resizeService;
+    /**
+     * @var IUploadService
+     */
+    protected $uploadService;
+
     /**
      * если передается команда в переменной cmd ищем и вызываем метод в контроллере по шаблону cmd<cmd>.
      * @return RedirectResponse|null
@@ -82,5 +94,58 @@ abstract class AbstractController extends Controller
      */
     protected function status(string $message, string $key = 'statusMessage') {
         request()->session()->flash($key, $message);
+    }
+
+    public function Resizer(): ResizeService {
+        if(!$this->resizeService)
+            $this->resizeService = app()->make(ResizeService::class);
+        return $this->resizeService;
+    }
+
+    public function Uploader(): IUploadService {
+        if(!$this->uploadService)
+            $this->uploadService = app()->make(IUploadService::class);
+        return $this->uploadService;
+    }
+    public function FileService(): FileService {
+        return $this->Uploader()->getFileService();
+    }
+
+    public function makeThumbs(array &$data, string $field, array $thumbOpts = null) {
+        foreach ($data as &$item)
+            $this->makeThumb($item, $field, $thumbOpts);
+    }
+
+    public function makeThumb(array &$item, string $field, array $thumbOpts = null) {
+        $fs = $this->FileService();
+        $rs = $this->Resizer();
+        $bOneImage = (substr($field, -1, 1) != 's');
+
+        if(!array_key_exists($field, $item) || empty($item[$field]))
+            return;
+
+        $key = $field . '_thumb';
+        if($bOneImage) {
+            $item[$field] = $fs->getLocalFileArray($item[$field]);
+            $item[$field.'_url'] = $item[$field] ? $fs->getAssetFile($item[$field]) : null;
+            if($thumbOpts) {
+                $item[$key] = $item[$field] ? $rs->ResizeImage($item[$field] , $thumbOpts) : null;
+                $item[$key . '_url'] = $item[$key] ? $fs->getAssetFile($item[$key]) : null;
+            }
+        }
+        else {
+            $item[$field.'_url'] = [];
+            $item[$key] = [];
+            $item[$key.'_url'] = [];
+            foreach($item[$field] as $file) {
+                $file = $fs->getLocalFileArray($file);
+                if($file) {
+                    $item[$field.'_url'][] = $fs->getAssetFile($file);
+                    $fileResized = $rs->ResizeImage($file, $thumbOpts);
+                    $item[$key][] = $fileResized;
+                    $item[$key.'_url'][] = $fs->getAssetFile($fileResized);
+                }
+            }
+        }
     }
 }

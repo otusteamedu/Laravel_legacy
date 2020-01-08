@@ -4,30 +4,28 @@ namespace App\Http\Controllers\Admin\Movies\Movie;
 
 use App\Base\Controller\AbstractListController;
 use App\Base\Controller\HtmlFilter\Filter;
+use App\Base\Service\Q;
 use App\Models\Movie;
 use App\Services\FileService;
 use App\Services\Interfaces\IMovieService;
 use App\Services\ResizeService;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Routing\Redirector;
+use Illuminate\View\View;
 
 class MovieListController extends AbstractListController
 {
     protected $movieService;
-    protected $fileService;
-    protected $resizeService;
 
     public function __construct(
-        IMovieService $movieService,
-        FileService $fileService,
-        ResizeService $resizeService)
+        IMovieService $movieService)
     {
         parent::__construct();
-
         $this->movieService = $movieService;
-        $this->fileService = $fileService;
-        $this->resizeService = $resizeService;
     }
 
     public function prepareAction($method, $parameters): void {
+        parent::prepareAction($method, $parameters);
         // формировать формировать список нужно тут
         $this->filter = (new Filter($this->request))
             ->add('text', 'name', ['choose_match' => true])
@@ -36,34 +34,31 @@ class MovieListController extends AbstractListController
                 ->filter()
             ->init();
 
-        $this->data = $this->movieService->paginateByFilter(
-            $this->filter->getData(),
-            [$this->sort => $this->by],
-            $this->nav
-        );
+        $query = new Q($this->filter->getData(), [$this->sort => $this->by], $this->nav);
+        $this->data = $this->movieService->paginateByFilter($query);
+        $this->nav = $query->getNav();
 
         /** @var Movie $item */
-        foreach ($this->data as $item) {
-            if($item->poster)
-                $file = $this->fileService->getLocalFile($item->poster);
+        //foreach ($this->data as $item) {
+        //    if($item->poster)
+        //        $file = $this->fileService->getLocalFile($item->poster);
             // dd($request);
-        }
+        //}
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return View
+     * @throws AuthorizationException
      */
-    public function index()
+    public function index(): View
     {
         $this->authorize('view', Movie::class);
-        //$this->movieRepository->getNamespace();
-        //exit;
-        //
+
         return view('admin.movies.index', [
             'filterHtml' => $this->filter->render(),
+            'navHtml' => $this->nav['html'],
             'movies' => $this->data
         ]);
     }
@@ -72,17 +67,17 @@ class MovieListController extends AbstractListController
      * Remove the specified resource from storage.
      *
      * @param int $itemId
-     * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Routing\Redirector
+     * @throws AuthorizationException
      */
-    public function destroy(int $itemId)
+    public function destroy(int $itemId): Redirector
     {
         /** @var Movie $movie */
         $movie = $this->movieService->findModel($itemId);
 
         $this->authorize('delete', $movie);
 
-        $this->movieService->remove($itemId);
+        $this->movieService->remove($movie);
 
         $this->status(__('success.movies.deleted', ['name' => $movie->name]));
 

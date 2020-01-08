@@ -10,7 +10,7 @@
             'href' => route('public.about'),
             'text' => __('public.menu.about')
         ], [
-            'href' => route('public.movies.showing'),
+            'href' => route('public.movies.search'),
             'text' => __('public.menu.showing')
         ], [
             'href' => route('public.cinemas.index'),
