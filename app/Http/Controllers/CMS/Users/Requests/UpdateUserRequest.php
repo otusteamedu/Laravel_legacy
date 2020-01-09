@@ -9,11 +9,6 @@ namespace App\Http\Controllers\CMS\Users\Requests;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\FormRequest;
 
-// получи предопределённые списки значений из config/shop.php
-define('USER_SOURCES', config('shop.sources'));
-define('USER_TYPES', config('shop.types'));
-define('USER_OPERATORS', config('shop.operators'));
-
 class UpdateUserRequest extends FormRequest
 {
     /**
@@ -34,10 +29,10 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'source'=>['required', Rule::in(USER_SOURCES)],
-            'type'=>['required', Rule::in(USER_TYPES)],
+            'source'=>['required', Rule::in(config('shop.sources'))],
+            'type'=>['required', Rule::in(config('shop.types'))],
             'name'=>'required|max:50',
-            'operator'=>['required', Rule::in(USER_OPERATORS)],
+            'operator'=>['required', Rule::in(config('shop.operators'))],
         ];
     }
     /**
@@ -48,9 +43,9 @@ class UpdateUserRequest extends FormRequest
     public function messages()
     {
         //  собери строку из элементов массива
-        $sources = implode(", ", USER_SOURCES);
-        $types = implode(", ", USER_TYPES);
-        $operators = implode(", ", USER_OPERATORS);
+        $sources = implode(", ", config('shop.sources'));
+        $types = implode(", ", config('shop.types'));
+        $operators = implode(", ", config('shop.operators'));
 
         return [
             'source.required' => 'Укажите сайт',

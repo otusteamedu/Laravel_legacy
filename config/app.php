@@ -162,8 +162,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
         // добавил свои сервис-провайдеры:
-        // БЫЛО просто так : App\Repositories\UsersServiceProvider::class,
-        // а стало
         App\Services\Users\UsersServiceProvider::class,
 
         /*

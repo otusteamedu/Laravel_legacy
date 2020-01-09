@@ -1,13 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/index.css": "/css/index.css",
-    "/css/login.css": "/css/login.css",
-    "/css/register.css": "/css/register.css",
-    "/css/home.css": "/css/home.css",
-    "/css/katalog.css": "/css/katalog.css",
-    "/css/admin.index.css": "/css/admin.index.css",
-    "/css/admin.show.css": "/css/admin.show.css",
-    "/css/admin.edit.css": "/css/admin.edit.css",
-    "/css/admin.create.css": "/css/admin.create.css"
+    "/css/app.css": "/css/app.css"
 }
