@@ -154,7 +154,22 @@ Services/UserService.php
 
     Добавил ещё один handler UpdateUsersHandler.php => вставил его в UsersService.
 
+Занятие 16
+==========
+2020.01.09 Часть 1
+Выполнил команды :
+composer require laravel/ui
+php artisan ui vue --auth
 
+При выполнении npm install && npm run dev
+получил ошибку о несовместимости версий vue-loader и vue-template-compiler
 
+Устранил ошибку командой переустановки :
+npm install -D vue-loader vue-template-compiler
+См. https://vue-loader.vuejs.org/guide/#vue-cli
+
+Потом успешно выполнил npm install && npm run dev
+
+Часть 2
 
 

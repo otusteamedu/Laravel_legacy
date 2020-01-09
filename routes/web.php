@@ -52,3 +52,11 @@ Route::name('cms.')->group(function () {
 /*Route::get('/admin/index','UsersController@index');
 Route::get('/admin/users/{id}','UsersController@show');*/
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
