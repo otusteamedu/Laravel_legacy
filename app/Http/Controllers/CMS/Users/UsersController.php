@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 
 class UsersController extends Controller
 {
-    ////////////////////////// Добавил для паттерна Репозиторий
+    // Добавил для паттерна Репозиторий
     protected $user;
     protected $usersService;
     /**
@@ -33,11 +33,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        // было
-        // $users = User::all();
-        // стало
         $users = $this->user->all();
-        //dd("Попал в UsersController@index");
         return view('pages.admin.index')->withUsers($users);
     }
 
@@ -48,7 +44,6 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //dd("Готов показать форму создания нового пользователя.");
         return view('pages.admin.create');
     }
 
@@ -59,18 +54,9 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        // Было
-        // $data=$request->all();
-        // $data=Arr::except($data,['_token']);
-            // было
-            // User::create($data);
-            // стало
-        // $users = $this->user->store($data);
-
-        //стало
         $data=$request->getFormData();
-        $users = $this->usersService->createUser($data);
-        return redirect('/users/');
+        $user = $this->usersService->createUser($data);
+        return redirect(route('cms.users.index'));
     }
 
     /**
@@ -106,21 +92,6 @@ class UsersController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         // входящий запрос валидный
-        // $requestValidated = $request->validated();
-
-        /* было
-        $user->source = request('source');
-        $user->type = request('type');
-        $user->operator = request('operator');
-        $user->name = request('name');
-        $user->phone = request('phone');
-        $user->email = request('email');
-        $user->address = request('address');
-        //dd( "комментарий : [".request('comments')."]");
-        $user->comments = request('comments');
-        $user->save();*/
-
-        // стало
         $data = [
             'source' => request('source'),
             'type' => request('type'),
@@ -131,8 +102,9 @@ class UsersController extends Controller
             'address' => request('address'),
             'comments' => request('comments'),
         ];
-        $this->user->update($user,$data);
-        return redirect('/users/'.$user->id);
+
+        $user = $this->usersService->updateUser($user,$data);
+        return redirect(route('cms.users.show',['user'=>$user]));
     }
 
     /**
@@ -145,6 +117,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('/users/');
+        return redirect(route('cms.users.index'));
     }
 }

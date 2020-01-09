@@ -141,9 +141,18 @@ Services/UserService.php
     Также пришлось добавлять конструкцию в routes/web.php
     Пришлось убрать 'cms' из Route::prefix('')
 
-    Зарегистрировал класс и интерфес репозиториев по своему, через UsersServiceProvider.php
+    Зарегистрировал класс и интерфейс репозиториев по своему, через UsersServiceProvider.php
 
+Часть 6 : Исправление "косячков".
 
+    Убрал лишние комментарии.
+
+    Вместо использования констант типа define('USER_SOURCES', config('shop.sources'));
+    использую config('shop.sources');
+
+    Использую именованные маршруты. Пример : redirect('/users/') => стало redirect(route('cms.users.index'))
+
+    Добавил ещё один handler UpdateUsersHandler.php => вставил его в UsersService.
 
 
 
