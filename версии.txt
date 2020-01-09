@@ -145,11 +145,14 @@ Services/UserService.php
 
 Часть 6 : Исправление "косячков".
 
-Убрал лишние комментарии.
+    Убрал лишние комментарии.
 
-Вместо использования констант типа define('USER_SOURCES', config('shop.sources'));
-использую config('shop.sources');
+    Вместо использования констант типа define('USER_SOURCES', config('shop.sources'));
+    использую config('shop.sources');
 
+    Использую именованные маршруты. Пример : redirect('/users/') => стало redirect(route('cms.users.index'))
+
+    Добавил ещё один handler UpdateUsersHandler.php => вставил его в UsersService.
 
 
 

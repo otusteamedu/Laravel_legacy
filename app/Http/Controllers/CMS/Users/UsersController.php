@@ -55,9 +55,8 @@ class UsersController extends Controller
     public function store(CreateUserRequest $request)
     {
         $data=$request->getFormData();
-        $users = $this->usersService->createUser($data);
-        //return redirect('/users/');
-        return redirect(route('users.index'));
+        $user = $this->usersService->createUser($data);
+        return redirect(route('cms.users.index'));
     }
 
     /**
@@ -103,8 +102,9 @@ class UsersController extends Controller
             'address' => request('address'),
             'comments' => request('comments'),
         ];
-        $this->user->update($user,$data);
-        return redirect('/users/'.$user->id);
+
+        $user = $this->usersService->updateUser($user,$data);
+        return redirect(route('cms.users.show',['user'=>$user]));
     }
 
     /**
@@ -117,6 +117,6 @@ class UsersController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return redirect('/users/');
+        return redirect(route('cms.users.index'));
     }
 }
