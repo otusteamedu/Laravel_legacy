@@ -24,20 +24,19 @@
     @endif
     <hr>
     {!!
-        Form::model($grammar,['method'=>'POST', 'url' => route('admin.grammar.store',
-            ['grammar'=>($grammar->id)])
+        Form::model($grammar,['method'=>'POST', 'url' => route('admin.grammar.store')
         ])
     !!}
     {{ Form::token()}}
 
-    <div class="row form-group">
-        {{ Form::label('id', 'ID',['class'=>'col-lg-2']) }}
-        {{ Form::text('id', $grammar->id,[
-            'class'=>'form-control col-lg-10',
-            'id'=>'id',
-            'readonly'=> 'true'
-        ] ) }}
-    </div>
+{{--    <div class="row form-group">--}}
+{{--        {{ Form::label('id', 'ID',['class'=>'col-lg-2']) }}--}}
+{{--        {{ Form::text('id', $grammar->id,[--}}
+{{--            'class'=>'form-control col-lg-10',--}}
+{{--            'id'=>'id',--}}
+{{--            'readonly'=> 'true'--}}
+{{--        ] ) }}--}}
+{{--    </div>--}}
     <div class="row form-group">
         {{Form::label('name', 'Название',['class'=>'col-lg-2'])}}
         {!!  Form::text('name',$grammar->name,[

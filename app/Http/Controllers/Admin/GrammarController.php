@@ -119,10 +119,11 @@ class GrammarController extends Controller
             'title' => 'required',
         ]);
         $data = $request->all();
-        $tests = Test::where(['lessen_id' => $data->id, 'status' => 0])->get();
-        $words = Word::where(['lessen_id' => $data->id])->get();
 
         $grammar = $this->grammarService->insert($data);
+
+        $tests = Test::where(['lessen_id' => $grammar->id, 'status' => 0])->get();
+        $words = Word::where(['lessen_id' => $grammar->id])->get();
         $message = '';
         $error = '';
 
