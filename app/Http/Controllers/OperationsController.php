@@ -25,7 +25,6 @@ class OperationsController extends Controller
      */
     public function index()
     {
-
         $operations = $this->operationsService->getUserTodayOperations($this->userId);
         $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 

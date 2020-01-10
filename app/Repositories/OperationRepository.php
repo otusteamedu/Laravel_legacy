@@ -9,12 +9,13 @@ class OperationRepository
 {
 
     public function storeOperation($data, Operation $operation){
-        $operation->create([
-            'sum' => $data['sum'],
-            'category_id' => $data['category_id'],
-            'description' => $data['description'],
-            'user_id' => $data['user_id'],
-        ]);
+//        $operation->create([
+//            'sum' => $data['sum'],
+//            'category_id' => $data['category_id'],
+//            'description' => $data['description'],
+//            'user_id' => $data['user_id'],
+//        ]);
+        $operation->create($data);
     }
 
     public function updateOperation($data, Operation $operation){
