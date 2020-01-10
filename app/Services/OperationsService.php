@@ -3,17 +3,50 @@
 
 namespace App\Services;
 
-
-use Illuminate\Http\Request;
+use App\Models\Operation;
+use App\Repositories\OperationRepository;
 use Carbon\Carbon;
 
-class Operation
+class OperationsService
 {
-    /**
-     * @param Request $request
-     * @return mixed
-     */
-    public static function getOperationsForPeriod($period = 'today'){
+    protected $operationRepository;
+
+    public function __construct(OperationRepository $operationRepository)
+    {
+        $this->operationRepository = $operationRepository;
+    }
+
+    public function storeOperation($data, Operation $operation){
+        $this->operationRepository->storeOperation($data, $operation);
+    }
+
+    public function updateOperation($data, Operation $operation){
+        $this->operationRepository->updateOperation($data, $operation);
+    }
+
+    public function destroyOperation($id, Operation $operation){
+        $this->operationRepository->destroyOperation($id, $operation);
+    }
+
+    public function getUserTodayOperations($userId){
+
+        $dateStart = Carbon::today();
+        $dateEnd = Carbon::tomorrow();
+
+        return $this->operationRepository->getUserOperationsForPeriod($userId, $dateStart, $dateEnd);
+
+    }
+
+    public function getUserOperationsForPeriod($userId, $period){
+
+        $period = self::defineDateStartDateEndForPeriod($period);
+        $dateStart = $period['dateStart'];
+        $dateEnd = $period['dateEnd'];
+
+        return $this->operationRepository->getUserOperationsForPeriod($userId, $dateStart, $dateEnd);
+    }
+
+    public function defineDateStartDateEndForPeriod($period){
         switch ($period){
             case 'today':
                 $dateStart = Carbon::today();
@@ -41,7 +74,8 @@ class Operation
                 break;
         }
 
-        return \App\Models\Operation::whereBetween('updated_at', [$dateStart, $dateEnd])->with('category')->get();
+        return ['dateStart' => $dateStart, 'dateEnd' => $dateEnd];
+
     }
 
     /**
@@ -50,7 +84,7 @@ class Operation
      * @param $operations
      * @return array
      */
-    public static function getIncomeConsumptionCount($operations){
+    public function getIncomeConsumptionCount($operations){
         $incomeCount = 0;
         $consumptionCount = 0;
         foreach ($operations as $operation){

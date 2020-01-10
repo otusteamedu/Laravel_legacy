@@ -8,12 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="lang" content="{{App::getLocale()}}">
+    <!-- Favicon icon --
     <link rel="icon" type="image/png" sizes="16x16" href="/assets/images/favicon.png">
     <title>@yield('title')</title>
     <!-- Bootstrap Core CSS -->
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/plugins/datatables/media/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <link href="/assets/plugins/datatables/media/css/dataTables.bootstrap4.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -78,7 +80,6 @@
     <script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
     <!--Custom JavaScript -->
     <script src="/js/custom.min.js"></script>
-    <script src="/js/scripts.js"></script>
 @show
 <!-- ============================================================== -->
 <!-- Style switcher -->

@@ -12,17 +12,17 @@
                 <b>
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="../assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="/assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                     <!-- Light Logo icon -->
-                    <img src="../assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
+                    <img src="/assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
                 <span>
                          <!-- dark Logo text -->
-                         <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" />
+                         <img src="/assets/images/logo-text.png" alt="homepage" class="dark-logo" />
                     <!-- Light Logo text -->
-                         <img src="../assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
+                         <img src="/assets/images/logo-light-text.png" class="light-logo" alt="homepage" /></span> </a>
         </div>
         <!-- ============================================================== -->
         <!-- End Logo -->
@@ -49,37 +49,25 @@
             <!-- ============================================================== -->
             <ul class="navbar-nav my-lg-0">
                 <!-- ============================================================== -->
-                <!-- Profile -->
-                <!-- ============================================================== -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="../assets/images/users/1.jpg" alt="user" class="profile-pic" /></a>
-                    <div class="dropdown-menu dropdown-menu-right scale-up">
-                        <ul class="dropdown-user">
-                            <li>
-                                <div class="dw-user-box">
-                                    <div class="u-img"><img src="../assets/images/users/1.jpg" alt="user"></div>
-                                    <div class="u-text">
-                                        <h4>Steave Jobs</h4>
-                                        <p class="text-muted">varun@gmail.com</p><a href="profile.html" class="btn btn-rounded btn-danger btn-sm">View Profile</a></div>
-                                </div>
-                            </li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-user"></i> My Profile</a></li>
-                            <li><a href="#"><i class="ti-wallet"></i> My Balance</a></li>
-                            <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
-                        </ul>
-                    </div>
-                </li>
-                <!-- ============================================================== -->
                 <!-- Language -->
                 <!-- ============================================================== -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="flag-icon flag-icon-us"></i></a>
-                    <div class="dropdown-menu dropdown-menu-right scale-up"> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-in"></i> India</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-fr"></i> French</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-cn"></i> China</a> <a class="dropdown-item" href="#"><i class="flag-icon flag-icon-de"></i> Dutch</a> </div>
+                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="flag-icon flag-icon-{{App::getLocale()}}"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right scale-up">
+                        <a lang="ru" class="dropdown-item lang" href="{{route('locale', ['locale' => 'ru'])}}"><i class="flag-icon flag-icon-ru"></i>@lang('user.langRussia')</a>
+                        <a lang ="en" class="dropdown-item lang" href="{{route('locale', ['locale' => 'en'])}}"><i class="flag-icon flag-icon-en"></i>@lang('user.langEnglish')</a>
+                    </div>
+                </li>
+                <!-- ============================================================== -->
+                <!-- Logout -->
+                <!-- ============================================================== -->
+                <li>
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                        <a href="javascript:void(0)" class="logout" onclick="parentNode.submit()"><i class="fa fa-power-off"></i> @lang('user.logout')</a>
+                    </form>
                 </li>
             </ul>
         </div>

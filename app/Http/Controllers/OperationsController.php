@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Auth;
+use App\Services\OperationsService;
 use App\Models\Operation;
+use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class OperationsController extends Controller
 {
+    protected $operationsService;
+    protected $userId;
+
+    public function __construct(OperationsService $operationsService){
+        $this->operationsService = $operationsService;
+        $this->userId = Auth::id();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,8 +25,8 @@ class OperationsController extends Controller
      */
     public function index()
     {
-        $operations = \App\Services\Operation::getOperationsForPeriod();
-        $incomeConsumptionCount = \App\Services\Operation::getIncomeConsumptionCount($operations);
+        $operations = $this->operationsService->getUserTodayOperations($this->userId);
+        $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 
         return view('users.home', [
             'operations' => $operations,
@@ -31,23 +41,28 @@ class OperationsController extends Controller
      */
     public function create()
     {
-        return view('users.operations.create', ['categories' => \App\Models\Category::all()]);
+        return view('users.operations.create', ['categories' => Category::all()]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request)
+    public function store(Request $request, Operation $operation)
     {
-        \App\Models\Operation::create([
+        $this->validate($request, [ 'sum' => 'required|min:1,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
+
+        $data = [
             'sum' => $request->input('sum'),
-            'category_id' => $request->input('categoryId'),
+            'category_id' => $request->input('category_id'),
             'description' => $request->input('description'),
-            'user_id' => Auth::id(),
-        ]);
+            'user_id' => $this->userId
+            ];
+
+        $this->operationsService->storeOperation($data, $operation);
 
         return redirect()->route('home');
     }
@@ -60,25 +75,28 @@ class OperationsController extends Controller
      */
     public function edit(Operation $operation)
     {
-
-        return view('users.operations.edit', ['operation' => \App\Models\Operation::find($operation->id), 'categories' => \App\Models\Category::all()]);
+        return view('users.operations.edit', ['operation' => $operation, 'categories' => Category::all()]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Operation  $operation
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param Operation $operation
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
      */
     public function update(Request $request, Operation $operation)
     {
-        \App\Models\Operation::where('id', $operation->id)
-            ->update([
-                'sum' => $request->input('sum'),
-                'category_id' => $request->input('categoryId'),
-                'description' => $request->input('description'),
-            ]);
+        $this->validate($request, [ 'sum' => 'required|min:1,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
+
+        $data = [
+            'sum' => $request->input('sum'),
+            'category_id' => $request->input('category_id'),
+            'description' => $request->input('description')
+        ];
+
+        $this->operationsService->updateOperation($data, $operation);
 
         return redirect()->route('home');
     }
@@ -86,11 +104,12 @@ class OperationsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @return \Illuminate\Http\Response
+     * @param Operation $operation
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy($operation)
+    public function destroy(Operation $operation)
     {
-        \App\Models\Operation::destroy($operation);
+        $this->operationsService->destroyOperation($operation->id, $operation);
 
         return redirect()->route('home');
     }
@@ -105,8 +124,8 @@ class OperationsController extends Controller
         $all = $request->all();
         $period = $all['period'];
 
-        $operations = \App\Services\Operation::getOperationsForPeriod($period);
-        $incomeConsumptionCount = \App\Services\Operation::getIncomeConsumptionCount($operations);
+        $operations = $this->operationsService->getUserOperationsForPeriod($this->userId, $period);
+        $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 
         return json_encode([
             'operations' => $operations,

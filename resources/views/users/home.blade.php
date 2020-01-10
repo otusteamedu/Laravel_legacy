@@ -8,26 +8,26 @@
             <div class="card">
                 <div class="card-body">
                     <div id="count">
-                        <h4 class="card-title">Итого за период</h4>
-                        <p>Доход: <span class="income">{{$incomeCount}}</span> Расход: <span class="consumption">{{$consumptionCount}}</span></p>
+                        <h4 class="card-title">@lang('user.totalForThePeriod')</h4>
+                        <p>@lang('user.incomeCount'): <span class="income">{{$incomeCount}}</span> @lang('user.consumptionCount'): <span class="consumption">{{$consumptionCount}}</span></p>
                     </div>
-                    <h4 class="card-title">Список операций</h4>
+                    <h4 class="card-title">@lang('user.listOfOperations')</h4>
                     <div class="index-button-group">
-                        <button type="button" class="btn waves-effect waves-light btn-success" period="today">Сегодня</button>
-                        <button type="button" class="btn waves-effect waves-light btn-success" period="yesterday">Вчера</button>
-                        <button type="button" class="btn waves-effect waves-light btn-success" period="week">Неделя</button>
-                        <button type="button" class="btn waves-effect waves-light btn-success" period="month">Месяц</button>
-                        <button type="button" class="btn waves-effect waves-light btn-success" period="quarter">Квартал</button>
-                        <button type="button" class="btn waves-effect waves-light btn-success" period="year">Год</button>
+                        <button type="button" class="btn waves-effect waves-light btn-success together" period="today">@lang('user.today')</button>
+                        <button type="button" class="btn waves-effect waves-light btn-success together" period="yesterday">@lang('user.yesterday')</button>
+                        <button type="button" class="btn waves-effect waves-light btn-success together" period="week">@lang('user.week')</button>
+                        <button type="button" class="btn waves-effect waves-light btn-success together" period="month">@lang('user.month')</button>
+                        <button type="button" class="btn waves-effect waves-light btn-success together" period="quarter">@lang('user.quarter')</button>
+                        <button type="button" class="btn waves-effect waves-light btn-success together" period="year">@lang('user.year')</button>
                     </div>
                     <div class="table-responsive">
                         <table id="myTable" class="table table-bordered table-striped">
                             <thead>
                             <tr>
-                                <th>Сумма</th>
-                                <th>Категория</th>
-                                <th>Описание</th>
-                                <th>Дата</th>
+                                <th>@lang('user.sum')</th>
+                                <th>@lang('user.category')</th>
+                                <th>@lang('user.description')</th>
+                                <th>@lang('user.date')</th>
                                 <th></th>
                             </tr>
                             </thead>
@@ -40,11 +40,15 @@
                                     <td>{{$operation->created_at}}</td>
                                     <td>
                                         <a href="{{route('operation.edit', ['operation' => $operation->id])}}">
-                                            <i class="fas fa-edit" title="Редактировать"></i>
+                                            <i class="fas fa-edit" title="@lang('user.edit')"></i>
                                         </a>
-                                        <a href="operation/{{$operation->id}}/destroy">
-                                            <i class="fas fa-trash" title="Удалить"></i>
-                                        </a>
+                                        <form action="{{route('operation.destroy', ['operation' => $operation->id])}}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="javascript:void(0);" onclick="parentNode.submit();">
+                                                <i class="fas fa-trash" title="@lang('user.delete')"></i>
+                                            </a>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -70,46 +74,5 @@
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <!-- end - This is for export functionality only -->
-    <script>
-        $(function () {
-            $('#myTable').DataTable();
-            // $(function () {
-            //     var table = $('#example').DataTable({
-            //         "columnDefs": [{
-            //             "visible": false,
-            //             "targets": 2
-            //         }],
-            //         "order": [
-            //             [2, 'asc']
-            //         ],
-            //         "displayLength": 25,
-            //         "drawCallback": function (settings) {
-            //             var api = this.api();
-            //             var rows = api.rows({
-            //                 page: 'current'
-            //             }).nodes();
-            //             var last = null;
-            //             api.column(2, {
-            //                 page: 'current'
-            //             }).data().each(function (group, i) {
-            //                 if (last !== group) {
-            //                     $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-            //                     last = group;
-            //                 }
-            //             });
-            //         }
-            //     });
-            //     // Order by the grouping
-            //     $('#example tbody').on('click', 'tr.group', function () {
-            //         var currentOrder = table.order()[0];
-            //         if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-            //             table.order([2, 'desc']).draw();
-            //         } else {
-            //             table.order([2, 'asc']).draw();
-            //         }
-            //     });
-            // });
-        });
-    </script>
-
-    @endsection
+    <script src="/js/datatables.custom.js"></script>
+@endsection
