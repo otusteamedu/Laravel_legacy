@@ -157,6 +157,8 @@ Services/UserService.php
 Занятие 16
 ==========
 2020.01.09 Часть 1
+Задача : Подготовить среду к авторизации.
+
 Выполнил команды :
 composer require laravel/ui
 php artisan ui vue --auth
@@ -170,6 +172,5 @@ npm install -D vue-loader vue-template-compiler
 
 Потом успешно выполнил npm install && npm run dev
 
-Часть 2
-
-
+2020.01.10 Часть 2
+Создал страницу профиля, где рядовой пользователь может редактировать сваои контактные данные."
