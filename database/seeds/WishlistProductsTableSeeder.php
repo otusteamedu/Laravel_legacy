@@ -11,6 +11,6 @@ class WishlistProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\WishlistProduct::class, 1000)->create();
+        factory(App\Models\WishlistProduct::class, 3000)->create();
     }
 }

@@ -42,6 +42,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const USER_STATUS_BANNED = 0;
+    const USER_STATUS_ACTIVE = 1;
+
+    const USER_GROUP_ADMIN = 1;
+    const USER_GROUP_MANAGER = 2;
+    const USER_GROUP_CUSTOMER = 3;
     /**
      * The attributes that are mass assignable.
      *
