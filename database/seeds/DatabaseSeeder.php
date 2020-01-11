@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
             WishlistsTableSeeder::class,
             WishlistProductsTableSeeder::class,
             ProductsTableSeeder::class,
-            ProductsSnapshotsTableSeeder::class,
         ]);
     }
 }

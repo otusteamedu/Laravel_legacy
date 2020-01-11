@@ -7,7 +7,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Wishlist::class, function (Faker $faker) {
     return [
-        'user_id' =>  App\Models\User::pluck('id')->random(),
-        'name'    => $faker->sentence(3),
+        'user_id' => App\Models\User::pluck('id')->random(),
+        'name' => $faker->sentence(3),
     ];
 });

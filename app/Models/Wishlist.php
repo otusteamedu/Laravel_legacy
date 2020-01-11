@@ -22,9 +22,17 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Products[] $products
+ * @property-read int|null $products_count
  */
 class Wishlist extends BaseModel
 {
+
+    protected $fillable = [
+        'name',
+        'user_id'
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -34,10 +42,15 @@ class Wishlist extends BaseModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
-    public function wishlistProducts()
+    public function products()
     {
-        return $this->hasMany(WishlistProduct::class);
+        return $this->hasManyThrough(Products::class, WishlistProduct::class,
+            'wishlist_id',
+            'productId',
+            'id',
+            'product_id'
+        );
     }
 }

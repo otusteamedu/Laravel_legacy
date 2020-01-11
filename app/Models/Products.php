@@ -51,16 +51,11 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereValidTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereVolume($value)
  * @mixin \Eloquent
+ * @property int $id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereId($value)
  */
 class Products extends BaseModel
 {
-    protected $primaryKey = 'productId';
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function snapshots()
-    {
-        return $this->hasMany(ProductsSnapshot::class, 'productId', 'productId');
-    }
+    protected static $unguarded = true;
 }

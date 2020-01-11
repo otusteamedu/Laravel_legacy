@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
 
 // Variables
 @import 'variables';
@@ -9,54 +10,69 @@
 
 
 html {
-    position: relative;
-    min-height: 100%;
+  position: relative;
+  min-height: 100%;
 }
 
 @media (max-width: 990px) {
-    footer {
-        position: static !important;
-    }
+  footer {
+    position: static !important;
+  }
 
-    main
-    {
-        min-height: calc(100vh - 153px);
-    }
+  main {
+    min-height: calc(100vh - 153px);
+  }
 }
 
 @media (max-width: 560px) {
 
-    main
-    {
-        min-height: calc(100vh - 187px);
-    }
+  main {
+    min-height: calc(100vh - 187px);
+  }
 }
 
 .circle-doc {
-    position: relative;
-    min-height: 50vh;
+  position: relative;
+  min-height: 50vh;
 }
 
 #circle {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-    height: 150px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150px;
+  height: 150px;
 }
 
 .loader {
-    width: calc(100% - 0px);
-    height: calc(100% - 0px);
-    border: 8px solid #162534;
-    border-top: 8px solid #09f;
-    border-radius: 50%;
-    animation: rotate 5s linear infinite;
+  width: calc(100% - 0px);
+  height: calc(100% - 0px);
+  border: 8px solid #162534;
+  border-top: 8px solid #09f;
+  border-radius: 50%;
+  animation: rotate 5s linear infinite;
 }
 
 @keyframes rotate {
-    100% {
-        transform: rotate(360deg);
-    }
+  100% {
+    transform: rotate(360deg);
+  }
 }
+
+.custab {
+  border: 1px solid #ccc;
+  padding: 5px;
+  margin: 20px 0;
+
+  th, td {
+    vertical-align: middle;
+  }
+}
+
+.py-6 {
+  padding-bottom: 5rem !important;
+  padding-top: 3rem !important;
+}
+
+@import "product/detail";
