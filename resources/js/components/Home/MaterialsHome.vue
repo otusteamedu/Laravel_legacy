@@ -35,7 +35,7 @@
 
 <script>
     import { Carousel3d } from 'vue-carousel-3d';
-    import Slide from '@/components/Home/Materials/Slide';
+    import Slide from '@@/components/Home/Materials/Slide';
 
     export default {
         components: {

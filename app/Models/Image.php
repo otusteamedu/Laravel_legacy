@@ -48,7 +48,7 @@ class Image extends Model
 
     public function orders()
     {
-        return $this->hasManyThrough('App\Models\Order', 'App\Models\OrderItem');
+        return $this->hasMany('App\Models\Order');
     }
 
     public function likes()

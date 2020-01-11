@@ -14,8 +14,18 @@ class CreateImageTagTable extends Migration
     public function up()
     {
         Schema::create('image_tag', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->timestamps();
+            $table->bigInteger('tag_id')->unsigned();
+            $table->bigInteger('image_id')->unsigned();
+        });
+
+        Schema::table('image_tag', function (Blueprint $table) {
+            $table->foreign('tag_id')->references('id')->on('tags')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->foreign('image_id')->references('id')->on('images')
+                ->onDelete('cascade')->onUpdate('cascade');
+
+            $table->primary(['tag_id', 'image_id']);
         });
     }
 

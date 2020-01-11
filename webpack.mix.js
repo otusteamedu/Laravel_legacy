@@ -30,11 +30,17 @@ mix.webpackConfig({
     },
     resolve: {
         alias: {
-            '@': path.resolve(__dirname, 'resources/js'),
-            '@sass': path.resolve(__dirname, 'resources/sass')
+            '@': path.resolve(__dirname, 'resources/admin/js'),
+            '@@': path.resolve(__dirname, 'resources/js')
         }
     }
 });
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix
+    .js('resources/admin/js/admin.app.js', 'public/js')
+    .sass('resources/admin/sass/admin.app.scss', 'public/css');
+
+mix
+    .js('resources/js/app.js', 'public/js')
+    .sass('resources/sass/app.scss', 'public/css');
+

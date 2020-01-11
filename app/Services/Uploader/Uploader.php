@@ -103,9 +103,9 @@ class Uploader
 
         $this->validate($uploadFile);
 
-        $this->baseStoragePath = $pathStorage ?? $this->baseStoragePath;
+        $storagePath = $pathStorage ?? $this->baseStoragePath;
 
-        $this->setQuantitativeProps($uploadFile);
+        $this->setQuantitativeProps($uploadFile, $storagePath);
 
         $this->makeDirectory($this->fileProps['path']);
 
@@ -148,14 +148,14 @@ class Uploader
 
     /**
      * @param string $uploadPath
-     * @param string|null $basePath
+     * @param string|null $pathStorage
      * @return bool
      */
-    public function remove(string $uploadPath, string $basePath = null): bool
+    public function remove(string $uploadPath, string $pathStorage = null): bool
     {
-        $basePath = $basePath ?? ltrim(config('uploads.imageUploadPath', ''));
+        $storagePath = $pathStorage ?? $this->baseStoragePath;
         $dir = substr($uploadPath, 0, 1) . '/' . substr($uploadPath, 0, 3);
-        $pathToDelete = $basePath . $dir . '/' . $uploadPath;
+        $pathToDelete = $storagePath . $dir . '/' . $uploadPath;
 
         return File::delete($pathToDelete);
     }
@@ -163,13 +163,12 @@ class Uploader
     /**
      * @param string $imagePath
      * @param UploadedFile $image
-     * @param null $basePath
      * @param null $pathStorage
      * @return array|void
      */
-    public function refresh(string $imagePath, UploadedFile $image, $basePath = null, $pathStorage = null): array
+    public function refresh(string $imagePath, UploadedFile $image, $pathStorage = null): array
     {
-        $this->remove($imagePath, $basePath);
+        $this->remove($imagePath, $pathStorage);
 
         return $this->upload($image, $pathStorage);
     }
@@ -202,15 +201,16 @@ class Uploader
      * Set the quantitative properties of the uploaded image file
      *
      * @param UploadedFile $uploadFile
+     * @param string $pathStorage
      */
-    protected function setQuantitativeProps(UploadedFile $uploadFile)
+    protected function setQuantitativeProps(UploadedFile $uploadFile, string $pathStorage)
     {
         $this->setProps('width', getImageSize($uploadFile)[0]);
         $this->setProps('height', getImageSize($uploadFile)[1]);
         $this->setProps('format_id', $this->getFormatId(getImageSize($uploadFile)[0], getImageSize($uploadFile)[1], $this->formatService->getAll()));
         $this->setProps('name', sha1($this->fileProps['original_name'] . microtime(true)) . '.' . $this->fileProps['extension']); // 3e89bc7b416ccce075e0fca2f2cc1172feb6dc24.jpg
         $this->setProps('directory', substr($this->fileProps['name'], 0, 1) . '/' . substr($this->fileProps['name'], 0, 3)); // 3/3e8
-        $this->setProps('path', $this->baseStoragePath . $this->fileProps['directory']);
+        $this->setProps('path', $pathStorage . $this->fileProps['directory']);
     }
 
     /**

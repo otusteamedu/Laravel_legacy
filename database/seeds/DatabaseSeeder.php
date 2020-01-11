@@ -17,13 +17,15 @@ class DatabaseSeeder extends Seeder
         $this->call([
 //            UsersTableSeeder::class,
             LaratrustSeeder::class,
+            DeliveriesTableSeeder::class,
+            SettingGroupsTableSeeder::class,
+            SettingsTableSeeder::class,
             FormatsTableSeeder::class,
             ImagesTableSeeder::class,
             TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
             CategoriesTableSeeder::class, // ! after ImagesTableSeeder::class
             TagsTableSeeder::class,
             OwnersTableSeeder::class,
-            DeliveriesTableSeeder::class,
             OrderStatusesTableSeeder::class,
         ]);
     }

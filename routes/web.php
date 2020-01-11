@@ -30,3 +30,12 @@ Route::get('registration', function () {
 Route::get('reset-password', function () {
     return view('auth.reset-password');
 })->name('reset-password');
+
+
+Route::group(['prefix' => 'manager'], function() {
+    Route::get('/{any?}', function() {
+        return view('admin/main');
+    })
+        ->where('any', '.*')
+        ->name('manager');
+});
