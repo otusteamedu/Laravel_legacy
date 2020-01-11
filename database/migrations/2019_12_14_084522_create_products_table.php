@@ -14,7 +14,8 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->unsignedBigInteger('productId');
+            $table->bigIncrements('id');
+            $table->unsignedBigInteger('productId')->index();
             $table->string('productTitle', 255);
             $table->string('productUrl');
             $table->string('imageUrl');
@@ -34,16 +35,6 @@ class CreateProductsTable extends Migration
             $table->text('allImageUrls');
 
             $table->timestamps();
-        });
-
-        Schema::table('products', function (Blueprint $table) {
-            $table->primary('productId')->index();
-
-            $table->foreign('productId')
-                ->references('product_id')
-                ->on('wishlist_products')
-                ->onDelete('cascade');
-
         });
     }
 

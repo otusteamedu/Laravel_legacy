@@ -26,3 +26,15 @@ Route::get('/page', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('wishlists', 'Wishlists\WishlistController')->except(
+    ['create', 'edit', 'update']
+);
+
+Route::resource('product', 'Products\ProductController')->only(
+    ['store', 'show']
+);
+
+Route::resource('wishlist-products', 'WishlistProductController')->only(
+    ['destroy']
+);

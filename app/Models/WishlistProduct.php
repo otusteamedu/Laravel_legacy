@@ -21,9 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct whereWishlistId($value)
  * @mixin \Eloquent
+ * @property int $id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct whereId($value)
  */
 class WishlistProduct extends BaseModel
 {
+
+    protected static $unguarded = true;
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */

@@ -14,18 +14,17 @@ class CreateWishlistProductsTable extends Migration
     public function up()
     {
         Schema::create('wishlist_products', function (Blueprint $table) {
+            $table->bigIncrements('id');
             $table->unsignedBigInteger('wishlist_id')->index();
             $table->unsignedBigInteger('product_id')->index();
-            $table->double('expected_price');
             $table->timestamps();
         });
 
         Schema::table('wishlist_products', function (Blueprint $table) {
-            $table->primary('product_id');
             $table->foreign('wishlist_id')
-                  ->references('id')
-                  ->on('wishlists')
-                  ->onDelete('cascade');
+                ->references('id')
+                ->on('wishlists')
+                ->onDelete('cascade');
         }
         );
     }
