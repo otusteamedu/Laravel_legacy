@@ -23,6 +23,14 @@ import UsersList from './components/admin/user/List';
 import UserEdit from './components/admin/user/Edit';
 import UserCreate from './components/admin/user/Create';
 
+// Profile - личный кабинет
+import ProfileLayout from './components/profile/Layout';
+import ProfileMain from './components/profile/Main';
+// Profile/Comment
+import CommentLayout from './components/profile/comments/Layout';
+import CommentList from './components/profile/comments/List';
+import CommentEdit from './components/profile/comments/Edit';
+
 const routes = [
     {
         path: '/',
@@ -106,6 +114,36 @@ const routes = [
                         name: 'admin.user.create',
                         component: UserCreate
                     }
+                ]
+            }
+        ]
+    },
+    {
+        path: '/profile',
+        component: ProfileLayout,
+        meta: {
+            auth: true
+        },
+        children: [
+            {
+                path: '',
+                name: 'profile.main',
+                component: ProfileMain
+            },
+            {
+                path: 'comment',
+                component: CommentLayout,
+                children: [
+                    {
+                        path: 'list',
+                        name: 'profile.comment.list',
+                        component: CommentList
+                    },
+                    {
+                        path: 'edit/:id',
+                        name: 'profile.comment.edit',
+                        component: CommentEdit
+                    },
                 ]
             }
         ]
