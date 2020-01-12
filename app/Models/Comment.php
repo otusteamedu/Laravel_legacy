@@ -31,4 +31,20 @@ class Comment extends Model
         'author_id',
         'target_id'
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function author()
+    {
+        return $this->belongsTo(User::class, 'author_id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function target()
+    {
+        return $this->belongsTo(User::class, 'target_id');
+    }
 }
