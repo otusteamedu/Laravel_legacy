@@ -48,3 +48,19 @@ Route::name('admin.')
                 Route::name('list')->get('list', 'RolesController@getList');
             });
     });
+
+Route::name('profile.')
+    ->prefix('profile')
+    ->namespace('Profile')
+    ->middleware('accept-profile')
+    ->group(function() {
+        Route::name('comment.')
+            ->prefix('comment')
+            ->group(function () {
+                Route::name('list')->get('list', 'CommentsController@index');
+                Route::name('getComment')->get('get-comment/{id}', 'CommentsController@getComment');
+                Route::name('update')->match(['patch', 'put'], 'update/{comment}', 'CommentsController@update')
+//                    ->middleware('can:update,comment');
+                ;
+            });
+    });
