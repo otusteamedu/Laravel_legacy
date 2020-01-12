@@ -24,14 +24,17 @@ Route::namespace('Auth')
 Route::name('admin.')
     ->prefix('admin')
     ->namespace('Admin')
+    ->middleware('accept-admin-panel')
     ->group(function() {
     Route::name('user.')
         ->prefix('user')
         ->group(function () {
         Route::name('list')->get('list', 'UsersController@index');
         Route::name('getUser')->get('get-user/{id}', 'UsersController@getUser');
-        Route::name('update')->match(['patch', 'put'], 'update/{user}', 'UsersController@update');
-        Route::name('create')->post('create', 'UsersController@create');
+        Route::name('update')->match(['patch', 'put'], 'update/{user}', 'UsersController@update')
+            ->middleware('can:update,user');
+        Route::name('create')->post('create', 'UsersController@create')
+            ->middleware('can:create,'.\App\Models\User::class);
     });
 });
 
