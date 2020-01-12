@@ -6,59 +6,46 @@
 
 namespace App\Services\Wishlists;
 
-
-use App\Models\User;
 use App\Models\Wishlist;
+use App\Services\Wishlists\Repositories\WishlistsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class WishlistsService
 {
 
+    public function __construct(WishlistsRepositoryInterface $wishlistsRepository)
+    {
+        $this->wishlistsRepository = $wishlistsRepository;
+    }
+
     /**
      * @return LengthAwarePaginator
      */
-    public function index(): LengthAwarePaginator
+    public function index() :LengthAwarePaginator
     {
-        /**
-         * @var $user User
-         */
         $user = \Auth::user();
-        $wishlists = $user->wishlists()
-            ->orderBy('id', 'desc')
-            ->paginate();
 
-        return $wishlists;
+        return $this->wishlistsRepository->getByUser($user);
     }
 
     /**
-     * @param Wishlist $wishlist
+     * @param  Wishlist  $wishlist
+     *
      * @return LengthAwarePaginator
      */
-    public function products(Wishlist $wishlist): LengthAwarePaginator
+    public function products(Wishlist $wishlist) :LengthAwarePaginator
     {
-        $products = $wishlist->products()
-            ->select([
-                'wishlist_products.id as wishlistProductsId',
-                'products.id',
-                'productTitle',
-                'productId'
-            ])
-            ->orderBy('products.updated_at', 'desc')
-            ->paginate();
-
-        return $products;
+        return $this->wishlistsRepository->getProducts($wishlist);
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
+     *
      * @return Wishlist
      */
-    public function create(array $data = []): Wishlist
+    public function create(array $data = []) :Wishlist
     {
-        $wishlist = new Wishlist();
-        $wishlist->create($data);
-
-        return $wishlist;
+        return $this->wishlistsRepository->create($data);
     }
 
 }
