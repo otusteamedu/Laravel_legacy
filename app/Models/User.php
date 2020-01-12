@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Tymon\JWTAuth\Contracts\JWTSubject;
@@ -10,10 +9,39 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 /**
  * Class User
  * @package App\Models
+ * @property int id
+ * @property string name
+ * @property string password
+ * @property int role_id
+ * @property string description
+ * @property string icon
+ *
  */
 class User extends Authenticatable implements JWTSubject
 {
     use Notifiable;
+
+    /**
+     *
+     */
+    const PRIVATE_ENTREPRENEUR_ROLE = 1;
+    /**
+     *
+     */
+    const WHOLESALER_ROLE = 2;
+    /**
+     *
+     */
+    const ADMIN_ROLE = 3;
+    /**
+     *
+     */
+    const TOP_MANAGER_ROLE = 4;
+    /**
+     *
+     */
+    const MANAGER_ROLE = 5;
+
 
     /**
      * The attributes that are mass assignable.
@@ -68,5 +96,61 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    /**
+     * @return bool
+     */
+    public function acceptAdminPanel()
+    {
+        $userRoleId = $this->role_id;
+        if (in_array($userRoleId, [
+            self::ADMIN_ROLE,
+            self::TOP_MANAGER_ROLE,
+            self::MANAGER_ROLE
+        ])) {
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->role_id === self::ADMIN_ROLE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTopManager()
+    {
+        return $this->role_id === self::TOP_MANAGER_ROLE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isManager()
+    {
+        return $this->role_id === self::MANAGER_ROLE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPrivateEntrepreneur()
+    {
+        return $this->role_id === self::PRIVATE_ENTREPRENEUR_ROLE;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWholesaler()
+    {
+        return $this->role_id === self::WHOLESALER_ROLE;
     }
 }
