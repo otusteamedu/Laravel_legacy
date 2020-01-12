@@ -3,10 +3,6 @@
 
 @section('title', 'MoneyHelper - Возможности')
 
-@section('navigation')
-    @parent
-@endsection
-
 @section('content')
     <h1 class="center">Широкие возможности - реальная польза</h1>
     <div class="row about">

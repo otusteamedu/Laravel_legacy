@@ -17,8 +17,8 @@ class CreateCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->tinyInteger('type')->comment('Тип операции: 1-Доход, 0-Расход');
-            $table->integer('parent_id')->nullable();
-            $table->string('img');
+            $table->integer('parent_id')->nullable()->comment('Родительская категория');
+            $table->string('img')->comment('Иконка');
             $table->timestamps();
         });
     }

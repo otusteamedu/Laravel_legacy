@@ -12,7 +12,12 @@
 */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('setlocale/{locale}', function ($locale) {
+    if (in_array($locale, \Config::get('app.locales'))) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back();
+})->name('locale');
 
 Route::get('/', function () {
     return view('statics.index');
@@ -21,6 +26,14 @@ Route::get('/', function () {
 Route::get('/about', function () {
     return view('statics.about');
 })->name('about');
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('reviews', 'ReviewsController')->except(['show']);
+
+Route::middleware('auth')->group(function () {
+    Route::get('/home', 'OperationsController@index')->name('home');
+    Route::resource('operation', 'OperationsController')->except(['show']);
+    Route::get('operation/period', 'OperationsController@setPeriod');
+});
+
+
+

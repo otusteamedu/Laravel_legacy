@@ -3,10 +3,6 @@
 
 @section('title', 'MoneyHelper - система управления личными финансами')
 
-@section('navigation')
-    @parent
-@endsection
-
 @section('content')
     <div class="row index">
         <div class="col-sm">
