@@ -23,7 +23,7 @@
                     </router-link>
                 </td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.role }}</td>
+                <td>{{ user.role.description }}</td>
             </tr>
             </tbody>
         </table>
@@ -47,6 +47,7 @@
             getUsersList(page = 1) {
                 axios.get('/admin/user/list?page=' + page)
                     .then(response => {
+                        console.log(response.data);
                         this.usersList = response.data;
                     });
             }

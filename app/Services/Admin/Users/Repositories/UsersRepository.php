@@ -4,7 +4,7 @@
 namespace App\Services\Admin\Users\Repositories;
 
 use App\Models\User;
-use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
  * Class UsersRepository
@@ -26,10 +26,7 @@ class UsersRepository
      */
     public function getList()
     {
-        return DB::table('users', 'u')
-            ->select(['u.id', 'u.name', 'u.email', 'roles.description as role'])
-            ->join('roles', 'u.role_id', '=', 'roles.id')
-            ->orderBy('u.id')
+        return User::with('role:description,id')
             ->paginate(20);
     }
 
@@ -39,26 +36,20 @@ class UsersRepository
      */
     public function getUserById(int $id)
     {
-        return DB::table('users', 'u')
-            ->select([
-                'u.id as id',
-                'u.name',
-                'u.email',
-                'u.role_id',
-                'u.created_at',
-                'u.updated_at',
-                'roles.description as role'])
-            ->join('roles', 'u.role_id', '=', 'roles.id')
-            ->where('u.id', '=', $id)
-            ->first();
+        return User::findOrFail($id);
     }
+
 
     /**
      * @param array $data
-     * @return User
+     * @return User|\Illuminate\Database\Eloquent\Model
      */
     public function createUser(array $data)
     {
-        return User::create($data);
+        $result = User::create($data);
+        if (!$result) {
+            throw new BadRequestHttpException();
+        }
+        return $result;
     }
 }
