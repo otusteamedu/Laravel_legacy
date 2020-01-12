@@ -4,7 +4,6 @@
 namespace App\Services\Profile\Comments\Repositories;
 
 use App\Models\Comment;
-use Illuminate\Support\Facades\DB;
 
 
 /**
@@ -13,11 +12,20 @@ use Illuminate\Support\Facades\DB;
  */
 class CommentsRepository
 {
+    /**
+     * @param Comment $comment
+     * @param $data
+     * @return bool
+     */
     public function updateComment(Comment $comment, $data)
     {
         return $comment->update($data);
     }
 
+    /**
+     * @param int $userId
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
     public function getCommentsList(int $userId)
     {
         return Comment::with([
@@ -29,12 +37,16 @@ class CommentsRepository
             ->paginate(20);
     }
 
+    /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Eloquent\Builder[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model
+     */
     public function getCommentById(int $id)
     {
         return Comment::with([
             'author:name,id',
             'target:name,id',
         ])
-        ->findOrFail($id);
+            ->findOrFail($id);
     }
 }

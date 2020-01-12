@@ -53,6 +53,11 @@ class CommentsController extends Controller
     }
 
 
+    /**
+     * @param UpdateCommentRequest $request
+     * @param Comment $comment
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
         $data = $request->getData();
