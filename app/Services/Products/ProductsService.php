@@ -7,57 +7,22 @@
 namespace App\Services\Products;
 
 
-use App\Models\Products;
-use App\Models\WishlistProduct;
-use \Illuminate\Database\Eloquent\Factory;
+use App\Services\Products\Repositories\ProductsRepositoryInterface;
 
 class ProductsService
 {
-    protected $factory;
+    protected $productsRepository;
 
-    /**
-     * ProductsService constructor.
-     * @param Factory $factory
-     */
-    public function __construct(Factory $factory)
+    public function __construct(ProductsRepositoryInterface $productsRepository)
     {
-        $this->factory = $factory;
+        $this->productsRepository = $productsRepository;
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
      */
-    public function create(array $data): void
+    public function create(array $data) :void
     {
-        $productData = $this->createProduct($data);
-        $this->createWishlistProduct($productData, $data);
-    }
-
-    /**
-     * @param array $data
-     * @return array
-     */
-    protected function createProduct(array $data): array
-    {
-        $productData = $this->factory->raw(Products::class);
-        $productData['productTitle'] = $data['product_name'];
-
-        $product = new Products();
-        $product->create($productData);
-
-        return $productData;
-    }
-
-    /**
-     * @param array $productData
-     * @param array $data
-     */
-    protected function createWishlistProduct(array $productData, array $data): void
-    {
-        $wishlistProductData['wishlist_id'] = $data['wishlist_id'];
-        $wishlistProductData['product_id'] = $productData['productId'];
-
-        $wishlistProduct = new WishlistProduct();
-        $wishlistProduct->create($wishlistProductData);
+        $this->productsRepository->create($data);
     }
 }
