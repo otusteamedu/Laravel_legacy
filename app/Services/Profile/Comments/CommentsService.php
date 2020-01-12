@@ -26,9 +26,9 @@ class CommentsService
         $this->commentRepository = $commentRepository;
     }
 
-    public function getCommentsList()
+    public function getCommentsList(int $userId)
     {
-        return $this->commentRepository->getCommentsList();
+        return $this->commentRepository->getCommentsList($userId);
     }
 
     public function getCommentById(int $id)

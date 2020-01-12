@@ -18,12 +18,13 @@ class CommentsRepository
         return $comment->update($data);
     }
 
-    public function getCommentsList()
+    public function getCommentsList(int $userId)
     {
         return Comment::with([
             'author:name,id',
             'target:name,id',
         ])
+            ->where('author_id', '=', $userId)
             ->orderByDesc('created_at')
             ->paginate(20);
     }

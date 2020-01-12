@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Profile\Requests\UpdateCommentRequest;
 use App\Models\Comment;
 use App\Services\Profile\Comments\CommentsService;
+use Auth;
 
 
 /**
@@ -38,9 +39,9 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        return $this->commentsService->getCommentsList()->toJson();
+        $userId = Auth::user()->id;
+        return $this->commentsService->getCommentsList($userId)->toJson();
     }
-
 
     /**
      * @param int $id
