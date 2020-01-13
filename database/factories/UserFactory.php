@@ -29,6 +29,7 @@ $factory->define(User::class, function (Faker $faker) {
 
 
     return [
+        'level' => User::LEVEL_USER,
         'source'=>$faker->randomElement($sources),
         'date'=>$faker->date($format = 'Y-m-d', $max = 'now'),
         'type'=>$faker->randomElement($types),

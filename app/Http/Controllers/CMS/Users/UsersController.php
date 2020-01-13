@@ -5,10 +5,14 @@ namespace App\Http\Controllers\CMS\Users;
 use App\Models\User;
 use App\Http\Controllers\CMS\Users\Requests\UpdateUserRequest;
 use App\Http\Controllers\CMS\Users\Requests\CreateUserRequest;
+use App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest;
+use App\Policies\Abilities;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Services\Users\UsersService;
 use App\Http\Controllers\Controller;
+//use Gate;
+use Illuminate\Support\Facades\Gate;
 
 class UsersController extends Controller
 {
@@ -67,6 +71,40 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        /* Способ 1 - использование Gates - НЕ СРАБОТАЛ
+        $id1 = auth()->user()->id;
+        $id2 = $user->id;
+        $condition = $id1 === $id2;
+        $text = "auth user id = ".$id1.", trying to see user card id = ".$id2;
+        dd($text);
+        dd($condition);*/
+
+        // Этот способ не работает. Смотри AuthServiceProvider.php
+        /*if(!Gate::allows(Abilities::VIEW))
+        {
+            abort(403);
+        }*/
+
+        /* Способ 2 - Ручная проверка id - OK
+        $id1 = auth()->user()->id;
+        $id2 = $user->id;
+        //authenticated user, который будет смотретьт пользователя - одно лицо
+        $sameUser = $id1 === $id2;
+        //пользователь - админ
+        $isAdmin = auth()->user()->level === User::LEVEL_ADMIN;
+        if(!$sameUser && !$isAdmin)
+        {
+            abort(403);
+        }
+        */
+        //dd("show() : auth()->user()->level = ".auth()->user()->level);
+        //dd("show() : user->level = ".$user->level);
+        // Вот так не работает :
+        if (auth()->user()->cant('view', $user->id)) {
+        // Но зато заработало вот так:
+        //if ($user->cannot('view', auth()->user())) {
+            abort(403);
+        }
         // Использую model binding. Вместо id получаю сразу user'a.
         return view('pages.admin.show')->withUser($user);
     }
@@ -118,5 +156,31 @@ class UsersController extends Controller
     {
         $user->delete();
         return redirect(route('cms.users.index'));
+    }
+
+    /**
+     * Update user profile
+     *
+     * @param  \App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateProfile(UpdateProfileRequest $request, User $user)
+    {
+        // входящий запрос валидный
+        $data = [
+            'source' => config('shop.default_type'),
+            'type' => config('shop.default_type'),
+            //'operator' => request('operator'),
+            'name' => request('name'),
+            'phone' => request('phone'),
+            'email' => request('email'),
+            'address' => request('address'),
+            //'comments' => request('comments'),
+        ];
+
+        $user = $this->usersService->updateProfile($user,$data);
+        $updated= true;
+        return redirect(route('profile',['user'=>$user, 'updated'=>$updated]));
     }
 }

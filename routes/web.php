@@ -11,28 +11,6 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/index', function () {
-    return view('pages/index');
-});
-
-Route::get('/login', function () {
-    return view('pages/login');
-});
-
-Route::get('/register', function () {
-    return view('pages/register');
-});
-
-Route::get('/home', function () {
-    return view('pages/home');
-});*/
-
-//Route::get('/home','UsersController@show');
-
 Route::get('/katalog', function () {
     return view('pages/katalog');
 });
@@ -47,20 +25,16 @@ Route::name('cms.')->group(function () {
         ]);
     });
 });
-//Route::resource('users','CMS\Users\UsersController');
-
-/*Route::get('/admin/index','UsersController@index');
-Route::get('/admin/users/{id}','UsersController@show');*/
-
-
-Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'PagesController@index')->name('index');
 
-Route::get('/profile', function () {
-    return view('pages/profile');
-});
+Route::get('/profile', 'PagesController@profile',['updated'=>false])->name('profile')->middleware('auth');
+
+// пришлось прописать полный путь, иначе, если прописать только UsersController@updateProfile, то
+// выдаёт ошибку \App\Http\Controllers\UsersController.php not found
+Route::patch('/profile/{user}', '\App\Http\Controllers\CMS\Users\UsersController@updateProfile')->name('update.profile')->middleware('auth');
+
