@@ -1,0 +1,99 @@
+/* Our Story Section */
+.story-about-section {
+	.story-content {
+		.story-detail {
+		    padding: 80px 90px 0 55px;
+		    position: relative;
+		    &:before {
+		    	position: absolute;
+			    content: '';
+			    background: url(../images/hp-6-items-bg.jpg);
+			    top: 8.5%;
+			    left: -18.5%;
+		        width: 119.3%;
+    			height: 122%;
+			    z-index: -1;
+		    }
+			.special-heading {
+				text-align: left;
+				margin-bottom: 46px;
+				&:before {
+					left: 0;
+					@include transform(translateX(0));
+				}
+			}
+			p {
+				margin-bottom: 15px;
+			}
+			.info {
+				margin-top: 60px;
+				.images {
+					width: 125px;
+					float: left;
+					margin-top: 4px;
+				}
+				.author {
+					width: 57%;
+					text-align: center;
+					.name {
+						display: block;
+						font-size: 18px;
+						font-weight: 500;
+						color: #333;
+						padding-bottom: 4px;
+					}
+				}
+			}
+		}
+	}
+}
+/* End Our Story Section */
+
+/* Gallery Section */
+.gallery-about-section.section-box {
+	padding-top: 50px;
+}
+.gallery-about-section {
+	.gallery-content {
+		padding: 0 7.5px;
+		.images {
+			margin: 0 -7.5px 15px;
+			position: relative;
+			.overlay {
+				background: rgba(0,0,0,0.2);
+			}
+			&:hover {
+				.overlay {
+					opacity: 1;
+				}
+			}
+			.gallery-zoom {
+				.gallery-elements {
+				    position: absolute;
+				    width: 100%;
+				    height: 100%;
+				    top: 0;
+				    left: 0;
+				    cursor: pointer;
+				    z-index: 99;
+				}
+			}
+		}
+	}
+}
+/* End Gallery Section */
+
+/* Our Team Section */
+.our-team-page.our-team-about.section-box {
+    padding: 7px 0 118px;
+}
+/* End Our Team Section */
+
+/* Testimonials Section */
+.testimonials-hp-1.testimonials-about-us {
+	background: #f7f7f7;
+	.testimonials-content {
+		background: transparent;
+	}
+}
+/* End Testimonials Section */

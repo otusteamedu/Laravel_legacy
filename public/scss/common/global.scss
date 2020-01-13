@@ -1,0 +1,426 @@
+* {
+    @include box-sizing(border-box);
+}
+body {
+    color: #666;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.67;
+    font-family: 'Poppins', sans-serif;
+    word-wrap: break-word;
+    overflow-x: hidden;
+    background: #fff!important;
+}
+p {
+    margin-bottom: 0;
+}
+a {
+    @include transition(all 0.3s ease 0.1s);
+    text-decoration: none;
+    display: inline-block;
+    color: #333;
+    &:hover {
+        text-decoration: none;
+        color: #333;
+    }
+    &:focus,
+    &:active {
+        outline: 0;
+    }
+}
+a img {
+    border: none;
+}
+input[type=submit] {
+    @include transition(0.3s);
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #333;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+h1 {
+    font-size: 50px;
+}
+h2 {
+    font-size: 38px;
+}
+h3 {
+    font-size: 30px;
+}
+h4 {
+    font-size: 22px;
+}
+h5 {
+    font-size: 18px;
+}
+h6 {
+
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+iframe {
+    border: none;
+    vertical-align: top;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+.au-btn {
+    @include transition(0.3s);
+    border: 1px solid #333;
+    display: inline-block;
+    line-height: 1;
+    @include box-sizing(border-box);
+    text-align: center;
+    color: #333;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    z-index: 999;
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        @include transition((all 0.5s));
+        width: 0%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #333;
+    }
+    &:hover {
+        color: #fff;
+        text-decoration: none;
+        &:before {
+            width: 100%;
+        }
+    }
+}
+.au-btn-white {
+    @include transition(0.3s);
+    border: 1px solid #fff;
+    display: inline-block;
+    line-height: 1;
+    @include box-sizing(border-box);
+    text-align: center;
+    color: #fff;
+    background: transparent;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    z-index: 999;
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        @include transition((all 0.5s));
+        width: 0%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #333;
+    }
+    &:hover {
+        color: #fff;
+        border: 1px solid #333;
+        text-decoration: none;
+        &:before {
+            width: 100%;
+        }
+    }
+}
+.au-btn-black {
+    @include transition(0.3s);
+    border: 1px solid #333;
+    display: inline-block;
+    line-height: 1;
+    @include box-sizing(border-box);
+    text-align: center;
+    color: #fff;
+    background: #333;
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    position: relative;
+    z-index: 999;
+    &:before {
+        content: "";
+        position: absolute;
+        z-index: -1;
+        @include transition((all 0.5s));
+        width: 0%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background: #fff;
+    }
+    &:hover {
+        color: #333;
+        text-decoration: none;
+        &:before {
+            width: 100%;
+        }
+    }
+}
+.btn-small {
+    padding: 17px 24.5px;
+}
+.btn-medium {
+    padding: 22.5px 53.5px;
+}
+.btn-large {
+    padding: 24px 72px;
+}
+.more-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #333;
+    &:hover {
+        color: #dabc95;
+    }
+}
+.section-box {
+    padding-top: 150px;
+    padding-bottom: 120px;
+}
+.special-heading {
+    font-size: 38px;
+    font-weight: 500;
+    color: #333;
+    text-align: center;
+    position: relative;
+    padding-bottom: 16px;
+    margin-bottom: 63px;
+    &:before {
+        position: absolute;
+        left: 50%;
+        @include transform(translateX(-50%));
+        content: '';
+        background: #333;
+        width: 63px;
+        height: 3px;
+        top: 100%;
+    }
+}
+.onnew,
+.onsale {
+    color: #fff;
+    font-weight: 500;
+    letter-spacing: 2px;
+    &:hover {
+        color: #fff;
+    }
+}
+.onnew {
+    background: #88cce2;
+    padding: 0 7.5px;
+    &:hover {
+        background: #5bc1e3;
+    }
+}
+.onsale {
+    background: #eba6aa;
+    padding: 0 6.5px;
+    &:hover {
+        background: #eb8f94;
+    }
+}
+.overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    @include transition(all .5s ease .1s);
+    z-index: 9;
+}
+.breadcrumb-section,
+.breadcrumb-menu-section {
+    @include background-size(cover);
+    background-repeat: no-repeat;
+    background-position: center center;
+} 
+.breadcrumb-section.section-box {
+    padding-top: 113px;
+    padding-bottom: 116px;
+}
+.breadcrumb-section {
+    .breadcrumb-inner {
+        h1 {
+            color: #333;
+            font-weight: 500;
+            font-size: 45px;
+            padding-bottom: 17px;
+        }
+        .breadcrumbs {
+            color: #666;
+            font-size: 18px;
+            font-weight: 400;
+            overflow: hidden;
+            li {
+                float: left;
+            }
+            .breadcrumbs-1 {
+                color: #666;
+                &:after {
+                    content: "/";
+                    margin: 0 11px;
+                    color: #666;
+                }
+                &:hover {
+                    color: #333;
+                }
+            }
+        }
+    } 
+}
+
+/* Back To Top Button */
+#back-to-top {
+    color: #333;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    text-align: center;
+    z-index: 9999;
+    height: 46px;
+    width: 35px;
+    background-color: #fff;
+    border: 1px solid #333;
+    @include transition(background-color 0.3s linear);
+    &:before {
+        content: '';
+        width: 1px;
+        height: 18px;
+        background: #333;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        @include transform(translate(-50%,-50%));
+    }
+}
+/* End Back To Top Button */
+
+/*Form*/
+input,
+select,
+textarea,
+.select-selected {
+    width: 100%;
+    height: 100%;
+    padding: 11px 20px;
+    border: 1px solid #e5e5e5;
+    @include appearance(unset);
+    @include outline(none);
+    @include box-sizing(border-box);
+    @include border-radius(0);
+    color: #666;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+}
+input:focus, select:focus, textarea:focus { 
+    @include outline(none);
+    @include box-shadow-input(none);
+}
+input {
+    @include input-placeholder(#999);
+}
+input[type="submit"] {
+    width: auto;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+    display: none;
+}
+textarea {
+    @include textarea-placeholder(#999);
+}
+
+/*Images Loader*/
+.images-preloader {
+    position: fixed;
+    z-index: 100001;
+    background-color: #eee;
+    width: 100%;
+    height: 100%;
+}
+#preloader_1 {
+    position: relative;
+}
+.rectangle-bounce {
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -15px;
+    margin-top: -10px;
+}
+#preloader_1 span {
+    display: block;
+    bottom: 0px;
+    width: 9px;
+    height: 5px;
+    background: #333;
+    position: absolute;
+    @include animation(preloader_1 1.5s infinite ease-in-out);
+}
+#preloader_1 span:nth-child(2) {
+    left: 11px;
+    @include animation-delay(.2s);
+}
+#preloader_1 span:nth-child(3) {
+    left: 22px;
+    @include animation-delay(.4s);
+}
+#preloader_1 span:nth-child(4) {
+    left: 33px;
+    @include animation-delay(.6s);
+}
+#preloader_1 span:nth-child(5) {
+    left: 44px;
+    @include animation-delay(.8s);
+}
+@keyframes preloader_1 {
+    0% {
+        height: 5px;
+        @include transform(translateY(0px));
+        background: #333;
+    }
+    25% {
+        height: 30px;
+        @include transform(translateY(15px));
+        background: #333;
+    }
+    50% {
+        height: 5px;
+        @include transform(translateY(0px));
+        background: #333;
+    }
+    100% {
+        height: 5px;
+        @include transform(translateY(0px));
+        background: #333;
+    }
+}
+
+
+

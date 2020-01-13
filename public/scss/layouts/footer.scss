@@ -1,0 +1,86 @@
+/* Footer hp-1*/
+.footer-section.section-box {
+	padding: 117px 0 104px;
+}
+.footer-section {
+	background: #333;
+	margin: 0 80px 80px;
+	.footer-content {
+		.footer-items {
+			&.footer-items-1 {
+				padding-left: 70px;
+			}
+			&.footer-items-2 {
+				padding-left: 63px;
+			}
+			.logo {
+				padding-bottom: 30px;
+			}
+			h4 {
+				color: #fff;
+				padding: 4px 0 29px;
+			}
+			p {
+				color: #fff;
+			}
+			span {
+				color: #fff;
+			}
+			.socials {
+				padding-top: 21px;
+				a {
+					color: #fff;
+					font-size: 17px;
+					padding-right: 14px;
+					&:hover {
+						color: #ccc;
+					}
+				}
+			}
+			.contact,
+			.profile {
+				padding-bottom: 9px;
+				i {
+					color: #fff;
+					padding-right: 7px;
+				}
+				a {
+					color: #fff;
+					&:hover {
+						color: #ccc;
+					}
+				}
+			}
+			.email {
+				padding: 11px 0 34px;
+				position: relative;
+				input {
+					background: transparent;
+					border: none;
+					border-bottom: 1px solid #e5e5e5;
+					padding: 5px 0;
+					@include input-placeholder(#fff);
+					&::placeholder {
+						font-size: 13px;
+						color: #fff;
+					}
+				}
+				.send {
+				    color: #fff;
+				    position: absolute;
+				    right: 0;
+				    margin-top: 7px;
+				    font-size: 13px;
+				    cursor: pointer;
+				}
+			}
+		}
+	}
+}
+/* End Footer hp-1*/
+
+/* Footer hp-2*/
+.footer-section.footer-hp-2 {
+	margin: 0;
+}
+/* End Footer hp-2*/
