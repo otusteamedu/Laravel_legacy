@@ -1,0 +1,440 @@
+/* Blog Section Of Standard Post */
+.blog-standard-post {
+	.woocommerce {
+		.content-area {
+			padding-bottom: 8px;
+			.blog-content {
+				h2 {
+					font-size: 25px;
+					padding: 17px 0 16px;
+				}
+				h3 {
+					font-size: 25px;
+					padding-bottom: 33px;
+				}
+			}
+			.post-content {
+				.quote {
+					padding: 24px 0 37px 44px;
+					i {
+						font-size: 40px;
+						float: left;
+					    margin-top: -4px;
+    					margin-right: 10px;
+					}
+					p {
+						font-style: italic;
+					}
+				}
+				.post-image {
+					@extend display-flex;
+					.images {
+						width: 50%;
+						padding-right: 15px;
+						&.images-2 {
+							padding-left: 15px;
+							padding-right: 0;
+						}
+					}
+					.info {
+						width: 50%;
+						span {
+							font-size: 18px;
+							font-weight: 500;
+							color: #333;
+						    padding: 45px 0 14px;
+    						display: block;
+						}
+						&.info-2 {
+							padding-left: 20px;
+						}
+					}
+				}
+				.text {
+					padding-top: 35px;
+				}
+			}
+			.final-blog {
+				padding: 36px 0 70px;
+				.tags {
+					a {
+						color: #666;
+					    position: relative;
+					    padding-right: 10px;
+					    margin-right: 8px;
+					    &:before {
+					    	position: absolute;
+						    content: '';
+						    background: #ccc;
+						    width: 1px;
+						    height: 11px;
+						    left: 100%;
+						    top: 50%;
+						    @include transform(translateY(-50%));
+					    }
+					    &:hover {
+					    	color: #333;
+					    }
+					    &.last {
+					    	&:before {
+					    		content: none;
+					    	}
+					    }
+					}
+				}
+			}
+			.single-post-author {
+				overflow: hidden;
+				padding-bottom: 75px;
+				.author-image {
+					width: 260px;
+					height: 207px;
+					float: left;
+				}
+				.author-info {
+					margin-left: 300px;
+					span {
+						display: block;
+						font-size: 20px;
+						font-weight: 500;
+						color: #333;
+					    padding: 19px 0 1px;
+					}
+					a {
+						color: #666;
+						&:hover {
+							color: #333;
+						}
+					}
+					p {
+						padding: 14px 0 16px;
+					}
+					.socials {
+						a {
+							font-size: 17px;
+							color: #999;
+							padding-right: 14px;
+							&:hover {
+								color: #333;
+							}
+						}
+					}
+				}
+			}
+			.related-posts {
+				@extend display-flex;
+				margin: 0 -16px 40px;
+				.post-inner {
+					margin: 0 16px;
+					.post-image {
+						position: relative;
+						.overlay {
+							background: rgba(0, 0, 0, 0.2);
+						}
+						&:hover {
+							.overlay {
+								opacity: 1;
+							}
+						}
+					}
+					h5 {
+					    font-size: 20px;
+    					padding: 15px 0 9px;
+    					@include transition(all 0.5s ease 0.1s);
+    					&:hover {
+    						padding-left: 7px;
+    					}
+					}
+					.calendar {
+						font-size: 13px;
+						i {
+							padding-right: 6px;
+						}
+						.date {
+							padding-right: 12px;
+						}
+					}
+				}
+			}
+			.comment {
+				padding-bottom: 33px;
+				h3 {
+					padding-bottom: 25px;
+				}
+				.comment-items {
+					padding-bottom: 33px;
+				    border-bottom: 1px solid #e5e5e5;
+				    margin-bottom: 32px;
+					img {
+						width: 81px;
+						height: 81px;
+						float: left;
+						margin-top: 8px;
+					}
+					.comment-content {
+					    margin-left: 101px;
+					    position: relative;
+					    .name {
+					    	font-size: 17px;
+					    	font-weight: 500;
+					    	color: #333;
+					    	display: block;
+					    }
+					    .date {
+					    	color: #999;
+				    	    padding: 2px 0 10px;
+    						display: block;
+					    }
+					    .reply {
+					    	position: absolute;
+					    	right: 0;
+					    	top: 0;
+					    	&:hover {
+					    		right: -10px;
+					    	}
+					    }
+					}
+				}
+			}
+			.leave-comment {
+				h3 {
+					padding-bottom: 26px;
+				}
+				.form-input {
+					margin-bottom: 33px;
+					input {
+						padding: 0 0 9px;
+						border: none;
+						border-bottom: 1px solid #333;
+						@include input-placeholder(#333);
+					}
+				}
+				.form-textarea {
+				    height: 84px;
+    				margin-bottom: 50px;
+					textarea {
+						padding: 0 0 9px;
+						border: none;
+						border-bottom: 1px solid #333;
+						@include textarea-placeholder(#333);
+					}
+				}
+				.form-bottom {
+					width: 145px;
+					position: relative;
+					input {
+					    background: transparent;
+					    color: #333;
+					    border: 1px solid #333;
+					    padding: 17px 55px 17px 35px;
+					    cursor: pointer;
+					    &:hover {
+					    	background: #333;
+    						color: #fff;
+					    }
+					}
+					span {
+						color: #333;
+					    position: absolute;
+					    z-index: 999;
+					    left: 68%;
+					    top: 50%;
+					    @include transform(translateY(-50%));
+					}
+					&:hover {
+						span {
+							color: #fff;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+/* End Blog Section Of Standard Post */
+
+/* Blog Section Of Gallery Post */
+.blog-gallery-post {
+	.owl-carousel {
+		.owl-dots,
+		.owl-thumbs {
+			display: none;
+		}
+		.owl-nav {
+			margin-top: 0;
+			position: absolute;
+		    top: 50%;
+		    width: 100%;
+		    @include transform(translateY(-50%));
+		    @extend display-flex;
+		    @include justify-content(space-between);
+			[class*=owl-] {
+				margin: 0;
+				@include outline(none);
+				@include border-radius(0);
+				font-size: 20px;
+				padding: 0 15px!important;
+				background: #fff;
+				&:hover {
+					background: #333;
+					color: #fff;
+				}
+			}
+		}
+	}
+}
+/* End Blog Section Of Gallery Post */
+
+/* Blog Section Of Link Post */
+.blog-sidebar-right.blog-link-post {
+	.woocommerce {
+		.content-area {
+			.link-post {
+				margin-bottom: 25px;
+				.quote {
+					h4 {
+						&:before {
+							content: none;
+						}
+						&:hover {
+							padding-left: 0;
+						}
+					}
+				}
+				.link {
+					color: #333;
+					&:hover {
+						@include transform(scale(1));
+					}
+				}
+			}
+		}
+	}
+}
+/* End Blog Section Of Link Post */
+
+/* Blog Section Of Video Post */
+.blog-video-post {
+	.woocommerce {
+		.content-area {
+			.blog-images {
+				@include background-size(cover);
+				background-position: center center;
+				background-repeat: no-repeat;
+				text-align: center;
+			    padding: 237px 0 234px;
+				.btn-play {
+					cursor: pointer;
+					width: 59px;
+					height: 59px;
+				}
+			}
+		}
+	}
+}
+/* End Blog Section Of Video Post */
+
+/* Blog Section Of Audio Post */
+.blog-audio-post {
+	.woocommerce {
+		.content-area {
+			.audio {
+				position: relative;
+				.audio-content {
+				    position: absolute;
+				    width: 100%;
+				    left: 0;
+				    bottom: 0;
+				    .mejs__container {
+				    	height: 38px !important;
+				    	width: 100% !important;
+				    }
+				    .mejs__inner {
+				    	.mejs__controls {
+				    		height: 38px;
+				    		.mejs__button {
+				    			height: 38px;
+				    		}
+				    		.mejs__playpause-button,
+				    		.mejs__volume-button {
+				    			button {
+				    				background-repeat: no-repeat;
+					    			background-position: center;
+					    			@include outline(none);
+				    			}
+				    		}
+				    		.mejs__volume-button {
+				    			margin-right: 8px;
+				    		}
+				    		.mejs__play {
+								button {
+									background-image: url('../images/icons/play-icon.png');
+								}
+				    		}
+				    		.mejs__pause {
+								button {
+									background-image: url('../images/icons/pause-icon.png');
+								}
+				    		}
+				    		.mejs__mute {
+				    			button {
+									background-image: url('../images/icons/volume-icon.png');
+								}
+				    		}
+				    		.mejs__unmute {
+				    			button {
+									background-image: url('../images/icons/volume-none-icon.png');
+								}
+				    		}
+				    		.mejs__time {
+				    			font-size: 15px;
+				    			font-weight: 400;
+				    			font-family: 'Poppins', sans-serif;
+				    		}
+				    		.mejs__time-rail {
+				    			height: 38px;
+				    			span {
+				    				@include border-radius(0);
+				    			}
+				    			.mejs__time-total {
+				    				margin-top: 8px;
+				    				background: #fff;
+				    				height: 3px;
+				    			}
+				    			.mejs__time-loaded,
+				    			.mejs__time-float {
+				    				background: 0 0;
+				    			}
+				    			.mejs__time-current {
+				    				height: 3px;
+				    				background: #555;
+				    			}
+				    			.mejs__time-hovered {
+				    				height: 3px;
+				    				background: rgba(0,0,0,0.3);
+				    			}
+				    			.mejs__time-handle-content {
+				    				display: none;
+				    			}
+				    		}
+				    		.mejs__horizontal-volume-slider {
+				    			height: 38px;
+				    		}
+				    		.mejs__horizontal-volume-total {
+				    			height: 3px;
+				    			background: #f2f2f2;
+				    			@include border-radius(0);
+				    			top: 50%;
+				    			@include transform(translateY(-50%));
+				    			.mejs__horizontal-volume-current {
+				    				background: #eba6aa;
+				    			}
+				    		}
+				    	}
+				    }
+				}
+			}
+		}
+	}
+}
+/* End Blog Section Of Audio Post */

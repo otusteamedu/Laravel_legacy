@@ -1,0 +1,62 @@
+/* Coming Soon Section  */
+.coming-soon-page {
+    background-repeat: no-repeat;
+    background-position: center center;
+    @include background-size(cover);
+    .page-detail {
+    	min-height: 100vh;
+    	@extend display-flex;
+    	@include align-items(center);
+    	.page-inner {
+    		text-align: center;
+            width: 54.5%;
+            h1 {
+                font-size: 60px;
+                padding-bottom: 46px;
+            }
+            #clock {
+                @extend display-flex;
+                @include justify-content(center);
+                p {
+                    font-size: 20px;
+                    padding: 0 43px;
+                }
+                .time {
+                    display: block;
+                    font-size: 50px;
+                    color: #333;
+                    margin-bottom: -11px;
+                }
+            }
+            .subcribe {
+                width: 48%;
+                margin: 90px auto 0;
+                position: relative;
+                input {
+                    background: transparent;
+                    border: none;
+                    border-bottom: 1px solid #333;
+                    padding: 0 0 5px;
+                    @include input-placeholder(#333);
+                }
+                .au-btn {
+                    border: none;
+                    position: absolute;
+                    right: 0;
+                    bottom: 14px;
+                    i {
+                        padding-left: 10px;
+                    }
+                    &:before {
+                        content: none;
+                    }
+                    &:hover {
+                        color: #333;
+                        right: -10px;
+                    }
+                }
+            }
+    	}
+    }
+}
+/* End Coming Soon Section */

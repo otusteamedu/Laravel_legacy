@@ -1,0 +1,121 @@
+/* Portfolio Section Of Standard List */
+.two-columns-section.standard-grid-section {
+	.two-columns-content {
+		padding: 0;
+		.two-columns-detail {
+			margin: 0 0 20px;
+		}
+		.product-info {
+			text-align: left;
+			padding-bottom: 33px;
+			h4 {
+				font-size: 20px;
+				padding-bottom: 4px;
+				position: relative;
+				@include transition((all 0.4s ease 0.1s));
+				&:before {
+				    position: absolute;
+				    content: '';
+				    width: 10px;
+				    height: 1px;
+				    background: #000;
+				    top: 50%;
+				    @include transform(translateY(-50%));
+				    left: 0;
+				    display: none;
+				}
+				&:hover {
+					padding-left: 20px;
+					&:before {
+						display: block;
+					}
+				}
+			}
+			span {
+				a {
+					color: #666;
+					&:hover {
+						color: #333;
+					}
+				}
+			}
+		}
+		.load-more {
+			padding-top: 30px;
+		}
+	}
+}
+/* End Portfolio Section Of Standard List */
+
+/* Portfolio Section Of Standard Wide */
+.two-columns-section.standard-grid-section.standard-wide-section {
+	.two-columns-content {
+		padding: 0 15px;
+	}
+}
+/* End Portfolio Section Of Standard Wide */
+
+/* Portfolio Section Of Gallery List */
+.three-columns-section.gallery-grid-section {
+	.two-columns-content {
+		.two-columns-detail {
+			.overlay {
+				background: rgba(0, 0, 0, 0.4);
+			}
+			.product-info {
+				position: absolute;
+				top: 27px;
+				left: 32px;
+				z-index: 99;
+				text-align: left;
+				padding-bottom: 8px;
+				opacity: 0;
+				&:after {
+					content: '';
+					background: #fff;
+					height: 1px;
+					width: 124%;
+					position: absolute;
+					top: 100%;
+					left: -32px;
+				}
+				h4 {
+					padding-bottom: 4px;
+					a {
+						font-size: 20px;
+						color: #fff;
+						&:hover {
+							color: #ccc;
+						}
+					}
+				}
+				span {
+					a {
+						color: #fff;
+						&:hover {
+							color: #ccc;
+						}
+					}
+				}
+			}
+			&:hover {
+				.product-info {
+					opacity: 1;
+				}
+			}
+		}
+	}
+}
+/* End Portfolio Section Of Gallery List */
+
+/* Portfolio Section Of Masonry List */
+.two-columns-section.masonry-grid-section.section-box {
+	padding-bottom: 85px;
+}
+/* End Portfolio Section Of Masonry List */
+
+/* Portfolio Section Of Masonry Wide */
+.two-columns-section.masonry-grid-section.masonry-wide-section.section-box {
+	padding-bottom: 0px;
+}
+/* End Portfolio Section Of Masonry Wide */
