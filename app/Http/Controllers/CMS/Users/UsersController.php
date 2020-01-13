@@ -71,41 +71,31 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        /* Способ 1 - использование Gates - НЕ СРАБОТАЛ
-        $id1 = auth()->user()->id;
-        $id2 = $user->id;
-        $condition = $id1 === $id2;
-        $text = "auth user id = ".$id1.", trying to see user card id = ".$id2;
-        dd($text);
-        dd($condition);*/
+        /* Способ 1 - Ручная проверка id - OK
+       $id1 = auth()->user()->id;
+       $id2 = $user->id;
+       //authenticated user, который будет смотреть пользователя - это одно лицо ?
+       $sameUser = $id1 === $id2;
+       //пользователь админ ?
+       $isAdmin = auth()->user()->level === User::LEVEL_ADMIN;
+       if(!$sameUser && !$isAdmin)
+       {
+           abort(403);
+       }
+       */
 
-        // Этот способ не работает. Смотри AuthServiceProvider.php
-        /*if(!Gate::allows(Abilities::VIEW))
+        // Способ 2 - использование Gates
+        // Смотри правило в AuthServiceProvider.php
+        if (Gate::forUser(auth()->user())->denies(Abilities::VIEW, $user))
+        {
+            abort(403);
+        }
+
+        /* Способ 3 - Используя политику UserPolicy.php
+        if (auth()->user()->cant('view', $user))
         {
             abort(403);
         }*/
-
-        /* Способ 2 - Ручная проверка id - OK
-        $id1 = auth()->user()->id;
-        $id2 = $user->id;
-        //authenticated user, который будет смотретьт пользователя - одно лицо
-        $sameUser = $id1 === $id2;
-        //пользователь - админ
-        $isAdmin = auth()->user()->level === User::LEVEL_ADMIN;
-        if(!$sameUser && !$isAdmin)
-        {
-            abort(403);
-        }
-        */
-        //dd("show() : auth()->user()->level = ".auth()->user()->level);
-        //dd("show() : user->level = ".$user->level);
-        // Вот так не работает :
-        if (auth()->user()->cant('view', $user->id)) {
-        // Но зато заработало вот так:
-        //if ($user->cannot('view', auth()->user())) {
-            abort(403);
-        }
-        // Использую model binding. Вместо id получаю сразу user'a.
         return view('pages.admin.show')->withUser($user);
     }
 
@@ -123,7 +113,7 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Http\Requests\UpdateUserRequest $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */

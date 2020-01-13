@@ -28,16 +28,15 @@ class UserPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    //public function view(User $user)
-    public function view(int $id)
+    public function view(User $currentUser, User $user)
     {
-        dd("view() id = ".$id);
+        //dd("view() id = ".$id);
         // $user === auth()->user()->id
         // Поэтому будет всегда возвращать значение true.
         // т.е. этот способ, как и в случае с Gates тоже не работает.
 
         //return auth()->user()->id === $user->id;
-        return auth()->user()->id === $id;
+        return $currentUser->id === $user->id;
     }
 
     /**

@@ -182,3 +182,11 @@ npm install -D vue-loader vue-template-compiler
 + PagesController.php
 
 Попытался применить правила авторизации использую фасад Gates и политику UserPolicy.php.
+
+2020.01.13
+Часть 4
+Применяю совет Егора.
+Удалось решить проблему используя и Gates, и UserPolicy.php
+
+Часть 5
+На ревизию Егору.

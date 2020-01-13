@@ -40,7 +40,7 @@ class AuthServiceProvider extends ServiceProvider
             return $result;
         });*/
 
-        Gate::define(Abilities::VIEW,function($user)
+        Gate::define(Abilities::VIEW,function(User $currentUser, User $user)
         {
             // Оказывается, что первый параметр - $user это всегда текущий authenticated user!!!
             // Соот-но условие
@@ -48,7 +48,8 @@ class AuthServiceProvider extends ServiceProvider
             // не работает! Результат будет всегда true, ведь
             // auth()->user() === $user
             // return auth()->user()->id === $user->id;
-            return true;
+            return $currentUser->id === $user->id;
+            // return true;
         });
     }
 }
