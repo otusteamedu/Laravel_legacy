@@ -8,8 +8,8 @@ use App\Models\Operation;
 class OperationRepository
 {
 
-    public function storeOperation($data, Operation $operation){
-        $operation->create($data);
+    public function storeOperation($data){
+        Operation::create($data);
     }
 
     public function updateOperation($data, Operation $operation){
@@ -20,8 +20,8 @@ class OperationRepository
         ]);
     }
 
-    public function destroyOperation($id, Operation $operation){
-        $operation->destroy($id);
+    public function destroyOperation($id){
+        Operation::destroy($id);
     }
 
     public function getUserOperationsForPeriod($userId, $dateStart, $dateEnd){

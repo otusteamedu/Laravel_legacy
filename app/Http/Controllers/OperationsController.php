@@ -51,9 +51,9 @@ class OperationsController extends Controller
      * @return \Illuminate\Http\RedirectResponse
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(Request $request, Operation $operation)
+    public function store(Request $request)
     {
-        $this->validate($request, [ 'sum' => 'required|min:1,max:100000', 'category_id' => 'required', 'description' => 'max:1000']);
+        $this->validate($request, [ 'sum' => 'required|numeric|min:1,max:100000', 'category_id' => 'required|integer', 'description' => 'string|max:1000|nullable']);
 
         $data = [
             'sum' => $request->input('sum'),
@@ -62,7 +62,7 @@ class OperationsController extends Controller
             'user_id' => $this->userId
             ];
 
-        $this->operationsService->storeOperation($data, $operation);
+        $this->operationsService->storeOperation($data);
 
         return redirect()->route('home');
     }
@@ -107,9 +107,9 @@ class OperationsController extends Controller
      * @param Operation $operation
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function destroy(Operation $operation)
+    public function destroy($id)
     {
-        $this->operationsService->destroyOperation($operation->id, $operation);
+        $this->operationsService->destroyOperation($id);
 
         return redirect()->route('home');
     }
