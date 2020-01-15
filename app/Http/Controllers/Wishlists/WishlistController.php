@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Wishlists;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Wishlists\Requests\StoreWishlistRequest;
+use App\Models\User;
 use App\Models\Wishlist;
 use App\Services\Wishlists\WishlistsService;
 use Illuminate\Http\Request;

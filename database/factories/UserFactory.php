@@ -21,7 +21,7 @@ $factory->define(User::class, function (Faker $faker) {
     return [
         'name'              => $faker->name,
         'email'             => $faker->unique()->safeEmail,
-        'status'            => $faker->numberBetween(1, 5),
+        'status'            => $faker->numberBetween(0, 1),
         'group'             => $faker->numberBetween(1, 3),
         'email_verified_at' => now(),
         'password'          => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
