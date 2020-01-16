@@ -11,30 +11,34 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-Route::get('/page', function () {
-    return view('page');
-})->name('page');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('wishlists', 'Wishlists\WishlistController')->except(
-    ['create', 'edit', 'update']
-);
+Route::resource('profile', 'Users\UserController')
+    ->middleware('auth')
+    ->only(
+        ['index', 'update']
+    );
 
-Route::resource('product', 'Products\ProductController')->only(
-    ['store', 'show']
-);
+Route::resource('wishlists', 'Wishlists\WishlistController')
+    ->middleware('auth')
+    ->except(
+        ['create', 'edit', 'update']
+    );
 
-Route::resource('wishlist-products', 'WishlistProductController')->only(
-    ['destroy']
-);
+Route::resource('product', 'Products\ProductController')
+    ->middleware('auth')
+    ->only(
+        ['store', 'show']
+    );
+
+Route::resource('wishlist-products', 'WishlistProduct\WishlistProductController')
+    ->middleware('auth')
+    ->only(
+        ['destroy']
+    );

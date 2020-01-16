@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -42,6 +42,12 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const USER_STATUS_BANNED = 0;
+    const USER_STATUS_ACTIVE = 1;
+
+    const USER_GROUP_ADMIN = 1;
+    const USER_GROUP_MANAGER = 2;
+    const USER_GROUP_CUSTOMER = 3;
     /**
      * The attributes that are mass assignable.
      *
@@ -70,10 +76,26 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin() :bool
+    {
+        return $this->group === self::USER_GROUP_ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive() :bool
+    {
+        return $this->status === self::USER_STATUS_ACTIVE;
     }
 }

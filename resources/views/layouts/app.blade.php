@@ -49,12 +49,6 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{url('/')}}">@lang('Main page')</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('profile')}}">@lang('User profile prototype')</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('wishlists.index')}}">@lang('Wishlists')</a>
-                    </li>
                     @guest
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">@lang('form.auth')</a>
@@ -65,6 +59,12 @@
                             </li>
                         @endif
                     @else
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('profile.index')}}">@lang('User profile prototype')</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('wishlists.index')}}">@lang('Wishlists')</a>
+                        </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

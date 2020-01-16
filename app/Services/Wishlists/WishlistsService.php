@@ -6,12 +6,18 @@
 
 namespace App\Services\Wishlists;
 
+use App\Models\User;
 use App\Models\Wishlist;
 use App\Services\Wishlists\Repositories\WishlistsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class WishlistsService
 {
+
+    /**
+     * @var WishlistsRepositoryInterface
+     */
+    protected $wishlistsRepository;
 
     public function __construct(WishlistsRepositoryInterface $wishlistsRepository)
     {
@@ -23,6 +29,9 @@ class WishlistsService
      */
     public function index() :LengthAwarePaginator
     {
+        /**
+         * @var User $user
+         */
         $user = \Auth::user();
 
         return $this->wishlistsRepository->getByUser($user);

@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+
 /**
  * App\Models\WishlistProduct
  *
@@ -30,11 +33,27 @@ class WishlistProduct extends BaseModel
     protected static $unguarded = true;
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function products()
     {
         return $this->hasMany(Products::class, 'productId', 'product_id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function wishlist()
+    {
+        return $this->hasOne(Wishlist::class, 'id', 'wishlist_id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->wishlist()->first()->user_id;
     }
 
 }
