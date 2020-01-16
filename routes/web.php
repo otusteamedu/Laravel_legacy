@@ -11,21 +11,19 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('index');
 });
 
-Route::get('/profile', function () {
-    return view('profile');
-})->name('profile');
-
-Route::get('/page', function () {
-    return view('page');
-})->name('page');
-
-Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('profile', 'Users\UserController')
+    ->middleware('auth')
+    ->only(
+        ['index', 'update']
+    );
 
 Route::resource('wishlists', 'Wishlists\WishlistController')
     ->middleware('auth')
@@ -34,11 +32,13 @@ Route::resource('wishlists', 'Wishlists\WishlistController')
     );
 
 Route::resource('product', 'Products\ProductController')
+    ->middleware('auth')
     ->only(
         ['store', 'show']
     );
 
-Route::resource('wishlist-products', 'WishlistProductController')
+Route::resource('wishlist-products', 'WishlistProduct\WishlistProductController')
+    ->middleware('auth')
     ->only(
         ['destroy']
     );

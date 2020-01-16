@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Products\Request\ProductsRequest;
 use App\Models\Products;
 use App\Services\Products\ProductsService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ProductController extends Controller
 {
@@ -21,10 +24,9 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param  ProductsRequest  $request
      *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
+     * @return RedirectResponse
      */
     public function store(ProductsRequest $request)
     {
@@ -40,14 +42,14 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Products $product
+     * @param  Products  $product
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function show(Products $product)
     {
         \View::share([
-            'product' => $product
+            'product' => $product,
         ]);
 
         return view('product.detail');

@@ -2,8 +2,13 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Models\Wishlist;
+use App\Models\WishlistProduct;
+use App\Policies\UserPolicy;
+use App\Policies\WishlistPolicy;
+use App\Policies\WishlistProductPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +18,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        User::class => UserPolicy::class,
+        Wishlist::class => WishlistPolicy::class,
+        WishlistProduct::class => WishlistProductPolicy::class,
     ];
 
     /**
@@ -24,7 +31,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
         //
     }
 }

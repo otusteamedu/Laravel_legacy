@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -76,10 +76,26 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function wishlists()
     {
         return $this->hasMany(Wishlist::class);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin() :bool
+    {
+        return $this->group === self::USER_GROUP_ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive() :bool
+    {
+        return $this->status === self::USER_STATUS_ACTIVE;
     }
 }

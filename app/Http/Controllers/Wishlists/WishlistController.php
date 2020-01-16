@@ -1,13 +1,18 @@
 <?php
+/**
+ * @copyright Copyright (c) Archvile <info@0x25.ru>
+ * @link https://0x25.ru
+ */
 
 namespace App\Http\Controllers\Wishlists;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Wishlists\Requests\StoreWishlistRequest;
-use App\Models\User;
 use App\Models\Wishlist;
 use App\Services\Wishlists\WishlistsService;
-use Illuminate\Http\Request;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\View;
 
@@ -18,19 +23,21 @@ class WishlistController extends Controller
 
     public function __construct(WishlistsService $wishlistService)
     {
+        $this->authorizeResource(Wishlist::class);
+
         $this->wishlistService = $wishlistService;
     }
 
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function index()
     {
         View::share(
             [
-                'wishlists' => $this->wishlistService->index()
+                'wishlists' => $this->wishlistService->index(),
             ]
         );
 
@@ -38,10 +45,9 @@ class WishlistController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param  StoreWishlistRequest  $request
      *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Throwable
+     * @return RedirectResponse
      */
     public function store(StoreWishlistRequest $request)
     {
@@ -55,15 +61,15 @@ class WishlistController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param \App\Models\Wishlist $wishlist
+     * @param  Wishlist  $wishlist
      *
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|\Illuminate\View\View
      */
     public function show(Wishlist $wishlist)
     {
         View::share([
             'wishlist' => $wishlist,
-            'products' => $this->wishlistService->products($wishlist)
+            'products' => $this->wishlistService->products($wishlist),
         ]);
 
         return view('wishlist.products');
@@ -72,16 +78,16 @@ class WishlistController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Models\Wishlist $wishlist
+     * @param  Wishlist  $wishlist
      *
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Wishlist $wishlist)
     {
-        $wishlist->delete();
-
-        \Session::flash('message', 'Wishlist successfully deleted!');
+        if ($wishlist->delete()) {
+            \Session::flash('message', 'Wishlist successfully deleted!');
+        }
 
         return Redirect::back();
     }

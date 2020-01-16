@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Services\Products\Repositories\EloquentProductsRepository;
+use App\Services\Users\Repositories\EloquentUsersRepository;
+use App\Services\Users\Repositories\UsersRepositoryInterface;
 use App\Services\Wishlists\Repositories\EloquentWishlistsRepository;
 use App\Services\Products\Repositories\ProductsRepositoryInterface;
 use App\Services\Wishlists\Repositories\WishlistsRepositoryInterface;
@@ -34,5 +36,6 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(WishlistsRepositoryInterface::class, EloquentWishlistsRepository::class);
         $this->app->bind(ProductsRepositoryInterface::class, EloquentProductsRepository::class);
+        $this->app->bind(UsersRepositoryInterface::class, EloquentUsersRepository::class);
     }
 }

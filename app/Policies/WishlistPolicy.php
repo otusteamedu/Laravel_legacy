@@ -1,4 +1,8 @@
 <?php
+/**
+ * @copyright Copyright (c) Archvile <info@0x25.ru>
+ * @link https://0x25.ru
+ */
 
 namespace App\Policies;
 
@@ -10,50 +14,59 @@ class WishlistPolicy
 {
     use HandlesAuthorization;
 
+    /**
+     * @param  User  $user
+     *
+     * @return bool
+     */
     public function before(User $user)
     {
-        return $user->isAdmin();
+        if ($user->isAdmin()) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can view any wishlists.
      *
-     * @param  \App\Models\User  $user
+     * @param  User  $user
+     *
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny()
     {
-        //
+        return true;
     }
 
     /**
-     * Determine whether the user can view the wishlist.
+     * @param  User  $user
+     * @param  Wishlist  $wishlist
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Wishlist  $wishlist
-     * @return mixed
+     * @return bool
      */
     public function view(User $user, Wishlist $wishlist)
     {
-        //
+        if ($this->wishlistBelongsToUser($user, $wishlist)) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can create wishlists.
      *
-     * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create()
     {
-        //
+        return true;
     }
 
     /**
      * Determine whether the user can update the wishlist.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  User  $user
+     * @param  Wishlist  $wishlist
+     *
      * @return mixed
      */
     public function update(User $user, Wishlist $wishlist)
@@ -64,20 +77,24 @@ class WishlistPolicy
     /**
      * Determine whether the user can delete the wishlist.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  User  $user
+     * @param  Wishlist  $wishlist
+     *
      * @return mixed
      */
     public function delete(User $user, Wishlist $wishlist)
     {
-        //
+        if ($this->wishlistBelongsToUser($user, $wishlist)) {
+            return true;
+        }
     }
 
     /**
      * Determine whether the user can restore the wishlist.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  User  $user
+     * @param  Wishlist  $wishlist
+     *
      * @return mixed
      */
     public function restore(User $user, Wishlist $wishlist)
@@ -88,12 +105,24 @@ class WishlistPolicy
     /**
      * Determine whether the user can permanently delete the wishlist.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Wishlist  $wishlist
+     * @param  User  $user
+     * @param  Wishlist  $wishlist
+     *
      * @return mixed
      */
     public function forceDelete(User $user, Wishlist $wishlist)
     {
         //
+    }
+
+    /**
+     * @param  User  $user
+     * @param  Wishlist  $wishlist
+     *
+     * @return bool
+     */
+    protected function wishlistBelongsToUser(User $user, Wishlist $wishlist) :bool
+    {
+        return $user->id === $wishlist->user_id;
     }
 }
