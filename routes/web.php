@@ -19,6 +19,11 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::get('/test', function () {
+    phpinfo();
+    return ['message' => 'ok'];
+})->name('test');
+
 Route::resource('profile', 'Users\UserController')
     ->middleware('auth')
     ->only(

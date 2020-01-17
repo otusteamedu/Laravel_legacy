@@ -2,20 +2,45 @@
 
 namespace Tests\Feature;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
+/**
+ * Class ExampleTest
+ *
+ * @package Tests\Feature
+ * @group myTest
+ */
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
+    use RefreshDatabase;
+
     public function testBasicTest()
     {
-        $response = $this->get('/');
+        $user = User::make([
+            'name' => 'fooo',
+            'email' => '1@2.ru',
+            'password' => '4441516',
+            'status' => User::USER_STATUS_ACTIVE,
+        ]);
 
-        $response->assertStatus(200);
+        $this->assertFalse($user->isAdmin());
+        $this->assertTrue($user->isActive());
+
+        $user->wishlists()->get();
+
+
+        /*        $response = $this->get('/');
+                $response->assertStatus(200);
+
+                $this->assertTrue(true);*/
+    }
+
+    public function testFoo()
+    {
+        $this->assertDatabaseMissing('users', [
+            'email' => 'sally@example.com',
+        ]);
     }
 }
