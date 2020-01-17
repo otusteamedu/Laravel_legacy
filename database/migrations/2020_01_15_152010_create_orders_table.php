@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateOrderTable extends Migration
+class CreateOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -22,7 +22,7 @@ class CreateOrderTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::table('orders', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('delivery_id')->references('id')->on('deliveries');
         });

@@ -19,10 +19,12 @@ class CreateProductsOrderTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->integer('quantity');
             $table->timestamps();
+
+
         });
 
         Schema::create('products_order', function (Blueprint $table) {
-            $table->foreign('order_id')->references('id')->on('order');
+            $table->foreign('order_id')->references('id')->on('orders');
             $table->foreign('product_id')->references('id')->on('products');
         });
     }

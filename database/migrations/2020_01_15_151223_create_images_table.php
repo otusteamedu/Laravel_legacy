@@ -20,7 +20,7 @@ class CreateImagesTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('images', function (Blueprint $table) {
+        Schema::table('images', function (Blueprint $table) {
             $table->foreign('product_id')->references('id')->on('products');
         });
     }

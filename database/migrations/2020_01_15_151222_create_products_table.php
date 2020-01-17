@@ -25,8 +25,8 @@ class CreateProductsTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('products', function (Blueprint $table) {
-            $table->foreign('category_id')->references('id')->on('categories_products');
+        Schema::table('products', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories_products')->onDelete('cascade');
         });
 
     }
