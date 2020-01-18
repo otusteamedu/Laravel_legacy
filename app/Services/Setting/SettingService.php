@@ -9,16 +9,14 @@ use App\Models\Setting;
 use App\Services\Setting\Handlers\GetSettingsWithTypesHandler;
 use App\Services\Setting\Handlers\GetSettingWithTypesHandler;
 use App\Services\Setting\Handlers\SetImageSettingValueHandler;
-use App\Services\Setting\Handlers\SetTextSettingValueHandler;
 use App\Services\Setting\Repositories\SettingRepository;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 use Illuminate\Database\Eloquent\Collection;
 
-class SettingService extends ResourceService
+class SettingService extends BaseResourceService
 {
     private $showWithTypesHandler;
     private $indexWithTypesHandler;
-    private $setTextValueHandler;
     private $setImageValueHandler;
 
     /**
@@ -26,21 +24,18 @@ class SettingService extends ResourceService
      * @param SettingRepository $repository
      * @param GetSettingWithTypesHandler $getSettingWithTypesHandler
      * @param GetSettingsWithTypesHandler $getSettingsWithTypesHandler
-     * @param SetTextSettingValueHandler $setTextSettingValueHandler
      * @param SetImageSettingValueHandler $setImageSettingValueHandler
      */
     public function __construct(
         SettingRepository $repository,
         GetSettingWithTypesHandler $getSettingWithTypesHandler,
         GetSettingsWithTypesHandler $getSettingsWithTypesHandler,
-        SetTextSettingValueHandler $setTextSettingValueHandler,
         SetImageSettingValueHandler $setImageSettingValueHandler
     )
     {
         parent::__construct($repository);
         $this->showWithTypesHandler = $getSettingWithTypesHandler;
         $this->indexWithTypesHandler = $getSettingsWithTypesHandler;
-        $this->setTextValueHandler = $setTextSettingValueHandler;
         $this->setImageValueHandler = $setImageSettingValueHandler;
     }
 
@@ -86,7 +81,8 @@ class SettingService extends ResourceService
      */
     public function setTextValue(FormRequest $request)
     {
-        $this->setTextValueHandler->handle($request->all());
+        $item = $this->repository->showByKey($request->key_name);
+        $this->repository->setValue($request->value, $item);
     }
 
     /**

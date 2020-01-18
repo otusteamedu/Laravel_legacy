@@ -16,8 +16,8 @@ class Order extends Model
         return $this->hasManyThrough('App\Models\Image', 'App\Models\OrderItem');
     }
 
-    public function status() {
-        return $this->belongsTo('App\Models\OrderStatus', 'status_id');
+    public function statuses() {
+        return $this->belongsToMany('App\Models\OrderStatus', 'order_order_status', 'order_id', 'status_id');
     }
 
     public function delivery() {

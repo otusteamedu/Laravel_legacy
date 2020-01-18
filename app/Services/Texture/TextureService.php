@@ -6,13 +6,13 @@ namespace App\Services\Texture;
 
 use App\Http\Requests\FormRequest;
 use App\Models\Texture;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 use App\Services\Texture\Repositories\TextureRepository;
 use App\Services\Texture\Handlers\CreateTextureHandler;
 use App\Services\Texture\Handlers\DeleteTextureHandler;
 use App\Services\Texture\Handlers\UpdateTextureHandler;
 
-class TextureService extends ResourceService
+class TextureService extends BaseResourceService
 {
     private $storeHandler;
     private $updateHandler;

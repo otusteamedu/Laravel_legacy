@@ -5,9 +5,9 @@ namespace App\Services\Permission;
 
 
 use App\Services\Permission\Repositories\PermissionRepository;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 
-class PermissionService extends ResourceService
+class PermissionService extends BaseResourceService
 {
     /**
      * PermissionService constructor.

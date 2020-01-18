@@ -34,7 +34,7 @@ Route::get('reset-password', function () {
 
 Route::group(['prefix' => 'manager'], function() {
     Route::get('/{any?}', function() {
-        return view('admin/main');
+        return view('manager/main');
     })
         ->where('any', '.*')
         ->name('manager');

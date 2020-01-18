@@ -4,9 +4,9 @@
 namespace App\Services\Permission\Repositories;
 
 use App\Models\Permission;
-use App\Services\Resource\Repositories\ResourceRepository;
+use App\Services\Base\Resource\Repositories\BaseResourceRepository;
 
-class PermissionRepository extends ResourceRepository
+class PermissionRepository extends BaseResourceRepository
 {
     /**
      * PermissionRepository constructor.

@@ -48,7 +48,7 @@ class Image extends Model
 
     public function orders()
     {
-        return $this->hasMany('App\Models\Order');
+        return $this->hasMany('App\Models\OrderItem', 'order_id');
     }
 
     public function likes()

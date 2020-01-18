@@ -14,7 +14,7 @@ class CreateTexturesTable extends Migration
     public function up()
     {
         Schema::create('textures', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('name', 50)->unique();
             $table->string('thumb_path', 100);
             $table->string('sample_path', 100);

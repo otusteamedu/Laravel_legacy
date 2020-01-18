@@ -5,10 +5,10 @@ namespace App\Services\SettingGroup;
 
 
 use App\Services\SettingGroup\Repositories\SettingGroupRepository;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 use Illuminate\Support\Collection;
 
-class SettingGroupService extends ResourceService
+class SettingGroupService extends BaseResourceService
 {
     /**
      * SettingGroupService constructor.

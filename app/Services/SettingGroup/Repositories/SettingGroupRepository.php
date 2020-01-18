@@ -4,10 +4,10 @@
 namespace App\Services\SettingGroup\Repositories;
 
 use App\Models\SettingGroup;
-use App\Services\Resource\Repositories\ResourceRepository;
+use App\Services\Base\Resource\Repositories\BaseResourceRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class SettingGroupRepository extends ResourceRepository
+class SettingGroupRepository extends BaseResourceRepository
 {
     /**
      * SettingGroupRepository constructor.

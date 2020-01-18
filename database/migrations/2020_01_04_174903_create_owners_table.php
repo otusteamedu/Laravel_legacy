@@ -14,11 +14,16 @@ class CreateOwnersTable extends Migration
     public function up()
     {
         Schema::create('owners', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('title', 50)->unique();
             $table->text('description')->nullable();
             $table->tinyInteger('publish')->unsigned()->default(0);
             $table->timestamps();
+        });
+
+        Schema::table('images', function(Blueprint $table) {
+            $table->foreign('owner_id')->references('id')->on('owners')
+                ->onDelete('set null')->onUpdate('cascade');
         });
     }
 
@@ -29,6 +34,7 @@ class CreateOwnersTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('owners');
     }
 }

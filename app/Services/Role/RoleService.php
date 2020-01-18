@@ -7,9 +7,9 @@ namespace App\Services\Role;
 use App\Http\Requests\FormRequest;
 use App\Models\Role;
 use App\Services\Role\Repositories\RoleRepository;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 
-class RoleService extends ResourceService
+class RoleService extends BaseResourceService
 {
     /**
      * RoleService constructor.

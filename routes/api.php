@@ -58,6 +58,20 @@ Route::group(['prefix' => 'manager'], function() {
         Route::group(['prefix' => 'tags'], function() {
             Route::post('{id}', 'Cms\Tag\TagController@update')
                 ->where('id', '[0-9]+');
+            Route::get('{id}/with-images', 'Cms\Tag\TagController@showWithImages')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/with-excluded-images', 'Cms\Tag\TagController@showWithExcludedImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}', 'Cms\Tag\TagController@update')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/images', 'Cms\Tag\TagController@getImageList')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/images/add', 'Cms\Tag\TagController@addImages')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/images/{image_id}/remove', 'Cms\Tag\TagController@removeImage')
+                ->where('id,image_id', '[0-9]+');
+            Route::post('{id}/upload', 'Cms\Tag\TagController@upload')
+                ->where('id', '[0-9]+');
             Route::get('{id}/publish', 'Cms\Tag\TagController@publish')
                 ->where('id', '[0-9]+');
         });
@@ -68,6 +82,20 @@ Route::group(['prefix' => 'manager'], function() {
 
         Route::group(['prefix' => 'owners'], function() {
             Route::post('{id}', 'Cms\Owner\OwnerController@update')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/with-images', 'Cms\Owner\OwnerController@showWithImages')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/with-excluded-images', 'Cms\Owner\OwnerController@showWithExcludedImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}', 'Cms\Owner\OwnerController@update')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/images', 'Cms\Owner\OwnerController@getImageList')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/images/add', 'Cms\Owner\OwnerController@addImages')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/images/{image_id}/remove', 'Cms\Owner\OwnerController@removeImage')
+                ->where('id,image_id', '[0-9]+');
+            Route::post('{id}/upload', 'Cms\Owner\OwnerController@upload')
                 ->where('id', '[0-9]+');
             Route::get('{id}/publish', 'Cms\Owner\OwnerController@publish')
                 ->where('id', '[0-9]+');
@@ -142,7 +170,7 @@ Route::group(['prefix' => 'manager'], function() {
     Route::apiResource('permissions', 'Cms\Permission\PermissionController')->except(['create', 'edit', 'update']);
 
 
-    // Delivery
+    // Deliveries
 
     Route::group(['prefix' => 'store/deliveries'], function() {
         Route::post('{id}', 'Cms\Delivery\DeliveryController@update')

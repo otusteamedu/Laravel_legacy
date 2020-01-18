@@ -9,14 +9,20 @@ use App\Models\User;
 use App\Services\User\Handlers\CreateUserHandler;
 use App\Services\User\Handlers\UpdateUserHandler;
 use App\Services\User\Repositories\UserRepository;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserService extends ResourceService
+class UserService extends BaseResourceService
 {
     private $storeHandler;
     private $updateHandler;
 
+    /**
+     * UserService constructor.
+     * @param UserRepository $repository
+     * @param CreateUserHandler $createUserHandler
+     * @param UpdateUserHandler $updateUserHandler
+     */
     public function __construct(
         UserRepository $repository,
         CreateUserHandler $createUserHandler,

@@ -207,7 +207,7 @@ class Uploader
     {
         $this->setProps('width', getImageSize($uploadFile)[0]);
         $this->setProps('height', getImageSize($uploadFile)[1]);
-        $this->setProps('format_id', $this->getFormatId(getImageSize($uploadFile)[0], getImageSize($uploadFile)[1], $this->formatService->getAll()));
+        $this->setProps('format_id', $this->getFormatId(getImageSize($uploadFile)[0], getImageSize($uploadFile)[1], $this->formatService->index()));
         $this->setProps('name', sha1($this->fileProps['original_name'] . microtime(true)) . '.' . $this->fileProps['extension']); // 3e89bc7b416ccce075e0fca2f2cc1172feb6dc24.jpg
         $this->setProps('directory', substr($this->fileProps['name'], 0, 1) . '/' . substr($this->fileProps['name'], 0, 3)); // 3/3e8
         $this->setProps('path', $pathStorage . $this->fileProps['directory']);

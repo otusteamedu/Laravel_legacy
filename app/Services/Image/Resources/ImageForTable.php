@@ -25,8 +25,7 @@ class ImageForTable extends JsonResource
             'views' => $this->views,
             'likes' => $this->likes->count(),
             'orders' => $this->orders->count(),
-            'publish' => $this->publish,
-            'owner_id' => $this->owner_id
+            'publish' => $this->publish
         ];
     }
 }

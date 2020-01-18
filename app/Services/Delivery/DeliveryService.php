@@ -5,9 +5,9 @@ namespace App\Services\Delivery;
 
 
 use App\Services\Delivery\Repositories\DeliveryRepository;
-use App\Services\Resource\ResourceService;
+use App\Services\Base\Resource\BaseResourceService;
 
-class DeliveryService extends ResourceService
+class DeliveryService extends BaseResourceService
 {
     /**
      * DeliveryService constructor.

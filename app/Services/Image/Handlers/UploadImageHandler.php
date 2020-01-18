@@ -4,17 +4,11 @@
 namespace App\Services\Image\Handlers;
 
 
+use App\Http\Requests\FormRequest;
 use App\Models\Image;
-use App\Services\Image\Repositories\ImageRepository;
-use Illuminate\Http\Request;
 
 class UploadImageHandler
 {
-    /**
-     * @var ImageRepository
-     */
-    private $repository;
-
     /**
      * @var Image
      */
@@ -22,26 +16,23 @@ class UploadImageHandler
 
     /**
      * UploadImageHandler constructor.
-     * @param ImageRepository $repository
      * @param Image $uploadModel
      */
-    public function __construct(
-        ImageRepository $repository,
-        Image $uploadModel
-    )
+    public function __construct(Image $uploadModel)
     {
-        $this->repository = $repository;
         $this->uploadModel = $uploadModel;
     }
 
     /**
-     * @param Request $request
+     * @param FormRequest $request
+     * @return array
      */
-    public function handle(Request $request) {
+    public function handle(FormRequest $request): array
+    {
         $images = $request->file('images');
 
-        array_map(function ($image) {
-            uploader()->store($image, $this->uploadModel);
+        return array_map(function ($image) {
+            return uploader()->store($image, $this->uploadModel);
         }, $images);
     }
 }

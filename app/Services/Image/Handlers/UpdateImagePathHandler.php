@@ -5,16 +5,10 @@ namespace App\Services\Image\Handlers;
 
 
 use App\Models\Image;
-use App\Services\Image\Repositories\ImageRepository;
 use Illuminate\Http\UploadedFile;
 
 class UpdateImagePathHandler
 {
-    /**
-     * @var ImageRepository
-     */
-    private $repository;
-
     /**
      * @var Image
      */
@@ -22,15 +16,10 @@ class UpdateImagePathHandler
 
     /**
      * UploadImageHandler constructor.
-     * @param ImageRepository $repository
      * @param Image $uploadModel
      */
-    public function __construct(
-        ImageRepository $repository,
-        Image $uploadModel
-    )
+    public function __construct(Image $uploadModel)
     {
-        $this->repository = $repository;
         $this->uploadModel = $uploadModel;
     }
 

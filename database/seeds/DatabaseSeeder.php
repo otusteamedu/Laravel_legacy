@@ -21,12 +21,12 @@ class DatabaseSeeder extends Seeder
             SettingGroupsTableSeeder::class,
             SettingsTableSeeder::class,
             FormatsTableSeeder::class,
-            ImagesTableSeeder::class,
-            TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
-            CategoriesTableSeeder::class, // ! after ImagesTableSeeder::class
             TagsTableSeeder::class,
             OwnersTableSeeder::class,
-            OrderStatusesTableSeeder::class,
+            // ImagesTableSeeder::class,
+            // TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
+            // CategoriesTableSeeder::class, // ! after ImagesTableSeeder::class
+//            OrderStatusesTableSeeder::class,
         ]);
     }
 }

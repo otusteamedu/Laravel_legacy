@@ -153,5 +153,144 @@ return [
             'type' => 'file',
             'group_id' => 3
         ]
+    ],
+    'owners' => [
+        [
+            'title' => 'Shutterstock',
+            'description' => 'https://shutterstock.com/ru/',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Depositphotos',
+            'description' => 'https://ru.depositphotos.com/',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Эдуард',
+            'description' => '',
+            'publish' => 1
+        ],
+    ],
+    'tags' => [
+        [
+            'title' => 'Праздники',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Машинки',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Мультики',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Мстители',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Железный человек',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Халк',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Звездные войны',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Дарт Вейдер',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Чубака',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Футбол',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Месси',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Роналду',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Леброн Джеймс',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Баскетбол',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Майкл Джордан',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Стефен Карри',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Формула 1',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Ferrari',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Lamborghini',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Aston Martin',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Mercedes Benz',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'BMV',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'Audi',
+            'description' => '',
+            'publish' => 1
+        ],
+        [
+            'title' => 'McLaren',
+            'description' => '',
+            'publish' => 1
+        ]
     ]
 ];

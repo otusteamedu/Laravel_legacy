@@ -4,13 +4,13 @@
 namespace App\Services\User\Repositories;
 
 use App\Models\User;
-use App\Services\Resource\Repositories\ResourceRepository;
+use App\Services\Base\Resource\Repositories\BaseResourceRepository;
 use Illuminate\Database\Eloquent\Collection;
 use App\Services\User\Resources\User as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 
-class UserRepository extends ResourceRepository
+class UserRepository extends BaseResourceRepository
 {
     /**
      * TextureRepository constructor.

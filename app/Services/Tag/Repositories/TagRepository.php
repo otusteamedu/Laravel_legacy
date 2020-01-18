@@ -15,5 +15,6 @@ class TagRepository extends SubCategoryRepository
     public function __construct(Tag $model)
     {
         $this->model = $model;
+        $this->table = 'tags';
     }
 }

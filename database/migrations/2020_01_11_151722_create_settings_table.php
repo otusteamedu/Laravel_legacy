@@ -19,7 +19,7 @@ class CreateSettingsTable extends Migration
             $table->string('key_name')->index();
             $table->text('value')->nullable();
             $table->string('type');
-            $table->bigInteger('group_id')->nullable();
+            $table->integer('group_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

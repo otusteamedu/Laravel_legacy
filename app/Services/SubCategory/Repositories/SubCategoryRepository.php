@@ -3,66 +3,23 @@
 namespace App\Services\SubCategory\Repositories;
 
 
+use App\Services\Base\Category\Repositories\BaseCategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class SubCategoryRepository
+abstract class SubCategoryRepository extends BaseCategoryRepository
 {
-    /**
-     * @var
-     */
-    protected $model;
-
     /**
      * @return Collection
      */
-    public function index(): Collection
-    {
+    public function index(): Collection {
         return $this->model::withCount('images')->get();
     }
 
     /**
-     * @param int $id
-     * @return mixed
+     * @param $category
+     * @param array $images
      */
-    public function show(int $id) {
-        return $this->model::findOrFail($id);
-    }
-
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function store(array $data) {
-        return $this->model::create($data);
-    }
-
-    /**
-     * @param array $data
-     * @param $item
-     * @return mixed
-     */
-    public function update(array $data, $item) {
-        $item->update($data);
-
-        return $item;
-    }
-
-    /**
-     * @param $item
-     * @return mixed
-     */
-    public function destroy($item) {
-        return $item->delete();
-    }
-
-    /**
-     * @param $item
-     * @return mixed
-     */
-    public function publish($item) {
-        $item->publish = !$item->publish;
-        $item->save();
-
-        return $item;
+    public function addImages($category, array $images) {
+        $category->images()->attach($images);
     }
 }
