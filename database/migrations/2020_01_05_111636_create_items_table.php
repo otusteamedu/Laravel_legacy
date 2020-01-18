@@ -16,10 +16,11 @@ class CreateItemsTable extends Migration
         Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('photo');
             $table->text('description');
             $table->unsignedBigInteger('city_id')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('pick_user_id');
+            $table->unsignedBigInteger('pick_user_id')->nullable();
             $table->boolean('active');
             $table->timestamps();
         });
