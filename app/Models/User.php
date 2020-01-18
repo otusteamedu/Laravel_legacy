@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use Notifiable;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -18,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name', 'email', 'password, publish',
     ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -26,6 +28,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -34,12 +37,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function likes() {
         return $this->hasMany('App\Models\Like');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function orders() {
         return $this->hasMany('App\Models\Order');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function addresses() {
         return $this->hasMany('App\Models\Address');
     }
