@@ -13,14 +13,12 @@ use App\Models\Review;
 class ReviewsController extends Controller
 {
     protected $reviewsService;
-    protected $userId;
 
     public function __construct(
         ReviewsService $reviewsService
     )
     {
         $this->reviewsService = $reviewsService;
-        $this->userId = Auth::id();
     }
 
     /**
@@ -35,7 +33,7 @@ class ReviewsController extends Controller
 
         return view('users.reviews.list', [
             'reviews' => $reviews,
-            'userId' => $this->userId
+            'userId' =>  Auth::id(),
         ]);
     }
 
@@ -46,7 +44,7 @@ class ReviewsController extends Controller
      */
     public function create()
     {
-        $result = $this->reviewsService->hasReview($this->userId);
+        $result = $this->reviewsService->hasReview(Auth::id());
 
         if($result){
             return redirect()->route('reviews.index');
@@ -67,7 +65,7 @@ class ReviewsController extends Controller
 
         $data = [
             'text' => $request->input('review'),
-            'userId' => $this->userId
+            'userId' => Auth::id(),
         ];
 
         $this->reviewsService->storeReview($data);

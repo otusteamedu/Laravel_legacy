@@ -9,6 +9,7 @@ use Session;
 
 class Locale
 {
+
     /**
      * Handle an incoming request.
      *
@@ -30,4 +31,5 @@ class Locale
 
         return $next($request);
     }
+
 }
