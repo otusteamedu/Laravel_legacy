@@ -100,7 +100,6 @@ class UserController extends Controller
         $data = $request->getFormData();
 
         if ($this->usersService->update($profile, $data)) {
-
             \Session::flash('message', 'Profile successfully updated!');
         }
 
