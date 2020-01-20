@@ -1,0 +1,146 @@
+version: '3'
+
+networks:
+  frontend:
+    driver: ${NETWORKS_DRIVER}
+  backend:
+    driver: ${NETWORKS_DRIVER}
+
+volumes:
+  mysql:
+    driver: ${VOLUMES_DRIVER}
+  redis:
+    driver: ${VOLUMES_DRIVER}
+services:
+    docker-in-docker:
+      image: docker:dind
+      privileged: true
+      volumes:
+        - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
+        - ${DATA_PATH_HOST}/dind:/var/lib/docker
+      expose:
+        - 2375
+      networks:
+        - backend
+    workspace:
+      build:
+        context: ./workspace
+        args:
+          - CHANGE_SOURCE=${CHANGE_SOURCE}
+          - UBUNTU_SOURCE=${UBUNTU_SOURCE}
+          - LARADOCK_PHP_VERSION=${PHP_VERSION}
+          - INSTALL_XDEBUG=${WORKSPACE_INSTALL_XDEBUG}
+          - INSTALL_PCOV=${WORKSPACE_INSTALL_PCOV}
+          - INSTALL_MYSQL_CLIENT=${WORKSPACE_INSTALL_MYSQL_CLIENT}
+          - http_proxy
+          - https_proxy
+          - no_proxy
+      volumes:
+        - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+        - ./php-worker/supervisord.d:/etc/supervisord.d
+      extra_hosts:
+        - "dockerhost:${DOCKER_HOST_IP}"
+      ports:
+        - "${WORKSPACE_SSH_PORT}:22"
+      tty: true
+      environment:
+        - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+        - DOCKER_HOST=tcp://docker-in-docker:2375
+      networks:
+        - frontend
+        - backend
+      links:
+        - docker-in-docker
+    php-fpm:
+      build:
+        context: ./php-fpm
+        args:
+          - CHANGE_SOURCE=${CHANGE_SOURCE}
+          - LARADOCK_PHP_VERSION=${PHP_VERSION}
+          - INSTALL_XDEBUG=${PHP_FPM_INSTALL_XDEBUG}
+          - INSTALL_MYSQL_CLIENT=${PHP_FPM_INSTALL_MYSQL_CLIENT}
+      volumes:
+        - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
+        - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+      expose:
+        - "9000"
+      extra_hosts:
+        - "dockerhost:${DOCKER_HOST_IP}"
+      environment:
+        - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
+        - DOCKER_HOST=tcp://docker-in-docker:2375
+        - FAKETIME=${PHP_FPM_FAKETIME}
+      depends_on:
+        - workspace
+      networks:
+        - backend
+      links:
+        - docker-in-docker
+    nginx:
+      build:
+        context: ./nginx
+        args:
+          - CHANGE_SOURCE=${CHANGE_SOURCE}
+          - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
+          - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
+          - http_proxy
+          - https_proxy
+          - no_proxy
+      volumes:
+        - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
+        - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
+        - ${NGINX_SITES_PATH}:/etc/nginx/sites-available
+        - ${NGINX_SSL_PATH}:/etc/nginx/ssl
+      ports:
+        - "${NGINX_HOST_HTTP_PORT}:80"
+        - "${NGINX_HOST_HTTPS_PORT}:443"
+      depends_on:
+        - php-fpm
+      networks:
+        - frontend
+        - backend
+    mysql:
+      build:
+        context: ./mysql
+        args:
+          - MYSQL_VERSION=${MYSQL_VERSION}
+      environment:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - TZ=${WORKSPACE_TIMEZONE}
+      volumes:
+        - ${DATA_PATH_HOST}/mysql:/var/lib/mysql
+        - ${MYSQL_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
+      ports:
+        - "${MYSQL_PORT}:3306"
+      networks:
+        - backend
+    redis:
+      build: ./redis
+      volumes:
+        - ${DATA_PATH_HOST}/redis:/data
+      ports:
+        - "${REDIS_PORT}:6379"
+      networks:
+        - backend
+    certbot:
+      build:
+        context: ./certbot
+      volumes:
+        - ./data/certbot/certs/:/var/certs
+        - ./certbot/letsencrypt/:/var/www/letsencrypt
+      environment:
+        - CN="fake.domain.com"
+        - EMAIL="fake.email@gmail.com"
+      networks:
+        - frontend
+    mailhog:
+      build: ./mailhog
+      ports:
+        - "1025:1025"
+        - "8025:8025"
+      networks:
+        - frontend
+        - backend
