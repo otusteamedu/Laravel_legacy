@@ -109,7 +109,7 @@ class UserController extends Controller
             ]
         );
 
-        return redirect(route('profile.index'));
+        return redirect(localize_route('profile.index'));
     }
 
     /**

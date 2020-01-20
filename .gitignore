@@ -2,7 +2,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/coverage-public
+/public/vendor
 /storage/*.key
 /vendor
 .env

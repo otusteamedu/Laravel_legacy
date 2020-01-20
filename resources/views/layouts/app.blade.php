@@ -23,7 +23,7 @@
 <div id="app">
     <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">
+            <a class="navbar-brand" href="{{ localize_route('index') }}">
                 <img
                         src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNTAiIGhlaWdodD0iNTIiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTQ5LjYyNiAxMS41NjRhLjgwOS44MDkgMCAwMS4wMjguMjA5djEwLjk3MmEuOC44IDAgMDEtLjQwMi42OTRsLTkuMjA5IDUuMzAyVjM5LjI1YzAgLjI4Ni0uMTUyLjU1LS40LjY5NEwyMC40MiA1MS4wMWMtLjA0NC4wMjUtLjA5Mi4wNDEtLjE0LjA1OC0uMDE4LjAwNi0uMDM1LjAxNy0uMDU0LjAyMmEuODA1LjgwNSAwIDAxLS40MSAwYy0uMDIyLS4wMDYtLjA0Mi0uMDE4LS4wNjMtLjAyNi0uMDQ0LS4wMTYtLjA5LS4wMy0uMTMyLS4wNTRMLjQwMiAzOS45NDRBLjgwMS44MDEgMCAwMTAgMzkuMjVWNi4zMzRjMC0uMDcyLjAxLS4xNDIuMDI4LS4yMS4wMDYtLjAyMy4wMi0uMDQ0LjAyOC0uMDY3LjAxNS0uMDQyLjAyOS0uMDg1LjA1MS0uMTI0LjAxNS0uMDI2LjAzNy0uMDQ3LjA1NS0uMDcxLjAyMy0uMDMyLjA0NC0uMDY1LjA3MS0uMDkzLjAyMy0uMDIzLjA1My0uMDQuMDc5LS4wNi4wMjktLjAyNC4wNTUtLjA1LjA4OC0uMDY5aC4wMDFsOS42MS01LjUzM2EuODAyLjgwMiAwIDAxLjggMGw5LjYxIDUuNTMzaC4wMDJjLjAzMi4wMi4wNTkuMDQ1LjA4OC4wNjguMDI2LjAyLjA1NS4wMzguMDc4LjA2LjAyOC4wMjkuMDQ4LjA2Mi4wNzIuMDk0LjAxNy4wMjQuMDQuMDQ1LjA1NC4wNzEuMDIzLjA0LjAzNi4wODIuMDUyLjEyNC4wMDguMDIzLjAyMi4wNDQuMDI4LjA2OGEuODA5LjgwOSAwIDAxLjAyOC4yMDl2MjAuNTU5bDguMDA4LTQuNjExdi0xMC41MWMwLS4wNy4wMS0uMTQxLjAyOC0uMjA4LjAwNy0uMDI0LjAyLS4wNDUuMDI4LS4wNjguMDE2LS4wNDIuMDMtLjA4NS4wNTItLjEyNC4wMTUtLjAyNi4wMzctLjA0Ny4wNTQtLjA3MS4wMjQtLjAzMi4wNDQtLjA2NS4wNzItLjA5My4wMjMtLjAyMy4wNTItLjA0LjA3OC0uMDYuMDMtLjAyNC4wNTYtLjA1LjA4OC0uMDY5aC4wMDFsOS42MTEtNS41MzNhLjgwMS44MDEgMCAwMS44IDBsOS42MSA1LjUzM2MuMDM0LjAyLjA2LjA0NS4wOS4wNjguMDI1LjAyLjA1NC4wMzguMDc3LjA2LjAyOC4wMjkuMDQ4LjA2Mi4wNzIuMDk0LjAxOC4wMjQuMDQuMDQ1LjA1NC4wNzEuMDIzLjAzOS4wMzYuMDgyLjA1Mi4xMjQuMDA5LjAyMy4wMjIuMDQ0LjAyOC4wNjh6bS0xLjU3NCAxMC43MTh2LTkuMTI0bC0zLjM2MyAxLjkzNi00LjY0NiAyLjY3NXY5LjEyNGw4LjAxLTQuNjExem0tOS42MSAxNi41MDV2LTkuMTNsLTQuNTcgMi42MS0xMy4wNSA3LjQ0OHY5LjIxNmwxNy42Mi0xMC4xNDR6TTEuNjAyIDcuNzE5djMxLjA2OEwxOS4yMiA0OC45M3YtOS4yMTRsLTkuMjA0LTUuMjA5LS4wMDMtLjAwMi0uMDA0LS4wMDJjLS4wMzEtLjAxOC0uMDU3LS4wNDQtLjA4Ni0uMDY2LS4wMjUtLjAyLS4wNTQtLjAzNi0uMDc2LS4wNThsLS4wMDItLjAwM2MtLjAyNi0uMDI1LS4wNDQtLjA1Ni0uMDY2LS4wODQtLjAyLS4wMjctLjA0NC0uMDUtLjA2LS4wNzhsLS4wMDEtLjAwM2MtLjAxOC0uMDMtLjAyOS0uMDY2LS4wNDItLjEtLjAxMy0uMDMtLjAzLS4wNTgtLjAzOC0uMDl2LS4wMDFjLS4wMS0uMDM4LS4wMTItLjA3OC0uMDE2LS4xMTctLjAwNC0uMDMtLjAxMi0uMDYtLjAxMi0uMDlWMTIuMzNMNC45NjUgOS42NTQgMS42MDIgNy43MnptOC44MS01Ljk5NEwyLjQwNSA2LjMzNGw4LjAwNSA0LjYwOSA4LjAwNi00LjYxLTguMDA2LTQuNjA4em00LjE2NCAyOC43NjRsNC42NDUtMi42NzRWNy43MTlsLTMuMzYzIDEuOTM2LTQuNjQ2IDIuNjc1djIwLjA5NmwzLjM2NC0xLjkzN3pNMzkuMjQzIDcuMTY0bC04LjAwNiA0LjYwOSA4LjAwNiA0LjYwOSA4LjAwNS00LjYxLTguMDA1LTQuNjA4em0tLjgwMSAxMC42MDVsLTQuNjQ2LTIuNjc1LTMuMzYzLTEuOTM2djkuMTI0bDQuNjQ1IDIuNjc0IDMuMzY0IDEuOTM3di05LjEyNHpNMjAuMDIgMzguMzNsMTEuNzQzLTYuNzA0IDUuODctMy4zNS04LTQuNjA2LTkuMjExIDUuMzAzLTguMzk1IDQuODMzIDcuOTkzIDQuNTI0eiIgZmlsbD0iZ3JleSIgZmlsbC1ydWxlPSJldmVub2RkIi8+PC9zdmc+"
                         alt="{{ config('app.name', 'Laravel') }}">
@@ -47,23 +47,23 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{url('/')}}">@lang('Main page')</a>
+                        <a class="nav-link" href="{{ localize_route('index') }}">@lang('Main page')</a>
                     </li>
                     @guest
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('login') }}">@lang('form.auth')</a>
+                            <a class="nav-link" href="{{ localize_route('login') }}">@lang('form.auth')</a>
                         </li>
                         @if (Route::has('register'))
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">@lang('form.register')</a>
+                                <a class="nav-link" href="{{ localize_route('register') }}">@lang('form.register')</a>
                             </li>
                         @endif
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('profile.index')}}">@lang('User profile prototype')</a>
+                            <a class="nav-link" href="{{localize_route('profile.index')}}">@lang('User profile prototype')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('wishlists.index')}}">@lang('Wishlists')</a>
+                            <a class="nav-link" href="{{localize_route('wishlists.index')}}">@lang('Wishlists')</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -72,19 +72,43 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                <a class="dropdown-item" href="{{ localize_route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Logout') }}
                                 </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                <form id="logout-form" action="{{ localize_route('logout') }}" method="POST"
                                       style="display: none;">
                                     @csrf
                                 </form>
                             </div>
                         </li>
                     @endguest
+
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ app()->getLocale() }} <span class="caret"></span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                            @foreach(config('app.supported_locales') as $locale)
+
+                                @if($locale === app()->getLocale())
+                                    @continue
+                                @endif
+
+                                <a class="dropdown-item"
+                                   href="{{ localize_route('index', array_merge(['locale'=>$locale])) }}">
+                                    {{$locale}}
+                                </a>
+
+                            @endforeach
+
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

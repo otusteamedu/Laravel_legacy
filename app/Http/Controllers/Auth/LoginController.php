@@ -39,6 +39,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+    public function redirectTo()
+    {
+        return localize_route('wishlists.index');
+    }
+
     /**
      * @inheritDoc
      */
@@ -47,6 +52,13 @@ class LoginController extends Controller
         $request['status'] = User::USER_STATUS_ACTIVE;
 
         return $request->only($this->username(), 'password', 'status');
+    }
+
+    public function logout()
+    {
+        \Auth::logout();
+
+        return redirect(localize_route('index'));
     }
 
 }

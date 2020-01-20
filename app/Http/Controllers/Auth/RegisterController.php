@@ -57,6 +57,11 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function redirectTo()
+    {
+        return localize_route('wishlists.index');
+    }
+
     /**
      * Create a new user instance after a valid registration.
      *

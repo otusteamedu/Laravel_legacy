@@ -8,7 +8,7 @@
                     <div class="card-header"><h3 class="mb-0">@lang('form.auth')</h3></div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('login') }}">
+                        <form method="POST" action="{{ localize_route('login') }}">
                             @csrf
                             <div class="form-group row">
                                 <label for="email" class="col-md-4 col-form-label text-md-right">@lang('form.email')</label>
@@ -54,7 +54,7 @@
                                     </button>
 
                                     @if (Route::has('password.request'))
-                                        <a class="btn btn-link" href="{{ route('password.request') }}">
+                                        <a class="btn btn-link" href="{{ localize_route('password.request') }}">
                                             @lang('form.forgotPassword')
                                         </a>
                                     @endif

@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('register') }}">
+<form method="POST" action="{{ localize_route('register') }}">
     @csrf
 
     <div class="form-group row">

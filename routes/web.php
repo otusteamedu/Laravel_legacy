@@ -11,34 +11,28 @@
 |
 */
 
-Auth::routes();
+Route::prefix('{locale?}')->group(function () {
+    Route::middleware(['localize'])->group(function () {
+        Auth::routes();
 
-Route::get('/', function () {
-    return view('index');
+        Route::get('/', function () {
+            return view('index');
+        })->name('index');
+    });
+
+    Route::middleware(['auth', 'auth.active', 'localize'])->group(function () {
+        Route::resource('wishlists', 'Wishlists\WishlistController')
+            ->except(['create', 'edit', 'update']);
+
+        Route::resource('profile', 'Users\UserController')
+            ->only(['index', 'update']);
+
+        Route::resource('product', 'Products\ProductController')
+            ->only(['store', 'show']);
+
+        Route::resource('wishlist-products', 'WishlistProduct\WishlistProductController')
+            ->only(['destroy']);
+    });
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('profile', 'Users\UserController')
-    ->middleware('auth')
-    ->only(
-        ['index', 'update']
-    );
-
-Route::resource('wishlists', 'Wishlists\WishlistController')
-    ->middleware('auth')
-    ->except(
-        ['create', 'edit', 'update']
-    );
-
-Route::resource('product', 'Products\ProductController')
-    ->middleware('auth')
-    ->only(
-        ['store', 'show']
-    );
-
-Route::resource('wishlist-products', 'WishlistProduct\WishlistProductController')
-    ->middleware('auth')
-    ->only(
-        ['destroy']
-    );
