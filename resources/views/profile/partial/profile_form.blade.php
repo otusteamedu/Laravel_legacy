@@ -1,4 +1,4 @@
-<form method="POST" action="{{ route('profile.update', ['profile'=>$user->id]) }}">
+<form method="POST" action="{{ localize_route('profile.update', ['profile'=>$user->id]) }}">
     @csrf
     @method('PUT')
 

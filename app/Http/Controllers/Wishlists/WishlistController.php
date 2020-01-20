@@ -55,7 +55,7 @@ class WishlistController extends Controller
 
         $this->wishlistService->create($data);
 
-        return redirect(route('wishlists.index'));
+        return redirect(localize_route('wishlists.index'));
     }
 
     /**

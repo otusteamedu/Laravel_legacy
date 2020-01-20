@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('password.email') }}">
+                    <form method="POST" action="{{ localize_route('password.email') }}">
                         @csrf
 
                         <div class="form-group row">
