@@ -1,0 +1,456 @@
+/* Slider Revolution Section */
+.style-home-slider-hp-1 {
+	padding: 0 80px;
+	.slide-caption-title-1 {
+		font-weight: 500;
+		background: #fff;
+		letter-spacing: 5px;
+	}
+	.slide-caption-title-2 {
+		font-weight: 300;
+		span {
+			font-weight: 600;
+		}
+	}
+	.slide-caption-title-3 {
+		font-weight: 500;
+	}
+	.uranus {
+		.tp-bullet {
+		    width: 28px;
+		    height: 2px;
+		    position: absolute;
+		    background: #666;
+		    @include border-radius(0);
+		    @include box-shadow(none);
+		    cursor: pointer;
+
+		    .tp-bullet-inner {
+				@include border-radius(0);
+				height: auto;
+			}
+		    &.selected,
+		    &:hover {
+		    	height: 4px;
+		    	@include border-radius(0);
+		    	@include box-shadow(none);
+		    	background: #666;
+		    	margin-top: -2px;
+		    	margin-right: 10px;
+		    	.tp-bullet-inner {
+		    		background-color: #666;
+		    		@include transform(scale(0));
+		    	}
+		    }
+		}
+	}
+	.hesperiden {
+		&.tparrows {
+			background: none;
+			@include border-radius(0);
+			&:before {
+				font-family: 'Material-Design-Iconic-Font';
+				font-size: 25px;
+				color: #ccc;
+			}
+			&.tp-leftarrow {
+				&:before {
+					content: '\f2f4';
+				}
+			}
+			&.tp-rightarrow {
+				&:before {
+					content: '\f2f6';
+				}
+			}
+		}
+	}
+}
+/* End Slider Revolution Section */
+
+/* Categories Section */
+.categories-hp-1.section-box {
+	padding-bottom: 111px;
+}
+.categories-hp-1 {
+	.categories-content {
+		.lighting {
+			padding-top: 41px;
+			margin-right: 10px;
+		}
+		.furniture {
+			margin: 0 5px;
+		}
+		.decoration {
+			padding-top: 41px;
+			margin-left: 10px;
+		}
+		.categories-detail {
+			position: relative;
+			.images {
+				overflow: hidden;
+				img {
+					@include transition(transform 0.6s cubic-bezier(.25,.46,.45,.94));
+				}
+			}
+			.product {
+			    position: absolute;
+			    left: 0;
+			    bottom: 20px;
+			    background: #fff;
+			    a {
+			    	padding: 7.5px 20px;
+			    	&:hover {
+			    		color: #333;
+			    	}
+			    }
+				.name {
+					font-size: 18px;
+					font-weight: 500;
+				}
+				.quantity {
+					display: none;
+					color: #666;
+				}
+				&:hover {
+					.line {
+						display: none;
+					}
+					.quantity {
+						display: inline-block;
+					}
+				}
+			}
+			&:hover {
+				.images {
+					img {
+						@include transform(scale(1.1));
+					}
+				}
+			}
+		}
+	}
+}
+/* End Categories Section */
+
+/* Featured Sale Section */
+.featured-hp-1 {
+	.woocommerce {
+		margin: 0 -150px;
+	}
+	.content-area {
+		overflow: hidden;
+		.woocommerce-LoopProduct-link {
+			margin-bottom: 30px;
+			.product-image {
+				position: relative;
+				overflow: hidden;
+				border: 1px solid #f2f2f2;
+				.wp-post-image {
+					img {
+						@include transition((all 0.3s linear));
+					}
+					.image-secondary {
+					    position: absolute;
+					    top: 0;
+					    right: 100%;
+					}
+				}
+				.onnew, 
+				.onsale {
+					position: absolute;
+					top: 20px;
+					left: 0;
+				}
+				.yith-wcwl-add-button {
+					position: absolute;
+					top: 17px;
+					right: 19px;
+					.add_to_wishlist {
+						font-size: 20px;
+						color: #999;
+					}
+					&:hover {
+						.add_to_wishlist {
+							i {
+								&:before {
+									content: '\f15f';
+								}
+							}
+						}
+					}
+				}
+				.add_to_cart_button {
+				    width: 42px;
+				    height: 40px;
+				    border: 1px solid #e5e5e5;
+				    position: absolute;
+				    right: 20px;
+				    bottom: 26px;
+				    a {
+				    	position: absolute;
+				    	height: 100%;
+				    	width: 100%;
+				    }
+				    img {
+				    	position: absolute;
+				    	top: 50%;
+				    	left: 50%;
+				    	@include transform(translate(-50%,-50%));
+				    }
+				    &:hover {
+				    	background: #333;
+				    	border: none;
+				    }
+				}
+				.woocommerce-loop-product__title {
+					position: absolute;
+				    left: 20px;
+				    bottom: 52px;
+				    a {
+				    	&:hover {
+				    		color: #333;
+				    	}
+				    }
+				}
+				.price {
+				    position: absolute;
+				    left: 20px;
+				    bottom: 19px;
+				    ins {
+				    	text-decoration: none;
+				    }
+				    del {
+					    padding-right: 10px;
+					}
+				    .woocommerce-Price-currencySymbol {
+					    margin-right: -4px;
+					}
+				}
+				&:hover {
+					border: 1px solid #e5e5e5;
+					@include box-shadow(0px 2px 5px 0px rgba(0, 0, 0, 0.1));
+					.wp-post-image {
+						.image-secondary {
+							right: 0;
+						}
+					}
+				}
+			}
+		}
+	}
+	.view-all {
+		text-align: center;
+		padding: 30px 0 120px;
+		.btn-small {
+		    padding: 17px 35.5px;
+		}
+		i {
+			padding-left: 9px;
+		}
+	}
+}
+/* End Featured Sale Section */
+
+/* Banner Section */
+.banner-hp-1.section-box {
+	padding: 0 0 143px;
+}
+.banner-hp-1 {
+	.bg-image {
+		position: relative;
+		overflow: hidden;
+		&:before,
+		&:after {
+			content: '';
+		    position: absolute;
+		    top: 0;
+		    bottom: 0;
+		    right: 0;
+		    left: 0;
+		    @include transition((all .6s ease-in-out));
+		}
+	}
+	.banner-left {
+	    margin-right: -20px;
+	    position: relative;
+	    .info {
+		    position: absolute;
+		    left: 50%;
+		    @include transform(translateX(-50%));
+		    bottom: 10%;
+		    width: 100%;
+		    text-align: center;
+		    .sale {
+		    	color: #d7b89c;
+		    	font-weight: 500;
+		    	background: #fff;
+		    	padding: 0px 23.5px;
+		    	line-height: 1.55;
+		    }
+		    span {
+		    	display: block;
+		    	font-size: 48px;
+		    	font-weight: 700;
+		    	color: #fff;
+		    	padding: 2px 0 4px;
+		    }
+		    .shop {
+		    	display: block;
+		    	color: #fff;
+		    	@include transition((all 0.4s ease 0.1s));
+		    	i {
+		    		padding-left: 10px;
+		    	}
+	    		&:hover {
+	    			@include transform(translateX(20px));
+	    		}
+		    }
+		}
+	}
+	.banner-right {
+	    margin-left: 20px;
+	    position: relative;
+	    .info {
+	    	position: absolute;
+	    	left: 50%;
+		    @include transform(translateX(-50%));
+		    border: 2px solid rgba(255,255,255,0.5);
+		    text-align: center;
+		    color: #fff;
+		    padding: 4px 26px 10px;
+		    width: 53.4%;
+		    top: 11.8%;
+		    .text-1 {
+				font-size: 30px;
+				margin-bottom: -10px;
+				span {
+					font-size: 50px;
+					font-weight: 700;
+				}
+		    }
+		    .text-2 {
+				font-size: 25px;
+		    }
+	    }
+	}
+	.banner-left,
+	.banner-right {
+		&:hover {
+			.bg-image {
+				&:before {
+					right: 50%;
+				    left: 50%;
+				    background: rgba(255,255,255,0.2);
+				}
+				&:after {
+					top: 50%;
+				    bottom: 50%;
+				    background: rgba(255,255,255,0.2);
+				}
+			}
+		}
+	}
+}
+/* End Banner Section */
+
+/* Testimonials Section */
+.testimonials-hp-1 {
+	.testimonials-content {
+	    margin: 0 65px;
+	    background: #f7f7f7;
+	}
+	.owl-carousel {
+		&.owl-theme {
+			.owl-dots,
+			.owl-thumbs {
+				display: none;
+			}
+			.owl-nav {
+				position: absolute;
+				width: 42%;
+			    left: 42%;
+			    top: 50%;
+			    @include transform(translateY(-50%));
+			    @extend display-flex;
+			    @include justify-content(space-between);
+				margin-top: 0;
+				[class*=owl-] {
+					margin: 0;
+					font-size: 20px;
+					color: #999;
+					@include outline(none);
+					@include border-radius(0);
+					&:hover {
+						background: transparent;
+						color: #333;
+					}
+				}
+			}
+		}
+		.item {
+			.right-block {
+			    padding-right: 300px;
+			}
+			.left-block {
+			    padding-left: 250px;
+			    .images {
+				    padding-right: 25px;
+				}
+			    &.left-block-2 {
+			    	padding-left: 272px;
+			    	margin: 13px 0 -13px;
+			    	.images {
+					    padding-right: 0px;
+				        margin-right: -38px;
+					}
+			    }
+			}
+			.testimonials-detail {
+				padding: 149px 65px 135px 85px;
+				text-align: center;
+				i {
+					font-size: 90px;
+				}
+				p {
+					margin-top: 7px;
+				}
+				h5 {
+					font-size: 20px;
+					padding: 38px 0 4px;
+				}
+			}
+		}
+	}
+}
+/* End Testimonials Section */
+
+/* Insta Follow Section */
+.insta-hp-1 {
+	.insta-content {
+		text-align: center;
+		margin-top: -9px;
+		padding: 0 5px;
+		span {
+			color: #999;
+			display: block;
+			padding: 10px 0 53px;
+		}
+		.insta-detail {
+		    margin: 0 -5px;
+		    cursor: pointer;
+		    .insta-image {
+		    	position: relative;
+		    }
+		    .overlay {
+		    	background:rgba(0,0,0,0.2);
+		    }
+		    &:hover {
+		    	.overlay {
+		    		opacity: 1;
+		    	}
+	    	}
+		}
+	}
+}
+/* End Insta Follow Section */

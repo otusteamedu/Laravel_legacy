@@ -1,0 +1,31 @@
+.page-not-found {
+	@include background-size(cover);
+	background-repeat: no-repeat;
+	background-position: center center;
+	.page-detail {
+		min-height: 100vh;
+		@extend display-flex;
+		@include align-items(center);
+		.page-inner {
+			text-align: center;
+			width: 46%;
+			h2 {
+				font-size: 60px;
+				color: #fff;
+			}
+			p {
+				font-size: 18px;
+				color: #fff;
+				padding: 21px 0 61px;
+			}
+			.au-btn-white {
+				i {
+					padding-left: 10px;
+				}
+			}
+			.btn-small {
+			    padding: 17px 34.5px;
+			}
+		}
+	}
+}

@@ -1,0 +1,201 @@
+/* Small Images Page */
+.single-portfolio.section-box {
+	padding: 101px 0 100px;
+}
+.single-portfolio {
+	.portfolio-content {
+		.product-images {
+			margin-right: 20px;
+			figure {
+			    margin: 0 0 30px;
+			    overflow: hidden;
+			    cursor: pointer;
+			    position: relative;
+			    img {
+			    	@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+			    }
+			    .gallery-elements {
+				    position: absolute;
+				    width: 100%;
+				    height: 100%;
+				    top: 0;
+				    left: 0;
+				    cursor: pointer;
+				    z-index: 99;
+			    }
+			    &:hover {
+					img {
+						@include transform(scale(1.1));
+					}
+			    }
+			}
+			.owl-carousel {
+				margin-bottom: 30px;
+				.owl-thumbs,
+				.owl-dots {
+					display: none;
+				}
+				.owl-nav {
+					margin-top: 0;
+					position: absolute;
+					right: 0;
+					top: 50%;
+					@include transform(translateY(-50%));
+					[class*=owl-] {
+						margin: 0;
+						@include border-radius(0);
+						@include outline(none);
+					    padding: 6px 15px 2px !important;
+					    display: block;
+					    background: #fff;
+					    &:hover {
+					    	color: #333;
+					    }
+					}
+					i {
+						font-size: 20px;
+					}
+				}
+				.item {
+					overflow: hidden;
+					cursor: pointer;
+					position: relative;
+				    img {
+				    	@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+				    }
+				    .gallery-elements {
+					    position: absolute;
+					    width: 100%;
+					    height: 100%;
+					    top: 0;
+					    left: 0;
+					    cursor: pointer;
+					    z-index: 99;
+				    }
+				    &:hover {
+						img {
+							@include transform(scale(1.1));
+						}
+				    }
+				}
+			}
+		}
+		.product-info {
+			h2 {
+				font-size: 30px;
+				margin: -6px 0 15px;
+			}
+			span {
+				color: #333;
+				font-weight: 500;
+				padding-bottom: 2px;
+				display: block;
+			}
+			p {
+				margin-bottom: 14px;
+			}
+			.description {
+				margin-bottom: 36px;
+			}
+			.socials {
+				a {
+					padding-right: 14px;
+					color: #666;
+					&:hover {
+						color: #333;
+					}
+				}
+			}
+		}
+		.related {
+		    padding: 0 7.5px;
+		    .related-post {
+			    margin: 0 -7.5px;
+			    overflow: hidden;
+			    cursor: pointer;
+			    img {
+			    	@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+			    }
+			    &:hover {
+					img {
+						@include transform(scale(1.1));
+					}
+			    }
+			}
+		}
+		h3 {
+			font-size: 25px;
+			padding-bottom: 33px;
+		}
+		.pagination-content {
+		    @extend display-flex;
+		    @include align-items(center);
+		    @include justify-content(space-between);
+		    padding: 40px 0 75px;
+		    a {
+		    	color: #666;
+		    	font-size: 20px;
+		    	&.prev,
+		    	&.next {
+		    		width: 45px;
+		    		height: 33px;
+		    		border: 1px solid #666;
+		    		text-align: center;
+		    	}
+		    	&:hover {
+		    		color: #333;
+		    		&.prev,
+		    		&.next {
+		    			color: #fff;
+		    			background: #333;
+		    		}
+		    	}
+		    }
+		}
+	}
+}
+/* End Small Images Page */
+
+/* Big Images Page */
+.single-portfolio.single-portfolio-big {
+	.portfolio-content {
+		.product-images {
+			margin-right: 0;
+		}
+		.product-info {
+			padding-top: 20px;
+			@extend display-flex;
+			width: 100%;
+			.info-1 {
+				width: 66.67%;
+				padding-right: 20px;
+			}
+			.info-2 {
+				width: 33.33%;
+				margin-top: -6px;
+				padding-left: 45px;
+			}
+			span {
+				float: left;
+				padding-right: 11px;
+			}
+		}
+		.pagination-content {
+			padding-top: 37px;
+		}
+	}
+}
+/* End Big Images Page */
+
+/* Small Gallery Page */
+.single-portfolio.single-portfolio-gallery {
+	.portfolio-content {
+		.product {
+			margin-right: 20px;
+			.product-images {
+				margin-right: 0;
+			}
+		}
+	}
+}
+/* End Small Gallery Page */

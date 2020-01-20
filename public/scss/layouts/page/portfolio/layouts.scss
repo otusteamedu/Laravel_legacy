@@ -1,0 +1,71 @@
+/* Portfolio Section Of Two Columns Grid */
+.two-columns-section.section-box {
+	padding: 111px 0 100px;
+}
+.two-columns-section {
+	.two-columns-content {
+		text-align: center;
+		padding: 0 7px;
+		h1 {
+			font-size: 45px;
+		}
+		p {
+			padding: 21px 200px 93px;
+		}
+		.two-columns-detail {
+		    margin: 0 -7px 16px;
+		    position: relative;
+		    .overlay {
+		    	background: rgba(0, 0, 0, 0.2);
+		    }
+		    &:hover {
+		    	.overlay {
+		    		opacity: 1;
+		    	}
+		    }
+		    .gallery-zoom {
+				.gallery-elements {
+				    position: absolute;
+				    width: 100%;
+				    height: 100%;
+				    top: 0;
+				    left: 0;
+				    cursor: pointer;
+				    z-index: 99;
+				}
+			}
+		}
+		.load-more {
+			padding-top: 54px;
+			i {
+				padding-left: 10px;
+			}
+			.btn-small {
+			    padding: 17px 34px;
+			}
+		}
+	}
+}
+/* End Portfolio Section Of Two Columns Grid + Four Columns Grid */
+
+/* Portfolio Section Of Three Columns Grid */
+.two-columns-section.three-columns-section {
+	.two-columns-content {
+		padding: 0 7.5px;
+		.two-columns-detail {
+			margin: 0 -7.5px 15px;
+		}
+	}
+}
+/* End Portfolio Section Of Three Columns Grid + Four Columns Grid */
+
+/* Portfolio Section Of Three Columns Wide + Four Columns Wide + Five Columns Wide */
+.two-columns-section.three-columns-wide-section.section-box {
+	padding-bottom: 0px;
+	.two-columns-content {
+		p {
+			padding: 21px 550px 93px;
+		}
+	}
+}
+/* End Portfolio Section Of Three Columns Wide + Four Columns Wide + Five Columns Wide */
