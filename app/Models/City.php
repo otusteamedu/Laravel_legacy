@@ -2,9 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-class City extends Model
+/**
+ * Class City
+ * @package App\Models
+ *
+ * @property integer id
+ * @property string name
+ * @property integer country_id
+ * @property integer created_by_user_id
+ * @property \DateTime created_at
+ * @property \DateTime updated_at
+ */
+class City extends BaseModel
 {
 
     public function country()
