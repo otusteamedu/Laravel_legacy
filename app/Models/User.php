@@ -11,6 +11,9 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    const IS_ADMIN = 'admin';
+    const IS_USER = 'user';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -63,19 +66,24 @@ class User extends Authenticatable
         $roles = $this->roles->toArray();
         return !empty($roles);
     }
+
     /**
      * Проверка имеет ли пользователь определенную роль
      *
-     * @return boolean
+     * @param $roleName
+     * @return bool
      */
-    public function hasRole($check)
+    public function hasRole($roleName)
     {
-        return in_array($check, Arr::pluck($this->roles->toArray(), 'name'));
+        return in_array($roleName, Arr::pluck($this->roles->toArray(), 'name'));
     }
+
     /**
      * Получение идентификатора роли
      *
-     * @return int
+     * @param $array
+     * @param $term
+     * @return bool|int|string
      */
     private function getIdInArray($array, $term)
     {
@@ -86,27 +94,26 @@ class User extends Authenticatable
         }
         return false;
     }
+
     /**
      * Добавление роли пользователю
      *
-     * @return boolean
+     * @param $title
      */
     public function makeEmployee($title)
     {
         $assigned_roles = [];
         $roles =  Arr::pluck(Role::all()->toArray(), 'name');
         switch ($title) {
-            case 'admin':
-                $assigned_roles[] = $this->getIdInArray($roles, 'admin');
-            case 'user':
-                $assigned_roles[] = $this->getIdInArray($roles, 'user');
+            case self::IS_ADMIN:
+                $assigned_roles[] = $this->getIdInArray($roles, self::IS_ADMIN);
+                break;
+            case self::IS_USER:
+                $assigned_roles[] = $this->getIdInArray($roles, self::IS_USER);
                 break;
             default:
                 $assigned_roles[] = false;
         }
         $this->roles()->attach($assigned_roles);
     }
-    /****/
-
-
 }

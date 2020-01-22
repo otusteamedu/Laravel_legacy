@@ -11,11 +11,9 @@ use Illuminate\Http\Request;
 class OperationsController extends Controller
 {
     protected $operationsService;
-    protected $userId;
 
     public function __construct(OperationsService $operationsService){
         $this->operationsService = $operationsService;
-        $this->userId = Auth::id();
     }
 
     /**
@@ -25,7 +23,7 @@ class OperationsController extends Controller
      */
     public function index()
     {
-        $operations = $this->operationsService->getUserTodayOperations($this->userId);
+        $operations = $this->operationsService->getUserTodayOperations(Auth::id());
         $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 
         return view('users.home', [
@@ -59,7 +57,7 @@ class OperationsController extends Controller
             'sum' => $request->input('sum'),
             'category_id' => $request->input('category_id'),
             'description' => $request->input('description'),
-            'user_id' => $this->userId
+            'user_id' => Auth::id(),
             ];
 
         $this->operationsService->storeOperation($data);
@@ -124,7 +122,7 @@ class OperationsController extends Controller
         $all = $request->all();
         $period = $all['period'];
 
-        $operations = $this->operationsService->getUserOperationsForPeriod($this->userId, $period);
+        $operations = $this->operationsService->getUserOperationsForPeriod(Auth::id(), $period);
         $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
 
         return json_encode([

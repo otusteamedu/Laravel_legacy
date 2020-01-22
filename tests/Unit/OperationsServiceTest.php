@@ -23,7 +23,7 @@ class OperationsServiceTest extends TestCase
      */
     public function testGetUserTodayOperations()
     {
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
 
         $operationExpect = factory(Operation::class)->create();
         $operationAssert = $operationService->getUserTodayOperations($operationExpect->user_id);
@@ -37,7 +37,7 @@ class OperationsServiceTest extends TestCase
         $operations = factory(Operation::class, 2)->states('type_income')->create();
 
         $sumExpect = 2000;
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
         $sumAssert = $operationService->getIncomeConsumptionCount($operations);
 
         $this->assertEquals($sumExpect, $sumAssert['incomeCount']);
@@ -50,7 +50,7 @@ class OperationsServiceTest extends TestCase
         $operations = factory(Operation::class, 2)->states('type_consumption')->create();
 
         $sumExpect = 2000;
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
         $sumAssert = $operationService->getIncomeConsumptionCount($operations);
 
         $this->assertEquals($sumExpect, $sumAssert['consumptionCount']);
@@ -61,7 +61,7 @@ class OperationsServiceTest extends TestCase
         $user = factory(User::class)->create();
         $category = factory(Category::class)->create();
 
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
         $operationService->storeOperation([
             'sum' => 1000,
             'category_id' => $category->id,
@@ -81,7 +81,7 @@ class OperationsServiceTest extends TestCase
     {
         $operation = factory(Operation::class)->create();
 
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
         $operationService->updateOperation([
             'sum' => 5500,
             'category_id' => $operation->category_id,
@@ -100,7 +100,7 @@ class OperationsServiceTest extends TestCase
     public function testDestroyOperation(){
         $operation = factory(Operation::class)->create();
 
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
         $operationService->destroyOperation($operation->id);
 
         $this->assertDeleted($operation);
@@ -118,7 +118,7 @@ class OperationsServiceTest extends TestCase
     {
         $operationExpect = factory(Operation::class)->state($period)->create();
 
-        $operationService = new OperationsService(new OperationRepository(), new OperationsHandle());
+        $operationService = app()->make(OperationsService::class);
         $operationAssert = $operationService->getUserOperationsForPeriod($operationExpect->user_id, $period);
         $this->assertEquals($operationExpect->id, $operationAssert[0]->id);
     }
