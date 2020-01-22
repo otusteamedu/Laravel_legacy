@@ -93,7 +93,7 @@ class Server
 
             if ($bytes_received == -1)
                 die('An error occured while receiving from the socket');
-            echo "Сообщение $msg принято клиентом \n";
+            echo "РЎРѕРѕР±С‰РµРЅРёРµ $msg РїСЂРёРЅСЏС‚Рѕ РєР»РёРµРЅС‚РѕРј \n";
 
             sleep(2);
         }

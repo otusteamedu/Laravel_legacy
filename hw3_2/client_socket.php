@@ -103,7 +103,7 @@ class Client
             echo "$buf\n";
 
 
-            $response = "Принято";
+            $response = "РџСЂРёРЅСЏС‚Рѕ";
 
 
             // send response
