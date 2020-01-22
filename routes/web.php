@@ -41,3 +41,6 @@ Route::name('csm.')->group(function () {
 
     });
 });
+
+Route::get('/news','NewsController@getAll');
+Route::get('/news/clear','NewsController@clearCache');
