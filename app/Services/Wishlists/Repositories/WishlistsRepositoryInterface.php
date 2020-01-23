@@ -18,14 +18,14 @@ interface WishlistsRepositoryInterface
      *
      * @return LengthAwarePaginator
      */
-    public function getByUser(User $user) :LengthAwarePaginator;
+    public function getByUser(User $user);
 
     /**
      * @param  Wishlist  $wishlist
      *
      * @return LengthAwarePaginator
      */
-    public function getProducts(Wishlist $wishlist) :LengthAwarePaginator;
+    public function getProducts(Wishlist $wishlist);
 
     /**
      * @param  array  $data

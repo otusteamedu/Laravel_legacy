@@ -5,6 +5,7 @@ namespace App\Services\Products\Repositories;
 use App\Models\Products;
 use App\Models\WishlistProduct;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Cache;
 
 class EloquentProductsRepository implements ProductsRepositoryInterface
 {
@@ -22,6 +23,8 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
     {
         $productData = $this->createProduct($data);
         $this->createWishlistProduct($productData, $data);
+
+        Cache::flush();
     }
 
     /**

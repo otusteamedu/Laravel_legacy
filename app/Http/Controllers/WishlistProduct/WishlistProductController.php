@@ -27,6 +27,8 @@ class WishlistProductController extends Controller
     {
         $wishlistProduct->delete();
 
+        \Cache::flush();
+
         return Redirect::back();
     }
 }

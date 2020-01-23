@@ -8,6 +8,7 @@ namespace App\Services\Wishlists;
 
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Services\Wishlists\Repositories\CachedWishlistsRepositoryInterface;
 use App\Services\Wishlists\Repositories\WishlistsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -19,7 +20,7 @@ class WishlistsService
      */
     protected $wishlistsRepository;
 
-    public function __construct(WishlistsRepositoryInterface $wishlistsRepository)
+    public function __construct(CachedWishlistsRepositoryInterface $wishlistsRepository)
     {
         $this->wishlistsRepository = $wishlistsRepository;
     }
