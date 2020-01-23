@@ -16,12 +16,12 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('first_name');
-            $table->string('last_name');
+            $table->string('last_name')->nullable();
             $table->string('country');
             $table->string('address');
             $table->string('city');
-            $table->integer('phone');
-            $table->string('email');
+            $table->string('phone');
+            $table->string('email')->nullable();
             $table->timestamps();
         });
     }
