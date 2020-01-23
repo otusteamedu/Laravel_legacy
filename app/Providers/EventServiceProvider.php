@@ -2,11 +2,14 @@
 
 namespace App\Providers;
 
-use App\Events\WishlistEventSubscriber;
+use App\Events\Models\Products\CreatProductsEvent;
+use App\Events\Models\Wishlist\DeletedWishlistEvent;
+use App\Events\Models\Wishlist\SavedWishlistEvent;
+use App\Listeners\Cache\ClearWishlistsCache;
+use App\Listeners\Cache\WarmProductsCache;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -19,18 +22,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        'App\Events\WishlistTouched' => [
-            'App\Listeners\ClearWishlistCache',
+        SavedWishlistEvent::class => [
+            ClearWishlistsCache::class,
         ],
-    ];
-
-    /**
-     * The subscriber classes to register.
-     *
-     * @var array
-     */
-    protected $subscribe = [
-        WishlistEventSubscriber::class,
+        DeletedWishlistEvent::class => [
+            ClearWishlistsCache::class,
+        ],
+        CreatProductsEvent::class => [
+            WarmProductsCache::class,
+        ],
     ];
 
     /**
@@ -41,7 +41,6 @@ class EventServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
-
         //
     }
 }

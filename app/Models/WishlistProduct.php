@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\Models\Wishlist\DeletedWishlistEvent;
+use App\Events\Models\Wishlist\SavedWishlistEvent;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -29,6 +31,11 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class WishlistProduct extends BaseModel
 {
+
+    protected $dispatchesEvents = [
+        'saved' => SavedWishlistEvent::class,
+        'deleted' => DeletedWishlistEvent::class,
+    ];
 
     protected static $unguarded = true;
 

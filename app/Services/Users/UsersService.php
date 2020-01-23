@@ -12,9 +12,7 @@ use App\Services\Users\Repositories\UsersRepositoryInterface;
 class UsersService
 {
 
-    /**
-     * @var UsersRepositoryInterface
-     */
+    /** @var UsersRepositoryInterface */
     protected $usersRepository;
 
     public function __construct(UsersRepositoryInterface $usersRepository)

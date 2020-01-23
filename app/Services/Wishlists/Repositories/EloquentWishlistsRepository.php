@@ -5,6 +5,7 @@ namespace App\Services\Wishlists\Repositories;
 use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
 
 class EloquentWishlistsRepository implements WishlistsRepositoryInterface
 {

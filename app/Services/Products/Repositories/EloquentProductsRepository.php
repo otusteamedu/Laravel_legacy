@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class EloquentProductsRepository implements ProductsRepositoryInterface
 {
+    /** @var Factory */
     protected $factory;
 
     public function __construct(Factory $factory)
@@ -19,12 +20,27 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
     /**
      * @inheritDoc
      */
+    public function getProductById(int $id) :Products
+    {
+        return Products::find($id);
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function create(array $data = []) :void
     {
         $productData = $this->createProduct($data);
         $this->createWishlistProduct($productData, $data);
+    }
 
-        Cache::flush();
+    /**
+     * @inheritDoc
+     * @throws \Exception
+     */
+    public function delete(WishlistProduct $wishlistProduct) :void
+    {
+        $wishlistProduct->delete();
     }
 
     /**
@@ -32,11 +48,8 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
      */
     public function createProduct(array $data) :array
     {
-        $productData = $this->factory->raw(Products::class);
-        $productData['productTitle'] = $data['product_name'];
-
-        $product = new Products();
-        $product->create($productData);
+        $productData = $this->factory->createAs(Products::class,
+            'products', ['productTitle' => $data['product_name'],])->toArray();
 
         return $productData;
     }

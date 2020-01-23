@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Events\Models\Products\CreatProductsEvent;
+
 /**
  * App\Models\Products
  *
@@ -58,4 +60,8 @@ class Products extends BaseModel
 {
 
     protected static $unguarded = true;
+
+    protected $dispatchesEvents = [
+        'created' => CreatProductsEvent::class,
+    ];
 }

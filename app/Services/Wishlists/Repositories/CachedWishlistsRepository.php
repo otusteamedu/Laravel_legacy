@@ -2,21 +2,41 @@
 
 namespace App\Services\Wishlists\Repositories;
 
-use App\Events\WishlistTouched;
-use App\Listeners\ClearWishlistCache;
 use App\Models\User;
 use App\Models\Wishlist;
+use App\Services\Cache\CacheManagerInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
+use App\Services\Cache\CacheTags;
 
-class CachedWishlistsRepository implements CachedWishlistsRepositoryInterface, WishlistsRepositoryInterface
+class CachedWishlistsRepository implements CachedWishlistsRepositoryInterface
 {
 
+    /** @var WishlistsRepositoryInterface */
     protected $wishlistsRepository;
 
-    public function __construct(WishlistsRepositoryInterface $wishlistsRepository)
-    {
+    /** @var CacheManagerInterface */
+    protected $cacheManager;
+
+    public function __construct(
+        WishlistsRepositoryInterface $wishlistsRepository,
+        CacheManagerInterface $cacheManager
+    ) {
         $this->wishlistsRepository = $wishlistsRepository;
+        $this->cacheManager = $cacheManager;
+    }
+
+    /**
+     * @param  User  $user
+     *
+     * @return LengthAwarePaginator
+     */
+    public function getByUser(User $user) :LengthAwarePaginator
+    {
+        return Cache::tags(CacheTags::WHISHLIST)
+            ->rememberForever($this->cacheManager->authCacheKey(), function () use ($user) {
+                return $this->wishlistsRepository->getByUser($user);
+            });
     }
 
     /**
@@ -24,37 +44,15 @@ class CachedWishlistsRepository implements CachedWishlistsRepositoryInterface, W
      */
     public function getProducts(Wishlist $wishlist)
     {
-        $key = md5(request()->fullUrl());
-
-        \Log::info($key);
-
-        event(new WishlistTouched(['foo']));
-
-        return Cache::rememberForever($key, function () use ($wishlist) {
-            return $this->wishlistsRepository->getProducts($wishlist);
-        });
+        return Cache::tags(CacheTags::WHISHLIST)
+            ->rememberForever($this->cacheManager->authCacheKey(), function () use ($wishlist) {
+                return $this->wishlistsRepository->getProducts($wishlist);
+            });
     }
 
-    public function getByUser(User $user) :LengthAwarePaginator
+    public function clearCache(): void
     {
-        $wishlists = $user->wishlists()
-            ->orderBy('id', 'desc')
-            ->paginate();
-
-        return $wishlists;
-    }
-
-    /**
-     * @inheritDoc
-     */
-    public function create(array $data) :Wishlist
-    {
-        \Log::info(request()->fullUrl());
-
-        $wishlist = new Wishlist();
-        $wishlist->create($data);
-
-        return $wishlist;
+        $this->cacheManager->flushTags(CacheTags::WHISHLIST);
     }
 
 }

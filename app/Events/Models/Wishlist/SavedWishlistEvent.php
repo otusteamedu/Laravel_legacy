@@ -4,7 +4,10 @@
  * @link https://0x25.ru
  */
 
-class Tags
+namespace App\Events\Models\Wishlist;
+
+
+class SavedWishlistEvent extends WishlistsEvent
 {
 
 }

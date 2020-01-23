@@ -7,15 +7,34 @@
 namespace App\Services\Products;
 
 
+use App\Models\Products;
+use App\Models\WishlistProduct;
+use App\Services\Products\Repositories\CachedProductsRepositoryInterface;
 use App\Services\Products\Repositories\ProductsRepositoryInterface;
 
 class ProductsService
 {
+    /** @var ProductsRepositoryInterface */
     protected $productsRepository;
+    /** @var CachedProductsRepositoryInterface */
+    protected $cachedProductsRepository;
 
-    public function __construct(ProductsRepositoryInterface $productsRepository)
-    {
+    public function __construct(
+        ProductsRepositoryInterface $productsRepository,
+        CachedProductsRepositoryInterface $cachedProductsRepository
+    ) {
         $this->productsRepository = $productsRepository;
+        $this->cachedProductsRepository = $cachedProductsRepository;
+    }
+
+    /**
+     * @param  int  $id
+     *
+     * @return Products
+     */
+    public function getProductById(int $id) :Products
+    {
+        return $this->cachedProductsRepository->getProductById($id);
     }
 
     /**
@@ -24,5 +43,13 @@ class ProductsService
     public function create(array $data) :void
     {
         $this->productsRepository->create($data);
+    }
+
+    /**
+     * @param  WishlistProduct  $wishlistProduct
+     */
+    public function delete(WishlistProduct $wishlistProduct) :void
+    {
+        $this->productsRepository->delete($wishlistProduct);
     }
 }

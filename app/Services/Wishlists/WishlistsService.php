@@ -15,13 +15,17 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 class WishlistsService
 {
 
-    /**
-     * @var WishlistsRepositoryInterface
-     */
+    /** @var CachedWishlistsRepositoryInterface */
+    protected $cachedWishlistsRepository;
+
+    /** @var WishlistsRepositoryInterface */
     protected $wishlistsRepository;
 
-    public function __construct(CachedWishlistsRepositoryInterface $wishlistsRepository)
+    public function __construct(
+        WishlistsRepositoryInterface $wishlistsRepository,
+        CachedWishlistsRepositoryInterface $cachedWishlistsRepository)
     {
+        $this->cachedWishlistsRepository = $cachedWishlistsRepository;
         $this->wishlistsRepository = $wishlistsRepository;
     }
 
@@ -35,7 +39,7 @@ class WishlistsService
          */
         $user = \Auth::user();
 
-        return $this->wishlistsRepository->getByUser($user);
+        return $this->cachedWishlistsRepository->getByUser($user);
     }
 
     /**
@@ -45,7 +49,7 @@ class WishlistsService
      */
     public function products(Wishlist $wishlist) :LengthAwarePaginator
     {
-        return $this->wishlistsRepository->getProducts($wishlist);
+        return $this->cachedWishlistsRepository->getProducts($wishlist);
     }
 
     /**
