@@ -9,7 +9,6 @@ namespace App\Services\Cache;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Log;
 
 class CacheManager implements CacheManagerInterface
 {
@@ -20,7 +19,6 @@ class CacheManager implements CacheManagerInterface
     public function publicCacheKey(?string $route = null) :string
     {
         $key = $route ?? request()->fullUrl();
-        Log::info($key);
 
         return md5($key);
     }
@@ -34,8 +32,6 @@ class CacheManager implements CacheManagerInterface
         $key[] = $route ?? request()->fullUrl();
         $key = implode('|', $key);
 
-        Log::info($key);
-
         return md5($key);
     }
 
@@ -44,8 +40,6 @@ class CacheManager implements CacheManagerInterface
      */
     public function clearKey(string $key) :bool
     {
-        Log::info('clearKey|'.$key);
-
         return Cache::forget($key);
     }
 
@@ -54,7 +48,6 @@ class CacheManager implements CacheManagerInterface
      */
     public function flushTags($tags) :void
     {
-        Log::info('flushTags');
         Cache::tags($tags)->flush();
     }
 
