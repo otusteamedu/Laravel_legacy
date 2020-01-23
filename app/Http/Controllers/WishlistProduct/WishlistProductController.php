@@ -4,28 +4,30 @@ namespace App\Http\Controllers\WishlistProduct;
 
 use App\Http\Controllers\Controller;
 use App\Models\WishlistProduct;
+use App\Services\Products\ProductsService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 
 class WishlistProductController extends Controller
 {
 
-    public function __construct()
+    protected $productsService;
+
+    public function __construct(ProductsService $productsService)
     {
         $this->authorizeResource(WishlistProduct::class, 'wishlist_product');
+        $this->productsService = $productsService;
     }
 
     /**
      * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\WishlistProduct  $wishlistProduct
      *
      * @return RedirectResponse
      * @throws \Exception
      */
     public function destroy(WishlistProduct $wishlistProduct)
     {
-        $wishlistProduct->delete();
+        $this->productsService->delete($wishlistProduct);
 
         return Redirect::back();
     }

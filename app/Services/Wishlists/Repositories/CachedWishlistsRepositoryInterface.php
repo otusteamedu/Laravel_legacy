@@ -10,27 +10,24 @@ use App\Models\User;
 use App\Models\Wishlist;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-interface WishlistsRepositoryInterface
+interface CachedWishlistsRepositoryInterface
 {
-
     /**
      * @param  User  $user
      *
      * @return LengthAwarePaginator
      */
-    public function getByUser(User $user);
+    public function getByUser(User $user) :LengthAwarePaginator;
 
     /**
      * @param  Wishlist  $wishlist
      *
-     * @return LengthAwarePaginator
+     * @return mixed
      */
     public function getProducts(Wishlist $wishlist);
 
     /**
-     * @param  array  $data
-     *
-     * @return Wishlist
+     * @return mixed
      */
-    public function create(array $data) :Wishlist;
+    public function clearCache();
 }

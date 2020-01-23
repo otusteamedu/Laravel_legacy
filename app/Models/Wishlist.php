@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Events\Models\Wishlist\DeletedWishlistEvent;
+use App\Events\Models\Wishlist\SavedWishlistEvent;
+use App\Listeners\Cache\ClearWishlistsCache;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
@@ -33,7 +36,12 @@ class Wishlist extends BaseModel
 
     protected $fillable = [
         'name',
-        'user_id'
+        'user_id',
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => SavedWishlistEvent::class,
+        'deleted' => DeletedWishlistEvent::class,
     ];
 
     /**
