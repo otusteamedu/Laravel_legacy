@@ -3,21 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
+use App\Services\News\NewsService;
 use Illuminate\Http\Request;
 use Cache;
+use App\Http\Controllers\Cms\Requests;
 
 class NewsController extends Controller
 {
-    public function getAll(Request $request)
-    {
-        $key = $request->fullUrl();
+    private $newsService;
 
-        if (!Cache::has($key)) {
-            $data = News::all();
-            Cache::put($key, $data, 180);
-        } else {
-            $data = Cache::get($key);
-        }
+    public function __construct(NewsService $newsService)
+    {
+        $this->newsService = $newsService;
+    }
+
+    public function getAll()
+    {
+
+        $data = $this->newsService->getCachedNews();
 
         return view('news', compact('data'));
     }
@@ -26,8 +29,6 @@ class NewsController extends Controller
     {
         Cache::flush();
     }
-
-
 
 
 }
