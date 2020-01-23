@@ -13,7 +13,8 @@
         "laravel/framework": "^6.2",
         "laravel/telescope": "^2.1",
         "laravel/tinker": "^1.0",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "watson/rememberable": "^3.2"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

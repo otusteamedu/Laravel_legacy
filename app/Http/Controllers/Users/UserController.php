@@ -11,7 +11,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Redirector;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\View;
 
 class UserController extends Controller
 {
@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        \View::share(
+        View::share(
             [
                 'user' => $request->user(),
             ]
@@ -103,7 +103,7 @@ class UserController extends Controller
             \Session::flash('message', 'Profile successfully updated!');
         }
 
-        \View::share(
+        View::share(
             [
                 'user' => $profile,
             ]

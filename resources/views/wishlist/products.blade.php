@@ -24,6 +24,11 @@
                 @include('wishlist.partial.products.loop')
 
             </table>
+
+            <div class="m-md-auto">
+                {{ $products->links() }}
+            </div>
+
         </div>
     </div>
 @endsection

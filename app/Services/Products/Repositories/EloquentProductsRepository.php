@@ -5,14 +5,24 @@ namespace App\Services\Products\Repositories;
 use App\Models\Products;
 use App\Models\WishlistProduct;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Support\Facades\Cache;
 
 class EloquentProductsRepository implements ProductsRepositoryInterface
 {
+    /** @var Factory */
     protected $factory;
 
     public function __construct(Factory $factory)
     {
         $this->factory = $factory;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getProductById(int $id) :Products
+    {
+        return Products::find($id);
     }
 
     /**
@@ -26,14 +36,20 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
 
     /**
      * @inheritDoc
+     * @throws \Exception
+     */
+    public function delete(WishlistProduct $wishlistProduct) :void
+    {
+        $wishlistProduct->delete();
+    }
+
+    /**
+     * @inheritDoc
      */
     public function createProduct(array $data) :array
     {
-        $productData = $this->factory->raw(Products::class);
-        $productData['productTitle'] = $data['product_name'];
-
-        $product = new Products();
-        $product->create($productData);
+        $productData = $this->factory->createAs(Products::class,
+            'products', ['productTitle' => $data['product_name'],])->toArray();
 
         return $productData;
     }

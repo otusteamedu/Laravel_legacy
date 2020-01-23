@@ -4,12 +4,12 @@ namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Products\Request\ProductsRequest;
-use App\Models\Products;
 use App\Services\Products\ProductsService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use Illuminate\Support\Facades\View;
 
 class ProductController extends Controller
 {
@@ -40,16 +40,16 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @param  Request  $request
      *
-     * @param  Products  $product
-     *
-     * @return Factory|View
+     * @return Factory|\Illuminate\View\View
      */
-    public function show(Products $product)
+    public function show(Request $request)
     {
-        \View::share([
-            'product' => $product,
+        $productId = $request->route()->product;
+
+        View::share([
+            'product' => $this->productsService->getProductById($productId),
         ]);
 
         return view('product.detail');
