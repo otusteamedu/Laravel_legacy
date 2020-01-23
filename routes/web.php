@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +13,34 @@
 */
 
 Route::get('/', function () {
-    return view('pages/homepage2');
+
+    /**
+     * @var \App\Models\Products $product
+     */
+    $product = \App\Models\Products::first();
+
+
+    $ss = $product->category;
+
+    foreach ($ss as $item){
+        echo $item->name;
+    }
+
+    dd($ss);
+    $ss1 = $product->category()->get();
+
+    //$ss2 = $product->category()->get();
+
+   dd($ss1->product);
+   /// dd($ss1->name);
+//    dd($ss2);
+    foreach ($ss2 as $tt){
+//        echo $tt->id;
+        echo $tt->name;
+    }
+
+    //return view('pages/homepage2');
+
 });
 Route::get('account', function () {
     return view('pages/account');
