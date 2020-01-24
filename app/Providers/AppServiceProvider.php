@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Cache\CacheManager;
 use App\Services\Cache\CacheManagerInterface;
+use App\Services\Commands\Games\Hangman\Repositories\ConsoleHangmanRepository;
+use App\Services\Commands\Games\Hangman\Repositories\ConsoleHangmanRepositoryInterface;
 use App\Services\Products\Repositories\EloquentProductsRepository;
 use App\Services\Products\Repositories\CachedProductsRepository;
 use App\Services\Products\Repositories\CachedProductsRepositoryInterface;
@@ -46,5 +48,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CachedWishlistsRepositoryInterface::class, CachedWishlistsRepository::class);
         $this->app->bind(CacheManagerInterface::class, CacheManager::class);
         $this->app->bind(CachedProductsRepositoryInterface::class, CachedProductsRepository::class);
+        $this->app->bind(ConsoleHangmanRepositoryInterface::class, ConsoleHangmanRepository::class);
     }
 }
