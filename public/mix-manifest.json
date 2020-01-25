@@ -1,0 +1,18 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/vendor/materialize/css/materialize.css": "/vendor/materialize/css/materialize.css",
+    "/css/app.css": "/css/app.css",
+    "/css/layouts/main.css": "/css/layouts/main.css",
+    "/css/pages/login.css": "/css/pages/login.css",
+    "/css/pages/master/users/list.css": "/css/pages/master/users/list.css",
+    "/css/pages/master/users/detail.css": "/css/pages/master/users/detail.css",
+    "/css/pages/master/users/edit.css": "/css/pages/master/users/edit.css",
+    "/css/pages/master/records/list.css": "/css/pages/master/records/list.css",
+    "/css/pages/master/records/edit.css": "/css/pages/master/records/edit.css",
+    "/js/pages/master/records/create_edit.js": "/js/pages/master/records/create_edit.js",
+    "/js/pages/master/records/list.js": "/js/pages/master/records/list.js",
+    "/js/pages/master/users/detail.js": "/js/pages/master/users/detail.js",
+    "/js/pages/master/users/edit.js": "/js/pages/master/users/edit.js",
+    "/js/pages/master/users/list.js": "/js/pages/master/users/list.js",
+    "/vendor/materialize/js/materialize.js": "/vendor/materialize/js/materialize.js"
+}

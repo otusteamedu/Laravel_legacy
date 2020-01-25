@@ -1,0 +1,22 @@
+@import "~materialize-css/sass/components/color-variables";
+@import "~materialize-css/sass/components/color-classes";
+
+html, body {
+    height: 100%;
+}
+
+html {
+    background-image: url('/assets/images/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    display: table;
+    margin: auto;
+    @extend .cyan;
+
+    body {
+        display: table-cell;
+        vertical-align: middle;
+    }
+}

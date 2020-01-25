@@ -1,1 +1,24 @@
-//
+@import "~materialize-css/sass/components/color-variables";
+@import "~materialize-css/sass/components/color-classes";
+
+.no-margin {
+    margin: 0 !important;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+
+.sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+}
+
+.pagination li.active {
+    @extend .cyan;
+}
+
+.page-footer {
+    margin-top: 30px;
+}
