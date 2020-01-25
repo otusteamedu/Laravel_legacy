@@ -7,7 +7,7 @@
         <div class="container">
             <h4>Создание записи</h4>
 
-            @component('components.pages.master.record.create_edit_form', ['button_text' => 'Создать'])@endcomponent
+            @component('components.pages.master.record.create-edit-form', ['button_text' => 'Создать'])@endcomponent
         </div>
     </main>
 @endsection
