@@ -13,7 +13,7 @@ class CreateMastersClientsTable extends Migration
      */
     public function up(): void
     {
-        Schema::create('masters_clients', function (Blueprint $table) {
+        Schema::create('masters_client', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('master_id')->index();
             $table->unsignedBigInteger('client_id');
@@ -31,6 +31,6 @@ class CreateMastersClientsTable extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('masters_clients');
+        Schema::dropIfExists('masters_client');
     }
 }
