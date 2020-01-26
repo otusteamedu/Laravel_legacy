@@ -9,7 +9,7 @@
 
 @section('pageContent')
     <main>
-        <p class="center">/admin/edit</p>
+        <p>views/pages/admin/create.blade.php</p>
         <h4>Добавить пользователя</h4>
         <form id="profile" method="POST" action="/users">
             @csrf

@@ -9,7 +9,7 @@
 
 @section('pageContent')
     <main>
-        <p>/admin/index</p>
+        <p>views/pages/admin/index.blade.php</p>
         <div><img src="../img/admin.png"></div>
         <h4>Пользователи</h4>
         <p class="center"><a href="/users/create">+ Новый пользователь</a></p>

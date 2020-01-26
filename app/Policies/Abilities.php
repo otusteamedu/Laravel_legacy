@@ -10,6 +10,7 @@ namespace App\Policies;
 class Abilities
 {
 
+    const IS_ADMIN = 'isAdmin';
     const VIEW_ANY = 'viewAny';
     const VIEW = 'view';
     const CREATE = 'create';

@@ -6,6 +6,7 @@ use App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class PagesController extends Controller
 {
@@ -16,7 +17,6 @@ class PagesController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
     }
 
     /**
@@ -26,7 +26,7 @@ class PagesController extends Controller
      */
     public function index()
     {
-        return view("pages.home");
+        return view("pages.index");
     }
 
     /**
@@ -37,7 +37,22 @@ class PagesController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        return view('pages/profile')->withUser($user);
+        $userType = "рядовой пользователь";
+        if($user!=null)
+        {
+            if($user->level == User::LEVEL_ADMIN)
+            {
+                $userType = "администратор";
+            }
+        }
+
+        $data =
+            [
+                'user'=>$user,
+                'userType'=>$userType,
+            ];
+
+        return view('pages/profile', $data);
     }
 
 }

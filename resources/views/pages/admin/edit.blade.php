@@ -9,7 +9,7 @@
 
 @section('pageContent')
     <main>
-        <p class="center">/admin/edit</p>
+        <p>views/pages/admin/edit.blade.php</p>
         <h4>Карточка пользователя</h4>
         <form id="profile" method="POST" action="/users/{{$user->id}}">
             @csrf

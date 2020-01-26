@@ -10,7 +10,7 @@ nav
     text-align:center;
 
     border-bottom:2px solid white;
-    
+
     h1
     {
         margin-bottom:0px;
@@ -23,12 +23,19 @@ nav
         margin-bottom:0px;
         a
         {
+            display:inline-block;
+            padding:10px 20px;
             color:white;
+            border-radius:5px;
         }
         a:hover
         {
             color:white;
-            text-decoration:underline solid orange;                  
+            background-color: orange;
+        }
+        .selected
+        {
+            background-color: orangered;
         }
     }
 }

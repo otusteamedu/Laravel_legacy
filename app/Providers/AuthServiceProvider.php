@@ -18,7 +18,6 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
         User::class => UserPolicy::class,
     ];
 
@@ -31,25 +30,22 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        /* Gate::before(function($user) {
+        // Админу всё разрешено
+        Gate::before(function($user) {
             $result = false;
-            if($user->level === User::LEVEL_ADMIN)
+            if($user->level == User::LEVEL_ADMIN)
             {
                 $result = true;
             }
             return $result;
-        });*/
-
-        Gate::define(Abilities::VIEW,function(User $currentUser, User $user)
-        {
-            // Оказывается, что первый параметр - $user это всегда текущий authenticated user!!!
-            // Соот-но условие
-            // auth()->user()->id === $user->id
-            // не работает! Результат будет всегда true, ведь
-            // auth()->user() === $user
-            // return auth()->user()->id === $user->id;
-            return $currentUser->id === $user->id;
-            // return true;
         });
+
+        // Из-за наличия Gate::before этот метод уже не актуален, но пусть будет
+        Gate::define(Abilities::IS_ADMIN,function(User $user)
+        {
+            $result = $user->level == User::LEVEL_ADMIN ? true:false;
+            return $result;
+        });
+
     }
 }

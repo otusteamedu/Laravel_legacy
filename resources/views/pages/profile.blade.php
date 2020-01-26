@@ -9,8 +9,9 @@
 
 @section('pageContent')
     <main>
-        <p>/profile</p>
+        <p>views/pages/profile.blade.php</p>
         <h4>Мой профиль</h4>
+        <p>Полномочия : {{$userType}}</p>
         <form id="profile" method="POST" action="/profile/{{$user->id}}">
             @csrf
             @method('PATCH')
@@ -29,9 +30,6 @@
                 <button type="submit" class="button primary">Сохранить</button>
             </div>
         </form>
-
-        <br/>
-        @include('blocks.logout')
 
     </main>
 

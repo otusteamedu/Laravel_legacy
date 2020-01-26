@@ -11,8 +11,10 @@ use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Services\Users\UsersService;
 use App\Http\Controllers\Controller;
-//use Gate;
+
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 
 class UsersController extends Controller
 {
@@ -28,8 +30,9 @@ class UsersController extends Controller
     {
         $this->user = $user;
         $this->usersService = $userService;
+        $this->middleware('auth');
+        $this->middleware('admin-only')->except('updateProfile');
     }
-    /////////////////////////////////////////////////////////////
     /**
      * Display a listing of the resource.
      *
@@ -37,6 +40,12 @@ class UsersController extends Controller
      */
     public function index()
     {
+        /* Не показывай список пользователей не админам.
+           Этот Gate уже не нужен, т.к. заменён middleware('admin-only') в конструкторе.
+        if (Gate::denies(Abilities::IS_ADMIN))
+        {
+            abort(403);
+        }*/
         $users = $this->user->all();
         return view('pages.admin.index')->withUsers($users);
     }
@@ -71,31 +80,6 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        /* Способ 1 - Ручная проверка id - OK
-       $id1 = auth()->user()->id;
-       $id2 = $user->id;
-       //authenticated user, который будет смотреть пользователя - это одно лицо ?
-       $sameUser = $id1 === $id2;
-       //пользователь админ ?
-       $isAdmin = auth()->user()->level === User::LEVEL_ADMIN;
-       if(!$sameUser && !$isAdmin)
-       {
-           abort(403);
-       }
-       */
-
-        // Способ 2 - использование Gates
-        // Смотри правило в AuthServiceProvider.php
-        if (Gate::forUser(auth()->user())->denies(Abilities::VIEW, $user))
-        {
-            abort(403);
-        }
-
-        /* Способ 3 - Используя политику UserPolicy.php
-        if (auth()->user()->cant('view', $user))
-        {
-            abort(403);
-        }*/
         return view('pages.admin.show')->withUser($user);
     }
 
@@ -144,7 +128,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+         $user->delete();
         return redirect(route('cms.users.index'));
     }
 
@@ -157,20 +141,19 @@ class UsersController extends Controller
      */
     public function updateProfile(UpdateProfileRequest $request, User $user)
     {
-        // входящий запрос валидный
+         // входящий запрос валидный
         $data = [
             'source' => config('shop.default_type'),
             'type' => config('shop.default_type'),
-            //'operator' => request('operator'),
             'name' => request('name'),
             'phone' => request('phone'),
             'email' => request('email'),
             'address' => request('address'),
-            //'comments' => request('comments'),
         ];
 
         $user = $this->usersService->updateProfile($user,$data);
         $updated= true;
         return redirect(route('profile',['user'=>$user, 'updated'=>$updated]));
     }
+
 }

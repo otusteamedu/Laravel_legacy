@@ -9,14 +9,10 @@
 
 @section('pageContent')
     <main>
-        <p>/home</p>
-        <div><img src="img/minion.svg"></div>
-        <h4>Личный кабинет</h4>
-        <p>пользователя</p>
+        <p>views/pages/home.blade.php</p>
+        <h4>Кабинет пользователя</h4>
         <br/>
         <p><a href="/profile">Указать свои контакты</a></p>
-        <p><a href="/katalog">Перейти к покупкам</a></p>
-        @include('blocks.logout')
     </main>
 
 @endsection

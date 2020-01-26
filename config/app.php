@@ -179,6 +179,7 @@ return [
          * Мои сервис-провайдеры
          */
         App\Services\Users\UsersServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
     ],
 
     /*
