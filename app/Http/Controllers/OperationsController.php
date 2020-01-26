@@ -4,16 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Services\OperationsService;
 use App\Models\Operation;
-use App\Models\Category;
+use App\Services\CategoriesService;
+use App\Services\Cache\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class OperationsController extends Controller
 {
     protected $operationsService;
+    protected $categoriesService;
+    protected $tag;
 
-    public function __construct(OperationsService $operationsService){
+    const CACHE_SET_TIME_IN_SECONDS = 600;
+
+    public function __construct(
+        OperationsService $operationsService,
+        CategoriesService $categoriesService,
+        Tag $tag
+    ){
         $this->operationsService = $operationsService;
+        $this->categoriesService = $categoriesService;
+        $this->tag = $tag;
     }
 
     /**
@@ -39,7 +51,7 @@ class OperationsController extends Controller
      */
     public function create()
     {
-        return view('users.operations.create', ['categories' => Category::all()]);
+        return view('users.operations.create', ['categories' =>  $this->categoriesService->getAllCategories()]);
     }
 
     /**
@@ -62,6 +74,8 @@ class OperationsController extends Controller
 
         $this->operationsService->storeOperation($data);
 
+        Cache::tags([$this->tag::OPERATIONS, $this->tag::INCOME_COUNT, $this->tag::CONSUMPTION_COUNT])->flush();
+
         return redirect()->route('home');
     }
 
@@ -73,7 +87,7 @@ class OperationsController extends Controller
      */
     public function edit(Operation $operation)
     {
-        return view('users.operations.edit', ['operation' => $operation, 'categories' => Category::all()]);
+        return view('users.operations.edit', ['operation' => $operation, 'categories' => $this->categoriesService->getAllCategories()]);
     }
 
     /**
@@ -96,6 +110,8 @@ class OperationsController extends Controller
 
         $this->operationsService->updateOperation($data, $operation);
 
+        Cache::tags([$this->tag::OPERATIONS, $this->tag::INCOME_COUNT, $this->tag::CONSUMPTION_COUNT])->flush();
+
         return redirect()->route('home');
     }
 
@@ -108,6 +124,8 @@ class OperationsController extends Controller
     public function destroy($id)
     {
         $this->operationsService->destroyOperation($id);
+
+        Cache::tags([$this->tag::OPERATIONS, $this->tag::INCOME_COUNT, $this->tag::CONSUMPTION_COUNT])->flush();
 
         return redirect()->route('home');
     }
@@ -122,13 +140,22 @@ class OperationsController extends Controller
         $all = $request->all();
         $period = $all['period'];
 
-        $operations = $this->operationsService->getUserOperationsForPeriod(Auth::id(), $period);
-        $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
+        if(!Cache::has('operations_'.$period)){
+            $operations = $this->operationsService->getUserOperationsForPeriod(Auth::id(), $period);
+            Cache::tags([$this->tag::OPERATIONS])->put('operations_'.$period, $operations, self::CACHE_SET_TIME_IN_SECONDS);
+        } else {
+            $operations = Cache::get('operations_'.$period);
+        }
+
+        if(!Cache::has('incomeCount_'.$period) || !Cache::has('consumptionCount_'.$period)){
+            $incomeConsumptionCount = $this->operationsService->getIncomeConsumptionCount($operations);
+            Cache::tags([$this->tag::INCOME_COUNT])->put('incomeCount_'.$period, $incomeConsumptionCount['incomeCount'], self::CACHE_SET_TIME_IN_SECONDS);
+            Cache::tags([$this->tag::CONSUMPTION_COUNT])->put('consumptionCount_'.$period, $incomeConsumptionCount['consumptionCount'], self::CACHE_SET_TIME_IN_SECONDS);
+        }
 
         return json_encode([
             'operations' => $operations,
-            'incomeCount' => $incomeConsumptionCount['incomeCount'],
-            'consumptionCount' => $incomeConsumptionCount['consumptionCount']
-        ], JSON_UNESCAPED_UNICODE);
+            'incomeCount' => Cache::get('incomeCount_'.$period),
+            'consumptionCount' =>  Cache::get('consumptionCount_'.$period)], JSON_UNESCAPED_UNICODE);
     }
 }
