@@ -60,21 +60,12 @@ class UsersController extends Controller
     public function create(CreateUserRequest $request)
     {
         $data = $request->getData();
-        $result = $this->usersService->createUser($data);
+        $userId = $this->usersService->createUser($data);
 
-        if ($result) {
-            $success = true;
-            $userId = $result;
-            $status = 200;
-        } else {
-            $success = false;
-            $userId = false;
-            $status = 400;
-        }
         return response([
-            'success' => $success,
+            'success' => true,
             'id' => $userId
-        ], $status);
+        ], 200);
     }
 
 

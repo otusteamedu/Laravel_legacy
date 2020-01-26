@@ -9,7 +9,7 @@
             <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
-                <th scope="col">Username</th>
+                <th scope="col">Название</th>
                 <th scope="col">Email</th>
                 <th scope="col">Роль</th>
             </tr>
@@ -19,11 +19,11 @@
                 <th scope="row">{{ user.id }}</th>
                 <td>
                     <router-link :to="{ name: 'admin.user.edit', params: {id: user.id}}">
-                        {{ user.username }}
+                        {{ user.name }}
                     </router-link>
                 </td>
                 <td>{{ user.email }}</td>
-                <td>{{ user.role }}</td>
+                <td>{{ user.role.description }}</td>
             </tr>
             </tbody>
         </table>
@@ -45,8 +45,9 @@
         },
         methods: {
             getUsersList(page = 1) {
-                axios.get('/api/admin/user/list?page=' + page)
+                axios.get('/admin/user/list?page=' + page)
                     .then(response => {
+                        console.log(response.data);
                         this.usersList = response.data;
                     });
             }

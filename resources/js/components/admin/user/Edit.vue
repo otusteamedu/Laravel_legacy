@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <h2>Редактирование пользователя {{ username }}</h2>
+        <h2>Редактирование пользователя {{ name }}</h2>
         <div v-if="isUpdateSuccess" class="alert alert-success" role="alert">
             Данные обновлены успешно!
         </div>
@@ -9,9 +9,9 @@
         </div>
         <form>
             <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" class="form-control" id="username" placeholder="username" readonly
-                       v-model="username">
+                <label for="name">Наименование</label>
+                <input type="text" class="form-control" id="name" placeholder="name" readonly
+                       v-model="name">
             </div>
             <div class="form-group">
                 <label for="email">Email</label>
@@ -54,7 +54,7 @@
             return {
                 rolesList: [],
                 userId: null,
-                username: null,
+                name: null,
                 userRoleId: null,
                 userEmail: null,
                 dateCreated: null,
@@ -67,7 +67,7 @@
             sendData() {
                 this.isUpdateSuccess = false;
                 this.hasUpdateErrors = false;
-                axios.put('/api/admin/user/update/' + this.userId, {
+                axios.put('/admin/user/update/' + this.userId, {
                     email: this.userEmail,
                     role_id: this.userRoleId,
                 })
@@ -82,17 +82,17 @@
                     });
             },
             getRolesList() {
-                axios.get('/api/admin/role/list')
+                axios.get('/admin/role/list')
                     .then(response => {
                         this.rolesList = response.data;
                         console.log(response.data);
                     });
             },
             getUserData(id) {
-                axios.get('/api/admin/user/get-user/' + id)
+                axios.get('/admin/user/get-user/' + id)
                     .then(response => {
                         this.userId = response.data.id;
-                        this.username = response.data.username;
+                        this.name = response.data.name;
                         this.userRoleId = response.data.role_id;
                         this.userEmail = response.data.email;
                         this.dateCreated = response.data.created_at;

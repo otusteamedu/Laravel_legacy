@@ -10,19 +10,11 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-use App\Models\User;
-use Illuminate\Support\Facades\DB;
 
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');
 
-Route::get('/admin/{any}', 'AdminSpaController@index')->where('any', '.*');
-
-Route::get('/test', function () {
-    $rt = DB::table('users', 'u')
-        ->select(['u.id', 'u.username', 'u.email', 'roles.title'])
-        ->join('roles', 'u.role_id', '=', 'roles.id')
-        ->get();
-    dd($rt);
-});
+//Route::get('/test', function () {
+//
+//});
 
 

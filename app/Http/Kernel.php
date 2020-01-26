@@ -2,6 +2,8 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\AcceptAdminPanel;
+use App\Http\Middleware\AcceptProfile;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -61,6 +63,8 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'accept-admin-panel' => AcceptAdminPanel::class,
+        'accept-profile' => AcceptProfile::class,
     ];
 
     /**

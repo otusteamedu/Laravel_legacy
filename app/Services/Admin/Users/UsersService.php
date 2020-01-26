@@ -6,9 +6,8 @@ namespace App\Services\Admin\Users;
 
 use App\Models\User;
 use App\Services\Admin\Users\Handlers\CreateUserHandler;
-use App\Services\Admin\Users\Handlers\GetUserByIdHandler;
-use App\Services\Admin\Users\Handlers\GetUsersListHandler;
 use App\Services\Admin\Users\Handlers\UpdateUserHandler;
+use App\Services\Admin\Users\Repositories\UsersRepository;
 
 /**
  * Class UsersService
@@ -17,14 +16,9 @@ use App\Services\Admin\Users\Handlers\UpdateUserHandler;
 class UsersService
 {
     /**
-     * @var GetUsersListHandler
+     * @var UsersRepository
      */
-    private $getUsersListHandler;
-
-    /**
-     * @var GetUserByIdHandler
-     */
-    private $getUserById;
+    private $usersRepository;
 
     /**
      * @var UpdateUserHandler
@@ -38,21 +32,18 @@ class UsersService
 
     /**
      * UsersService constructor.
-     * @param GetUsersListHandler $getUsersListHandler
-     * @param GetUserByIdHandler $getUserByIdHandler
+     * @param UsersRepository $usersRepository
      * @param UpdateUserHandler $updateUserHandler
      * @param CreateUserHandler $createUserHandler
      */
     public function __construct(
-        GetUsersListHandler $getUsersListHandler,
-        GetUserByIdHandler $getUserByIdHandler,
+        UsersRepository $usersRepository,
         UpdateUserHandler $updateUserHandler,
         CreateUserHandler $createUserHandler
     )
     {
+        $this->usersRepository = $usersRepository;
         $this->updateUserHandler = $updateUserHandler;
-        $this->getUsersListHandler = $getUsersListHandler;
-        $this->getUserById = $getUserByIdHandler;
         $this->createUserHandler = $createUserHandler;
     }
 
@@ -66,22 +57,23 @@ class UsersService
         return $this->updateUserHandler->handle($user, $data);
     }
 
+
     /**
-     * @return string
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function getUsersList()
     {
-        return $this->getUsersListHandler->handle();
+        return $this->usersRepository->getList();
     }
 
 
     /**
      * @param int $id
-     * @return string
+     * @return \Illuminate\Database\Eloquent\Model|\Illuminate\Database\Query\Builder|object|null
      */
     public function getUserById(int $id)
     {
-        return $this->getUserById->handle($id);
+        return $this->usersRepository->getUserById($id);
     }
 
 
