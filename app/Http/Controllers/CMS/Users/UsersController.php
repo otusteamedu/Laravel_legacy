@@ -5,10 +5,15 @@ namespace App\Http\Controllers\CMS\Users;
 use App\Models\User;
 use App\Http\Controllers\CMS\Users\Requests\UpdateUserRequest;
 use App\Http\Controllers\CMS\Users\Requests\CreateUserRequest;
+use App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Services\Users\UsersService;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 
 class UsersController extends Controller
 {
@@ -24,8 +29,9 @@ class UsersController extends Controller
     {
         $this->user = $user;
         $this->usersService = $userService;
+        $this->middleware('auth');
+        $this->middleware('admin-only')->except('updateProfile');
     }
-    /////////////////////////////////////////////////////////////
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +73,6 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        // Использую model binding. Вместо id получаю сразу user'a.
         return view('pages.admin.show')->withUser($user);
     }
 
@@ -85,7 +90,7 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Http\Requests\UpdateUserRequest $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
@@ -116,7 +121,32 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+         $user->delete();
         return redirect(route('cms.users.index'));
     }
+
+    /**
+     * Update user profile
+     *
+     * @param  \App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function updateProfile(UpdateProfileRequest $request, User $user)
+    {
+         // входящий запрос валидный
+        $data = [
+            'source' => config('shop.default_type'),
+            'type' => config('shop.default_type'),
+            'name' => request('name'),
+            'phone' => request('phone'),
+            'email' => request('email'),
+            'address' => request('address'),
+        ];
+
+        $user = $this->usersService->updateProfile($user,$data);
+        $updated= true;
+        return redirect(route('profile',['user'=>$user, 'updated'=>$updated]));
+    }
+
 }

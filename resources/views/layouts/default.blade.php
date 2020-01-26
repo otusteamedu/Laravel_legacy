@@ -32,6 +32,6 @@
 @include('blocks/common-JS')
 
 <!-- This page JS -->
-
+<script src="/js/@yield('pageName').js"></script>
 </body>
 </html>

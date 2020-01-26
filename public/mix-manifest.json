@@ -1,4 +1,24 @@
 {
+    "/js/admin.create.js": "/js/admin.create.js",
+    "/js/admin.edit.js": "/js/admin.edit.js",
+    "/js/admin.index.js": "/js/admin.index.js",
+    "/js/admin.show.js": "/js/admin.show.js",
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/css/home.css": "/css/home.css",
+    "/css/index.css": "/css/index.css",
+    "/css/katalog.css": "/css/katalog.css",
+    "/css/login.css": "/css/login.css",
+    "/css/profile.css": "/css/profile.css",
+    "/css/register.css": "/css/register.css",
+    "/css/admin.create.css": "/css/admin.create.css",
+    "/css/admin.edit.css": "/css/admin.edit.css",
+    "/css/admin.index.css": "/css/admin.index.css",
+    "/css/admin.show.css": "/css/admin.show.css",
+    "/js/home.js": "/js/home.js",
+    "/js/index.js": "/js/index.js",
+    "/js/katalog.js": "/js/katalog.js",
+    "/js/login.js": "/js/login.js",
+    "/js/profile.js": "/js/profile.js",
+    "/js/register.js": "/js/register.js"
 }

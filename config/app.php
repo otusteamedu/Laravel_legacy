@@ -161,8 +161,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        // добавил свои сервис-провайдеры:
-        App\Services\Users\UsersServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -177,6 +175,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Мои сервис-провайдеры
+         */
+        App\Services\Users\UsersServiceProvider::class,
+        App\Providers\BladeServiceProvider::class,
     ],
 
     /*

@@ -8,13 +8,11 @@
 @section('pageTitle', 'Интернет-магазин фруктов')
 
 @section('pageContent')
-    <main>    
-        <p>/index</p>
+    <main>
+        <p>views/pages/index.blade.php</p>
         <div><img src="img/girl.jpg"></div>
-        <h4>Фруктовая Лавка</h4> 
+        <h4>Фруктовая Лавка</h4>
         <p>интернет-магазин<br/>спелых фруктов</p>
-
-  
     </main>
-    
+
 @endsection

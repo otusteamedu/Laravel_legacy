@@ -11,44 +11,39 @@
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
+/*
+ * prefix('ku') => URI: ku/users
+ * name('cms.') => route name : cms.users.index
+ */
+Route::prefix('')->group(function () {
+    Route::name('cms.')->group(function () {
+        // Route::resources(['users' => 'CMS\Users\UsersController', ], [  'except' => [  ],  ]);
+        // или тоже самое, в развёнутом виде :
+        Route::resources(
+            [
+                'users' => 'CMS\Users\UsersController',
+            ],
+            [
+                'except' => [  ],
+            ]
+        ); // close resources
+    });
 });
 
-Route::get('/index', function () {
-    return view('pages/index');
-});
+Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::get('/login', function () {
-    return view('pages/login');
-});
-
-Route::get('/register', function () {
-    return view('pages/register');
-});
-
-Route::get('/home', function () {
-    return view('pages/home');
-});*/
-
-//Route::get('/home','UsersController@show');
+Auth::routes();
 
 Route::get('/katalog', function () {
     return view('pages/katalog');
 });
 
-Route::name('cms.')->group(function () {
-    Route::prefix('')->group(function () {
-        Route::resources([
-            'users' => 'CMS\Users\UsersController',
-        ], [
-            'except' => [
-            ],
-        ]);
-    });
-});
-//Route::resource('users','CMS\Users\UsersController');
+Route::get('/', 'PagesController@index')->name('index');
 
-/*Route::get('/admin/index','UsersController@index');
-Route::get('/admin/users/{id}','UsersController@show');*/
+Route::get('/profile', 'PagesController@profile')->name('profile')->middleware('auth');
 
+// пришлось прописать полный путь, иначе, если прописать только UsersController@updateProfile, то
+// выдаёт ошибку \App\Http\Controllers\UsersController.php not found
+Route::patch('/profile/{user}', '\App\Http\Controllers\CMS\Users\UsersController@updateProfile')->name('update.profile')->middleware('auth');
+
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware('auth');

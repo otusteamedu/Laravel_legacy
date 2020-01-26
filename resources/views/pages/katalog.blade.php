@@ -8,14 +8,20 @@
 @section('pageTitle', 'Интернет-магазин фруктов')
 
 @section('pageContent')
-    <main>    
-        <p>/katalog</p>
+    <main>
+        <p>views/pages/katalog.blade.php</p>
+
+        @auth
+            <p>Пользователь авторизован.</p>
+        @else
+            <p>Пользователь НЕ авторизован.</p>
+        @endauth
         <h4>Каталог</h4>
 
         @php
             // включаем файл, внутри которого описывается массив $product
             // массив содержит данные о товаре (фруктах)
-            include 'php/products.php';                     
+            include 'php/products.php';
         @endphp
 
         @foreach ($product as $fruit)
@@ -27,9 +33,9 @@
                 </div>
             <p>Цена за кг : {{ $fruit['price']}} руб.</p>
         </div>
-        @endforeach   
-            
-  
+        @endforeach
+
+
     </main>
-    
+
 @endsection

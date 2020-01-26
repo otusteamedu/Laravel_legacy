@@ -9,7 +9,7 @@
 
 @section('pageContent')
     <main>
-        <p class="center">/admin/show</p>
+        <p class="center">views/pages/admin/show.blade.php</p>
         <h4>Карточка пользователя</h4>
         <div id="data">
             <table>
