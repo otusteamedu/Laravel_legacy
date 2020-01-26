@@ -6,10 +6,11 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
+use Watson\Rememberable\Rememberable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Rememberable;
 
     const IS_ADMIN = 'admin';
     const IS_USER = 'user';

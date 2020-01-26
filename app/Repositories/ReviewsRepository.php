@@ -8,7 +8,7 @@ class ReviewsRepository
 {
     public function gelAllReviews()
     {
-        return Review::with('user')->get();
+        return Review::with('user')->paginate();
     }
 
     public function storeReview($data){

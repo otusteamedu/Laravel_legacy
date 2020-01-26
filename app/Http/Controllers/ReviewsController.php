@@ -4,21 +4,28 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Services\ReviewsService;
+use App\Services\Cache\Tag;
+use App\Services\Cache\Key;
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Cache;
 
 use App\Models\Review;
 
 class ReviewsController extends Controller
 {
     protected $reviewsService;
+    protected $tag;
+
+    const CACHE_SET_TIME_IN_SECONDS = 600;
 
     public function __construct(
-        ReviewsService $reviewsService
+        ReviewsService $reviewsService,
+        Tag $tag
     )
     {
         $this->reviewsService = $reviewsService;
+        $this->tag = $tag;
     }
 
     /**
@@ -28,11 +35,13 @@ class ReviewsController extends Controller
      */
     public function index()
     {
-
-        $reviews = $this->reviewsService->gelAllReviews();
+        if(!Cache::has(Key::REVIEWS)){
+            $reviews = $this->reviewsService->gelAllReviews();
+            Cache::tags([$this->tag::REVIEWS])->put(Key::REVIEWS, $reviews, self::CACHE_SET_TIME_IN_SECONDS);
+        }
 
         return view('users.reviews.list', [
-            'reviews' => $reviews,
+            'reviews' => Cache::get(Key::REVIEWS),
             'userId' =>  Auth::id(),
         ]);
     }
@@ -70,6 +79,8 @@ class ReviewsController extends Controller
 
         $this->reviewsService->storeReview($data);
 
+        Cache::tags([$this->tag::REVIEWS])->flush();
+
         return redirect()->route('reviews.index');
     }
 
@@ -102,6 +113,8 @@ class ReviewsController extends Controller
 
         $this->reviewsService->updateReview($data, $review);
 
+        Cache::tags([$this->tag::REVIEWS])->flush();
+
         return redirect()->route('reviews.index');
     }
 
@@ -115,6 +128,8 @@ class ReviewsController extends Controller
     {
         Gate::authorize('update', $id);
         $this->reviewsService->destroyReview($id);
+
+        Cache::tags([$this->tag::REVIEWS])->flush();
 
         return redirect()->route('reviews.index');
     }
