@@ -6,7 +6,6 @@ use App\Models\User;
 use App\Http\Controllers\CMS\Users\Requests\UpdateUserRequest;
 use App\Http\Controllers\CMS\Users\Requests\CreateUserRequest;
 use App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest;
-use App\Policies\Abilities;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Services\Users\UsersService;
@@ -40,12 +39,6 @@ class UsersController extends Controller
      */
     public function index()
     {
-        /* Не показывай список пользователей не админам.
-           Этот Gate уже не нужен, т.к. заменён middleware('admin-only') в конструкторе.
-        if (Gate::denies(Abilities::IS_ADMIN))
-        {
-            abort(403);
-        }*/
         $users = $this->user->all();
         return view('pages.admin.index')->withUsers($users);
     }
