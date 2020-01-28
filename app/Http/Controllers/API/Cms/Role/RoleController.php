@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\Cms\Role;
 
 
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
-use App\Http\Controllers\Api\Cms\Role\Requests\CreateRoleRequest;
-use App\Http\Controllers\Api\Cms\Role\Requests\UpdateRoleRequest;
+use App\Http\Controllers\API\Cms\Role\Requests\CreateRoleRequest;
+use App\Http\Controllers\API\Cms\Role\Requests\UpdateRoleRequest;
 use App\Models\Role;
 use App\Services\Role\RoleService;
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API\Cms\Category;
 
 use App\Http\Controllers\API\Cms\Base\BaseCategoryController;
-use App\Http\Controllers\Api\Cms\Category\Requests\CreateCategoryRequest;
-use App\Http\Controllers\Api\Cms\Category\Requests\UpdateCategoryRequest;
+use App\Http\Controllers\API\Cms\Category\Requests\CreateCategoryRequest;
+use App\Http\Controllers\API\Cms\Category\Requests\UpdateCategoryRequest;
 use App\Services\Category\CategoryService;
 use Illuminate\Http\JsonResponse;
 

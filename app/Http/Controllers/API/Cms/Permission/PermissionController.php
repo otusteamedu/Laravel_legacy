@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\Cms\Permission;
 
-use App\Http\Controllers\Api\Cms\Permission\Requests\CreatePermissionRequest;
-use App\Http\Controllers\Api\Cms\Permission\Requests\UpdatePermissionRequest;
+use App\Http\Controllers\API\Cms\Permission\Requests\CreatePermissionRequest;
+use App\Http\Controllers\API\Cms\Permission\Requests\UpdatePermissionRequest;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Models\Permission;
 use App\Services\Permission\PermissionService;

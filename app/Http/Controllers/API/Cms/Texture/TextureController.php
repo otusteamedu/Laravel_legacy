@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\API\Cms\Texture;
 
-use App\Http\Controllers\Api\Cms\Texture\Requests\CreateTextureRequest;
-use App\Http\Controllers\Api\Cms\Texture\Requests\UpdateTextureRequest;
+use App\Http\Controllers\API\Cms\Texture\Requests\CreateTextureRequest;
+use App\Http\Controllers\API\Cms\Texture\Requests\UpdateTextureRequest;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Services\Texture\TextureService;
 use Illuminate\Http\JsonResponse;

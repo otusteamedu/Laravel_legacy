@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\API\Cms\Setting;
 
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
-use App\Http\Controllers\Api\Cms\Setting\Requests\CreateSettingRequest;
-use App\Http\Controllers\Api\Cms\Setting\Requests\SetImageSettingValueRequest;
-use App\Http\Controllers\Api\Cms\Setting\Requests\SetTextSettingValueRequest;
-use App\Http\Controllers\Api\Cms\Setting\Requests\UpdateSettingRequest;
+use App\Http\Controllers\API\Cms\Setting\Requests\CreateSettingRequest;
+use App\Http\Controllers\API\Cms\Setting\Requests\SetImageSettingValueRequest;
+use App\Http\Controllers\API\Cms\Setting\Requests\SetTextSettingValueRequest;
+use App\Http\Controllers\API\Cms\Setting\Requests\UpdateSettingRequest;
 use App\Services\Setting\SettingService;
 use Illuminate\Http\JsonResponse;
 

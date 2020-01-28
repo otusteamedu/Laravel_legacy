@@ -6,10 +6,9 @@ use App\Http\Controllers\API\Cms\SubCategory\SubCategoryController;
 use App\Http\Requests\FormRequest;
 use App\Services\Image\ImageService;
 use App\Services\Owner\OwnerService;
-use App\Http\Controllers\Api\Cms\Owner\Requests\CreateOwnerRequest;
-use App\Http\Controllers\Api\Cms\Owner\Requests\UpdateOwnerRequest;
+use App\Http\Controllers\API\Cms\Owner\Requests\CreateOwnerRequest;
+use App\Http\Controllers\API\Cms\Owner\Requests\UpdateOwnerRequest;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 
 class OwnerController extends SubCategoryController

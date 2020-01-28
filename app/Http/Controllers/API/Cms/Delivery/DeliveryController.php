@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API\Cms\Delivery;
 
 
-use App\Http\Controllers\Api\Cms\Delivery\Requests\CreateDeliveryRequest;
-use App\Http\Controllers\Api\Cms\Delivery\Requests\UpdateDeliveryRequest;
+use App\Http\Controllers\API\Cms\Delivery\Requests\CreateDeliveryRequest;
+use App\Http\Controllers\API\Cms\Delivery\Requests\UpdateDeliveryRequest;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Models\Delivery;
 use App\Services\Delivery\DeliveryService;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\API\Setting\Requests;
+namespace App\Http\Controllers\API\Cms\Setting\Requests;
 
 use App\Http\Requests\FormRequest;
 

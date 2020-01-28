@@ -4,8 +4,8 @@ namespace App\Http\Controllers\API\Cms\Tag;
 
 use App\Http\Controllers\API\Cms\SubCategory\SubCategoryController;
 use App\Services\Tag\TagService;
-use App\Http\Controllers\Api\Cms\Tag\Requests\CreateTagRequest;
-use App\Http\Controllers\Api\Cms\Tag\Requests\UpdateTagRequest;
+use App\Http\Controllers\API\Cms\Tag\Requests\CreateTagRequest;
+use App\Http\Controllers\API\Cms\Tag\Requests\UpdateTagRequest;
 use Illuminate\Http\JsonResponse;
 
 class TagController extends SubCategoryController

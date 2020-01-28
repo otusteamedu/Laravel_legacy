@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\API\Cms\SettingGroup;
 
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
-use App\Http\Controllers\Api\Cms\SettingGroup\Requests\CreateSettingGroupRequest;
-use App\Http\Controllers\Api\Cms\SettingGroup\Requests\UpdateSettingGroupRequest;
+use App\Http\Controllers\API\Cms\SettingGroup\Requests\CreateSettingGroupRequest;
+use App\Http\Controllers\API\Cms\SettingGroup\Requests\UpdateSettingGroupRequest;
 use App\Services\SettingGroup\SettingGroupService;
 use Illuminate\Http\JsonResponse;
 

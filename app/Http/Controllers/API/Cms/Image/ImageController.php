@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Cms\Image;
 
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
-use App\Http\Controllers\Api\Cms\Image\Requests\UpdateImageRequest;
+use App\Http\Controllers\API\Cms\Image\Requests\UpdateImageRequest;
 use App\Http\Requests\FormRequest;
 use App\Services\Image\ImageService;
 use Illuminate\Http\JsonResponse;
