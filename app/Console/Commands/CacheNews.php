@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Services\News\NewsService;
 use Illuminate\Console\Command;
 
-class TestCommand extends Command
+class CacheNews extends Command
 {
     private $newsService;
     /**
@@ -13,14 +13,14 @@ class TestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'otus:lesson{id}';
+    protected $signature = 'Cache:news{id}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Работа с кешем - получение списка новостей';
 
     /**
      * Create a new command instance.
@@ -40,8 +40,17 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $a = $this->argument('id');
-        $b = $this->newsService->getCachedNews();
-        dd($b);
+        $id = $this->argument('id');
+
+        switch ($id) {
+            case 0:
+                $this->newsService->clearCacheNews();
+                echo "Кеш списка новостей очишен".PHP_EOL;
+                break;
+            case 1:
+                $this->newsService->getCachedNews();
+                echo "Кеш списка новостей прогрет".PHP_EOL;
+                break;
+        }
     }
 }
