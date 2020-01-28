@@ -18,6 +18,7 @@ class CreateReportsTable extends Migration
             $table->bigInteger('project_id')->unsigned();
             $table->string('status');
             $table->index('project_id');
+            $table->timestamps();
         });
 
         Schema::table('reports', function (Blueprint $table) {

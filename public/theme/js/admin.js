@@ -36999,7 +36999,7 @@ module.exports = function(module) {
 
 /***/ "./resources/js/admin.js":
 /*!*******************************!*\
-  !*** ./resources/js/admin.js ***!
+  !*** ./resources/js/cms.js ***!
   \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
@@ -37066,12 +37066,12 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ 1:
 /*!***********************************************************!*\
-  !*** multi ./resources/js/admin.js ./resources/js/app.js ***!
+  !*** multi ./resources/js/cms.js ./resources/js/app.js ***!
   \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/work/web/sites/otus/resources/js/admin.js */"./resources/js/admin.js");
+__webpack_require__(/*! /home/work/web/sites/otus/resources/js/cms.js */"./resources/js/admin.js");
 module.exports = __webpack_require__(/*! /home/work/web/sites/otus/resources/js/app.js */"./resources/js/app.js");
 
 
