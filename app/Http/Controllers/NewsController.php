@@ -19,7 +19,6 @@ class NewsController extends Controller
 
     public function getAll()
     {
-
         $data = $this->newsService->getCachedNews();
 
         return view('news', compact('data'));

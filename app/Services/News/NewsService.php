@@ -5,6 +5,7 @@ namespace App\Services\News;
 
 
 use App\Services\News\Repositories\CachedNewsRepository;
+use Cache;
 
 class NewsService
 {
@@ -18,6 +19,16 @@ class NewsService
     public function getCachedNews()
     {
         return $this->cachedNewsRepository->getListNews();
+    }
+
+    public function clearCacheNews()
+    {
+        Cache::flush();
+    }
+
+    public function all()
+    {
+
     }
 
 
