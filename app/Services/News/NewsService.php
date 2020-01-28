@@ -26,10 +26,4 @@ class NewsService
         Cache::flush();
     }
 
-    public function all()
-    {
-
-    }
-
-
 }
