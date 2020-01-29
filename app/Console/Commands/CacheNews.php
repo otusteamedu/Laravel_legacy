@@ -51,6 +51,6 @@ class CacheNews extends Command
             $this->newsService->getCachedId($id);
         }
 
-       
+
     }
 }
