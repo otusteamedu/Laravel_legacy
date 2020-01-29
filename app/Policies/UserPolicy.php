@@ -16,19 +16,23 @@ class UserPolicy
      */
     public function before(User $user)
     {
-        return $user->isAdmin();
+        if ($user->isAdmin()) {
+            return true;
+        };
     }
 
     /**
      * Determine whether the logged-in user can update given user.
+     * @param \App\Models\User $authUser
      * @param \App\Models\User $user
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $authUser, User $user)
     {
+        // по умолчанию, первый пользователь - authenticated user.
         $result = false;
         if (Auth::check()) {
-            $result = auth()->user()->id === $user->id;
+            $result = $authUser->id === $user->id;
         }
         return $result;
     }
