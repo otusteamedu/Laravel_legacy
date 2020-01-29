@@ -6,10 +6,10 @@ namespace App\Services\User;
 
 use App\Http\Requests\FormRequest;
 use App\Models\User;
+use App\Services\Base\Resource\BaseResourceService;
 use App\Services\User\Handlers\CreateUserHandler;
 use App\Services\User\Handlers\UpdateUserHandler;
 use App\Services\User\Repositories\UserRepository;
-use App\Services\Base\Resource\BaseResourceService;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserService extends BaseResourceService
@@ -30,6 +30,7 @@ class UserService extends BaseResourceService
     )
     {
         parent::__construct($repository);
+        $this->repository = $repository;
         $this->storeHandler = $createUserHandler;
         $this->updateHandler = $updateUserHandler;
     }
@@ -49,7 +50,7 @@ class UserService extends BaseResourceService
      */
     public function store(FormRequest $request): User
     {
-        return $this->storeHandler->handle($request);
+        return $this->storeHandler->handle($request, $this->repository);
     }
 
     /**
@@ -61,6 +62,50 @@ class UserService extends BaseResourceService
     {
         $user = $this->repository->show($id);
 
-        return $this->updateHandler->handle($request, $user);
+        return $this->updateHandler->handle($request, $user, $this->repository);
+    }
+
+    /**
+     * @param FormRequest $request
+     * @param string $service
+     * @return User
+     */
+    public function storeWithSocial(FormRequest $request, string $service): User
+    {
+        $user = $this->store($request);
+
+        if (!$user->hasSocialLinked($service))
+            $this->storeUserSocial($user, $request->social_id, $service);
+
+        return $user;
+    }
+
+    /**
+     * @param $user
+     * @param $socialId
+     * @param $service
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function storeUserSocial($user, $socialId, $service)
+    {
+        return $this->repository->storeUserSocial($user, $socialId, $service);
+    }
+
+    /**
+     * @param int $id
+     * @return User
+     */
+    public function getUserBySocialId(int $id): User
+    {
+        return $this->repository->getUserBySocialId($id);
+    }
+
+    /**
+     * @param string $email
+     * @return User
+     */
+    public function getUserByEmail(string $email): User
+    {
+        return $this->repository->getUserByEmail($email);
     }
 }

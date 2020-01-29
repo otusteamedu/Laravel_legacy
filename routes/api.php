@@ -13,6 +13,30 @@ use Illuminate\Http\Request;
 |
 */
 
+
+// Authorisation
+
+Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function() {
+    Route::post('/register', 'Auth\RegisterController@register');
+    Route::post('/login', 'Auth\LoginController@login');
+
+    Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
+    Route::get('/login/{service}/callback', 'Auth\SocialLoginController@callback');
+    Route::post('/login/{service}/register', 'Auth\SocialLoginController@registered');
+
+    // Send reset password mail
+    Route::post('/reset-password', 'Auth\ForgotPasswordController@sendPasswordResetLink');
+    Route::post('/reset/password', 'Auth\ResetPasswordController@callResetPassword');
+});
+
+Route::group(['prefix' => '/auth'], function() {
+    Route::get('/', 'Auth\AuthController@index')->middleware('jwt.auth');
+    Route::get('/logout', 'Auth\AuthController@logout')->middleware('jwt.auth');
+});
+
+
+// Cms
+
 Route::group(['prefix' => 'manager'], function() {
 
 

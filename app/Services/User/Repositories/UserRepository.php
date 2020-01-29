@@ -10,6 +10,7 @@ use App\Services\User\Resources\User as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 
+
 class UserRepository extends BaseResourceRepository
 {
     /**
@@ -72,25 +73,83 @@ class UserRepository extends BaseResourceRepository
         return $item;
     }
 
-//    public function createWithRoleUser($request) {
-//        $user = User::create([
-//            'name' => $request['name'],
-//            'email' => $request['email'],
-//            'password' => bcrypt($request['password']),
-//            'verified' => 0
-//        ])->attachRole('user');
-//
-//        return $user;
-//    }
-
     /**
      * @param string $oldPassword
      * @param string $newPassword
      * @param User $user
      */
-    public function setPassword (string $oldPassword, string $newPassword,  User $user) {
+    public function setPassword (string $oldPassword, string $newPassword,  User $user)
+    {
         password_verify($oldPassword, $user->password)
             ? $user->password = bcrypt($newPassword)
             : abort(422, trans('auth.wrong_active_password'));
+    }
+
+    /**
+     * @param User $user
+     */
+    public function setVerifyToken(User $user)
+    {
+        $user->verifyUser()->updateOrCreate(
+            ['user_id' => $user->id],
+            ['token' => sha1(time())]);
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function verifyUser(User $user)
+    {
+        return $user->verified ? false : $user->update(['verified' => 1]);
+    }
+
+    /**
+     * @param $token
+     * @return mixed
+     */
+    public function getUserVerify($token)
+    {
+        return User::getUserVerify($token);
+    }
+
+    /**
+     * @param $email
+     * @return mixed
+     */
+    public function getUserByEmail($email)
+    {
+        return User::where('email', $email)->first();
+    }
+
+    /**
+     * @param User $user
+     */
+    public function sendEmailVerificationNotification(User $user)
+    {
+        $user->sendEmailVerificationNotification();
+    }
+
+    /**
+     * @param User $user
+     * @param string $socialId
+     * @param string $service
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function storeUserSocial(User $user, string $socialId, string $service)
+    {
+        return $user->socials()->create([
+            'social_id' => $socialId,
+            'service' => $service
+        ]);
+    }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function getUserBySocialId(int $id)
+    {
+        return $this->model::getUserBySocialId($id)->first();
     }
 }

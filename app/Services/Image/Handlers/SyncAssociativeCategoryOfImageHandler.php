@@ -23,8 +23,10 @@ class SyncAssociativeCategoryOfImageHandler
         $this->repository = $repository;
     }
 
-    public function handle(string $relation, $data, Image $image) {
+    public function handle(string $relation, $data, Image $image)
+    {
         $syncData = [];
+        
         if ($data) {
             foreach ($data as $value) {
                 $syncData[$value] = ['category_type' => $relation];

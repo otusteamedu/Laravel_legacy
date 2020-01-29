@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Http\UploadedFile;
 use App\Services\Uploader\Uploader;
 use Faker\Generator as Faker;
+use Tymon\JWTAuth\JWTAuth;
 
 if (! function_exists('getUploadedFileFromPath')) {
     function getUploadedFileFromPath($path, $public = false)
@@ -82,6 +83,13 @@ if (! function_exists('getFakerImage')) {
         }
 
         return $uploadedImage;
+    }
+}
+
+if (! function_exists('jwtAuth')) {
+    function jwtAuth()
+    {
+        return app()->make(JWTAuth::class);
     }
 }
 

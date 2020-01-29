@@ -12,24 +12,18 @@ use Illuminate\Support\Arr;
 class CreateUserHandler
 {
     /**
-     * @var UserRepository
-     */
-    private $repository;
-
-    public function __construct(UserRepository $repository)
-    {
-        $this->repository = $repository;
-    }
-
-    /**
      * @param FormRequest $request
+     * @param UserRepository $repository
      * @return User
      */
-    public function handle(FormRequest $request): User
+    public function handle(FormRequest $request, UserRepository $repository): User
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
 
-        return $this->repository->store($data);
+        if (!Arr::has($data, 'roles'))
+            $data['roles'] = config('roles.default_role');
+
+        return  $repository->store($data);
     }
 }

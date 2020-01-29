@@ -28,8 +28,7 @@ class UserSocialRequest extends FormRequest
             'name' => 'bail|required|string|min:' . config('validation.name.min','') . '|max:' . config('validation.name.max',''),
             'email' => 'bail|required|email|max:' . config('validation.email.max','') . '|unique:users,email',
             'password' => 'bail|required|string|min:' . config('validation.password.min','') . '|max:' . config('validation.password.max','') . '|confirmed',
-            'social_id' => 'bail|required|string',
-            'service' => 'required|string'
+            'social_id' => 'bail|required|string'
         ];
     }
 }
