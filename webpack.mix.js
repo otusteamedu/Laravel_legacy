@@ -19,12 +19,12 @@ mix.sass('resources/sass/app.scss', 'public/theme/css/bootstrap.css')
     .js('resources/js/app.js', 'public/theme/js/all.js')
 
     //Admin
-    .styles(['resources/css/admin.css',
+    .styles(['resources/css/cms.css',
         'public/theme/css/bootstrap.css',
-    ], 'public/theme/css/admin.css')
-    .js(['resources/js/admin.js',
+    ], 'public/theme/css/cms.css')
+    .js(['resources/js/cms.js',
         'resources/js/app.js',
-    ], 'public/theme/js/admin.js')
+    ], 'public/theme/js/cms.js')
 
 
 
