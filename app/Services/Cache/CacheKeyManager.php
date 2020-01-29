@@ -6,8 +6,10 @@ namespace App\Services\Cache;
 
 class CacheKeyManager
 {
-    public function generateKey()
+    public function generateNewsKey($id = null)
     {
-        return md5('news.list');
+        return md5('news.list'.$id);
     }
+
+
 }

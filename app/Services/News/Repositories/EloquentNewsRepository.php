@@ -12,4 +12,9 @@ class EloquentNewsRepository
     {
         return News::all();
     }
+
+    public function getId($id)
+    {
+        return News::find($id);
+    }
 }

@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Services\News\NewsService;
 use Illuminate\Console\Command;
 
-class CacheNews extends Command
+class CacheNewsClear extends Command
 {
     private $newsService;
     /**
@@ -13,14 +13,14 @@ class CacheNews extends Command
      *
      * @var string
      */
-    protected $signature = 'news:cache {time?} {--id=}';
+    protected $signature = 'news:clear';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Кеширование новостей';
+    protected $description = 'Очистке кеша';
 
     /**
      * Create a new command instance.
@@ -40,17 +40,6 @@ class CacheNews extends Command
      */
     public function handle()
     {
-        $time = $this->argument('time');
-        $id = $this->option('id');
-
-        if (!empty($time) && empty($id)) {
-            $this->newsService->getCachedNews($time);
-        }
-
-        if (!empty($id) && empty($time)) {
-            $this->newsService->getCachedId($id);
-        }
-
-       
+        $this->newsService->clearCacheNews();
     }
 }

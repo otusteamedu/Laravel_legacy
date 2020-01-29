@@ -16,9 +16,14 @@ class NewsService
         $this->cachedNewsRepository = $cachedNewsRepository;
     }
 
-    public function getCachedNews()
+    public function getCachedNews($time = null)
     {
-        return $this->cachedNewsRepository->getListNews();
+        return $this->cachedNewsRepository->getListNews($time);
+    }
+
+    public function getCachedId($id)
+    {
+        return $this->cachedNewsRepository->getFindId($id);
     }
 
     public function clearCacheNews()

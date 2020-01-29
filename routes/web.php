@@ -43,6 +43,8 @@ Route::name('csm.')->group(function () {
 });
 
 Route::get('/news', 'NewsController@getAll');
+Route::get('/news/{id}', 'NewsController@getId');
+
 Route::get('/news/clear', 'NewsController@clearCache');
 
 Route::get('/test', 'Subscription\MainController@index');
