@@ -47,3 +47,5 @@ Route::get('/news/{id}', 'NewsController@getId');
 
 Route::get('/news/clear', 'NewsController@clearCache');
 
+Route::get('/test','Subscriptions\MainController@index');
+Route::match(['get','post'],'/test/write','Subscriptions\MainController@write')->name('write');
