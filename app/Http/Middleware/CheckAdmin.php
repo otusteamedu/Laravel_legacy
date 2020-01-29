@@ -11,21 +11,19 @@ class CheckAdmin
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
         // пользователь = админ ?
         $is_admin = false;
-        if(Auth::check())
-        {
+        if (Auth::check()) {
             $user = auth()->user();
-            $is_admin = $user->level == User::LEVEL_ADMIN ? true:false;
+            $is_admin = $user->level == User::LEVEL_ADMIN ? true : false;
         }
-        if(!$is_admin)
-        {
+        if (!$is_admin) {
             abort(403);
         }
         return $next($request);

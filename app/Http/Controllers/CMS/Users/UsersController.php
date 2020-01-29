@@ -20,6 +20,7 @@ class UsersController extends Controller
     // Добавил для паттерна Репозиторий
     protected $user;
     protected $usersService;
+
     /**
      * UsersController constructor.
      *
@@ -32,6 +33,7 @@ class UsersController extends Controller
         $this->middleware('auth');
         $this->middleware('admin-only')->except('updateProfile');
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +62,7 @@ class UsersController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
-        $data=$request->getFormData();
+        $data = $request->getFormData();
         $user = $this->usersService->createUser($data);
         return redirect(route('cms.users.index'));
     }
@@ -68,7 +70,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return Response
      */
     public function show(User $user)
@@ -79,7 +81,7 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
      * @return Response
      */
     public function edit(User $user)
@@ -90,8 +92,8 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateUserRequest $request
-     * @param  \App\Models\User  $user
+     * @param \App\Http\Requests\UpdateUserRequest $request
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(UpdateUserRequest $request, User $user)
@@ -108,8 +110,8 @@ class UsersController extends Controller
             'comments' => request('comments'),
         ];
 
-        $user = $this->usersService->updateUser($user,$data);
-        return redirect(route('cms.users.show',['user'=>$user]));
+        $user = $this->usersService->updateUser($user, $data);
+        return redirect(route('cms.users.show', ['user' => $user]));
     }
 
     /**
@@ -121,20 +123,26 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-         $user->delete();
+        $user->delete();
         return redirect(route('cms.users.index'));
     }
 
     /**
      * Update user profile
      *
-     * @param  \App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest $request
-     * @param  \App\Models\User  $user
+     * @param \App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest $request
+     * @param \App\Models\User $user
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function updateProfile(UpdateProfileRequest $request, User $user)
     {
-         // входящий запрос валидный
+        // Проверка : auth()->user()->id === $user->id ИЛИ $user->level === User::LEVEL_ADMIN ?
+        // Но проверим используя UserPolicy.php, метод update()
+        if (auth()->user()->cant('update', $user)) {
+            abort(403);
+        }
+        // входящий запрос валидный
+        // и пользователь имеет полномочия обновить данные
         $data = [
             'source' => config('shop.default_type'),
             'type' => config('shop.default_type'),
@@ -144,9 +152,9 @@ class UsersController extends Controller
             'address' => request('address'),
         ];
 
-        $user = $this->usersService->updateProfile($user,$data);
-        $updated= true;
-        return redirect(route('profile',['user'=>$user, 'updated'=>$updated]));
+        $user = $this->usersService->updateProfile($user, $data);
+        $updated = true;
+        return redirect(route('profile', ['user' => $user, 'updated' => $updated]));
     }
 
 }

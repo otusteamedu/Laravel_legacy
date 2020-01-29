@@ -63,4 +63,12 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Models\Order');
     }
+
+    /**
+     * @return bool is this user admin ?
+     */
+    public function isAdmin(): bool
+    {
+        return $this->level === self::LEVEL_ADMIN;
+    }
 }

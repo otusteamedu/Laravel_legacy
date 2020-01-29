@@ -28,25 +28,24 @@ class BladeServiceProvider extends ServiceProvider
         // custom Blade directives:
 
         // проверка по URI
-        Blade::if('request', function($name){
+        Blade::if('request', function ($name) {
             return request()->is($name);
         });
 
         // пользователь авторизован ?
-        Blade::if('auth', function(){
+        Blade::if('auth', function () {
             $user = auth()->user();
-            return $user!=null;
+            return $user != null;
             // также можно и вот так:
             // return Auth::check();
         });
 
         // пользователь - админ ?
-        Blade::if('admin', function(){
+        Blade::if('admin', function () {
             $result = false;
             $user = auth()->user();
-            if($user!=null)
-            {
-                $user->level === User::LEVEL_ADMIN ? $result=true:$result=false;
+            if ($user != null) {
+                $user->level === User::LEVEL_ADMIN ? $result = true : $result = false;
             }
             return $result;
         });
