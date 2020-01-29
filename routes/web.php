@@ -24,7 +24,7 @@ Route::prefix('')->group(function () {
                 'users' => 'CMS\Users\UsersController',
             ],
             [
-                'except' => [  ],
+                'except' => [],
             ]
         ); // close resources
     });

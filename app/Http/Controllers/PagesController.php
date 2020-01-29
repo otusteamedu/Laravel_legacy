@@ -37,19 +37,18 @@ class PagesController extends Controller
     public function profile()
     {
         $user = Auth::user();
-        $userType = "рядовой пользователь";
-        if($user!=null)
-        {
-            if($user->level == User::LEVEL_ADMIN)
-            {
-                $userType = "администратор";
+        //$userType = "рядовой пользователь";
+        if ($user != null) {
+            $userType = __('messages.users.levels.ordinary');
+            if ($user->level == User::LEVEL_ADMIN) {
+                $userType = __('messages.users.levels.admin');
             }
         }
 
         $data =
             [
-                'user'=>$user,
-                'userType'=>$userType,
+                'user' => $user,
+                'userType' => $userType,
             ];
 
         return view('pages/profile', $data);

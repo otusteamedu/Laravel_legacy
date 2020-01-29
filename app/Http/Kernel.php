@@ -62,7 +62,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         // мой middleware, который выкинет ошибку 403, если пользователь не авторизован И не админ
-        'admin-only'=> \App\Http\Middleware\CheckAdmin::class
+        'admin-only' => \App\Http\Middleware\CheckAdmin::class
     ];
 
     /**
