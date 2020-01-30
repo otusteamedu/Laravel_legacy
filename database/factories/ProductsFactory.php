@@ -28,4 +28,4 @@ $factory->define(Products::class, function (Faker $faker) {
         "productUrl" => $faker->url,
         "allImageUrls" => implode(',', [$faker->imageUrl, $faker->imageUrl, $faker->imageUrl]),
     ];
-}, 'products');
+});
