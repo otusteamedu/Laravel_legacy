@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\FileController;
+
 Route::get('/', function () {
     return view('front.index');
 });
@@ -47,5 +49,14 @@ Route::get('/news/{id}', 'NewsController@getId');
 
 Route::get('/news/clear', 'NewsController@clearCache');
 
-Route::get('/test','Subscriptions\MainController@index');
-Route::match(['get','post'],'/test/write','Subscriptions\MainController@write')->name('write');
+Route::get('/test', 'Subscriptions\MainController@index');
+Route::match(['get', 'post'], '/test/write', 'Subscriptions\MainController@write')->name('write');
+
+Route::get('/log', function () {
+    Log::info('test');
+    echo "ok";
+});
+
+Route::get('/file', [FileController::class, 'index']);
+Route::post('/file', [FileController::class, 'store'])->name('store');
+
