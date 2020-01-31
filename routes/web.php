@@ -12,11 +12,20 @@
 |
 */
 
+/**
+ * @var
+ */
+
+Route::name('admin.')->group(function (){
+    Route::prefix('admin')->group(function (){
+       Route::resource('category','Admin\CategoryProductController');
+    });
+});
+
 Route::get('/', function () {
 
-    /**
-     * @var \App\Models\Products $product
-     */
+
+    /*
     $product = \App\Models\Products::first();
 
 
@@ -38,8 +47,8 @@ Route::get('/', function () {
 //        echo $tt->id;
         echo $tt->name;
     }
-
-    //return view('pages/homepage2');
+*/
+    return view('pages/homepage2');
 
 });
 Route::get('account', function () {
