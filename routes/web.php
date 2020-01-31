@@ -34,7 +34,7 @@ Route::get('/cms', function () {
 });
 
 Route::name('csm.')->group(function () {
-    Route::prefix('cms')->group(function () {
+    Route::prefix('/{lang}/cms')->middleware('localize')->group(function () {
         Route::resources([
             'projects' => 'Cms\Projects\ProjectsController',
             'tasks' => 'Cms\Tasks\TasksController',

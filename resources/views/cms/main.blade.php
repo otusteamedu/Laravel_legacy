@@ -31,19 +31,19 @@
                     <!-- Вертикальное меню -->
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-0">Календарь отчетов</a>
+                            <a class="nav-link" href="#link-0">@lang('left_menu.calendar')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('csm.projects.index')}}">Работа с проектами</a>
+                            <a class="nav-link" href="{{route('csm.projects.index',['lang' => app()->getLocale()])}}">@lang('left_menu.projects')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-2">Работа с отчетами</a>
+                            <a class="nav-link" href="#link-2">@lang('left_menu.reports')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{route('csm.tasks.index')}}">Работа с задачами</a>
+                            <a class="nav-link" href="{{route('csm.tasks.index',['lang' => app()->getLocale()])}}">@lang('left_menu.tasks')</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-4">Работа с пользователями</a>
+                            <a class="nav-link" href="#link-4">@lang('left_menu.users')</a>
                         </li>
                     </ul>
                 </div>

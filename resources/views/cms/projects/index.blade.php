@@ -19,8 +19,8 @@
                     <td>{{$value->name}}</td>
                     <td>
                         <div class="row">
-                            <a href="{{route('csm.projects.edit',$value->id)}}" class="btn btn-dark">Изменить</a>
-                            {{Form::open(['route'=>['csm.projects.destroy',$value->id],'method' => 'DELETE'])}}
+                            <a href="{{route('csm.projects.edit',['lang' => app()->getLocale(), $value->id])}}" class="btn btn-dark">Изменить</a>
+                            {{Form::open(['route'=>['csm.projects.destroy', 'lang' => app()->getLocale(), $value->id],'method' => 'DELETE'])}}
                             {{Form::submit('Удалить',['class' => 'btn btn-danger ml-1'])}}
                             {{Form::close()}}
                         </div>
@@ -29,7 +29,7 @@
             @endforeach
             </tbody>
         </table>
-        <a href="{{route('csm.projects.create')}}" class="btn btn-success float-right">Добавить</a>
+        <a href="{{route('csm.projects.create',['lang' => app()->getLocale()])}}" class="btn btn-success float-right">Добавить</a>
     </section>
     {{ $data->links() }}
 @endsection
