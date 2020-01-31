@@ -11,6 +11,8 @@
 |
 */
 
+use App\Http\Controllers\FileController;
+
 Route::get('/', function () {
     return view('front.index');
 });
@@ -27,6 +29,34 @@ Route::get('/login', function () {
     return view('front.login');
 });
 
-Route::get('/admin', function () {
-    return view('admin.main');
+Route::get('/cms', function () {
+    return view('cms.main');
 });
+
+Route::name('csm.')->group(function () {
+    Route::prefix('/{lang}/cms')->middleware('localize')->group(function () {
+        Route::resources([
+            'projects' => 'Cms\Projects\ProjectsController',
+            'tasks' => 'Cms\Tasks\TasksController',
+        ]);
+
+
+    });
+});
+
+Route::get('/news', 'NewsController@getAll');
+Route::get('/news/{id}', 'NewsController@getId');
+
+Route::get('/news/clear', 'NewsController@clearCache');
+
+Route::get('/test', 'Subscriptions\MainController@index');
+Route::match(['get', 'post'], '/test/write', 'Subscriptions\MainController@write')->name('write');
+
+Route::get('/log', function () {
+    Log::info('test');
+    echo "ok";
+});
+
+Route::get('/file', [FileController::class, 'index']);
+Route::post('/file', [FileController::class, 'store'])->name('store');
+
