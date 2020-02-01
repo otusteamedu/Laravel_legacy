@@ -8,7 +8,8 @@ class Review extends Model
 {
     protected $fillable = [
         'text',
-        'user_id'
+        'user_id',
+        'active'
     ];
 
     public function user()
