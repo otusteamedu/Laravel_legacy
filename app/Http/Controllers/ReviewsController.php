@@ -74,7 +74,7 @@ class ReviewsController extends Controller
 
         $data = [
             'text' => $request->input('review'),
-            'userId' => Auth::id(),
+            'user_id' => Auth::id(),
         ];
 
         $this->reviewsService->storeReview($data);

@@ -12,10 +12,7 @@ class ReviewsRepository
     }
 
     public function storeReview($data){
-        Review::create([
-            'text' => $data['text'],
-            'user_id' => $data['userId'],
-        ]);
+        Review::create($data);
     }
 
     public function updateReview($data, $review){
