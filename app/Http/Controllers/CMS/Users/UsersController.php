@@ -136,8 +136,6 @@ class UsersController extends Controller
      */
     public function updateProfile(UpdateProfileRequest $request, User $user)
     {
-        // Проверка : auth()->user()->id === $user->id ИЛИ $user->level === User::LEVEL_ADMIN ?
-        // Но проверим используя UserPolicy.php, метод update()
         if (auth()->user()->cant('update', $user)) {
             abort(403);
         }
