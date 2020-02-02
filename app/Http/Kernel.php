@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\AcceptAdminPanel;
 use App\Http\Middleware\AcceptProfile;
+use App\Http\Middleware\Localize;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,6 +66,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'accept-admin-panel' => AcceptAdminPanel::class,
         'accept-profile' => AcceptProfile::class,
+        'localize' => Localize::class,
     ];
 
     /**
