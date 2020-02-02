@@ -26,7 +26,7 @@ class UserLoginRequest extends FormRequest
     {
         return [
             'email' => 'bail|required|email|max:' . config('validation.email.max',''),
-            'password' => 'required|string|min:' . config('validation.password.min','') . '|max:' . config('validation.password.max','') . '|confirmed'
+            'password' => 'required|string|min:' . config('validation.password.min','') . '|max:' . config('validation.password.max','')
         ];
     }
 }

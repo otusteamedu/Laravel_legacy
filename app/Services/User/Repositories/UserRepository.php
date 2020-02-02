@@ -92,7 +92,8 @@ class UserRepository extends BaseResourceRepository
     {
         $user->verifyUser()->updateOrCreate(
             ['user_id' => $user->id],
-            ['token' => sha1(time())]);
+            ['token' => sha1(time())]
+        );
     }
 
     /**
@@ -110,7 +111,7 @@ class UserRepository extends BaseResourceRepository
      */
     public function getUserVerify($token)
     {
-        return User::getUserVerify($token);
+        return User::getUserVerify($token)->first();
     }
 
     /**
@@ -145,10 +146,10 @@ class UserRepository extends BaseResourceRepository
     }
 
     /**
-     * @param int $id
+     * @param string $id
      * @return mixed
      */
-    public function getUserBySocialId(int $id)
+    public function getUserBySocialId(string $id)
     {
         return $this->model::getUserBySocialId($id)->first();
     }

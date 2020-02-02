@@ -11,7 +11,8 @@
 |
 */
 
-Route::get('/user/verify/{token}', 'API\Auth\RegisterController@verifyUser');
+Route::get('/user/verify/{token}', 'API\Auth\AuthController@verifyUser')
+    ->name('user.verify');
 
 Route::get('/', function () {
     return view('pages.index');

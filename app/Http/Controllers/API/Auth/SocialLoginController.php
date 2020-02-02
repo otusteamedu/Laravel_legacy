@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Helpers\Patterns\Strategies\ResponseUserStatus\SocialLoginResponseUserStatusStrategy;
+use App\Http\Controllers\API\Auth\ResponseUserStatus\SocialLoginResponseUserStatusStrategy;
 use App\Http\Controllers\API\Auth\Base\BaseLoginController;
 use App\Http\Controllers\API\Cms\User\Requests\UserSocialRequest;
 use App\Models\User;

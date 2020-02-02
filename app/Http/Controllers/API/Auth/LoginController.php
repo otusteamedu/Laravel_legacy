@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\API\Auth;
 
-use App\Helpers\Patterns\Strategies\ResponseUserStatus\LoginJsonResponseUserStatusStrategy;
+use App\Http\Controllers\API\Auth\ResponseUserStatus\LoginJsonResponseUserStatusStrategy;
 use App\Http\Controllers\API\Auth\Base\BaseLoginController;
-use App\Http\Requests\UserLoginRequest;
+use App\Http\Controllers\API\Cms\User\Requests\UserLoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends BaseLoginController
@@ -41,8 +41,9 @@ class LoginController extends BaseLoginController
             $this->fireLockoutEvent($request);
 
             return response()->json([
-                'messages' => [
-                    'danger' => trans('auth.locked_out')
+                'message' => [
+                    'text' => trans('auth.locked_out'),
+                    'status' => 'danger'
                 ]
             ], 403);
         }
@@ -56,8 +57,9 @@ class LoginController extends BaseLoginController
 
             : response()->json([
                 'errors' => 'incorrectly',
-                'messages' => [
-                    'danger' => trans('auth.wrong_login_pass')
+                'message' => [
+                    'text' => trans('auth.wrong_login_pass'),
+                    'status' => 'danger'
                 ]
             ], 422);
     }

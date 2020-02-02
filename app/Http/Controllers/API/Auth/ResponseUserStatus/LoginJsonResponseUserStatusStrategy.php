@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Patterns\Strategies\ResponseUserStatus;
+namespace App\Http\Controllers\API\Auth\ResponseUserStatus;
 
 trait LoginJsonResponseUserStatusStrategy
 {
@@ -9,8 +9,9 @@ trait LoginJsonResponseUserStatusStrategy
     public function getLockedOut()
     {
         return response()->json([
-            'messages' => [
-                'danger' => trans('auth.locked_out')
+            'message' => [
+                'text' => trans('auth.locked_out'),
+                'status' => 'danger'
             ]
         ], 403);
     }
@@ -18,8 +19,9 @@ trait LoginJsonResponseUserStatusStrategy
     public function getNotVerified($email)
     {
         return response()->json([
-            'messages' => [
-                'warning' => trans('auth.activation_code_sent', ['email' => $email])
+            'message' => [
+                'text' => trans('auth.send_activation_code', ['email' => $email]),
+                'status' => 'warning'
             ]
         ], 401);
     }
@@ -27,8 +29,9 @@ trait LoginJsonResponseUserStatusStrategy
     public function getAllRights($name, $token)
     {
         return response()->json([
-            'messages' => [
-                'success' => trans('auth.welcome_message', ['name' => $name])
+            'message' => [
+                'text' => trans('auth.welcome_message', ['name' => $name]),
+                'status' => 'success'
             ],
             'token' => $token
         ], 200);

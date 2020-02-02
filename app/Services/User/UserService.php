@@ -92,19 +92,19 @@ class UserService extends BaseResourceService
     }
 
     /**
-     * @param int $id
-     * @return User
+     * @param string $id
+     * @return mixed
      */
-    public function getUserBySocialId(int $id): User
+    public function getUserBySocialId(string $id)
     {
         return $this->repository->getUserBySocialId($id);
     }
 
     /**
      * @param string $email
-     * @return User
+     * @return mixed
      */
-    public function getUserByEmail(string $email): User
+    public function getUserByEmail(string $email)
     {
         return $this->repository->getUserByEmail($email);
     }

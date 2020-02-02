@@ -24,7 +24,7 @@ class AuthService extends BaseAuthService
             ];
         }
 
-        $this->logout();
+//        $this->logout();
     }
 
     public function logout()
@@ -40,11 +40,17 @@ class AuthService extends BaseAuthService
     {
         $user = $this->repository->getUserVerify($token);
 
+        if (!$user)
+            return redirect(env('CLIENT_BASE_URL')
+                . '/login?danger='
+                . trans('auth.invalid_token'));
+
         $message = $this->repository->verifyUser($user)
             ? trans('auth.email_verified')
             : trans('auth.email_already_verified');
 
-        return redirect(env('CLIENT_BASE_URL') . '/login?success=' . $message);
+        return redirect(env('CLIENT_BASE_URL')
+            . '/login?success=' . $message);
     }
 
     /**
@@ -62,8 +68,9 @@ class AuthService extends BaseAuthService
      */
     public function getMessageByRegistration(string $email): array
     {
-        return ['messages' => [
-            'primary' => trans('auth.activation_code_sent', ['email' => $email])
+        return ['message' => [
+            'text' => trans('auth.send_activation_code', ['email' => $email]),
+            'status' => 'primary'
         ]];
     }
 }

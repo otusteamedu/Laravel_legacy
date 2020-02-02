@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Helpers\Patterns\Strategies\ResponseUserStatus;
+namespace App\Http\Controllers\API\Auth\ResponseUserStatus;
 
 trait SocialLoginResponseUserStatusStrategy
 {
@@ -21,7 +21,7 @@ trait SocialLoginResponseUserStatusStrategy
             . '/social-callback?'
             . 'origin=login'
             . '&no_verified=true'
-            . '&warning=' . trans('auth.activation_code_sent', ['email' => $email]));
+            . '&primary=' . trans('auth.send_activation_code', ['email' => $email]));
     }
 
     public function getAllRights($name, $token)

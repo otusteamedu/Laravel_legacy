@@ -15,7 +15,7 @@
             <div class="under-input-notice" v-if="vRules && vField.$error">
                 <input-notification-require v-if="!vField.required && vRules.required" :name="title" />
                 <input-notification-unique v-else-if="!vField.isUnique && vRules.unique" :name="title"/>
-                <input-notification-min-string v-else-if="!vField.minLength && vRules.minLength" :name="title"/>
+                <input-notification-min-string v-else-if="!vField.minLength && vRules.minLength" :name="title" :min="min"/>
                 <input-notification-alias v-else-if="!vField.testAlias && vRules.alias" :name="title"/>
                 <input-notification-key v-else-if="!vField.testKey && vRules.key" :name="title"/>
                 <input-notification-num v-else-if="!vField.numeric && vRules.numeric" :name="title"/>

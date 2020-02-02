@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Helpers\Patterns\Strategies\ResponseUserStatus;
+namespace App\Http\Controllers\API\Auth\ResponseUserStatus;
 
 
 trait ResponseUserStatusStrategy
@@ -11,18 +11,15 @@ trait ResponseUserStatusStrategy
      *
      * @param mixed $user
      * @param string $token
-     * @param \App\Repositories\UserRepository $userRepository
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
     public function getUserStatusResponse($user, $token)
     {
         if (!$user->isActive()) {
-
             return $this->getLockedOut();
 
         } else if (!$user->isVerified()) {
-
             $this->authService->createEmailVerification($user);
 
             return $this->getNotVerified($user->email);

@@ -73,8 +73,10 @@ class ResetPasswordController extends Controller
     {
         return response()->json([
             'request' => $request,
-            'messages' => [
-                'success' => trans('auth.password_reset')
+            'message' => [
+                'text' => trans('auth.password_reset'),
+                'status' => 'success',
+                'icon' => 'check'
             ]
         ]);
     }
@@ -88,8 +90,9 @@ class ResetPasswordController extends Controller
     protected function sendResetFailedResponse(Request $request, $response)
     {
         return response()->json([
-            'messages' => [
-                'danger' => trans('auth.invalid_token')
+            'message' => [
+                'text' => trans('auth.invalid_token'),
+                'status' => 'danger'
             ]
         ]);
     }
