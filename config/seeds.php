@@ -31,9 +31,9 @@ return [
             'max' => 9.9
         ]
     ],
-    'roles' => [
-        'default_role' => 'user'
-    ],
+//    'roles' => [
+//        'default_role' => 'user'
+//    ],
     'deliveries' => [
         [
             'title' => 'Самовывоз',

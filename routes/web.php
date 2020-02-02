@@ -11,6 +11,9 @@
 |
 */
 
+Route::get('/user/verify/{token}', 'API\Auth\AuthController@verifyUser')
+    ->name('user.verify');
+
 Route::get('/', function () {
     return view('pages.index');
 })->name('home');

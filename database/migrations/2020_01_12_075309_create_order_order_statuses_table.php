@@ -15,7 +15,7 @@ class CreateOrderOrderStatusesTable extends Migration
     {
         Schema::create('order_order_status', function (Blueprint $table) {
             $table->bigInteger('order_id')->unsigned();
-            $table->bigInteger('status_id')->unsigned();
+            $table->integer('status_id')->unsigned();
             $table->timestamps();
         });
 
@@ -37,6 +37,6 @@ class CreateOrderOrderStatusesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('order_order_statuses');
+        Schema::dropIfExists('order_order_status');
     }
 }
