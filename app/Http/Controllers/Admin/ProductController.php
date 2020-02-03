@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\CategoryProduct;
+use App\Models\Products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\View\View;
 
-class CategoryProductController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,7 @@ class CategoryProductController extends Controller
      */
     public function index(Request $request)
     {
-//        View::share([
-//            'category'=>CategoryProduct::paginate()
-//        ]);
-        return view('admin.category.index',['category'=>CategoryProduct::paginate()]);
+        return view('admin.product.index', ['products' => Products::paginate(),'category'=>$this->categoryProducts(CategoryProduct::all())]);
     }
 
     /**
@@ -30,13 +27,18 @@ class CategoryProductController extends Controller
      */
     public function create()
     {
-        return view('admin.category.create');
+        $category = CategoryProduct::all();
+        foreach ($category as $key => $item) {
+            $result[$item->id] = $item->name;
+        }
+
+        return view('admin.product.create', ['category' => $result]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -46,16 +48,16 @@ class CategoryProductController extends Controller
             '_token',
         ]);
 
-        $store = CategoryProduct::create($data);
+        $store = Products::create($data);
         $insertedId = $store->id;
 
-        return redirect(route('admin.category.index'));
+        return redirect(route('admin.product.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -66,47 +68,50 @@ class CategoryProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param CategoryProduct $category
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(CategoryProduct $category)
+    public function edit(Products $product)
     {
-        return view('admin.category.edit',['category'=>$category]);
+        return view('admin.product.edit', ['product' => $product, 'category' => $this->categoryProducts(CategoryProduct::all())]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CategoryProduct $category)
+    public function update(Request $request, Products $product)
     {
-
-
         $data = $request->all();
         $data = Arr::except($data, [
             '_token',
         ]);
 
-        $category->update($data);
-        return view('admin.category.edit',['category'=>$category]);
-        return redirect(route('admin.category.index'));
+        $product->update($data);
+        return view('admin.product.edit', ['product' => $product,'category' => $this->categoryProducts(CategoryProduct::all())]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $count = CategoryProduct::destroy($id);
-        if($count){
-            return redirect(route('admin.category.index'));
+        $count = Products::destroy($id);
+        return redirect(route('admin.product.index'));
+    }
+
+    private function categoryProducts($collection):array
+    {
+        $result = [];
+        foreach ($collection as $key => $item) {
+            $result[$item->id] = $item->name;
         }
-//        TODO обработать ошибку ?
+        return $result;
     }
 }

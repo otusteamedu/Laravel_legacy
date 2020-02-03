@@ -12,6 +12,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Products extends Model
 {
+
+    protected $fillable = ['name','description','category_id','price'];
+
     public function category(){
         return $this->hasOne(CategoryProduct::class, 'id','category_id');
     }
