@@ -19,7 +19,7 @@
 Route::name('admin.')->group(function (){
     Route::prefix('admin')->group(function (){
        Route::resources([
-           'category'=>'Admin\CategoryProductController',
+           'category'=>'Admin\CategoryProduct\CategoryProductController',
            'product'=>'Admin\ProductController',
        ]);
     });

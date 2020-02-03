@@ -2,15 +2,16 @@
 
 namespace App\Services\Category;
 
+use App\Models\CategoryProduct;
 use App\Services\Category\Handlers\CreateCategoryHandler;
 use App\Services\Category\Repositories\EloquentCategoryRepository;
 
 class CaregoryService
 {
     /** @var CategoryRepositoryInterface */
-    private $countryRepository;
+    private $categoryRepository;
     /** @var CreateCategoryHandler */
-    private $createCountryHandler;
+    private $createCategoryHandler;
 
     public function __construct(
         CreateCategoryHandler $createCategoryHandler,
@@ -18,7 +19,16 @@ class CaregoryService
     )
     {
         $this->createCategoryHandler = $createCategoryHandler;
-        $this->countryRepository = $categoryRepository;
+        $this->categoryRepository = $categoryRepository;
+    }
+
+    /**
+     * @param array $data
+     * @return CategoryProduct
+     */
+    public function createCategory(array $data): CategoryProduct
+    {
+        return $this->createCategoryHandler->handle($data);
     }
 
     /**
@@ -42,13 +52,11 @@ class CaregoryService
      * @param array $data
      * @return Country
      */
-    public function storeCountry(array $data): Country
+    public function storeCategory(array $data): CategoryProduct
     {
-        $country = $this->createCountryHandler->handle($data);
+        $category = $this->createCategoryHandler->handle($data);
 
-        // do some logic
-
-        return $country;
+        return $category;
     }
 
     /**
