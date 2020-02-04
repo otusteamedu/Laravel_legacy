@@ -23,7 +23,15 @@
         <tbody>
         @foreach ($category as $key=>$item)
             <tr>
-                <th scope="row">{{$key+1}}</th>
+                <th scope="row">
+                    @php
+                        if($category->currentPage() == 2){
+                            echo ($key+$category->perPage()+1);
+                        }else{
+                            echo $key+1;
+                        }
+                    @endphp
+                </th>
                 <td><a href="{{ route('admin.category.edit',[$item->id])}}">{{$item->name}}</a></td>
                 <td>{{$item->description}}</td>
                 <td>

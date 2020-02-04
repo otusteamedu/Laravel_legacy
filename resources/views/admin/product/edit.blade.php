@@ -26,7 +26,7 @@
     </div>
     <div class="form-group">
         {{Form::label('category_id', 'Category')}}
-        {{Form::select('category_id', $category, $product->category_id, array('class'=>'form-control','id'=>'category_id'))}}
+        {{Form::select('category_id', $category, $product->category->id, array('class'=>'form-control','id'=>'category_id'))}}
     </div>
     {{ Form::submit('Сохранить', array('class' => 'btn btn-primary')) }}
     {{Form::close()}}

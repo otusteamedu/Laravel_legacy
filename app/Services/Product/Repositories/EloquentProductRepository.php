@@ -1,37 +1,39 @@
 <?php
 
 
-namespace App\Services\Category\Repositories;
+namespace App\Services\Product\Repositories;
 
-use App\Models\CategoryProduct;
+use App\Models\Products;
 use Illuminate\Database\Eloquent\Builder;
 
-class EloquentCategoryRepository implements CategoryRepositoryInterface
+class EloquentProductRepository implements ProductRepositoryInterface
 {
     public function find(int $id)
     {
-        return CategoryProduct::find($id);
+        return Products::with('category')->find($id);
     }
 
-    /** Поиск категорий с фильтром
+    /** Поиск товаров с фильтром
      * @param array $filters
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function search(array $filters = [])
     {
-        $query = CategoryProduct::query();
+        $query = Products::query();
+        //получаем категорию товара
+        $query->with('category')->get();
         $this->applyFilters($query, $filters);
         return $query->paginate();
     }
 
-    public function createFromArray(array $data): CategoryProduct
+    public function createFromArray(array $data): Products
     {
-        $category = new CategoryProduct();
+        $category = new Products();
         $category->create($data);
         return $category;
     }
 
-    public function updateFromArray(CategoryProduct $category, array $data)
+    public function updateFromArray(Products $category, array $data)
     {
         $category->update($data);
         return $category;
@@ -46,11 +48,6 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
 
     public function destroy(int $id)
     {
-        return CategoryProduct::destroy($id);
-    }
-
-    public function getAllCategory()
-    {
-        return CategoryProduct::all();
+        return Products::destroy($id);
     }
 }

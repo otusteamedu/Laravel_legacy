@@ -3,19 +3,19 @@
 namespace App\Http\Controllers\Admin\CategoryProduct;
 
 use App\Http\Controllers\Admin\CategoryProduct\Requests\StoreCategoryRequest;
+use App\Http\Controllers\Admin\CategoryProduct\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryProduct;
-use App\Services\Category\CaregoryService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
-use Illuminate\View\View;
+use App\Services\Category\CategoryService;
+use Illuminate\Support\Facades\View;
+
 
 class CategoryProductController extends Controller
 {
     protected $categoryService;
 
     public function __construct(
-        CaregoryService $categoryService
+        CategoryService $categoryService
     )
     {
         $this->categoryService = $categoryService;
@@ -24,20 +24,21 @@ class CategoryProductController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function index(Request $request)
+    public function index()
     {
-//        View::share([
-//            'category'=>CategoryProduct::paginate()
-//        ]);
-        return view('admin.category.index', ['category' => CategoryProduct::paginate()]);
+        //передаем в переменную выборку из базы
+        View::share([
+            'category'=>$this->categoryService->searchCategory()
+        ]);
+        return view('admin.category.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\Factory|View
      */
     public function create()
     {
@@ -48,7 +49,7 @@ class CategoryProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function store(StoreCategoryRequest $request)
     {
@@ -61,60 +62,46 @@ class CategoryProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param CategoryProduct $category
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\View\Factory|View
      */
-    public function edit(CategoryProduct $category)
+    public function edit($id)
     {
-        return view('admin.category.edit', ['category' => $category]);
+        return view('admin.category.edit', [
+            'category' => $this->categoryService->findCategory($id)
+        ]);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @param UpdateCategoryRequest $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
      */
-    public function update(Request $request, CategoryProduct $category)
+    public function update(UpdateCategoryRequest $request, CategoryProduct $category)
     {
+        //валидация данных
+        $data = $request->getFormData();
 
+        $category = $this->categoryService->updateCategory($category,$data);
 
-        $data = $request->all();
-        $data = Arr::except($data, [
-            '_token',
+        View::share([
+            'category'=>$category
         ]);
 
-        $category->update($data);
-        return view('admin.category.edit', ['category' => $category]);
-        return redirect(route('admin.category.index'));
+        return view('admin.category.edit');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function destroy($id)
     {
-        $count = CategoryProduct::destroy($id);
-        if ($count) {
-            return redirect(route('admin.category.index'));
-        }
-//        TODO обработать ошибку ?
+        $count = $this->categoryService->destroyCategory($id);
+
+        return redirect(route('admin.category.index'));
     }
 }

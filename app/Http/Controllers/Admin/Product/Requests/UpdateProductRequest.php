@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\CategoryProduct\Requests;
+namespace App\Http\Controllers\Admin\Product\Requests;
 
 
 use App\Http\Requests\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

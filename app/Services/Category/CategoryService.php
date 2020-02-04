@@ -4,9 +4,10 @@ namespace App\Services\Category;
 
 use App\Models\CategoryProduct;
 use App\Services\Category\Handlers\CreateCategoryHandler;
-use App\Services\Category\Repositories\EloquentCategoryRepository;
+use App\Services\Category\Repositories\CategoryRepositoryInterface;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CaregoryService
+class CategoryService
 {
     /** @var CategoryRepositoryInterface */
     private $categoryRepository;
@@ -22,7 +23,7 @@ class CaregoryService
         $this->categoryRepository = $categoryRepository;
     }
 
-    /**
+    /** Create Category
      * @param array $data
      * @return CategoryProduct
      */
@@ -33,24 +34,24 @@ class CaregoryService
 
     /**
      * @param int $id
-     * @return Country|null
+     * @return CategoryProduct|null
      */
-    public function findCountry(int $id)
+    public function findCategory(int $id)
     {
-        return $this->countryRepository->find($id);
+        return $this->categoryRepository->find($id);
     }
 
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function searchCountries(): LengthAwarePaginator
+    public function searchCategory(): LengthAwarePaginator
     {
-        return $this->countryRepository->search();
+        return $this->categoryRepository->search();
     }
 
     /**
      * @param array $data
-     * @return Country
+     * @return CategoryProduct
      */
     public function storeCategory(array $data): CategoryProduct
     {
@@ -60,12 +61,31 @@ class CaregoryService
     }
 
     /**
-     * @param Country $country
+     * @param CategoryProduct $country
      * @param array $data
-     * @return Country
+     * @return CategoryProduct
      */
-    public function updateCountry(Country $country, array $data): Country
+    public function updateCategory(CategoryProduct $category, array $data): CategoryProduct
     {
-        return $this->countryRepository->updateFromArray($country, $data);
+        return $this->categoryRepository->updateFromArray($category, $data);
+    }
+
+    public function destroyCategory($id): int
+    {
+        return $this->categoryRepository->destroy($id);
+    }
+
+    public function formatCategoryToArray($categories)
+    {
+        foreach ($categories as $category) {
+            $response[$category->id] = $category->name;
+        }
+
+        return $response;
+    }
+
+    public function getAllCategory()
+    {
+        return $this->categoryRepository->getAllCategory();
     }
 }

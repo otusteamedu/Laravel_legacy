@@ -13,5 +13,7 @@ interface CategoryRepositoryInterface
 
     public function createFromArray(array $data): CategoryProduct;
 
-    public function updateFromArray(CategoryProduct $country, array $data);
+    public function updateFromArray(CategoryProduct $category, array $data);
+
+    public function destroy(int $id);
 }

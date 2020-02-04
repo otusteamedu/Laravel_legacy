@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin\CategoryProduct\Requests;
 
 use App\Http\Requests\FormRequest;
 
-class StoreCategoryRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

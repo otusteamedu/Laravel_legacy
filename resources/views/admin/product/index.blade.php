@@ -22,10 +22,19 @@
         <tbody>
         @foreach ($products as $key=>$item)
             <tr>
-                <th scope="row">{{$key+1}}</th>
+                <th scope="row">
+                @php
+                    if($products->currentPage() == 2){
+                        echo ($key+$products->perPage()+1);
+                    }else{
+                        echo $key+1;
+                    }
+                @endphp
+                </th>
                 <td><a href="{{ route('admin.product.edit',[$item->id])}}">{{$item->name}}</a></td>
                 <td>{{$item->price}}&nbsp;&#8381;</td>
-                <td>{{$category[$item->category_id]}}</td>
+                <td>{{$item->category->name}}</td>
+{{--                <td>{{$category[$item->category_id]}}</td>--}}
                 <td>{{$item->description}}</td>
                 <td>
                     <a class="btn btn-link" href="{{route('admin.product.edit',[$item->id])}}" role="button">Edit</a>
@@ -34,4 +43,5 @@
         @endforeach
         </tbody>
     </table>
+    {{$products->links()}}
 @endsection
