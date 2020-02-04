@@ -34,9 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Auth::routes();
 
-Route::get('/katalog', function () {
-    return view('pages/katalog');
-});
+Route::get('/katalog', 'PagesController@katalog')->name('katalog');
 
 Route::get('/', 'PagesController@index')->name('index');
 

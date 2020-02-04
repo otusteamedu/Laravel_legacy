@@ -30,6 +30,16 @@ class PagesController extends Controller
     }
 
     /**
+     * Покажи товарный каталог.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function katalog()
+    {
+        return view("pages.katalog");
+    }
+
+    /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
