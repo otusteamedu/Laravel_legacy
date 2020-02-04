@@ -22,14 +22,12 @@ class userControllerTest extends TestCase
      * Для админов должен показать страницу.
      * Для НЕ-админов - выдать ошибку 403.
      * @param string $routeToTest
-     * @testWith
-     * ["cms.users.index"]
-     * ["cms.users.create"]
+     * @dataProvider routesToTestWithoutUserData
      * @return void
      */
     public function testRoutes($routeToTest)
     {
-        // $this->markTestSkipped();
+        $this->markTestSkipped();
         // Проверка доступа для админа
         $admin = $this->makeAdmin();
         $response = $this->from(route($routeToTest))->actingAs($admin)->get(route($routeToTest));
@@ -39,6 +37,52 @@ class userControllerTest extends TestCase
         $user = $this->makeUser();
         $response = $this->from(route($routeToTest))->actingAs($user)->get(route($routeToTest));
         $response->assertStatus(403);//у простого пользователя доступа нет, код 403
+    }
+
+    /**
+     * Проверка простых GET-запросов
+     * Для админов должен показать страницу.
+     * @param string $routeToTest
+     * @dataProvider routesToTestWithoutUserData
+     * @return void
+     */
+    public function testAdminReceives200($routeToTest)
+    {
+        $this->markTestSkipped();
+        $admin = $this->makeAdmin();
+        $response = $this->from(route($routeToTest))->actingAs($admin)->get(route($routeToTest));
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Проверка простых GET-запросов
+     * Рядовой пользователь должен получить ошибку 403.
+     * @param string $routeToTest
+     * @dataProvider routesToTestWithoutUserData
+     * @return void
+     */
+    public function testUserReceives403($routeToTest)
+    {
+        $this->markTestSkipped();
+        $user = $this->makeUser();
+        $response = $this->from(route($routeToTest))->actingAs($user)->get(route($routeToTest));
+        $response->assertStatus(403);
+    }
+
+    /**
+     * Проверка простых GET-запросов
+     * Если не авторизован, то редирек на /login.
+     * Может поэтому выдаёт ошибку 302 вместо 401 ?
+     * АААААА!!!!! Тест заточен на получение ошибики 302, т.е. предопределён и не очень полезен.
+     * @param string $routeToTest
+     * @dataProvider routesToTestWithoutUserData
+     * @return void
+     */
+    public function testNotAuthenticatedReceives302($routeToTest)
+    {
+        //$this->markTestSkipped();
+        $response = $this->from(route($routeToTest))->get(route($routeToTest));
+        $response->assertStatus(302);
     }
 
     /**
@@ -53,7 +97,7 @@ class userControllerTest extends TestCase
      */
     public function testRoutesWithUserData($routeToTest)
     {
-        // $this->markTestSkipped();
+        $this->markTestSkipped();
         // Создай админа
         $admin = $this->createAdmin();
         // Создай пользователя
@@ -70,11 +114,51 @@ class userControllerTest extends TestCase
     }
 
     /**
+     * Проверка GET-запроса, где используются данные пользователей
+     * Админам должен показывать страницу для просмотра данных любого пользователя или
+     * страницу для редактипрования данных любого пользователя
+     * @param string $routeToTest
+     * @dataProvider routesToTestWithUserData
+     * @return void
+     */
+    public function testAdminCanSeeUsers($routeToTest)
+    {
+        $this->markTestSkipped();
+        // Создай админа
+        $admin = $this->createAdmin();
+        // Создай пользователя
+        $user = $this->createUser();
+        // Проверка доступа для админа
+        $response = $this->actingAs($admin)->from(route("cms.users.index"))->get(route($routeToTest,['user'=>$user]));
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Проверка GET-запроса, где используются данные пользователей
+     * Обычный пользователь не должен иметь доступа к странице, где можно увидеть данные другого пользователя
+     * или к странице, где можно отредактировать данные другого пользователя.
+     * @param string $routeToTest
+     * @dataProvider routesToTestWithUserData
+     * @return void
+     */
+    public function testUserCannotSeeOtherUsers($routeToTest)
+    {
+        $this->markTestSkipped();
+        // Создай пользователя
+        $user = $this->createUser();
+        // Проверка доступа для простого пользователя
+        $response = $this->actingAs($user)->from(route("cms.users.index"))->get(route($routeToTest,['user'=>$user]));
+        $response->assertStatus(403);
+    }
+
+    /**
      * Проверь, что админ может корректно создавать пользователя
      * @return void
      */
     public function testAdminCanCreateUser()
     {
+        $this->markTestSkipped();
+
         // Создай админа
         $admin = $this->makeAdmin();
 
@@ -141,5 +225,33 @@ class userControllerTest extends TestCase
             'level' => User::LEVEL_USER,
         ]);
         return $user;
+    }
+
+    /**
+     * Список роутов для теста
+     * В эти роуты данные пользователя не передаются
+     * @return array
+     */
+    public function routesToTestWithoutUserData()
+    {
+        return
+            [
+                ["cms.users.index"],
+                ["cms.users.create"]
+            ];
+    }
+
+    /**
+     * Список роутов для теста
+     * В эти же роуты, передаются данные пользователя
+     * @return array
+     */
+    public function routesToTestWithUserData()
+    {
+        return
+            [
+                ["cms.users.show"],
+                ["cms.users.edit"]
+            ];
     }
 }
