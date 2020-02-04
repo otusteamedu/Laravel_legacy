@@ -2,9 +2,13 @@
 
 namespace App\Providers;
 
+use App\Services\Category\Repositories\CategoryRepositoryInterface;
+use App\Services\Category\Repositories\EloquentCategoryRepository;
+use App\Services\Product\Repositories\EloquentProductRepository;
+use App\Services\Product\Repositories\ProductRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
-class AppServiceProvider extends ServiceProvider
+class  AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
@@ -13,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerBindings();
     }
 
     /**
@@ -24,5 +28,17 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    private function registerBindings()
+    {
+        $this->app->bind(
+            CategoryRepositoryInterface::class,
+            EloquentCategoryRepository::class
+        );
+        $this->app->bind(
+            ProductRepositoryInterface::class,
+            EloquentProductRepository::class
+        );
     }
 }
