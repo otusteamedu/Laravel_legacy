@@ -6,6 +6,7 @@ use App\Http\Controllers\CMS\Users\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 
 class PagesController extends Controller
@@ -36,6 +37,9 @@ class PagesController extends Controller
      */
     public function katalog()
     {
+        $message = "Пользователь зашёл в каталог.";
+        Log::info($message);
+        //Log::channel('daily')->info($message);
         return view("pages.katalog");
     }
 
