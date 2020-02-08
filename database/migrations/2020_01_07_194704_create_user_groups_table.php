@@ -20,6 +20,7 @@ class CreateUserGroupsTable extends Migration
             $table->string('code')->index()->nullable(false);
             $table->text('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::table('users', static function (Blueprint $table) {
