@@ -13,15 +13,19 @@ class CreateRecordsTable extends Migration
      */
     public function up(): void
     {
+        // TODO add CONSTRAINT for date_start and date_finish columns. One master must not have two records for one time interval
         Schema::create('records', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id')->index()->nullable(false);
-            $table->dateTimeTz('date_start')->nullable(false);
-            $table->dateTimeTz('date_finish')->nullable(false);
+            $table->unsignedBigInteger('client_id')->index('client')->nullable(false);
+            $table->unsignedBigInteger('master_id')->index('master')->nullable(false);
+            $table->timestampTz('date_start')->nullable(false);
+            $table->timestampTz('date_finish')->nullable(false);
             $table->integer('price')->nullable();
             $table->timestamps();
+            $table->softDeletes();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('client_id')->references('id')->on('users');
+            $table->foreign('master_id')->references('id')->on('users');
         });
     }
 
