@@ -283,7 +283,26 @@ pubclic function routesToTestWithUserData() {...},
 - UsersTest.php     относится к @group tu
 - AdminsTest.php    относится к @group ta
 
+Занятие 18 - Логирование
+==========
+2020.02.06 Часть 1
+Добавил простое логирование.
+Настройка Slack:
+    - Зарегистрировался в Slack.
+    - Создал workspace 'MyWorkSpace'
+    - Создал канал 'laravel'
+    - Создал приложение 'laravel-notifications'
+Laravel gри попытке отправить уведомление в Slack, ругался :
+PHP Fatal error:  Uncaught Error: Call to undefined function Monolog\Handler\curl_init()
 
+Стал настраивать Laravel:
+    - Установил : composer require laravel/slack-notification-channel # из инструкции Laravel - НЕ ПОМОГЛО
+    - Установил : composer require guzzlehttp/guzzle # из видео YouTube - НЕ ПОМОГЛО
+
+Дело в том, что curl не был настроен в веб-сервере.
+Тогда установил curl. Мне помогли 2 статьи :
+    - Проверим а установлен ли модуль curl в веб-сервер : https://www.discussdesk.com/how-to-install-curl-and-check-curl-is-enabled-in-web-server.htm
+    - Установка curl в веб-сервер apache : https://www.discussdesk.com/how-to-install-curl-and-check-curl-is-enabled-in-web-server.htm
 
 
 
