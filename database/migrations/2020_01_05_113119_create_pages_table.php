@@ -17,11 +17,11 @@ class CreatePagesTable extends Migration
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID');
             $table->string('name')->comment('Наззвание страницы');
-            $table->text('content')->comment('Содержание');
+            $table->text('content')->nullable()->comment('Содержание');
             $table->string('slug')->unique()->comment('Адрес');
-            $table->string('title')->comment('Заголовок страницы');
-            $table->string('keywords')->comment('Meta Keywords');
-            $table->string('description')->comment('Meta Description');
+            $table->string('title')->nullable()->comment('Заголовок страницы');
+            $table->string('keywords')->nullable()->comment('Meta Keywords');
+            $table->string('description')->nullable()->comment('Meta Description');
             $table->timestamps();
             $table->softDeletes();
         });

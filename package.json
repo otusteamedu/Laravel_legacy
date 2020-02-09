@@ -23,6 +23,7 @@
         "vue-template-compiler": "^2.6.11"
     },
     "dependencies": {
+        "bootstrap-select": "^1.13.12",
         "node-sass": "^4.13.0"
     }
 }

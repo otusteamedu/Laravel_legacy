@@ -19,14 +19,15 @@ class CreatePostsTable extends Migration
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id')->comment('ID новости');
             $table->string('name')->comment('Заголовок новости');
-            $table->string('image')->comment('Изображение');
-            $table->text('content')->comment('Содержание');
-            $table->string('link')->comment('Ссылка');
+            $table->string('image')->nullable()->comment('Изображение');
+            $table->text('content')->nullable()->comment('Содержание');
+            $table->string('link')->nullable()->comment('Ссылка');
             $table->string('slug')->unique()->comment('Адрес');
-            $table->string('title')->comment('Заголовок страницы');
-            $table->string('keywords')->comment('Meta Keywords');
-            $table->string('description')->comment('Meta Description');
+            $table->string('title')->nullable()->comment('Заголовок страницы');
+            $table->string('keywords')->nullable()->comment('Meta Keywords');
+            $table->string('description')->nullable()->comment('Meta Description');
             $table->unsignedInteger('user_id')->nullable(false)->comment('ID пользователя');
+            $table->timestamp('published_at')->nullable()->default(null)->comment('Дата опубликавания');
             $table->timestamps();
             $table->softDeletes();
         });
