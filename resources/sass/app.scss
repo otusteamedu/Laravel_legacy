@@ -15,8 +15,8 @@
 */
 
 body {
-    background-color: #f2f2f2;
-    font-family: Lato;
+    background-color: #ffffff;
+    font-family: Nunito;
     font-weight: 300;
     font-size: 16px;
     color:$colorText;
@@ -35,7 +35,9 @@ body {
     margin-bottom: 25px;
     font-size: 18px;
   }
-  
+  .container{
+    max-width: 1300px;
+  }
   .centered {
     text-align: center;
   }
@@ -105,8 +107,8 @@ body {
   
   .menu {
     position: fixed;
-    right: -200px;
-    width: 260px;
+    right: -300px;
+    width: 360px;
     height: 100%;
     top: 0;
     z-index: 10;
@@ -121,8 +123,8 @@ body {
     position: absolute;
     top: 0;
     left: 60px;
-    background: #d1d1d1;
-    width: 200px;
+    background: $backgroundMenu;
+    width: 300px;
     height: 100%
   }
   
@@ -146,10 +148,10 @@ body {
   }
   
   .menu a {
-    margin-left: 20px;
+    padding-left: 20px;
     color: $colorText;
     display: block;
-    font-size: 12px;
+    font-size: 17px;
     font-weight: 700;
     line-height: 40px;
   }
@@ -258,5 +260,49 @@ body {
   .catalog-link-img{
     height: 142px;
     width: 100%;
+    .img-fluid{
+        height: 140px;
+    }
   }
-  
+  .content-screw{
+    width: 100%;
+    padding: 50px;
+    background: url("../img/samorez.png") left bottom, url("../img/samorez.png") right bottom, url("../img/samorez.png") right top, url("../img/samorez.png") left top;
+    background-repeat: repeat, repeat, repeat, repeat;
+    background-size: auto, auto, auto, auto;
+    background-repeat: no-repeat;
+    background-size: 40px;
+    margin: 17px;
+  } 
+  .bg-content{
+    border: 3px solid $blockColor;
+    background-color: $backgrountContent
+  }
+  .steps_block{
+    height: 400px;
+    FIGURE{
+        height: 310px;
+        width: 130px;
+        IMG{
+            width: 100%;
+        }
+        FIGCAPTION{
+            text-align: center;
+        }
+        .arrow{
+            width: 92%;
+            margin: -20px 0 0 25px;
+        }
+        .arrow_top{
+            width: 62%;
+            margin: 0 0 -13px 40px;
+        }
+        .arrow_top_clear{
+            height: 100px;
+        }
+    }
+}
+
+.full-higth{
+    height: 100%;
+}
