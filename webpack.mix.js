@@ -11,5 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix
+    .sourceMaps(true, 'eval-source-map', 'source-map')
+    .browserSync('otus/')
+    .setPublicPath('public')
+    .js('resources/assets/js/app.js', 'js')
+    .sass('resources/assets/sass/app.scss', 'css')
+    .version();
