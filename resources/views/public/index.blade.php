@@ -213,7 +213,7 @@
         </ul>
         <p class="-marginbottom20"><strong>У нас общая цель</strong> – поставить спецтехнику на колеса!</p>
         <h2 class="-marginbottom20 left-align">Схема работы с нами:</h2>
-      <img class="img-fluid" src="{{asset('images/step.png')}}" alt="">
+      <img class="d-block w-100" src="{{asset('images/step.png')}}" alt="">
     <h2 class="-marginbottom20 left-align">Если вы цените:</h2>
         <p class="-marginbottom20">Качество, стабильность, соблюдение сроков и сервис – то нам по пути!</p>
         <p class="-marginbottom20">
@@ -299,53 +299,57 @@
     </div>
   </div>
 
+  @php
+      $brands =[
+        [
+          'images/footer_slide/sl1.png',
+          'images/footer_slide/sl2.png',
+          'images/footer_slide/sl3.png',
+          'images/footer_slide/sl4.png',
+          
+          
+        ],
+        [
+          'images/footer_slide/sl6.png',
+          'images/footer_slide/sl7.png',
+          'images/footer_slide/sl8.png',
+          'images/footer_slide/sl9.png',
+
+        ],
+        [
+          'images/footer_slide/sl5.png',
+          'images/footer_slide/sl10.png',
+        ],
+      ];
+  @endphp
   <div class="container rounded-lg bg-content mt-3 mb-3">
     <div class="row justify-content-center">
-      <div class="col-10 p-4">
+      <div class="col-12 col-md-10 m-3 m-md-4">
         <div id="my-carousel" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner">
-            <div class="carousel-item active">
-              <div class="row justify-content-center">
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl1.png')}}" alt="">    
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl2.png')}}" alt="">
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl3.png')}}" alt="">
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl4.png')}}" alt="">    
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl5.png')}}" alt="">
+            @foreach ($brands as $brandBlock)
+            @if ($loop->first)
+              <div class="carousel-item active">
+                <div class="row justify-content-center">
+                  @foreach ($brandBlock as $img)
+                    <div class="col-3 col-md-2">
+                      <img class="d-block w-100" src="{{ $img }}" alt="">    
+                    </div>
+                  @endforeach
                 </div>
               </div>
-              
-              
-            </div>
+            @else
             <div class="carousel-item">
               <div class="row justify-content-center">
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl6.png')}}" alt="">    
+                @foreach ($brandBlock as $img)
+                <div class="col-3 col-md-2">
+                  <img class="d-block w-100" src="{{ $img }}" alt="">    
                 </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl7.png')}}" alt="">
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl8.png')}}" alt="">
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl9.png')}}" alt="">    
-                </div>
-                <div class="col-2">
-                  <img class="d-block w-100" src="{{asset('images/footer_slide/sl10.png')}}" alt="">
-                </div>
+                @endforeach
               </div>
-              
-              
             </div>
+            @endif
+            @endforeach
           </div>
         </div>
       </div>

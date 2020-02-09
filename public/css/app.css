@@ -11150,12 +11150,12 @@ hr {
 
 .content-screw {
   width: 100%;
-  padding: 50px;
+  padding: 2rem;
   background: url(/images/samorez.png?0b85edd7feeca0c674ce3b575a4eafd7) left bottom, url(/images/samorez.png?0b85edd7feeca0c674ce3b575a4eafd7) right bottom, url(/images/samorez.png?0b85edd7feeca0c674ce3b575a4eafd7) right top, url(/images/samorez.png?0b85edd7feeca0c674ce3b575a4eafd7) left top;
   background-repeat: repeat, repeat, repeat, repeat;
   background-size: auto, auto, auto, auto;
   background-repeat: no-repeat;
-  background-size: 40px;
+  background-size: 3%;
   margin: 17px;
 }
 
