@@ -12,5 +12,33 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $locale = request()->lang;
+    App::setLocale($locale);
+    return view('page_welcome.welcome', [
+        'currLang' => $locale,
+    ]);
+});
+
+Route::get('/usercab/', function () {
+    $locale = request()->lang;
+    App::setLocale($locale);
+    return view('page_usercab.usercab', [
+        'currLang' => $locale,
+    ]);
+});
+
+Route::get('/about/', function () {
+    $locale = request()->lang;
+    App::setLocale($locale);
+    return view('page_static_content.static_content', [
+        'currLang' => $locale,
+    ]);
+});
+
+Route::get('/registration/', function () {
+    $locale = request()->lang;
+    App::setLocale($locale);
+    return view('page_registration.registration', [
+        'currLang' => $locale,
+    ]);
 });
