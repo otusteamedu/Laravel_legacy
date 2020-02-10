@@ -12,5 +12,29 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('main.home.index');
+});
+
+Route::get('/about/', function () {
+    return view('main.about.index');
+});
+
+Route::get('/prices', function () {
+    return view('main.prices.index');
+});
+
+Route::get('/contacts', function () {
+    return view('main.contacts.index');
+});
+
+Route::get('/personal', function () {
+    return view('main.personal.index');
+});
+
+Route::get('/registration', function () {
+    return view('main.personal.registration');
+});
+
+Route::get('/planner', function () {
+    return view('layouts.planner.index');
 });

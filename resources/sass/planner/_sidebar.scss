@@ -1,0 +1,16 @@
+.sidebar__wrap {
+    background-color: #eee;
+    display: flex;
+}
+
+.sidebar {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.logout-btn {
+    justify-self: flex-end;
+}
