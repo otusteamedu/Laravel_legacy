@@ -1,0 +1,6 @@
+@include('layouts.partials.content.up-notice')
+@include('layouts.partials.content.dashboard')
+@include('layouts.partials.content.cards')
+@include('layouts.partials.content.graphics')
+@include('layouts.partials.content.recent-updates')
+@include('layouts.partials.content.project-status')
