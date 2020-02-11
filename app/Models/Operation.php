@@ -3,9 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Events\OperationSaved;
 
 class Operation extends Model
 {
+    protected $dispatchesEvents = [
+        'saved' => OperationSaved::class,
+    ];
 
     /**
      * The attributes that are mass assignable.
