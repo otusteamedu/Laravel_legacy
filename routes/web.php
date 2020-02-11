@@ -26,3 +26,12 @@ Route::get('/about/', function () {
 Route::get('/profile/', function () {
     return view('profile');
 })->name('profile');
+
+Route::name('admin.')->group(function () {
+    Route::prefix('admin')->group(function () {
+        Route::resources([
+            'countries' => 'Admin\Countries\CountriesController',
+            'cities' => 'Admin\Cities\CitiesController',
+        ]);
+    });
+});

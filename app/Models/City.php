@@ -15,6 +15,11 @@ namespace App\Models;
  */
 class City extends BaseModel
 {
+    protected $fillable = [
+        'name',
+        'country_id',
+        'created_by_user_id',
+    ];
 
     public function country()
     {
