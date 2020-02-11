@@ -17,5 +17,6 @@
 @yield('content')
 @include('layouts.footer')
 @include('layouts.scripts')
+@include('layouts.modals')
 </body>
 </html>

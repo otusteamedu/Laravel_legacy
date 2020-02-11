@@ -11,20 +11,20 @@
                     <div class="col-11 col-md-11 col-lg-6">
                         <ul class="nav justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link" href="#">О проекте</a>
+                                <a class="nav-link" href="/about/">О проекте</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Cписок событий</a>
+                                <a class="nav-link" href="/events/">Cписок событий</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Новости</a>
+                                <a class="nav-link" href="/news/">Новости</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Полезные статьи</a>
+                                <a class="nav-link" href="/articles/">Полезные статьи</a>
                             </li>
                         </ul>
                     </div>
-                    <div class="col-6 col-md-6 col-lg-2 mt-1">
+                    <div class="col-12 col-md-6 col-lg-3 mt-1 text-center">
                         <div class="btn-group">
                             <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Язык
@@ -49,11 +49,11 @@
                         </a>
                     </div>
                     <div class="col-12 col-md-6 col-lg-2 justify-content-end">
-                        <nav class="navbar-expand-sm navbar-ligh">
-                            <div class=" " id="navbarNav">
+                        <nav class="navbar-expand navbar-light">
+                            <div id="navbarNav">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item active"><a class="nav-link" href="#">Вход</span></a></li>
-                                    <li class="nav-item"><a class="nav-link" href="#">Регистрация</a></li>
+                                    <li class="nav-item active mx-auto mx-md-0"><a class="nav-link" href="/auth/" data-toggle="modal" data-target=".bd-modal-auth">Вход</a></li>
+                                    <li class="nav-item mx-auto mx-md-0"><a class="nav-link" href="/registration/" data-toggle="modal" data-target=".bd-modal-registration">Регистрация</a></li>
                                 </ul>
                             </div>
                         </nav>
@@ -64,3 +64,24 @@
     </div>
 </div>
 <main role="main" class="container">
+@if (Request::url() !== 'http://otus')
+    <div class="row">
+        <div class="col-lg-8">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="#">Раздел</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Детальная</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="col-lg-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-lg-8">
+            <div style="height: 50px">
+                <h1 class="text-left">Заголовок {{'<h1>'}}</h1>
+            </div>
+@endif
+
+

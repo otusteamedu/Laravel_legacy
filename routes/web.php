@@ -12,5 +12,31 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
+
+Route::get('/about/', function () {
+    return view('about.index');
+});
+
+Route::get('/news/', function () {
+    return view('news.index');
+});
+
+Route::get('/articles/', function () {
+    return view('articles.index');
+});
+
+Route::get('/auth/', function () {
+    return view('auth.index');
+});
+
+Route::get('/registration/', function () {
+    return view('register.index');
+});
+
+Route::get('/personal/', function () {
+    return view('personal.index');
+});
+
+
