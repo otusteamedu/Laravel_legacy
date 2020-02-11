@@ -13,7 +13,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
+        app()->bind(
+            \App\Services\Countries\Repositories\CountryRepositoryInterface::class,
+            \App\Services\Countries\Repositories\EloquentCountryRepository::class
+        );
+
+        app()->bind(
+            \App\Services\Cities\Repositories\CityRepositoryInterface::class,
+            \App\Services\Cities\Repositories\EloquentCityRepository::class
+        );
     }
 
     /**
