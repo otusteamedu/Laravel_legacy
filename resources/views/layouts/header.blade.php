@@ -11,16 +11,16 @@
                     <div class="col-11 col-md-11 col-lg-6">
                         <ul class="nav justify-content-center">
                             <li class="nav-item">
-                                <a class="nav-link" href="/about/">О проекте</a>
+                                <a class="nav-link" href="/about/">@lang('layouts/header.top_menu_about')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/events/">Cписок событий</a>
+                                <a class="nav-link" href="/events/">@lang('layouts/header.top_menu_event_list')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/news/">Новости</a>
+                                <a class="nav-link" href="/news/">@lang('layouts/header.top_menu_news')</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/articles/">Полезные статьи</a>
+                                <a class="nav-link" href="/articles/">@lang('layouts/header.top_menu_articles')</a>
                             </li>
                         </ul>
                     </div>
