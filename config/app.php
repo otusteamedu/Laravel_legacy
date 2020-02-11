@@ -180,6 +180,8 @@ return [
         App\Providers\TelescopeServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        App\Providers\QueueServiceProvider::class,
+
     ],
 
     /*

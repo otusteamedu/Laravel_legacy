@@ -2,11 +2,13 @@
 
 namespace App\Providers;
 
+use App\Events\Http\FetchProductEvent;
 use App\Events\Models\Products\CreatProductsEvent;
 use App\Events\Models\Wishlist\DeletedWishlistEvent;
 use App\Events\Models\Wishlist\SavedWishlistEvent;
 use App\Listeners\Cache\ClearWishlistsCache;
 use App\Listeners\Cache\WarmProductsCache;
+use App\Listeners\Products\FetchProduct;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -30,6 +32,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CreatProductsEvent::class => [
             WarmProductsCache::class,
+        ],
+        FetchProductEvent::class => [
+            FetchProduct::class,
         ],
     ];
 
