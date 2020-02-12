@@ -7,7 +7,7 @@ use App\Services\Products\Repositories\ProductsRepositoryInterface;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class FetchProduct implements ShouldQueue
+class CreateProduct implements ShouldQueue
 {
 
     use InteractsWithQueue;
