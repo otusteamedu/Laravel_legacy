@@ -7,7 +7,7 @@
 namespace App\Services\Products;
 
 
-use App\Events\Http\FetchProductEvent;
+use App\Events\Http\CreateProductEvent;
 use App\Models\Products;
 use App\Models\WishlistProduct;
 use App\Services\Products\Repositories\CachedProductsRepositoryInterface;
@@ -44,7 +44,7 @@ class ProductsService
      */
     public function create(array $data): void
     {
-        event(FetchProductEvent::class, ['data' => $data]);
+        event(CreateProductEvent::class, ['data' => $data]);
     }
 
     /**
