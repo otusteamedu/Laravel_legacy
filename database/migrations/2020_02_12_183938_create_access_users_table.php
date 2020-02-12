@@ -15,14 +15,14 @@ class CreateAccessUsersTable extends Migration
     {
         Schema::create('access_users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('user_id')->nullable();
-            $table->bigInteger('module_id')->nullable();
+            $table->bigInteger('user_id');
+            $table->bigInteger('module_id');
             $table->timestamps();
 
-            $table->foreign('user_id')
+/*             $table->foreign('user_id')
                     ->references('id')
                     ->on('users')
-                    ->onDelete('cascade');
+                    ->onDelete('cascade'); */
         });
     }
 

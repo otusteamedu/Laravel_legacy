@@ -27,10 +27,10 @@ class CreateCatalogItemsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->foreign('categorie_parent_id')
+/*             $table->foreign('categorie_parent_id')
                     ->references('id')
                     ->on('catalog_categories')
-                    ->onDelete('cascade');
+                    ->onDelete('cascade'); */
         });
     }
 

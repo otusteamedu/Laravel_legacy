@@ -20,10 +20,10 @@ class CreateCatalogItemSpecificationValuesTable extends Migration
             $table->string('value', 255);
             $table->timestamps();
 
-            $table->foreign('item_id')
+/*             $table->foreign('item_id')
                     ->references('id')
                     ->on('catalog_items')
-                    ->onDelete('cascade');
+                    ->onDelete('cascade'); */
         });
     }
 
