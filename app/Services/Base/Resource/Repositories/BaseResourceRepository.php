@@ -60,7 +60,7 @@ abstract class BaseResourceRepository
      * @return mixed
      */
     public function publish($item) {
-        $item->publish = !$item->publish;
+        $item->publish = +!$item->publish;
         $item->save();
 
         return $item;

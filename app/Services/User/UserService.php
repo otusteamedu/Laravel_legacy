@@ -14,8 +14,15 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class UserService extends BaseResourceService
 {
-    private $storeHandler;
-    private $updateHandler;
+    /**
+     * @var CreateUserHandler
+     */
+    private CreateUserHandler $storeHandler;
+
+    /**
+     * @var UpdateUserHandler
+     */
+    private UpdateUserHandler $updateHandler;
 
     /**
      * UserService constructor.

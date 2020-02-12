@@ -21,8 +21,8 @@ class CreateUserHandler
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);
 
-        if (!Arr::has($data, 'roles'))
-            $data['roles'] = config('roles.default_role');
+        if (!Arr::has($data, 'role'))
+            $data['role'] = config('roles.default_role');
 
         return  $repository->store($data);
     }

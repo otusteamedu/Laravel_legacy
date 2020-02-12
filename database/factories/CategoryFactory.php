@@ -8,18 +8,20 @@ use Faker\Generator as Faker;
 $factory->define(Category::class, function (Faker $faker) {
 
     $uploadDir = public_path(config('uploads.image_upload_path'));
-    $imageSize = config('uploads.category_image_size');
 
-    $uploadedImage = getFakerImage($imageSize['width'], $imageSize['height']);
+    $seedsUploadImageDir = config('seeds.seeds_uploads_path');
+    $seedsImageDir = public_path(config('seeds.seeds_path'));
+
+    File::deleteDirectory($seedsImageDir);
+    File::makeDirectory($seedsImageDir, config('uploads.storage_permissions', 0755));
+
+    $images = getImagesFromLocal($seedsUploadImageDir);
+
+    $uploadedImage = getFakerImageFromLocal($images, $seedsUploadImageDir, $seedsImageDir);
+
     $imageAttributes = uploader()->upload($uploadedImage, $uploadDir);
 
     return [
-        "type" => 'topics',
-        "alias" => $faker->unique()->safeColorName,
-        "title" => $faker->unique()->streetName,
-        "image_path" => $imageAttributes['path'],
-        "publish" => 1,
-        "description" => $faker->text(),
-        "keywords" => implode(', ', $faker->words())
+        "image_path" => $imageAttributes['path']
     ];
 });

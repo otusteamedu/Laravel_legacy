@@ -56,8 +56,8 @@ class UserRepository extends BaseResourceRepository
      */
     public function store(array $data): User
     {
-        return $this->model::create(Arr::except($data, 'roles'))
-            ->attachRole($data['roles']);
+        return $this->model::create(Arr::except($data, 'role'))
+            ->attachRole($data['role']);
     }
 
     /**
@@ -67,8 +67,12 @@ class UserRepository extends BaseResourceRepository
      */
     public function update(array $data, $item): User
     {
-        $item->update(Arr::except($data, 'roles'));
-        $item->syncRoles([$data['roles']]);
+        if (Arr::has($data, 'role')) {
+            $item->update(Arr::except($data, 'role'));
+            $item->syncRoles([$data['role']]);
+        } else {
+            $item->update($data);
+        }
 
         return $item;
     }
@@ -78,7 +82,7 @@ class UserRepository extends BaseResourceRepository
      * @param string $newPassword
      * @param User $user
      */
-    public function setPassword (string $oldPassword, string $newPassword,  User $user)
+    public function setPassword(string $oldPassword, string $newPassword,  User $user)
     {
         password_verify($oldPassword, $user->password)
             ? $user->password = bcrypt($newPassword)
@@ -111,7 +115,7 @@ class UserRepository extends BaseResourceRepository
      */
     public function getUserVerify($token)
     {
-        return User::getUserVerify($token)->first();
+        return $this->model::getUserVerify($token)->first();
     }
 
     /**
@@ -120,15 +124,7 @@ class UserRepository extends BaseResourceRepository
      */
     public function getUserByEmail($email)
     {
-        return User::where('email', $email)->first();
-    }
-
-    /**
-     * @param User $user
-     */
-    public function sendEmailVerificationNotification(User $user)
-    {
-        $user->sendEmailVerificationNotification();
+        return $this->model::where('email', $email)->first();
     }
 
     /**

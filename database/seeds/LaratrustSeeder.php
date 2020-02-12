@@ -96,6 +96,7 @@ class LaratrustSeeder extends Seeder
 
                 // Attach all permissions to the user
                 $user->permissions()->sync($permissions);
+                $user->attachRole(config('roles.default_role'));
             }
         }
     }
