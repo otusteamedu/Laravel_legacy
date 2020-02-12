@@ -14,6 +14,11 @@ namespace App\Models;
  */
 class Country extends BaseModel
 {
+    protected $fillable = [
+        'name',
+        'created_by_user_id',
+    ];
+
     public function cities()
     {
         return $this->hasMany(City::class);

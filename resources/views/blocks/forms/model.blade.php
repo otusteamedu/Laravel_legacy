@@ -1,17 +1,13 @@
 @include('blocks.forms.errors')
-<?php
-$form_params = [];
-if (!empty($url)) {
-    $form_params['url'] = $url;
-}
-?>
-{!! Form::open($form_params) !!}
+{{ Form::model($values, ['url' => route('admin.'.$entity_name['m'].'.update', [$entity_name['s'] => $values]), 'method' => 'PUT']) }}
 @foreach($fields as $params)
     <?php
-    if (!empty($params['postfix'])) {
-        $params['name'] .= '_' . $params['postfix'];
+    if (is_object($values[$params['name']])) {
+        $params['value'] = $values[$params['name']]->id;
+        $params['name'] .= '_id';
+    } else {
+        $params['value'] = $values[$params['name']] ?? '';
     }
-    $params['value'] = $values[$params['name']] ?? '';
     if (isset($params['options_in'])) {
         $params['options'] = ${$params['options_in']};
     }

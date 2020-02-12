@@ -33,6 +33,7 @@ class AddCityIdToUsers extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign('users_city_id_foreign');
             $table->dropColumn('city_id');
         });
     }

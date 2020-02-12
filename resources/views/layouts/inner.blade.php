@@ -1,9 +1,9 @@
-@include('blocks.header')
+@include('admin.blocks.header')
 
-    @include('blocks.h1.jumbotron')
+    @include('admin.blocks.h1.jumbotron')
 
     <div class="container">
         @yield('content')
     </div>
 
-@include('blocks.footer')
+@include('admin.blocks.footer')

@@ -17,45 +17,7 @@ $cities = [
         <div class="col-xs-12 col-md-6">
             @include('blocks.forms.default', [
                 'submit_text' => __('messages.edit'),
-                'fields' => [
-                    [
-                        'name' => 'name',
-                        'label' => 'Имя',
-                        'class' => 'form-control',
-                        'type' => 'text',
-                        'require' => true,
-                    ],
-                    [
-                        'name' => 'email',
-                        'label' => 'E-mail',
-                        'class' => 'form-control',
-                        'type' => 'email',
-                        'require' => true,
-                    ],
-                    [
-                        'name' => 'country',
-                        'label' => 'Страна',
-                        'class' => 'form-control',
-                        'options' => $countries,
-                        'type' => 'select',
-                        'require' => true,
-                    ],
-                    [
-                        'name' => 'city',
-                        'label' => 'Город',
-                        'class' => 'form-control',
-                        'options' => $cities,
-                        'type' => 'select',
-                        'require' => true,
-                    ],
-                    [
-                        'name' => 'avatar',
-                        'label' => 'Аватар',
-                        'class' => '',
-                        'type' => 'file',
-                        'require' => false,
-                    ],
-                ],
+                'fields' => config('form.profile'),
                 'values' => [
                     'name' => 'Имя Фамилия',
                     'email' => 'test@test.test',
