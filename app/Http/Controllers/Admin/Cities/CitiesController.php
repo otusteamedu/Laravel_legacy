@@ -88,7 +88,6 @@ class CitiesController extends Controller
     public function update(UpdateCityRequest $request, City $city)
     {
         $this->citiesService->updateCity($city, $request->all());
-        $city->update($request->all());
 
         return redirect(route('admin.cities.index'));
     }

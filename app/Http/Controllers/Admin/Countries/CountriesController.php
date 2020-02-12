@@ -80,7 +80,6 @@ class CountriesController extends Controller
     public function update(UpdateCountryRequest $request, Country $country)
     {
         $this->countriesService->updateCountry($country, $request->all());
-        $country->update($request->all());
 
         return redirect(route('admin.countries.index'));
     }
