@@ -18,5 +18,24 @@ $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
 $hoverLinkCatalog: #606060;
+$backgrountContent: #f0f0f0;
 $blockColor: #d1d1d1;
 $colorText: black;
+$backgroundMenu: rgb(209, 209, 209,.9);
+
+.brb-2{
+    border-bottom: 2px solid $blockColor;
+}
+
+.br-3{
+    border: 3px solid $blockColor;
+}
+
+.brl-3{
+    border-left: 3px solid $blockColor;
+}
+
+.ab-br-2{
+    bottom: 1rem;
+    right: 1rem;
+}

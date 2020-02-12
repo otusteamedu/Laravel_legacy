@@ -1,4 +1,4 @@
-{{-- <div class=" container">
+<div class=" container">
     @php
         $slider = [
           'images/index_slider/slaid1.jpg',
@@ -7,7 +7,7 @@
           'images/index_slider/slaid4.jpg'
         ];
     @endphp
-    <div id="carouselExampleSlidesOnly" class="carousel slide mt-3 mb-3" data-ride="carousel">
+    <div id="carouselExampleSlidesOnly" class="carousel slide mt-3" data-ride="carousel">
       <div class="carousel-inner">
         @foreach ($slider as $slide)
           @if ($loop->first)
@@ -23,11 +23,3 @@
       </div>
     </div>
 </div>
-
-
-
- 
-
-</body>
-</html>
- --}}
