@@ -7,6 +7,7 @@
 namespace App\Services\Products;
 
 
+use App\Events\Http\FetchProductEvent;
 use App\Models\Products;
 use App\Models\WishlistProduct;
 use App\Services\Products\Repositories\CachedProductsRepositoryInterface;
@@ -22,33 +23,34 @@ class ProductsService
     public function __construct(
         ProductsRepositoryInterface $productsRepository,
         CachedProductsRepositoryInterface $cachedProductsRepository
-    ) {
+    )
+    {
         $this->productsRepository = $productsRepository;
         $this->cachedProductsRepository = $cachedProductsRepository;
     }
 
     /**
-     * @param  int  $id
+     * @param int $id
      *
      * @return Products
      */
-    public function getProductById(int $id) :Products
+    public function getProductById(int $id): Products
     {
         return $this->cachedProductsRepository->getProductById($id);
     }
 
     /**
-     * @param  array  $data
+     * @param array $data
      */
-    public function create(array $data) :void
+    public function create(array $data): void
     {
-        $this->productsRepository->create($data);
+        event(FetchProductEvent::class, ['data' => $data]);
     }
 
     /**
-     * @param  WishlistProduct  $wishlistProduct
+     * @param WishlistProduct $wishlistProduct
      */
-    public function delete(WishlistProduct $wishlistProduct) :void
+    public function delete(WishlistProduct $wishlistProduct): void
     {
         $this->productsRepository->delete($wishlistProduct);
     }
