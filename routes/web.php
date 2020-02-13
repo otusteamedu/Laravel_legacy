@@ -12,5 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('site/index');
+});
+
+Route::get('/about', function () {
+    return view('site/about');
+});
+
+Route::get('/user', function () {
+    return view('site/user');
+});
+
+Route::get('/auth', function () {
+    return view('site/login');
+});
+
+Route::post('/auth', function () {
+    return view('site/pageInDevelopment');
 });
