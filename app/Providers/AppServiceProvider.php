@@ -16,6 +16,7 @@ use App\Services\Wishlists\Repositories\CachedWishlistsRepositoryInterface;
 use App\Services\Wishlists\Repositories\EloquentWishlistsRepository;
 use App\Services\Products\Repositories\ProductsRepositoryInterface;
 use App\Services\Wishlists\Repositories\WishlistsRepositoryInterface;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -37,7 +38,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
     }
 
     private function registerBindings()
