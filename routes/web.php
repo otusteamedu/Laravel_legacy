@@ -18,6 +18,11 @@ Route::get('/', function () {
     return view('pages.index');
 })->name('home');
 
+Route::get('/logme', function () {
+    Log::info('this :user log', ['user' => 'Anton']);
+    return 'log ok';
+})->name('logme');
+
 Route::get('materials', function () {
     return view('pages.materials');
 })->name('materials');

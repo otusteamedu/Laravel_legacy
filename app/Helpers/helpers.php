@@ -86,6 +86,46 @@ if (! function_exists('getFakerImage')) {
     }
 }
 
+if (! function_exists('getFakerImageFromLocal')) {
+    /**
+     * @param array $images
+     * @param string $seedsUploadImageDir
+     * @param string $seedsImageDir
+     * @return UploadedFile|null
+     */
+    function getFakerImageFromLocal(array $images, string $seedsUploadImageDir, string $seedsImageDir)
+    {
+        $firstImagesIndex = key($images);
+
+        $randIndex = rand($firstImagesIndex, count($images) - 1);
+        $randImage = $images[$randIndex];
+
+        $sourceImage = $seedsUploadImageDir . '/' . $randImage;
+        $destImage = $seedsImageDir . $randImage;
+
+        copy($sourceImage, $destImage);
+
+        return isImageValid($destImage)
+            ? getUploadedFileFromPath($destImage, true)
+            : null;
+    }
+}
+
+if (! function_exists('getImagesFromLocal')) {
+    /**
+     * @param string $dir
+     * @return array
+     */
+    function getImagesFromLocal(string $dir): array
+    {
+        $files = scandir($dir);
+
+        return array_filter($files, function ($file) use ($dir) {
+            return isImageValid(($dir . '/' . $file));
+        });
+    }
+}
+
 if (! function_exists('jwtAuth')) {
     function jwtAuth()
     {

@@ -11,12 +11,16 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Category::class, 5)->create();
-        factory(App\Models\Category::class, 5)->create([
-            'type' => 'colors'
-        ]);
-        factory(App\Models\Category::class, 5)->create([
-            'type' => 'interiors'
-        ]);
+        foreach (config('seeds.categories.topics') as $category) {
+            factory(App\Models\Category::class)->create($category);
+        }
+
+        foreach (config('seeds.categories.colors') as $category) {
+            factory(App\Models\Category::class)->create($category);
+        }
+
+        foreach (config('seeds.categories.interiors') as $category) {
+            factory(App\Models\Category::class)->create($category);
+        }
     }
 }

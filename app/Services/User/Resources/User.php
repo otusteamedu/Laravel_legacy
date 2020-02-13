@@ -18,7 +18,7 @@ class User extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'email' => $this->email,
-            'roles' => $this->roles->modelKeys(),
+            'role' => $this->roles->modelKeys()[0] ?? null,
 //            'orders_count' => $this->orders()->count(),
             'publish' => $this->publish,
             'created_at' => date('d-m-Y', strtotime($this->created_at))

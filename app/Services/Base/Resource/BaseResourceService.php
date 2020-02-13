@@ -69,8 +69,8 @@ abstract class BaseResourceService
      */
     public function destroy(int $id): int
     {
-        $item = $this->repository->show($id);
 
+        $item = $this->repository->show($id);
         return $this->repository->destroy($item);
     }
 

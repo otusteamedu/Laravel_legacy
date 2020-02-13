@@ -31,9 +31,6 @@ return [
             'max' => 9.9
         ]
     ],
-//    'roles' => [
-//        'default_role' => 'user'
-//    ],
     'deliveries' => [
         [
             'title' => 'Самовывоз',
@@ -291,6 +288,160 @@ return [
             'title' => 'McLaren',
             'description' => '',
             'publish' => 1
+        ]
+    ],
+    'seeds_uploads_path' => 'seed_data/images',
+    'seeds_path' => 'storage/uploads/seed_images/',
+    'categories' => [
+        'topics' => [
+            [
+                'type' => 'topics',
+                'title' => 'Природа',
+                'alias' => 'nature',
+                'description' => 'Изображения природы',
+                'keywords' => 'природа, nature',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Мегаполис',
+                'alias' => 'megapolice',
+                'description' => 'Изображения крупных городов (мегаполисов)',
+                'keywords' => 'megapolice, мегаполис, небоскреб, большой город',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Абстракция',
+                'alias' => 'abstraction',
+                'description' => 'Изображения с абстракцией',
+                'keywords' => 'абстракция, abstraction',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Улочки, скверы, арки',
+                'alias' => 'streets-squares-arches',
+                'description' => 'Изображения улочек, скверов, арок',
+                'keywords' => 'улочки, скверы, арки',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Море',
+                'alias' => 'sea',
+                'description' => 'Изображения с видом моря',
+                'keywords' => 'море, пляж, sea, beach, long beach, seaside',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Космос',
+                'alias' => 'space',
+                'description' => 'Изображения космоса',
+                'keywords' => 'космос, звездное небо, space',
+                'publish' => 1
+            ]
+        ],
+        'colors' => [
+            [
+                'type' => 'colors',
+                'title' => 'Белый',
+                'alias' => 'white',
+                'description' => 'Изображения преимущественно белого цвета',
+                'keywords' => 'белый, white',
+                'publish' => 1
+            ],
+            [
+                'type' => 'colors',
+                'title' => 'Черный',
+                'alias' => 'black',
+                'description' => 'Изображения преимущественно черного цвета',
+                'keywords' => 'черный, black',
+                'publish' => 1
+            ],
+            [
+                'type' => 'colors',
+                'title' => 'Красный',
+                'alias' => 'tomato',
+                'description' => 'Изображения преимущественно красного цвета',
+                'keywords' => 'красный, red',
+                'publish' => 1
+            ],
+            [
+                'type' => 'colors',
+                'title' => 'Зеленый',
+                'alias' => 'limegreen',
+                'description' => 'Изображения преимущественно зеленого цвета',
+                'keywords' => 'зеленый, green',
+                'publish' => 1
+            ],
+            [
+                'type' => 'colors',
+                'title' => 'Синий',
+                'alias' => 'dodgerblue',
+                'description' => 'Изображения преимущественно синего цвета',
+                'keywords' => 'синий, blue, голубой',
+                'publish' => 1
+            ],
+            [
+                'type' => 'colors',
+                'title' => 'Фиолетовый',
+                'alias' => 'darkviolet',
+                'description' => 'Изображения преимущественно фиолетового цвета',
+                'keywords' => 'фиолетовый, violet',
+                'publish' => 1
+            ]
+        ],
+        'interiors' => [
+            [
+                'type' => 'interiors',
+                'title' => 'Гостиная',
+                'alias' => 'living-room',
+                'description' => 'Изображения для гостиной',
+                'keywords' => 'гостиная, living room',
+                'publish' => 1
+            ],
+            [
+                'type' => 'interiors',
+                'title' => 'Спальня',
+                'alias' => 'bad-room',
+                'description' => 'Изображения для спальной',
+                'keywords' => 'спальня, bad room',
+                'publish' => 1
+            ],
+            [
+                'type' => 'interiors',
+                'title' => 'Кухня',
+                'alias' => 'kitchen',
+                'description' => 'Изображения для кухни',
+                'keywords' => 'кухня, kitchen',
+                'publish' => 1
+            ],
+            [
+                'type' => 'interiors',
+                'title' => 'Детская',
+                'alias' => 'child-room',
+                'description' => 'Изображения для детской',
+                'keywords' => 'детская, child room',
+                'publish' => 1
+            ],
+            [
+                'type' => 'interiors',
+                'title' => 'Прихожая',
+                'alias' => 'hallway',
+                'description' => 'Изображения для коридора',
+                'keywords' => 'прихожая, hallway',
+                'publish' => 1
+            ],
+            [
+                'type' => 'interiors',
+                'title' => 'Офис',
+                'alias' => 'office',
+                'description' => 'Изображения для офиса',
+                'keywords' => 'офис, office',
+                'publish' => 1
+            ]
         ]
     ]
 ];

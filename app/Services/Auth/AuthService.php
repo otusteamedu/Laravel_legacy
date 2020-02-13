@@ -4,6 +4,7 @@
 namespace App\Services\Auth;
 
 
+use App\Models\User;
 use App\Services\Base\Auth\BaseAuthService;
 use App\Services\User\Resources\User as UserResource;
 use Illuminate\Http\Request;
@@ -54,12 +55,12 @@ class AuthService extends BaseAuthService
     }
 
     /**
-     * @param $user
+     * @param User $user
      */
-    public function createEmailVerification($user)
+    public function createEmailVerification(User $user)
     {
         $this->repository->setVerifyToken($user);
-        $this->repository->sendEmailVerificationNotification($user);
+        $user->sendEmailVerificationNotification();
     }
 
     /**

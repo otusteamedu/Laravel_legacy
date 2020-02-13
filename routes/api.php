@@ -167,11 +167,14 @@ Route::group(['prefix' => 'manager'], function() {
 
     Route::group(['prefix' => 'users'], function() {
         Route::post('{id}', 'Cms\User\UserController@update')
-            ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+')
+            ->name('users.update');
         Route::get('{id}/publish', 'Cms\User\UserController@publish')
-            ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+')
+            ->name('users.publish');
         Route::post('{id}/password-change', 'Cms\User\UserController@passwordChange')
-            ->where('id', '[0-9]+');
+            ->where('id', '[0-9]+')
+            ->name('users.password');
     });
     Route::apiResource('users', 'Cms\User\UserController')->except(['create', 'edit', 'update']);
 
