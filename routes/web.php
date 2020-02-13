@@ -23,10 +23,10 @@ Route::get('/user', function () {
     return view('site/user');
 });
 
-Route::get('/auth', function () {
-    return view('site/login');
+Route::get('/signUp', function () {
+    return view('site/signUp');
 });
 
-Route::post('/auth', function () {
+Route::post('/signUp', function () {
     return view('site/pageInDevelopment');
 });

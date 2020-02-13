@@ -19,7 +19,7 @@
     @php($topNavUser = [
         [
             'name' => 'user_reg',
-            'url' => '/auth',
+            'url' => '/signUp',
         ],
     ])
 @endif
