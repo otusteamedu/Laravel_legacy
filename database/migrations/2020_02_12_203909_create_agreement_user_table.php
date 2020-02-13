@@ -14,7 +14,11 @@ class CreateAgreementUserTable extends Migration
     public function up()
     {
         Schema::create('agreement_user', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('agreement_id');
+            $table->integer('user_id');
+            $table->boolean("is_owner");
+            $table->set("status", ["sent", "agree", "reject"]);
+            $table->string("rejected_reason", "255")->nullable();
             $table->timestamps();
         });
     }

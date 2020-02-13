@@ -1,0 +1,112 @@
+Table "agreement" {
+  "id" bigint(20) [pk, not null, increment]
+  "title" varchar(255) [not null]
+  "description" text
+  "version" int(11) [not null, default: "1"]
+  "status" set('active','new','old') [not null]
+  "version_owner_user_id" int(11) [not null]
+  "created_at" timestamp [default: NULL]
+  "updated_at" timestamp [default: NULL]
+}
+
+Table "agreement_penalties" {
+  "id" bigint(20) [pk, not null, increment]
+  "number" int(11) [not null]
+  "text" text [not null]
+  "agreement_id" int(11) [not null]
+  "created_at" timestamp [default: NULL]
+  "updated_at" timestamp [default: NULL]
+}
+
+Table "agreement_penalty_user_journal" {
+  "id" bigint(20) [pk, not null, increment]
+  "comment" text
+  "status" set('new','confirmed','rejected') [not null]
+  "penalty_date" date [not null]
+  "agreement_penalty_id" int(11) [not null]
+  "declare_user_id" int(11) [not null, note: 'Пользователь, отправивший запрос на создание штрафа']
+  "penalty_user_id" int(11) [not null, note: 'Проштрафившийся пользователь']
+  "agreement_id" int(11) [not null]
+  "created_at" timestamp [default: NULL]
+  "updated_at" timestamp [default: NULL]
+}
+
+Table "agreement_points" {
+  "id" bigint(20) [pk, not null, increment]
+  "number" int(11) [not null]
+  "text" text [not null]
+  "agreement_id" int(11) [not null]
+  "created_at" timestamp [default: NULL]
+  "updated_at" timestamp [default: NULL]
+}
+
+Table "agreement_user" {
+  "agreement_id" int(11) [not null]
+  "user_id" int(11) [not null]
+  "is_owner" tinyint(1) [not null]
+  "status" set('sent','agree','reject') [not null]
+  "rejected_reason" varchar(255) [default: NULL]
+  "created_at" timestamp [default: NULL]
+  "updated_at" timestamp [default: NULL]
+}
+
+Table "failed_jobs" {
+  "id" bigint(20) [pk, not null, increment]
+  "connection" text [not null]
+  "queue" text [not null]
+  "payload" longtext [not null]
+  "exception" longtext [not null]
+  "failed_at" timestamp [not null, default: `CURRENT_TIMESTAMP`]
+}
+
+Table "migrations" {
+  "id" int(10) [pk, not null, increment]
+  "migration" varchar(255) [not null]
+  "batch" int(11) [not null]
+}
+
+Table "password_resets" {
+  "email" varchar(255) [not null]
+  "token" varchar(255) [not null]
+  "created_at" timestamp [default: NULL]
+
+
+Indexes {
+  email [name: "password_resets_email_index"]
+}
+}
+
+Table "users" {
+  "id" bigint(20) [pk, not null, increment]
+  "name" varchar(255) [not null]
+  "email" varchar(255) [not null]
+  "email_verified_at" timestamp [default: NULL]
+  "password" varchar(255) [not null]
+  "remember_token" varchar(100) [default: NULL]
+  "created_at" timestamp [default: NULL]
+  "updated_at" timestamp [default: NULL]
+
+
+Indexes {
+  email [unique, name: "users_email_unique"]
+}
+}
+
+
+Ref: "agreement"."id" < "agreement_user"."agreement_id"
+
+Ref: "users"."id" < "agreement_user"."user_id"
+
+Ref: "agreement"."id" < "agreement_points"."agreement_id"
+
+Ref: "agreement"."id" < "agreement_penalties"."agreement_id"
+
+Ref: "agreement"."id" < "agreement_penalty_user_journal"."agreement_id"
+
+Ref: "users"."id" < "agreement_penalty_user_journal"."declare_user_id"
+
+Ref: "users"."id" < "agreement_penalty_user_journal"."penalty_user_id"
+
+Ref: "users"."id" < "agreement"."version_owner_user_id"
+
+Ref: "agreement_penalties"."id" < "agreement_penalty_user_journal"."agreement_penalty_id"

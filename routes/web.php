@@ -1,5 +1,5 @@
 <?php
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,5 +12,6 @@
 */
 
 Route::get('/', function () {
+    dd(User::all());
     return view('index');
 });

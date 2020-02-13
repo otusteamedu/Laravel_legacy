@@ -15,6 +15,11 @@ class CreateAgreementTable extends Migration
     {
         Schema::create('agreement', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string("title", 255);
+            $table->text("description")->nullable();
+            $table->integer("version")->default(1);
+            $table->set("status", ["active", "new", "old"]);
+            $table->integer("version_owner_user_id");
             $table->timestamps();
         });
     }

@@ -15,6 +15,9 @@ class CreateAgreementPenaltiesTable extends Migration
     {
         Schema::create('agreement_penalties', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer("number");
+            $table->text("text");
+            $table->integer('agreement_id');
             $table->timestamps();
         });
     }
