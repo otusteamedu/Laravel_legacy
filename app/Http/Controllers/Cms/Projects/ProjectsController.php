@@ -7,9 +7,12 @@ use App\Http\Controllers\Cms\Requests\ProjectUpdateRequest;
 use App\Http\Controllers\Cms\Requests\TaskUpdateRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\Projects\Requests\TaskStoreRequest;
+use App\Jobs\ProjectUpdate;
 use App\Models\Project;
+use App\Models\User;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Http\Request;
+use Log;
 
 class ProjectsController extends Controller
 {
@@ -93,6 +96,7 @@ class ProjectsController extends Controller
     {
         $data = $request->getFormData();
         $result = $this->projectsService->updateForm($project, $data);
+        ProjectUpdate::dispatch($project,$request);
         if ($result) {
             return redirect()
                 ->route('csm.projects.index')
