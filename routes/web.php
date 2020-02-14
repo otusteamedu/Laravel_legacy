@@ -19,7 +19,7 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/logme', function () {
-    Log::info('this :user log', ['user' => 'Anton']);
+    Log::critical('Critical message in Slack!');
     return 'log ok';
 })->name('logme');
 
