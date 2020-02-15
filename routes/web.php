@@ -12,9 +12,6 @@
 */
 
 Route::get('/', function () {
-<<<<<<< HEAD
-    return view('public.index');
-=======
     return view('public.index.page');
 });
 
@@ -24,5 +21,4 @@ Route::get('/contact', function () {
 
 Route::get('/delivery', function () {
     return view('public.delivery.page');
->>>>>>> hw2
 });
