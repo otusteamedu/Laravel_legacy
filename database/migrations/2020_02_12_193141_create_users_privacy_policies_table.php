@@ -16,7 +16,7 @@ class CreateUsersPrivacyPoliciesTable extends Migration
         Schema::create('users_privacy_policies', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('user_id');
-            $table->boolean('permission_to_show_email_number');
+            $table->boolean('permission_to_show_email');
             $table->boolean('permission_to_show_phone_number');
 
             $table->foreign('user_id')
