@@ -16,7 +16,7 @@ class CreateUsersTable extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->softDeletes();
             $table->bigIncrements('id');
-            $table->boolean('active');
+            $table->boolean('active')->default(0);
             $table->string('name');
             $table->string('last_name')->nullable();
             $table->unsignedBigInteger('country_id');
