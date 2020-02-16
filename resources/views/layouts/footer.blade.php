@@ -1,8 +1,8 @@
 @if (Request::url() !== 'http://otus')
-</div>
-<div class="col-lg-4">
-    @include('layouts.blocks.content.sidebar')
-</div>
+    </div>
+    <div class="col-lg-4">
+        @include('layouts.blocks.content.sidebar')
+    </div>
 </div>
 @endif
 </main>
@@ -13,7 +13,7 @@
                 <div class="col-lg-3 col-md-6 footer-info">
                     <h3>GeoCashing</h3>
                     <p>
-                        С нами можно связаться: <br>
+                        @lang('layouts/footer.contact_with_us'): <br>
                         <strong>Email:</strong> info@example.com<br>
                     </p>
                     <div class="social-links mt-3">
@@ -41,30 +41,30 @@
                 </div>
 
                 <div class="col-lg-2 col-md-6 footer-links">
-                    <h4>Ознакомьтесь</h4>
+                    <h4>@lang('layouts/footer.for_acquaintance')</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">О проекте</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Список событий</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/news/">Новости проекта</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Полезные статьи</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.about_project')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.events_list')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/news/">@lang('layouts/footer.project_news')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.articles')</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-3 col-md-6 footer-links">
-                    <h4>Наш сервис</h4>
+                    <h4>@lang('layouts/footer.our_service')</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/personal/">Личный кабинет</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Рейтинги участников</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Политика безопасности</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">Отзывы о нас</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="/personal/">@lang('layouts/footer.personal_cabinet')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.users_ratings')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.security_policy')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.feedbacks_about_us')</a></li>
                     </ul>
                 </div>
 
                 <div class="col-lg-4 col-md-6">
-                    <h4>Подписаться</h4>
-                    <p>Вы можете подписаться на получение ежеденельных новостей</p>
+                    <h4>@lang('layouts/footer.subscribe')</h4>
+                    <p>@lang('layouts/footer.subscribe_to_weekly_news')</p>
                     <form action="#" method="post">
-                        <input type="email" name="email"><input type="submit" value="Подписаться">
+                        <input type="email" name="email"><input type="submit" value="@lang('layouts/footer.subscribe')">
                     </form>
                 </div>
             </div>
@@ -73,10 +73,10 @@
 
     <div class="container">
         <div class="copyright">
-            © Copyright <strong><span>GeoCashing</span></strong>. Все права защищены
+            © Copyright <strong><span>GeoCashing</span></strong>. @lang('layouts/footer.rights_reserved')
         </div>
         <div class="credits">
-            Разработано <a href="https://codeblog.pro/">CodeBlog.pro</a>
+            @lang('layouts/footer.developed_by') <a href="https://codeblog.pro/">CodeBlog.pro</a>
         </div>
     </div>
 </footer>

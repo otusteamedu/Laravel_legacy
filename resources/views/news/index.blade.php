@@ -49,18 +49,6 @@
     </a>
 </div>
 <div class="my-2">
-    <nav aria-label="Page navigation example">
-        <ul class="pagination justify-content-end">
-            <li class="page-item disabled">
-                <a class="page-link" href="#" tabindex="-1">Пред.</a>
-            </li>
-            <li class="page-item"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link" href="#">След.</a>
-            </li>
-        </ul>
-    </nav>
+    @include('layouts.blocks.pagination.conent_navbar')
 </div>
 @stop

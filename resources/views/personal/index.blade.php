@@ -6,72 +6,72 @@
         <div class="col-lg-4 mb-4 text-center">
             <img src="https://ya-webdesign.com/images/avatar-png-1.png"
                  class="mx-auto img-fluid img-circle d-block" alt="avatar" width="200px" height="200px">
-            <h6 class="mt-2">Выбрать другое фото</h6>
+            <h6 class="mt-2">@lang('pages/personal_index.choose_another_photo')</h6>
             <label class="custom-file">
                 <input type="file" id="file" class="custom-file-input">
-                <span class="custom-file-control btn btn-primary">Выбрать файл</span>
+                <span class="custom-file-control btn btn-primary">@lang('pages/personal_index.choose_file')</span>
             </label>
         </div>
         <div class="col-lg-8 mb-4">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Профиль</a>
+                    <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">@lang('pages/personal_index.profile')</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">Редактировать</a>
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">@lang('pages/personal_index.to_edit')</a>
                 </li>
             </ul>
             <div class="tab-content py-4">
                 <div class="tab-pane active" id="profile">
-                    <h5 class="mb-3">Профиль</h5>
+                    <h5 class="mb-3">@lang('pages/personal_index.profile')</h5>
                     <div class="row">
                         <div class="col-md-6">
                             <p>
-                                <strong>Пользователь</strong><br>
-                                Иван Иванов
+                                <strong>@lang('pages/personal_index.user')</strong><br>
+                                @lang('global.default_first_name') @lang('global.default_last_name')
                             </p>
                             <p>
-                                <strong>Контакты</strong><br>
+                                <strong>@lang('pages/personal_index.contacts')</strong><br>
                                 email@test.ru <br>
                                 +7 908 999 99 99
                             </p>
                             <p>
-                                <strong>Адрес</strong><br>
-                                Россия, Казань.
+                                <strong>@lang('global.address')</strong><br>
+                                @lang('global.default_country'), @lang('global.default_city').
                             </p>
                         </div>
                         <div class="col-md-6">
-                            <h6>Результаты:</h6>
+                            <h6>@lang('pages/personal_index.results'):</h6>
                             <p>
-                                Нашел кладов: <a href="/" class="badge badge-dark badge-pill">23</a>
+                                @lang('pages/personal_index.completed_events'): <a href="/" class="badge badge-dark badge-pill">23</a>
                             </p>
                             <p>
-                                Создал кладов: <a href="/" class="badge badge-dark badge-pill">14</a>
+                                @lang('pages/personal_index.created_events'): <a href="/" class="badge badge-dark badge-pill">14</a>
                             </p>
                             <p>
-                                Оставил комментариев: <a href="/" class="badge badge-dark badge-pill">124</a>
+                                @lang('pages/personal_index.left_comments'): <a href="/" class="badge badge-dark badge-pill">124</a>
                             </p>
                             <hr>
                         </div>
                         <div class="col-md-12">
-                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span> Последняя
-                                активность:
+                            <h5 class="mt-2"><span class="fa fa-clock-o ion-clock float-right"></span>
+                                @lang('pages/personal_index.last_activity'):
                             </h5>
                             <table class="table table-sm table-hover table-striped">
                                 <tbody>
                                 <tr>
                                     <td>
-                                        Создал клад <strong>"Тайна заброшенного элеватора"</strong>
+                                        @lang('pages/personal_index.completed_event') <strong>"Тайна заброшенного элеватора"</strong>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Нашел клад <strong>Сюрприз меловой пещеры</strong>
+                                        @lang('pages/personal_index.created_an_event') <strong>Сюрприз меловой пещеры</strong>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        Прокомментировал <strong>История старого дуба</strong>
+                                        @lang('pages/personal_index.left_comment') <strong>История старого дуба</strong>
                                     </td>
                                 </tr>
                                 </tbody>
@@ -82,44 +82,44 @@
                 <div class="tab-pane" id="edit">
                     <form role="form">
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Имя</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.first_name')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Иван">
+                                <input class="form-control" type="text" placeholder="@lang('global.default_first_name')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Фамилия</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.last_name')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" value="Иванов">
+                                <input class="form-control" type="text" placeholder="@lang('global.default_last_name')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="email" value="email@gmail.com">
+                                <input class="form-control" type="email" placeholder="@lang('alerts/forms.default_email')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Номер телефона</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.phone_number')</label>
                             <div class="col-lg-9">
                                 <input id="form_phone" type="tel" name="phone" class="form-control"
-                                       placeholder="+7 906 999 99 99">
+                                       placeholder="@lang('alerts/forms.default_phone_number')">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Страна</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.country')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" name="country" value="Россия">
+                                <input class="form-control" type="text" name="country" placeholder="@lang('global.default_country')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Город</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.city')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" name="city" value="Казань">
+                                <input class="form-control" type="text" name="city" placeholder="@lang('global.default_city')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Часовой пояс</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.timezone')</label>
                             <div class="col-lg-9">
                                 <select id="user_time_zone" class="form-control" size="0">
                                     <option value="Hawaii">(GMT-10:00) Hawaii</option>
@@ -142,22 +142,22 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Пароль</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('alerts/forms.password')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
+                                <input class="form-control" type="password" placeholder="@lang('alerts/forms.password_default')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-lg-3 col-form-label form-control-label">Повторите пароль</label>
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('alerts/forms.confirm_password')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" value="11111122333">
+                                <input class="form-control" type="password" placeholder="@lang('alerts/forms.password')" value="">
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
-                                <input type="reset" class="btn btn-secondary" value="Отменить">
-                                <input type="button" class="btn btn-primary" value="Сохранить изменения">
+                                <input type="reset" class="btn btn-secondary" value="@lang('alerts/forms.cancel')">
+                                <input type="button" class="btn btn-primary" value="@lang('alerts/forms.save_changes')">
                             </div>
                         </div>
                     </form>

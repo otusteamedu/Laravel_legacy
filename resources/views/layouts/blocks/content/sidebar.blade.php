@@ -1,8 +1,8 @@
 <aside class="mt-2">
     <div class="block-title-12">
-        <div style="height: 40px">
+        <div {{'// @ToDo: move to styles'}} style="height: 40px">
             <h4 class="h3 title-box-stripe">
-                <span>Популярные записи</span>
+                <span>@lang('blocks/content_sidebar.popular_elements')</span>
             </h4>
         </div>
     </div>
