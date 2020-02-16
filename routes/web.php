@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('plain.sale');
+});
+
+Route::get('/user', function () {
+    return view('plain.user');
+});
+
+Route::get('/registration', function () {
+    return view('plain.registration');
+});
+
+Route::get('/offer', function () {
+    return view('plain.offer');
 });
