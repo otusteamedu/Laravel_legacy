@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Carbon\Carbon;
+use \App\Models\Country;
 
 class LanguagesTableSeeder extends Seeder
 {
@@ -13,26 +13,24 @@ class LanguagesTableSeeder extends Seeder
     public function run()
     {
         DB::table('languages')->insert([
-            'name' => 'english',
-            'code' => 'eng',
-        ]);
-        DB::table('languages')->insert([
-            'name' => 'русский',
-            'code' => 'rus',
-            'country_id' => DB::table('countries')
-                ->where('phone_code', '+7')
-                ->value('id')
-        ]);
-        DB::table('languages')->insert([
-            'name' => 'українська',
-            'code' => 'ukr',
-            'country_id' => DB::table('countries')
-                ->where('phone_code', '+38')
-                ->value('id')
-        ]);
-        DB::table('languages')->insert([
-            'name' => '中文',
-            'code' => 'zho',
+            [
+                'name' => 'english',
+                'code' => 'eng',
+            ],
+            [
+                'name' => 'русский',
+                'code' => 'rus',
+                'country_id' => Country::where('phone_code', '+7')->value('id')
+            ],
+            [
+                'name' => 'українська',
+                'code' => 'ukr',
+                'country_id' => Country::where('phone_code', '+38')->value('id')
+            ],
+            [
+                'name' => '中文',
+                'code' => 'zho',
+            ]
         ]);
     }
 }
