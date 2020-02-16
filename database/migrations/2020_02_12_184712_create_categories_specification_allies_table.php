@@ -18,16 +18,6 @@ class CreateCategoriesSpecificationAlliesTable extends Migration
             $table->bigInteger('categories_id');
             $table->bigInteger('specification_id');
             $table->timestamps();
-
-/*             $table->foreign('categories_id')
-                ->references('id')
-                ->on('catalog_categories')
-                ->onDelete('cascade');
-
-            $table->foreign('specification_id')
-                    ->references('id')
-                    ->on('catalog_specifications')
-                    ->onDelete('cascade'); */
         });
     }
 

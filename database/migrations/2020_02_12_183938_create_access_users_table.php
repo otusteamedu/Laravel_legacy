@@ -18,11 +18,6 @@ class CreateAccessUsersTable extends Migration
             $table->bigInteger('user_id');
             $table->bigInteger('module_id');
             $table->timestamps();
-
-/*             $table->foreign('user_id')
-                    ->references('id')
-                    ->on('users')
-                    ->onDelete('cascade'); */
         });
     }
 

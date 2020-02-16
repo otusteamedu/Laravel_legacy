@@ -19,16 +19,6 @@ class CreateCatalogItemPricesTable extends Migration
             $table->bigInteger('language_id');
             $table->integer('votes')->default(0);
             $table->timestamps();
-
-/*             $table->foreign('item_id')
-                    ->references('id')
-                    ->on('catalog_items')
-                    ->onDelete('cascade');
-
-            $table->foreign('language_id')
-                    ->references('id')
-                    ->on('catalog_item_price_languages')
-                    ->onDelete('cascade'); */
         });
     }
 

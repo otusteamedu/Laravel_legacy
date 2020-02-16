@@ -17,7 +17,7 @@ class CreateCatalogItemsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 255);
             $table->text('description');
-            $table->integer('categorie_parent_id');
+            $table->integer('category_id');
             $table->bigInteger('files_id')->nullable();
             $table->string('meta_title', 255);
             $table->text('meta_description');
@@ -27,10 +27,6 @@ class CreateCatalogItemsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
 
-/*             $table->foreign('categorie_parent_id')
-                    ->references('id')
-                    ->on('catalog_categories')
-                    ->onDelete('cascade'); */
         });
     }
 

@@ -22,11 +22,6 @@ class CreateNewsTable extends Migration
             $table->string('url', 255);
             $table->bigInteger('file_id')->nullable();
             $table->timestamps();
-
-/*             $table->foreign('file_id')
-                    ->references('id')
-                    ->on('files')
-                    ->onDelete('cascade'); */
         });
     }
 

@@ -16,14 +16,10 @@ class CreateCatalogItemSpecificationValuesTable extends Migration
         Schema::create('catalog_item_specification_values', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
-            $table->bigInteger('catalog_specification_allies_id');
+            $table->bigInteger('specification_allies_id');
             $table->string('value', 255);
             $table->timestamps();
 
-/*             $table->foreign('item_id')
-                    ->references('id')
-                    ->on('catalog_items')
-                    ->onDelete('cascade'); */
         });
     }
 
