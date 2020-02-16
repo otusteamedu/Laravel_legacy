@@ -1,18 +1,19 @@
 @servers(['web' => ['archvile@31.31.192.240']])
 
 @setup
-    $server = $server ?? 's2';
-    $branch = $branch ?? 'master'
+    $dir = '~/www/release'.\Carbon\Carbon::now()->format('YmdHis');
+    $branch = $branch ?? 'master';
 @endsetup
 
 @story('deploy')
-    toggle_server
-    cache
-    fetch
-    checkout
-    composer
+    git_clone
+    composer_install
+    link_shared
+    cache_clear
     migrate
-    warm
+    cache_warm
+    toggle_server
+    server_status
 @endstory
 
 @task('ls')
@@ -20,46 +21,46 @@
     ls -al
 @endtask
 
-@task('toggle_server')
-    ln -snf ~/www/{{$server}}.otus.0x25.ru ~/www/otus.0x25.ru
+@task('git_clone')
+    cd ~/www/
+    git clone https://github.com/otusteamedu/Laravel {{ $dir }} -b KKondratenko/{{ $branch }}
 @endtask
 
-@task('cache')
-    cd ~/www/otus.0x25.ru
-    /opt/php72/bin/php artisan view:clear
-    /opt/php72/bin/php artisan cache:clear
+@task('composer_install')
+    cd {{ $dir }}
+    /opt/php72/bin/php /usr/local/bin/composer install
+@endtask
+
+@task('link_shared')
+    cd {{ $dir }}
+    ln -snf ~/www/shared/public/upload/ {{ $dir }}/public/upload
+    ln -snf ~/www/shared/.env {{ $dir }}/.env
+@endtask
+
+@task('cache_clear')
+    cd {{ $dir }}
     /opt/php72/bin/php artisan config:clear
-    /opt/php72/bin/php artisan event:clear
-    /opt/php72/bin/php artisan queue:flush
-    /opt/php72/bin/php artisan route:clear
-@endtask
-
-@task('fetch')
-    cd ~/www/otus.0x25.ru
-    git fetch https://github.com/otusteamedu/Laravel
-@endtask
-
-@task('checkout')
-    cd ~/www/otus.0x25.ru
-    git reset --hard
-    git checkout KKondratenko/{{ $branch }}
-@endtask
-
-@task('composer')
-    cd ~/www/otus.0x25.ru
-    /opt/php72/bin/php /usr/local/bin/composer update --no-scripts
-    /opt/php72/bin/php /usr/local/bin/composer dump-autoload
+    /opt/php72/bin/php artisan cache:clear
+    /opt/php72/bin/php artisan view:clear
 @endtask
 
 @task('migrate')
-    cd ~/www/otus.0x25.ru
+    cd {{ $dir }}
     /opt/php72/bin/php artisan migrate
 @endtask
 
-@task('warm')
-    cd ~/www/otus.0x25.ru
+@task('cache_warm')
+    cd {{ $dir }}
     /opt/php72/bin/php artisan config:cache
-    /opt/php72/bin/php artisan event:cache
-    /opt/php72/bin/php artisan view:cache
-    {{--/opt/php72/bin/php artisan route:cache--}}
+@endtask
+
+@task('toggle_server')
+    cd ~/www/
+    ln -snf {{ $dir }} ~/www/otus.0x25.ru
+@endtask
+
+@task('server_status')
+    cd ~/www/otus.0x25.ru
+    /opt/php72/bin/php artisan -V
+    git branch
 @endtask
