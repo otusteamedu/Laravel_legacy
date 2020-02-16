@@ -1,0 +1,56 @@
+/* flex single cells */
+@mixin flex-vertical-center {
+    display: flex;
+    align-items: center;
+}
+@mixin flex-center-start () {
+    @include flex-vertical-center ();
+    Justify-content: flex-start;
+}
+@mixin flex-center-center () {
+    @include flex-vertical-center ();
+    Justify-content: center;
+}
+
+/* flex rows */
+@mixin flex-row () {
+    display: flex;
+    flex-direction: row;
+}
+
+/* flex rows align-items: center */
+@mixin flex-row-center () {
+    @include flex-row ();
+    align-items: center;
+}
+
+@mixin flex-row-center-start () {
+    @include flex-row-center ();
+    Justify-content: flex-start;
+}
+
+@mixin flex-row-center-center () {
+    @include flex-row-center ();
+    Justify-content: center;
+}
+
+@mixin flex-row-center-between () {
+    @include flex-row-center ();
+    Justify-content: space-between;
+}
+
+@mixin flex-row-center-end () {
+    @include flex-row-center ();
+    Justify-content: flex-end;
+}
+
+/* flex cols */
+@mixin flex-col () {
+    display: flex;
+    flex-direction: column;
+}
+
+@mixin flex-col-center () {
+    @include flex-col ();
+    align-items: center;
+}

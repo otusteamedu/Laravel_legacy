@@ -1,0 +1,46 @@
+/* flex single cells */
+.flex-vertical-center {
+    @include flex-vertical-center();
+}
+
+.flex-center-start {
+    @include flex-center-start();
+}
+
+.flex-center-center {
+    @include flex-center-center();
+}
+
+/* flex rows */
+.flex-row {
+    @include flex-row();
+}
+
+.flex-row-center {
+    @include flex-row-center();
+}
+
+.flex-row-center-start {
+    @include flex-row-center-start();
+}
+
+.flex-row-center-center {
+    @include flex-row-center-center();
+}
+
+.flex-row-center-between {
+    @include flex-row-center-between();
+}
+
+.flex-row-center-end {
+    @include flex-row-center-end();
+}
+
+/* flex cols */
+.flex-col {
+    @include flex-col();
+}
+
+.flex-col-center {
+    @include flex-col-center();
+}
