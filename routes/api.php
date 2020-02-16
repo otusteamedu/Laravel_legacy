@@ -21,8 +21,7 @@ Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function(
 
     Route::post('/login', 'Auth\LoginController@login')->middleware([
         'auth.authorised',
-        'auth.active',
-        'auth.verified'
+        'auth.active'
     ]);
 
     Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
@@ -47,9 +46,14 @@ Route::group(['prefix' => 'manager'], function() {
 
     // Images
 
-    Route::post('images/{id}', 'Cms\Image\ImageController@update');
-    Route::get('images/{id}/publish', 'Cms\Image\ImageController@publish');
-    Route::apiResource('images', 'Cms\Image\ImageController')->except(['create', 'edit', 'update']);
+    Route::post('images/list', 'Cms\Image\ImageController@list')
+        ->name('images.list');
+    Route::post('images/{id}', 'Cms\Image\ImageController@update')
+        ->name('images.update');
+    Route::get('images/{id}/publish', 'Cms\Image\ImageController@publish')
+        ->name('images.publish');
+    Route::apiResource('images', 'Cms\Image\ImageController')
+        ->except(['index', 'create', 'edit', 'update']);
 
 
     // Catalog
@@ -79,7 +83,8 @@ Route::group(['prefix' => 'manager'], function() {
             Route::get('{id}/publish', 'Cms\Category\CategoryController@publish')
                 ->where('id', '[0-9]+');
         });
-        Route::apiResource('categories', 'Cms\Category\CategoryController')->except(['create', 'edit', 'update']);
+        Route::apiResource('categories', 'Cms\Category\CategoryController')
+            ->except(['create', 'edit', 'update']);
 
 
         // Tags
@@ -104,7 +109,8 @@ Route::group(['prefix' => 'manager'], function() {
             Route::get('{id}/publish', 'Cms\Tag\TagController@publish')
                 ->where('id', '[0-9]+');
         });
-        Route::apiResource('tags', 'Cms\Tag\TagController')->except(['create', 'edit', 'update']);
+        Route::apiResource('tags', 'Cms\Tag\TagController')
+            ->except(['create', 'edit', 'update']);
 
 
         // Owners

@@ -16,16 +16,24 @@ class UserActive
      */
     public function handle($request, Closure $next)
     {
-        if (! $request->user()) {
-            $credentials = $request->only('email', 'password');
-            auth()->attempt($credentials);
-        }
+        $user = $request->user();
 
-        return auth()->user()->publish
-            ? $next($request)
-            : response()->json([
+        if (! $user->publish) {
+            return response()->json([
                 'message' => __('auth.locked_out'),
                 'status' => 'danger'
             ], 403);
+        }
+
+        if (! $user->verified) {
+            $user->sendEmailVerificationNotification();
+
+            return response()->json([
+                'message' => __('auth.send_activation_code', ['email' => $user->email]),
+                'status' => 'primary'
+            ], 401);
+        }
+
+        return $next($request);
     }
 }
