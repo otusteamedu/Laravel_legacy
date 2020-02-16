@@ -23,5 +23,5 @@
 ])
 {{ Form::open() }}
     @each('blocks.forms.field', $formFields, 'field')
-    @include('blocks.forms.butSubmit', ['buttonTitle' => 'messages.page_reg.form.submit_button'])
+    @include('blocks.forms.btn-submit', ['buttonTitle' => 'messages.page_reg.form.submit_button'])
 {{ Form::close() }}
