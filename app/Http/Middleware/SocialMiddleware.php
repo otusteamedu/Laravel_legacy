@@ -27,9 +27,9 @@ class SocialMiddleware
         if (!in_array(strtolower($request->service), $enabledServices)) {
             if ($request->expectsJson()) {
                 return response()->json([
-                    'success' => false,
-                    'messages' => ['danger' => trans('auth.invalid_social_service')]
-                ], 403 );
+                    'message' => __('auth.invalid_social_service'),
+                    'status' => 'danger'
+                ], 401 );
             }
             return redirect()->back();
         }

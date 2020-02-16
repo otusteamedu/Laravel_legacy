@@ -18,7 +18,12 @@ use Illuminate\Http\Request;
 
 Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function() {
     Route::post('/register', 'Auth\RegisterController@register');
-    Route::post('/login', 'Auth\LoginController@login');
+
+    Route::post('/login', 'Auth\LoginController@login')->middleware([
+        'auth.authorised',
+        'auth.active',
+        'auth.verified'
+    ]);
 
     Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
     Route::get('/login/{service}/callback', 'Auth\SocialLoginController@callback');
@@ -30,7 +35,7 @@ Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function(
 });
 
 Route::group(['prefix' => '/auth'], function() {
-    Route::get('/', 'Auth\AuthController@index')->middleware('jwt.auth');
+    Route::get('/', 'Auth\AuthController@index');
     Route::get('/logout', 'Auth\AuthController@logout')->middleware('jwt.auth');
 });
 
