@@ -10,6 +10,7 @@
         </div>
         <div class="table-responsive">
             <table class="table table-striped  table-bordered">
+                {{--
                 <thead>
                 <tr>
                     <th scope="col">#</th>
@@ -21,6 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
+
                 @php
                     $items = [
                         ['type' => 'emission', 'name' => 'Авангард-Агро, БО-001P-01', 'price' => 100.4, 'price_delta' => -0.20],
@@ -43,6 +45,23 @@
                         </td>
                     </tr>
                 @endforeach
+                </tbody>
+                --}}
+
+                <tbody>
+                @foreach($data as $item)
+                    <tr>
+                        {{--<td>{{ $loop->iteration }}</td>--}}
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $lang == 'en' ? $item->name_eng : $item->name }}</td>
+                        <td>{{ $lang == 'en' ? $item->country->name_eng : $item->country->name }}</td>
+                        <td>{{ $lang == 'en' ? $item->orgBranch->name_eng : $item->orgBranch->name }}</td>
+                        <td>{{ $lang == 'en' ? $item->orgType->name_eng : $item->orgType->name }}</td>
+                        <td>{{ $lang == 'en' ? $item->orgGroup->name_eng : $item->orgGroup->name }}</td>
+                    </tr>
+                @endforeach
+
+
                 </tbody>
             </table>
 
