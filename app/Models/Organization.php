@@ -37,15 +37,15 @@ use Illuminate\Database\Eloquent\Model;
 class Organization extends Model
 {
     public function country() {
-        return $this->hasOne('App\Models\Country','id', 'country_id');
+        return $this->belongsTo('App\Models\Country');
     }
     public function orgBranch() {
-        return $this->hasOne('App\Models\orgBranch','id', 'org_branch_id');
+        return $this->belongsTo('App\Models\orgBranch');
     }
     public function orgGroup() {
-        return $this->hasOne('App\Models\orgGroup','id', 'org_group_id');
+        return $this->belongsTo('App\Models\orgGroup');
     }
     public function orgType() {
-        return $this->hasOne('App\Models\orgType','id', 'org_type_id');
+        return $this->belongsTo('App\Models\orgType');
     }
 }
