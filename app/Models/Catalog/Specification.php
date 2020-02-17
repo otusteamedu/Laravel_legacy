@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Specification extends Model
 {
+
+    protected $table = 'catalog_specifications';
+
     public function category()
     {
         return $this->belongsToMany(

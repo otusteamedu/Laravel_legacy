@@ -12,8 +12,7 @@
 */
 
 Route::get('/', function () {
-    $test = App\Models\News::find(1);
-    dd($test);
+
     return view('public.index.page');
 });
 
