@@ -15,29 +15,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::any('/ru', function (){
-    App::setLocale('ru');
-    return view('index', ['page' => 'index']);
-});
-Route::any('/en', function (){
-    App::setLocale('en');
-    return view('index', ['page' => 'index']);
+Route::any('/{lang}', function ($lang){
+    App::setLocale($lang);
+    $organizations = App\Models\Organization::all();
+    $organizations->load('country');
+    $organizations->load('orgBranch');
+    $organizations->load('orgType');
+    $organizations->load('orgGroup');
+
+    return view('index', ['page' => 'index', 'lang' => $lang, 'data' => $organizations]);
 });
 
-Route::any('/ru/profile', function (){
-    App::setLocale('ru');
-    return view('profile', ['page' => 'profile']);
-});
-Route::any('/en/profile', function (){
-    App::setLocale('en');
+Route::any('/{lang}/profile', function ($lang){
+    App::setLocale($lang);
     return view('profile', ['page' => 'profile']);
 });
 
-Route::any('/ru/register', function (){
-    App::setLocale('ru');
-    return view('register', ['page' => 'register']);
-});
-Route::any('/en/register', function (){
-    App::setLocale('en');
+Route::any('/{lang}/register', function ($lang){
+    App::setLocale($lang);
     return view('register', ['page' => 'register']);
 });
