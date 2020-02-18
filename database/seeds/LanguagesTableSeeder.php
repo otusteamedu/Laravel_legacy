@@ -16,6 +16,7 @@ class LanguagesTableSeeder extends Seeder
             [
                 'name' => 'english',
                 'code' => 'eng',
+                'country_id' => null,
             ],
             [
                 'name' => 'русский',
@@ -30,6 +31,7 @@ class LanguagesTableSeeder extends Seeder
             [
                 'name' => '中文',
                 'code' => 'zho',
+                'country_id' => null,
             ]
         ]);
     }
