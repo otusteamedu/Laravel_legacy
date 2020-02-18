@@ -144,6 +144,9 @@ class UserValidationBuilder
      */
     public function getStatus()
     {
-        return $this->statusResponse;
+        return $this->statusResponse ?? response()->json([
+                'message' => __('auth.wrong_auth'),
+                'status' => 'danger'
+            ], 401);
     }
 }
