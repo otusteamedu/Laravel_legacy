@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAgreementPointsTable extends Migration
+class CreateAgreementPenaltiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAgreementPointsTable extends Migration
      */
     public function up()
     {
-        Schema::create('agreement_points', function (Blueprint $table) {
+        Schema::create('penalties', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer("number");
             $table->text("text");
-            $table->integer('agreement_id');
+            $table->bigInteger('agreement_id');
             $table->foreign('agreement_id')
                 ->references('id')
                 ->on('agreements')
@@ -33,6 +33,6 @@ class CreateAgreementPointsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('agreement_points');
+        Schema::dropIfExists('penalties');
     }
 }

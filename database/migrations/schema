@@ -23,7 +23,7 @@ Table "agreement_penalty_user_journal" {
   "comment" text
   "status" set('new','confirmed','rejected') [not null]
   "penalty_date" date [not null]
-  "agreement_penalty_id" int(11) [not null]
+  "penalty_id" int(11) [not null]
   "declare_user_id" int(11) [not null, note: 'Пользователь, отправивший запрос на создание штрафа']
   "penalty_user_id" int(11) [not null, note: 'Проштрафившийся пользователь']
   "agreement_id" int(11) [not null]
