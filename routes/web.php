@@ -16,18 +16,20 @@
  * @var
  */
 
-Route::name('admin.')->group(function (){
-    Route::prefix('admin')->group(function (){
-       Route::resources([
-           '/'=>'Admin\CategoryProduct\CategoryProductController',
-           'category'=>'Admin\CategoryProduct\CategoryProductController',
-           'product'=>'Admin\Product\ProductController',
-       ],[
-           'except' => [
-               'show',
-           ],
-       ]);
-    });
+Route::name('admin.')->group(function () {
+    Route::prefix('admin')
+        ->middleware(['auth'])
+        ->group(function () {
+            Route::resources([
+                '/' => 'Admin\CategoryProduct\CategoryProductController',
+                'category' => 'Admin\CategoryProduct\CategoryProductController',
+                'product' => 'Admin\Product\ProductController',
+            ], [
+                'except' => [
+                    'show',
+                ],
+            ]);
+        });
 });
 
 Route::get('/', function () {
@@ -58,7 +60,7 @@ Route::get('/', function () {
 */
     return view('pages/homepage2');
 
-});
+})->name('home');
 Route::get('account', function () {
     return view('pages/account');
 });
@@ -74,3 +76,7 @@ Route::get('cart', function () {
 Route::get('checkout', function () {
     return view('pages/checkout');
 });
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
