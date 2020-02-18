@@ -15,10 +15,10 @@ class CatalogItemSeeder extends Seeder
     public function run()
     {
        
-        $parentCategory = Category::class->pluck('id')->toArray();
+        $parentCategory = Category::pluck('id')->toArray();
 
         factory(Category::class, 10)->create()->each(function($category) use($parentCategory){
-            //$category->parent_id->update(Arr::random($parentCategory));
+            $category->update(['parent_id'=>Arr::random($parentCategory)]) ;
             $category->item()->saveMany(factory(Item::class, 12)->make());
         });
     }

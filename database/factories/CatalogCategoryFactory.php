@@ -17,7 +17,7 @@ $factory->define(Category::class, function (Faker $faker) {
         'description' => $faker->text,
         'meta_title' => $title,
         'meta_description' => $faker->sentence(7),
-        'url'=>$faker->domainWord,
+        'url'=> $faker->domainWord,
         'order'=> rand(1, 50)
     ];
 });

@@ -15,7 +15,7 @@ class CreateCategoriesSpecificationAlliesTable extends Migration
     {
         Schema::create('categories_specification_allies', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('categories_id');
+            $table->bigInteger('category_id');
             $table->bigInteger('specification_id');
             $table->timestamps();
         });
