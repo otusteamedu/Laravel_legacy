@@ -19,10 +19,7 @@ use Illuminate\Http\Request;
 Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function() {
     Route::post('/register', 'Auth\RegisterController@register');
 
-    Route::post('/login', 'Auth\LoginController@login')->middleware([
-        'auth.authorised',
-        'auth.active'
-    ]);
+    Route::post('/login', 'Auth\LoginController@login')->middleware('auth.valid');
 
     Route::get('/login/{service}', 'Auth\SocialLoginController@redirect');
     Route::get('/login/{service}/callback', 'Auth\SocialLoginController@callback');
