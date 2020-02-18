@@ -16,12 +16,16 @@ class CreateAgreementPenaltyUserJournalTable extends Migration
         Schema::create('agreement_penalty_user_journal', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text("comment")->nullable();
-            $table->set("status", ["new", "confirmed", "rejected"]);
+            $table->string("status"); // ["new", "confirmed", "rejected"]
             $table->date("penalty_date");
             $table->integer("agreement_penalty_id");
             $table->integer("declare_user_id")->comment("Пользователь, отправивший запрос на создание штрафа");
             $table->integer("penalty_user_id")->comment("Проштрафившийся пользователь");
             $table->integer("agreement_id");
+            $table->foreign('agreement_id')
+                ->references('id')
+                ->on('agreements')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -18,6 +18,10 @@ class CreateAgreementPenaltiesTable extends Migration
             $table->integer("number");
             $table->text("text");
             $table->integer('agreement_id');
+            $table->foreign('agreement_id')
+                ->references('id')
+                ->on('agreements')
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

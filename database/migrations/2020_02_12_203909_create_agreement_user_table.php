@@ -17,8 +17,13 @@ class CreateAgreementUserTable extends Migration
             $table->integer('agreement_id');
             $table->integer('user_id');
             $table->boolean("is_owner");
-            $table->set("status", ["sent", "agree", "reject"]);
+            $table->string("status"); // ["sent", "agree", "reject"]
             $table->string("rejected_reason", "255")->nullable();
+            $table->foreign('agreement_id')
+                ->references('id')
+                ->on('agreements')
+                ->onDelete('cascade');
+            $table->foreign('version_owner_user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

@@ -18,8 +18,9 @@ class CreateAgreementTable extends Migration
             $table->string("title", 255);
             $table->text("description")->nullable();
             $table->integer("version")->default(1);
-            $table->set("status", ["active", "new", "old"]);
+            $table->string("status"); // ["active", "new", "old"]
             $table->integer("version_owner_user_id");
+            $table->foreign('version_owner_user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }
