@@ -13,7 +13,7 @@ class UserValidationBuilder
     /**
      * @var User|null
      */
-    private User $user;
+    private $user;
 
     /**
      * @var JsonResponse|null
@@ -25,11 +25,18 @@ class UserValidationBuilder
      */
     private bool $isValid = true;
 
+    public function validateRequest(Request $request) {
+        $this->isAuth($request);
+        $this->isActive();
+        $this->isVerified();
+
+        return $this->isValid();
+    }
+
     /**
      * @param Request $request
-     * @return UserValidationBuilder|bool
      */
-    public function isAuth(Request $request)
+    private function isAuth(Request $request)
     {
         $credentials = $request->only('email', 'password');
 
@@ -37,69 +44,54 @@ class UserValidationBuilder
 
         $this->user = $request->user();
 
-        return $this->user
+        $this->user
             ? $this->handleSuccess()
             : $this->handleFailAuthResponse();
     }
 
-    /**
-     * @return UserValidationBuilder|bool
-     */
-    public function isActive()
+    private function isActive()
     {
         if (! $this->isValid) {
-            return $this;
+            return;
         }
 
-        return $this->user->publish
+        $this->user->publish
             ? $this->handleSuccess()
             : $this->handleFailActiveResponse();
     }
 
-    /**
-     * @return UserValidationBuilder|bool
-     */
-    public function isVerified()
+    private function isVerified()
     {
         if (! $this->isValid) {
-            return $this;
+            return;
         }
 
-        return $this->user->verified
+        $this->user->verified
             ? $this->handleSuccess()
             : $this->handleFailVerifiedResponse();
     }
 
-    /**
-     * @return UserValidationBuilder
-     */
-    private function handleFailAuthResponse(): UserValidationBuilder
+    private function handleFailAuthResponse()
     {
         $this->statusResponse = response()->json([
             'message' => __('auth.wrong_login_pass'),
             'status' => 'danger'
         ], 401);
 
-        return $this->handleFail();
+        $this->isValid = false;
     }
 
-    /**
-     * @return UserValidationBuilder
-     */
-    private function handleFailActiveResponse(): UserValidationBuilder
+    private function handleFailActiveResponse()
     {
         $this->statusResponse = response()->json([
             'message' => __('auth.locked_out'),
             'status' => 'danger'
         ], 403);
 
-        return $this->handleFail();
+        $this->isValid = false;
     }
 
-    /**
-     * @return UserValidationBuilder
-     */
-    private function handleFailVerifiedResponse(): UserValidationBuilder
+    private function handleFailVerifiedResponse()
     {
         $this->user->sendEmailVerificationNotification();
 
@@ -108,33 +100,18 @@ class UserValidationBuilder
             'status' => 'warning'
         ], 401);
 
-        return $this->handleFail();
+        $this->isValid = false;
     }
 
-    /**
-     * @return UserValidationBuilder
-     */
-    private function handleSuccess(): UserValidationBuilder
+    private function handleSuccess()
     {
         $this->isValid = true;
-
-        return $this;
-    }
-
-    /**
-     * @return UserValidationBuilder
-     */
-    private function handleFail(): UserValidationBuilder
-    {
-        $this->isValid = false;
-
-        return $this;
     }
 
     /**
      * @return bool
      */
-    public function isValid(): bool
+    private function isValid(): bool
     {
         return $this->isValid;
     }

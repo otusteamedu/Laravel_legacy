@@ -28,11 +28,7 @@ class UserValid
      */
     public function handle(Request $request, Closure $next)
     {
-         return ! $this->userValidator
-             ->isAuth($request)
-             ->isActive()
-             ->isVerified()
-             ->isValid()
+         return ! $this->userValidator->validateRequest($request)
              ? $this->userValidator->getStatus()
              : $next($request);
     }
