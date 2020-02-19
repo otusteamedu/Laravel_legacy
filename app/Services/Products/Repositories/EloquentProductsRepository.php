@@ -4,6 +4,7 @@ namespace App\Services\Products\Repositories;
 
 use App\Models\Products;
 use App\Models\WishlistProduct;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Cache;
 
@@ -15,6 +16,14 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
     public function __construct(Factory $factory)
     {
         $this->factory = $factory;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getAll() :LengthAwarePaginator
+    {
+        return Products::paginate();
     }
 
     /**

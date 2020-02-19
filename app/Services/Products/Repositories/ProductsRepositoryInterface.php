@@ -5,9 +5,15 @@ namespace App\Services\Products\Repositories;
 
 use App\Models\Products;
 use App\Models\WishlistProduct;
+use Illuminate\Contracts\Pagination;
 
 interface ProductsRepositoryInterface
 {
+
+    /**
+     * @return Pagination\LengthAwarePaginator
+     */
+    public function getAll() :Pagination\LengthAwarePaginator;
 
     /**
      * @param  int  $id

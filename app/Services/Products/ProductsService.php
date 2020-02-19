@@ -30,6 +30,14 @@ class ProductsService
     }
 
     /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function index()
+    {
+        return $this->productsRepository->getAll();
+    }
+
+    /**
      * @param int $id
      *
      * @return Products
