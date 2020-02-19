@@ -11,56 +11,63 @@
 |
 */
 
+use App\Models\UserGroup;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientController;
+use App\Http\Controllers\RecordController;
+use App\Http\Controllers\Auth\LoginController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('login', static function () {
-    return view('pages.login');
-});
+Route::get('login', [LoginController::class, 'showLoginForm'])
+    ->name('pages.login');
 
-Route::prefix('users')->group(static function () {
-    // Создание клиента
-    Route::get('create', static function () {
-        return view('pages.master.user.create');
-    })->name('master.user.create');
+Route::post('login', [LoginController::class, 'authenticate'])
+    ->name('login');
 
-    // Список клиентов
-    Route::get('', static function () {
-        return view('pages.master.user.list');
-    })->name('master.user.list');
+Route::get('logout', [LoginController::class, 'logout'])
+    ->middleware('auth')
+    ->name('logout');
 
-    // Детальная страница клиента/список записей клиента
-    Route::get('{id}', static function () {
-        return view('pages.master.user.detail');
-    })->name('master.user.detail');
+Route::prefix('clients')
+    ->middleware('auth')
+    ->group(static function () {
+        // Список клиентов
+        Route::get('', [ClientController::class, 'list'])
+            ->name('master.user.list');
 
-    // Редактирование клиента
-    Route::get('{id}/edit', static function () {
-        return view('pages.master.user.edit');
-    })->name('master.user.edit');
+        // Создание клиента
+        Route::get('create', [ClientController::class, 'create'])
+            ->name('master.user.create');
 
-    // Создание записи для клиента
-    Route::get('{id}/create_record', static function () {
-        return view('pages.master.record.create');
-    })->name('master.user.create_record');
-});
+        // Детальная страница клиента/список записей клиента
+        Route::get('{id}', [ClientController::class, 'detail'])
+            ->name('master.user.detail');
 
-Route::prefix('records')->group(static function () {
-    // Список записей у мастера (всех)
-    Route::get('', static function () {
-        return view('pages.master.record.list');
-    })->name('master.record.list');
+        // Редактирование клиента
+        Route::get('{id}/edit', [ClientController::class, 'edit'])
+            ->name('master.user.edit');
 
-    // Детальная информация о записи (не знаю что тут показывать)
+        // Создание записи для клиента
+        Route::get('{id}/create_record', [ClientController::class, 'createRecord'])
+            ->name('master.user.create_record');
+    });
+
+Route::prefix('records')
+    ->middleware('auth')
+    ->group(static function () {
+        // Список записей у мастера (всех)
+        Route::get('', [RecordController::class, 'list'])
+            ->name('master.record.list');
+
+        // Детальная информация о записи (не знаю что тут показывать)
 //    Route::get('{id}', static function () {
 //        return view('pages.master.record.detail');
 //    })->name('master.record.detail');
 
-    // Редактирование записи
-    Route::get('{id}/edit', static function () {
-        return view('pages.master.record.edit');
-    })->name('master.record.edit');
-});
+        // Редактирование записи
+        Route::get('{id}/edit', [RecordController::class, 'edit'])
+            ->name('master.record.edit');
+    });

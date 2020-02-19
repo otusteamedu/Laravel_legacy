@@ -7,6 +7,7 @@
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="{{ route('master.record.list') }}">Записи</a></li>
                 <li><a href="{{ route('master.user.list') }}">Клиенты</a></li>
+                <li><a href="{{ route('logout') }}">Выйти</a></li>
             </ul>
 
             <a href="#" data-target="slide-out" class="sidenav-trigger right">
@@ -27,6 +28,12 @@
         <a href="{{ route('master.user.list') }}" class="collapsible-header waves-effect waves-blue">
             <i class="material-icons">format_list_bulleted</i>
             Клиенты
+        </a>
+    </li>
+    <li>
+        <a href="{{ route('logout') }}" class="collapsible-header waves-effect waves-blue">
+            <i class="material-icons">directions_run</i>
+            Выйти
         </a>
     </li>
 </ul>
