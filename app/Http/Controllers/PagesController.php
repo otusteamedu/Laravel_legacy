@@ -68,4 +68,13 @@ class PagesController extends Controller
         return view('pages/profile', $data);
     }
 
+    /**
+     * Show blank page.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function blank()
+    {
+        return view("pages.blank");
+    }
 }

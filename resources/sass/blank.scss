@@ -1,0 +1,23 @@
+@import 'common';
+
+main
+{
+    width:100%;
+    height:100vh;
+  div
+  {
+      width:100%;
+      height:100vh;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p
+      {
+          text-align: center;
+          width:150px;
+          margin:auto;
+      }
+  }
+}

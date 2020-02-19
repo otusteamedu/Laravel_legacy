@@ -49650,6 +49650,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/sass/blank.scss":
+/*!***********************************!*\
+  !*** ./resources/sass/blank.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
 /***/ "./resources/sass/home.scss":
 /*!**********************************!*\
   !*** ./resources/sass/home.scss ***!
@@ -49717,9 +49728,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/home.scss ./resources/sass/index.scss ./resources/sass/katalog.scss ./resources/sass/login.scss ./resources/sass/profile.scss ./resources/sass/register.scss ./resources/sass/admin.create.scss ./resources/sass/admin.edit.scss ./resources/sass/admin.index.scss ./resources/sass/admin.show.scss ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/home.scss ./resources/sass/index.scss ./resources/sass/katalog.scss ./resources/sass/blank.scss ./resources/sass/login.scss ./resources/sass/profile.scss ./resources/sass/register.scss ./resources/sass/admin.create.scss ./resources/sass/admin.edit.scss ./resources/sass/admin.index.scss ./resources/sass/admin.show.scss ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -49728,6 +49739,7 @@ __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/s
 __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/home.scss */"./resources/sass/home.scss");
 __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/index.scss */"./resources/sass/index.scss");
 __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/katalog.scss */"./resources/sass/katalog.scss");
+__webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/blank.scss */"./resources/sass/blank.scss");
 __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/login.scss */"./resources/sass/login.scss");
 __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/profile.scss */"./resources/sass/profile.scss");
 __webpack_require__(/*! /home/denis/www/1 learn/otus.ru/Laravel-shop/resources/sass/register.scss */"./resources/sass/register.scss");
