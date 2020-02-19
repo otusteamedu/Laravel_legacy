@@ -17,7 +17,7 @@ class CreateCatalogItemPricesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
             $table->bigInteger('language_id');
-            $table->integer('votes')->default(0);
+            $table->integer('price')->default(0);
             $table->timestamps();
         });
     }

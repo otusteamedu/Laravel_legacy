@@ -13,4 +13,14 @@ class Item extends Model
     {
         return $this->belongsTo('App\Modules\Catalog\Category', 'category_id', 'id');
     }
+
+    public function price()
+    {
+        return $this->belongsToMany(
+            'App\Models\Catalog\Price', 
+            'catalog_item_prices',
+            'item_id',
+            'language_id'
+        );
+    }
 }

@@ -1,8 +1,9 @@
 <?php
 
+use App\Models\Catalog\Price;
 use Illuminate\Database\Seeder;
 
-class CatalogTableSeeder extends Seeder
+class CatalogPriceSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +12,6 @@ class CatalogTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        factory(Price::class, 3)->create();
     }
 }

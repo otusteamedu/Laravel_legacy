@@ -9,4 +9,8 @@ class News extends Model
     
     protected $guarded = [];
 
+    public function file()
+    {
+        return $this->belongsTo('App\Models\File');
+    }
 }

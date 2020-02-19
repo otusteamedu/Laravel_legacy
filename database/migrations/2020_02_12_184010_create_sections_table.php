@@ -21,7 +21,6 @@ class CreateSectionsTable extends Migration
             $table->string('meta_title', 255);
             $table->text('meta_description');
             $table->string('url', 255);
-            $table->bigInteger('model_id')->nullable();
             $table->timestamps();
         });
     }

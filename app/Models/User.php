@@ -28,4 +28,11 @@ class User extends Authenticatable
         'password',
     ];
 
+    public function role()
+    {
+        return $this->belongsTo('App\Models\Role');
+    }
+
+
+
 }

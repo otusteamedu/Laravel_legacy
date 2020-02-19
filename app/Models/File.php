@@ -10,4 +10,14 @@ class File extends Model
     {
         return $this->hasOne('App\Models\News');
     }
+
+    public function item()
+    {
+        return $this->hasOne('App\Models\Catalog\Item');
+    }
+
+    public function category()
+    {
+        return $this->hasOne('App\Models\Catalog\Category');
+    }
 }
