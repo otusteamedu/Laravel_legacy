@@ -44,7 +44,7 @@ class CategoryService
     /**
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function searchCategory(): LengthAwarePaginator
+    public function searchCategories(): LengthAwarePaginator
     {
         return $this->categoryRepository->search();
     }
@@ -75,7 +75,7 @@ class CategoryService
         return $this->categoryRepository->destroy($id);
     }
 
-    public function formatCategoryToArray($categories)
+    public function translateCategory($categories)
     {
         foreach ($categories as $category) {
             $response[$category->id] = $category->name;
@@ -84,8 +84,8 @@ class CategoryService
         return $response;
     }
 
-    public function getAllCategory()
+    public function getAllCetagoriesArray()
     {
-        return $this->categoryRepository->getAllCategory();
+        return $this->categoryRepository->getAllCetagoriesArray();
     }
 }

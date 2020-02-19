@@ -30,7 +30,7 @@ class CategoryProductController extends Controller
     {
         //передаем в переменную выборку из базы
         View::share([
-            'category'=>$this->categoryService->searchCategory()
+            'category'=>$this->categoryService->searchCategories()
         ]);
         return view('admin.category.index');
     }

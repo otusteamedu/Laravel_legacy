@@ -20,6 +20,6 @@ class CategoryProduct extends Model
     protected $fillable = ['name','description'];
 
     public function product(){
-        return $this->belongsTo(Products::class, 'category_id','id');
+        return $this->belongsTo(Product::class, 'category_id','id');
     }
 }

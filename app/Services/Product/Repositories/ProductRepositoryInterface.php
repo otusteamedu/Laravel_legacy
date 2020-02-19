@@ -3,7 +3,7 @@
 
 namespace App\Services\Product\Repositories;
 
-use App\Models\Products;
+use App\Models\Product;
 
 interface ProductRepositoryInterface
 {
@@ -11,9 +11,9 @@ interface ProductRepositoryInterface
 
     public function search(array $filters = []);
 
-    public function createFromArray(array $data): Products;
+    public function createFromArray(array $data): Product;
 
-    public function updateFromArray(Products $category, array $data);
+    public function updateFromArray(Product $category, array $data);
 
     public function destroy(int $id);
 }

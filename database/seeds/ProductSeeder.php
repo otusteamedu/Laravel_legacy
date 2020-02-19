@@ -1,8 +1,10 @@
 <?php
 
+use App\Models\CategoryProduct;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
-class ProductsSeeder extends Seeder
+class ProductSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,8 +13,8 @@ class ProductsSeeder extends Seeder
      */
     public function run()
     {
-        foreach (\App\Models\CategoryProduct::all() as $category) {
-            factory(\App\Models\Products::class, rand(3,8))->create([
+        foreach (CategoryProduct::all() as $category) {
+            factory(Product::class, rand(1,2))->create([
                 'category_id' => $category->id,
             ]);
         }

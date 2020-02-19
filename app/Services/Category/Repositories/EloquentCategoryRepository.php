@@ -49,7 +49,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
         return CategoryProduct::destroy($id);
     }
 
-    public function getAllCategory()
+    public function getAllCetagoriesArray()
     {
         return CategoryProduct::all();
     }

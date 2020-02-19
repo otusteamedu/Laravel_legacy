@@ -3,7 +3,7 @@
 
 namespace App\Services\Product\Handlers;
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Services\Product\Repositories\ProductRepositoryInterface;
 
 class CreateProductHandler
@@ -19,9 +19,9 @@ class CreateProductHandler
 
     /**
      * @param array $data
-     * @return Products
+     * @return Product
      */
-    public function handle(array $data): Products
+    public function handle(array $data): Product
     {
         return $this->productRepository->createFromArray($data);
     }
