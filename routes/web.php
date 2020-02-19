@@ -34,7 +34,7 @@ Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Auth::routes();
 
-Route::get('/katalog', 'PagesController@katalog')->name('katalog');
+Route::get('/katalog', 'PagesController@katalog')->name('katalog')->middleware('apply-site-filters');
 
 Route::get('/', 'PagesController@index')->name('index');
 
@@ -45,3 +45,5 @@ Route::get('/profile', 'PagesController@profile')->name('profile')->middleware('
 Route::patch('/profile/{user}', '\App\Http\Controllers\CMS\Users\UsersController@updateProfile')->name('update.profile')->middleware('auth');
 
 Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout')->middleware('auth');
+
+Route::get('/blank', 'PagesController@blank')->name('blank');

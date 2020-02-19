@@ -41,6 +41,16 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+
+        'apply-site-filters'=>
+        [
+            'check-if-local-host'=> \App\Http\Middleware\SiteAccess\CheckIfLocalHost::class,
+            'check-if-search-bot'=> \App\Http\Middleware\SiteAccess\CheckIfSearchBot::class,
+            'check-if-admin-ip'=> \App\Http\Middleware\SiteAccess\CheckIfAdminIP::class,
+            'check-site-settings'=> \App\Http\Middleware\SiteAccess\CheckSiteSettings::class,
+            'check-if-mobile-device'=> \App\Http\Middleware\SiteAccess\CheckIfMobileDevice::class,
+            'check-if-city-is-banned'=> \App\Http\Middleware\SiteAccess\CheckIfCityIsBanned::class,
+        ]
     ];
 
     /**

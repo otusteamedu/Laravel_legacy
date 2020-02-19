@@ -304,6 +304,40 @@ PHP Fatal error:  Uncaught Error: Call to undefined function Monolog\Handler\cur
     - Проверим а установлен ли модуль curl в веб-сервер : https://www.discussdesk.com/how-to-install-curl-and-check-curl-is-enabled-in-web-server.htm
     - Установка curl в веб-сервер apache : https://www.discussdesk.com/how-to-install-curl-and-check-curl-is-enabled-in-web-server.htm
 
+Занятие 19 - Middleware
+==========
+2020.02.16 Часть 1
+
+Задача - проверить входящий HTTP-запрос. Если запрос не прошёл проверку,
+то будет редирект на пустую страницу (реализовано сейчас) или страницу ошибки (возможно в будущем).
+
+Проверяться будет следующее :
+- Сайт в режиме локальной разработки или нет
+- Поисковый ли бот зашёл на сайт
+- Заход с админовского ip или нет
+- Проверка настроек видимости сайта : показывать только на мобильных экранах или нет, показывать запрещённым странам или нет, сайт вообще работает
+
+Для реализации этого функционала создал цепочку middleware :
+->checkIfLocalhost
+->checkIfSearchBot
+->checkIfAdminIP
+->checkSiteSettings
+->checkIfMobileDevice
+->checkIfCityIsBanned
+Их локация : app\Http\Middleware\SiteAccess
+Все эти посредники объединены в группу "apply-site-filters" в Kernel.php.
+
+Для проверки работы группы посредников, в web.php добавил:
+Route::get('/katalog', 'PagesController@katalog')->name('katalog')->middleware('apply-site-filters');
+Route::get('/blank', 'PagesController@blank')->name('blank');
+
+Некоторые настройки сайта, такие как
+- сайт включён или нет
+- проводить фильтрацию по ip или нет (для исключения "запрещённых" к показу городов)
+- ограничивать показ сайта только на мобильных устройствах или нет
+хранятся в app\Http\Middleware\SiteAccess\siteSettings.json
+
+Содержимое siteSettings.json в будущем будет меняться отдельной страницей.
 
 
 
