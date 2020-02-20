@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\Product\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryProduct;
 use App\Models\Product;
+use App\Models\User;
 use App\Policies\Abilities;
 use App\Services\Category\CategoryService;
 use Illuminate\Http\Request;
@@ -37,7 +38,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $this->authorize(Abilities::VIEW_ANY,Product::class);
+        $this->authorize(Abilities::VIEW_ANY, Product::class);
         View::share([
             'products' => $this->productService->searchProduct(),
         ]);
@@ -51,8 +52,10 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category = $this->categoryService->getAllCetagoriesArray();
+        //узнал, что abbility можно и не подставлять
+        $this->authorize(Product::class);
 
+        $category = $this->categoryService->getAllCetagoriesArray();
         $category = $this->categoryService->translateCategory($category);
 
         View::share([
@@ -88,7 +91,8 @@ class ProductController extends Controller
     public function edit($id)
     {
 
-        $this->authorize(Abilities::EDIT,[User::class,Product::class]);
+//        $this->authorize(Abilities::EDIT,[User::class,Product::class]);
+        $this->authorize(Abilities::EDIT, $this->productService->findProduct($id));
 //        dd($this->authorize(Abilities::EDIT,Product::class));
 
         $category = $this->categoryService->getAllCetagoriesArray();
@@ -110,6 +114,7 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->authorize(Abilities::UPDATE, $product);
         //валидация данных
         $data = $request->getFormData();
         $product = $this->productService->updateProduct($product, $data);

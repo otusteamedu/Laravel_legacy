@@ -10,10 +10,10 @@ class ProductPolicy
 {
     use HandlesAuthorization;
 
-//    public function before(User $user)
-//    {
-//        return $user->isAdmin();
-//    }
+    public function before(User $user)
+    {
+        return $user->isAdmin() ? true : null;
+    }
 
     /**
      * Determine whether the user can view any products.
@@ -23,7 +23,7 @@ class ProductPolicy
      */
     public function viewAny(User $user)
     {
-        return true;
+        return $user->isModerator();
     }
 
     /**
@@ -35,7 +35,7 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-        //
+        return $user->isModerator();
     }
 
     /**
@@ -46,7 +46,7 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->isModerator();
     }
 
     /**
@@ -58,7 +58,7 @@ class ProductPolicy
      */
     public function update(User $user, Product $product)
     {
-        return $user->id == $product->user_id;
+        return $user->id == $product->created_user_id;
     }
 
     /**
@@ -67,12 +67,8 @@ class ProductPolicy
      * @return mixed
      */
     public function edit(User $user, Product $product)
-
     {
-        return true;
-//        dd($user->id);
-//        dd($product->user_id);
-//        return $user->id == $product->user_id;
+        return $user->id == $product->created_user_id;
     }
 
     /**
@@ -84,7 +80,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $user->id == $product->user_id;
+        return $user->id == $product->created_user_id;
     }
 
     /**
@@ -96,7 +92,7 @@ class ProductPolicy
      */
     public function restore(User $user, Product $product)
     {
-        //
+        return false;
     }
 
     /**
@@ -108,6 +104,6 @@ class ProductPolicy
      */
     public function forceDelete(User $user, Product $product)
     {
-        //
+        return $user->id == $product->created_user_id;
     }
 }

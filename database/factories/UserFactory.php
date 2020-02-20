@@ -25,5 +25,6 @@ $factory->define(User::class, function (Faker $faker) {
         'remember_token' => Str::random(10),
         'lang'=>$faker->randomElement(['ru','en']),
         'status'=>$faker->randomElement(['active','unactive']),
+        'level'=>3,
     ];
 });
