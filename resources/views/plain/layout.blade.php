@@ -6,18 +6,12 @@
 
     <title>@yield('title') - Badum</title>
 
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-
     @yield('header-styles')
     @yield('header-scripts')
 </head>
 <body>
-
-    <div class="app-container">
-        @yield('content')
-    </div>
-
+@yield('content')
+@yield('hidden-content')
 @yield('end-body-scripts')
 </body>
 </html>

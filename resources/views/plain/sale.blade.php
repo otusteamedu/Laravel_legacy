@@ -3,8 +3,6 @@
 @section('header-styles')
     <link rel="stylesheet" href="css/jquery.arcticmodal-0.3.css">
     <link rel="stylesheet" href="css/big-sale.css">
-{{--    <link rel="stylesheet" href="css/big-sale.css">
-    <link rel="stylesheet" href="css/base-laravel-style.css">--}}
 @endsection
 
 @section('header-scripts')
@@ -15,9 +13,7 @@
     <script src="js/big-sale.js"></script>
 @endsection
 
-@section('title')
-    Каталог предложений
-@endsection
+@section('title')Каталог предложений@endsection
 
 @section('content')
     <header>
@@ -49,6 +45,8 @@
     <footer>
         @include('plain.blocks.footer')
     </footer>
+@endsection
 
-
+@section('hidden-content')
+    @include('plain.blocks.hidden')
 @endsection
