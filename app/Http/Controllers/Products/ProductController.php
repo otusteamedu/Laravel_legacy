@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\View;
 class ProductController extends Controller
 {
 
+    /** @var ProductsService  */
     protected $productsService;
 
     public function __construct(ProductsService $productsService)

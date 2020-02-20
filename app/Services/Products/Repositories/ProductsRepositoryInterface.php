@@ -5,9 +5,15 @@ namespace App\Services\Products\Repositories;
 
 use App\Models\Products;
 use App\Models\WishlistProduct;
+use Illuminate\Contracts\Pagination;
 
 interface ProductsRepositoryInterface
 {
+
+    /**
+     * @return Pagination\LengthAwarePaginator
+     */
+    public function getAll() :Pagination\LengthAwarePaginator;
 
     /**
      * @param  int  $id
@@ -18,13 +24,15 @@ interface ProductsRepositoryInterface
 
     /**
      * @param  array  $data
+     *
+     * @return array
      */
-    public function create(array $data): void;
+    public function create(array $data) :array;
 
     /**
      * @param  WishlistProduct  $wishlistProduct
      */
-    public function delete(WishlistProduct $wishlistProduct): void;
+    public function delete(WishlistProduct $wishlistProduct) :void;
 
     /**
      * @param  array  $data
@@ -38,4 +46,9 @@ interface ProductsRepositoryInterface
      * @param  array  $data
      */
     public function createWishlistProduct(array $productData, array $data) :void;
+
+    /**
+     * @param  int  $id
+     */
+    public function deleteProduct(int $id) :void;
 }

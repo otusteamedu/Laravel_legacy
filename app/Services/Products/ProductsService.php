@@ -23,35 +23,50 @@ class ProductsService
     public function __construct(
         ProductsRepositoryInterface $productsRepository,
         CachedProductsRepositoryInterface $cachedProductsRepository
-    )
-    {
+    ) {
         $this->productsRepository = $productsRepository;
         $this->cachedProductsRepository = $cachedProductsRepository;
     }
 
     /**
-     * @param int $id
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function index()
+    {
+        return $this->productsRepository->getAll();
+    }
+
+    /**
+     * @param  int  $id
      *
      * @return Products
      */
-    public function getProductById(int $id): Products
+    public function getProductById(int $id) :Products
     {
         return $this->cachedProductsRepository->getProductById($id);
     }
 
     /**
-     * @param array $data
+     * @param  array  $data
+     *
+     * @return array
      */
-    public function create(array $data): void
+    public function create(array $data) :array
     {
-        event(CreateProductEvent::class, ['data' => $data]);
+        return $this->productsRepository->create($data);
+        //event(CreateProductEvent::class, ['data' => $data]);
     }
 
     /**
-     * @param WishlistProduct $wishlistProduct
+     * @param  WishlistProduct  $wishlistProduct
      */
-    public function delete(WishlistProduct $wishlistProduct): void
+    public function delete(WishlistProduct $wishlistProduct) :void
     {
         $this->productsRepository->delete($wishlistProduct);
+    }
+
+    public function deleteProduct(int $id) :void
+    {
+        $this->productsRepository->deleteProduct($id);
     }
 }
