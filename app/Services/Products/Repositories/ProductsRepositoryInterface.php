@@ -24,13 +24,15 @@ interface ProductsRepositoryInterface
 
     /**
      * @param  array  $data
+     *
+     * @return array
      */
-    public function create(array $data): void;
+    public function create(array $data) :array;
 
     /**
      * @param  WishlistProduct  $wishlistProduct
      */
-    public function delete(WishlistProduct $wishlistProduct): void;
+    public function delete(WishlistProduct $wishlistProduct) :void;
 
     /**
      * @param  array  $data
@@ -44,4 +46,9 @@ interface ProductsRepositoryInterface
      * @param  array  $data
      */
     public function createWishlistProduct(array $productData, array $data) :void;
+
+    /**
+     * @param  int  $id
+     */
+    public function deleteProduct(int $id) :void;
 }

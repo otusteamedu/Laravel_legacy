@@ -37,10 +37,12 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function create(array $data = []) :void
+    public function create(array $data = []) :array
     {
         $productData = $this->createProduct($data);
         $this->createWishlistProduct($productData, $data);
+
+        return $productData;
     }
 
     /**
@@ -73,6 +75,15 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
 
         $wishlistProduct = new WishlistProduct();
         $wishlistProduct->create($wishlistProductData);
+    }
+
+    /**
+     * @inheritDoc
+     * @throws \Exception
+     */
+    public function deleteProduct(int $id) :void
+    {
+        $product = Products::destroy($id);
     }
 
 }

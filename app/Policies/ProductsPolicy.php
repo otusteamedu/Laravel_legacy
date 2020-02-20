@@ -68,9 +68,9 @@ class ProductsPolicy
      *
      * @return mixed
      */
-    public function delete(User $user, Products $products)
+    public function delete(User $user)
     {
-        //
+        return $user->isAdmin();
     }
 
     /**

@@ -15,7 +15,9 @@ use App\Services\Products\ProductsService;
 use Facade\FlareClient\Api;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class ProductsController extends Controller
 {
@@ -29,11 +31,14 @@ class ProductsController extends Controller
     }
 
     /**
-     * @return LengthAwarePaginator
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function index()
     {
-        return $this->productsService->index();
+        $this->authorize(Abilities::VIEW_ANY, Products::class);
+
+        return response()->json(new ProductsResource($this->productsService->index()));
     }
 
     /**
@@ -41,17 +46,22 @@ class ProductsController extends Controller
      *
      * @param  int  $id
      *
-     * @return Products
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
     public function show($id)
     {
-        return $this->productsService->getProductById($id);
+        $this->authorize(Abilities::VIEW_ANY, Products::class);
+
+        $product = $this->productsService->getProductById($id);
+
+        return response()->json(new ProductsResource($product));
     }
 
     /**
-     * @param  Request  $request
+     * @param  ProductsRequest  $request
      *
-     * @return array
+     * @return JsonResponse
      * @throws AuthorizationException
      */
     public function store(ProductsRequest $request)
@@ -59,21 +69,29 @@ class ProductsController extends Controller
         $this->authorize(Abilities::CREATE, Products::class);
 
         $data = $request->getFormData();
-        $this->productsService->create($data);
+        $product = $this->productsService->create($data);
 
-        return $data;
+        return response()->json(new ProductsResource($product));
     }
+
 
     /**
-     * Update the specified resource in storage.
+     * @param $id
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
+     * @throws AuthorizationException
      */
-    public function update(Request $request, $id)
+    public function destroy($id)
     {
-        return ['foo ok'];
+        $this->authorize(Abilities::DELETE, Products::class);
+
+        $this->productsService->deleteProduct($id);
+
+        return response()->json(
+            [
+                'message' => 'OK',
+            ]
+        );
     }
+
 }

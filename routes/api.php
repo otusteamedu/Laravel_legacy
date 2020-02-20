@@ -18,4 +18,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('products', 'Api\Products\ProductsController')
+    ->except('update')
     ->middleware('auth:api');
