@@ -2,9 +2,10 @@
 
 namespace App\Http\Middleware\SiteAccess;
 
+use App\Services\MobileDetection\Mobile_Detect;
 use Closure;
 use Illuminate\Support\Facades\Log;
-use Mobile_Detect;
+//use Mobile_Detect;
 
 class CheckIfMobileDevice
 {
@@ -21,12 +22,11 @@ class CheckIfMobileDevice
     {
         $nextCheckNeeded = false;
 
-        if ($request->checkNeeded) {
+        if(CheckResult::$passed)
+        {
             // Определи тип браузера
-            // Источник : http://mobiledetect.net/
-            require_once 'Mobile_Detect.php';
+            // См. app/Services/Mobile_Detection
             $detect = new Mobile_Detect();
-
             $isLargeDevice = !$detect->isMobile();
             $mobileOnly = $request->site_settings['mobileOnly'];
 
@@ -40,7 +40,8 @@ class CheckIfMobileDevice
             }
         }
 
-        $request->checkNeeded = $nextCheckNeeded;
+        CheckResult::$passed = $nextCheckNeeded;
+
         return $next($request);
     }
 }
