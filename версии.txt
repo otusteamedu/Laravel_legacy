@@ -353,5 +353,8 @@ if($request->checkNeeded)
 2020.02.21 Часть 3
 Перенос сторонней библиотеки Mobile_Detect.php в Сервисы: App\Services\MobileDetection\Mobile_Detect
 
+2020.02.21 Часть 4
+Перенёс список админовских ip из app/Http/Middleware/SiteAccess/adminIPs.json в
+app/config/admin_ips.php
 
 

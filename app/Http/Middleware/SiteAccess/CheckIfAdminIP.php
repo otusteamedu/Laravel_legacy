@@ -24,9 +24,8 @@ class CheckIfAdminIP
             // 1 Определи ip посетителя
             $ip = $_SERVER['REMOTE_ADDR'];
 
-            // 2 Считай ip из файла
-            include 'readAdminIPsFromFile.php';
-            $admin_ips = getAdminIPs();
+            // 2 Считай админовские ip
+            $admin_ips = config('admin_ips.admin_ips');
 
             // 3 проверь : ip в списке админовских ?
             if (!in_array($ip, $admin_ips))
