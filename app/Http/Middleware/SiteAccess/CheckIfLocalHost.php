@@ -25,7 +25,11 @@ class CheckIfLocalHost
         // если true - нужно будет пройти проверку в следующем middleware
         // если false - следующий middleware не будет проверять и передаст следующему middleware,
         // которые тоже просто пропустят запрос дальше.
-        $request->checkNeeded = $nextCheckNeeded;
+        // БЫЛО
+        // $request->checkNeeded = $nextCheckNeeded;
+        // СТАЛО
+        // StoreValue::set($nextCheckNeeded);
+        CheckResult::$passed = $nextCheckNeeded;
         return $next($request);
     }
 }

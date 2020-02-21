@@ -19,7 +19,8 @@ class CheckSiteSettings
     {
         $nextCheckNeeded = false;
 
-        if ($request->checkNeeded) {
+        if(CheckResult::$passed)
+        {
             // 1 Считай настройки сайта из файла
             include 'readSiteSettingsFromFile.php';
 
@@ -37,7 +38,8 @@ class CheckSiteSettings
             }
         }
 
-        $request->checkNeeded = $nextCheckNeeded;
+        CheckResult::$passed = $nextCheckNeeded;
+
         return $next($request);
     }
 }

@@ -19,7 +19,7 @@ class CheckIfSearchBot
     {
         $nextCheckNeeded = false;
 
-        if($request->checkNeeded)
+        if(CheckResult::$passed)
         {
             // 1 Определи ip посетителя
             $ip = $_SERVER['REMOTE_ADDR'];
@@ -44,7 +44,8 @@ class CheckIfSearchBot
             }
         }
 
-        $request->checkNeeded = $nextCheckNeeded;
+        CheckResult::$passed = $nextCheckNeeded;
+
         return $next($request);
     }
 }

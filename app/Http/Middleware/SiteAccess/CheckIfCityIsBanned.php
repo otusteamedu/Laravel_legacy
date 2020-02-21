@@ -20,7 +20,8 @@ class CheckIfCityIsBanned
     {
         $nextCheckNeeded = false;
 
-        if ($request->checkNeeded) {
+        if(CheckResult::$passed)
+        {
             // фильтрация по ip локации
 
             // 1 Определи ip посетителя

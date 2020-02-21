@@ -21,7 +21,8 @@ class CheckIfMobileDevice
     {
         $nextCheckNeeded = false;
 
-        if ($request->checkNeeded) {
+        if(CheckResult::$passed)
+        {
             // Определи тип браузера
             // Источник : http://mobiledetect.net/
             require_once 'Mobile_Detect.php';
@@ -40,7 +41,8 @@ class CheckIfMobileDevice
             }
         }
 
-        $request->checkNeeded = $nextCheckNeeded;
+        CheckResult::$passed = $nextCheckNeeded;
+
         return $next($request);
     }
 }
