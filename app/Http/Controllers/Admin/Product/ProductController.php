@@ -6,10 +6,13 @@ use App\Http\Controllers\Admin\Product\Requests\StoreProductRequest;
 use App\Http\Controllers\Admin\Product\Requests\UpdateProductRequest;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryProduct;
-use App\Models\Products;
+use App\Models\Product;
+use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Category\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 use App\Services\Product\ProductService;
 
@@ -31,9 +34,11 @@ class ProductController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, Product::class);
         View::share([
             'products' => $this->productService->searchProduct(),
         ]);
@@ -47,9 +52,11 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $category = $this->categoryService->getAllCategory();
+        //узнал, что abbility можно и не подставлять
+        $this->authorize(Product::class);
 
-        $category = $this->categoryService->formatCategoryToArray($category);
+        $category = $this->categoryService->getAllCetagoriesArray();
+        $category = $this->categoryService->translateCategory($category);
 
         View::share([
             'category' => $category,
@@ -67,6 +74,8 @@ class ProductController extends Controller
     {
         //валидация данных
         $data = $request->getFormData();
+        $data['created_user_id'] = Auth::id();
+
         $this->productService->createProduct($data);
 
         return redirect(route('admin.product.index'));
@@ -77,11 +86,15 @@ class ProductController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($id)
     {
-        $category = $this->categoryService->getAllCategory();
-        $category = $this->categoryService->formatCategoryToArray($category);
+
+        $this->authorize(Abilities::EDIT, $this->productService->findProduct($id));
+
+        $category = $this->categoryService->getAllCetagoriesArray();
+        $category = $this->categoryService->translateCategory($category);
 
         View::share([
             'product' => $this->productService->findProduct($id),
@@ -94,17 +107,18 @@ class ProductController extends Controller
      * Update the specified resource in storage.
      *
      * @param UpdateProductRequest $request
-     * @param Products $product
+     * @param Product $product
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function update(UpdateProductRequest $request, Products $product)
+    public function update(UpdateProductRequest $request, Product $product)
     {
+        $this->authorize(Abilities::UPDATE, $product);
         //валидация данных
         $data = $request->getFormData();
         $product = $this->productService->updateProduct($product, $data);
 
-        $category = $this->categoryService->getAllCategory();
-        $category = $this->categoryService->formatCategoryToArray($category);
+        $category = $this->categoryService->getAllCetagoriesArray();
+        $category = $this->categoryService->translateCategory($category);
 
         View::share([
             'product' => $product,

@@ -3,14 +3,14 @@
 
 namespace App\Services\Product\Repositories;
 
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Database\Eloquent\Builder;
 
 class EloquentProductRepository implements ProductRepositoryInterface
 {
     public function find(int $id)
     {
-        return Products::with('category')->find($id);
+        return Product::with('category')->find($id);
     }
 
     /** Поиск товаров с фильтром
@@ -19,21 +19,21 @@ class EloquentProductRepository implements ProductRepositoryInterface
      */
     public function search(array $filters = [])
     {
-        $query = Products::query();
+        $query = Product::query();
         //получаем категорию товара
         $query->with('category')->get();
         $this->applyFilters($query, $filters);
         return $query->paginate();
     }
 
-    public function createFromArray(array $data): Products
+    public function createFromArray(array $data): Product
     {
-        $category = new Products();
+        $category = new Product();
         $category->create($data);
         return $category;
     }
 
-    public function updateFromArray(Products $category, array $data)
+    public function updateFromArray(Product $category, array $data)
     {
         $category->update($data);
         return $category;
@@ -48,6 +48,6 @@ class EloquentProductRepository implements ProductRepositoryInterface
 
     public function destroy(int $id)
     {
-        return Products::destroy($id);
+        return Product::destroy($id);
     }
 }

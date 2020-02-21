@@ -10,10 +10,10 @@ use Illuminate\Database\Eloquent\Model;
  *
  */
 
-class Products extends Model
+class Product extends Model
 {
 
-    protected $fillable = ['name','description','category_id','price'];
+    protected $fillable = ['name','description','category_id','price','created_user_id'];
 
     public function category(){
         return $this->hasOne(CategoryProduct::class, 'id','category_id');

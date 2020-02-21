@@ -4,7 +4,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\User;
 use App\Models\Order;
-use App\Models\Products;
+use App\Models\Product;
 
 class OrderSeeder extends Seeder
 {

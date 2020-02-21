@@ -2,7 +2,7 @@
 
 namespace App\Services\Product;
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Services\Product\Handlers\CreateProductHandler;
 use App\Services\Product\Repositories\ProductRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -11,14 +11,14 @@ class ProductService
 {
     private $productRepository;
 
-    private $productHandler;
+    private $createProductHandler;
 
     public function __construct(
-        CreateProductHandler $productHandler,
+        CreateProductHandler $createProductHandler,
         ProductRepositoryInterface $productRepository
     )
     {
-        $this->productHandler = $productHandler;
+        $this->createProductHandler = $createProductHandler;
         $this->productRepository = $productRepository;
     }
 
@@ -27,17 +27,17 @@ class ProductService
         return $this->productRepository->search();
     }
 
-    public function createProduct(array $data): Products
+    public function createProduct(array $data): Product
     {
-        return $this->productHandler->handle($data);
+        return $this->createProductHandler->handle($data);
     }
 
-    public function findProduct(int $id)
+    public function findProduct(int $id):?Product
     {
         return $this->productRepository->find($id);
     }
 
-    public function updateProduct(Products $product, array $data): Products
+    public function updateProduct(Product $product, array $data): Product
     {
         return $this->productRepository->updateFromArray($product, $data);
     }

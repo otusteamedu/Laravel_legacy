@@ -24,11 +24,7 @@
             <tr>
                 <th scope="row">
                 @php
-                    if($products->currentPage() == 2){
-                        echo ($key+$products->perPage()+1);
-                    }else{
-                        echo $key+1;
-                    }
+                    echo (($key+1)+$products->perPage()*($products->currentPage()-1));
                 @endphp
                 </th>
                 <td><a href="{{ route('admin.product.edit',[$item->id])}}">{{$item->name}}</a></td>
