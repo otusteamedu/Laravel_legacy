@@ -5,19 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\City
- *
- * @proprety Country country
- *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryProduct newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryProduct newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryProduct query()
- * @mixin \Eloquent
+ * Class CategoryProduct
+ * @package App\Models
  */
-
 class CategoryProduct extends Model
 {
-    protected $fillable = ['name','description'];
+    protected $fillable = ['name','description','created_user_id'];
 
     public function product(){
         return $this->belongsTo(Product::class, 'category_id','id');

@@ -6,7 +6,9 @@ use App\Http\Controllers\Admin\CategoryProduct\Requests\StoreCategoryRequest;
 use App\Http\Controllers\Admin\CategoryProduct\Requests\UpdateCategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\CategoryProduct;
+use App\Policies\Abilities;
 use App\Services\Category\CategoryService;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\View;
 
 
@@ -25,12 +27,14 @@ class CategoryProductController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\View\Factory|View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, CategoryProduct::class);
         //передаем в переменную выборку из базы
         View::share([
-            'category'=>$this->categoryService->searchCategories()
+            'category' => $this->categoryService->searchCategories()
         ]);
         return view('admin.category.index');
     }
@@ -39,9 +43,11 @@ class CategoryProductController extends Controller
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Contracts\View\Factory|View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create()
     {
+        $this->authorize(CategoryProduct::class);
         return view('admin.category.create');
     }
 
@@ -53,8 +59,11 @@ class CategoryProductController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
+
         //валидация данных
         $data = $request->getFormData();
+        $data['created_user_id'] = Auth::id();
+
         //сохраняем категорию через сервис
         $this->categoryService->createCategory($data);
 
@@ -66,9 +75,12 @@ class CategoryProductController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function edit($id)
     {
+        $this->authorize($this->categoryService->findCategory($id));
+
         return view('admin.category.edit', [
             'category' => $this->categoryService->findCategory($id)
         ]);
@@ -77,16 +89,19 @@ class CategoryProductController extends Controller
     /**
      * @param UpdateCategoryRequest $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateCategoryRequest $request, CategoryProduct $category)
     {
+
+        $this->authorize($category);
         //валидация данных
         $data = $request->getFormData();
 
-        $category = $this->categoryService->updateCategory($category,$data);
+        $category = $this->categoryService->updateCategory($category, $data);
 
         View::share([
-            'category'=>$category
+            'category' => $category
         ]);
 
         return view('admin.category.edit');
@@ -97,9 +112,11 @@ class CategoryProductController extends Controller
      *
      * @param int $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function destroy($id)
     {
+        $this->authorize(Abilities::DELETE, CategoryProduct::class);
         $count = $this->categoryService->destroyCategory($id);
 
         return redirect(route('admin.category.index'));

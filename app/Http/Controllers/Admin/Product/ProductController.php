@@ -91,9 +91,7 @@ class ProductController extends Controller
     public function edit($id)
     {
 
-//        $this->authorize(Abilities::EDIT,[User::class,Product::class]);
         $this->authorize(Abilities::EDIT, $this->productService->findProduct($id));
-//        dd($this->authorize(Abilities::EDIT,Product::class));
 
         $category = $this->categoryService->getAllCetagoriesArray();
         $category = $this->categoryService->translateCategory($category);
