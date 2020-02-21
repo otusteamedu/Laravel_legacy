@@ -357,4 +357,10 @@ if($request->checkNeeded)
 Перенёс список админовских ip из app/Http/Middleware/SiteAccess/adminIPs.json в
 app/config/admin_ips.php
 
+2020.02.21 Часть 5
+Перенёс код в сервисы :
+    app/Services/CityByIpResolver
+    app/Services/MobileDetection
+    app/Services/SearchBotByIpResolver
+
 

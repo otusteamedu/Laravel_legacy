@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\SiteAccess;
 
+use App\Services\CityByIpResolver\CityByIpResolver;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -27,11 +28,8 @@ class CheckIfCityIsBanned
             // 1 Определи ip посетителя
             $ip = $_SERVER['REMOTE_ADDR'];
 
-            // 2 подключи зависимости
-            include 'getCityFromIP.php';
-
-            // 3 определи город посетителя
-            $city = getCityFromIP($ip);
+            // 2 определи город посетителя
+            $city = CityByIpResolver::getCityFromIP($ip);
 
             $banned_cities = config('shop.banned_cities');
 

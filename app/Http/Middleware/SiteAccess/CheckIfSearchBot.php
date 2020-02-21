@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware\SiteAccess;
 
+use App\Services\SearchBotByIpResolver\SearchBotByIpResolver;
 use Closure;
 use Illuminate\Support\Facades\Log;
 
@@ -25,9 +26,7 @@ class CheckIfSearchBot
             $ip = $_SERVER['REMOTE_ADDR'];
 
             // 2 Проверка : это бот или нет
-            include 'isBotIP.php';
-
-            $isBot = isBotIP($ip);
+            $isBot = SearchBotByIpResolver::isBotIP($ip);
 
             if($isBot)
             {

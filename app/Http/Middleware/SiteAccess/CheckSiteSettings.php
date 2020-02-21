@@ -22,9 +22,8 @@ class CheckSiteSettings
         if(CheckResult::$passed)
         {
             // 1 Считай настройки сайта из файла
-            include 'readSiteSettingsFromFile.php';
 
-            $site_settings = getSiteSettings();
+            $site_settings = ReadSiteSettingsFromFile::getSiteSettings();
 
             $request->site_settings = $site_settings;
 
