@@ -350,4 +350,8 @@ if($request->checkNeeded)
 
 В этой версии создал класс для хранения значения проверки CheckResult.php
 
+2020.02.21 Часть 3
+Перенос сторонней библиотеки Mobile_Detect.php в Сервисы: App\Services\MobileDetection\Mobile_Detect
+
+
 
