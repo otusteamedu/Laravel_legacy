@@ -51,6 +51,6 @@ class Event extends Model
     use SoftDeletes;
 
     public function participants() {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withTimestamps();
     }
 }

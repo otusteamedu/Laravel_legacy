@@ -112,14 +112,14 @@ class User extends Authenticatable
 
     public function participatedInEvents()
     {
-        return $this->belongsToMany(
-            Event::class
-        );
+        return $this->belongsToMany(Event::class)
+            ->withTimestamps();
     }
 
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role')
-            ->using('App\Models\RoleUser');
+            ->using('App\Models\RoleUser')
+            ->withTimestamps();
     }
 }
