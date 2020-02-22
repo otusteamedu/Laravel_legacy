@@ -1365,7 +1365,7 @@ namespace PHPSTORM_META {
 
 	override(\factory(0), map([
         '' => '@FactoryBuilder',
-        'App\Models\Products' => \App\Models\ProductsFactoryBuilder::class,
+        'App\Models\Product' => \App\Models\ProductsFactoryBuilder::class,
         'App\Models\User' => \App\Models\UserFactoryBuilder::class,
         'App\Models\Wishlist' => \App\Models\WishlistFactoryBuilder::class,
         'App\Models\WishlistProduct' => \App\Models\WishlistProductFactoryBuilder::class,

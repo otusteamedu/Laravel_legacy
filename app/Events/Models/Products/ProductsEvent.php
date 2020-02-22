@@ -2,7 +2,7 @@
 
 namespace App\Events\Models\Products;
 
-use App\Models\Products;
+use App\Models\Product;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
@@ -20,11 +20,11 @@ class ProductsEvent
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param  Product  $product
      */
-    public function __construct(Products $products)
+    public function __construct(Product $product)
     {
-        $this->products = $products;
+        $this->products = $product;
     }
 
     /**

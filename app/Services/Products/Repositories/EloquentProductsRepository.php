@@ -2,7 +2,7 @@
 
 namespace App\Services\Products\Repositories;
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\WishlistProduct;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Factory;
@@ -23,15 +23,15 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
      */
     public function getAll() :LengthAwarePaginator
     {
-        return Products::paginate();
+        return Product::paginate();
     }
 
     /**
      * @inheritDoc
      */
-    public function getProductById(int $id) :Products
+    public function getProductById(int $id) :Product
     {
-        return Products::find($id);
+        return Product::find($id);
     }
 
     /**
@@ -59,7 +59,7 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
      */
     public function createProduct(array $data) :array
     {
-        $productData = $this->factory->createAs(Products::class,
+        $productData = $this->factory->createAs(Product::class,
             'products', ['productTitle' => $data['product_name'],])->toArray();
 
         return $productData;
@@ -83,7 +83,7 @@ class EloquentProductsRepository implements ProductsRepositoryInterface
      */
     public function deleteProduct(int $id) :void
     {
-        $product = Products::destroy($id);
+        $product = Product::destroy($id);
     }
 
 }

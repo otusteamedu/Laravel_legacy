@@ -20704,8 +20704,8 @@ if (! function_exists('with')) {
 
 namespace App\Models {
     /**
-    * @method \Illuminate\Database\Eloquent\Collection|Products[]|Products create($attributes = [])
-    * @method \Illuminate\Database\Eloquent\Collection|Products[]|Products make($attributes = [])
+    * @method \Illuminate\Database\Eloquent\Collection|Product[]|Product create($attributes = [])
+    * @method \Illuminate\Database\Eloquent\Collection|Product[]|Product make($attributes = [])
     */
     class ProductsFactoryBuilder extends \Illuminate\Database\Eloquent\FactoryBuilder {}
 }

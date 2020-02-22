@@ -7,7 +7,7 @@
 namespace App\Services\Products\Repositories;
 
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Services\Cache\CacheManagerInterface;
 use App\Services\Cache\CacheTags;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -33,9 +33,9 @@ class CachedProductsRepository implements CachedProductsRepositoryInterface
     /**
      * @param  int  $id
      *
-     * @return Products
+     * @return Product
      */
-    public function getProductById(int $id) :Products
+    public function getProductById(int $id) :Product
     {
         return Cache::tags(CacheTags::PRODUCT)
             ->rememberForever($this->cacheManager->publicCacheKey(route('product.show', ['product' => $id])), function () use ($id) {

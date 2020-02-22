@@ -8,7 +8,7 @@ namespace App\Services\Products;
 
 
 use App\Events\Http\CreateProductEvent;
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\WishlistProduct;
 use App\Services\Products\Repositories\CachedProductsRepositoryInterface;
 use App\Services\Products\Repositories\ProductsRepositoryInterface;
@@ -39,9 +39,9 @@ class ProductsService
     /**
      * @param  int  $id
      *
-     * @return Products
+     * @return Product
      */
-    public function getProductById(int $id) :Products
+    public function getProductById(int $id) :Product
     {
         return $this->cachedProductsRepository->getProductById($id);
     }
