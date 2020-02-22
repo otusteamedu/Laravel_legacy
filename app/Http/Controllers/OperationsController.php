@@ -9,6 +9,8 @@ use App\Services\Cache\Tag;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Jobs\StoreOperation;
+use App\Jobs\Queues;
 
 class OperationsController extends Controller
 {
@@ -72,8 +74,7 @@ class OperationsController extends Controller
             'user_id' => Auth::id(),
             ];
 
-        $this->operationsService->storeOperation($data);
-
+        StoreOperation::dispatch($data, $this->operationsService)->onQueue(Queues::STORE_OPERATION);
         Cache::tags([$this->tag::OPERATIONS, $this->tag::INCOME_COUNT, $this->tag::CONSUMPTION_COUNT])->flush();
 
         return redirect()->route('home');
