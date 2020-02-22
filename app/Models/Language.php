@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Language withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Language withoutTrashed()
  * @mixin \Eloquent
+ * @property-read \App\Models\Country|null $country
  */
 class Language extends Model
 {
@@ -41,6 +42,6 @@ class Language extends Model
 
     public function country()
     {
-        return $this->belongsTo(Country::class)->get();
+        return $this->belongsTo(Country::class);
     }
 }

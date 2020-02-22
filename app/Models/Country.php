@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country wherePhoneCode($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Language $language
  */
 class Country extends Model
 {
@@ -24,6 +25,6 @@ class Country extends Model
 
     public function language()
     {
-        return $this->hasOne(Language::class)->get();
+        return $this->hasOne(Language::class);
     }
 }
