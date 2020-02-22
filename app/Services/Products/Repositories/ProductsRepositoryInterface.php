@@ -3,7 +3,7 @@
 namespace App\Services\Products\Repositories;
 
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\WishlistProduct;
 use Illuminate\Contracts\Pagination;
 
@@ -18,9 +18,9 @@ interface ProductsRepositoryInterface
     /**
      * @param  int  $id
      *
-     * @return Products
+     * @return Product
      */
-    public function getProductById(int $id) :Products;
+    public function getProductById(int $id) :Product;
 
     /**
      * @param  array  $data

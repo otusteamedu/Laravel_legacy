@@ -28,7 +28,7 @@ use Illuminate\Database\Eloquent\Relations\HasManyThrough;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Wishlist whereUserId($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Products[] $products
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $product
  * @property-read int|null $products_count
  */
 class Wishlist extends BaseModel
@@ -57,7 +57,7 @@ class Wishlist extends BaseModel
      */
     public function products()
     {
-        return $this->hasManyThrough(Products::class, WishlistProduct::class,
+        return $this->hasManyThrough(Product::class, WishlistProduct::class,
             'wishlist_id',
             'productId',
             'id',

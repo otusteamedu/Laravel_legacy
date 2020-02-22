@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -23,12 +23,9 @@ class ProductsPolicy
     }
 
     /**
-     * Determine whether the user can view the products.
-     *
      * @param  User  $user
-     * @param  \App\Models\Products  $products
      *
-     * @return mixed
+     * @return bool
      */
     public function view(User $user)
     {
@@ -48,25 +45,18 @@ class ProductsPolicy
     }
 
     /**
-     * Determine whether the user can update the products.
-     *
      * @param  User  $user
-     * @param  \App\Models\Products  $products
-     *
-     * @return mixed
+     * @param  Product  $product
      */
-    public function update(User $user, Products $products)
+    public function update(User $user, Product $product)
     {
         //
     }
 
     /**
-     * Determine whether the user can delete the products.
-     *
      * @param  User  $user
-     * @param  \App\Models\Products  $products
      *
-     * @return mixed
+     * @return bool
      */
     public function delete(User $user)
     {
@@ -74,27 +64,19 @@ class ProductsPolicy
     }
 
     /**
-     * Determine whether the user can restore the products.
-     *
      * @param  User  $user
-     * @param  \App\Models\Products  $products
-     *
-     * @return mixed
+     * @param  Product  $product
      */
-    public function restore(User $user, Products $products)
+    public function restore(User $user, Product $product)
     {
         //
     }
 
     /**
-     * Determine whether the user can permanently delete the products.
-     *
      * @param  User  $user
-     * @param  \App\Models\Products  $products
-     *
-     * @return mixed
+     * @param  Product  $product
      */
-    public function forceDelete(User $user, Products $products)
+    public function forceDelete(User $user, Product $product)
     {
         //
     }

@@ -2,11 +2,11 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\Products;
+use App\Models\Product;
 use Faker\Generator as Faker;
 
 
-$factory->define(Products::class, function (Faker $faker) {
+$factory->define(Product::class, function (Faker $faker) {
     return [
         'productId' => $faker->unique()
             ->randomElement(App\Models\WishlistProduct::pluck('product_id')->toArray()),

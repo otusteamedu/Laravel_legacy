@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property float $expected_price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Products[] $products
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Product[] $product
  * @property-read int|null $products_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\WishlistProduct newQuery()
@@ -44,7 +44,7 @@ class WishlistProduct extends BaseModel
      */
     public function products()
     {
-        return $this->hasMany(Products::class, 'productId', 'product_id');
+        return $this->hasMany(Product::class, 'productId', 'product_id');
     }
 
     /**

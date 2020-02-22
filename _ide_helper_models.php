@@ -24,7 +24,7 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\Products
+ * App\Models\Product
  *
  * @property int $productId
  * @property string $productTitle
@@ -47,30 +47,30 @@ namespace App\Models{
  * @property string $allImageUrls
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products where30daysCommission($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereAllImageUrls($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereCommission($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereCommissionRate($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereDiscount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereEvaluateScore($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereImageUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereLocalPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereLotNum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereOriginalPrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products wherePackageType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereProductId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereProductTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereProductUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereSalePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereStoreName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereStoreUrl($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereValidTime($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Products whereVolume($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product where30daysCommission($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereAllImageUrls($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCommission($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCommissionRate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereEvaluateScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereImageUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereLocalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereLotNum($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereOriginalPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product wherePackageType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereProductId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereProductTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereProductUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereSalePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereStoreName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereStoreUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereValidTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Product whereVolume($value)
  * @mixin \Eloquent
  */
 	class Products extends \Eloquent {}

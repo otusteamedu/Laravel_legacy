@@ -9,7 +9,7 @@ namespace App\Http\Controllers\Api\Products;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Products\Request\ProductsRequest;
 use App\Http\Resources\ProductsResource;
-use App\Models\Products;
+use App\Models\Product;
 use App\Policies\Abilities;
 use App\Services\Products\ProductsService;
 use Facade\FlareClient\Api;
@@ -36,7 +36,7 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $this->authorize(Abilities::VIEW_ANY, Products::class);
+        $this->authorize(Abilities::VIEW_ANY, Product::class);
 
         return response()->json(new ProductsResource($this->productsService->index()));
     }
@@ -51,7 +51,7 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        $this->authorize(Abilities::VIEW_ANY, Products::class);
+        $this->authorize(Abilities::VIEW_ANY, Product::class);
 
         $product = $this->productsService->getProductById($id);
 
@@ -66,7 +66,7 @@ class ProductsController extends Controller
      */
     public function store(ProductsRequest $request)
     {
-        $this->authorize(Abilities::CREATE, Products::class);
+        $this->authorize(Abilities::CREATE, Product::class);
 
         $data = $request->getFormData();
         $product = $this->productsService->create($data);
@@ -83,7 +83,7 @@ class ProductsController extends Controller
      */
     public function destroy($id)
     {
-        $this->authorize(Abilities::DELETE, Products::class);
+        $this->authorize(Abilities::DELETE, Product::class);
 
         $this->productsService->deleteProduct($id);
 

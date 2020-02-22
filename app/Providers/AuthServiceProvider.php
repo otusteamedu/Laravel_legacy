@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Products;
+use App\Models\Product;
 use App\Models\User;
 use App\Models\Wishlist;
 use App\Models\WishlistProduct;
@@ -23,7 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         User::class => UserPolicy::class,
         Wishlist::class => WishlistPolicy::class,
         WishlistProduct::class => WishlistProductPolicy::class,
-        Products::class => ProductsPolicy::class,
+        Product::class => ProductsPolicy::class,
     ];
 
     /**
