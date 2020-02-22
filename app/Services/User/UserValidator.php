@@ -124,6 +124,6 @@ class UserValidator
         return $this->statusResponse ?? response()->json([
                 'message' => __('auth.wrong_auth'),
                 'status' => 'danger'
-            ], 500);
+            ], 401);
     }
 }
