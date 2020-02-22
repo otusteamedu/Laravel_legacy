@@ -8,7 +8,7 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class UserValidationBuilder
+class UserValidator
 {
     /**
      * @var User|null
@@ -124,6 +124,6 @@ class UserValidationBuilder
         return $this->statusResponse ?? response()->json([
                 'message' => __('auth.wrong_auth'),
                 'status' => 'danger'
-            ], 401);
+            ], 500);
     }
 }

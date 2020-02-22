@@ -2,23 +2,13 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\User\UserValidationBuilder;
+use App\Services\User\UserValidator;
 use Closure;
 use Illuminate\Http\Request;
 
 
 class UserValid
 {
-    private UserValidationBuilder $userValidator;
-
-    /**
-     * UserAuthorised constructor.
-     */
-    public function __construct()
-    {
-        $this->userValidator = new UserValidationBuilder;
-    }
-
     /**
      * Handle an incoming request.
      *
@@ -28,8 +18,10 @@ class UserValid
      */
     public function handle(Request $request, Closure $next)
     {
-         return ! $this->userValidator->validateRequest($request)
-             ? $this->userValidator->getStatus()
-             : $next($request);
+        $userValidator = userValidator();
+
+        return ! $userValidator->validateRequest($request)
+            ? $userValidator->getStatus()
+            : $next($request);
     }
 }
