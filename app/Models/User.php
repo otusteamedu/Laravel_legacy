@@ -27,8 +27,14 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $createdEvents
+ * @property-read int|null $created_events_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $participatedInEvents
+ * @property-read int|null $participated_in_events_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
+ * @property-read int|null $roles_count
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -55,10 +61,6 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $createdEvents
- * @property-read int|null $created_events_count
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Event[] $participatedInEvents
- * @property-read int|null $participated_in_events_count
  */
 class User extends Authenticatable
 {
@@ -100,16 +102,24 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function createdEvents() {
+    public function createdEvents()
+    {
         return $this->hasMany(
             Event::class,
             'author_id'
         );
     }
 
-    public function participatedInEvents() {
+    public function participatedInEvents()
+    {
         return $this->belongsToMany(
             Event::class
         );
+    }
+
+    public function roles()
+    {
+        return $this->belongsToMany('App\Models\Role')
+            ->using('App\Models\RoleUser');
     }
 }

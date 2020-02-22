@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(EventTypesTableSeeder::class);
         $this->call(CountriesTableSeeder::class);
         $this->call(LanguagesTableSeeder::class);
+        $this->call(RolesTableSeeder::class);
 
         // Fake data
         $this->call(PictureTableSeeder::class);
@@ -22,5 +23,6 @@ class DatabaseSeeder extends Seeder
         $this->call(EventTableSeeder::class);
         $this->call(EventUserTableSeeder::class);
         $this->call(EventPictureTableSeeder::class);
+        $this->call(RoleUserTableSeeder::class);
     }
 }
