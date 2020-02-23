@@ -21,7 +21,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','api_token'
     ];
 
     /**
@@ -116,5 +116,16 @@ class User extends Authenticatable
                 $assigned_roles[] = false;
         }
         $this->roles()->attach($assigned_roles);
+    }
+
+    /**
+     * Найтм пользователя по токену
+     *
+     * @param $token
+     * @return mixed
+     */
+    public static function getUserByToken($token)
+    {
+        return User::where('api_token', $token)->first();
     }
 }

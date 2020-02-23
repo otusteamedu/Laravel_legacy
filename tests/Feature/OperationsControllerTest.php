@@ -140,7 +140,7 @@ class OperationsControllerTest extends TestCase
      */
 //    public function testSetPeriodJsonReturn($period)
 //    {
-//        $operation = factory(Operation::class)->create();
+//        $operation = factory(OperationResource::class)->create();
 //        $user = User::find($operation->user_id);
 //
 //        $response = $this->actingAs($user)->from(route('home'))

@@ -17,7 +17,7 @@ return [
     'quarter' => 'Quarter',
     'year' => 'Year',
     'sum' => 'Amount',
-    'category' => 'Category',
+    'category' => 'CategoryResource',
     'description' => 'Description',
     'date' => 'Date',
     'edit' => 'Edit',
