@@ -10,15 +10,14 @@ use Illuminate\Http\Request;
 class UserValid
 {
     /**
-     * Handle an incoming request.
-     *
-     * @param  Request  $request
-     * @param  \Closure  $next
-     * @return mixed
+     * @param Request $request
+     * @param Closure $next
+     * @return \Illuminate\Http\JsonResponse|mixed|null
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function handle(Request $request, Closure $next)
     {
-        $userValidator = userValidator();
+        $userValidator = app()->make(UserValidator::class);
 
         return ! $userValidator->validateRequest($request)
             ? $userValidator->getStatus()
