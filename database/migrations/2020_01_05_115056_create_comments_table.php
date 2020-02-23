@@ -17,10 +17,11 @@ class CreateCommentsTable extends Migration
     {
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->text('content')->comment('Текст комментария');
+            $table->text('content')->nullable(false)->comment('Текст комментария');
             $table->unsignedInteger('user_id')->nullable(false)->comment('ID пользователя');
             $table->unsignedInteger('post_id')->nullable(false)->comment('ID новости');
             $table->unsignedInteger('comment_id')->nullable()->comment('ID родительского комментария');
+            $table->timestamp('published_at')->nullable()->default(null)->comment('Дата опубликавания');
             $table->timestamps();
             $table->softDeletes();
         });

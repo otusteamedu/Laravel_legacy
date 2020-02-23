@@ -3,8 +3,10 @@
 namespace App\Models\Post;
 
 use App\Models\BaseModel;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Rubric
@@ -16,10 +18,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property string $title
  * @property string $keywords
  * @property string $description
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $deleted_at
  * @property Collection $posts
  */
 class Rubric extends BaseModel
 {
+    use SoftDeletes;
+
     /** @inheritDoc  */
     protected $fillable = [
         'name', 'slug', 'title',

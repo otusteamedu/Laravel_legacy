@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->comment('Имя пользователя');
-            $table->string('icon')->comment('Аватарка пользователя');
+            $table->string('icon')->nullable()->comment('Аватарка пользователя');
             $table->string('email')->unique()->comment('Email пользователя');
             $table->string('password')->comment('Пароль');
             $table->unsignedInteger('group_id')->nullable(false)->comment('ID группы');

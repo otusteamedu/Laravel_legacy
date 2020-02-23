@@ -2,7 +2,9 @@
 
 namespace App\Models\User;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -14,11 +16,18 @@ use Illuminate\Notifications\Notifiable;
  * @property string $name
  * @property string $icon
  * @property string $email
+ * @property Carbon $created_at
+ * @property Carbon $updated_at
+ * @property Carbon $deleted_at
  * @property Group $group
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
+
+    public const IMAGE_FIELD = 'icon';
+
+    public const IMAGE_PATH = 'users';
 
     /**
      * The attributes that are mass assignable.

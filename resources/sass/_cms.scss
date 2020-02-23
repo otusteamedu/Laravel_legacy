@@ -1,0 +1,31 @@
+html{
+  height: 100%;
+}
+body{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+}
+main {
+  font-size: 1em;
+  padding: 0;
+  flex: 1 0 auto;
+}
+footer {
+  height: 40px;
+  flex: 0 0 auto;
+}
+header {
+  height:40px;
+  flex: 0 0 auto;
+}
+.breadcrumb {
+  margin-bottom: 0;
+  border-radius: 0;
+  padding:0;
+}
+.active {
+  font-weight: bold;
+  pointer-events: none;
+}

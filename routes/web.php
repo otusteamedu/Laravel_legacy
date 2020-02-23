@@ -32,3 +32,36 @@ Route::get('/user/edit', function () {
 Route::get('/user/changepassword', function () {
     return view('portal.user.change_password');
 });
+Route::name('cms.')->prefix('cms')->middleware('cms.menu')->group(function () {
+    Route::get('', 'Cms\IndexController')->name('index');
+
+    Route::resources([
+        'pages' => 'Cms\Page\PagesController',
+    ]);
+
+    Route::resource('comments', 'Cms\Post\Comment\CommentsController')
+        ->except([
+            'edit',
+            'create',
+            'store',
+        ]);
+
+    Route::resources([
+        'posts' => 'Cms\Post\Post\PostsController',
+        'rubrics' => 'Cms\Post\Rubric\RubricsController',
+    ]);
+    Route::put('posts/{post}/published', 'Cms\Post\Post\PostsController@published')
+        ->name('posts.published');
+
+    Route::resources([
+        'groups' => 'Cms\User\Group\GroupsController',
+        'users' => 'Cms\User\User\UsersController',
+    ]);
+
+    Route::resource('rights', 'Cms\User\Right\RightsController')
+        ->only('index');
+
+    Route::resources([
+        'settings' => 'Cms\Setting\SettingsController',
+]   );
+});
