@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Cms\User\Group;
 
-use App\Http\Controllers\Cms\User\Group\Requests\StoreUserRequest;
-use App\Http\Controllers\Cms\User\Group\Requests\UpdateUserRequest;
+use App\Http\Controllers\Cms\User\Group\Requests\StoreGroupRequest;
+use App\Http\Controllers\Cms\User\Group\Requests\UpdateGroupRequest;
 use App\Models\User\Group;
 use App\Services\Cms\User\GroupsService;
 use App\Services\Cms\User\RightsService;
@@ -22,13 +22,18 @@ class GroupsController extends Controller
     /** @var GroupsService  */
     protected $groupsService;
 
+    /** @var RightsService  */
+    protected $rightsService;
+
     /**
      * GroupsController constructor.
      * @param GroupsService $groupsService
+     * @param RightsService $rightsService
      */
-    public function __construct(GroupsService $groupsService)
+    public function __construct(GroupsService $groupsService, RightsService $rightsService)
     {
         $this->groupsService = $groupsService;
+        $this->rightsService = $rightsService;
     }
 
     /**
@@ -50,21 +55,18 @@ class GroupsController extends Controller
      */
     public function create()
     {
-        /** @var RightsService $rightsService */
-        $rightsService = app(RightsService::class);
-
         return view('cms.group.create', [
-            'rights' => $rightsService->getArrayList()
+            'rights' => $this->rightsService->getArrayList()
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StoreUserRequest  $request
+     * @param  StoreGroupRequest $request
      * @return RedirectResponse|Redirector
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreGroupRequest $request)
     {
         $data = $request->getFormData();
 
@@ -92,23 +94,20 @@ class GroupsController extends Controller
      */
     public function edit(Group $group)
     {
-        /** @var RightsService $rightsService */
-        $rightsService = app(RightsService::class);
-
         return view('cms.group.edit', [
             'group' => $group,
-            'rights' => $rightsService->getArrayList()
+            'rights' => $this->rightsService->getArrayList()
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdateUserRequest  $request
+     * @param  UpdateGroupRequest  $request
      * @param  Group  $group
      * @return RedirectResponse|Redirector
      */
-    public function update(UpdateUserRequest $request, Group $group)
+    public function update(UpdateGroupRequest $request, Group $group)
     {
         $data = $request->getFormData();
 

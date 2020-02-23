@@ -163,4 +163,9 @@ return [
             'rubrics' => 'Рубрики',
         ]
     ],
+    'settings' => [
+        'title' => [
+            'index' => 'Настройки',
+        ],
+    ],
 ];

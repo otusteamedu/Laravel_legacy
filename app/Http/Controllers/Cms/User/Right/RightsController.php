@@ -2,10 +2,8 @@
 
 namespace App\Http\Controllers\Cms\User\Right;
 
-use App\Models\User\Right;
 use App\Services\Cms\User\RightsService;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
 

@@ -23,9 +23,13 @@ class PostsController extends Controller
     /** @var PostsService $postService */
     protected $postsService;
 
-    public function __construct(PostsService $postsService)
+    /** @var RubricsService $rubricsService */
+    protected $rubricsService;
+
+    public function __construct(PostsService $postsService, RubricsService $rubricsService)
     {
         $this->postsService = $postsService;
+        $this->rubricsService = $rubricsService;
     }
 
     /**
@@ -47,13 +51,10 @@ class PostsController extends Controller
      */
     public function create()
     {
-        /** @var RubricsService $groupsService */
-        $rubricsService = app(RubricsService::class);
-
         return  view(
             'cms.post.create',
             [
-                'rubrics' => $rubricsService->getArrayList(),
+                'rubrics' => $this->rubricsService->getArrayList(),
             ]
         );
     }
@@ -96,14 +97,11 @@ class PostsController extends Controller
      */
     public function edit(Post $post)
     {
-        /** @var RubricsService $groupsService */
-        $rubricsService = app(RubricsService::class);
-
         return view(
             'cms.post.edit',
             [
                 'post' => $post,
-                'rubrics' => $rubricsService->getArrayList(),
+                'rubrics' => $this->rubricsService->getArrayList(),
                 'image' => $this->postsService->getPostImage($post),
             ]
         );

@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Cms\Page;
 
-use App\Http\Controllers\Cms\Page\Requests\StorePostRequest;
-use App\Http\Controllers\Cms\Page\Requests\UpdatePostRequest;
+use App\Http\Controllers\Cms\Page\Requests\StorePageRequest;
+use App\Http\Controllers\Cms\Page\Requests\UpdatePageRequest;
 use App\Models\Page\Page;
 use App\Services\Cms\Page\PagesService;
 use Illuminate\Contracts\View\Factory;
@@ -55,10 +55,10 @@ class PagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  StorePostRequest  $request
+     * @param  StorePageRequest  $request
      * @return RedirectResponse|Redirector
      */
-    public function store(StorePostRequest $request)
+    public function store(StorePageRequest $request)
     {
         $data = $request->getFormData();
 
@@ -92,11 +92,11 @@ class PagesController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  UpdatePostRequest  $request
+     * @param  UpdatePageRequest  $request
      * @param  Page  $page
      * @return RedirectResponse|Redirector
      */
-    public function update(UpdatePostRequest $request, Page $page)
+    public function update(UpdatePageRequest $request, Page $page)
     {
         $data = $request->getFormData();
 

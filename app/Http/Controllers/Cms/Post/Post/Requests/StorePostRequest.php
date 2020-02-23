@@ -36,6 +36,9 @@ class StorePostRequest extends FormRequest
         ];
     }
 
+    /**
+     * @return array
+     */
     public function getFormData(): array
     {
         $data = $this->request->all();
@@ -45,7 +48,7 @@ class StorePostRequest extends FormRequest
         ]);
 
         $data['slug'] = Str::slug($data['name']);
-        $data['user_id'] = Auth::user()->id ?? 1;
+        $data['user_id'] = Auth::user()->id ?? null;
 
         return $data;
     }

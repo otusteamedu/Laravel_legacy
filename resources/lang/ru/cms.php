@@ -1,6 +1,7 @@
 <?php
 return [
     'index' => 'News CMS',
+    'title' => 'Главная',
     'menu' => 'Меню',
     'yes' => 'Да',
     'no' => 'Нет',
@@ -162,5 +163,10 @@ return [
         'fields'=> [
             'rubrics' => 'Рубрики',
         ]
+    ],
+    'settings' => [
+        'title' => [
+            'index' => 'Настройки',
+        ],
     ],
 ];

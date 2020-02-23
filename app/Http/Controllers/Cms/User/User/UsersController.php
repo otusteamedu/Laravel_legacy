@@ -22,9 +22,13 @@ class UsersController extends Controller
     /** @var UsersService $usersService */
     protected $usersService;
 
-    public function __construct(UsersService $usersService)
+    /** @var GroupsService $groupsService */
+    protected $groupsService;
+
+    public function __construct(UsersService $usersService, GroupsService $groupsService)
     {
         $this->usersService = $usersService;
+        $this->groupsService = $groupsService;
     }
 
     /**
@@ -46,13 +50,10 @@ class UsersController extends Controller
      */
     public function create()
     {
-        /** @var GroupsService $groupsService */
-        $groupsService = app(GroupsService::class);
-
         return  view(
             'cms.user.create',
             [
-                'groups' => $groupsService->getArrayList(),
+                'groups' => $this->groupsService->getArrayList(),
             ]
         );
     }
@@ -95,14 +96,11 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        /** @var GroupsService $groupsService */
-        $groupsService = app(GroupsService::class);
-
         return view(
             'cms.user.edit',
             [
                 'user' => $user,
-                'groups' => $groupsService->getArrayList(),
+                'groups' => $this->groupsService->getArrayList(),
                 'image' => $this->usersService->getUserImage($user),
             ]
         );
