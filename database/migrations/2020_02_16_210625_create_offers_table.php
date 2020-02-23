@@ -16,12 +16,13 @@ class CreateOffersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description');
-            $table->timestamp('created_at')->useCurrent();
             $table->timestamp('expiration_date');
-            $table->integer('client_id');
+            $table->integer('project_id');
             $table->integer('city_id');
             $table->float('lat');
             $table->float('lon');
+            $table->timestamps();
+            $table->softDeletes();
         });
     }
 
