@@ -31,7 +31,7 @@
             </tr>
             </thead>
             <tbody>
-            @foreach (\App\Models\User::all() as $user)
+            @foreach ($userList as $user)
                 <tr>
                     <td>
                         <a href="#">
