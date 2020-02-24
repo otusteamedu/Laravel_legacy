@@ -21,3 +21,7 @@ Route::match(['get', 'post'] ,'/home', function () {
 Route::get('/news/{id}/{name}', function ($id, $name) {
     return view('welcome');
 });
+
+Route::get('/registration', function () {
+    return view('registration.source');
+});
