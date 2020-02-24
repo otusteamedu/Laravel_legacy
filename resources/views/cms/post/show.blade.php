@@ -7,27 +7,33 @@
 @section('title', __('cms.post.title.show'))
 @section('h1', __('cms.post.title.show'))
 @section('controls')
-    <div class="p-2">
-        <a class="btn btn-primary" href="{{ route('cms.posts.edit', ['post' => $post->id]) }}" role="button">{{__('cms.post.actions.edit')}}</a>
-    </div>
-    @if($post->is_published)
+    @can(\App\Policies\Abilities::UPDATE, $post)
         <div class="p-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unpublishedModal">
-                {{__('cms.actions.unpublished')}}
+            <a class="btn btn-primary" href="{{ route('cms.posts.edit', ['post' => $post->id]) }}" role="button">{{__('cms.post.actions.edit')}}</a>
+        </div>
+    @endcan
+    @can(\App\Policies\Abilities::PUBLISHED, $post)
+        @if($post->is_published)
+            <div class="p-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unpublishedModal">
+                    {{__('cms.actions.unpublished')}}
+                </button>
+            </div>
+        @else
+            <div class="p-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#publishedModal">
+                    {{__('cms.actions.published')}}
+                </button>
+            </div>
+        @endif
+    @endcan
+    @can(\App\Policies\Abilities::DELETE, $post)
+        <div class="p-2">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">
+                {{__('cms.actions.destroy')}}
             </button>
         </div>
-    @else
-        <div class="p-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#publishedModal">
-                {{__('cms.actions.published')}}
-            </button>
-        </div>
-    @endif
-    <div class="p-2">
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">
-            {{__('cms.actions.destroy')}}
-        </button>
-    </div>
+    @endcan
 @endsection
 @section('content')
 <table class="table table-striped">

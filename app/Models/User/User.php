@@ -2,6 +2,7 @@
 
 namespace App\Models\User;
 
+use App\Policies\Abilities;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -55,4 +56,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Group::class);
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->group->rights->pluck('right', 'id')->search(Abilities::CMS) !== false;
+    }
+
 }

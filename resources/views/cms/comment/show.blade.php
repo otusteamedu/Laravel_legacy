@@ -7,24 +7,28 @@
 @section('title', __('cms.comment.title.show'))
 @section('h1', __('cms.comment.title.show'))
 @section('controls')
-    @if($comment->is_published)
+    @can(\App\Policies\Abilities::PUBLISHED, $comment)
+        @if($comment->is_published)
+            <div class="p-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unpublishedModal">
+                    {{__('cms.actions.unpublished')}}
+                </button>
+            </div>
+        @else
+            <div class="p-2">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#publishedModal">
+                    {{__('cms.actions.published')}}
+                </button>
+            </div>
+        @endif
+    @endcan
+    @can(\App\Policies\Abilities::DELETE, $comment)
         <div class="p-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#unpublishedModal">
-                {{__('cms.actions.unpublished')}}
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">
+                {{__('cms.actions.destroy')}}
             </button>
         </div>
-    @else
-        <div class="p-2">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#publishedModal">
-                {{__('cms.actions.published')}}
-            </button>
-        </div>
-    @endif
-    <div class="p-2">
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">
-            {{__('cms.actions.destroy')}}
-        </button>
-    </div>
+    @endcan
 @endsection
 @section('content')
 <table class="table table-striped">

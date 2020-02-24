@@ -6,6 +6,11 @@ use App\Models\Setting\Setting;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+/**
+ * @todo Реализовать административный интерфейс настроек портала
+ * Class SettingsController
+ * @package App\Http\Controllers\Cms\Setting
+ */
 class SettingsController extends Controller
 {
     /**

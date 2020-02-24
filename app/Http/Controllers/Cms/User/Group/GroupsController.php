@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Cms\User\Group;
 use App\Http\Controllers\Cms\User\Group\Requests\StoreGroupRequest;
 use App\Http\Controllers\Cms\User\Group\Requests\UpdateGroupRequest;
 use App\Models\User\Group;
+use App\Policies\Abilities;
 use App\Services\Cms\User\GroupsService;
 use App\Services\Cms\User\RightsService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
@@ -40,9 +42,12 @@ class GroupsController extends Controller
      * Display a listing of the resource.
      *
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, Group::class);
+
         return view('cms.group.index', [
             'groups' => $this->groupsService->paginationList(),
         ]);
@@ -52,9 +57,12 @@ class GroupsController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Group::class);
+
         return view('cms.group.create', [
             'rights' => $this->rightsService->getArrayList()
         ]);
@@ -65,9 +73,12 @@ class GroupsController extends Controller
      *
      * @param  StoreGroupRequest $request
      * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function store(StoreGroupRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Group::class);
+
         $data = $request->getFormData();
 
         $url = $this->groupsService->store($data);
@@ -80,9 +91,12 @@ class GroupsController extends Controller
      *
      * @param  Group $group
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function show(Group $group)
     {
+        $this->authorize(Abilities::VIEW, $group);
+
         return view('cms.group.show', ['group' => $group]);
     }
 
@@ -91,9 +105,12 @@ class GroupsController extends Controller
      *
      * @param  Group $group
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function edit(Group $group)
     {
+        $this->authorize(Abilities::UPDATE, $group);
+
         return view('cms.group.edit', [
             'group' => $group,
             'rights' => $this->rightsService->getArrayList()
@@ -106,9 +123,12 @@ class GroupsController extends Controller
      * @param  UpdateGroupRequest  $request
      * @param  Group  $group
      * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function update(UpdateGroupRequest $request, Group $group)
     {
+        $this->authorize(Abilities::UPDATE, $group);
+
         $data = $request->getFormData();
 
         $url = $this->groupsService->update($group, $data);
@@ -121,9 +141,12 @@ class GroupsController extends Controller
      *
      * @param  Group  $group
      * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function destroy(Group $group)
     {
+        $this->authorize(Abilities::DELETE, $group);
+
         $url = $this->groupsService->destroy($group);
 
         return redirect($url);

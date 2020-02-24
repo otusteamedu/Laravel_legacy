@@ -1,3 +1,28 @@
+html{
+  height: 100%;
+}
+body{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #fff;
+}
+main {
+  font-size: 1em;
+  padding: 0;
+  flex: 1 0 auto;
+}
+footer {
+  height: 40px;
+  flex: 0 0 auto;
+}
+header {
+  flex: 0 0 auto;
+}
+
+.auth_forms form{
+  min-width: 300px;
+}
 .pd-pg-bottom {
   padding-bottom: 80px;
 }

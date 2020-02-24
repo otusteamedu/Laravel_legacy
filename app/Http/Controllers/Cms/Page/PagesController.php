@@ -5,9 +5,12 @@ namespace App\Http\Controllers\Cms\Page;
 use App\Http\Controllers\Cms\Page\Requests\StorePageRequest;
 use App\Http\Controllers\Cms\Page\Requests\UpdatePageRequest;
 use App\Models\Page\Page;
+use App\Http\Controllers\Cms\CurrentUser;
+use App\Policies\Abilities;
 use App\Services\Cms\Page\PagesService;
-use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
+use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
@@ -18,6 +21,8 @@ use Illuminate\View\View;
  */
 class PagesController extends Controller
 {
+    use CurrentUser;
+
     /** @var PagesService  */
     protected $pagesService;
 
@@ -34,9 +39,12 @@ class PagesController extends Controller
      * Display a listing of the resource.
      *
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, Page::class);
+
         return view('cms.page.index', [
             'pages' => $this->pagesService->paginationList(),
         ]);
@@ -46,9 +54,12 @@ class PagesController extends Controller
      * Show the form for creating a new resource.
      *
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Page::class);
+
         return view('cms.page.create');
     }
 
@@ -57,9 +68,12 @@ class PagesController extends Controller
      *
      * @param  StorePageRequest  $request
      * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function store(StorePageRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Page::class);
+
         $data = $request->getFormData();
 
         $url = $this->pagesService->store($data);
@@ -72,9 +86,12 @@ class PagesController extends Controller
      *
      * @param Page $page
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function show(Page $page)
     {
+        $this->authorize(Abilities::VIEW, $page);
+
         return view('cms.page.show', ['page' => $page]);
     }
 
@@ -83,9 +100,12 @@ class PagesController extends Controller
      *
      * @param  Page  $page
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function edit(Page $page)
     {
+        $this->authorize(Abilities::UPDATE, $page);
+
         return view('cms.page.edit', ['page' => $page]);
     }
 
@@ -95,9 +115,12 @@ class PagesController extends Controller
      * @param  UpdatePageRequest  $request
      * @param  Page  $page
      * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
+        $this->authorize(Abilities::UPDATE, $page);
+
         $data = $request->getFormData();
 
         $url = $this->pagesService->update($page, $data);
@@ -110,11 +133,14 @@ class PagesController extends Controller
      *
      * @param  Page  $page
      * @return RedirectResponse|Redirector
+     * @throws AuthorizationException
      */
     public function destroy(Page $page)
     {
-       $url = $this->pagesService->destroy($page);
+        $this->authorize(Abilities::DELETE, $page);
 
-       return redirect($url);
+        $url = $this->pagesService->destroy($page);
+
+        return redirect($url);
     }
 }

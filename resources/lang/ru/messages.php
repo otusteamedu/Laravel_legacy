@@ -18,4 +18,6 @@ return [
     'profile' => 'Профиль',
     'edit_profile' => 'Изменить профиль',
     'change_password' => 'Изменить пароль',
+    'authentication' => 'Авторизоваться',
+    'registration' => 'Зарегистрироваться'
 ];

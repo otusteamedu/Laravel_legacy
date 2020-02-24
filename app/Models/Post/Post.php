@@ -16,6 +16,7 @@ use Illuminate\Support\Collection;
  * @package App\Models\Post
  *
  * @property int $id
+ * @property int $user_id
  * @property string $name
  * @property string $image
  * @property string $content

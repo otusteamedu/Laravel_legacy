@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cms;
 
+use App\Policies\Abilities;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,6 +16,10 @@ class IndexController extends Controller
      */
     public function __invoke(Request $request)
     {
+        if (\Auth::user()->cant(Abilities::CMS)) {
+            abort(403);
+        }
+
         return view('cms.index');
     }
 }
