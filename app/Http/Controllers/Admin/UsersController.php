@@ -7,6 +7,8 @@ use App\Http\Controllers\Admin\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\Admin\Users\UsersService;
+use App\Services\Cache\Users\UsersCacheService;
+use Illuminate\Http\Request;
 
 /**
  * Class UsersController
@@ -21,35 +23,63 @@ class UsersController extends Controller
     private $usersService;
 
     /**
+     * @var UsersCacheService
+     */
+    private $usersCacheService;
+
+    /**
      * Get user list
      *
      * UsersController constructor.
      * @param UsersService $usersService
+     * @param UsersCacheService $usersCacheService
      */
-    public function __construct(UsersService $usersService)
+    public function __construct(
+        UsersService $usersService,
+        UsersCacheService $usersCacheService
+    )
     {
         $this->usersService = $usersService;
+        $this->usersCacheService = $usersCacheService;
     }
 
 
     /**
      * Возвращает список пользователей в формате json с пагинацией
      *
+     * @param $request Request
      * @return string
      */
-    public function index()
+    public function index(Request $request)
     {
-        return $this->usersService->getUsersList()->toJson();
+        $uri = $request->fullUrl();
+        $cachedData = $this->usersCacheService->getUserListFromCache($uri);
+        if ($cachedData) {
+            return $cachedData;
+        }
+
+        $data = $this->usersService->getUsersList();
+        $this->usersCacheService->putUsersListToCache($uri, $data);
+        return $data->toJson();
     }
 
 
     /**
      * @param int $id
-     * @return string
+     * @param Request $request
+     * @return mixed
      */
-    public function getUser(int $id)
+    public function getUser(Request $request, int $id)
     {
-        return $this->usersService->getUserById($id)->toJson();
+        $uri = $request->fullUrl();
+        $cachedData = $this->usersCacheService->getUserDataFromCache($id, $uri);
+        if ($cachedData) {
+            return $cachedData;
+        } else {
+            $data = $this->usersService->getUserById($id);
+            $this->usersCacheService->putUserDataToCache($id, $uri, $data);
+            return $data->toJson();
+        }
     }
 
 
