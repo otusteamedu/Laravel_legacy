@@ -19,7 +19,7 @@ class CreateAccountsTable extends Migration
             $table->unsignedTinyInteger('status')->nullable();
             $table->timestamps();
 
-            $table->index(['status','type']);
+            $table->index(['name','status']);
 
 
             $table->softDeletes();

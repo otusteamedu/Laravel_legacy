@@ -15,7 +15,7 @@ class CreateSettingsTable extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('account_id');
+            $table->unsignedBigInteger('created_account_id');
             $table->json('data')->nullable();
 
             $table->timestamps();
@@ -25,7 +25,7 @@ class CreateSettingsTable extends Migration
         });
 
         Schema::table('settings', function (Blueprint $table) {
-           $table->foreign('account_id')
+           $table->foreign('created_account_id')
                ->references('id')
                ->on('accounts');
         });
