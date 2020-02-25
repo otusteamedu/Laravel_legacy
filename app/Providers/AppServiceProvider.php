@@ -2,8 +2,14 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Observers\Users\UsersCacheObserver;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +29,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        User::observe(UsersCacheObserver::class);
     }
 }
