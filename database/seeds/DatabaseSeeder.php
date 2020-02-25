@@ -19,5 +19,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CatalogItemSeeder::class); 
         $this->call(CatalogSpecificationsAlliesSeeder::class);
         $this->call(CatalogPriceAlliesSeeder::class);
+        $this->call(CatalogSpecificationItemValueSeeder::class);
     }
 }

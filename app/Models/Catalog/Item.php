@@ -23,4 +23,13 @@ class Item extends Model
             'language_id'
         );
     }
+
+    public function specification(){
+        return $this->belongsToMany(
+            'App\Models\Catalog\CategorySpecification',
+            'catalog_item_specification_values',
+            'specification_allies_id',
+            'item_id'
+        );
+    }
 }
