@@ -64,5 +64,7 @@ class User extends Model
         'email',
         'phone',
         'password',
+        'tariff_id',
+        'segment_id',
     ];
 }
