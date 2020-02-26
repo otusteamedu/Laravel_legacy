@@ -13,21 +13,11 @@ class CreateCategoriesSpecificationAlliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_specification_allies', function (Blueprint $table) {
+        Schema::create('category_specification', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('categories_id');
+            $table->bigInteger('category_id');
             $table->bigInteger('specification_id');
             $table->timestamps();
-
-/*             $table->foreign('categories_id')
-                ->references('id')
-                ->on('catalog_categories')
-                ->onDelete('cascade');
-
-            $table->foreign('specification_id')
-                    ->references('id')
-                    ->on('catalog_specifications')
-                    ->onDelete('cascade'); */
         });
     }
 
@@ -38,6 +28,6 @@ class CreateCategoriesSpecificationAlliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories_specification_allies');
+        Schema::dropIfExists('category_specification');
     }
 }

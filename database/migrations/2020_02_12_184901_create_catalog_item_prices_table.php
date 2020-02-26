@@ -13,22 +13,12 @@ class CreateCatalogItemPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_item_prices', function (Blueprint $table) {
+        Schema::create('item_prices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
             $table->bigInteger('language_id');
-            $table->integer('votes')->default(0);
+            $table->integer('price')->default(0);
             $table->timestamps();
-
-/*             $table->foreign('item_id')
-                    ->references('id')
-                    ->on('catalog_items')
-                    ->onDelete('cascade');
-
-            $table->foreign('language_id')
-                    ->references('id')
-                    ->on('catalog_item_price_languages')
-                    ->onDelete('cascade'); */
         });
     }
 
@@ -39,6 +29,6 @@ class CreateCatalogItemPricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_item_prices');
+        Schema::dropIfExists('item_prices');
     }
 }

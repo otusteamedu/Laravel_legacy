@@ -13,11 +13,11 @@ class CreateCatalogCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('parent_id')->default(0);
             $table->string('title', 255);
-            $table->integer('visible')->default(0);
+            $table->boolean('visible')->default(0);
             $table->text('description');
             $table->string('meta_title', 255);
             $table->text('meta_description');
@@ -27,11 +27,6 @@ class CreateCatalogCategoriesTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
-
-/*             $table->foreign('file_id')
-                    ->references('id')
-                    ->on('files')
-                    ->onDelete('cascade'); */
         });
     }
 
@@ -42,6 +37,6 @@ class CreateCatalogCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_categories');
+        Schema::dropIfExists('categories');
     }
 }

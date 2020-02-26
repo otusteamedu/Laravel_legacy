@@ -13,7 +13,7 @@ class CreateCatalogSpecificationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_specifications', function (Blueprint $table) {
+        Schema::create('specifications', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 255);
 
@@ -29,6 +29,6 @@ class CreateCatalogSpecificationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_specifications');
+        Schema::dropIfExists('specifications');
     }
 }
