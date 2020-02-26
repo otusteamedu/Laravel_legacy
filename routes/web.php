@@ -26,3 +26,14 @@ Route::get('/registration', function () {
 Route::get('/offer', function () {
     return view('plain.offer');
 });
+
+Route::name('cms.')->group(function () {
+    Route::prefix('cms')->group(function () {
+        Route::resources([
+            'countries' => 'Cms\Countries\CountriesController',
+            'cities' => 'Cms\Countries\CitiesController',
+        ], [
+            'except' => 'destroy',
+        ]);
+    });
+});
