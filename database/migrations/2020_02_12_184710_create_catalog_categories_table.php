@@ -13,7 +13,7 @@ class CreateCatalogCategoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_categories', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('parent_id')->default(0);
             $table->string('title', 255);
@@ -37,6 +37,6 @@ class CreateCatalogCategoriesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_categories');
+        Schema::dropIfExists('categories');
     }
 }

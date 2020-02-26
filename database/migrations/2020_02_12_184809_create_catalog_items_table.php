@@ -13,7 +13,7 @@ class CreateCatalogItemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_items', function (Blueprint $table) {
+        Schema::create('items', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title', 255);
             $table->text('description');
@@ -37,6 +37,6 @@ class CreateCatalogItemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_items');
+        Schema::dropIfExists('items');
     }
 }

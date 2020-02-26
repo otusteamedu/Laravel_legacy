@@ -13,7 +13,7 @@ class CreateCategoriesSpecificationAlliesTable extends Migration
      */
     public function up()
     {
-        Schema::create('categories_specification_allies', function (Blueprint $table) {
+        Schema::create('category_specification', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('category_id');
             $table->bigInteger('specification_id');
@@ -28,6 +28,6 @@ class CreateCategoriesSpecificationAlliesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories_specification_allies');
+        Schema::dropIfExists('category_specification');
     }
 }

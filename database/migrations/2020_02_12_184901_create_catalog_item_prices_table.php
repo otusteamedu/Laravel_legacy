@@ -13,7 +13,7 @@ class CreateCatalogItemPricesTable extends Migration
      */
     public function up()
     {
-        Schema::create('catalog_item_prices', function (Blueprint $table) {
+        Schema::create('item_prices', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('item_id');
             $table->bigInteger('language_id');
@@ -29,6 +29,6 @@ class CreateCatalogItemPricesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('catalog_item_prices');
+        Schema::dropIfExists('item_prices');
     }
 }
