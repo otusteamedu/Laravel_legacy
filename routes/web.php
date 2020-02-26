@@ -10,12 +10,24 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+use App\Models\Product;
+use App\Models\ProductImage;
+use App\Models\Category;
 
 Route::get('/', function () {
+    //$product = Product::find(3);
+    //$productImage = new ProductImage;
+    //$productImage->product_image = 'p12222.jpg';
+    //$product->productImages()->save($productImage);
+    //return $product->productImages;
+    //return $product;
     return view('site/index');
 });
 
 Route::get('/about', function () {
+    //$category = Category::first();
+    //return $category->products;
+    //return $category->productImages;
     return view('site/about');
 });
 
