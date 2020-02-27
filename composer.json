@@ -21,6 +21,7 @@
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
+        "phpunit/php-code-coverage": "7.0.7",
         "phpunit/phpunit": "^8.0"
     },
     "config": {
