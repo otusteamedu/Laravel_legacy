@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers\Cms\User\Right;
 
+use App\Models\User\Right;
+use App\Policies\Abilities;
 use App\Services\Cms\User\RightsService;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use App\Http\Controllers\Controller;
 use Illuminate\View\View;
@@ -29,9 +32,12 @@ class RightsController extends Controller
      * Display a listing of the resource.
      *
      * @return Factory|View
+     * @throws AuthorizationException
      */
     public function index()
     {
+        $this->authorize(Abilities::VIEW_ANY, Right::class);
+
         return view('cms.right.index', [
             'rights' => $this->rightsService->paginationList(),
         ]);

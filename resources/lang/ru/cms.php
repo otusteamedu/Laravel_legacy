@@ -12,6 +12,7 @@ return [
         'close' => 'Закрыть',
         'published' => 'Опубликовать',
         'unpublished' => 'Снять с публикации',
+        'logout' => 'Выйти',
     ],
     'fields' => [
         'name' => 'Название',

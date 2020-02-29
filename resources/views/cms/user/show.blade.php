@@ -7,14 +7,18 @@
 @section('title', __('cms.user.title.show'))
 @section('h1', __('cms.user.title.show'))
 @section('controls')
-    <div class="p-2">
-        <a class="btn btn-primary" href="{{ route('cms.users.edit', [$user->id]) }}" role="button">{{__('cms.user.actions.edit')}}</a>
-    </div>
-    <div class="p-2">
-        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">
-            {{__('cms.actions.destroy')}}
-        </button>
-    </div>
+    @can(\App\Policies\Abilities::UPDATE, $user)
+        <div class="p-2">
+            <a class="btn btn-primary" href="{{ route('cms.users.edit', [$user->id]) }}" role="button">{{__('cms.user.actions.edit')}}</a>
+        </div>
+    @endcan
+    @can(\App\Policies\Abilities::DELETE, $user)
+        <div class="p-2">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">
+                {{__('cms.actions.destroy')}}
+            </button>
+        </div>
+    @endcan
 @endsection
 @section('content')
 <table class="table table-striped">

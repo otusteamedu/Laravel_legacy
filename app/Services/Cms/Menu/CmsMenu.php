@@ -2,8 +2,18 @@
 
 namespace App\Services\Cms\Menu;
 
+use App\Models\Page\Page;
+use App\Models\Post\Comment;
+use App\Models\Post\Post;
+use App\Models\Post\Rubric;
+use App\Models\Setting\Setting;
+use App\Models\User\Group;
+use App\Models\User\Right;
+use App\Models\User\User;
+use App\Policies\Abilities;
 use Lavary\Menu\Builder;
 use Lavary\Menu\Menu;
+use Lavary\Menu\Item;
 use \Illuminate\Http\Request;
 
 /**
@@ -31,6 +41,8 @@ class CmsMenu
                     'url' => 'cms.pages.index',
                     'id' => 'pages',
                     'class' => 'nav-header',
+                    'permission' => Abilities::VIEW_ANY,
+                    'permissionModules' => [Page::class],
                     'children' => [
                         [
                             'name' => 'cms.page.title.create',
@@ -56,12 +68,22 @@ class CmsMenu
                     'name' => 'cms.post.title.index',
                     'id' => 'mainNews',
                     'class' => 'nav-header',
+                    'permission' => Abilities::VIEW_ANY,
+                    'permissionModules' => [
+                        Post::class,
+                        Comment::class,
+                        Rubric::class,
+                    ],
                     'children' => [
                         [
                             'name' => 'cms.post.title.index',
                             'url' => 'cms.posts.index',
                             'id' => 'posts',
                             'class' => 'nav-item',
+                            'permission' => Abilities::VIEW_ANY,
+                            'permissionModules' => [
+                                Post::class,
+                            ],
                             'children' => [
                                 [
                                     'name' => 'cms.post.title.create',
@@ -88,6 +110,10 @@ class CmsMenu
                             'url' => 'cms.rubrics.index',
                             'id' => 'rubrics',
                             'class' => 'nav-item',
+                            'permission' => Abilities::VIEW_ANY,
+                            'permissionModules' => [
+                                Rubric::class,
+                            ],
                             'children' => [
                                 [
                                     'name' => 'cms.rubric.title.create',
@@ -114,6 +140,10 @@ class CmsMenu
                             'url' => 'cms.comments.index',
                             'id' => 'comments',
                             'class' => 'nav-item',
+                            'permission' => Abilities::VIEW_ANY,
+                            'permissionModules' => [
+                                Comment::class,
+                            ],
                             'children' => [
                                 [
                                     'name' => 'cms.comment.title.create',
@@ -141,12 +171,24 @@ class CmsMenu
                     'name' => 'cms.user.title.index',
                     'id' => 'mainUsers',
                     'class' => 'nav-header',
+                    'permission' => Abilities::VIEW_ANY,
+                    'permissionModules' => [
+                        User::class,
+                        Group::class,
+                        Right::class,
+                    ],
+                    'viewedBread' => true,
                     'children' => [
                         [
                             'name' => 'cms.user.title.index',
                             'url' => 'cms.users.index',
                             'id' => 'users',
                             'class' => 'nav-item',
+                            'permission' => Abilities::VIEW_ANY,
+                            'permissionModules' => [
+                                User::class,
+                            ],
+                            'viewedBread' => true,
                             'children' => [
                                 [
                                     'name' => 'cms.user.title.create',
@@ -173,6 +215,10 @@ class CmsMenu
                             'url' => 'cms.groups.index',
                             'id' => 'groups',
                             'class' => 'nav-item',
+                            'permission' => Abilities::VIEW_ANY,
+                            'permissionModules' => [
+                                Group::class,
+                            ],
                             'children' => [
                                 [
                                     'name' => 'cms.group.title.create',
@@ -197,8 +243,12 @@ class CmsMenu
                         [
                             'name' => 'cms.right.title.index',
                             'url' => 'cms.rights.index',
-                            'id' => 'comments',
+                            'id' => 'rights',
                             'class' => 'nav-item',
+                            'permission' => Abilities::VIEW_ANY,
+                            'permissionModules' => [
+                                Right::class,
+                            ],
                         ],
                     ],
                 ],
@@ -207,6 +257,10 @@ class CmsMenu
                     'url' => 'cms.settings.index',
                     'id' => 'settings',
                     'class' => 'nav-header',
+                    'permission' => Abilities::VIEW_ANY,
+                    'permissionModules' => [
+                        Setting::class,
+                    ],
                 ],
             ],
         ],
@@ -228,9 +282,29 @@ class CmsMenu
      */
     public function createMenu(): void
     {
-        $this->menu->make('cmsMenu', function (Builder $menu) {
+        $this->menu
+        ->make('cmsMenu', function (Builder $menu) {
             $this->makeMenu($menu, static::CMS_TREE);
         });
+    }
+
+    /**
+     * Проверяем права для отображения пункта меню
+     * @param Item $item
+     * @return bool
+     */
+    protected function itemFilter(array $item): bool
+    {
+        if (isset($item['permission'])) {
+            foreach ($item['permissionModules'] as $module) {
+                if (\Auth::user()->can($item['permission'], $module)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -241,10 +315,22 @@ class CmsMenu
     public function makeMenu(Builder $menu, array $tree, string $id = ''): void
     {
         foreach ($tree as $item) {
+            $ability = $this->itemFilter($item);
+
+            if ($ability === false && isset($item['viewedBread'])) {
+                $item['onlyBread'] = true;
+                $item['url'] = null;
+                $ability = true;
+            }
+
+            if ($ability === false) {
+                continue;
+            }
+
             $params = [
                 'id' => $item['id'],
                 'class' => $item['class'] ?? '',
-                'onlyBread' => $item['onlyBread'] ?? null
+                'onlyBread' => $item['onlyBread'] ?? null,
             ];
 
             if ($params['onlyBread'] === null && isset($item['url'])) {
@@ -258,6 +344,8 @@ class CmsMenu
 
             $mainMenu = $id ? $menu->find($id) : $menu;
             $mainMenu->add(__($item['name']), $params);
+
+
             if (isset($item['children'])) {
                 $this->makeMenu($menu, $item['children'], $item['id']);
             }
