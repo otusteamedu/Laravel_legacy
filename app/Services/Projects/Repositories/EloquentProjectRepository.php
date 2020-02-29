@@ -36,4 +36,11 @@ class EloquentProjectRepository
     {
         return Project::pluck('name', 'id');
     }
+
+    public function findProject($id)
+    {
+        $columns = ['id', 'name', 'description'];
+        $result = Project::findOrFail($id);
+        return $result;
+    }
 }
