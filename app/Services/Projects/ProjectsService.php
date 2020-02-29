@@ -41,4 +41,9 @@ class ProjectsService
         return $this->projectsRepository->getAllProjects();
     }
 
+    public function getProject($id)
+    {
+        return $this->projectsRepository->findProject($id);
+    }
+
 }

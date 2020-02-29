@@ -11,6 +11,7 @@ use App\Jobs\ProjectUpdate;
 use App\Models\Project;
 use App\Models\User;
 use App\Services\Projects\ProjectsService;
+use Hash;
 use Illuminate\Http\Request;
 use Log;
 

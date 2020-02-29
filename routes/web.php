@@ -49,3 +49,7 @@ Route::get('/news/clear', 'NewsController@clearCache');
 
 Route::get('/test','Subscriptions\MainController@index')->name('test');
 Route::match(['get','post'],'/test/write','Subscriptions\MainController@write')->name('write');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

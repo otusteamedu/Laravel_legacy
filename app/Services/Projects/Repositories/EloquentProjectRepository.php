@@ -29,11 +29,19 @@ class EloquentProjectRepository
 
     public function delProject(int $id)
     {
+        $id = Project::findOrFail($id);
         return Project::destroy($id);
     }
 
     public function getAllProjects()
     {
         return Project::pluck('name', 'id');
+    }
+
+    public function findProject($id)
+    {
+        $columns = ['id', 'name', 'description'];
+        $result = Project::findOrFail($id);
+        return $result;
     }
 }
