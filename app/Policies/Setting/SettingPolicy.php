@@ -4,6 +4,7 @@ namespace App\Policies\Setting;
 
 use App\Models\User\User;
 use App\Models\Setting\Setting;
+use App\Policies\AuthorizationChecker;
 use App\Repositories\User\Right\RightRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,9 +26,8 @@ class SettingPolicy
      */
     public function viewAny(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::SETTINGS) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::SETTINGS);
     }
 
     /**

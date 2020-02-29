@@ -168,7 +168,7 @@ class PostsController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize(Abilities::DELETE, Post::class);
+        $this->authorize(Abilities::DELETE, $post);
 
         $url = $this->postsService->destroy($post);
 

@@ -3,6 +3,7 @@
 namespace App\Policies\User;
 
 use App\Models\User\User;
+use App\Policies\AuthorizationChecker;
 use App\Repositories\User\Right\RightRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -23,10 +24,9 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::USERS) !== false
-            && $userRights->search(RightRepository::USER_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USERS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USER_LIST);
     }
 
     /**
@@ -38,12 +38,11 @@ class UserPolicy
      */
     public function view(User $user, User $baseUser)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
             && (
                 ($user->id === $baseUser->id)
-                || ($userRights->search(RightRepository::USERS) !== false
-                    && $userRights->search(RightRepository::USER_LIST) !== false)
+                || (AuthorizationChecker::hasUserRight($user, RightRepository::USERS)
+                    && AuthorizationChecker::hasUserRight($user, RightRepository::USER_LIST))
             );
     }
 
@@ -55,10 +54,9 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::USERS) !== false
-            && $userRights->search(RightRepository::USER_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USERS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USER_CREATE);
     }
 
     /**
@@ -70,12 +68,11 @@ class UserPolicy
      */
     public function update(User $user, User $baseUser)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
             && (
                 ($user->id === $baseUser->id)
-                || ($userRights->search(RightRepository::USERS) !== false
-                    && $userRights->search(RightRepository::USER_CREATE) !== false)
+                || (AuthorizationChecker::hasUserRight($user, RightRepository::USERS)
+                    && AuthorizationChecker::hasUserRight($user, RightRepository::USER_CREATE))
             );
     }
 
@@ -88,11 +85,10 @@ class UserPolicy
      */
     public function delete(User $user, User $baseUser)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
             && $user->id !== $baseUser->id
-            && $userRights->search(RightRepository::USERS) !== false
-            && $userRights->search(RightRepository::USER_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USERS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USER_CREATE);
     }
 
     /**
@@ -104,11 +100,10 @@ class UserPolicy
      */
     public function restore(User $user, User $baseUser)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
             && $user->id !== $baseUser->id
-            && $userRights->search(RightRepository::USERS) !== false
-            && $userRights->search(RightRepository::USER_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USERS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::USER_CREATE);
     }
 
     /**

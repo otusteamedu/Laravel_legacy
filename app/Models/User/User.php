@@ -3,6 +3,8 @@
 namespace App\Models\User;
 
 use App\Policies\Abilities;
+use App\Policies\AuthorizationChecker;
+use App\Repositories\User\Right\RightRepository;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -59,7 +61,7 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->group->rights->pluck('right', 'id')->search(Abilities::CMS) !== false;
+        return AuthorizationChecker::hasUserRight($this, RightRepository::CMS);
     }
 
 }

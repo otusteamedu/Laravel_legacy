@@ -4,6 +4,7 @@ namespace App\Policies\Page;
 
 use App\Models\User\User;
 use App\Models\Page\Page;
+use App\Policies\AuthorizationChecker;
 use App\Repositories\User\Right\RightRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -25,7 +26,7 @@ class PagePolicy
     public function viewAny(User $user)
     {
         return $user->isAdmin()
-            && $user->group->rights->pluck('right', 'id')->search(RightRepository::PAGES) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::PAGES);
     }
 
     /**
@@ -38,7 +39,7 @@ class PagePolicy
     public function view(User $user, Page $page)
     {
         return $user->isAdmin()
-            && $user->group->rights->pluck('right', 'id')->search(RightRepository::PAGES) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::PAGES);
     }
 
     /**
@@ -50,7 +51,7 @@ class PagePolicy
     public function create(User $user)
     {
         return $user->isAdmin()
-            && $user->group->rights->pluck('right', 'id')->search(RightRepository::PAGES) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::PAGES);
     }
 
     /**
@@ -63,7 +64,7 @@ class PagePolicy
     public function update(User $user, Page $page)
     {
         return $user->isAdmin()
-            && $user->group->rights->pluck('right', 'id')->search(RightRepository::PAGES) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::PAGES);
     }
 
     /**
@@ -76,7 +77,7 @@ class PagePolicy
     public function delete(User $user, Page $page)
     {
         return $user->isAdmin()
-            && $user->group->rights->pluck('right', 'id')->search(RightRepository::PAGES) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::PAGES);
     }
 
     /**
@@ -89,7 +90,7 @@ class PagePolicy
     public function restore(User $user, Page $page)
     {
         return $user->isAdmin()
-            && $user->group->rights->pluck('right', 'id')->search(RightRepository::PAGES) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::PAGES);
     }
 
     /**

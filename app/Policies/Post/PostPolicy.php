@@ -4,6 +4,7 @@ namespace App\Policies\Post;
 
 use App\Models\User\User;
 use App\Models\Post\Post;
+use App\Policies\AuthorizationChecker;
 use App\Repositories\User\Right\RightRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -24,10 +25,9 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::POST_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POST_LIST);
     }
 
     /**
@@ -39,10 +39,9 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::POST_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POST_LIST);
     }
 
     /**
@@ -53,10 +52,9 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::POST_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POST_CREATE);
     }
 
     /**
@@ -68,10 +66,9 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::POST_CREATE) !== false
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POST_CREATE)
             && $post->user_id === $user->id;
     }
 
@@ -84,10 +81,9 @@ class PostPolicy
      */
     public function published(User $user, Post $post)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::POST_PUBLISH) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POST_PUBLISH);
     }
 
     /**
@@ -99,12 +95,11 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
             && (
                 $user->id === $post->user_id
-                || $userRights->search(RightRepository::POST_PUBLISH) !== false
+                || AuthorizationChecker::hasUserRight($user, RightRepository::POST_PUBLISH)
             );
     }
 
@@ -117,10 +112,9 @@ class PostPolicy
      */
     public function restore(User $user, Post $post)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::POST_PUBLISH) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POST_PUBLISH);
     }
 
     /**

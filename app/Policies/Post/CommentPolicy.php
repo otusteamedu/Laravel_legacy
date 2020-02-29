@@ -4,6 +4,7 @@ namespace App\Policies\Post;
 
 use App\Models\Post\Comment;
 use App\Models\User\User;
+use App\Policies\AuthorizationChecker;
 use App\Repositories\User\Right\RightRepository;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -24,10 +25,9 @@ class CommentPolicy
      */
     public function viewAny(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::COMMENT_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::COMMENT_LIST);
     }
 
     /**
@@ -39,10 +39,9 @@ class CommentPolicy
      */
     public function view(User $user, Comment $comment)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::COMMENT_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::COMMENT_LIST);
     }
 
     /**
@@ -78,10 +77,9 @@ class CommentPolicy
      */
     public function published(User $user, Comment $comment)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-        && $userRights->search(RightRepository::POSTS) !== false
-        && $userRights->search(RightRepository::COMMENT_PUBLISH) !== false;
+        && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+        && AuthorizationChecker::hasUserRight($user, RightRepository::COMMENT_PUBLISH);
     }
 
     /**
@@ -96,8 +94,8 @@ class CommentPolicy
         $userRights = $user->group->rights->pluck('right', 'id');
         return $user->id === $comment->user_id
             || ($user->isAdmin()
-                && $userRights->search(RightRepository::POSTS) !== false
-                && $userRights->search(RightRepository::COMMENT_PUBLISH) !== false
+                && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+                && AuthorizationChecker::hasUserRight($user, RightRepository::COMMENT_PUBLISH)
             );
     }
 
@@ -112,8 +110,8 @@ class CommentPolicy
     {
         $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::COMMENT_PUBLISH) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::COMMENT_PUBLISH);
     }
 
     /**

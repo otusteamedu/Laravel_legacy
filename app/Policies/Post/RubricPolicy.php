@@ -3,6 +3,7 @@
 namespace App\Policies\Post;
 
 use App\Models\User\User;
+use App\Policies\AuthorizationChecker;
 use App\Repositories\User\Right\RightRepository;
 use App\Models\Post\Rubric;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -24,10 +25,9 @@ class RubricPolicy
      */
     public function viewAny(User $user)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::RUBRIC_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::RUBRIC_LIST);
     }
 
     /**
@@ -39,10 +39,9 @@ class RubricPolicy
      */
     public function view(User $user, Rubric $rubric)
     {
-        $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::RUBRIC_LIST) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::RUBRIC_LIST);
     }
 
     /**
@@ -55,8 +54,8 @@ class RubricPolicy
     {
         $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::RUBRIC_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::RUBRIC_CREATE);
     }
 
     /**
@@ -70,8 +69,8 @@ class RubricPolicy
     {
         $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::RUBRIC_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::RUBRIC_CREATE);
     }
 
     /**
@@ -85,8 +84,8 @@ class RubricPolicy
     {
         $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::RUBRIC_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::RUBRIC_CREATE);
     }
 
     /**
@@ -100,8 +99,8 @@ class RubricPolicy
     {
         $userRights = $user->group->rights->pluck('right', 'id');
         return $user->isAdmin()
-            && $userRights->search(RightRepository::POSTS) !== false
-            && $userRights->search(RightRepository::RUBRIC_CREATE) !== false;
+            && AuthorizationChecker::hasUserRight($user, RightRepository::POSTS)
+            && AuthorizationChecker::hasUserRight($user, RightRepository::RUBRIC_CREATE);
     }
 
     /**
