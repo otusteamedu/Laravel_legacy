@@ -23,15 +23,15 @@ class OperationsService
     }
 
     public function storeOperation($data){
-        $this->operationRepository->storeOperation($data);
+        return $this->operationRepository->storeOperation($data);
     }
 
     public function updateOperation($data, Operation $operation){
-        $this->operationRepository->updateOperation($data, $operation);
+        return $this->operationRepository->updateOperation($data, $operation);
     }
 
-    public function destroyOperation($id){
-        $this->operationRepository->destroyOperation($id);
+    public function destroyOperation($operation){
+        return $this->operationRepository->destroyOperation($operation);
     }
 
     public function getUserTodayOperations($userId){
@@ -45,6 +45,17 @@ class OperationsService
         $dateEnd = $period['dateEnd'];
 
         return $this->operationRepository->getUserOperationsForPeriod($userId, $dateStart, $dateEnd);
+    }
+
+    /**
+     * Get operations by user id
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function getOperationsByUserId($userId)
+    {
+        return $this->operationRepository->getOperationsByUserId($userId);
     }
 
     /**

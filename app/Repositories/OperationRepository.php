@@ -8,20 +8,31 @@ use App\Models\Operation;
 class OperationRepository
 {
 
+    /**
+     * Get operations by user id
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function getOperationsByUserId($userId)
+    {
+        return Operation::where('user_id', $userId)->with('category')->get();
+    }
+
     public function storeOperation($data){
-        Operation::create($data);
+        return Operation::create($data);
     }
 
     public function updateOperation($data, Operation $operation){
-        $operation->update([
+        return $operation->update([
             'sum' => $data['sum'],
             'category_id' => $data['category_id'],
             'description' => $data['description']
         ]);
     }
 
-    public function destroyOperation($id){
-        Operation::destroy($id);
+    public function destroyOperation($operation){
+        return $operation->delete();
     }
 
     public function getUserOperationsForPeriod($userId, $dateStart, $dateEnd){

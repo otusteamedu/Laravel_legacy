@@ -1,0 +1,58 @@
+*******************
+OPERATIONS
+*******************
+GET index (Operations list)
+
+http://laravel-smartgit/api/operations?api_token=bRawdN4VEvd4tENPqfXrrADLZTkGKGDHHamw9gl7ccqvBgl0EF3fNwAq4V2EIddcQBeBR6mf8CZNdIIm
+*******************
+GET show (Show operation)
+
+http://laravel-smartgit/api/operations/{operation}?api_token=bRawdN4VEvd4tENPqfXrrADLZTkGKGDHHamw9gl7ccqvBgl0EF3fNwAq4V2EIddcQBeBR6mf8CZNdIIm
+*******************
+POST store (Store operation)
+
+http://laravel-smartgit/api/operations
+
+HEADERS
+Content-Type application/json
+
+BODY
+{
+    "sum" : 2000,
+    "category_id" : 1,
+    "description" : "Тест создание операции по API",
+    "api_token" : "bRawdN4VEvd4tENPqfXrrADLZTkGKGDHHamw9gl7ccqvBgl0EF3fNwAq4V2EIddcQBeBR6mf8CZNdIIm"
+}
+
+required fields: sum, category_id, api_token
+
+sum - сумма операции;
+category_id - id категории;
+description - описание операции;
+api_token - api токен пользователя;
+*******************
+PUT update (Update operation)
+
+http://laravel-smartgit/api/operations/{operation}
+
+HEADERS
+Content-Type application/json
+
+BODY
+{
+    "sum" : 2000,
+    "category_id" : 1,
+    "description" : "Тест редактирования операции по API",
+    "api_token" : "bRawdN4VEvd4tENPqfXrrADLZTkGKGDHHamw9gl7ccqvBgl0EF3fNwAq4V2EIddcQBeBR6mf8CZNdIIm"
+}
+
+required fields: sum, category_id, api_token
+
+sum - сумма операции;
+category_id - id категории;
+description - описание операции;
+api_token - api токен пользователя;
+*******************
+DELETE destroy (Destroy operation)
+
+http://laravel-smartgit/api/operations/{operation}?api_token=bRawdN4VEvd4tENPqfXrrADLZTkGKGDHHamw9gl7ccqvBgl0EF3fNwAq4V2EIddcQBeBR6mf8CZNdIIm
