@@ -117,15 +117,4 @@ class User extends Authenticatable
         }
         $this->roles()->attach($assigned_roles);
     }
-
-    /**
-     * Найтм пользователя по токену
-     *
-     * @param $token
-     * @return mixed
-     */
-    public static function getUserByToken($token)
-    {
-        return User::where('api_token', $token)->first();
-    }
 }

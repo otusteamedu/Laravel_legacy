@@ -27,7 +27,7 @@ class OperationController extends Controller
      */
     public function index(Request $request)
     {
-        return new OperationCollection(Operation::where('user_id', $request->user->id)->get());
+        return new OperationCollection($this->operationsService->getOperationsByUserId($request->user->id));
     }
 
     /**

@@ -8,6 +8,17 @@ use App\Models\Operation;
 class OperationRepository
 {
 
+    /**
+     * Get operations by user id
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function getOperationsByUserId($userId)
+    {
+        return Operation::where('user_id', $userId)->with('category')->get();
+    }
+
     public function storeOperation($data){
         return Operation::create($data);
     }
