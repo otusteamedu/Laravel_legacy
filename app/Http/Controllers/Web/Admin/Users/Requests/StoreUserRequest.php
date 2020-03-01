@@ -4,8 +4,7 @@ namespace App\Http\Controllers\Web\Admin\Users\Requests;
 
 
 use Auth;
-use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Arr;
+use App\Http\Requests\FormRequest;
 
 /**
  * Class StoreUserRequest
@@ -33,14 +32,9 @@ class StoreUserRequest extends FormRequest
 
     public function getFormData()
     {
-        $data = $this->request->all();
-
-        $data = Arr::except($data, [
-            '_token',
-        ]);
+        $data = parent::getFormData();
         $data['created_user_id'] = Auth::id();
 
         return $data;
     }
-
 }
