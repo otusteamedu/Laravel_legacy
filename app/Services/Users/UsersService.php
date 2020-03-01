@@ -5,6 +5,7 @@ namespace App\Services\Users;
 
 use App\Models\User;
 use App\Services\Users\Handlers\CreateUserHandler;
+use App\Services\Users\Handlers\UpdateUserHandler;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -12,14 +13,17 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 class UsersService
 {
     private $createUserHandler;
+    private $updateUserHandler;
     private $userRepository;
 
     public function __construct(
         CreateUserHandler $createUserHandler,
+        UpdateUserHandler $updateUserHandler,
         EloquentUserRepository $userRepository //UserRepositoryInterface $userRepository @ToDo: сделать красиво, как в занятие по DI
     )
     {
         $this->createUserHandler = $createUserHandler;
+        $this->updateUserHandler = $updateUserHandler;
         $this->userRepository = $userRepository;
     }
 
@@ -57,7 +61,7 @@ class UsersService
      */
     public function updateUser(User $user, array $data): User
     {
-        return $this->userRepository->updateFromArray($user, $data);
+        return $this->updateUserHandler->handle($user, $data);
     }
 
     /**

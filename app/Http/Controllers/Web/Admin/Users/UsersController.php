@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Admin\Users;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Admin\Users\Requests\StoreUserRequest;
+use App\Http\Controllers\Web\Admin\Users\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\Users\UsersService;
 use Illuminate\Http\Request;
@@ -86,14 +87,13 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param UpdateUserRequest $request
      * @param User $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        //$this->usersService->updateUser($user, $request->all());
-        $user->update($request->all());
+        $this->usersService->updateUser($user, $request->getFormData());
 
         return redirect(route('admin.users.show', $user));
     }

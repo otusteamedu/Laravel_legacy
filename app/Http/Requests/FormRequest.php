@@ -19,6 +19,7 @@ class FormRequest extends BaseFormRequest
         $data = Arr::except($data, [
             '_token',
             '_method',
+            '_old',
         ]);
 
         return $data;
