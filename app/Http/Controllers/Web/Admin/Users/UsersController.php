@@ -5,12 +5,11 @@ namespace App\Http\Controllers\Web\Admin\Users;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Admin\Users\Requests\StoreUserRequest;
 use App\Models\User;
-//use App\Services\Users\UsersService;
 use App\Services\Users\UsersService;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 
-class UserController extends Controller
+class UsersController extends Controller
 {
     protected $usersService;
 

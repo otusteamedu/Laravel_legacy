@@ -20,6 +20,7 @@ class CreateUserHandler {
     {
         $data['created_at'] = Carbon::create()->subDay();
         $data['name'] = ucfirst($data['name']);
+        $data['last_name'] = ucfirst($data['last_name']);
         $data['region'] = ucfirst($data['region']);
         $data['locality'] = ucfirst($data['locality']);
         $data['password'] = trim($data['password']);

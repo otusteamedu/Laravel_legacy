@@ -39,17 +39,16 @@ Route::get('admin', function () {
     return view('admin.index');
 })->name('admin.index');
 
-
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resources([
-            'articles' => 'Web\Admin\ArticleController',
-            'countries' => 'Web\Admin\CountryController',
-            'events' => 'Web\Admin\EventController',
-            'languages' => 'Web\Admin\LanguageController',
-            'news' => 'Web\Admin\NewsController',
-            'roles' => 'Web\Admin\RoleController',
-            'users' => 'Web\Admin\Users\UserController',
+            'articles' => 'Web\Admin\Articles\ArticlesController',
+            'countries' => 'Web\Admin\Countries\CountriesController',
+            'events' => 'Web\Admin\Events\EventsController',
+            'languages' => 'Web\Admin\Languages\LanguagesController',
+            'news' => 'Web\Admin\News\NewsController',
+            'roles' => 'Web\Admin\Roles\RolesController',
+            'users' => 'Web\Admin\Users\UsersController',
         ]);
     });
 });
