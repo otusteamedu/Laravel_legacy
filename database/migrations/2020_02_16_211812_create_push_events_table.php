@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePushEventssTable extends Migration
+class CreatePushEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreatePushEventssTable extends Migration
      */
     public function up()
     {
-        Schema::create('push_eventss', function (Blueprint $table) {
+        Schema::create('push_events', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('condition');
@@ -27,6 +27,6 @@ class CreatePushEventssTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('push_eventss');
+        Schema::dropIfExists('push_events');
     }
 }
