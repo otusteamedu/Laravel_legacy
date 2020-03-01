@@ -5,6 +5,8 @@ namespace App\Services\Cms\Post;
 use App\Models\Post\Rubric;
 use App\Repositories\Post\Rubric\RubricRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class RubricsService
@@ -42,8 +44,24 @@ class RubricsService
     {
         try {
             $rubric = $this->rubricRepository->createFromArray($data);
+            Log::info(
+                __('log.info.create.rubric'),
+                [
+                    'id' => $rubric->id,
+                    'name' => $rubric->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.rubrics.show', ['rubric' => $rubric->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notCreate.rubric'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.rubrics.create');
         }
         return $url;
@@ -58,8 +76,25 @@ class RubricsService
     {
         try {
             $this->rubricRepository->updateFromArray($rubric, $data);
+            Log::info(
+                __('log.info.update.rubric'),
+                [
+                    'id' => $rubric->id,
+                    'name' => $rubric->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.rubrics.show', ['rubric' => $rubric->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notUpdate.rubric'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'id' => $rubric->id,
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.rubrics.edit', ['rubric' => $rubric->id]);
         }
         return $url;
@@ -73,8 +108,24 @@ class RubricsService
     {
         try {
             $this->rubricRepository->delete($rubric);
+            Log::info(
+                __('log.info.destroy.rubric'),
+                [
+                    'id' => $rubric->id,
+                    'name' => $rubric->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.rubrics.index');
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notDestroy.rubric'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $rubric->id,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.rubrics.show', ['rubric' => $rubric->id]);
         }
         return $url;

@@ -30,6 +30,7 @@
         </div>
     </div>
 </div>
+@can(\App\Policies\Abilities::VIEW_ANY, \App\Models\User\Group::class)
 <div class="row mr-0 ml-0">
     <div class="col-3 col-md-3">
         <div class="form-group">
@@ -42,6 +43,7 @@
         </div>
     </div>
 </div>
+@endcan
 <div class="row mr-0 ml-0">
     <div class="col-11 pb-3 align-content-end text-right">
         {{Form::submit(__('cms.actions.update'), ['class' => 'btn btn-success'])}}

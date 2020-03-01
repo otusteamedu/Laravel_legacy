@@ -5,6 +5,8 @@ namespace App\Services\Cms\Page;
 use App\Models\Page\Page;
 use App\Repositories\Page\PageRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class PageService
@@ -42,8 +44,24 @@ class PagesService
     {
         try {
             $page = $this->pageRepository->createFromArray($data);
+            Log::info(
+                __('log.info.create.page'),
+                [
+                    'id' => $page->id,
+                    'name' => $page->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.pages.show', ['page' => $page->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notCreate.page'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.pages.create');
         }
         return $url;
@@ -58,8 +76,25 @@ class PagesService
     {
         try {
             $this->pageRepository->updateFromArray($page, $data);
+            Log::info(
+                __('log.info.update.page'),
+                [
+                    'id' => $page->id,
+                    'name' => $page->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.pages.show', ['page' => $page->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notUpdate.page'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'id' => $page->id,
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.pages.edit', ['page' => $page->id]);
         }
         return $url;
@@ -73,8 +108,24 @@ class PagesService
     {
         try {
             $this->pageRepository->delete($page);
+            Log::info(
+                __('log.info.destroy.page'),
+                [
+                    'id' => $page->id,
+                    'name' => $page->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.pages.index');
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notDestroy.page'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $page->id,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.pages.show', ['page' => $page->id]);
         }
         return $url;

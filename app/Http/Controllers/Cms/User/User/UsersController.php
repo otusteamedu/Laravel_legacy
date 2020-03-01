@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Cms\User\User;
 
+use App\Http\Controllers\Cms\CurrentUser;
 use App\Http\Controllers\Cms\User\User\Requests\StoreUserRequest;
 use App\Http\Controllers\Cms\User\User\Requests\UpdateUserRequest;
+use App\Models\User\Group;
 use App\Models\User\User;
 use App\Policies\Abilities;
 use App\Services\Cms\User\GroupsService;
@@ -12,6 +14,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -21,6 +24,8 @@ use Illuminate\View\View;
  */
 class UsersController extends Controller
 {
+    use CurrentUser;
+
     /** @var UsersService $usersService */
     protected $usersService;
 
@@ -36,12 +41,12 @@ class UsersController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize(Abilities::VIEW_ANY, User::class);
+        $this->checkAbility($request, Abilities::VIEW_ANY, User::class);
 
         return view('cms.user.index', [
             'users' => $this->usersService->paginationList(),
@@ -51,14 +56,14 @@ class UsersController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function create()
+    public function create(Request $request)
     {
-        $this->authorize(Abilities::CREATE, User::class);
+        $this->checkAbility($request, Abilities::CREATE, User::class);
 
-        return  view(
+        return view(
             'cms.user.create',
             [
                 'groups' => $this->groupsService->getArrayList(),
@@ -71,11 +76,10 @@ class UsersController extends Controller
      *
      * @param  StoreUserRequest  $request
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function store(StoreUserRequest $request)
     {
-        $this->authorize(Abilities::CREATE, User::class);
+        $this->checkAbility($request, Abilities::CREATE, User::class);
 
         $url = $this->usersService->store($request);
 
@@ -85,13 +89,13 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param User $user
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function show(User $user)
+    public function show(Request $request, User $user)
     {
-        $this->authorize(Abilities::VIEW, $user);
+        $this->checkAbility($request, Abilities::VIEW, $user);
 
         return view(
             'cms.user.show',
@@ -105,13 +109,13 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Request $request
      * @param User $user
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function edit(User $user)
+    public function edit(Request $request, User $user)
     {
-        $this->authorize(Abilities::UPDATE, $user);
+        $this->checkAbility($request, Abilities::UPDATE, $user);
 
         return view(
             'cms.user.edit',
@@ -129,11 +133,10 @@ class UsersController extends Controller
      * @param UpdateUserRequest $request
      * @param User $user
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $this->authorize(Abilities::UPDATE, $user);
+        $this->checkAbility($request, Abilities::UPDATE, $user);
 
         $url = $this->usersService->update($user, $request);
 
@@ -145,11 +148,10 @@ class UsersController extends Controller
      *
      * @param User $user
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
-    public function destroy(User $user)
+    public function destroy(Request $request, User $user)
     {
-        $this->authorize(Abilities::DELETE, $user);
+        $this->checkAbility($request, Abilities::DELETE, $user);
 
         $url = $this->usersService->destroy($user);
 

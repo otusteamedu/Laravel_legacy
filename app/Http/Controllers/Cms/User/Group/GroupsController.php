@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\Cms\User\Group;
 
+use App\Http\Controllers\Cms\CurrentUser;
 use App\Http\Controllers\Cms\User\Group\Requests\StoreGroupRequest;
 use App\Http\Controllers\Cms\User\Group\Requests\UpdateGroupRequest;
 use App\Models\User\Group;
 use App\Policies\Abilities;
 use App\Services\Cms\User\GroupsService;
 use App\Services\Cms\User\RightsService;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -21,6 +22,8 @@ use Illuminate\View\View;
  */
 class GroupsController extends Controller
 {
+    use CurrentUser;
+
     /** @var GroupsService  */
     protected $groupsService;
 
@@ -41,12 +44,12 @@ class GroupsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize(Abilities::VIEW_ANY, Group::class);
+        $this->checkAbility($request, Abilities::VIEW_ANY, Group::class);
 
         return view('cms.group.index', [
             'groups' => $this->groupsService->paginationList(),
@@ -56,12 +59,12 @@ class GroupsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function create()
+    public function create(Request $request)
     {
-        $this->authorize(Abilities::CREATE, Group::class);
+        $this->checkAbility($request, Abilities::CREATE, Group::class);
 
         return view('cms.group.create', [
             'rights' => $this->rightsService->getArrayList()
@@ -73,11 +76,10 @@ class GroupsController extends Controller
      *
      * @param  StoreGroupRequest $request
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function store(StoreGroupRequest $request)
     {
-        $this->authorize(Abilities::CREATE, Group::class);
+        $this->checkAbility($request, Abilities::CREATE, Group::class);
 
         $data = $request->getFormData();
 
@@ -89,13 +91,13 @@ class GroupsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Group $group
+     * @param Request $request
+     * @param Group $group
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function show(Group $group)
+    public function show(Request $request, Group $group)
     {
-        $this->authorize(Abilities::VIEW, $group);
+        $this->checkAbility($request, Abilities::VIEW, $group);
 
         return view('cms.group.show', ['group' => $group]);
     }
@@ -103,13 +105,13 @@ class GroupsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Group $group
+     * @param Request $request
+     * @param Group $group
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function edit(Group $group)
+    public function edit(Request $request, Group $group)
     {
-        $this->authorize(Abilities::UPDATE, $group);
+        $this->checkAbility($request, Abilities::UPDATE, $group);
 
         return view('cms.group.edit', [
             'group' => $group,
@@ -123,11 +125,10 @@ class GroupsController extends Controller
      * @param  UpdateGroupRequest  $request
      * @param  Group  $group
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function update(UpdateGroupRequest $request, Group $group)
     {
-        $this->authorize(Abilities::UPDATE, $group);
+        $this->checkAbility($request, Abilities::UPDATE, $group);
 
         $data = $request->getFormData();
 
@@ -139,13 +140,13 @@ class GroupsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Group  $group
+     * @param Request $request
+     * @param Group $group
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
-    public function destroy(Group $group)
+    public function destroy(Request $request, Group $group)
     {
-        $this->authorize(Abilities::DELETE, $group);
+        $this->checkAbility($request, Abilities::DELETE, $group);
 
         $url = $this->groupsService->destroy($group);
 
