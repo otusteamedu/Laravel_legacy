@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Панель администратора</a>
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{{route('admin.index')}}">Панель администратора</a>
     <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
     <ul class="navbar-nav px-3 d-inline-block d-md-none">
         <li class="nav-item text-nowrap">
@@ -101,5 +101,5 @@
                 </div>
             </div>
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
-                <h1 class="h2">Заголовок h1 {{ Route::getCurrentRoute()->getName() }}</h1>
+                <h1 class="h2">@yield('h1')</h1>
             </div>

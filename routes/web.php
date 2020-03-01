@@ -42,12 +42,14 @@ Route::get('admin', function () {
 
 Route::name('admin.')->group(function () {
     Route::prefix('admin')->group(function () {
-        Route::resource('articles', 'Web\Admin\ArticleController');
-        Route::resource('countries', 'Web\Admin\CountryController');
-        Route::resource('events', 'Web\Admin\EventController');
-        Route::resource('languages', 'Web\Admin\LanguageController');
-        Route::resource('news', 'Web\Admin\NewsController');
-        Route::resource('roles', 'Web\Admin\RoleController');
-        Route::resource('users', 'Web\Admin\UserController');
+        Route::resources([
+            'articles' => 'Web\Admin\ArticleController',
+            'countries' => 'Web\Admin\CountryController',
+            'events' => 'Web\Admin\EventController',
+            'languages' => 'Web\Admin\LanguageController',
+            'news' => 'Web\Admin\NewsController',
+            'roles' => 'Web\Admin\RoleController',
+            'users' => 'Web\Admin\UserController',
+        ]);
     });
 });
