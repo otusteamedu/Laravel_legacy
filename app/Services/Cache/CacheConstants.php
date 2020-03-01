@@ -32,4 +32,9 @@ class CacheConstants
      *  Для подробной информации о пользователе
      */
     const USER_TAG = "user";
+
+    /**
+     * Строковая часть ключа для кэша конкретного пользователя
+     */
+    const USER_KEY_FOR_CACHE = 'user_id';
 }

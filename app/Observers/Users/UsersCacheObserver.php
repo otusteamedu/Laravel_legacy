@@ -2,6 +2,7 @@
 
 namespace App\Observers\Users;
 
+use App\Jobs\CacheUser;
 use App\Models\User;
 use App\Services\Cache\CacheConstants;
 use Cache;
@@ -21,7 +22,7 @@ class UsersCacheObserver
      */
     public function created(User $user)
     {
-        Log::info('Clear users cache');
+        Log::info('Created. Clear users cache');
         Cache::tags(CacheConstants::USERS_LIST_TAG)->flush();
     }
 
@@ -33,7 +34,8 @@ class UsersCacheObserver
      */
     public function updated(User $user)
     {
-        Log::info('Clear users cache');
+        Log::info('Updated. Clear users cache');
         Cache::tags(CacheConstants::USER_TAG)->flush();
+        CacheUser::dispatch($user);
     }
 }

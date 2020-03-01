@@ -71,13 +71,11 @@ class UsersController extends Controller
      */
     public function getUser(Request $request, int $id)
     {
-        $uri = $request->fullUrl();
-        $cachedData = $this->usersCacheService->getUserDataFromCache($id, $uri);
+        $cachedData = $this->usersCacheService->getUserDataFromCache($id);
         if ($cachedData) {
             return $cachedData;
         } else {
             $data = $this->usersService->getUserById($id);
-            $this->usersCacheService->putUserDataToCache($id, $uri, $data);
             return $data->toJson();
         }
     }
