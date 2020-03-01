@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 //use App\Services\Users\UsersService;
+use App\Services\Users\UsersService;
 use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class UserController extends Controller
 {
     protected $usersService;
 
-    public function __construct(/*UsersService $usersService*/)
+    public function __construct(UsersService $usersService)
     {
-        //$this->usersService = $usersService;
+        $this->usersService = $usersService;
     }
 
     /**
@@ -25,8 +26,10 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
+        $userList = $this->usersService->searchUsers($request->all());
         \View::share([
-            'userList' => User::paginate(),
+            //'userList' => User::paginate(),
+            'userList' => $userList
         ]);
 
         return view('admin.users.index');
@@ -45,7 +48,7 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -94,7 +97,7 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @param User $user
      * @return \Illuminate\Http\Response
      */

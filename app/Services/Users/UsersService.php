@@ -4,18 +4,22 @@ namespace App\Services\Users;
 
 
 use App\Models\User;
+use App\Services\Users\Handlers\CreateUserHandler;
+use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class UsersService
 {
-
+    private $createUserHandler;
     private $userRepository;
 
     public function __construct(
-        UserRepositoryInterface $userRepository
+        CreateUserHandler $createUserHandler,
+        EloquentUserRepository $userRepository //UserRepositoryInterface $userRepository @ToDo: сделать красиво, как в занятие по DI
     )
     {
+        $this->createUserHandler = $createUserHandler;
         $this->userRepository = $userRepository;
     }
 
@@ -29,11 +33,12 @@ class UsersService
     }
 
     /**
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param array $filters
+     * @return LengthAwarePaginator
      */
-    public function searchUsers(): LengthAwarePaginator
+    public function searchUsers(array $filters): LengthAwarePaginator
     {
-        return $this->userRepository->search();
+        return $this->userRepository->search($filters);
     }
 
     /**
