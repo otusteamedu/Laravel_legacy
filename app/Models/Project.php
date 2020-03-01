@@ -46,6 +46,5 @@ class Project extends Model
         'name',
         'description',
         'contact_data',
-        'contact_data',
     ];
 }
