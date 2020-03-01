@@ -49,7 +49,7 @@ Route::name('admin.')->group(function () {
             'languages' => 'Web\Admin\LanguageController',
             'news' => 'Web\Admin\NewsController',
             'roles' => 'Web\Admin\RoleController',
-            'users' => 'Web\Admin\UserController',
+            'users' => 'Web\Admin\Users\UserController',
         ]);
     });
 });

@@ -47,9 +47,7 @@ class UsersService
      */
     public function storeUser(array $data): User
     {
-        $user = $this->createUserHandler->handle($data);
-
-        return $user;
+        return $this->createUserHandler->handle($data);
     }
 
     /**

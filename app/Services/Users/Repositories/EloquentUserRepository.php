@@ -28,7 +28,13 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function createFromArray(array $data): User
     {
         $user = new User();
-        $user->create($data);
+
+        try {
+            $user->fill($data)->save(); // @ToDo: выяснить, почему вариант кода $user->create($data); не возвращет пользователя
+        } catch (\Throwable $exception) {
+            return 'Произошла ошибка при сохранении:'
+                . $exception->getMessage(); // @ToDo: прикрутить обработку ошибок и их вывод на экран
+        }
 
         return $user;
     }

@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Web\Admin;
+namespace App\Http\Controllers\Web\Admin\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Web\Admin\Users\Requests\StoreUserRequest;
 use App\Models\User;
 //use App\Services\Users\UsersService;
 use App\Services\Users\UsersService;
@@ -51,19 +52,10 @@ class UserController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        //$data = $request->getFormData();
-        //$this->usersService->storeUser($data);
-
-        $user = new User();
-
-        try {
-            $user->fill($request->all())->save();
-        } catch (\Throwable $exception) {
-            return 'Произошла ошибка при сохранении:'
-                . $exception->getMessage(); // @ToDo: прикрутить обработку ошибок и их вывод на экран
-        }
+        $data = $request->getFormData();
+        $user = $this->usersService->storeUser($data);
 
         return redirect(route('admin.users.show', $user));
     }
