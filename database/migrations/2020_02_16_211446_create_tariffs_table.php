@@ -17,6 +17,7 @@ class CreateTariffsTable extends Migration
             $table->string('name')->unique();
             $table->text('condition');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

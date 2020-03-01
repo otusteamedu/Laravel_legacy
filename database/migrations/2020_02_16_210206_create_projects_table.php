@@ -17,8 +17,8 @@ class CreateProjectsTable extends Migration
             $table->integer('user_id');
             $table->string('name');
             $table->text('description');
-            $table->timestamp('created_at')->useCurrent();
             $table->string('contact_data');
+            $table->timestamps();
             $table->softDeletes();
         });
     }

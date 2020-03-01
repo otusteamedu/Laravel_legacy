@@ -17,17 +17,9 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Tariff::class, function (Faker $faker) {
-    $tariffs = [
-        'Партнерский',
-        'Одно предложение',
-        'Пять предложений',
-        'Безлимитные предложения',
-    ];
-    shuffle($tariffs);
-    $tariff = array_shift($tariffs);
     return [
-        'name' => $tariff,
-        'condition' => $faker->text,
+        'name' => 'Тариф ' . $faker->unique()->text(10),
+        'condition' => 'Условия ' . \n . $faker->text,
         'created_at' => now(),
     ];
 });

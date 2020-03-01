@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CategoriesTableSeeder extends Seeder
 {
@@ -11,6 +12,23 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Category::class, 5)->create();
+        $categories = [
+            'Красота',
+            'Здоровье',
+            'Рестораны',
+            'Развлечения',
+            'Авто',
+            'Фитнес',
+            'Концерты',
+            'Дети',
+            'Разное',
+        ];
+
+        foreach ($categories as $category)
+            DB::table('categories')->insert([
+                'name' => $category,
+                'description' => Str::random(100),
+                'created_at' => now(),
+            ]);
     }
 }

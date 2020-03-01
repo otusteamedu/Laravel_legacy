@@ -11,6 +11,19 @@ class SegmentsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Segment::class, 5)->create();
+        $segments = [
+            'Рекламная кампания Директ',
+            'Рекламная кампания Адвордс',
+            'Рекламная кампания Партнерские сети',
+            'Рекламная кампания Оффлайн',
+        ];
+
+        foreach ($segments as $segment)
+            DB::table('segments')->insert([
+                'name' => $segment,
+                'condition' => Str::random(100),
+                'created_at' => now(),
+            ]);
     }
+
 }

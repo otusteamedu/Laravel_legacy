@@ -17,16 +17,8 @@ use Faker\Generator as Faker;
 */
 
 $factory->define(Segment::class, function (Faker $faker) {
-    $segments = [
-        'Рекламная кампания Директ',
-        'Рекламная кампания Адвордс',
-        'Рекламная кампания Партнерские сети',
-        'Рекламная кампания Оффлайн',
-    ];
-    shuffle($segments);
-    $segment = array_shift($segments);
     return [
-        'name' => $segment,
+        'name' => 'Сегмент ' . $faker->unique()->text(10),
         'condition' => $faker->text,
         'created_at' => now(),
     ];

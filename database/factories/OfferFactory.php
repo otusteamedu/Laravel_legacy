@@ -18,9 +18,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Offer::class, function (Faker $faker) {
     return [
-        'name' => $faker->realText(),
-        'description' => $faker->text,
-        'expiration_date' => now() + 10000,
+        'name' => 'Скидка ' . $faker->numberBetween(5,50) . '%',
+        'description' => 'Условия акции: '. \n . $faker->text,
+        'expiration_date' => $faker->dateTime,
         'project_id' => function(){
             return factory(App\Models\Project::class)->create()->id;
         },
