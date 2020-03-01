@@ -19,7 +19,7 @@ use Faker\Generator as Faker;
 $factory->define(Tariff::class, function (Faker $faker) {
     return [
         'name' => 'Тариф ' . $faker->unique()->text(10),
-        'condition' => 'Условия ' . \n . $faker->text,
+        'condition' => 'Условия ' . $faker->text,
         'created_at' => now(),
     ];
 });

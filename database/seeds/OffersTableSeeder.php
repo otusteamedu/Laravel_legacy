@@ -13,7 +13,7 @@ class OffersTableSeeder extends Seeder
     {
         foreach (\App\Models\City::all() as $city) {
             foreach (\App\Models\Project::all() as $project) {
-                factory(\App\Models\Offer::class, 50)->create([
+                factory(\App\Models\Offer::class)->create([
                     'project_id' => $project->id,
                     'city_id' => $city->id,
                 ]);
