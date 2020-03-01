@@ -6,6 +6,10 @@ use App\Models\User;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use Carbon\Carbon;
 
+/**
+ * Class CreateUserHandler
+ * @package App\Services\Users\Handlers
+ */
 class CreateUserHandler {
     private $userRepository;
 

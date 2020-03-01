@@ -5,6 +5,10 @@ namespace App\Services\Users\Handlers;
 use App\Models\User;
 use App\Services\Users\Repositories\EloquentUserRepository;
 
+/**
+ * Class UpdateUserHandler
+ * @package App\Services\Users\Handlers
+ */
 class UpdateUserHandler {
     private $userRepository;
 

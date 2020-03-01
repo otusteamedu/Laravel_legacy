@@ -28,7 +28,6 @@ class UsersController extends Controller
     {
         $userList = $this->usersService->searchUsers($request->all());
         \View::share([
-            //'userList' => User::paginate(),
             'userList' => $userList
         ]);
 
@@ -106,7 +105,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        $this->usersService->deleteUser($user);
 
         return view(
             'admin.users.destroy',
