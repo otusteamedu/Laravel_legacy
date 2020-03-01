@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -37045,56 +37045,14 @@ module.exports = function(module) {
 
 /***/ }),
 
-/***/ "./resources/js/app.js":
-/*!*****************************!*\
-  !*** ./resources/js/app.js ***!
-  \*****************************/
+/***/ "./resources/js/admin.js":
+/*!*******************************!*\
+  !*** ./resources/js/admin.js ***!
+  \*******************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
-jQuery(document).ready(function ($) {
-  // Menu settings
-  $('#menuToggle, .menu-close').on('click', function () {
-    $('#menuToggle').toggleClass('active');
-    $('body').toggleClass('body-push-toleft');
-    $('#theMenu').toggleClass('menu-open');
-  }); // Smooth scroll for the menu and links with .scrollto classes
-
-  $('.smoothscroll').on('click', function (e) {
-    e.preventDefault();
-
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-
-      if (target.length) {
-        $('html, body').animate({
-          scrollTop: target.offset().top
-        }, 1500, 'easeInOutExpo');
-      }
-    }
-
-    $('body').toggleClass('body-push-toleft');
-    $('#theMenu').toggleClass('menu-open');
-  }); // Animate on scroll
-
-  if ($('#grid').length) {
-    new AnimOnScroll(document.getElementById('grid'), {
-      minDuration: 0.4,
-      maxDuration: 0.7,
-      viewportFactor: 0.2
-    });
-  }
-
-  if ($('#process').length) {
-    new AnimOnScroll(document.getElementById('process'), {
-      minDuration: 0.4,
-      maxDuration: 0.7,
-      viewportFactor: 0.2
-    });
-  }
-});
 
 /***/ }),
 
@@ -37143,38 +37101,14 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/sass/admin.scss":
-/*!***********************************!*\
-  !*** ./resources/sass/admin.scss ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/app.scss":
-/*!*********************************!*\
-  !*** ./resources/sass/app.scss ***!
-  \*********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 0:
-/*!*****************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/admin.scss ./resources/sass/app.scss ***!
-  \*****************************************************************************************/
+/***/ 1:
+/*!*************************************!*\
+  !*** multi ./resources/js/admin.js ***!
+  \*************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/laravel-prod/resources/js/app.js */"./resources/js/app.js");
-__webpack_require__(/*! /var/www/laravel-prod/resources/sass/admin.scss */"./resources/sass/admin.scss");
-module.exports = __webpack_require__(/*! /var/www/laravel-prod/resources/sass/app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! /var/www/laravel-prod/resources/js/admin.js */"./resources/js/admin.js");
 
 
 /***/ })
