@@ -45,21 +45,40 @@ export const updateMethod = {
 
 export const deleteMethod = {
     methods: {
-        delete({ payload, title, alertText, successText, storeModule = null, redirectRoute = null }) {
+        delete({
+            payload,
+            title,
+            alertText,
+            successText,
+            storeModule = null,
+            redirectRoute = null,
+            categoryId = null,
+            paginationData = null,
+
+        }) {
             const module = storeModule ? `${storeModule}/` : '';
 
             return deleteSwalFireConfirm(alertText)
                 .then((result) => {
-                    if(result.value){
+                    if (result.value) {
                         return this.$store.dispatch(`${module}destroy`, payload)
                             .then(() => {
                                 if (redirectRoute) {
                                     this.$router.go(-1) ? this.$router.go(-1) : this.$router.push(redirectRoute);
                                 }
 
+                                if (paginationData) {
+                                    categoryId
+                                        ? this.$store.dispatch('categories/showImages', {
+                                            id: categoryId,
+                                            data: paginationData
+                                        })
+                                        : this.$store.dispatch('images/index', paginationData);
+                                }
+
                                 return deleteSwalFireAlert(successText, title);
                             });
-                }
+                    }
             });
         },
     }
@@ -91,13 +110,13 @@ const deleteSwalFireAlert = (successText, title) => {
 
 export const uploadMethod = {
     methods: {
-        async upload ({ uploadFiles, type = null, id = null, storeModule = null }) {
+        async upload ({ uploadFiles, type = null, id = null, storeModule = null, paginationData }) {
             const files = Array.from(uploadFiles);
             const module = storeModule ? storeModule : 'categories';
 
             id
-                ? await this.$store.dispatch(`${module}/uploadImages`, { files, id, type })
-                : await this.$store.dispatch('images/store', files);
+                ? await this.$store.dispatch(`${module}/uploadImages`, { files, id, type, paginationData })
+                : await this.$store.dispatch('images/store', { files, paginationData });
 
             return await swal.fire({
                 title: 'Изображения загружены!',

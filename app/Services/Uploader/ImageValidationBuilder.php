@@ -136,7 +136,7 @@ class ImageValidationBuilder
     protected function testArrayTypeRule($rule, $name) {
         return isset($rule) && is_array($rule) && count($rule) > 0
             ? true
-            : abort(500, trans('image_validation.error_rule_config', ['rule_name' => $name]));
+            : abort(500, __('image_validation.error_rule_config', ['rule_name' => $name]));
     }
 
     /**
@@ -149,12 +149,12 @@ class ImageValidationBuilder
     protected function testStringTypeRule($rule, $name) {
         return isset($rule) && is_numeric($rule) && $rule > 0
             ? true
-            : abort(500, trans('image_validation.error_rule_config', ['rule_name' => $name]));
+            : abort(500, __('image_validation.error_rule_config', ['rule_name' => $name]));
     }
 
     protected function abortExtension() {
         return $this->abortAction([
-            422, trans('image_validation.wrong_extension', [
+            422, __('image_validation.wrong_extension', [
                 'file_name' => $this->fileProps['original_name'],
                 'extensions' => implode(', ', $this->rules['extensions'])
             ])
@@ -163,7 +163,7 @@ class ImageValidationBuilder
 
     protected function abortMime() {
         return $this->abortAction([
-            422, trans('image_validation.wrong_mime', [
+            422, __('image_validation.wrong_mime', [
                 'file_name' => $this->fileProps['original_name'],
                 'mime_types' => implode(', ', $this->rules['mime'])
             ])
@@ -172,7 +172,7 @@ class ImageValidationBuilder
 
     protected function abortMinSize() {
         return $this->abortAction([
-            422, trans('image_validation.wrong_min_size', [
+            422, __('image_validation.wrong_min_size', [
                 'file_name' => $this->fileProps['original_name'],
                 'size' => round($this->rules['min_size'] / 1024, 1)
             ])
@@ -181,7 +181,7 @@ class ImageValidationBuilder
 
     protected function abortMaxSize() {
         return $this->abortAction([
-            422, trans('image_validation.wrong_max_size', [
+            422, __('image_validation.wrong_max_size', [
                 'file_name' => $this->fileProps['original_name'],
                 'size' => round($this->rules['max_size'] / 1024, 1)
             ])

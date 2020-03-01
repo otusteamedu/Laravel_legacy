@@ -24,13 +24,11 @@ class UploadImageHandler
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $images
      * @return array
      */
-    public function handle(FormRequest $request): array
+    public function handle(array $images): array
     {
-        $images = $request->file('images');
-
         return array_map(function ($image) {
             return uploader()->store($image, $this->uploadModel);
         }, $images);

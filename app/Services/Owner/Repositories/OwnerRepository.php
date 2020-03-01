@@ -22,19 +22,37 @@ class OwnerRepository extends SubCategoryRepository
 
     /**
      * @param $category
-     * @return Collection
+     * @param array $data
+     * @return mixed
      */
-    public function getExcludedImageList($category): Collection {
+    public function showExcludedImages($category, array $data)
+    {
         return Image::whereDoesntHave('owner')
             ->with(config('query_builder.image'))
-            ->get();
+            ->orderBy($data['sort_by'], $data['sort_order'])
+            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
+    }
+
+    /**
+     * @param $category
+     * @param array $data
+     * @return mixed
+     */
+    public function showQuerySearchExcludedImages($category, array $data)
+    {
+        return Image::whereDoesntHave('owner')
+            ->where('id', 'like', $data['query'] . '%')
+            ->with(config('query_builder.image'))
+            ->orderBy($data['sort_by'], $data['sort_order'])
+            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
     }
 
     /**
      * @param $categoryId
      * @param array $imageIds
      */
-    public function addImages($categoryId, array $imageIds) {
+    public function addImages($categoryId, array $imageIds)
+    {
         Image::whereIn('id', $imageIds)->update([
             'owner_id' => $categoryId,
         ]);

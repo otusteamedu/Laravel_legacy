@@ -32,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+//        $this->app->bind(
+//            'App\Http\Controllers\API\Client\Category\ClientCategoryController',
+//            'App\Http\Controllers\API\Client\Base\ClientBaseResourceController'
+//        );
     }
 }

@@ -4,7 +4,7 @@ namespace Tests\Unit\User;
 
 use App\Http\Requests\FormRequest;
 use App\Models\User;
-use App\Services\User\UserService;
+use App\Services\User\UserServiceCms;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Arr;
 use Tests\TestCase;
@@ -24,7 +24,7 @@ class UserServiceTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->service = resolve(UserService::class);
+        $this->service = resolve(UserServiceCms::class);
     }
 
     /**

@@ -5,12 +5,12 @@ namespace App\Services\Image\Repositories;
 
 
 use App\Models\Image;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use App\Services\Image\Resources\ImageDetailed as ImageDetailedResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ImageRepository extends BaseResourceRepository
+class ImageRepositoryCms extends CmsBaseResourceRepository
 {
     /**
      * ImageRepository constructor.

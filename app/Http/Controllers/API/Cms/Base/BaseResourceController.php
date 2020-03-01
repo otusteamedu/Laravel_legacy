@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\API\Cms\Base;
 
-use App\Services\Base\Resource\BaseResourceService;
+use App\Services\Base\Resource\CmsBaseResourceService;
 use Illuminate\Http\JsonResponse;
 
 class BaseResourceController
 {
     /**
-     * @var BaseResourceService
+     * @var CmsBaseResourceService
      */
     protected $service;
 
     /**
      * CrudMethods constructor.
-     * @param BaseResourceService $service
+     * @param CmsBaseResourceService $service
      */
-    public function __construct(BaseResourceService $service)
+    public function __construct(CmsBaseResourceService $service)
     {
         $this->service = $service;
     }

@@ -6,15 +6,14 @@ namespace App\Services\Base\Category;
 
 use App\Http\Requests\FormRequest;
 use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
-use App\Services\Base\Category\Repositories\BaseCategoryRepository;
-use App\Services\Base\Resource\BaseResourceService;
+use App\Services\Base\Category\Repositories\CmsBaseCategoryRepository;
+use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Category\Handlers\UploadHandler;
 use App\Services\Base\Category\Handlers\ShowImagesHandler;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 
-abstract class BaseCategoryService extends BaseResourceService
+abstract class CmsBaseCategoryService extends CmsBaseResourceService
 {
-    protected $repository;
-
     protected UploadHandler $uploadHandler;
 
     protected ShowImagesHandler $showImagesHandler;
@@ -22,23 +21,26 @@ abstract class BaseCategoryService extends BaseResourceService
     protected ShowExcludedImagesHandler $showExcludedImagesHandler;
 
     /**
-     * BaseCategoryService constructor.
-     * @param BaseCategoryRepository $repository
+     * CmsBaseCategoryService constructor.
+     * @param CmsBaseCategoryRepository $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
      * @param ShowImagesHandler $showImagesHandler
      * @param ShowExcludedImagesHandler $showExcludedImagesHandler
      */
     public function __construct(
-        BaseCategoryRepository $repository,
+        CmsBaseCategoryRepository $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadHandler $uploadHandler,
         ShowImagesHandler $showImagesHandler,
         ShowExcludedImagesHandler $showExcludedImagesHandler
     )
     {
-        parent::__construct($repository);
+        parent::__construct($repository, $clearCacheByTagHandler);
         $this->uploadHandler = $uploadHandler;
         $this->showImagesHandler = $showImagesHandler;
         $this->showExcludedImagesHandler = $showExcludedImagesHandler;
+        $this->cacheTag = 'categories';
     }
 
     /**

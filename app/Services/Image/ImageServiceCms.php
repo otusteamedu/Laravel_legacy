@@ -5,17 +5,18 @@ namespace App\Services\Image;
 
 
 use App\Http\Requests\FormRequest;
-use App\Services\Base\Resource\BaseResourceService;
+use App\Services\Base\Resource\CmsBaseResourceService;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Image\Handlers\DeleteImageHandler;
 use App\Services\Image\Handlers\IndexHandler;
 use App\Services\Image\Handlers\SyncAssociativeCategoryOfImageHandler;
 use App\Services\Image\Handlers\UpdateImagePathHandler;
 use App\Services\Image\Handlers\UploadImageHandler;
-use App\Services\Image\Repositories\ImageRepository;
+use App\Services\Image\Repositories\ImageRepositoryCms;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 
-class ImageService extends BaseResourceService
+class ImageServiceCms extends CmsBaseResourceService
 {
     private UploadImageHandler $storeHandler;
     private UpdateImagePathHandler $updateItemPathHandler;
@@ -24,7 +25,8 @@ class ImageService extends BaseResourceService
     private IndexHandler $indexHandler;
 
     public function __construct(
-        ImageRepository $repository,
+        ImageRepositoryCms $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadImageHandler $uploadImageHandler,
         UpdateImagePathHandler $updateImagePathHandler,
         SyncAssociativeCategoryOfImageHandler $syncAssociativeCategoryOfImageHandler,
@@ -32,7 +34,7 @@ class ImageService extends BaseResourceService
         IndexHandler $indexHandler
     )
     {
-        parent::__construct($repository);
+        parent::__construct($repository, $clearCacheByTagHandler);
         $this->storeHandler = $uploadImageHandler;
         $this->updateItemPathHandler = $updateImagePathHandler;
         $this->syncAssociativeCategoryHandler = $syncAssociativeCategoryOfImageHandler;

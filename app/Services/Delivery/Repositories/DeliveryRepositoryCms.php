@@ -4,9 +4,9 @@
 namespace App\Services\Delivery\Repositories;
 
 use App\Models\Delivery;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 
-class DeliveryRepository extends BaseResourceRepository
+class DeliveryRepositoryCms extends CmsBaseResourceRepository
 {
     /**
      * DeliveryRepository constructor.

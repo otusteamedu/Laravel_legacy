@@ -6,34 +6,37 @@ namespace App\Services\Setting;
 
 use App\Http\Requests\FormRequest;
 use App\Models\Setting;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Setting\Handlers\GetSettingsWithTypesHandler;
 use App\Services\Setting\Handlers\GetSettingWithTypesHandler;
 use App\Services\Setting\Handlers\SetImageSettingValueHandler;
-use App\Services\Setting\Repositories\SettingRepository;
-use App\Services\Base\Resource\BaseResourceService;
+use App\Services\Setting\Repositories\SettingRepositoryCms;
+use App\Services\Base\Resource\CmsBaseResourceService;
 use Illuminate\Database\Eloquent\Collection;
 
-class SettingService extends BaseResourceService
+class SettingServiceCms extends CmsBaseResourceService
 {
-    private $showWithTypesHandler;
-    private $indexWithTypesHandler;
-    private $setImageValueHandler;
+    private GetSettingWithTypesHandler $showWithTypesHandler;
+    private GetSettingsWithTypesHandler $indexWithTypesHandler;
+    private SetImageSettingValueHandler $setImageValueHandler;
 
     /**
-     * SettingService constructor.
-     * @param SettingRepository $repository
+     * SettingServiceCms constructor.
+     * @param SettingRepositoryCms $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param GetSettingWithTypesHandler $getSettingWithTypesHandler
      * @param GetSettingsWithTypesHandler $getSettingsWithTypesHandler
      * @param SetImageSettingValueHandler $setImageSettingValueHandler
      */
     public function __construct(
-        SettingRepository $repository,
+        SettingRepositoryCms $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler,
         GetSettingWithTypesHandler $getSettingWithTypesHandler,
         GetSettingsWithTypesHandler $getSettingsWithTypesHandler,
         SetImageSettingValueHandler $setImageSettingValueHandler
     )
     {
-        parent::__construct($repository);
+        parent::__construct($repository, $clearCacheByTagHandler);
         $this->showWithTypesHandler = $getSettingWithTypesHandler;
         $this->indexWithTypesHandler = $getSettingsWithTypesHandler;
         $this->setImageValueHandler = $setImageSettingValueHandler;

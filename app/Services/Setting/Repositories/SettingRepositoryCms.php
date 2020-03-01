@@ -4,10 +4,10 @@
 namespace App\Services\Setting\Repositories;
 
 use App\Models\Setting;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class SettingRepository extends BaseResourceRepository
+class SettingRepositoryCms extends CmsBaseResourceRepository
 {
     /**
      * SettingRepository constructor.

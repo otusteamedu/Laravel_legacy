@@ -5,25 +5,33 @@ namespace App\Services\Base\Resource;
 
 
 use App\Http\Requests\FormRequest;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseResourceService
+abstract class CmsBaseResourceService
 {
-    /**
-     * @var BaseResourceRepository
-     */
-    protected $repository;
+    protected CmsBaseResourceRepository $repository;
+
+    protected ClearCacheByTagHandler $clearCacheByTagHandler;
+
+    protected string $cacheTag;
 
     /**
-     * ResourceService constructor.
-     * @param BaseResourceRepository $repository
+     * CmsBaseResourceService constructor.
+     * @param CmsBaseResourceRepository $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      */
-    public function __construct(BaseResourceRepository $repository)
+    public function __construct(
+        CmsBaseResourceRepository $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler
+    )
     {
         $this->repository = $repository;
+        $this->clearCacheByTagHandler = $clearCacheByTagHandler;
+        $this->cacheTag = '';
     }
 
     /**
@@ -71,8 +79,8 @@ abstract class BaseResourceService
      */
     public function destroy(int $id): int
     {
-
         $item = $this->repository->show($id);
+
         return $this->repository->destroy($item);
     }
 
@@ -85,5 +93,13 @@ abstract class BaseResourceService
         $item = $this->repository->show($id);
 
         return $this->repository->publish($item);
+    }
+
+    /**
+     * Clear cache by tag
+     */
+    public function clearCacheByTag()
+    {
+        $this->clearCacheByTagHandler->handle($this->cacheTag);
     }
 }

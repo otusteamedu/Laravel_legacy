@@ -6,18 +6,18 @@ namespace App\Services\Category\Handlers;
 
 use App\Http\Requests\FormRequest;
 use App\Models\Category;
-use App\Services\Base\Category\Repositories\BaseCategoryRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Support\Arr;
 
 class UpdateHandler
 {
     /**
      * @param FormRequest $request
-     * @param BaseCategoryRepository $repository
+     * @param CmsBaseResourceRepository $repository
      * @param Category $category
      * @return mixed
      */
-    public function handle(FormRequest $request, BaseCategoryRepository $repository, Category $category)
+    public function handle(FormRequest $request, CmsBaseResourceRepository $repository, Category $category)
     {
         if($request->image) {
             $uploadArray = uploader()->refresh($category->image_path, $request->image);

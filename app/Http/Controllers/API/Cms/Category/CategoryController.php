@@ -5,21 +5,21 @@ namespace App\Http\Controllers\API\Cms\Category;
 use App\Http\Controllers\API\Cms\Base\BaseCategoryController;
 use App\Http\Controllers\API\Cms\Category\Requests\CreateCategoryRequest;
 use App\Http\Controllers\API\Cms\Category\Requests\UpdateCategoryRequest;
-use App\Services\Category\CategoryService;
+use App\Services\Category\CmsCategoryService;
 use Illuminate\Http\JsonResponse;
 
 class CategoryController extends BaseCategoryController
 {
     /**
-     * @var CategoryService
+     * @var CmsCategoryService
      */
     protected $service;
 
     /**
      * CategoryController constructor.
-     * @param CategoryService $service
+     * @param CmsCategoryService $service
      */
-    public function __construct(CategoryService $service)
+    public function __construct(CmsCategoryService $service)
     {
         parent::__construct($service);
     }

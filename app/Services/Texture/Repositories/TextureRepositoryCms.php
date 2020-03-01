@@ -4,9 +4,9 @@
 namespace App\Services\Texture\Repositories;
 
 use App\Models\Texture;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 
-class TextureRepository extends BaseResourceRepository
+class TextureRepositoryCms extends CmsBaseResourceRepository
 {
     /**
      * TextureRepository constructor.

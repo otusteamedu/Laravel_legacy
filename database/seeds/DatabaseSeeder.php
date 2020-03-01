@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
             TagsTableSeeder::class,
             OwnersTableSeeder::class,
             ImagesTableSeeder::class,
-            //TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
+            TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
             CategoriesTableSeeder::class, // ! after ImagesTableSeeder::class
 //            OrderStatusesTableSeeder::class,
         ]);

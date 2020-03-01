@@ -4,13 +4,13 @@
 namespace App\Services\Role\Repositories;
 
 use App\Models\Role;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Services\Role\Resources\Role as RoleResource;
 use Illuminate\Support\Arr;
 
-class RoleRepository extends BaseResourceRepository
+class RoleRepositoryCms extends CmsBaseResourceRepository
 {
     /**
      * TextureRepository constructor.

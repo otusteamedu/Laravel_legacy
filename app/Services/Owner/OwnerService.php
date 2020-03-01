@@ -5,7 +5,10 @@ namespace App\Services\Owner;
 
 
 use App\Http\Requests\FormRequest;
+use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
+use App\Services\Base\Category\Handlers\ShowImagesHandler;
 use App\Services\Base\Category\Handlers\UploadHandler;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Owner\Repositories\OwnerRepository;
 use App\Services\SubCategory\SubCategoryService;
 
@@ -14,14 +17,26 @@ class OwnerService extends SubCategoryService
     /**
      * OwnerService constructor.
      * @param OwnerRepository $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
+     * @param ShowImagesHandler $showImagesHandler
+     * @param ShowExcludedImagesHandler $showExcludedImagesHandler
      */
     public function __construct(
         OwnerRepository $repository,
-        UploadHandler $uploadHandler
+        ClearCacheByTagHandler $clearCacheByTagHandler,
+        UploadHandler $uploadHandler,
+        ShowImagesHandler $showImagesHandler,
+        ShowExcludedImagesHandler $showExcludedImagesHandler
     )
     {
-        parent::__construct($repository, $uploadHandler);
+        parent::__construct(
+            $repository,
+            $clearCacheByTagHandler,
+            $uploadHandler,
+            $showImagesHandler,
+            $showExcludedImagesHandler
+        );
     }
 
     /**

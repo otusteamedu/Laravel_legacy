@@ -14,7 +14,7 @@ $factory->define(Image::class, function (Faker $faker)
     $uploadedImage = null;
 
 
-    $seedsUploadImageDir = config('seeds.seeds_uploads_path');
+    $seedsUploadImageDir = config('seeds.seeds_uploads_path') . '/images';
 //    $seedsImageDir = config('seeds.seeds_path');
 
     $files = scandir($seedsUploadImageDir);

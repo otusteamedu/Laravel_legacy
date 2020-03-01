@@ -6,7 +6,7 @@ namespace Tests\Unit\User;
 use App\Models\User;
 use App\Models\UserSocial;
 use App\Models\VerifyUser;
-use App\Services\User\Repositories\UserRepository;
+use App\Services\User\Repositories\UserRepositoryCms;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,9 +24,9 @@ class UserRepositoryTest extends TestCase
     use RefreshDatabase;
 
     /**
-     * @var UserRepository
+     * @var UserRepositoryCms
      */
-    private UserRepository $repo;
+    private UserRepositoryCms $repo;
 
     /**
      * @var User
@@ -37,7 +37,7 @@ class UserRepositoryTest extends TestCase
     {
         parent::setUp();
         $this->seed('LaratrustSeeder');
-        $this->repo = resolve(UserRepository::class);
+        $this->repo = resolve(UserRepositoryCms::class);
         $this->user = factory(User::class)->create();
     }
 

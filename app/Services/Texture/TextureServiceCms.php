@@ -6,33 +6,36 @@ namespace App\Services\Texture;
 
 use App\Http\Requests\FormRequest;
 use App\Models\Texture;
-use App\Services\Base\Resource\BaseResourceService;
-use App\Services\Texture\Repositories\TextureRepository;
+use App\Services\Base\Resource\CmsBaseResourceService;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
+use App\Services\Texture\Repositories\TextureRepositoryCms;
 use App\Services\Texture\Handlers\CreateTextureHandler;
 use App\Services\Texture\Handlers\DeleteTextureHandler;
 use App\Services\Texture\Handlers\UpdateTextureHandler;
 
-class TextureService extends BaseResourceService
+class TextureServiceCms extends CmsBaseResourceService
 {
     private $storeHandler;
     private $updateHandler;
     private $destroyHandler;
 
     /**
-     * TextureService constructor.
-     * @param TextureRepository $repository
+     * TextureServiceCms constructor.
+     * @param TextureRepositoryCms $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param CreateTextureHandler $createTextureHandler
      * @param UpdateTextureHandler $updateTextureHandler
      * @param DeleteTextureHandler $deleteTextureHandler
      */
     public function __construct(
-        TextureRepository $repository,
+        TextureRepositoryCms $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler,
         CreateTextureHandler $createTextureHandler,
         UpdateTextureHandler $updateTextureHandler,
         DeleteTextureHandler $deleteTextureHandler
     )
     {
-        parent::__construct($repository);
+        parent::__construct($repository, $clearCacheByTagHandler);
         $this->storeHandler = $createTextureHandler;
         $this->updateHandler = $updateTextureHandler;
         $this->destroyHandler = $deleteTextureHandler;

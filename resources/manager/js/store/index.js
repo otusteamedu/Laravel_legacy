@@ -20,7 +20,9 @@ import errors from '@/lib/errors';
 const state = {
     pageTitle: '',
     serverErrors: [],
-    searchedData: []
+    searchedData: [],
+    searchQuery: '',
+    loading: false
 };
 
 const mutations = {
@@ -55,6 +57,12 @@ const mutations = {
     },
     DELETE_SEARCHED_DATA_ITEM(state, payload) {
         state.searchedData = state.searchedData.filter(item => item.id !== +payload);
+    },
+    SET_SEARCH_QUERY(state, payload) {
+        state.searchQuery = payload.trim();
+    },
+    SET_LOADING(state, payload) {
+        state.loading = !!payload;
     }
 };
 
@@ -64,6 +72,12 @@ const actions = {
     },
     setSearchedData(context, payload) {
         context.commit('SET_SEARCHED_DATA', payload);
+    },
+    setSearchQuery(context, payload) {
+        context.commit('SET_SEARCH_QUERY', payload);
+    },
+    setLoading(context, payload) {
+        context.commit('SET_LOADING', payload);
     }
 };
 

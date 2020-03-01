@@ -36,12 +36,16 @@
                     <md-card-content>
                         <image-list-table v-if="items.length"
                                           :items="items"
+                                          @search="handleSearch"
+                                          @changePage="changePage"
+                                          @changeSort="changeSort"
                                           @publish="onPublishChange">
 
                             <template #actions-column="{ item }">
                                 <md-table-cell v-if="item" md-label="Действия">
                                     <image-table-actions :item="item"
                                                          :remove="isCategoryPage"
+                                                         :page="pagination.current_page"
                                                          @remove="onRemove"
                                                          @delete="onDelete"/>
                                 </md-table-cell>
@@ -100,71 +104,155 @@
         },
         computed: {
             ...mapState({
+                searchQuery: state => state.searchQuery,
+                searchedData: state => state.searchedData,
                 category: state => state.categories.item,
                 items: state => state.images.items,
-                fileProgress: state => state.images.fileProgress
+                fileProgress: state => state.images.fileProgress,
+                pagination: state => state.images.pagination,
+                previousPage: state => state.images.previousPage
             }),
             isCategoryPage() {
                 return this.category_type !== 'images';
+            },
+            paginationData () {
+                return {
+                    current_page: this.pagination.current_page,
+                    per_page: this.pagination.per_page,
+                    sort_by: this.pagination.sort_by,
+                    sort_order: this.pagination.sort_order
+                }
             }
         },
         methods: {
-            ...mapActions('images', {
-                indexAction: 'index',
-                publishAction: 'publish'
-            }),
             ...mapActions({
-                removeImage: 'categories/removeImage',
-                getCategoryWithImages: 'categories/showWithImages'
+                indexAction: 'images/index',
+                resetPagination: 'images/resetPagination',
+                publishAction: 'images/publish',
+                updatePaginationAction: 'images/updatePaginationFields',
+                setPreviousPageAction: 'images/setPreviousPage',
+                removeImageAction: 'categories/removeImage',
+                showCategoryWithImagesAction: 'categories/showWithImages',
+                showCategoryImagesAction: 'categories/showImages'
             }),
-            init (category_type) {
-                if (category_type !== 'images') {
-                    this.getCategoryWithImages(this.id)
-                        .then(() => {
-                            this.setPageTitle(`Изображения категории «${this.category.title}»`);
-                            this.responseData = true;
-                        })
-                        .catch(() => this.$router.push({
-                            name: 'manager.catalog.categories.list',
-                            params: {category_type: this.category_type}
-                        }));
-                } else {
-                    this.indexAction()
-                        .then(() => {
-                            this.setPageTitle('Изображения');
-                            this.responseData = true;
-                        })
-                        .catch(() => this.$router.push({ name: 'manager.dashboard' }));
-                }
+            async init () {
+                return this.category_type === 'images'
+                    ? await this.imageInit()
+                    : await this.categoryInit();
+            },
+            imageInit () {
+                this.indexAction(this.paginationData)
+                    .then(() => {
+                        this.setPageTitle('Изображения');
+                        this.responseData = true;
+                    })
+                    .catch(() => this.$router.push({ name: 'manager.dashboard' }));
+            },
+            categoryInit () {
+                this.showCategoryWithImagesAction({ id: this.id, data: this.paginationData })
+                    .then(() => {
+                        this.setPageTitle(`Изображения категории «${this.category.title}»`);
+                        this.responseData = true;
+                    })
+                    .catch(() => this.$router.push({
+                        name: 'manager.catalog.categories.list',
+                        params: { category_type: this.category_type }
+                    }));
             },
             fileInputChange (event) {
                 this.upload({
                     uploadFiles: event.target.files,
                     type: this.category_type,
-                    id: this.id
+                    id: this.id,
+                    paginationData: this.paginationData
                 });
             },
             onRemove (id) {
-                this.removeImage({
+                const data = this.preparePaginationData();
+
+                this.removeImageAction({
                     category_id: this.id,
-                    image_id: id
+                    image_id: id,
+                    paginationData: data
                 })
+                    .then(() => {
+                        if (! this.searchedData.length) {
+                            this.pagination.current_page > 1
+                                ? this.changePaginationSetting({ current_page: this.pagination.current_page - 1 })
+                                : this.rebootImageList(true);
+                        }
+                    });
             },
             onDelete (item) {
+                const data = this.preparePaginationData();
+
                 this.delete({
                     payload: item.id,
                     title: item.id,
                     alertText: `изображение «${item.id}»`,
                     successText: 'Изображение удалено!',
-                    storeModule: this.storeModule
+                    storeModule: this.storeModule,
+                    categoryId: this.id || null,
+                    paginationData: data
                 });
             },
             onPublishChange (id) {
                 this.publishAction(id);
+            },
+            changePage (item) {
+                this.changePaginationSetting({ current_page: item });
+            },
+            changeSort (sortOrder) {
+                this.changePaginationSetting({ sort_order: sortOrder });
+            },
+            changePaginationSetting (settingObject) {
+                this.updatePaginationAction(settingObject);
+                !!this.searchQuery && this.searchedData.length
+                    ? this.search(this.searchQuery)
+                    : this.rebootImageList();
+            },
+            search (query, currentPageFirst = false) {
+                const data = Object.assign({ query }, this.paginationData);
+                if (currentPageFirst) {
+                    data.current_page = 1;
+                }
+                this.category_type !== 'images'
+                    ? this.showCategoryImagesAction({ id: this.id, data })
+                    : this.indexAction(data);
+            },
+            handleSearch (query) {
+                query
+                    ? this.search(query, true)
+                    : this.rebootImageList(true)
+            },
+            rebootImageList (currentPageFirst = false) {
+                const data = Object.assign({}, this.paginationData);
+
+                if (currentPageFirst) {
+                    data.current_page = 1;
+                }
+
+                return this.category_type === 'images'
+                    ? this.indexAction(data)
+                    : this.showCategoryImagesAction({ id: this.id, data });
+            },
+            preparePaginationData () {
+                return this.searchQuery
+                    ? Object.assign({ query: this.searchQuery}, this.paginationData)
+                    : Object.assign({}, this.paginationData);
+            },
+            paginationReset() {
+                this.resetPagination();
+
+                if (this.previousPage) {
+                    this.updatePaginationAction({ current_page: this.previousPage });
+                }
             }
         },
         created () {
-            this.init(this.category_type);
+            this.paginationReset();
+            this.init()
+                .then(() => this.setPreviousPageAction(null));
         }
     }
 </script>

@@ -5,16 +5,16 @@ namespace App\Http\Controllers\API\Cms\Texture;
 use App\Http\Controllers\API\Cms\Texture\Requests\CreateTextureRequest;
 use App\Http\Controllers\API\Cms\Texture\Requests\UpdateTextureRequest;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
-use App\Services\Texture\TextureService;
+use App\Services\Texture\TextureServiceCms;
 use Illuminate\Http\JsonResponse;
 
 class TextureController extends BaseResourceController
 {
     /**
      * TextureController constructor.
-     * @param TextureService $service
+     * @param TextureServiceCms $service
      */
-    public function __construct(TextureService $service) {
+    public function __construct(TextureServiceCms $service) {
         parent::__construct($service);
     }
 

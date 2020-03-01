@@ -4,11 +4,11 @@ namespace App\Services\Base\Category\Repositories;
 
 
 use App\Models\Image;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class BaseCategoryRepository extends BaseResourceRepository
+abstract class CmsBaseCategoryRepository extends CmsBaseResourceRepository
 {
     protected string $table;
 

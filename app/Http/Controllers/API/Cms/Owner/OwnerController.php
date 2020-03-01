@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API\Cms\Owner;
 
 use App\Http\Controllers\API\Cms\SubCategory\SubCategoryController;
 use App\Http\Requests\FormRequest;
-use App\Services\Image\ImageService;
+use App\Services\Image\ImageServiceCms;
 use App\Services\Owner\OwnerService;
 use App\Http\Controllers\API\Cms\Owner\Requests\CreateOwnerRequest;
 use App\Http\Controllers\API\Cms\Owner\Requests\UpdateOwnerRequest;
@@ -14,13 +14,13 @@ use Illuminate\Support\Facades\Response;
 class OwnerController extends SubCategoryController
 {
     /**
-     * @var ImageService
+     * @var ImageServiceCms
      */
     private $imageService;
 
     public function __construct(
         OwnerService $service,
-        ImageService $imageService
+        ImageServiceCms $imageService
     )
     {
         parent::__construct($service);

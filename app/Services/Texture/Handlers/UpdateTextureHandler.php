@@ -5,21 +5,21 @@ namespace App\Services\Texture\Handlers;
 
 
 use App\Models\Texture;
-use App\Services\Texture\Repositories\TextureRepository;
+use App\Services\Texture\Repositories\TextureRepositoryCms;
 use Illuminate\Support\Arr;
 
 class UpdateTextureHandler
 {
     /**
-     * @var TextureRepository
+     * @var TextureRepositoryCms
      */
     private $repository;
 
     /**
      * UpdateTextureHandler constructor.
-     * @param TextureRepository $repository
+     * @param TextureRepositoryCms $repository
      */
-    public function __construct(TextureRepository $repository)
+    public function __construct(TextureRepositoryCms $repository)
     {
         $this->repository = $repository;
     }

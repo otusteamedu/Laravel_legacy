@@ -5,7 +5,7 @@ namespace App\Services\Base\Category\Handlers;
 
 
 use App\Models\Image;
-use App\Services\Base\Category\Repositories\BaseCategoryRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 
 class UploadHandler
 {
@@ -25,11 +25,11 @@ class UploadHandler
 
     /**
      * @param array $uploadImages
-     * @param BaseCategoryRepository $repository
+     * @param CmsBaseResourceRepository $repository
      * @param $category
      * @return mixed
      */
-    public function handle(array $uploadImages, BaseCategoryRepository $repository, $category)
+    public function handle(array $uploadImages, CmsBaseResourceRepository $repository, $category)
     {
         $images = array_map(function ($image) {
             $image = uploader()->store($image, $this->uploadModel);

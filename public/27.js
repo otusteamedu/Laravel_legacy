@@ -480,13 +480,24 @@ var deleteMethod = {
           _ref3$storeModule = _ref3.storeModule,
           storeModule = _ref3$storeModule === void 0 ? null : _ref3$storeModule,
           _ref3$redirectRoute = _ref3.redirectRoute,
-          redirectRoute = _ref3$redirectRoute === void 0 ? null : _ref3$redirectRoute;
+          redirectRoute = _ref3$redirectRoute === void 0 ? null : _ref3$redirectRoute,
+          _ref3$categoryId = _ref3.categoryId,
+          categoryId = _ref3$categoryId === void 0 ? null : _ref3$categoryId,
+          _ref3$paginationData = _ref3.paginationData,
+          paginationData = _ref3$paginationData === void 0 ? null : _ref3$paginationData;
       var module = storeModule ? "".concat(storeModule, "/") : '';
       return deleteSwalFireConfirm(alertText).then(function (result) {
         if (result.value) {
           return _this3.$store.dispatch("".concat(module, "destroy"), payload).then(function () {
             if (redirectRoute) {
               _this3.$router.go(-1) ? _this3.$router.go(-1) : _this3.$router.push(redirectRoute);
+            }
+
+            if (paginationData) {
+              categoryId ? _this3.$store.dispatch('categories/showImages', {
+                id: categoryId,
+                data: paginationData
+              }) : _this3.$store.dispatch('images/index', paginationData);
             }
 
             return deleteSwalFireAlert(successText, title);
@@ -527,13 +538,13 @@ var uploadMethod = {
       var _upload = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref4) {
-        var uploadFiles, _ref4$type, type, _ref4$id, id, _ref4$storeModule, storeModule, files, module;
+        var uploadFiles, _ref4$type, type, _ref4$id, id, _ref4$storeModule, storeModule, paginationData, files, module;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                uploadFiles = _ref4.uploadFiles, _ref4$type = _ref4.type, type = _ref4$type === void 0 ? null : _ref4$type, _ref4$id = _ref4.id, id = _ref4$id === void 0 ? null : _ref4$id, _ref4$storeModule = _ref4.storeModule, storeModule = _ref4$storeModule === void 0 ? null : _ref4$storeModule;
+                uploadFiles = _ref4.uploadFiles, _ref4$type = _ref4.type, type = _ref4$type === void 0 ? null : _ref4$type, _ref4$id = _ref4.id, id = _ref4$id === void 0 ? null : _ref4$id, _ref4$storeModule = _ref4.storeModule, storeModule = _ref4$storeModule === void 0 ? null : _ref4$storeModule, paginationData = _ref4.paginationData;
                 files = Array.from(uploadFiles);
                 module = storeModule ? storeModule : 'categories';
 
@@ -546,7 +557,8 @@ var uploadMethod = {
                 return this.$store.dispatch("".concat(module, "/uploadImages"), {
                   files: files,
                   id: id,
-                  type: type
+                  type: type,
+                  paginationData: paginationData
                 });
 
               case 6:
@@ -555,7 +567,10 @@ var uploadMethod = {
 
               case 8:
                 _context.next = 10;
-                return this.$store.dispatch('images/store', files);
+                return this.$store.dispatch('images/store', {
+                  files: files,
+                  paginationData: paginationData
+                });
 
               case 10:
                 _context.next = 12;

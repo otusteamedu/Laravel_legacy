@@ -13,7 +13,7 @@ class ImagesTableSeeder extends Seeder
     public function run()
     {
         $uploadDir = public_path(config('uploads.image_upload_path'));
-        $seedsUploadImageDir = config('seeds.seeds_uploads_path');
+        $seedsUploadImageDir = config('seeds.seeds_uploads_path') . 'images';
         $seedsImageDir = public_path(config('seeds.seeds_path'));
 
         File::deleteDirectory($uploadDir);
@@ -26,7 +26,7 @@ class ImagesTableSeeder extends Seeder
         $images = getImagesFromLocal($seedsUploadImageDir);
 
         $i = 0;
-        while ($i < 10) {
+        while ($i < 300) {
 
             $uploadedImage = getFakerImageFromLocal($images, $seedsUploadImageDir, $seedsImageDir);
 

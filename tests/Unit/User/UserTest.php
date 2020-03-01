@@ -36,7 +36,7 @@ class UserTest extends TestCase
 
     public function testNotFoundTest()
     {
-        $user = \App\Models\User::where('email', 'notfound@notfound.notfound')->first();
+        $user = User::where('email', 'notfound@notfound.notfound')->first();
 
         $this->assertNull($user);
     }
@@ -48,7 +48,7 @@ class UserTest extends TestCase
         ]);
         $user->attachRole('user');
 
-        $deleteRes = \App\Models\User::destroy($user->id);
+        $deleteRes = User::destroy($user->id);
         $userRole = DB::table('role_user')->where('user_id', $user->id)->first();
 
         $this->assertEquals($deleteRes, 1);

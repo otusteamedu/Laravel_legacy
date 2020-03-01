@@ -152,7 +152,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
 
 
 
@@ -167,6 +166,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     id: {
       type: [Number, String],
       required: true
+    },
+    page: {
+      type: Number,
+      "default": null
     },
     result: []
   },
@@ -256,7 +259,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     showAction: 'images/show',
     clearFieldsAction: 'images/clearFields',
     indexCategoryAction: 'categories/index',
-    indexSubcategoryAction: 'subCategories/indexByType'
+    indexSubcategoryAction: 'subCategories/indexByType',
+    setPreviousPageAction: 'images/setPreviousPage'
   }), {
     onUpdate: function onUpdate() {
       return this.update({
@@ -267,7 +271,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             topics: this.topics,
             colors: this.colors,
             interiors: this.interiors,
-            owner_id: +this.owner,
+            owner_id: this.owner,
             tags: this.tags,
             description: this.description
           },
@@ -324,6 +328,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               });
 
             case 4:
+              _context.next = 6;
+              return this.setPreviousPageAction(this.page);
+
+            case 6:
             case "end":
               return _context.stop();
           }

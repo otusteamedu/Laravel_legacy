@@ -4,17 +4,22 @@
 namespace App\Services\Permission;
 
 
-use App\Services\Permission\Repositories\PermissionRepository;
-use App\Services\Base\Resource\BaseResourceService;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
+use App\Services\Permission\Repositories\PermissionRepositoryCms;
+use App\Services\Base\Resource\CmsBaseResourceService;
 
-class PermissionService extends BaseResourceService
+class PermissionServiceCms extends CmsBaseResourceService
 {
     /**
-     * PermissionService constructor.
-     * @param PermissionRepository $repository
+     * PermissionServiceCms constructor.
+     * @param PermissionRepositoryCms $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      */
-    public function __construct(PermissionRepository $repository)
+    public function __construct(
+        PermissionRepositoryCms $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler
+    )
     {
-        parent::__construct($repository);
+        parent::__construct($repository, $clearCacheByTagHandler);
     }
 }

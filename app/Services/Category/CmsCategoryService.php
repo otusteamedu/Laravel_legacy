@@ -5,17 +5,20 @@ namespace App\Services\Category;
 
 
 use App\Http\Requests\FormRequest;
-use App\Services\Base\Category\BaseCategoryService;
+use App\Services\Base\Category\CmsBaseCategoryService;
 use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
 use App\Services\Base\Category\Handlers\ShowImagesHandler;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
+use App\Services\Cache\Tag;
 use App\Services\Category\Handlers\DestroyHandler;
 use App\Services\Category\Handlers\StoreHandler;
 use App\Services\Category\Handlers\UpdateHandler;
 use App\Services\Base\Category\Handlers\UploadHandler;
-use App\Services\Category\Repositories\CategoryRepository;
+use App\Services\Category\Repositories\CmsCategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Cache;
 
-class CategoryService extends BaseCategoryService
+class CmsCategoryService extends CmsBaseCategoryService
 {
     private StoreHandler $storeHandler;
 
@@ -24,8 +27,9 @@ class CategoryService extends BaseCategoryService
     private DestroyHandler $destroyHandler;
 
     /**
-     * CategoryService constructor.
-     * @param CategoryRepository $repository
+     * CmsCategoryService constructor.
+     * @param CmsCategoryRepository $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
      * @param ShowImagesHandler $showImagesHandler
      * @param ShowExcludedImagesHandler $showExcludedImagesHandler
@@ -34,7 +38,8 @@ class CategoryService extends BaseCategoryService
      * @param DestroyHandler $destroyHandler
      */
     public function __construct(
-        CategoryRepository $repository,
+        CmsCategoryRepository $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadHandler $uploadHandler,
         ShowImagesHandler $showImagesHandler,
         ShowExcludedImagesHandler $showExcludedImagesHandler,
@@ -45,6 +50,7 @@ class CategoryService extends BaseCategoryService
     {
         parent::__construct(
             $repository,
+            $clearCacheByTagHandler,
             $uploadHandler,
             $showImagesHandler,
             $showExcludedImagesHandler
