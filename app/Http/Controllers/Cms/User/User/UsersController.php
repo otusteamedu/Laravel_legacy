@@ -32,10 +32,19 @@ class UsersController extends Controller
     /** @var GroupsService $groupsService */
     protected $groupsService;
 
+    /** @var string  */
+    protected $locale;
+
+    /**
+     * UsersController constructor.
+     * @param UsersService $usersService
+     * @param GroupsService $groupsService
+     */
     public function __construct(UsersService $usersService, GroupsService $groupsService)
     {
         $this->usersService = $usersService;
         $this->groupsService = $groupsService;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -50,6 +59,7 @@ class UsersController extends Controller
 
         return view('cms.user.index', [
             'users' => $this->usersService->paginationList(),
+            'locale' => $this->locale,
         ]);
     }
 
@@ -63,12 +73,10 @@ class UsersController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, User::class);
 
-        return view(
-            'cms.user.create',
-            [
-                'groups' => $this->groupsService->getArrayList(),
-            ]
-        );
+        return view('cms.user.create', [
+            'groups' => $this->groupsService->getArrayList(),
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -97,13 +105,11 @@ class UsersController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $user);
 
-        return view(
-            'cms.user.show',
-            [
-                'user' => $user,
-                'image' => $this->usersService->getUserImage($user),
-            ]
-        );
+        return view('cms.user.show', [
+            'user' => $user,
+            'image' => $this->usersService->getUserImage($user),
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -117,14 +123,12 @@ class UsersController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $user);
 
-        return view(
-            'cms.user.edit',
-            [
-                'user' => $user,
-                'groups' => $this->groupsService->getArrayList(),
-                'image' => $this->usersService->getUserImage($user),
-            ]
-        );
+        return view('cms.user.edit', [
+            'user' => $user,
+            'groups' => $this->groupsService->getArrayList(),
+            'image' => $this->usersService->getUserImage($user),
+            'locale' => $this->locale,
+        ]);
     }
 
     /**

@@ -31,10 +31,13 @@ class PostsController extends Controller
     /** @var RubricsService $rubricsService */
     protected $rubricsService;
 
+    protected $locale;
+
     public function __construct(PostsService $postsService, RubricsService $rubricsService)
     {
         $this->postsService = $postsService;
         $this->rubricsService = $rubricsService;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -49,6 +52,7 @@ class PostsController extends Controller
 
         return view('cms.post.index', [
             'posts' => $this->postsService->paginationList(),
+            'locale' => $this->locale,
         ]);
     }
 
@@ -62,12 +66,10 @@ class PostsController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, Post::class);
 
-        return  view(
-            'cms.post.create',
-            [
-                'rubrics' => $this->rubricsService->getArrayList(),
-            ]
-        );
+        return  view('cms.post.create', [
+            'rubrics' => $this->rubricsService->getArrayList(),
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -96,13 +98,11 @@ class PostsController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $post);
 
-        return view(
-            'cms.post.show',
-            [
-                'post' => $post,
-                'image' => $this->postsService->getPostImage($post),
-            ]
-        );
+        return view('cms.post.show', [
+            'post' => $post,
+            'image' => $this->postsService->getPostImage($post),
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -116,14 +116,12 @@ class PostsController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $post);
 
-        return view(
-            'cms.post.edit',
-            [
-                'post' => $post,
-                'rubrics' => $this->rubricsService->getArrayList(),
-                'image' => $this->postsService->getPostImage($post),
-            ]
-        );
+        return view('cms.post.edit', [
+            'post' => $post,
+            'rubrics' => $this->rubricsService->getArrayList(),
+            'image' => $this->postsService->getPostImage($post),
+            'locale' => $this->locale,
+        ]);
     }
 
     /**

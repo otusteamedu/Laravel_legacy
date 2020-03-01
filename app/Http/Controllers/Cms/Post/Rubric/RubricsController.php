@@ -26,6 +26,9 @@ class RubricsController extends Controller
     /** @var RubricsService $rubricsService */
     protected $rubricsService;
 
+    /** @var string */
+    protected $locale;
+
     /**
      * RubricsController constructor.
      * @param RubricsService $rubricsService
@@ -33,6 +36,7 @@ class RubricsController extends Controller
     public function __construct(RubricsService $rubricsService)
     {
         $this->rubricsService = $rubricsService;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -47,6 +51,7 @@ class RubricsController extends Controller
 
         return view('cms.rubric.index', [
             'rubrics' => $this->rubricsService->paginationList(),
+            'locale' => $this->locale,
         ]);
     }
 
@@ -60,7 +65,9 @@ class RubricsController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, Rubric::class);
 
-        return view('cms.rubric.create');
+        return view('cms.rubric.create', [
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -91,7 +98,10 @@ class RubricsController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $rubric);
 
-        return view('cms.rubric.show', ['rubric' => $rubric]);
+        return view('cms.rubric.show', [
+            'rubric' => $rubric,
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -105,7 +115,10 @@ class RubricsController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $rubric);
 
-        return view('cms.rubric.edit', ['rubric' => $rubric]);
+        return view('cms.rubric.edit', [
+            'rubric' => $rubric,
+            'locale' => $this->locale,
+        ]);
     }
 
     /**

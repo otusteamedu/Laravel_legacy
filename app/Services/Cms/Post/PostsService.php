@@ -22,6 +22,9 @@ class PostsService
     /** @var PostRepositoryInterface $postRepository */
     protected $postRepository;
 
+    /** @var string */
+    protected $locale;
+
     /**
      * PostService constructor.
      * @param PostRepositoryInterface $postRepository
@@ -29,6 +32,7 @@ class PostsService
     public function __construct(PostRepositoryInterface $postRepository)
     {
         $this->postRepository = $postRepository;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -89,7 +93,10 @@ class PostsService
                 ]
             );
 
-            $url = route('cms.posts.show', ['post' => $post->id]);
+            $url = route('cms.posts.show', [
+                'post' => $post->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notCreate.post'),
@@ -99,7 +106,9 @@ class PostsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.posts.create');
+            $url = route('cms.posts.create', [
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -134,7 +143,10 @@ class PostsService
                 ]
             );
 
-            $url = route('cms.posts.show', ['post' => $post->id]);
+            $url = route('cms.posts.show', [
+                'post' => $post->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notUpdate.post'),
@@ -145,7 +157,10 @@ class PostsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.posts.edit', ['post' => $post->id]);
+            $url = route('cms.posts.edit', [
+                'post' => $post->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -167,7 +182,10 @@ class PostsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.posts.show', ['post' => $post->id]);
+            $url = route('cms.posts.show', [
+                'post' => $post->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notPublished.post'),
@@ -178,7 +196,10 @@ class PostsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.posts.show', ['post' => $post->id]);
+            $url = route('cms.posts.show', [
+                'post' => $post->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -237,7 +258,9 @@ class PostsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.posts.index');
+            $url = route('cms.posts.index', [
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notDestroy.page'),
@@ -247,7 +270,10 @@ class PostsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.posts.show', ['post' => $post->id]);
+            $url = route('cms.posts.show', [
+                'post' => $post->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }

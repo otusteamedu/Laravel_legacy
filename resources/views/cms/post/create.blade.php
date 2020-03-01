@@ -4,7 +4,7 @@
 @section('content')
 @include('cms.blocks.forms.errors')
 {{Form::open([
-    'url' => route('cms.posts.store'),
+    'url' => route('cms.posts.store', ['locale' => $locale]),
     'method' => 'POST',
     'files' => true
 ])}}

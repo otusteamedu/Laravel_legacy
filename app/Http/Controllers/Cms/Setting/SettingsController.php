@@ -13,6 +13,14 @@ use App\Http\Controllers\Controller;
  */
 class SettingsController extends Controller
 {
+    /** @var string */
+    protected $locale;
+
+    public function __construct()
+    {
+        $this->locale = \App::getLocale();
+    }
+
     /**
      * Display a listing of the resource.
      *

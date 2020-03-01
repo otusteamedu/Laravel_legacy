@@ -5,7 +5,7 @@
 @include('cms.blocks.forms.errors')
 <?php /** @var \App\Models\Post\Post $post */ ?>
 {{Form::open([
-    'url' => route('cms.posts.update', ['post' => $post->id]),
+    'url' => route('cms.posts.update', ['post' => $post->id, 'locale' => $locale]),
     'method'=>'PUT',
     'files' => true
 ])}}

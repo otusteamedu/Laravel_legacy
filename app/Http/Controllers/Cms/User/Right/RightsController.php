@@ -23,6 +23,9 @@ class RightsController extends Controller
     /** @var RightsService $rightsService */
     protected $rightsService;
 
+    /** @var string */
+    protected $locale;
+
     /**
      * RightsController constructor.
      * @param RightsService $rightsService
@@ -30,6 +33,7 @@ class RightsController extends Controller
     public function __construct(RightsService $rightsService)
     {
         $this->rightsService = $rightsService;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -45,6 +49,7 @@ class RightsController extends Controller
 
         return view('cms.right.index', [
             'rights' => $this->rightsService->paginationList(),
+            'locale' => $this->locale,
         ]);
     }
 }

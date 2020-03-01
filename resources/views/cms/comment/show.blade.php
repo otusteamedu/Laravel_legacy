@@ -49,7 +49,7 @@
             <td>
                 {{$comment->parent->content}}
                 <p>----------------</p>
-                {{ link_to(route('cms.comments.show', ['comment' => $comment->parent->id]), __('cms.comment.actions.open'), ['target' => '_blank']) }}
+                {{ link_to(route('cms.comments.show', ['comment' => $comment->parent->id, 'locale' => $locale]), __('cms.comment.actions.open'), ['target' => '_blank']) }}
             </td>
         </tr>
         @endif
@@ -68,7 +68,7 @@
                 {{__('cms.comment.fields.post')}}
             </th>
             <td>
-                {{ link_to(route('cms.posts.show', ['post' => $comment->post->id]), $comment->post->name, ['target' => '_blank']) }}
+                {{ link_to(route('cms.posts.show', ['post' => $comment->post->id, 'locale' => $locale]), $comment->post->name, ['target' => '_blank']) }}
             </td>
         </tr>
         @if($comment->is_published)
@@ -89,7 +89,7 @@
                 @if($comment->user->trashed())
                 {{$comment->user->name}}
                 @else
-                {{ link_to(route('cms.users.show', ['user' => $comment->user->id]), $comment->user->name, ['target' => '_blank']) }}
+                {{ link_to(route('cms.users.show', ['user' => $comment->user->id, 'locale' => $locale]), $comment->user->name, ['target' => '_blank']) }}
                 @endif
             </td>
         </tr>

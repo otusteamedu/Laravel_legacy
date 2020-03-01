@@ -9,7 +9,7 @@
 @section('controls')
     @can(\App\Policies\Abilities::UPDATE, $rubric)
     <div class="p-2">
-        <a class="btn btn-primary" href="{{ route('cms.rubrics.edit', [$rubric->id]) }}" role="button">{{__('cms.rubric.actions.edit')}}</a>
+        <a class="btn btn-primary" href="{{ route('cms.rubrics.edit', [$rubric->id, 'locale' => $locale]) }}" role="button">{{__('cms.rubric.actions.edit')}}</a>
     </div>
     @endcan
     @can(\App\Policies\Abilities::DELETE, $rubric)

@@ -8,7 +8,7 @@
 @section('h1', __('cms.page.title.show'))
 @section('controls')
     <div class="p-2">
-        <a class="btn btn-primary" href="{{ route('cms.pages.edit', [$page->id]) }}" role="button">{{__('cms.page.actions.edit')}}</a>
+        <a class="btn btn-primary" href="{{ route('cms.pages.edit', [$page->id, 'locale' => $locale]) }}" role="button">{{__('cms.page.actions.edit')}}</a>
     </div>
     <div class="p-2">
         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#destroyModal">

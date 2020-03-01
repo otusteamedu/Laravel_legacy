@@ -3,7 +3,7 @@
 @section('h1', __('cms.page.title.index'))
 @section('controls')
     <div class="p-2">
-        <a class="btn btn-primary" href="{{ route('cms.pages.create') }}" role="button">{{__('cms.page.actions.add')}}</a>
+        <a class="btn btn-primary" href="{{ route('cms.pages.create', ['locale' => $locale]) }}" role="button">{{__('cms.page.actions.add')}}</a>
     </div>
 @endsection
 @section('content')

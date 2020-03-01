@@ -71,10 +71,11 @@ Route::name('portal.')
     });
 
 Route::name('cms.')
-    ->prefix('cms')
+    ->prefix('{locale}/cms')
     ->middleware([
         'auth',
-        'cms.menu'
+        'locale',
+        'cms.menu',
     ])
     ->group(function () {
         Route::get('', 'Cms\IndexController')->name('index');

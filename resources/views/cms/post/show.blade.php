@@ -9,7 +9,7 @@
 @section('controls')
     @can(\App\Policies\Abilities::UPDATE, $post)
         <div class="p-2">
-            <a class="btn btn-primary" href="{{ route('cms.posts.edit', ['post' => $post->id]) }}" role="button">{{__('cms.post.actions.edit')}}</a>
+            <a class="btn btn-primary" href="{{ route('cms.posts.edit', ['post' => $post->id, 'locale' => $locale]) }}" role="button">{{__('cms.post.actions.edit')}}</a>
         </div>
     @endcan
     @can(\App\Policies\Abilities::PUBLISHED, $post)

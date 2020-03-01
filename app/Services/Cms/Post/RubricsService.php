@@ -17,6 +17,9 @@ class RubricsService
     /** @var RubricRepositoryInterface $rubricRepository */
     protected $rubricRepository;
 
+    /** @var string */
+    protected $locale;
+
     /**
      * RubricsService constructor.
      * @param RubricRepositoryInterface $rubricRepository
@@ -24,6 +27,7 @@ class RubricsService
     public function __construct(RubricRepositoryInterface $rubricRepository)
     {
         $this->rubricRepository = $rubricRepository;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -52,7 +56,10 @@ class RubricsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.rubrics.show', ['rubric' => $rubric->id]);
+            $url = route('cms.rubrics.show', [
+                'rubric' => $rubric->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notCreate.rubric'),
@@ -62,7 +69,9 @@ class RubricsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.rubrics.create');
+            $url = route('cms.rubrics.create', [
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -84,7 +93,10 @@ class RubricsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.rubrics.show', ['rubric' => $rubric->id]);
+            $url = route('cms.rubrics.show', [
+                'rubric' => $rubric->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notUpdate.rubric'),
@@ -95,7 +107,10 @@ class RubricsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.rubrics.edit', ['rubric' => $rubric->id]);
+            $url = route('cms.rubrics.edit', [
+                'rubric' => $rubric->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -116,7 +131,9 @@ class RubricsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.rubrics.index');
+            $url = route('cms.rubrics.index', [
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notDestroy.rubric'),
@@ -126,7 +143,10 @@ class RubricsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.rubrics.show', ['rubric' => $rubric->id]);
+            $url = route('cms.rubrics.show', [
+                'rubric' => $rubric->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }

@@ -23,8 +23,11 @@ class PagesController extends Controller
 {
     use CurrentUser;
 
-    /** @var PagesService  */
+    /** @var PagesService */
     protected $pagesService;
+
+    /** @var string */
+    protected $locale;
 
     /**
      * PagesController constructor.
@@ -33,6 +36,7 @@ class PagesController extends Controller
     public function __construct(PagesService $pagesService)
     {
         $this->pagesService = $pagesService;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -47,6 +51,7 @@ class PagesController extends Controller
 
         return view('cms.page.index', [
             'pages' => $this->pagesService->paginationList(),
+            'locale' => $this->locale,
         ]);
     }
 
@@ -60,7 +65,9 @@ class PagesController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, Page::class);
 
-        return view('cms.page.create');
+        return view('cms.page.create', [
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -91,7 +98,10 @@ class PagesController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $page);
 
-        return view('cms.page.show', ['page' => $page]);
+        return view('cms.page.show', [
+            'page' => $page,
+            'locale' => $this->locale,
+        ]);
     }
 
     /**
@@ -105,7 +115,10 @@ class PagesController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $page);
 
-        return view('cms.page.edit', ['page' => $page]);
+        return view('cms.page.edit', [
+            'page' => $page,
+            'locale' => $this->locale,
+        ]);
     }
 
     /**

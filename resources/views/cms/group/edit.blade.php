@@ -4,7 +4,7 @@
 @section('content')
 @include('cms.blocks.forms.errors')
 <?php /** @var App\Models\User\Group $group */ ?>
-{{Form::open(['url' => route('cms.groups.update', ['group' => $group->id]), 'method'=>'PUT'])}}
+{{Form::open(['url' => route('cms.groups.update', ['group' => $group->id, 'locale' => $locale]), 'method'=>'PUT'])}}
 @include('cms.group.blocks.form.edit')
 {{Form::close()}}
 @endsection

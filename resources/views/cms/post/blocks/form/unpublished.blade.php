@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('cms.actions.close')}}</button>
-                {{Form::open(['url' => route('cms.posts.published', ['post' => $post->id]), 'method'=>'PUT'])}}
+                {{Form::open(['url' => route('cms.posts.published', ['post' => $post->id, 'locale' => $locale]), 'method'=>'PUT'])}}
                 {{Form::hidden('action','unpublished')}}
                 {{Form::submit(__('cms.actions.unpublished'), ['class' => 'btn btn-danger'])}}
                 {{Form::close()}}

@@ -9,7 +9,7 @@
 @section('controls')
     @can(\App\Policies\Abilities::UPDATE, $group)
     <div class="p-2">
-        <a class="btn btn-primary" href="{{ route('cms.groups.edit', [$group->id]) }}" role="button">{{__('cms.group.actions.edit')}}</a>
+        <a class="btn btn-primary" href="{{ route('cms.groups.edit', [$group->id, 'locale' => $locale]) }}" role="button">{{__('cms.group.actions.edit')}}</a>
     </div>
     @endcan
     @can(\App\Policies\Abilities::DELETE, $group)

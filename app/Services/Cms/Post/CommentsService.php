@@ -17,6 +17,9 @@ class CommentsService
     /** @var CommentRepositoryInterface $rubricRepository */
     protected $commentRepository;
 
+    /** @var string */
+    protected $locale;
+
     /**
      * RubricsService constructor.
      * @param CommentRepositoryInterface $commentRepository
@@ -24,6 +27,7 @@ class CommentsService
     public function __construct(CommentRepositoryInterface $commentRepository)
     {
         $this->commentRepository = $commentRepository;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -54,7 +58,10 @@ class CommentsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.comments.show', ['comment' => $comment->id]);
+            $url = route('cms.comments.show', [
+                'comment' => $comment->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notPublished.comment'),
@@ -65,7 +72,10 @@ class CommentsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.comments.show', ['comment' => $comment->id]);
+            $url = route('cms.comments.show', [
+                'comment' => $comment->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -95,7 +105,10 @@ class CommentsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.comments.show', ['comment' => $comment->id]);
+            $url = route('cms.comments.show', [
+                'comment' => $comment->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
