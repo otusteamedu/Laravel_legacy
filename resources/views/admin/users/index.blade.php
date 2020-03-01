@@ -66,5 +66,6 @@
             @endforeach
             </tbody>
         </table>
+        {{$userList->links()}}
     </div>
 @stop

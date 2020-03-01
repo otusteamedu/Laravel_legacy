@@ -25,14 +25,11 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $userList = User::all() ;
+        \View::share([
+            'userList' => User::paginate(),
+        ]);
 
-        return view(
-            'admin.users.index',
-            [
-                'userList' => $userList
-            ]
-        );
+        return view('admin.users.index');
     }
 
     /**
