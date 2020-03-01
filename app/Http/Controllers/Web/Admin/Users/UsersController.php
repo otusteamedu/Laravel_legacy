@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Admin\Users\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Services\Users\UsersService;
-use Illuminate\Http\Exceptions\ThrottleRequestsException;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -53,8 +52,7 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        $data = $request->getFormData();
-        $user = $this->usersService->storeUser($data);
+        $user = $this->usersService->storeUser($request->getFormData());
 
         return redirect(route('admin.users.show', $user));
     }

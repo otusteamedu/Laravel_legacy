@@ -5,6 +5,7 @@
 @stop
 
 @section("content")
+    @include('layouts.blocks.form.errors')
     <div class="row">
         <div class="col-12">
             {{ Form::open(['route' => ['admin.users.store'], 'method' => 'post', 'role' => 'form'] ) }}

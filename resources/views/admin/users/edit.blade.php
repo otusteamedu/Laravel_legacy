@@ -7,6 +7,7 @@
 @section("content")
     <div class="row">
         <div class="col-12">
+            @include('layouts.blocks.form.errors')
             {{ Form::model( $user, ['route' => ['admin.users.update', $user->id], 'method' => 'put', 'role' => 'form'] ) }}
                 <div class="row">
                     <div class="col-12">
