@@ -6,7 +6,7 @@ namespace App\Services\Image\Repositories;
 
 use App\Models\Image;
 use App\Services\Base\Resource\Repositories\BaseResourceRepository;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Contracts\Pagination\Paginator;
 use App\Services\Image\Resources\ImageDetailed as ImageDetailedResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -22,10 +22,26 @@ class ImageRepository extends BaseResourceRepository
     }
 
     /**
-     * @return Collection
+     * @param $data
+     * @return Paginator
      */
-    public function index(): Collection {
-        return $this->model::with(config('query_builder.image'))->get();
+    public function paginateIndex($data)
+    {
+        return $this->model::with(config('query_builder.image'))
+            ->orderBy($data['sort_by'], $data['sort_order'])
+            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function paginateQuerySearchIndex(array $data)
+    {
+        return $this->model::where('id', 'like', $data['query'] . '%')
+            ->with(config('query_builder.image'))
+            ->orderBy($data['sort_by'], $data['sort_order'])
+            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
     }
 
     /**

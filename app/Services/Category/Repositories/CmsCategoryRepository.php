@@ -5,10 +5,10 @@ namespace App\Services\Category\Repositories;
 
 
 use App\Models\Category;
-use App\Services\Base\Category\Repositories\BaseCategoryRepository;
+use App\Services\Base\Category\Repositories\CmsBaseCategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class CategoryRepository extends BaseCategoryRepository
+class CategoryRepository extends CmsBaseCategoryRepository
 {
     public function __construct(Category $model)
     {

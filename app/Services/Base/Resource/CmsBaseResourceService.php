@@ -6,6 +6,8 @@ namespace App\Services\Base\Resource;
 
 use App\Http\Requests\FormRequest;
 use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 
 abstract class BaseResourceService
@@ -25,9 +27,9 @@ abstract class BaseResourceService
     }
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator|Paginator|Collection
      */
-    public function index(): Collection
+    public function index()
     {
         return $this->repository->index();
     }

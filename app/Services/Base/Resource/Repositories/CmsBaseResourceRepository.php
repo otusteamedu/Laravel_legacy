@@ -3,6 +3,8 @@
 namespace App\Services\Base\Resource\Repositories;
 
 
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,9 +16,9 @@ abstract class BaseResourceRepository
     protected $model;
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator|Paginator|Collection
      */
-    public function index(): Collection {
+    public function index() {
         return $this->model::all();
     }
 

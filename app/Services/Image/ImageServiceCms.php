@@ -7,26 +7,29 @@ namespace App\Services\Image;
 use App\Http\Requests\FormRequest;
 use App\Services\Base\Resource\BaseResourceService;
 use App\Services\Image\Handlers\DeleteImageHandler;
+use App\Services\Image\Handlers\IndexHandler;
 use App\Services\Image\Handlers\SyncAssociativeCategoryOfImageHandler;
 use App\Services\Image\Handlers\UpdateImagePathHandler;
 use App\Services\Image\Handlers\UploadImageHandler;
 use App\Services\Image\Repositories\ImageRepository;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Cache;
 
 class ImageService extends BaseResourceService
 {
-    private $storeHandler;
-    private $updateItemPathHandler;
-    private $syncAssociativeCategoryHandler;
-    private $destroyHandler;
+    private UploadImageHandler $storeHandler;
+    private UpdateImagePathHandler $updateItemPathHandler;
+    private SyncAssociativeCategoryOfImageHandler $syncAssociativeCategoryHandler;
+    private DeleteImageHandler $destroyHandler;
+    private IndexHandler $indexHandler;
 
     public function __construct(
         ImageRepository $repository,
         UploadImageHandler $uploadImageHandler,
         UpdateImagePathHandler $updateImagePathHandler,
         SyncAssociativeCategoryOfImageHandler $syncAssociativeCategoryOfImageHandler,
-        DeleteImageHandler $deleteImageHandler
+        DeleteImageHandler $deleteImageHandler,
+        IndexHandler $indexHandler
     )
     {
         parent::__construct($repository);
@@ -34,6 +37,16 @@ class ImageService extends BaseResourceService
         $this->updateItemPathHandler = $updateImagePathHandler;
         $this->syncAssociativeCategoryHandler = $syncAssociativeCategoryOfImageHandler;
         $this->destroyHandler = $deleteImageHandler;
+        $this->indexHandler = $indexHandler;
+    }
+
+    /**
+     * @param array $data
+     * @return mixed
+     */
+    public function paginateIndex(array $data)
+    {
+        return $this->indexHandler->handle($this->repository, $data);
     }
 
     /**
@@ -47,13 +60,15 @@ class ImageService extends BaseResourceService
 
     /**
      * @param FormRequest $request
-     * @return Collection
+     * @return mixed
      */
-    public function store(FormRequest $request): Collection
+    public function store(FormRequest $request)
     {
-        $this->storeHandler->handle($request);
+        Cache::tags('images')->flush();
 
-        return $this->repository->index();
+        $this->storeHandler->handle($request->file('images'));
+
+        return $this->repository->paginateIndex($request->except('images'));
     }
 
     /**
@@ -70,6 +85,10 @@ class ImageService extends BaseResourceService
 
         $this->repository->syncAssociations('tags', $request->tags, $image);
 
+        $request['owner_id'] = +$request['owner_id'] !== 0
+            ? $request['owner_id']
+            : null;
+
         $this->repository->fillAttributesFromArray(
             $request->only(['publish', 'owner_id', 'description']),
             $image
@@ -79,6 +98,8 @@ class ImageService extends BaseResourceService
         if ($imageFile) {
             $this->updateItemPathHandler->handle($imageFile, $image);
         }
+
+        Cache::tags('images')->flush();
     }
 
     /**
@@ -90,15 +111,21 @@ class ImageService extends BaseResourceService
     {
         $image = $this->repository->show($id);
 
+        Cache::tags('images')->flush();
+
         return $this->destroyHandler->handle($image);
     }
 
     /**
-     * @param FormRequest $request
-     * @return array
+     * @param int $id
+     * @return mixed
      */
-    public function upload(FormRequest $request): array
+    public function publish(int $id)
     {
-        return $this->storeHandler->handle($request);
+        $item = $this->repository->show($id);
+
+        Cache::tags('images')->flush();
+
+        return $this->repository->publish($item);
     }
 }

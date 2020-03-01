@@ -6,6 +6,8 @@ namespace App\Services\Category;
 
 use App\Http\Requests\FormRequest;
 use App\Services\Base\Category\BaseCategoryService;
+use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
+use App\Services\Base\Category\Handlers\ShowImagesHandler;
 use App\Services\Category\Handlers\DestroyHandler;
 use App\Services\Category\Handlers\StoreHandler;
 use App\Services\Category\Handlers\UpdateHandler;
@@ -15,25 +17,18 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CategoryService extends BaseCategoryService
 {
-    /**
-     * @var StoreHandler
-     */
-    private $storeHandler;
+    private StoreHandler $storeHandler;
 
-    /**
-     * @var UpdateHandler
-     */
-    private $updateHandler;
+    private UpdateHandler $updateHandler;
 
-    /**
-     * @var DestroyHandler
-     */
-    private $destroyHandler;
+    private DestroyHandler $destroyHandler;
 
     /**
      * CategoryService constructor.
      * @param CategoryRepository $repository
      * @param UploadHandler $uploadHandler
+     * @param ShowImagesHandler $showImagesHandler
+     * @param ShowExcludedImagesHandler $showExcludedImagesHandler
      * @param StoreHandler $storeHandler
      * @param UpdateHandler $updateHandler
      * @param DestroyHandler $destroyHandler
@@ -41,12 +36,19 @@ class CategoryService extends BaseCategoryService
     public function __construct(
         CategoryRepository $repository,
         UploadHandler $uploadHandler,
+        ShowImagesHandler $showImagesHandler,
+        ShowExcludedImagesHandler $showExcludedImagesHandler,
         StoreHandler $storeHandler,
         UpdateHandler $updateHandler,
         DestroyHandler $destroyHandler
     )
     {
-        parent::__construct($repository, $uploadHandler);
+        parent::__construct(
+            $repository,
+            $uploadHandler,
+            $showImagesHandler,
+            $showExcludedImagesHandler
+        );
         $this->storeHandler = $storeHandler;
         $this->updateHandler = $updateHandler;
         $this->destroyHandler = $destroyHandler;
