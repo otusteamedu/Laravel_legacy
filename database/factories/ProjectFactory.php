@@ -22,7 +22,7 @@ $factory->define(Project::class, function (Faker $faker) {
             return factory(App\Models\User::class)->create()->id;
         },
         'name' => 'Магазин "' . $faker->text(10) . '"',
-        'description' => 'О компании' . \n . $faker->text,
+        'description' => 'О компании' . $faker->text,
         'created_at' => now(),
         'contact_data' => $faker->address .', '. $faker->phoneNumber,
     ];
