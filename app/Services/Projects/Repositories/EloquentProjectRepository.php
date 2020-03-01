@@ -29,6 +29,7 @@ class EloquentProjectRepository
 
     public function delProject(int $id)
     {
+        $id = Project::findOrFail($id);
         return Project::destroy($id);
     }
 

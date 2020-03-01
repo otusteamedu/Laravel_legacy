@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Cms\Projects\Requests\ProjectStoreRequest;
 use App\Http\Controllers\Cms\Requests\ProjectUpdateRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProjectCollection;
+use App\Http\Resources\Project as ProjectResource;
 use App\Jobs\ProjectUpdate;
 use App\Models\Project;
 use App\Services\Projects\ProjectsService;
@@ -27,7 +29,7 @@ class ProjectController extends Controller
     public function index()
     {
         $data = $this->projectsService->getAll(config('paginate_api.projects'));
-        return $data;
+        return new ProjectCollection($data);
     }
 
     /**
@@ -40,7 +42,7 @@ class ProjectController extends Controller
     {
         $data = $request->all();
         $result = $this->projectsService->saveForm($data);
-        return "success";
+        return new ProjectResource($result);
     }
 
     /**
@@ -52,7 +54,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         $data = $this->projectsService->getProject($id);
-        return $data;
+        return new ProjectResource($data);
     }
 
     /**
@@ -66,7 +68,7 @@ class ProjectController extends Controller
     {
         $data = $request->all();
         $result = $this->projectsService->updateForm($project, $data);
-        return "success";
+        return new ProjectResource($project);
 
     }
 
@@ -79,6 +81,6 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $result = $this->projectsService->delForm($project->id);
-        return "success";
+        return new ProjectResource($project);
     }
 }
