@@ -8,9 +8,9 @@ use App\Policies\Abilities;
 use App\Services\Cms\Post\CommentsService;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\CurrentUser;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -37,12 +37,12 @@ class CommentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize(Abilities::VIEW_ANY, Comment::class);
+        $this->checkAbility($request, Abilities::VIEW_ANY, Comment::class);
 
         return view('cms.comment.index', [
             'comments' => $this->commentsService->paginationList(),
@@ -52,13 +52,13 @@ class CommentsController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Comment $comment
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function show(Comment $comment)
+    public function show(Request $request, Comment $comment)
     {
-        $this->authorize(Abilities::VIEW, $comment);
+        $this->checkAbility($request, Abilities::VIEW, $comment);
 
         return view('cms.comment.show', ['comment' => $comment]);
     }
@@ -69,11 +69,10 @@ class CommentsController extends Controller
      * @param  UpdateCommentRequest  $request
      * @param Comment $comment
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function update(UpdateCommentRequest $request, Comment $comment)
     {
-        $this->authorize(Abilities::PUBLISHED, $comment);
+        $this->checkAbility($request, Abilities::PUBLISHED, $comment);
 
         $data = $request->getFormData();
 
@@ -85,13 +84,13 @@ class CommentsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param Comment $comment
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
-    public function destroy(Comment $comment)
+    public function destroy(Request $request, Comment $comment)
     {
-        $this->authorize(Abilities::DELETE, $comment);
+        $this->checkAbility($request, Abilities::DELETE, $comment);
 
         $url = $this->commentsService->destroy($comment);
 

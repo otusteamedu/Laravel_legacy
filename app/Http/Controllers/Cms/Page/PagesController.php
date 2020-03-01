@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cms\Page;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Cms\Page\Requests\StorePageRequest;
 use App\Http\Controllers\Cms\Page\Requests\UpdatePageRequest;
 use App\Models\Page\Page;
@@ -9,7 +10,6 @@ use App\Http\Controllers\Cms\CurrentUser;
 use App\Policies\Abilities;
 use App\Services\Cms\Page\PagesService;
 use App\Http\Controllers\Controller;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -38,12 +38,12 @@ class PagesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize(Abilities::VIEW_ANY, Page::class);
+        $this->checkAbility($request, Abilities::VIEW_ANY, Page::class);
 
         return view('cms.page.index', [
             'pages' => $this->pagesService->paginationList(),
@@ -53,12 +53,12 @@ class PagesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function create()
+    public function create(Request $request)
     {
-        $this->authorize(Abilities::CREATE, Page::class);
+        $this->checkAbility($request, Abilities::CREATE, Page::class);
 
         return view('cms.page.create');
     }
@@ -68,11 +68,10 @@ class PagesController extends Controller
      *
      * @param  StorePageRequest  $request
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function store(StorePageRequest $request)
     {
-        $this->authorize(Abilities::CREATE, Page::class);
+        $this->checkAbility($request, Abilities::CREATE, Page::class);
 
         $data = $request->getFormData();
 
@@ -84,13 +83,13 @@ class PagesController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param Request $request
      * @param Page $page
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function show(Page $page)
+    public function show(Request $request, Page $page)
     {
-        $this->authorize(Abilities::VIEW, $page);
+        $this->checkAbility($request, Abilities::VIEW, $page);
 
         return view('cms.page.show', ['page' => $page]);
     }
@@ -98,13 +97,13 @@ class PagesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
+     * @param Request $request
      * @param  Page  $page
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function edit(Page $page)
+    public function edit(Request $request, Page $page)
     {
-        $this->authorize(Abilities::UPDATE, $page);
+        $this->checkAbility($request, Abilities::UPDATE, $page);
 
         return view('cms.page.edit', ['page' => $page]);
     }
@@ -115,11 +114,10 @@ class PagesController extends Controller
      * @param  UpdatePageRequest  $request
      * @param  Page  $page
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
-        $this->authorize(Abilities::UPDATE, $page);
+        $this->checkAbility($request, Abilities::UPDATE, $page);
 
         $data = $request->getFormData();
 
@@ -131,13 +129,13 @@ class PagesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
+     * @param Request $request
      * @param  Page  $page
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
-    public function destroy(Page $page)
+    public function destroy(Request $request, Page $page)
     {
-        $this->authorize(Abilities::DELETE, $page);
+        $this->checkAbility($request, Abilities::DELETE, $page);
 
         $url = $this->pagesService->destroy($page);
 

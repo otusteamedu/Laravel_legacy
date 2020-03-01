@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Cms\Post\Rubric;
 
+use App\Http\Controllers\Cms\CurrentUser;
 use App\Http\Controllers\Cms\Page\Requests\StoreRubricRequest;
 use App\Http\Controllers\Cms\Page\Requests\UpdateRubricRequest;
 use App\Models\Post\Rubric;
 use App\Policies\Abilities;
 use App\Services\Cms\Post\RubricsService;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
 
@@ -20,6 +21,8 @@ use Illuminate\View\View;
  */
 class RubricsController extends Controller
 {
+    use CurrentUser;
+
     /** @var RubricsService $rubricsService */
     protected $rubricsService;
 
@@ -35,12 +38,12 @@ class RubricsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->authorize(Abilities::VIEW_ANY, Rubric::class);
+        $this->checkAbility($request, Abilities::VIEW_ANY, Rubric::class);
 
         return view('cms.rubric.index', [
             'rubrics' => $this->rubricsService->paginationList(),
@@ -50,14 +53,14 @@ class RubricsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function create()
+    public function create(Request $request)
     {
-        $this->authorize(Abilities::CREATE, Rubric::class);
+        $this->checkAbility($request, Abilities::CREATE, Rubric::class);
 
-        return view('cms.page.create');
+        return view('cms.rubric.create');
     }
 
     /**
@@ -65,11 +68,10 @@ class RubricsController extends Controller
      *
      * @param  StoreRubricRequest  $request
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function store(StoreRubricRequest $request)
     {
-        $this->authorize(Abilities::CREATE, Rubric::class);
+        $this->checkAbility($request, Abilities::CREATE, Rubric::class);
 
         $data = $request->getFormData();
 
@@ -81,13 +83,13 @@ class RubricsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  Rubric  $rubric
+     * @param Request $request
+     * @param Rubric $rubric
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function show(Rubric $rubric)
+    public function show(Request $request, Rubric $rubric)
     {
-        $this->authorize(Abilities::VIEW, $rubric);
+        $this->checkAbility($request, Abilities::VIEW, $rubric);
 
         return view('cms.rubric.show', ['rubric' => $rubric]);
     }
@@ -95,13 +97,13 @@ class RubricsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Rubric  $rubric
+     * @param Request $request
+     * @param Rubric $rubric
      * @return Factory|View
-     * @throws AuthorizationException
      */
-    public function edit(Rubric $rubric)
+    public function edit(Request $request, Rubric $rubric)
     {
-        $this->authorize(Abilities::UPDATE, $rubric);
+        $this->checkAbility($request, Abilities::UPDATE, $rubric);
 
         return view('cms.rubric.edit', ['rubric' => $rubric]);
     }
@@ -112,11 +114,10 @@ class RubricsController extends Controller
      * @param  UpdateRubricRequest  $request
      * @param  Rubric  $rubric
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
     public function update(UpdateRubricRequest $request, Rubric $rubric)
     {
-        $this->authorize(Abilities::UPDATE, $rubric);
+        $this->checkAbility($request, Abilities::UPDATE, $rubric);
 
         $data = $request->getFormData();
 
@@ -128,13 +129,13 @@ class RubricsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Rubric  $rubric
+     * @param Request $request
+     * @param Rubric $rubric
      * @return RedirectResponse|Redirector
-     * @throws AuthorizationException
      */
-    public function destroy(Rubric $rubric)
+    public function destroy(Request $request, Rubric $rubric)
     {
-        $this->authorize(Abilities::DELETE, $rubric);
+        $this->checkAbility($request, Abilities::DELETE, $rubric);
 
         $url = $this->rubricsService->destroy($rubric);
 

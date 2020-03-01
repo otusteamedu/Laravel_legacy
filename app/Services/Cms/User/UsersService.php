@@ -10,6 +10,8 @@ use App\Services\Image\CleanPath;
 use App\Services\Image\ImageServices;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class UsersService
@@ -63,9 +65,9 @@ class UsersService
      */
     public function store(StoreUserRequest $request): string
     {
-        try {
-            $data = $request->getFormData();
+        $data = $request->getFormData();
 
+        try {
             $user = $this->userRepository->createFromArray($data);
 
             if ($request->file(User::IMAGE_FIELD)) {
@@ -73,8 +75,26 @@ class UsersService
                 $this->userRepository->updateFromArray($user, $updateData);
             }
 
+            Log::info(
+                __('log.info.create.user'),
+                [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
+
             $url = route('cms.users.show', ['user' => $user->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notCreate.user'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
+
             $url = route('cms.users.create');
         }
         return $url;
@@ -87,9 +107,9 @@ class UsersService
      */
     public function update(User $user, UpdateUserRequest $request): string
     {
-        try {
-            $data = $request->getFormData();
+        $data = $request->getFormData();
 
+        try {
             if (isset($data['icon_destroy'])) {
                 $this->destroyImage($user->id);
                 $data[User::IMAGE_FIELD] = null;
@@ -101,8 +121,26 @@ class UsersService
 
             $this->userRepository->updateFromArray($user, $data);
 
+            Log::info(
+                __('log.info.update.user'),
+                [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
+
             $url = route('cms.users.show', ['user' => $user->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notUpdate.user'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'id' => $user->id,
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.users.edit', ['user' => $user->id]);
         }
         return $url;
@@ -154,8 +192,24 @@ class UsersService
     {
         try {
             $this->userRepository->delete($user);
+            Log::info(
+                __('log.info.destroy.user'),
+                [
+                    'id' => $user->id,
+                    'name' => $group->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.users.index');
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notDestroy.user'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $user->id,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.users.show', ['user' => $user->id]);
         }
         return $url;

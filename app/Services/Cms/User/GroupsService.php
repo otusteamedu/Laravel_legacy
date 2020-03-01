@@ -5,6 +5,8 @@ namespace App\Services\Cms\User;
 use App\Models\User\Group;
 use App\Repositories\User\Group\GroupRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class GroupsService
@@ -43,8 +45,24 @@ class GroupsService
     {
         try {
             $group = $this->groupRepository->createFromArray($data);
+            Log::info(
+                __('log.info.create.group'),
+                [
+                    'id' => $group->id,
+                    'name' => $group->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.groups.show', ['group' => $group->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notCreate.group'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.groups.create');
         }
         return $url;
@@ -59,8 +77,25 @@ class GroupsService
     {
         try {
             $this->groupRepository->updateFromArray($group, $data);
+            Log::info(
+                __('log.info.update.group'),
+                [
+                    'id' => $group->id,
+                    'name' => $group->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.groups.show', ['group' => $group->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notUpdate.group'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'id' => $group->id,
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.groups.edit', ['group' => $group->id]);
         }
         return $url;
@@ -74,8 +109,24 @@ class GroupsService
     {
         try {
             $this->groupRepository->delete($group);
+            Log::info(
+                __('log.info.destroy.group'),
+                [
+                    'id' => $group->id,
+                    'name' => $group->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.groups.index');
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notDestroy.group'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $group->id,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.groups.show', ['group' => $group->id]);
         }
         return $url;

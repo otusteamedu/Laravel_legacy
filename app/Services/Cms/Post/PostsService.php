@@ -10,6 +10,8 @@ use App\Services\Image\CleanPath;
 use App\Services\Image\ImageServices;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class PostService
@@ -68,9 +70,9 @@ class PostsService
      */
     public function store(StorePostRequest $request): string
     {
-        try {
-            $data = $request->getFormData();
+        $data = $request->getFormData();
 
+        try {
             $post = $this->postRepository->createFromArray($data);
 
             if ($request->file(Post::IMAGE_FIELD)) {
@@ -78,8 +80,25 @@ class PostsService
                 $this->postRepository->updateFromArray($post, $updateData);
             }
 
+            Log::info(
+                __('log.info.create.post'),
+                [
+                    'id' => $post->id,
+                    'name' => $post->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
+
             $url = route('cms.posts.show', ['post' => $post->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notCreate.post'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.posts.create');
         }
         return $url;
@@ -92,9 +111,9 @@ class PostsService
      */
     public function update(Post $post, UpdatePostRequest $request): string
     {
-        try {
-            $data = $request->getFormData();
+        $data = $request->getFormData();
 
+        try {
             if (isset($data['icon_destroy'])) {
                 $this->destroyImage($post->id);
                 $data[Post::IMAGE_FIELD] = null;
@@ -106,8 +125,26 @@ class PostsService
 
             $this->postRepository->updateFromArray($post, $data);
 
+            Log::info(
+                __('log.info.update.post'),
+                [
+                    'id' => $post->id,
+                    'name' => $post->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
+
             $url = route('cms.posts.show', ['post' => $post->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notUpdate.post'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'id' => $post->id,
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.posts.edit', ['post' => $post->id]);
         }
         return $url;
@@ -118,12 +155,29 @@ class PostsService
      * @param array $data
      * @return string
      */
-    public function published(Post $post, array $data)
+    public function published(Post $post, array $data): string
     {
         try {
             $this->postRepository->publishedFromArray($post, $data);
+            Log::info(
+                __('log.info.published.post'),
+                [
+                    'id' => $post->id,
+                    'name' => $post->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.posts.show', ['post' => $post->id]);
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notPublished.post'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'id' => $post->id,
+                    'data' => $data,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.posts.show', ['post' => $post->id]);
         }
         return $url;
@@ -175,8 +229,24 @@ class PostsService
     {
         try {
             $this->postRepository->delete($post);
+            Log::info(
+                __('log.info.destroy.post'),
+                [
+                    'id' => $post->id,
+                    'name' => $post->name,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.posts.index');
         } catch (\Throwable $exception) {
+            Log::critical(
+                __('log.critical.notDestroy.page'),
+                [
+                    'exception' => $exception->getMessage(),
+                    'data' => $post->id,
+                    'user' => Auth::user()->id,
+                ]
+            );
             $url = route('cms.posts.show', ['post' => $post->id]);
         }
         return $url;
