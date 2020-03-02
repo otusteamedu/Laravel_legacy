@@ -7,6 +7,7 @@ namespace App\Services\Cache\Users;
 use App\Services\Cache\CacheConstants;
 use Cache;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Request;
 
 /**
  * Class UsersCacheService
@@ -15,11 +16,11 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 class UsersCacheService
 {
     /**
-     * @param string $uri
      * @return bool|mixed
      */
-    public function getUserListFromCache(string $uri)
+    public function getUserListFromCache()
     {
+        $uri = Request::fullUrl();
         $key = md5($uri);
         if (Cache::tags([CacheConstants::USERS_LIST_TAG, CacheConstants::USER_ENTITY_TAG])->has($key)) {
             return Cache::tags([CacheConstants::USERS_LIST_TAG, CacheConstants::USER_ENTITY_TAG])->get($key);
@@ -32,8 +33,9 @@ class UsersCacheService
      * @param LengthAwarePaginator $usersList
      * @return bool
      */
-    public function putUsersListToCache(string $uri, LengthAwarePaginator $usersList)
+    public function putUsersListToCache(LengthAwarePaginator $usersList)
     {
+        $uri = Request::fullUrl();
         $key = md5($uri);
         return Cache::tags([
             CacheConstants::USERS_LIST_TAG,

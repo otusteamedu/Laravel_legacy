@@ -47,29 +47,26 @@ class UsersController extends Controller
     /**
      * Возвращает список пользователей в формате json с пагинацией
      *
-     * @param $request Request
      * @return string
      */
-    public function index(Request $request)
+    public function index()
     {
-        $uri = $request->fullUrl();
-        $cachedData = $this->usersCacheService->getUserListFromCache($uri);
+        $cachedData = $this->usersCacheService->getUserListFromCache();
         if ($cachedData) {
             return $cachedData;
         }
 
         $data = $this->usersService->getUsersList();
-        $this->usersCacheService->putUsersListToCache($uri, $data);
+        $this->usersCacheService->putUsersListToCache($data);
         return $data->toJson();
     }
 
 
     /**
      * @param int $id
-     * @param Request $request
      * @return mixed
      */
-    public function getUser(Request $request, int $id)
+    public function getUser(int $id)
     {
         $cachedData = $this->usersCacheService->getUserDataFromCache($id);
         if ($cachedData) {
