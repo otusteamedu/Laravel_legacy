@@ -7,15 +7,15 @@ use App\Http\Controllers\API\Cms\Delivery\Requests\CreateDeliveryRequest;
 use App\Http\Controllers\API\Cms\Delivery\Requests\UpdateDeliveryRequest;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Models\Delivery;
-use App\Services\Delivery\DeliveryService;
+use App\Services\Delivery\CmsDeliveryService;
 
 class DeliveryController extends BaseResourceController
 {
     /**
      * DeliveryController constructor.
-     * @param DeliveryService $service
+     * @param CmsDeliveryService $service
      */
-    public function __construct(DeliveryService $service)
+    public function __construct(CmsDeliveryService $service)
     {
         parent::__construct($service);
     }

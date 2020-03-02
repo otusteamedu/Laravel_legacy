@@ -10,7 +10,7 @@ class ImageResizeRepository
     /**
      * Image caching time
      */
-    private $cacheTime;
+    private int $cacheTime;
 
     /**
      * GetImageResizeHandler constructor.
@@ -29,7 +29,9 @@ class ImageResizeRepository
     public function resize(string $imgPath, string $width, string $height)
     {
         return Image::cache(function ($image) use ($imgPath, $width, $height) {
-            $image->make($imgPath)->resize($width, $height);
+            $image->make($imgPath)->resize($width, $height, function ($constraint) {
+                $constraint->aspectRatio();
+            });
         }, $this->cacheTime, true);
     }
 
@@ -53,12 +55,13 @@ class ImageResizeRepository
      * @param string $width
      * @return mixed
      */
-    public function width(string $imgPath, string $width)
+    public function widen(string $imgPath, string $width)
     {
         return Image::cache(function ($image) use ($imgPath, $width) {
-            $image->make($imgPath)->widen($width, function ($constraint) {
-                $constraint->upsize();
-            });
+            $image
+                ->make($imgPath)->widen($width, function ($constraint) {
+                    $constraint->upsize();
+                });
         }, $this->cacheTime, true);
     }
 

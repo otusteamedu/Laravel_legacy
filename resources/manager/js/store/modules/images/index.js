@@ -13,12 +13,49 @@ const state = {
     },
     item: {},
     items: [],
-    fileProgress: 0
+    searchItems: [],
+    fileProgress: 0,
+    pagination: {
+        per_page: 20,
+        total: 0,
+        current_page: 1,
+        from: 0,
+        to: 0,
+        sort_by: 'id',
+        sort_order: 'asc'
+    },
+    previousPage: null
 };
 
 const mutations = {
     UPDATE_ITEMS(state, payload) {
         state.items = payload;
+    },
+    SET_PAGINATION(state, payload) {
+        for (let field in state.pagination) {
+            if (payload[field]) {
+                state.pagination[field] = +payload[field];
+            }
+        }
+    },
+    RESET_PAGINATION(state, payload) {
+        state.pagination = {
+            per_page: 20,
+            total: 0,
+            current_page: 1,
+            from: 0,
+            to: 0,
+            sort_by: 'id',
+            sort_order: 'asc'
+        }
+    },
+    SET_PREVIOUS_PAGE(state, payload) {
+        state.previousPage = payload;
+    },
+    UPDATE_PAGINATION_FIELDS(state, payload) {
+        for(let field in payload) {
+            state.pagination[field] = payload[field];
+        }
     },
     UPDATE_ITEM(state, payload) {
         state.item = payload;
@@ -63,10 +100,21 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
-        return axiosAction('get', context, {
-            url: '/api/manager/images',
-            thenContent: response => context.commit('UPDATE_ITEMS', response.data)
+    index(context, payload) {
+        const form = new FormData();
+        for(let field in payload) {
+            form.append(field, payload[field]);
+        }
+
+        return axiosAction('post', context, {
+            url: '/api/manager/images/paginate',
+            data: form,
+            thenContent: response => {
+                context.commit('SET_PAGINATION', response.data);
+                payload['query']
+                    ? context.commit('SET_SEARCHED_DATA', response.data.data, { root: true })
+                    : context.commit('UPDATE_ITEMS', response.data.data);
+            }
         })
     },
     show(context, id) {
@@ -78,11 +126,15 @@ const actions = {
             }
         })
     },
-    store(context, images) {
+    store(context, payload) {
         const form = new FormData();
-        for(let image of images) {
+        for(const image of payload.files) {
             form.append('images[]', image);
         }
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
         return axiosAction('post', context, {
             url: '/api/manager/images',
             data: form,
@@ -93,7 +145,8 @@ const actions = {
             },
             thenContent: response => {
                 context.commit('CHANGE_FILE_PROGRESS', 0);
-                context.commit('UPDATE_ITEMS', response.data);
+                context.commit('SET_PAGINATION', response.data);
+                context.commit('UPDATE_ITEMS', response.data.data);
             }
         })
     },
@@ -124,7 +177,7 @@ const actions = {
             url: `/api/manager/images/${id}`,
             thenContent: response => {
                 context.commit('DELETE_ITEM', id);
-                context.commit('DELETE_SEARCHED_DATA_ITEM', id, { root: true })
+                context.commit('DELETE_SEARCHED_DATA_ITEM', id, { root: true });
             }
         })
     },
@@ -142,6 +195,15 @@ const actions = {
     },
     clearFields(context) {
         context.commit('CLEAR_FIELDS');
+    },
+    updatePaginationFields(context, payload) {
+        context.commit('UPDATE_PAGINATION_FIELDS', payload);
+    },
+    resetPagination(context) {
+        context.commit('RESET_PAGINATION');
+    },
+    setPreviousPage(context, payload) {
+        context.commit('SET_PREVIOUS_PAGE', payload);
     }
 };
 

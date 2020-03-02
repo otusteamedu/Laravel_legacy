@@ -4,20 +4,20 @@
 namespace App\Services\Setting\Handlers;
 
 
-use App\Services\Setting\Repositories\SettingRepository;
+use App\Services\Setting\Repositories\CmsSettingRepository;
 
 class GetSettingWithTypesHandler
 {
     /**
-     * @var SettingRepository
+     * @var CmsSettingRepository
      */
     private $repository;
 
     /**
      * GetTagHandler constructor.
-     * @param SettingRepository $repository
+     * @param CmsSettingRepository $repository
      */
-    public function __construct(SettingRepository $repository)
+    public function __construct(CmsSettingRepository $repository)
     {
         $this->repository = $repository;
     }

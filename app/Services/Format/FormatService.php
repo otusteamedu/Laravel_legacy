@@ -9,10 +9,7 @@ use Illuminate\Database\Eloquent\Collection;
 
 class FormatService
 {
-    /**
-     * @var FormatRepository
-     */
-    private $repository;
+    private FormatRepository $repository;
 
     /**
      * FormatService constructor.

@@ -111,7 +111,6 @@
                                  :imgDefault="item.path"
                                  :module="storeModule" />
 
-
                         <v-switch :vField="$v.publish"
                                   :differ="true"
                                   :value="publish"
@@ -144,6 +143,10 @@
             id: {
                 type: [ Number, String ],
                 required: true
+            },
+            page: {
+                type: Number,
+                default: null
             },
             result: []
         },
@@ -212,7 +215,8 @@
                 showAction: 'images/show',
                 clearFieldsAction: 'images/clearFields',
                 indexCategoryAction: 'categories/index',
-                indexSubcategoryAction: 'subCategories/indexByType'
+                indexSubcategoryAction: 'subCategories/indexByType',
+                setPreviousPageAction: 'images/setPreviousPage'
             }),
             onUpdate () {
                 return this.update({
@@ -223,7 +227,7 @@
                             topics: this.topics,
                             colors: this.colors,
                             interiors: this.interiors,
-                            owner_id: +this.owner,
+                            owner_id: this.owner,
                             tags: this.tags,
                             description: this.description
                         },
@@ -263,6 +267,7 @@
                 .catch(() => {
                     this.$router.go(-1) ? this.$router.go(-1) : this.$router.push(this.redirectRoute)
                 });
+            await this.setPreviousPageAction(this.page);
         }
     }
 </script>

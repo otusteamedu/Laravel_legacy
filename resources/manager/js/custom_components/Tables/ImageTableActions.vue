@@ -2,6 +2,7 @@
     <div v-if="item" class="table-actions">
 
         <control-button v-if="remove"
+                        title="Отвязать"
                         icon="remove"
                         color="md-info"
                         @click="onRemove" />
@@ -10,7 +11,7 @@
                             icon="edit"
                             color="md-success"
                             route="manager.images.edit"
-                            :params="{ id: item.id }" />
+                            :params="{ id: item.id, page }" />
 
         <control-button title="Удалить"
                         icon="delete"
@@ -30,6 +31,10 @@
             remove: {
                 type: Boolean,
                 default: false
+            },
+            page: {
+                type: Number,
+                default: null
             }
         },
         methods: {

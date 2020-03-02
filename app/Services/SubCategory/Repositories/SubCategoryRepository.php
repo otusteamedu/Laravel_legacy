@@ -3,10 +3,10 @@
 namespace App\Services\SubCategory\Repositories;
 
 
-use App\Services\Base\Category\Repositories\BaseCategoryRepository;
+use App\Services\Base\Category\Repositories\CmsBaseCategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class SubCategoryRepository extends BaseCategoryRepository
+abstract class SubCategoryRepository extends CmsBaseCategoryRepository
 {
     /**
      * @return Collection

@@ -27,7 +27,7 @@
                             </md-table-cell>
 
                             <md-table-cell v-if="category_type !== 'colors'" md-label="Превью">
-                                <thumb-table-cell :path="item.image_path" :width="200" />
+                                <thumb-table-cell :path="item.image_path" :width="150" />
                             </md-table-cell>
 
                             <md-table-cell v-else md-label="Превью">

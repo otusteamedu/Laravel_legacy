@@ -59,11 +59,10 @@ Object.defineProperty(Vue.prototype, "$Chartist", {
 
 /* eslint-disable no-new */
 new Vue({
-    el: "#app",
     store,
     render: h => h(App),
     router,
     data: {
         Chartist: Chartist
     }
-});
+}).$mount('#app');

@@ -1,6 +1,12 @@
 <template>
     <v-extended-table v-if="items.length"
-                      :items="items" >
+                      :items="items"
+                      :pagination="pagination"
+                      :serverPagination="true"
+                      @search="search"
+                      @sort="changeSort"
+                      @changePage="changePage"
+                      @changePerPage="changePerPage" >
 
         <template slot-scope="{ item }">
 
@@ -55,6 +61,8 @@
 </template>
 
 <script>
+    import { mapState, mapActions } from "vuex";
+
     import VExtendedTable from "@/custom_components/Tables/VExtendedTable";
     import TagsTableCell from "@/custom_components/Tables/TagsTableCell";
     import PaletteTableCell from "@/custom_components/Tables/PaletteTableCell";
@@ -75,11 +83,31 @@
             }
         },
         computed: {
-
+            ...mapState('images', {
+                pagination: state => state.pagination
+            }),
+            descPage () {
+                return this.pagination
+            }
         },
         methods: {
-            onPublish(id) {
+            ...mapActions('images', {
+                updatePaginationAction: 'updatePaginationFields'
+            }),
+            onPublish (id) {
                 this.$emit('publish', id);
+            },
+            changePage (item) {
+                this.$emit('changePage', item);
+            },
+            changePerPage (value) {
+                this.updatePaginationAction({ per_page: value });
+            },
+            changeSort (sortOrder) {
+                this.$emit('changeSort', sortOrder);
+            },
+            search (query) {
+                this.$emit('search', query);
             }
         }
     }

@@ -3,28 +3,16 @@
 namespace App\Services\ImageResize;
 
 use App\Services\ImageResize\Handlers\CreateResponseHandler;
-use App\Services\ImageResize\Handlers\GetImageResizeHandler;
 use App\Services\ImageResize\Handlers\GetPathExtensionHandler;
 use App\Services\ImageResize\Repositories\ImageResizeRepository;
-use Image;
-use File;
 
 class ImageResizeService
 {
-    /**
-     * @var ImageResizeRepository
-     */
-    private $repository;
+    private ImageResizeRepository $repository;
 
-    /**
-     * @var GetPathExtensionHandler
-     */
-    private $pathExtensionHandler;
+    private GetPathExtensionHandler $pathExtensionHandler;
 
-    /**
-     * @var CreateResponseHandler
-     */
-    private $createResponseHandler;
+    private CreateResponseHandler $createResponseHandler;
 
     /**
      * ImageResizeService constructor.
@@ -79,7 +67,7 @@ class ImageResizeService
     public function widen($width, $path)
     {
         list($imgPath, $ext) = $this->pathExtensionHandler->handle($path);
-        $img = $this->repository->width($imgPath, $width);
+        $img = $this->repository->widen($imgPath, $width);
 
         return $this->createResponseHandler->handle($img, $ext);
     }

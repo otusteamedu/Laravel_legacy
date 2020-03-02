@@ -36,6 +36,12 @@ Route::group(['prefix' => '/auth'], function() {
 });
 
 
+// Client API
+
+Route::post('images', 'Client\Image\ClientImageController@index');
+Route::get('categories', 'Client\Category\ClientCategoryController@index');
+
+
 // Cms
 
 Route::group(['prefix' => 'manager'], function() {
@@ -43,7 +49,7 @@ Route::group(['prefix' => 'manager'], function() {
 
     // Images
 
-    Route::post('images/list', 'Cms\Image\ImageController@list')
+    Route::post('images/paginate', 'Cms\Image\ImageController@paginateIndex')
         ->name('images.list');
     Route::post('images/{id}', 'Cms\Image\ImageController@update')
         ->name('images.update');
@@ -63,17 +69,19 @@ Route::group(['prefix' => 'manager'], function() {
         Route::group(['prefix' => 'categories'], function() {
             Route::get('type/{type}', 'Cms\Category\CategoryController@indexByType')
                 ->where('type', '[a-z]+');
-            Route::get('{id}/with-images', 'Cms\Category\CategoryController@showWithImages')
+            Route::post('{id}/images', 'Cms\Category\CategoryController@showImages')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/with-excluded-images', 'Cms\Category\CategoryController@showWithExcludedImages')
+            Route::post('{id}/with-images', 'Cms\Category\CategoryController@showWithImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/images/excluded', 'Cms\Category\CategoryController@showExcludedImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/with-excluded-images', 'Cms\Category\CategoryController@showWithExcludedImages')
                 ->where('id', '[0-9]+');
             Route::post('{id}', 'Cms\Category\CategoryController@update')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/images', 'Cms\Category\CategoryController@getImageList')
-                ->where('id', '[0-9]+');
             Route::post('{id}/images/add', 'Cms\Category\CategoryController@addImages')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/images/{image_id}/remove', 'Cms\Category\CategoryController@removeImage')
+            Route::post('{id}/images/{image_id}/remove', 'Cms\Category\CategoryController@removeImage')
                 ->where('id,image_id', '[0-9]+');
             Route::post('{id}/upload', 'Cms\Category\CategoryController@upload')
                 ->where('id', '[0-9]+');
@@ -89,13 +97,15 @@ Route::group(['prefix' => 'manager'], function() {
         Route::group(['prefix' => 'tags'], function() {
             Route::post('{id}', 'Cms\Tag\TagController@update')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/with-images', 'Cms\Tag\TagController@showWithImages')
+            Route::post('{id}/images', 'Cms\Tag\TagController@showImages')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/with-excluded-images', 'Cms\Tag\TagController@showWithExcludedImages')
+            Route::post('{id}/with-images', 'Cms\Tag\TagController@showWithImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/images/excluded', 'Cms\Tag\TagController@showExcludedImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/with-excluded-images', 'Cms\Tag\TagController@showWithExcludedImages')
                 ->where('id', '[0-9]+');
             Route::post('{id}', 'Cms\Tag\TagController@update')
-                ->where('id', '[0-9]+');
-            Route::get('{id}/images', 'Cms\Tag\TagController@getImageList')
                 ->where('id', '[0-9]+');
             Route::post('{id}/images/add', 'Cms\Tag\TagController@addImages')
                 ->where('id', '[0-9]+');
@@ -115,13 +125,15 @@ Route::group(['prefix' => 'manager'], function() {
         Route::group(['prefix' => 'owners'], function() {
             Route::post('{id}', 'Cms\Owner\OwnerController@update')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/with-images', 'Cms\Owner\OwnerController@showWithImages')
+            Route::post('{id}/images', 'Cms\Owner\OwnerController@showImages')
                 ->where('id', '[0-9]+');
-            Route::get('{id}/with-excluded-images', 'Cms\Owner\OwnerController@showWithExcludedImages')
+            Route::post('{id}/with-images', 'Cms\Owner\OwnerController@showWithImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/images/excluded', 'Cms\Owner\OwnerController@showExcludedImages')
+                ->where('id', '[0-9]+');
+            Route::post('{id}/with-excluded-images', 'Cms\Owner\OwnerController@showWithExcludedImages')
                 ->where('id', '[0-9]+');
             Route::post('{id}', 'Cms\Owner\OwnerController@update')
-                ->where('id', '[0-9]+');
-            Route::get('{id}/images', 'Cms\Owner\OwnerController@getImageList')
                 ->where('id', '[0-9]+');
             Route::post('{id}/images/add', 'Cms\Owner\OwnerController@addImages')
                 ->where('id', '[0-9]+');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Services\Uploader\ImageValidationBuilder;
+use App\Services\User\UserValidator;
 use Illuminate\Support\Facades\File;
 use Illuminate\Http\UploadedFile;
 use App\Services\Uploader\Uploader;
@@ -111,6 +112,35 @@ if (! function_exists('getFakerImageFromLocal')) {
     }
 }
 
+if (! function_exists('getImageByNameFromLocal')) {
+    /**
+     * @param array $images
+     * @param string $name
+     * @param string $seedsUploadImageDir
+     * @param string $seedsImageDir
+     * @return UploadedFile|null
+     */
+    function getImageByNameFromLocal(array $images, string $name, string $seedsUploadImageDir, string $seedsImageDir)
+    {
+        $image = Arr::first($images, function ($value, $key) use ($name) {
+            return $value === $name;
+        });
+
+        if (! $image) {
+            abort(404, 'SeedsException: Image with name "' . $name . '" not found');
+        }
+
+        $sourceImage = $seedsUploadImageDir . '/' . $image;
+        $destImage = $seedsImageDir . $image;
+
+        copy($sourceImage, $destImage);
+
+        return isImageValid($destImage)
+            ? getUploadedFileFromPath($destImage, true)
+            : null;
+    }
+}
+
 if (! function_exists('getImagesFromLocal')) {
     /**
      * @param string $dir
@@ -132,5 +162,3 @@ if (! function_exists('jwtAuth')) {
         return app()->make(JWTAuth::class);
     }
 }
-
-

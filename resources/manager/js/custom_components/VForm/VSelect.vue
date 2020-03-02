@@ -44,7 +44,7 @@
                 default: false
             },
             defaultValue: {
-                type: [ Array, Number, String ],
+                type: [ Array, Number, String, Object ],
                 default: null
             },
             defaultTitle: {

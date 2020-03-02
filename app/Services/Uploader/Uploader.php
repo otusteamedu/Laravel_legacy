@@ -9,20 +9,13 @@ use Illuminate\Support\Facades\File;
 
 class Uploader
 {
-    private $fileProps = [];
-    private $baseStoragePath;
-    private $uploadRules;
+    private array $fileProps = [];
+    private string $baseStoragePath;
+    private array $uploadRules;
 
-    /**
-     * @var ImageValidationBuilder
-     */
-    private $imageValidationBuilder;
+    private ImageValidationBuilder $imageValidationBuilder;
 
-    /**
-     * Image formats
-     * @var FormatService
-     */
-    private $formatService;
+    private FormatService $formatService;
 
     public function __construct(
         ImageValidationBuilder $imageValidationBuilder,

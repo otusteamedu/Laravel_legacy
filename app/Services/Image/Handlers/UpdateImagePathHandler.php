@@ -9,10 +9,7 @@ use Illuminate\Http\UploadedFile;
 
 class UpdateImagePathHandler
 {
-    /**
-     * @var Image
-     */
-    private $uploadModel;
+    private Image $uploadModel;
 
     /**
      * UploadImageHandler constructor.
@@ -27,6 +24,7 @@ class UpdateImagePathHandler
         $upload = uploader();
         $uploadAttributes = $upload->upload($imageFile);
         $upload->remove($image->path);
+
         $upload->update($image, $uploadAttributes);
     }
 }

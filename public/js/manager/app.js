@@ -4231,10 +4231,10 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     perPage: function perPage() {
       this.$emit("input", 1);
-    },
-    total: function total() {
-      this.$emit("input", 1);
-    }
+    } // total() {
+    //   this.$emit("input", 1);
+    // }
+
   }
 });
 
@@ -21641,7 +21641,7 @@ var render = function() {
                     })
                   : !_vm.vField.minLength && _vm.vRules.minLength
                   ? _c("input-notification-min-string", {
-                      attrs: { name: _vm.title }
+                      attrs: { name: _vm.title, min: _vm.min }
                     })
                   : !_vm.vField.testAlias && _vm.vRules.alias
                   ? _c("input-notification-alias", {
@@ -73485,7 +73485,6 @@ Object.defineProperty(vue__WEBPACK_IMPORTED_MODULE_0___default.a.prototype, "$Ch
 /* eslint-disable no-new */
 
 new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
-  el: "#app",
   store: _store__WEBPACK_IMPORTED_MODULE_2__["default"],
   render: function render(h) {
     return h(_App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]);
@@ -73494,7 +73493,7 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   data: {
     Chartist: chartist__WEBPACK_IMPORTED_MODULE_6___default.a
   }
-});
+}).$mount('#app');
 
 /***/ }),
 
@@ -77969,13 +77968,13 @@ __webpack_require__.r(__webpack_exports__);
  // Image pages
 
 var ImageList = function ImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(25)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(14)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Images/ImageList.vue */ "./resources/manager/js/pages/Dashboard/Images/ImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var ExcludedImageList = function ExcludedImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(18)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(21)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Images/ExcludedImageList.vue */ "./resources/manager/js/pages/Dashboard/Images/ExcludedImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -77994,19 +77993,19 @@ var CatalogPanel = function CatalogPanel(resolve) {
 };
 
 var CategoryList = function CategoryList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(19)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(22)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/Categories/CategoryList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/Categories/CategoryList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var CategoryCreate = function CategoryCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(16)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(19)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/Categories/CategoryCreate.vue */ "./resources/manager/js/pages/Dashboard/Catalog/Categories/CategoryCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var CategoryEdit = function CategoryEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(17)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(20)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/Categories/CategoryEdit.vue */ "./resources/manager/js/pages/Dashboard/Catalog/Categories/CategoryEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // SubCategories
@@ -78019,25 +78018,25 @@ var SubCategoryList = function SubCategoryList(resolve) {
 };
 
 var SubCategoryCreate = function SubCategoryCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(22)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(23)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/SubCategoryCreate.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/SubCategoryCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryEdit = function SubCategoryEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(23)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(24)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/SubCategoryEdit.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/SubCategoryEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryImageList = function SubCategoryImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(21)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(13)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/ImageList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/ImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryExcludedImageList = function SubCategoryExcludedImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(20)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(12)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/ExcludedImageList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/ExcludedImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Textures
@@ -78063,7 +78062,7 @@ var TextureEdit = function TextureEdit(resolve) {
 
 
 var UserList = function UserList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(15)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(18)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Users/UserList.vue */ "./resources/manager/js/pages/Dashboard/Users/UserList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -78082,7 +78081,7 @@ var UserEdit = function UserEdit(resolve) {
 
 
 var RoleList = function RoleList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(14)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(17)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Roles/RoleList.vue */ "./resources/manager/js/pages/Dashboard/Roles/RoleList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -78101,7 +78100,7 @@ var RoleEdit = function RoleEdit(resolve) {
 
 
 var PermissionList = function PermissionList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(12)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(15)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Permissions/PermissionList.vue */ "./resources/manager/js/pages/Dashboard/Permissions/PermissionList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -78164,7 +78163,7 @@ var StorePanel = function StorePanel(resolve) {
 
 
 var DeliveryList = function DeliveryList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(13)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(16)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Store/Delivery/DeliveryList.vue */ "./resources/manager/js/pages/Dashboard/Store/Delivery/DeliveryList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -78189,7 +78188,7 @@ var Error404 = function Error404(resolve) {
 };
 
 var ErrorsLayout = function ErrorsLayout(resolve) {
-  __webpack_require__.e(/*! require.ensure */ 24).then((function () {
+  __webpack_require__.e(/*! require.ensure */ 25).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Errors/ErrorsLayout.vue */ "./resources/manager/js/pages/Dashboard/Errors/ErrorsLayout.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
@@ -78455,7 +78454,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 var state = {
   pageTitle: '',
   serverErrors: [],
-  searchedData: []
+  searchedData: [],
+  searchQuery: '',
+  loading: false
 };
 var mutations = {
   SET_PAGE_TITLE: function SET_PAGE_TITLE(state, payload) {
@@ -78497,6 +78498,12 @@ var mutations = {
     state.searchedData = state.searchedData.filter(function (item) {
       return item.id !== +payload;
     });
+  },
+  SET_SEARCH_QUERY: function SET_SEARCH_QUERY(state, payload) {
+    state.searchQuery = payload.trim();
+  },
+  SET_LOADING: function SET_LOADING(state, payload) {
+    state.loading = !!payload;
   }
 };
 var actions = {
@@ -78505,6 +78512,12 @@ var actions = {
   },
   setSearchedData: function setSearchedData(context, payload) {
     context.commit('SET_SEARCHED_DATA', payload);
+  },
+  setSearchQuery: function setSearchQuery(context, payload) {
+    context.commit('SET_SEARCH_QUERY', payload);
+  },
+  setLoading: function setLoading(context, payload) {
+    context.commit('SET_LOADING', payload);
   }
 };
 var getters = {
@@ -78689,28 +78702,123 @@ var actions = {
       }
     });
   },
-  showWithImages: function showWithImages(context, payload) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
-      url: "/api/manager/catalog/categories/".concat(payload, "/with-images"),
+  showImages: function showImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.data) {
+      form.append(field, payload.data[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/categories/".concat(payload.id, "/images"),
+      data: form,
       thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        payload.data['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
+          root: true
+        });
+      }
+    });
+  },
+  showWithImages: function showWithImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.data) {
+      form.append(field, payload.data[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/categories/".concat(payload.id, "/with-images"),
+      data: form,
+      thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data['paginateData'], {
+          root: true
+        });
         context.commit('UPDATE_ITEM', response.data.item);
-        context.commit('images/UPDATE_ITEMS', response.data.images, {
+        context.commit('images/UPDATE_ITEMS', response.data['paginateData'].data, {
+          root: true
+        });
+      }
+    });
+  },
+  // showQuerySearchImages(context, payload) {
+  //     const form = new FormData();
+  //     for(let field in payload.data) {
+  //         form.append(field, payload.data[field]);
+  //     }
+  //
+  //     return axiosAction('post', context, {
+  //         url: `/api/manager/catalog/categories/${payload.id}/images/search`,
+  //         data: form,
+  //         thenContent: response => {
+  //             context.commit('images/SET_PAGINATION', response.data, { root: true });
+  //             context.commit('SET_SEARCHED_DATA', response.data.data, { root: true });
+  //         }
+  //     })
+  // },
+  showExcludedImages: function showExcludedImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.data) {
+      form.append(field, payload.data[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/categories/".concat(payload.id, "/images/excluded"),
+      data: form,
+      thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        payload.data['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
         });
       }
     });
   },
   showWithExcludedImages: function showWithExcludedImages(context, payload) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
-      url: "/api/manager/catalog/categories/".concat(payload, "/with-excluded-images"),
+    var form = new FormData();
+
+    for (var field in payload.data) {
+      form.append(field, payload.data[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/categories/".concat(payload.id, "/with-excluded-images"),
+      data: form,
       thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data['paginateData'], {
+          root: true
+        });
         context.commit('UPDATE_ITEM', response.data.item);
-        context.commit('images/UPDATE_ITEMS', response.data.images, {
+        context.commit('images/UPDATE_ITEMS', response.data['paginateData'].data, {
           root: true
         });
       }
     });
   },
+  // showQuerySearchExcludedImages(context, payload) {
+  //     const form = new FormData();
+  //
+  //     for(let field in payload.data) {
+  //         form.append(field, payload.data[field]);
+  //     }
+  //
+  //     return axiosAction('post', context, {
+  //         url: `/api/manager/catalog/categories/${payload.id}/images/excluded/search`,
+  //         data: form,
+  //         thenContent: response => {
+  //             context.commit('images/SET_PAGINATION', response.data, { root: true });
+  //             context.commit('SET_SEARCHED_DATA', response.data.data, { root: true });
+  //         }
+  //     })
+  // },
   publish: function publish(context, payload) {
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
       url: "/api/manager/catalog/categories/".concat(payload, "/publish"),
@@ -78786,6 +78894,10 @@ var actions = {
       }
     }
 
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
       url: "/api/manager/catalog/categories/".concat(payload.id, "/upload"),
       data: form,
@@ -78800,17 +78912,32 @@ var actions = {
         context.commit('images/CHANGE_FILE_PROGRESS', 0, {
           root: true
         });
-        context.commit('images/UPDATE_ITEMS', response.data, {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
         });
       }
     });
   },
   removeImage: function removeImage(context, payload) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
+    var form = new FormData();
+
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
       url: "/api/manager/catalog/categories/".concat(payload.category_id, "/images/").concat(payload.image_id, "/remove"),
+      data: form,
       thenContent: function thenContent(response) {
-        return context.commit('images/DELETE_ITEM', payload.image_id, {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        payload.paginationData['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
         });
       }
@@ -79039,11 +79166,48 @@ var state = {
   },
   item: {},
   items: [],
-  fileProgress: 0
+  searchItems: [],
+  fileProgress: 0,
+  pagination: {
+    per_page: 20,
+    total: 0,
+    current_page: 1,
+    from: 0,
+    to: 0,
+    sort_by: 'id',
+    sort_order: 'asc'
+  },
+  previousPage: null
 };
 var mutations = {
   UPDATE_ITEMS: function UPDATE_ITEMS(state, payload) {
     state.items = payload;
+  },
+  SET_PAGINATION: function SET_PAGINATION(state, payload) {
+    for (var field in state.pagination) {
+      if (payload[field]) {
+        state.pagination[field] = +payload[field];
+      }
+    }
+  },
+  RESET_PAGINATION: function RESET_PAGINATION(state, payload) {
+    state.pagination = {
+      per_page: 20,
+      total: 0,
+      current_page: 1,
+      from: 0,
+      to: 0,
+      sort_by: 'id',
+      sort_order: 'asc'
+    };
+  },
+  SET_PREVIOUS_PAGE: function SET_PREVIOUS_PAGE(state, payload) {
+    state.previousPage = payload;
+  },
+  UPDATE_PAGINATION_FIELDS: function UPDATE_PAGINATION_FIELDS(state, payload) {
+    for (var field in payload) {
+      state.pagination[field] = payload[field];
+    }
   },
   UPDATE_ITEM: function UPDATE_ITEM(state, payload) {
     state.item = payload;
@@ -79090,11 +79254,21 @@ var mutations = {
   }
 };
 var actions = {
-  index: function index(context) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_0__["axiosAction"])('get', context, {
-      url: '/api/manager/images',
+  index: function index(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload) {
+      form.append(field, payload[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_0__["axiosAction"])('post', context, {
+      url: '/api/manager/images/paginate',
+      data: form,
       thenContent: function thenContent(response) {
-        return context.commit('UPDATE_ITEMS', response.data);
+        context.commit('SET_PAGINATION', response.data);
+        payload['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('UPDATE_ITEMS', response.data.data);
       }
     });
   },
@@ -79107,14 +79281,14 @@ var actions = {
       }
     });
   },
-  store: function store(context, images) {
+  store: function store(context, payload) {
     var form = new FormData();
     var _iteratorNormalCompletion = true;
     var _didIteratorError = false;
     var _iteratorError = undefined;
 
     try {
-      for (var _iterator = images[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      for (var _iterator = payload.files[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
         var image = _step.value;
         form.append('images[]', image);
       }
@@ -79133,6 +79307,10 @@ var actions = {
       }
     }
 
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_0__["axiosAction"])('post', context, {
       url: '/api/manager/images',
       data: form,
@@ -79143,7 +79321,8 @@ var actions = {
       },
       thenContent: function thenContent(response) {
         context.commit('CHANGE_FILE_PROGRESS', 0);
-        context.commit('UPDATE_ITEMS', response.data);
+        context.commit('SET_PAGINATION', response.data);
+        context.commit('UPDATE_ITEMS', response.data.data);
       }
     });
   },
@@ -79217,6 +79396,15 @@ var actions = {
   },
   clearFields: function clearFields(context) {
     context.commit('CLEAR_FIELDS');
+  },
+  updatePaginationFields: function updatePaginationFields(context, payload) {
+    context.commit('UPDATE_PAGINATION_FIELDS', payload);
+  },
+  resetPagination: function resetPagination(context) {
+    context.commit('RESET_PAGINATION');
+  },
+  setPreviousPage: function setPreviousPage(context, payload) {
+    context.commit('SET_PREVIOUS_PAGE', payload);
   }
 };
 var getters = {

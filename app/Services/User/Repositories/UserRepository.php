@@ -4,14 +4,14 @@
 namespace App\Services\User\Repositories;
 
 use App\Models\User;
-use App\Services\Base\Resource\Repositories\BaseResourceRepository;
+use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Database\Eloquent\Collection;
 use App\Services\User\Resources\User as UserResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 
 
-class UserRepository extends BaseResourceRepository
+class UserRepository extends CmsBaseResourceRepository
 {
     /**
      * TextureRepository constructor.

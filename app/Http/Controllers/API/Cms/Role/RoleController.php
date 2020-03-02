@@ -7,15 +7,15 @@ use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Http\Controllers\API\Cms\Role\Requests\CreateRoleRequest;
 use App\Http\Controllers\API\Cms\Role\Requests\UpdateRoleRequest;
 use App\Models\Role;
-use App\Services\Role\RoleService;
+use App\Services\Role\CmsRoleService;
 
 class RoleController extends BaseResourceController
 {
     /**
      * RoleController constructor.
-     * @param RoleService $service
+     * @param CmsRoleService $service
      */
-    public function __construct(RoleService $service)
+    public function __construct(CmsRoleService $service)
     {
         parent::__construct($service);
     }

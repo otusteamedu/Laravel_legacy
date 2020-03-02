@@ -36212,7 +36212,9 @@ var staticRenderFns = [
               _c("div", { staticClass: "uk-navbar-center uk-visible@m" }, [
                 _c("ul", { staticClass: "uk-navbar-nav" }, [
                   _c("li", { staticClass: "uk-active" }, [
-                    _c("a", { attrs: { href: "/" } }, [_vm._v("Каталог")])
+                    _c("a", { attrs: { href: "/catalog" } }, [
+                      _vm._v("Каталог")
+                    ])
                   ]),
                   _c("li", [
                     _c("a", { attrs: { href: "/materials" } }, [

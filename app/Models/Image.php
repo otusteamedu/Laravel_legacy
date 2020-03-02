@@ -2,14 +2,26 @@
 
 namespace App\Models;
 
+use App\Events\Models\Image\ImageDeleted;
+use App\Events\Models\Image\ImageSaved;
+use App\Events\Models\Image\ImageUpdated;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Image extends Model
 {
+    use Searchable;
+
     /**
      * @var array
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected $dispatchesEvents = [
+        'saved' => ImageSaved::class,
+        'updated' => ImageUpdated::class,
+        'deleted' => ImageDeleted::class,
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

@@ -5,6 +5,7 @@ return [
     'image_upload_path' => 'storage/uploads/images/',
     'image_default_path' => 'storage/uploads/no_image/no_image.png',
     'storage_permissions' => 0755,
+    'image_resize_quality' => 90,
     'image_cache_time' => 86400,
     'image_upload_rules' => [
         'max_size' => 5242880,

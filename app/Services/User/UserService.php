@@ -6,13 +6,14 @@ namespace App\Services\User;
 
 use App\Http\Requests\FormRequest;
 use App\Models\User;
-use App\Services\Base\Resource\BaseResourceService;
+use App\Services\Base\Resource\CmsBaseResourceService;
+use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\User\Handlers\CreateUserHandler;
 use App\Services\User\Handlers\UpdateUserHandler;
 use App\Services\User\Repositories\UserRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserService extends BaseResourceService
+class UserService extends CmsBaseResourceService
 {
     /**
      * @var CreateUserHandler
@@ -25,18 +26,20 @@ class UserService extends BaseResourceService
     private UpdateUserHandler $updateHandler;
 
     /**
-     * UserService constructor.
+     * UserServiceCms constructor.
      * @param UserRepository $repository
+     * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param CreateUserHandler $createUserHandler
      * @param UpdateUserHandler $updateUserHandler
      */
     public function __construct(
         UserRepository $repository,
+        ClearCacheByTagHandler $clearCacheByTagHandler,
         CreateUserHandler $createUserHandler,
         UpdateUserHandler $updateUserHandler
     )
     {
-        parent::__construct($repository);
+        parent::__construct($repository, $clearCacheByTagHandler);
         $this->repository = $repository;
         $this->storeHandler = $createUserHandler;
         $this->updateHandler = $updateUserHandler;

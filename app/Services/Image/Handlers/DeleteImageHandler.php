@@ -5,20 +5,20 @@ namespace App\Services\Image\Handlers;
 
 
 use App\Models\Image;
-use App\Services\Image\Repositories\ImageRepository;
+use App\Services\Image\Repositories\CmsImageRepository;
 
 class DeleteImageHandler
 {
     /**
-     * @var ImageRepository
+     * @var CmsImageRepository
      */
     private $repository;
 
     /**
      * DeleteImageHandler constructor.
-     * @param ImageRepository $repository
+     * @param CmsImageRepository $repository
      */
-    public function __construct(ImageRepository $repository)
+    public function __construct(CmsImageRepository $repository)
     {
         $this->repository = $repository;
     }

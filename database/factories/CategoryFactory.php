@@ -9,7 +9,7 @@ $factory->define(Category::class, function (Faker $faker) {
 
     $uploadDir = public_path(config('uploads.image_upload_path'));
 
-    $seedsUploadImageDir = config('seeds.seeds_uploads_path');
+    $seedsUploadImageDir = config('seeds.seeds_uploads_path') . 'images';
     $seedsImageDir = public_path(config('seeds.seeds_path'));
 
     File::deleteDirectory($seedsImageDir);

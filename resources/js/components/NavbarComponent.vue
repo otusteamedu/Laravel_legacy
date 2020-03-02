@@ -8,7 +8,7 @@
                         a.tm-logo.uk-logo.uk-icon(href="" data-uk-icon="calipari")
                     .uk-navbar-center(class="uk-visible@m")
                         ul.uk-navbar-nav
-                            li.uk-active: a(href="/") Каталог
+                            li.uk-active: a(href="/catalog") Каталог
                             li: a(href="/materials") Материалы
                             li: a(href="#") Информация
                             li: a(href="#") Портфолио

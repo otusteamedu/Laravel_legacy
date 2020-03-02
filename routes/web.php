@@ -27,6 +27,10 @@ Route::get('materials', function () {
     return view('pages.materials');
 })->name('materials');
 
+Route::get('catalog', function () {
+    return view('pages.catalog');
+})->name('catalog');
+
 Route::get('login', function () {
     return view('auth.login');
 })->name('login');

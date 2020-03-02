@@ -1,17 +1,18 @@
 <template>
     <div>
         <md-table :value="queriedData"
-                  :md-sort.sync="currentSort"
-                  :md-sort-order.sync="currentSortOrder"
+                  :md-sort.sync="pagination.sort_by"
+                  :md-sort-order.sync="pagination.sort_order"
                   :md-sort-fn="customSort"
                   class="paginated-table table-striped table-hover"
+                  :class="{ loading }"
         >
             <md-table-toolbar class="mb-3">
                 <md-field>
                     <label for="pages">На странице</label>
-                    <md-select v-model="pagination.perPage" name="pages">
+                    <md-select :value="pagination.per_page" @md-selected="changePerPage" name="pages">
                         <md-option
-                            v-for="item in pagination.perPageOptions"
+                            v-for="item in perPageOptions"
                             :key="item"
                             :label="item"
                             :value="item">
@@ -26,7 +27,9 @@
                         clearable
                         style="width: 200px"
                         placeholder="Поиск"
-                        v-model="searchQuery">
+                        :value="searchQuery"
+                        @input="setSearchQueryAction"
+                    >
                     </md-input>
                 </md-field>
             </md-table-toolbar>
@@ -38,23 +41,23 @@
         </md-table>
         <md-card-actions md-alignment="space-between">
             <div class="">
-                <p class="card-category">{{from + 1}} - {{to}} / {{total}}</p>
+                <p class="card-category" v-if="serverPagination">{{pagination.from}} - {{pagination.to}} / {{total}}</p>
+                <p class="card-category" v-else>{{from + 1}} - {{to}} / {{total}}</p>
             </div>
             <pagination class="pagination-no-border pagination-success"
-                        v-model="pagination.currentPage"
-                        :per-page="pagination.perPage"
-                        :total="total">
+                        :per-page="pagination.per_page"
+                        :total="total"
+                        v-model="pagination.current_page"
+                        @input="changePage" >
             </pagination>
         </md-card-actions>
     </div>
 </template>
 
 <script>
+    import { mapState, mapActions } from 'vuex'
     import { Pagination } from '@/components'
     import Fuse from 'fuse.js'
-    import { mapState } from 'vuex'
-
-
 
     export default {
         name: "VExtendedTable",
@@ -71,62 +74,89 @@
                 type: Object,
                 default() {
                     return {
-                        perPage: 50,
-                        currentPage: 1,
-                        perPageOptions: [ 50, 200, 500, 1000 ],
-                        total: 0
+                        per_page: 20,
+                        current_page: 1,
+                        sort_by: 'id',
+                        sort_order: 'asc'
                     }
                 }
             },
-            sortOrder: {
-                type: String,
-                default: 'asc'
+            perPageOptions: {
+                type: Array,
+                default: () => [ 20, 50, 100, 200 ]
+            },
+            serverPagination: {
+                type: Boolean,
+                default: false
             }
         },
         components: { Pagination },
         data () {
             return {
-                searchQuery: '',
                 fuseSearch: null,
-                currentSort: 'id',
-                currentSortOrder: 'asc'
+                previousSortOrder: 'asc',
+                searchTmt: null
             }
         },
         computed: {
             ...mapState([
-                'searchedData'
+                'searchedData',
+                'searchQuery',
+                'loading'
             ]),
             queriedData () {
                 let result = this.items;
+
                 if(this.searchedData.length > 0){
                     result = this.searchedData;
                 }
+
                 return result.slice(this.from, this.to)
             },
             to () {
-                let highBound = this.from + this.pagination.perPage;
+                if (this.serverPagination) {
+                    return this.items.length;
+                }
+
+                let highBound = this.from + this.pagination.per_page;
                 if (this.total < highBound) {
                     highBound = this.total
                 }
+
                 return highBound
             },
             from () {
-                return this.pagination.perPage * (this.pagination.currentPage - 1)
+                return this.serverPagination
+                    ? 0
+                    : this.pagination.per_page * (this.pagination.current_page - 1);
             },
             total () {
-                return this.searchedData.length > 0 ? this.searchedData.length : this.items.length;
+                return this.pagination.total
+                    ? this.pagination.total
+                    : this.searchedData.length > 0 ? this.searchedData.length : this.items.length;
             }
         },
         methods: {
-            setSearchedData(result) {
-                this.$store.dispatch('setSearchedData', result);
-            },
+            ...mapActions({
+                setSearchedDataAction: 'setSearchedData',
+                setSearchQueryAction: 'setSearchQuery'
+            }),
             customSort (value) {
+                if (this.previousSortOrder !== this.pagination.sort_order) {
+                    this.$emit('sort', this.pagination.sort_order);
+                    this.previousSortOrder = this.pagination.sort_order;
+                }
+
+                if (! this.serverPagination) {
+                    return this.sort(value);
+                }
+            },
+            sort (value) {
                 return value.sort((a, b) => {
-                    const sortBy = this.currentSort;
+                    const sortBy = this.pagination.sort_by;
                     const numberSort = typeof a[sortBy] === 'number' && typeof b[sortBy] === 'number';
 
-                    if (this.currentSortOrder === 'asc') {
+                    if (this.pagination.sort_order === 'asc') {
                         return numberSort
                             ? a[sortBy] < b[sortBy] ? -1 : 1
                             : a[sortBy].localeCompare(b[sortBy])
@@ -137,34 +167,71 @@
                         : b[sortBy].localeCompare(a[sortBy])
                 })
             },
-            setSearch (keys) {
-                this.fuseSearch = new Fuse(this.items, {keys, threshold: 0.3})
+            setFuseSearch () {
+                if (! this.serverPagination) {
+                    this.initFuseSearch(this.searchFields);
+                }
+            },
+            initFuseSearch (keys) {
+                this.fuseSearch = new Fuse(this.items, { keys, threshold: 0.3 })
+            },
+            changePage (item) {
+                this.$emit('changePage', item);
+            },
+            changePerPage (value) {
+                this.$emit('changePerPage', value);
+            },
+            searchOnServer (query) {
+                this.$emit('search', query);
+                if (! query) {
+                    this.setSearchedDataAction([])
+                }
+            },
+            search (query) {
+                query
+                    ? this.setSearchedDataAction(this.fuseSearch.search(query))
+                    : this.setSearchedDataAction([]);
+            },
+            handleSearch (query) {
+                console.log('handleSearch')
+                this.serverPagination
+                    ? this.searchOnServer(query)
+                    : this.search(query);
             }
         },
         watch: {
             items () {
-                this.setSearch(this.searchFields);
+                this.setFuseSearch(this.searchFields);
             },
-            searchQuery (value){
-                let result = this.items;
-                if (value !== '') {
-                    result = this.fuseSearch.search(this.searchQuery)
+            searchQuery (value) {
+                const query = value.trim();
+
+                if (! query) {
+                    this.setSearchedDataAction([])
                 }
-                this.setSearchedData(result)
+                clearTimeout(this.searchTmt);
+                this.searchTmt = setTimeout(() => this.serverPagination
+                        ? this.searchOnServer(this.searchQuery)
+                        : this.search(this.searchQuery), 300);
             }
         },
         created() {
-            this.setSearchedData([]);
+            this.setSearchedDataAction([]);
+            this.setSearchQueryAction('');
         },
         mounted () {
-            this.setSearch(this.searchFields);
+            this.setFuseSearch(this.searchFields);
+            this.previousSortOrder = this.pagination.sort_order;
         }
     }
 </script>
 
-<style scoped>
+<style>
     .tm-palette {
         width: 50px;
         height: 50px;
+    }
+    .loading td {
+        opacity: 0;
     }
 </style>

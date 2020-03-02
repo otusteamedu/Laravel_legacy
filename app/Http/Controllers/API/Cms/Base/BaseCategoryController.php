@@ -3,16 +3,16 @@
 namespace App\Http\Controllers\API\Cms\Base;
 
 use App\Http\Requests\FormRequest;
-use App\Services\Base\Category\BaseCategoryService;
+use App\Services\Base\Category\CmsBaseCategoryService;
 use Illuminate\Http\JsonResponse;
 
 class BaseCategoryController extends BaseResourceController
 {
     /**
      * BaseCategoryController constructor.
-     * @param BaseCategoryService $service
+     * @param CmsBaseCategoryService $service
      */
-    public function __construct(BaseCategoryService $service)
+    public function __construct(CmsBaseCategoryService $service)
     {
         parent::__construct($service);
     }
@@ -27,30 +27,43 @@ class BaseCategoryController extends BaseResourceController
     }
 
     /**
+     * @param FormRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function showWithImages(int $id): JsonResponse
+    public function showImages(FormRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->showWithImages($id));
+        return response()->json($this->service->showImages($request->all(), $id));
     }
 
     /**
+     * @param FormRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function showWithExcludedImages(int $id): JsonResponse
+    public function showWithImages(FormRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->showWithExcludedImages($id));
+        return response()->json($this->service->showWithImages($request->all(), $id));
     }
 
     /**
+     * @param FormRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function getImageList(int $id): JsonResponse
+    public function showExcludedImages(FormRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->getImageList($id));
+        return response()->json($this->service->showExcludedImages($request->all(), $id));
+    }
+
+    /**
+     * @param FormRequest $request
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function showWithExcludedImages(FormRequest $request, int $id): JsonResponse
+    {
+        return response()->json($this->service->showWithExcludedImages($request->all(), $id));
     }
 
     /**
@@ -74,12 +87,13 @@ class BaseCategoryController extends BaseResourceController
     }
 
     /**
+     * @param FormRequest $request
      * @param int $categoryId
      * @param int $imageId
-     * @return int
+     * @return mixed
      */
-    public function removeImage(int $categoryId, int $imageId): int
+    public function removeImage(FormRequest $request, int $categoryId, int $imageId)
     {
-        return $this->service->removeImage($categoryId, $imageId);
+        return $this->service->removeImage($request->all(), $categoryId, $imageId);
     }
 }
