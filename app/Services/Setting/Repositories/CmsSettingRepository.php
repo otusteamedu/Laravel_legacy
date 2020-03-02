@@ -7,7 +7,7 @@ use App\Models\Setting;
 use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Database\Eloquent\Collection;
 
-class SettingRepositoryCms extends CmsBaseResourceRepository
+class CmsSettingRepository extends CmsBaseResourceRepository
 {
     /**
      * SettingRepository constructor.

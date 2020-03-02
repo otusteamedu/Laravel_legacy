@@ -5,16 +5,16 @@ namespace App\Services\Texture\Handlers;
 
 
 use App\Models\Texture;
-use App\Services\Texture\Repositories\TextureRepositoryCms;
+use App\Services\Texture\Repositories\CmsTextureRepository;
 
 class DeleteTextureHandler
 {
     /**
-     * @var TextureRepositoryCms
+     * @var CmsTextureRepository
      */
     private $repository;
 
-    public function __construct(TextureRepositoryCms $repository)
+    public function __construct(CmsTextureRepository $repository)
     {
         $this->repository = $repository;
     }

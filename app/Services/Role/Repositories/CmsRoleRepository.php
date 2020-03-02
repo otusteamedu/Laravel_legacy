@@ -10,7 +10,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use App\Services\Role\Resources\Role as RoleResource;
 use Illuminate\Support\Arr;
 
-class RoleRepositoryCms extends CmsBaseResourceRepository
+class CmsRoleRepository extends CmsBaseResourceRepository
 {
     /**
      * TextureRepository constructor.

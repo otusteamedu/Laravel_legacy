@@ -5,12 +5,12 @@ namespace App\Http\Controllers\API\Cms\User;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Http\Controllers\API\Cms\User\Requests\CreateUserRequest;
 use App\Http\Controllers\API\Cms\User\Requests\UpdateUserRequest;
-use App\Services\User\UserServiceCms;
+use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends BaseResourceController
 {
-    public function __construct(UserServiceCms $service)
+    public function __construct(UserService $service)
     {
         parent::__construct($service);
     }

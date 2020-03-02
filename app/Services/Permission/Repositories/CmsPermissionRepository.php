@@ -6,7 +6,7 @@ namespace App\Services\Permission\Repositories;
 use App\Models\Permission;
 use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 
-class PermissionRepositoryCms extends CmsBaseResourceRepository
+class CmsPermissionRepository extends CmsBaseResourceRepository
 {
     /**
      * PermissionRepository constructor.

@@ -4,20 +4,20 @@
 namespace App\Services\Setting\Handlers;
 
 
-use App\Services\Setting\Repositories\SettingRepositoryCms;
+use App\Services\Setting\Repositories\CmsSettingRepository;
 
 class SetImageSettingValueHandler
 {
     /**
-     * @var SettingRepositoryCms
+     * @var CmsSettingRepository
      */
     private $repository;
 
     /**
      * GetTagHandler constructor.
-     * @param SettingRepositoryCms $repository
+     * @param CmsSettingRepository $repository
      */
-    public function __construct(SettingRepositoryCms $repository)
+    public function __construct(CmsSettingRepository $repository)
     {
         $this->repository = $repository;
     }

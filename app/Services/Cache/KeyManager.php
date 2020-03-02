@@ -18,6 +18,15 @@ class KeyManager
     }
 
     /**
+     * @param array $params
+     * @return string
+     */
+    public function getImagesKey(array $params): string
+    {
+        return $this->getKey(Key::IMAGES_PREFIX, $this->generateParamsKeySuffix($params));
+    }
+
+    /**
      * @param FormRequest $request
      * @param array|null $keys
      * @return string

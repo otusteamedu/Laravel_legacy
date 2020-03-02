@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Events\Models\Category;
+namespace App\Events\Models;
 
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -10,7 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-abstract class Category
+abstract class Model
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

@@ -10,7 +10,7 @@ use Illuminate\Contracts\Pagination\Paginator;
 use App\Services\Image\Resources\ImageDetailed as ImageDetailedResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ImageRepositoryCms extends CmsBaseResourceRepository
+class CmsImageRepository extends CmsBaseResourceRepository
 {
     /**
      * ImageRepository constructor.

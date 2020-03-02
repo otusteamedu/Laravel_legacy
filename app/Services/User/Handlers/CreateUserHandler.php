@@ -6,17 +6,17 @@ namespace App\Services\User\Handlers;
 
 use App\Http\Requests\FormRequest;
 use App\Models\User;
-use App\Services\User\Repositories\UserRepositoryCms;
+use App\Services\User\Repositories\UserRepository;
 use Illuminate\Support\Arr;
 
 class CreateUserHandler
 {
     /**
      * @param FormRequest $request
-     * @param UserRepositoryCms $repository
+     * @param UserRepository $repository
      * @return User
      */
-    public function handle(FormRequest $request, UserRepositoryCms $repository): User
+    public function handle(FormRequest $request, UserRepository $repository): User
     {
         $data = $request->all();
         $data['password'] = bcrypt($data['password']);

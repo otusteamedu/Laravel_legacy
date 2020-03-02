@@ -11,7 +11,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Arr;
 
 
-class UserRepositoryCms extends CmsBaseResourceRepository
+class UserRepository extends CmsBaseResourceRepository
 {
     /**
      * TextureRepository constructor.

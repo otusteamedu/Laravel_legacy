@@ -10,11 +10,11 @@ use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Setting\Handlers\GetSettingsWithTypesHandler;
 use App\Services\Setting\Handlers\GetSettingWithTypesHandler;
 use App\Services\Setting\Handlers\SetImageSettingValueHandler;
-use App\Services\Setting\Repositories\SettingRepositoryCms;
+use App\Services\Setting\Repositories\CmsSettingRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use Illuminate\Database\Eloquent\Collection;
 
-class SettingServiceCms extends CmsBaseResourceService
+class CmsSettingService extends CmsBaseResourceService
 {
     private GetSettingWithTypesHandler $showWithTypesHandler;
     private GetSettingsWithTypesHandler $indexWithTypesHandler;
@@ -22,14 +22,14 @@ class SettingServiceCms extends CmsBaseResourceService
 
     /**
      * SettingServiceCms constructor.
-     * @param SettingRepositoryCms $repository
+     * @param CmsSettingRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param GetSettingWithTypesHandler $getSettingWithTypesHandler
      * @param GetSettingsWithTypesHandler $getSettingsWithTypesHandler
      * @param SetImageSettingValueHandler $setImageSettingValueHandler
      */
     public function __construct(
-        SettingRepositoryCms $repository,
+        CmsSettingRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         GetSettingWithTypesHandler $getSettingWithTypesHandler,
         GetSettingsWithTypesHandler $getSettingsWithTypesHandler,

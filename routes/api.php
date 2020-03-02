@@ -38,7 +38,7 @@ Route::group(['prefix' => '/auth'], function() {
 
 // Client API
 
-Route::post('images', 'Client\Image\ImageController@index');
+Route::post('images', 'Client\Image\ClientImageController@index');
 Route::get('categories', 'Client\Category\ClientCategoryController@index');
 
 

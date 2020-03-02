@@ -7,18 +7,18 @@ namespace App\Services\Role;
 use App\Http\Requests\FormRequest;
 use App\Models\Role;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\Role\Repositories\RoleRepositoryCms;
+use App\Services\Role\Repositories\CmsRoleRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
 
-class RoleServiceCms extends CmsBaseResourceService
+class CmsRoleService extends CmsBaseResourceService
 {
     /**
      * RoleServiceCms constructor.
-     * @param RoleRepositoryCms $repository
+     * @param CmsRoleRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      */
     public function __construct(
-        RoleRepositoryCms $repository,
+        CmsRoleRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler
     )
     {

@@ -6,11 +6,11 @@ use App\Http\Controllers\API\Cms\Permission\Requests\CreatePermissionRequest;
 use App\Http\Controllers\API\Cms\Permission\Requests\UpdatePermissionRequest;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Models\Permission;
-use App\Services\Permission\PermissionServiceCms;
+use App\Services\Permission\CmsPermissionService;
 
 class PermissionController extends BaseResourceController
 {
-    public function __construct(PermissionServiceCms $service)
+    public function __construct(CmsPermissionService $service)
     {
         parent::__construct($service);
     }

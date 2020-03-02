@@ -4,7 +4,7 @@
 namespace App\Services\Base\Auth;
 
 
-use App\Services\User\Repositories\UserRepositoryCms;
+use App\Services\User\Repositories\UserRepository;
 use Tymon\JWTAuth\JWTAuth;
 
 abstract class BaseAuthService
@@ -15,16 +15,16 @@ abstract class BaseAuthService
     protected $auth;
 
     /**
-     * @var UserRepositoryCms
+     * @var UserRepository
      */
     protected $repository;
 
     /**
      * BaseAuthService constructor.
      * @param JWTAuth $auth
-     * @param UserRepositoryCms $repository
+     * @param UserRepository $repository
      */
-    public function __construct(JWTAuth $auth, UserRepositoryCms $repository)
+    public function __construct(JWTAuth $auth, UserRepository $repository)
     {
         $this->auth = $auth;
         $this->repository = $repository;

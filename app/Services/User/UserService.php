@@ -10,10 +10,10 @@ use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\User\Handlers\CreateUserHandler;
 use App\Services\User\Handlers\UpdateUserHandler;
-use App\Services\User\Repositories\UserRepositoryCms;
+use App\Services\User\Repositories\UserRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class UserServiceCms extends CmsBaseResourceService
+class UserService extends CmsBaseResourceService
 {
     /**
      * @var CreateUserHandler
@@ -27,13 +27,13 @@ class UserServiceCms extends CmsBaseResourceService
 
     /**
      * UserServiceCms constructor.
-     * @param UserRepositoryCms $repository
+     * @param UserRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param CreateUserHandler $createUserHandler
      * @param UpdateUserHandler $updateUserHandler
      */
     public function __construct(
-        UserRepositoryCms $repository,
+        UserRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         CreateUserHandler $createUserHandler,
         UpdateUserHandler $updateUserHandler

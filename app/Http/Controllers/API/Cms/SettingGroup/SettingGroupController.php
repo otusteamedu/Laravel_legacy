@@ -5,16 +5,16 @@ namespace App\Http\Controllers\API\Cms\SettingGroup;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Http\Controllers\API\Cms\SettingGroup\Requests\CreateSettingGroupRequest;
 use App\Http\Controllers\API\Cms\SettingGroup\Requests\UpdateSettingGroupRequest;
-use App\Services\SettingGroup\SettingGroupServiceCms;
+use App\Services\SettingGroup\CmsSettingGroupService;
 use Illuminate\Http\JsonResponse;
 
 class SettingGroupController extends BaseResourceController
 {
     /**
      * SettingGroupController constructor.
-     * @param SettingGroupServiceCms $service
+     * @param CmsSettingGroupService $service
      */
-    public function __construct(SettingGroupServiceCms $service)
+    public function __construct(CmsSettingGroupService $service)
     {
         parent::__construct($service);
     }

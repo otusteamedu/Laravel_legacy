@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Events\Models\Category;
-
+namespace App\Events\Models\Image;
 
 use App\Events\Models\Model;
 use Illuminate\Broadcasting\Channel;
@@ -12,7 +11,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class CategorySaved extends Model
+class ImageUpdated extends Model
 {
 
 }

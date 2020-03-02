@@ -5,19 +5,19 @@ namespace App\Services\SettingGroup;
 
 
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\SettingGroup\Repositories\SettingGroupRepositoryCms;
+use App\Services\SettingGroup\Repositories\CmsSettingGroupRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use Illuminate\Support\Collection;
 
-class SettingGroupServiceCms extends CmsBaseResourceService
+class CmsSettingGroupService extends CmsBaseResourceService
 {
     /**
      * SettingGroupServiceCms constructor.
-     * @param SettingGroupRepositoryCms $repository
+     * @param CmsSettingGroupRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      */
     public function __construct(
-        SettingGroupRepositoryCms $repository,
+        CmsSettingGroupRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler
     )
     {

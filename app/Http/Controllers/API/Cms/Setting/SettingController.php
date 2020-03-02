@@ -7,16 +7,16 @@ use App\Http\Controllers\API\Cms\Setting\Requests\CreateSettingRequest;
 use App\Http\Controllers\API\Cms\Setting\Requests\SetImageSettingValueRequest;
 use App\Http\Controllers\API\Cms\Setting\Requests\SetTextSettingValueRequest;
 use App\Http\Controllers\API\Cms\Setting\Requests\UpdateSettingRequest;
-use App\Services\Setting\SettingServiceCms;
+use App\Services\Setting\CmsSettingService;
 use Illuminate\Http\JsonResponse;
 
 class SettingController extends BaseResourceController
 {
     /**
      * SettingController constructor.
-     * @param SettingServiceCms $service
+     * @param CmsSettingService $service
      */
-    public function __construct(SettingServiceCms $service)
+    public function __construct(CmsSettingService $service)
     {
         parent::__construct($service);
     }

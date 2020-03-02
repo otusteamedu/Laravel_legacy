@@ -5,21 +5,21 @@ namespace App\Http\Controllers\API\Cms\Image;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Http\Controllers\API\Cms\Image\Requests\UpdateImageRequest;
 use App\Http\Requests\FormRequest;
-use App\Services\Image\ImageServiceCms;
+use App\Services\Image\CmsImageService;
 use Illuminate\Http\JsonResponse;
 
 class ImageController extends BaseResourceController
 {
     /**
-     * @var ImageServiceCms
+     * @var CmsImageService
      */
     protected $service;
 
     /**
      * ImageController constructor.
-     * @param ImageServiceCms $service
+     * @param CmsImageService $service
      */
-    public function __construct(ImageServiceCms $service)
+    public function __construct(CmsImageService $service)
     {
         parent::__construct($service);
     }

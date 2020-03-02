@@ -12,11 +12,11 @@ use App\Services\Image\Handlers\IndexHandler;
 use App\Services\Image\Handlers\SyncAssociativeCategoryOfImageHandler;
 use App\Services\Image\Handlers\UpdateImagePathHandler;
 use App\Services\Image\Handlers\UploadImageHandler;
-use App\Services\Image\Repositories\ImageRepositoryCms;
+use App\Services\Image\Repositories\CmsImageRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Cache;
 
-class ImageServiceCms extends CmsBaseResourceService
+class CmsImageService extends CmsBaseResourceService
 {
     private UploadImageHandler $storeHandler;
     private UpdateImagePathHandler $updateItemPathHandler;
@@ -25,7 +25,7 @@ class ImageServiceCms extends CmsBaseResourceService
     private IndexHandler $indexHandler;
 
     public function __construct(
-        ImageRepositoryCms $repository,
+        CmsImageRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadImageHandler $uploadImageHandler,
         UpdateImagePathHandler $updateImagePathHandler,

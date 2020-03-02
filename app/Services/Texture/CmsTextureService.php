@@ -8,12 +8,12 @@ use App\Http\Requests\FormRequest;
 use App\Models\Texture;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\Texture\Repositories\TextureRepositoryCms;
+use App\Services\Texture\Repositories\CmsTextureRepository;
 use App\Services\Texture\Handlers\CreateTextureHandler;
 use App\Services\Texture\Handlers\DeleteTextureHandler;
 use App\Services\Texture\Handlers\UpdateTextureHandler;
 
-class TextureServiceCms extends CmsBaseResourceService
+class CmsTextureService extends CmsBaseResourceService
 {
     private $storeHandler;
     private $updateHandler;
@@ -21,14 +21,14 @@ class TextureServiceCms extends CmsBaseResourceService
 
     /**
      * TextureServiceCms constructor.
-     * @param TextureRepositoryCms $repository
+     * @param CmsTextureRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param CreateTextureHandler $createTextureHandler
      * @param UpdateTextureHandler $updateTextureHandler
      * @param DeleteTextureHandler $deleteTextureHandler
      */
     public function __construct(
-        TextureRepositoryCms $repository,
+        CmsTextureRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         CreateTextureHandler $createTextureHandler,
         UpdateTextureHandler $updateTextureHandler,

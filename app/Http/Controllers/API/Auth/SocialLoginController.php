@@ -9,7 +9,7 @@ use App\Http\Middleware\UserActive;
 use App\Http\Middleware\UserVerified;
 use App\Models\User;
 use App\Services\Auth\AuthService;
-use App\Services\User\UserServiceCms;
+use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
@@ -24,12 +24,12 @@ class SocialLoginController extends BaseLoginController
      * SocialLoginController constructor.
      * @param JWTAuth $auth
      * @param AuthService $authService
-     * @param UserServiceCms $userService
+     * @param UserService $userService
      */
     public function __construct(
         JWTAuth $auth,
         AuthService $authService,
-        UserServiceCms $userService
+        UserService $userService
     )
     {
         parent::__construct($auth, $authService, $userService);

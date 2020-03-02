@@ -5,18 +5,18 @@ namespace App\Services\Permission;
 
 
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\Permission\Repositories\PermissionRepositoryCms;
+use App\Services\Permission\Repositories\CmsPermissionRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
 
-class PermissionServiceCms extends CmsBaseResourceService
+class CmsPermissionService extends CmsBaseResourceService
 {
     /**
      * PermissionServiceCms constructor.
-     * @param PermissionRepositoryCms $repository
+     * @param CmsPermissionRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      */
     public function __construct(
-        PermissionRepositoryCms $repository,
+        CmsPermissionRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler
     )
     {
