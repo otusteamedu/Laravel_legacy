@@ -7,7 +7,7 @@
     <meta name="description" content="Мониторинг и поддержка Ваших сайтов 24/7">
     <link rel="icon" type="image/png" href="{{asset('theme/favicons/favicon.ico')}}" sizes="16x16">
     <link rel="stylesheet" href="{{asset('theme/fonts/font-awesome-4.3.0/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" href="{{asset('theme/css/admin.css')}}">
+    <link rel="stylesheet" href="{{asset('theme/css/cms.css')}}">
 </head>
 <body>
 <header>
@@ -34,13 +34,13 @@
                             <a class="nav-link" href="#link-0">Календарь отчетов</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-1">Работа с проектами</a>
+                            <a class="nav-link" href="{{route('csm.projects.index')}}">Работа с проектами</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#link-2">Работа с отчетами</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#link-3">Работа с задачами</a>
+                            <a class="nav-link" href="{{route('csm.tasks.index')}}">Работа с задачами</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#link-4">Работа с пользователями</a>
@@ -50,17 +50,10 @@
             </nav>
         </div>
         <div class="col-md-8 col-lg-9 content-container" style="background-color: #ffe0b2">
-            <h1 class="h3 text-center mt-5">Календарь отчетов</h1>
-            <hr class="mb-5">
-            <section >
-                <p style="height: 5000px;">Контент...</p>
-            </section>
+            @yield('content')
         </div>
     </div>
 </div>
-
-
-
-<script src="{{asset('theme/js/admin.js')}}"></script>
+<script src="{{asset('theme/js/cms.js')}}"></script>
 </body>
 </html>
