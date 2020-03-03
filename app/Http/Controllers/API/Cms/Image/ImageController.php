@@ -33,15 +33,6 @@ class ImageController extends BaseResourceController
         return response()->json($this->service->paginateIndex($request->all()));
     }
 
-//    /**
-//     * @param FormRequest $request
-//     * @return JsonResponse
-//     */
-//    public function paginateQuerySearchIndex(FormRequest $request): JsonResponse
-//    {
-//        return response()->json($this->service->paginateQuerySearchIndex($request->all()));
-//    }
-
     /**
      * @param FormRequest $request
      * @return JsonResponse
