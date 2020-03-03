@@ -33,10 +33,10 @@ class EloquentProductRepository implements ProductRepositoryInterface
         return $category;
     }
 
-    public function updateFromArray(Product $category, array $data)
+    public function updateFromArray(Product $product, array $data)
     {
-        $category->update($data);
-        return $category;
+        $product->update($data);
+        return $product;
     }
 
     private function applyFilters(Builder $builder, array $filters)
