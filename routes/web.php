@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::match(['get', 'post'] ,'/home', function () {
-    echo ('welcome');
+    echo ('welcome1');
 });
 
 Route::get('/news/{id}/{name}', function ($id, $name) {
