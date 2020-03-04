@@ -7,7 +7,6 @@ use App\Models\User;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Handlers\UpdateUserHandler;
 use App\Services\Users\Handlers\DeleteUserHandler;
-use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -22,10 +21,10 @@ class UsersService
         CreateUserHandler $createUserHandler,
         UpdateUserHandler $updateUserHandler,
         DeleteUserHandler $deleteUserHandler,
-        EloquentUserRepository $userRepository //UserRepositoryInterface $userRepository @ToDo: сделать красиво, как в занятие по DI
+        UserRepositoryInterface $userRepository
     )
     {
-        $this->createUserHandler = $createUserHandler; // @ToDo: уточнить, нормальная ли это практика, создавать на каждоей действие отдельный хендлер или лучше все размещать в одном
+        $this->createUserHandler = $createUserHandler;
         $this->updateUserHandler = $updateUserHandler;
         $this->deleteUserHandler = $deleteUserHandler;
         $this->userRepository = $userRepository;

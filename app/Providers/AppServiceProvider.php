@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Users\Repositories\EloquentUserRepository;
+use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerBindings();
     }
 
     /**
@@ -23,6 +25,25 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
+    }
+
+    private function registerBindings()
+    {
+        $this->app->bind(
+            UserRepositoryInterface::class,
+            EloquentUserRepository::class
+        );
+
+        /*
+         * @ToDo: удалить код перед вливанием в мастер. Следует запомнить,
+         * что можно делать и так. Удобно, если в разных местах интерфейс нужно
+         * подменять на разные конкретные классы
+         *
+         * $this->app->when(UsersService::class)
+            ->needs( UserRepositoryInterface::class)
+            ->give(function () {
+                return new EloquentUserRepository();
+            });*/
     }
 }
