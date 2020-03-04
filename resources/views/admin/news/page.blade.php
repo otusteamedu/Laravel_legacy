@@ -18,7 +18,7 @@
         @case('edit')
             @include('admin.news.edit')
         @break
-        @include('admin.news.index')
+            @include('admin.news.index')
         @default
     @endswitch
     

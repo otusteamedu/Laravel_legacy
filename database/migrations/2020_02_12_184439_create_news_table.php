@@ -17,9 +17,9 @@ class CreateNewsTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 255);
             $table->longText('text');
-            $table->string('meta_title', 255);
-            $table->text('meta_description');
-            $table->string('url', 255);
+            $table->string('meta_title', 255)->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('url', 255)->nullable();
             $table->bigInteger('file_id')->nullable();
             $table->timestamps();
         });

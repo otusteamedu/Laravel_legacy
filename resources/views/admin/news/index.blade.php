@@ -21,13 +21,7 @@
 
         </tbody>
     </table>
-    @if ($news->total() > $news->count())
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                {{ $news->links() }}
-            </div>
-        </div>
-    @endif
+    {{ $news->links() }}
 </div>
 
 </div>

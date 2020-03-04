@@ -1,6 +1,7 @@
 {{ Form::open(['url' => route('admin.news.store')]) }}
 <div class="row">
 <div class="col-12 col-lg-8">
+    @include('admin.blocks.errors.errors')
     <div class="form-row">
       <div class="col-12 mb-3">
           {{ Form::label('title', 'Заголовок новости') }}

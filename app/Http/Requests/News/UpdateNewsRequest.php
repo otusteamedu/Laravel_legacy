@@ -26,8 +26,8 @@ class UpdateNewsRequest extends FormRequest
         return [
             'title' => 'required|min:6',
             'text' => 'min:10',
-            'meta_title'=>'min:6',
-            'meta_description'=>'min:10',
+            'meta_title'=>'present',
+            'meta_description'=>'present',
             //'file_id'=>'integer'
         ];
     }

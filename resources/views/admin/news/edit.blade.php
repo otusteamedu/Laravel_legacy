@@ -1,6 +1,7 @@
 {{ Form::model($news, ['url' => route('admin.news.update', ['news' => $news]), 'method' => 'PUT']) }}
 <div class="row">
 <div class="col-12 col-lg-8">
+    @include('admin.blocks.errors.errors')
     <div class="form-row">
       <div class="col-12 mb-3">
           {{ Form::label('title', 'Заголовок новости') }}
