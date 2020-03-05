@@ -362,5 +362,3 @@ app/config/admin_ips.php
     app/Services/CityByIpResolver
     app/Services/MobileDetection
     app/Services/SearchBotByIpResolver
-
-
