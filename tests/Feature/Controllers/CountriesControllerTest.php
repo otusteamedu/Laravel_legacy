@@ -9,8 +9,10 @@ namespace Tests\Feature\Controllers;
 
 
 use App\Models\Country;
+use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Generators\CountryGenerator;
 use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
@@ -19,10 +21,67 @@ class CountriesControllerTest extends TestCase
     use RefreshDatabase;
     use WithFaker;
 
+    private function getCountryRepository(): CountryRepositoryInterface
+    {
+        return app()->make(CountryRepositoryInterface::class);
+    }
+
+    public function testIndex()
+    {
+        $user = UserGenerator::createAdminUser();
+        $this->actingAs($user)
+            ->get(route('cms.countries.index'))
+            ->assertStatus(200);
+    }
+
+    public function testIndexWithCountries()
+    {
+        $country = CountryGenerator::createRussia();
+        $user = UserGenerator::createAdminUser();
+        $this->actingAs($user)
+            ->get(route('cms.countries.index'))
+            ->assertStatus(200)
+            ->assertSeeText($country->name);
+    }
+
+    /**
+     * @group cms
+     */
+    public function testUnAuthicatedUserWontCreateCountryAndRedirectOnLogin()
+    {
+        \Mail::fake();
+        $data = $this->generateCountryCreateData();
+        $this->post(route('cms.countries.store'), $data)
+            ->assertStatus(302)
+            ->assertRedirect(route('login'));
+        \Mail::assertNothingSent();
+    }
+
+    /**
+     * @group cms
+     */
+    public function testWontCreateCountryWithoutContinent()
+    {
+        $user = UserGenerator::createAdminUser();
+        $data = $this->generateCountryCreateData();
+        unset($data['continent_name']);
+        $this->actingAs($user)
+            ->post(route('cms.countries.store'), $data)
+            ->assertStatus(302)
+            ->assertSessionHasErrors([
+                'continent_name'
+            ]);
+
+        $this->assertDatabaseMissing('countries', [
+            'name' => $data['name'],
+        ]);
+    }
+
     /**
      * A Dusk test example.
      *
      * @group countries
+     * @group cms
      * @return void
      */
     public function testCreateCountry()
@@ -34,6 +93,7 @@ class CountriesControllerTest extends TestCase
         $this->assertDatabaseHas('countries', [
             'name' => $data['name'],
         ]);
+        $this->assertNotNull(Country::where('name', $data['name'])->first());
     }
 
     /**
@@ -123,21 +183,79 @@ class CountriesControllerTest extends TestCase
 
         $this->assertEquals(1, Country::all()->count());
     }
-//
-//    /**
-//     * A Dusk test example.
-//     *
-//     * @group countries
-//     * @return void
-//     */
-//    public function testCreateCountryWontCreateCountryIfNoUser()
-//    {
-//        $data = $this->generateCountryCreateData();
-//        $this->post(route('cms.countries.store'), $data);
-//
-//        $this->assertEquals(0, Country::all()->count());
-//    }
-//
+
+    /**
+     * @group cms
+     */
+    public function testUpdateCountry()
+    {
+        $user = UserGenerator::createAdminUser();
+        $country = CountryGenerator::createCountry();
+
+        $name = $this->faker->country . microtime(true);
+        $this->actingAs($user)
+            ->patch(route('cms.countries.update', [
+                'country' => $country->id,
+            ]), [
+                'name' => $name,
+                'continent_name' => $country->continent_name,
+            ])
+            ->assertStatus(302);
+
+        $country->refresh();
+        $this->assertEquals($country->name, $name);
+    }
+
+    /**
+     * @group cms
+     */
+    public function testUpdateCountryWontUpdateWithoutContinent()
+    {
+        $user = UserGenerator::createAdminUser();
+        $country = CountryGenerator::createCountry();
+
+        $name = $this->faker->country . microtime(true);
+        $this->actingAs($user)
+            ->patch(route('cms.countries.update', [
+                'country' => $country->id,
+            ]), [
+                'name' => $name,
+            ])
+            ->assertSessionHasErrors([
+                'continent_name',
+            ])
+            ->assertStatus(302);
+
+        $country->refresh();
+        $this->assertNotEquals($country->name, $name);
+    }
+
+    /**
+     * @group cms
+     */
+    public function testUpdateCountryWontUpdateWithTheSameName()
+    {
+        $user = UserGenerator::createAdminUser();
+        $countryRussia = CountryGenerator::createRussia();
+        $country = CountryGenerator::createCountry();
+
+        $name = $countryRussia->name;
+        $this->actingAs($user)
+            ->patch(route('cms.countries.update', [
+                'country' => $country->id,
+            ]), [
+                'name' => $name,
+                'continent_name' => $country->continent_name,
+            ])
+            ->assertSessionHasErrors([
+                'name',
+            ])
+            ->assertStatus(302);
+
+        $country->refresh();
+        $this->assertNotEquals($country->name, $name);
+    }
+
     /**
      * @return array
      */
@@ -161,7 +279,6 @@ class CountriesControllerTest extends TestCase
         $user = UserGenerator::createAdminUser();
         return $this->actingAs($user)
             ->post(route('cms.countries.store'), $data);
-
     }
 
 }

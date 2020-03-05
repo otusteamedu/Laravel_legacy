@@ -118,7 +118,7 @@ class CountriesController extends Controller
 
         $this->validate($request, [
             'name' => 'required|unique:countries,name|max:100',
-            'continent_name' => 'required|max:20'
+            'continent_name' => 'required|max:20',
         ]);
 
         $this->countriesService->updateCountry($country, $request->all());

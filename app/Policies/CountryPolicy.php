@@ -12,7 +12,7 @@ class CountryPolicy
 
     public function before(User $user)
     {
-        return $user->isAdmin();
+        return true;
     }
 
     /**
