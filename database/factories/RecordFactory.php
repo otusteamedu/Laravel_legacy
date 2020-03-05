@@ -6,9 +6,12 @@ use App\Models\Record;
 use Faker\Generator as Faker;
 
 $factory->define(Record::class, static function (Faker $faker) {
+    $dateStart = $faker->dateTimeBetween('-90 days');
+    $dateFinish = $dateStart->modify('+2 hours');
+
     return [
-        'date_start' => $faker->unixTime(),
-        'date_finish' => $faker->unixTime(),
+        'date_start' => $dateStart->getTimestamp(),
+        'date_finish' => $dateFinish->getTimestamp(),
         'price' => random_int(500, 2500),
     ];
 });

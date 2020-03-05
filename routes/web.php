@@ -11,7 +11,6 @@
 |
 */
 
-use App\Models\UserGroup;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\RecordController;
@@ -38,8 +37,11 @@ Route::prefix('clients')
         Route::get('', [ClientController::class, 'list'])
             ->name('master.user.list');
 
+        Route::get('create', [ClientController::class, 'showCreate'])
+            ->name('master.user.create');
+
         // Создание клиента
-        Route::get('create', [ClientController::class, 'create'])
+        Route::post('create', [ClientController::class, 'create'])
             ->name('master.user.create');
 
         // Детальная страница клиента/список записей клиента
@@ -51,7 +53,10 @@ Route::prefix('clients')
             ->name('master.user.edit');
 
         // Создание записи для клиента
-        Route::get('{id}/create_record', [ClientController::class, 'createRecord'])
+        Route::get('{id}/create_record', [ClientController::class, 'showCreateRecord'])
+            ->name('master.user.create_record');
+
+        Route::post('{id}/create_record', [ClientController::class, 'createRecord'])
             ->name('master.user.create_record');
     });
 

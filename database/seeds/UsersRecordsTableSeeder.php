@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Record;
+use App\Models\ClientInformation;
 
 class UsersRecordsTableSeeder extends Seeder
 {
@@ -22,6 +23,9 @@ class UsersRecordsTableSeeder extends Seeder
                         factory(Record::class, 20)->make([
                             'master_id' => $master->id
                         ])
+                    );
+                    $client->clientInformation()->save(
+                        factory(ClientInformation::class)->make()
                     );
                 })
             );

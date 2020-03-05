@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Services\UserGroup\UserGroupRepositoryInterface;
+use App\Services\UserGroup\UserGroupService;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -59,6 +61,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
+ * @property string|null $phone_number
+ * @property-read \App\Models\ClientInformation $clientInformation
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePhoneNumber($value)
  */
 class User extends Authenticatable
 {
@@ -87,9 +92,44 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected array $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Check relation master-client
+     *
+     * @param int $clientId
+     * @return bool
+     */
+    public function hasClient(int $clientId): bool
+    {
+        return $this->clients()->wherePivot('client_id', '=', $clientId)->first() !== null;
+    }
+
+    /**
+     * Check relation client-master
+     *
+     * @param int $masterId
+     * @return bool
+     */
+    public function hasMaster(int $masterId): bool
+    {
+        return $this->clients()->wherePivot('master_id', '=', $masterId)->first() !== null;
+    }
+
+    public function hasRecord(int $recordId): bool
+    {
+        return $this->masterRecords()->where('id', '=', $recordId)->first() !== null;
+    }
+
+    public function isAdmin()
+    {
+        $userGroupService = app(UserGroupService::class);
+        $adminGroupId = $userGroupService->getIdByCode(UserGroupRepositoryInterface::ADMIN);
+
+        return $adminGroupId === $this->group_id;
+    }
 
     /**
      * Return user group (UserGroup)
@@ -139,5 +179,15 @@ class User extends Authenticatable
     public function clientRecords(): HasMany
     {
         return $this->hasMany(Record::class, 'client_id');
+    }
+
+    /**
+     * Return client's information
+     *
+     * @return HasOne
+     */
+    public function clientInformation(): HasOne
+    {
+        return $this->hasOne(ClientInformation::class, 'user_id');
     }
 }
