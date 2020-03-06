@@ -4,19 +4,16 @@
 namespace App\Services\Category;
 
 
-use App\Http\Requests\FormRequest;
 use App\Services\Base\Category\CmsBaseCategoryService;
-use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
-use App\Services\Base\Category\Handlers\ShowImagesHandler;
+use App\Services\Base\Category\Handlers\GetExcludedImagesHandler;
+use App\Services\Base\Category\Handlers\GetImagesHandler;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\Cache\Tag;
 use App\Services\Category\Handlers\DestroyHandler;
 use App\Services\Category\Handlers\StoreHandler;
 use App\Services\Category\Handlers\UpdateHandler;
 use App\Services\Base\Category\Handlers\UploadHandler;
 use App\Services\Category\Repositories\CmsCategoryRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Support\Facades\Cache;
 
 class CmsCategoryService extends CmsBaseCategoryService
 {
@@ -31,8 +28,8 @@ class CmsCategoryService extends CmsBaseCategoryService
      * @param CmsCategoryRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
-     * @param ShowImagesHandler $showImagesHandler
-     * @param ShowExcludedImagesHandler $showExcludedImagesHandler
+     * @param GetImagesHandler $showImagesHandler
+     * @param GetExcludedImagesHandler $showExcludedImagesHandler
      * @param StoreHandler $storeHandler
      * @param UpdateHandler $updateHandler
      * @param DestroyHandler $destroyHandler
@@ -41,8 +38,8 @@ class CmsCategoryService extends CmsBaseCategoryService
         CmsCategoryRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadHandler $uploadHandler,
-        ShowImagesHandler $showImagesHandler,
-        ShowExcludedImagesHandler $showExcludedImagesHandler,
+        GetImagesHandler $showImagesHandler,
+        GetExcludedImagesHandler $showExcludedImagesHandler,
         StoreHandler $storeHandler,
         UpdateHandler $updateHandler,
         DestroyHandler $destroyHandler
@@ -64,30 +61,30 @@ class CmsCategoryService extends CmsBaseCategoryService
      * @param string $type
      * @return Collection
      */
-    public function indexByType(string $type): Collection
+    public function getItemsByType(string $type): Collection
     {
-        return $this->repository->indexByType($type);
+        return $this->repository->getItemsByType($type);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $storeData
      * @return mixed
      */
-    public function store(FormRequest $request)
+    public function store(array $storeData)
     {
-        return $this->storeHandler->handle($request, $this->repository);
+        return $this->storeHandler->handle($storeData);
     }
 
     /**
-     * @param FormRequest $request
      * @param int $id
+     * @param array $updateData
      * @return mixed
      */
-    public function update(FormRequest $request, int $id)
+    public function update(int $id, array $updateData)
     {
-        $category = $this->repository->show($id);
+        $category = $this->repository->getItem($id);
 
-        return $this->updateHandler->handle($request, $this->repository, $category);
+        return $this->updateHandler->handle($category, $updateData);
     }
 
     /**
@@ -99,6 +96,6 @@ class CmsCategoryService extends CmsBaseCategoryService
     {
         $category = $this->repository->show($id);
 
-        return $this->destroyHandler->handle($category, $this->repository);
+        return $this->destroyHandler->handle($category);
     }
 }

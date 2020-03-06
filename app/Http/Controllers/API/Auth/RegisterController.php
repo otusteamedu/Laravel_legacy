@@ -14,7 +14,7 @@ class RegisterController extends BaseLoginController
      */
     public function register(CreateUserRequest $request): JsonResponse
     {
-        $user = $this->userService->store($request);
+        $user = $this->userService->store($request->all());
 
         $this->authService->createEmailVerification($user);
 

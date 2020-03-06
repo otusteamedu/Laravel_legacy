@@ -33,7 +33,7 @@ class CmsRoleRepository extends CmsBaseResourceRepository
      * @param int $id
      * @return JsonResource
      */
-    public function show(int $id): JsonResource
+    public function getItemWithPermissions(int $id): JsonResource
     {
         return new RoleResource($this->model::findOrFail($id));
     }
@@ -42,24 +42,30 @@ class CmsRoleRepository extends CmsBaseResourceRepository
      * @param int $id
      * @return Role
      */
-    public function showModel(int $id): Role
+    public function getItem(int $id): Role
     {
         return $this->model::findOrFail($id);
     }
 
-    public function store(array $data) {
-        return $this->model::create(Arr::except($data, 'permissions'))
-            ->attachPermissions($data['permissions']);
+    /**
+     * @param array $storeData
+     * @return mixed
+     */
+    public function store(array $storeData)
+    {
+        return $this->model::create(Arr::except($storeData, 'permissions'))
+            ->attachPermissions($storeData['permissions']);
     }
 
     /**
-     * @param array $data
-     * @param Role $item
+     * @param $item
+     * @param array $updateData
      * @return Role
      */
-    public function update(array $data, $item): Role {
-        $item->update(Arr::except($data, 'permissions'));
-        $item->syncPermissions($data['permissions']);
+    public function update($item, array $updateData): Role
+    {
+        $item->update(Arr::except($updateData, 'permissions'));
+        $item->syncPermissions($updateData['permissions']);
 
         return $item;
     }

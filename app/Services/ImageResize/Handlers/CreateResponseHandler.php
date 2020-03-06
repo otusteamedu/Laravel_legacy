@@ -32,7 +32,8 @@ class CreateResponseHandler
      */
     public function handle($imgObj, $ext = 'jpg')
     {
-        return $imgObj->response($ext, $this->quality)
+        return $imgObj
+            ->response($ext, $this->quality)
             ->header('Cache-Control', 'public, max-age=' . $this->cacheTime);
     }
 }

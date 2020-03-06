@@ -20,11 +20,12 @@ class UserValidator
      */
     private $statusResponse = null;
 
-    /**
-     * @var bool
-     */
     private bool $isValid = true;
 
+    /**
+     * @param Request $request
+     * @return bool
+     */
     public function validateRequest(Request $request) {
         $this->isAuth($request);
         $this->isActive();

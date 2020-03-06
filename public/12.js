@@ -137,6 +137,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
 
 
 
@@ -144,7 +146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ExcludedImageList',
-  mixins: [_mixins_base__WEBPACK_IMPORTED_MODULE_1__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_2__["deleteMethod"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_2__["subCategoryImageAddMethod"]],
+  mixins: [_mixins_base__WEBPACK_IMPORTED_MODULE_1__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_2__["subCategoryImageAddMethod"]],
   components: {
     ImageListTable: _custom_components_Tables_ImageListTable__WEBPACK_IMPORTED_MODULE_3__["default"],
     ImageTableActions: _custom_components_Tables_ImageTableActions__WEBPACK_IMPORTED_MODULE_4__["default"]
@@ -179,23 +181,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     items: function items(state) {
       return state.images.items;
-    }
-  })),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('images', {
-    indexAction: 'index',
-    publishAction: 'publish'
-  }), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('subCategories', {
-    getCategoryWithExcludedImages: 'showWithExcludedImages'
-  }), {
-    onDelete: function onDelete(item) {
-      return this["delete"]({
-        storeModule: this.storeModule,
-        payload: item.id,
-        title: item.id,
-        alertText: "\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \xAB".concat(item.id, "\xBB"),
-        successText: 'Изображение удалено!'
-      });
     },
+    pagination: function pagination(state) {
+      return state.images.pagination;
+    },
+    searchQuery: function searchQuery(state) {
+      return state.searchQuery;
+    },
+    searchedData: function searchedData(state) {
+      return state.searchedData;
+    }
+  }), {
+    paginationData: function paginationData() {
+      return {
+        current_page: this.pagination.current_page,
+        per_page: this.pagination.per_page,
+        sort_by: this.pagination.sort_by,
+        sort_order: this.pagination.sort_order
+      };
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    publishAction: 'images/publish',
+    updatePaginationAction: 'images/updatePaginationFields',
+    getExcludedImagesAction: 'subCategories/getExcludedImages',
+    getCategoryWithExcludedImagesAction: 'subCategories/getItemWithExcludedImages'
+  }), {
     onPublishChange: function onPublishChange(id) {
       this.publishAction(id);
     },
@@ -206,14 +217,62 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         selected: this.selected,
         redirectRoute: this.redirectRoute
       });
+    },
+    changePage: function changePage(item) {
+      this.changePaginationSetting({
+        current_page: item
+      });
+    },
+    changeSort: function changeSort(sortOrder) {
+      this.changePaginationSetting({
+        sort_order: sortOrder
+      });
+    },
+    changePaginationSetting: function changePaginationSetting(settingObject) {
+      this.updatePaginationAction(settingObject);
+      !!this.searchQuery && this.searchedData.length ? this.search(this.searchQuery) : this.rebootImageList();
+    },
+    search: function search(query) {
+      var currentPageFirst = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var paginationData = Object.assign({
+        query: query
+      }, this.paginationData);
+
+      if (currentPageFirst) {
+        paginationData.current_page = 1;
+      }
+
+      this.getExcludedImagesAction({
+        id: this.id,
+        type: this.category_type,
+        paginationData: paginationData
+      });
+    },
+    handleSearch: function handleSearch(query) {
+      query ? this.search(query, true) : this.rebootImageList(true);
+    },
+    rebootImageList: function rebootImageList() {
+      var currentPageFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var paginationData = Object.assign({}, this.paginationData);
+
+      if (currentPageFirst) {
+        paginationData.current_page = 1;
+      }
+
+      return this.getExcludedImagesAction({
+        id: this.id,
+        type: this.category_type,
+        paginationData: paginationData
+      });
     }
   }),
   created: function created() {
     var _this = this;
 
-    this.getCategoryWithExcludedImages({
+    this.getCategoryWithExcludedImagesAction({
       type: this.category_type,
-      id: this.id
+      id: this.id,
+      paginationData: this.paginationData
     }).then(function () {
       _this.setPageTitle("\u0414\u043B\u044F \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \xAB".concat(_this.category.title, "\xBB"));
 
@@ -460,7 +519,12 @@ var render = function() {
                       _vm.items.length
                         ? _c("image-list-table", {
                             attrs: { items: _vm.items },
-                            on: { publish: _vm.onPublishChange },
+                            on: {
+                              search: _vm.handleSearch,
+                              changePage: _vm.changePage,
+                              changeSort: _vm.changeSort,
+                              publish: _vm.onPublishChange
+                            },
                             scopedSlots: _vm._u(
                               [
                                 {
@@ -470,7 +534,32 @@ var render = function() {
                                     return [
                                       _c(
                                         "md-table-cell",
-                                        { staticStyle: { width: "50px" } },
+                                        {
+                                          staticStyle: { width: "50px" },
+                                          attrs: {
+                                            "md-label": "#",
+                                            "md-sort-by": "id"
+                                          }
+                                        },
+                                        [
+                                          _vm._v(
+                                            "\n                                " +
+                                              _vm._s(item.id) +
+                                              "\n                            "
+                                          )
+                                        ]
+                                      )
+                                    ]
+                                  }
+                                },
+                                {
+                                  key: "actions-column",
+                                  fn: function(ref) {
+                                    var item = ref.item
+                                    return [
+                                      _c(
+                                        "md-table-cell",
+                                        { attrs: { "md-label": "Выбрать" } },
                                         [
                                           _c("md-checkbox", {
                                             attrs: { value: item.id },
@@ -487,34 +576,11 @@ var render = function() {
                                       )
                                     ]
                                   }
-                                },
-                                {
-                                  key: "actions-column",
-                                  fn: function(ref) {
-                                    var item = ref.item
-                                    return [
-                                      item
-                                        ? _c(
-                                            "md-table-cell",
-                                            {
-                                              attrs: { "md-label": "Действия" }
-                                            },
-                                            [
-                                              _c("image-table-actions", {
-                                                attrs: { item: item },
-                                                on: { delete: _vm.onDelete }
-                                              })
-                                            ],
-                                            1
-                                          )
-                                        : _vm._e()
-                                    ]
-                                  }
                                 }
                               ],
                               null,
                               false,
-                              203508029
+                              2408791974
                             )
                           })
                         : [

@@ -4,11 +4,8 @@
 namespace App\Services\Setting;
 
 
-use App\Http\Requests\FormRequest;
 use App\Models\Setting;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\Setting\Handlers\GetSettingsWithTypesHandler;
-use App\Services\Setting\Handlers\GetSettingWithTypesHandler;
 use App\Services\Setting\Handlers\SetImageSettingValueHandler;
 use App\Services\Setting\Repositories\CmsSettingRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
@@ -16,83 +13,94 @@ use Illuminate\Database\Eloquent\Collection;
 
 class CmsSettingService extends CmsBaseResourceService
 {
-    private GetSettingWithTypesHandler $showWithTypesHandler;
-    private GetSettingsWithTypesHandler $indexWithTypesHandler;
     private SetImageSettingValueHandler $setImageValueHandler;
+    private array $types;
 
     /**
      * SettingServiceCms constructor.
      * @param CmsSettingRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
-     * @param GetSettingWithTypesHandler $getSettingWithTypesHandler
-     * @param GetSettingsWithTypesHandler $getSettingsWithTypesHandler
      * @param SetImageSettingValueHandler $setImageSettingValueHandler
      */
     public function __construct(
         CmsSettingRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
-        GetSettingWithTypesHandler $getSettingWithTypesHandler,
-        GetSettingsWithTypesHandler $getSettingsWithTypesHandler,
         SetImageSettingValueHandler $setImageSettingValueHandler
     )
     {
         parent::__construct($repository, $clearCacheByTagHandler);
-        $this->showWithTypesHandler = $getSettingWithTypesHandler;
-        $this->indexWithTypesHandler = $getSettingsWithTypesHandler;
         $this->setImageValueHandler = $setImageSettingValueHandler;
+        $this->types = Setting::TYPES;
+    }
+
+    /**
+     * @param array $storeData
+     * @return mixed
+     */
+    public function store(array $storeData)
+    {
+        if ($storeData['group_id'] == 0) {
+            $storeData['group_id'] = null;
+        }
+
+        return $this->repository->store($storeData);
     }
 
     /**
      * @return array
      */
-    public function indexWithTypes(): array
+    public function getItemsWithTypes(): array
     {
-        return $this->indexWithTypesHandler->handle();
+        $items = $this->repository->index();
+
+        return [ 'items' => $items, 'types' => $this->types ];
     }
 
     /**
      * @return Collection
      */
-    public function indexWithGroup(): Collection
+    public function getItemsWithGroup(): Collection
     {
-        return $this->repository->indexWithGroup();
+        return $this->repository->getItemsWithGroup();
     }
 
     /**
      * @param int $id
      * @return array
      */
-    public function show(int $id): array
+    public function getItemWithTypes(int $id): array
     {
-        return $this->showWithTypesHandler->handle($id);
+        $item = $this->repository->getItem($id);
+
+        return [ 'item' => $item, 'types' => $this->types ];
     }
 
     /**
-     * @param FormRequest $request
      * @param int $id
+     * @param array $updateData
      * @return Setting
      */
-    public function update(FormRequest $request, int $id): Setting
+    public function update(int $id, array $updateData): Setting
     {
-        $item = $this->repository->showModel($id);
+        $item = $this->repository->getItem($id);
 
-        return $this->repository->update($request->all(), $item);
+        return $this->repository->update($item, $updateData);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $setData
      */
-    public function setTextValue(FormRequest $request)
+    public function setTextValue(array $setData)
     {
-        $item = $this->repository->showByKey($request->key_name);
-        $this->repository->setValue($request->value, $item);
+        $item = $this->repository->getItemByKey($setData['key_name']);
+        $this->repository->setValue($item, $setData['value']);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $setData
      */
-    public function setImageValue(FormRequest $request)
+    public function setImageValue(array $setData)
     {
-        $this->setImageValueHandler->handle($request->all());
+        $this->setImageValueHandler->handle($setData);
     }
 }

@@ -183,6 +183,9 @@
             },
             searchOnServer (query) {
                 this.$emit('search', query);
+
+                console.log(`search query: ${query}`)
+
                 if (! query) {
                     this.setSearchedDataAction([])
                 }
@@ -193,7 +196,6 @@
                     : this.setSearchedDataAction([]);
             },
             handleSearch (query) {
-                console.log('handleSearch')
                 this.serverPagination
                     ? this.searchOnServer(query)
                     : this.search(query);
@@ -209,6 +211,7 @@
                 if (! query) {
                     this.setSearchedDataAction([])
                 }
+
                 clearTimeout(this.searchTmt);
                 this.searchTmt = setTimeout(() => this.serverPagination
                         ? this.searchOnServer(this.searchQuery)
@@ -222,6 +225,11 @@
         mounted () {
             this.setFuseSearch(this.searchFields);
             this.previousSortOrder = this.pagination.sort_order;
+        },
+        beforeDestroy() {
+            clearTimeout(this.searchTmt);
+            this.setSearchedDataAction([]);
+            this.setSearchQueryAction('');
         }
     }
 </script>

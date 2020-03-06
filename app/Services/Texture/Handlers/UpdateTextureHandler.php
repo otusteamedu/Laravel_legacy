@@ -10,10 +10,7 @@ use Illuminate\Support\Arr;
 
 class UpdateTextureHandler
 {
-    /**
-     * @var CmsTextureRepository
-     */
-    private $repository;
+    private CmsTextureRepository $repository;
 
     /**
      * UpdateTextureHandler constructor.
@@ -25,27 +22,27 @@ class UpdateTextureHandler
     }
 
     /**
-     * @param array $data
+     * @param array $updateData
      * @param Texture $item
      * @return Texture
      */
-    public function handle(array $data, Texture $item): Texture
+    public function handle(Texture $item, array $updateData): Texture
     {
-        if (isset($data['thumb'])) {
-            $thumbAttributes = uploader()->refresh($item['thumb_path'], $data['thumb']);
-            $data['thumb_path'] = $thumbAttributes['path'];
+        if (isset($updateData['thumb'])) {
+            $thumbAttributes = uploader()->refresh($item['thumb_path'], $updateData['thumb']);
+            $updateData['thumb_path'] = $thumbAttributes['path'];
         }
 
-        if (isset($data['sample'])) {
-            $sampleAttributes = uploader()->refresh($item['sample_path'], $data['sample']);
-            $data['sample_path'] = $sampleAttributes['path'];
+        if (isset($updateData['sample'])) {
+            $sampleAttributes = uploader()->refresh($item['sample_path'], $updateData['sample']);
+            $updateData['sample_path'] = $sampleAttributes['path'];
         }
 
-        if (isset($data['background'])) {
-            $backgroundAttributes = uploader()->refresh($item['background_path'], $data['background']);
-            $data['background_path'] = $backgroundAttributes['path'];
+        if (isset($updateData['background'])) {
+            $backgroundAttributes = uploader()->refresh($item['background_path'], $updateData['background']);
+            $updateData['background_path'] = $backgroundAttributes['path'];
         }
 
-        return $this->repository->update(Arr::except($data, ['thumb', 'sample', 'background']), $item);
+        return $this->repository->update($item, Arr::except($updateData, ['thumb', 'sample', 'background']));
     }
 }

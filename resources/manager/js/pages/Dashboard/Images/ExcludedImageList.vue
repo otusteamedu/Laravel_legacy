@@ -118,21 +118,11 @@
         },
         methods: {
             ...mapActions({
-                indexAction: 'images/index',
                 publishAction: 'images/publish',
                 updatePaginationAction: 'images/updatePaginationFields',
-                showExcludedImagesAction: 'categories/showExcludedImages',
-                showWithExcludedImagesAction: 'categories/showWithExcludedImages'
+                getExcludedImagesAction: 'categories/getExcludedImages',
+                getCategoryWithExcludedImagesAction: 'categories/getItemWithExcludedImages'
             }),
-            onDelete (item) {
-                return this.delete({
-                    storeModule: this.storeModule,
-                    payload: item.id,
-                    title: item.id,
-                    alertText: `изображение «${item.id}»`,
-                    successText: 'Изображение удалено!'
-                });
-            },
             onPublishChange(id) {
                 this.publishAction(id);
             },
@@ -155,11 +145,12 @@
                     : this.rebootImageList();
             },
             search (query, currentPageFirst = false) {
-                const data = Object.assign({ query }, this.paginationData);
+                const paginationData = Object.assign({ query }, this.paginationData);
+
                 if (currentPageFirst) {
-                    data.current_page = 1;
+                    paginationData.current_page = 1;
                 }
-                this.showExcludedImagesAction({ id: this.id, data });
+                this.getExcludedImagesAction({ id: this.id, paginationData });
             },
             handleSearch (query) {
                 query
@@ -167,16 +158,17 @@
                     : this.rebootImageList(true)
             },
             rebootImageList (currentPageFirst = false) {
-                const data = Object.assign({}, this.paginationData);
+                const paginationData = Object.assign({}, this.paginationData);
+
                 if (currentPageFirst) {
-                    data.current_page = 1;
+                    paginationData.current_page = 1;
                 }
 
-                return this.showExcludedImagesAction({ id: this.id, data })
+                return this.getExcludedImagesAction({ id: this.id, paginationData })
             }
         },
         created() {
-            this.showWithExcludedImagesAction({ id: this.id, data: this.paginationData })
+            this.getCategoryWithExcludedImagesAction({ id: this.id, paginationData: this.paginationData })
                 .then(() => {
                     this.setPageTitle('Каталог изображений');
                     this.responseData = true;

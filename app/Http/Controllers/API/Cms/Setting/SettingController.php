@@ -24,17 +24,17 @@ class SettingController extends BaseResourceController
     /**
      * @return JsonResponse
      */
-    public function indexWithTypes(): JsonResponse
+    public function getItemsWithTypes(): JsonResponse
     {
-        return response()->json($this->service->indexWithTypes());
+        return response()->json($this->service->getItemsWithTypes());
     }
 
     /**
      * @return JsonResponse
      */
-    public function indexWithGroup(): JsonResponse
+    public function getItemsWithGroup(): JsonResponse
     {
-        return response()->json($this->service->indexWithGroup());
+        return response()->json($this->service->getItemsWithGroup());
     }
 
     /**
@@ -43,7 +43,7 @@ class SettingController extends BaseResourceController
      */
     public function store(CreateSettingRequest $request): JsonResponse
     {
-        return response()->json($this->service->store($request));
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
@@ -53,7 +53,7 @@ class SettingController extends BaseResourceController
      */
     public function update(UpdateSettingRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->update($request, $id));
+        return response()->json($this->service->update($id, $request->all()));
     }
 
     /**
@@ -61,7 +61,7 @@ class SettingController extends BaseResourceController
      */
     public function setTextValue(SetTextSettingValueRequest $request)
     {
-        $this->service->setTextValue($request);
+        $this->service->setTextValue($request->all());
     }
 
     /**
@@ -69,6 +69,6 @@ class SettingController extends BaseResourceController
      */
     public function setImageValue(SetImageSettingValueRequest $request)
     {
-        $this->service->setImageValue($request);
+        $this->service->setImageValue($request->all());
     }
 }

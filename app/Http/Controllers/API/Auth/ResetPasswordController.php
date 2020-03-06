@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
@@ -25,10 +26,8 @@ class ResetPasswordController extends Controller
 
     /**
      * Where to redirect users after resetting their password.
-     *
-     * @var string
      */
-    protected $redirectTo = '';
+    protected string $redirectTo = '';
 
     /**
      * Create a new controller instance.
@@ -41,7 +40,8 @@ class ResetPasswordController extends Controller
     }
 
     /**
-     * Handle reset password
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function callResetPassword(Request $request)
     {
@@ -55,7 +55,7 @@ class ResetPasswordController extends Controller
      * @param  string  $password
      * @return void
      */
-    protected function resetPassword($user, $password)
+    protected function resetPassword(User $user, $password)
     {
         $user->password = Hash::make($password);
         $user->save();

@@ -4,7 +4,6 @@
 namespace App\Services\Base\Resource;
 
 
-use App\Http\Requests\FormRequest;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
@@ -46,30 +45,30 @@ abstract class CmsBaseResourceService
      * @param int $id
      * @return mixed
      */
-    public function show(int $id)
+    public function getItem(int $id)
     {
-        return $this->repository->show($id);
+        return $this->repository->getItem($id);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $storeData
      * @return mixed
      */
-    public function store(FormRequest $request)
+    public function store(array $storeData)
     {
-        return $this->repository->store($request->all());
+        return $this->repository->store($storeData);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $updateData
      * @param int $id
      * @return mixed
      */
-    public function update(FormRequest $request, int $id)
+    public function update(int $id, array $updateData)
     {
-        $item = $this->repository->show($id);
+        $item = $this->repository->getItem($id);
 
-        return $this->repository->update($request->all(), $item);
+        return $this->repository->update($item, $updateData);
     }
 
     /**
@@ -79,7 +78,7 @@ abstract class CmsBaseResourceService
      */
     public function destroy(int $id): int
     {
-        $item = $this->repository->show($id);
+        $item = $this->repository->getItem($id);
 
         return $this->repository->destroy($item);
     }
@@ -90,7 +89,7 @@ abstract class CmsBaseResourceService
      */
     public function publish(int $id)
     {
-        $item = $this->repository->show($id);
+        $item = $this->repository->getItem($id);
 
         return $this->repository->publish($item);
     }

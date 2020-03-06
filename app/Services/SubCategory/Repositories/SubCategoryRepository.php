@@ -11,15 +11,17 @@ abstract class SubCategoryRepository extends CmsBaseCategoryRepository
     /**
      * @return Collection
      */
-    public function index(): Collection {
+    public function index(): Collection
+    {
         return $this->model::withCount('images')->get();
     }
 
     /**
-     * @param $category
+     * @param mixed $category
      * @param array $images
      */
-    public function addImages($category, array $images) {
+    public function addImages($category, array $images)
+    {
         $category->images()->attach($images);
     }
 }

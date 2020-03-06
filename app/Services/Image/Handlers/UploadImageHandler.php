@@ -4,15 +4,11 @@
 namespace App\Services\Image\Handlers;
 
 
-use App\Http\Requests\FormRequest;
 use App\Models\Image;
 
 class UploadImageHandler
 {
-    /**
-     * @var Image
-     */
-    private $uploadModel;
+    private Image $uploadModel;
 
     /**
      * UploadImageHandler constructor.

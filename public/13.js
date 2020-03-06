@@ -141,6 +141,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 
 
@@ -165,10 +166,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      pagination: {
-        perPage: 50,
-        perPageOptions: [50, 200, 500, 1000]
-      },
       responseData: false,
       storeModule: 'images',
       redirectRoute: {
@@ -180,6 +177,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     };
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    searchQuery: function searchQuery(state) {
+      return state.searchQuery;
+    },
+    searchedData: function searchedData(state) {
+      return state.searchedData;
+    },
     category: function category(state) {
       return state.subCategories.item;
     },
@@ -188,21 +191,39 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     fileProgress: function fileProgress(state) {
       return state.images.fileProgress;
+    },
+    pagination: function pagination(state) {
+      return state.images.pagination;
+    },
+    previousPage: function previousPage(state) {
+      return state.images.previousPage;
     }
-  })),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('images', {
-    indexAction: 'index',
-    publishAction: 'publish'
-  }), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    removeImage: 'subCategories/removeImage',
-    getCategoryWithImages: 'subCategories/showWithImages'
+  }), {
+    paginationData: function paginationData() {
+      return {
+        current_page: this.pagination.current_page,
+        per_page: this.pagination.per_page,
+        sort_by: this.pagination.sort_by,
+        sort_order: this.pagination.sort_order
+      };
+    }
+  }),
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    publishAction: 'images/publish',
+    resetPaginationAction: 'images/resetPagination',
+    updatePaginationAction: 'images/updatePaginationFields',
+    setPreviousPageAction: 'images/setPreviousPage',
+    removeImageAction: 'subCategories/removeImage',
+    getItemWithImagesAction: 'subCategories/getItemWithImages',
+    getImagesAction: 'subCategories/getImages'
   }), {
     init: function init(category_type) {
       var _this = this;
 
-      this.getCategoryWithImages({
+      this.getItemWithImagesAction({
         type: category_type,
-        id: this.id
+        id: this.id,
+        paginationData: this.paginationData
       }).then(function () {
         _this.setPageTitle("\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \xAB".concat(_this.category.title, "\xBB"));
 
@@ -216,31 +237,123 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         uploadFiles: event.target.files,
         type: this.category_type,
         id: this.id,
-        storeModule: 'subCategories'
+        storeModule: 'subCategories',
+        paginationData: this.paginationData
       });
     },
     onRemove: function onRemove(id) {
-      this.removeImage({
+      var _this2 = this;
+
+      var paginationData = this.preparePaginationData();
+      this.removeImageAction({
         type: this.category_type,
-        id: this.id,
-        image_id: id
+        category_id: this.id,
+        image_id: id,
+        paginationData: paginationData
+      }).then(function () {
+        return _this2.checkGoToPreviousPage() ? _this2.goToPreviousPage() : _this2.rebootImageList(true);
       });
     },
     onDelete: function onDelete(item) {
+      var _this3 = this;
+
+      var paginationData = this.preparePaginationData();
       this["delete"]({
         payload: item.id,
         title: item.id,
         alertText: "\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \xAB".concat(item.id, "\xBB"),
         successText: 'Изображение удалено!',
-        storeModule: this.storeModule
+        storeModule: this.storeModule,
+        categoryId: this.id || null,
+        paginationData: paginationData
+      }).then(function () {
+        return _this3.checkGoToPreviousPage() ? _this3.goToPreviousPage() : _this3.rebootImageList(true);
       });
+    },
+    changePage: function changePage(item) {
+      this.changePaginationSetting({
+        current_page: item
+      });
+    },
+    changeSort: function changeSort(sortOrder) {
+      this.changePaginationSetting({
+        sort_order: sortOrder
+      });
+    },
+    changePaginationSetting: function changePaginationSetting(settingObject) {
+      this.updatePaginationAction(settingObject);
+      !!this.searchQuery && this.searchedData.length ? this.search(this.searchQuery) : this.rebootImageList();
+    },
+    search: function search(query) {
+      var currentPageFirst = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var paginationData = Object.assign({
+        query: query
+      }, this.paginationData);
+
+      if (currentPageFirst) {
+        paginationData.current_page = 1;
+      }
+
+      this.getImagesAction({
+        id: this.id,
+        type: this.category_type,
+        paginationData: paginationData
+      });
+    },
+    handleSearch: function handleSearch(query) {
+      query ? this.search(query, true) : this.rebootImageList(true);
+    },
+    rebootImageList: function rebootImageList() {
+      var currentPageFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      var paginationData = Object.assign({}, this.paginationData);
+
+      if (currentPageFirst) {
+        paginationData.current_page = 1;
+      }
+
+      return this.getImagesAction({
+        id: this.id,
+        type: this.category_type,
+        paginationData: paginationData
+      });
+    },
+    preparePaginationData: function preparePaginationData() {
+      return this.searchQuery ? Object.assign({
+        query: this.searchQuery
+      }, this.paginationData) : Object.assign({}, this.paginationData);
+    },
+    paginationReset: function paginationReset() {
+      this.resetPaginationAction();
+
+      if (this.previousPage) {
+        this.updatePaginationAction({
+          current_page: this.previousPage
+        });
+      }
     },
     onPublishChange: function onPublishChange(id) {
       this.publishAction(id);
+    },
+    checkGoToPreviousPage: function checkGoToPreviousPage() {
+      return this.checkItemsLength() ? this.pagination.current_page > 1 : false;
+    },
+    checkItemsLength: function checkItemsLength() {
+      return !this.items.length || this.isSearchDataEmpty;
+    },
+    goToPreviousPage: function goToPreviousPage() {
+      this.changePaginationSetting({
+        current_page: this.pagination.current_page - 1
+      });
+    },
+    isSearchDataEmpty: function isSearchDataEmpty() {
+      return !!this.searchQuery && !this.searchedData.length;
     }
   }),
   created: function created() {
     this.init(this.category_type);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.paginationReset();
   }
 });
 
@@ -499,34 +612,14 @@ var render = function() {
                       _vm.items.length
                         ? _c("image-list-table", {
                             attrs: { items: _vm.items },
-                            on: { publish: _vm.onPublishChange },
+                            on: {
+                              search: _vm.handleSearch,
+                              changePage: _vm.changePage,
+                              changeSort: _vm.changeSort,
+                              publish: _vm.onPublishChange
+                            },
                             scopedSlots: _vm._u(
                               [
-                                {
-                                  key: "first-column",
-                                  fn: function(ref) {
-                                    var item = ref.item
-                                    return [
-                                      _c(
-                                        "md-table-cell",
-                                        {
-                                          staticStyle: { width: "50px" },
-                                          attrs: {
-                                            "md-label": "#",
-                                            "md-sort-by": "id"
-                                          }
-                                        },
-                                        [
-                                          _vm._v(
-                                            "\n                                " +
-                                              _vm._s(item.id) +
-                                              "\n                            "
-                                          )
-                                        ]
-                                      )
-                                    ]
-                                  }
-                                },
                                 {
                                   key: "actions-column",
                                   fn: function(ref) {
@@ -540,8 +633,16 @@ var render = function() {
                                             },
                                             [
                                               _c("image-table-actions", {
-                                                attrs: { item: item },
-                                                on: { delete: _vm.onDelete }
+                                                attrs: {
+                                                  item: item,
+                                                  remove: true,
+                                                  page:
+                                                    _vm.pagination.current_page
+                                                },
+                                                on: {
+                                                  remove: _vm.onRemove,
+                                                  delete: _vm.onDelete
+                                                }
                                               })
                                             ],
                                             1
@@ -553,7 +654,7 @@ var render = function() {
                               ],
                               null,
                               false,
-                              2097300373
+                              3861898785
                             )
                           })
                         : [

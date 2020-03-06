@@ -122,7 +122,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])('categories', {
-    indexByTypeAction: 'indexByType',
+    getItemsByTypeAction: 'getItemsByType',
     publishAction: 'publish',
     clearFieldsAction: 'clearFields'
   }), {
@@ -146,7 +146,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 5:
                 _context.next = 7;
-                return this.indexByTypeAction(category_type).then(function () {
+                return this.getItemsByTypeAction(category_type).then(function () {
                   _this.setPageTitle(_this.pageProps[category_type].PAGE_TITLE);
 
                   _this.responseData = true;

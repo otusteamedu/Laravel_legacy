@@ -17,7 +17,7 @@ class CacheManager
         $this->categoryWarmUpHandler = $categoryWarmUpHandler;
     }
 
-    public function set(string $tag, ?int $ttl = null)
+    public function setByTag(string $tag, ?int $ttl = null)
     {
         switch ($tag) {
             case 'category':

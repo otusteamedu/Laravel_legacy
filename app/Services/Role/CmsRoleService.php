@@ -4,11 +4,11 @@
 namespace App\Services\Role;
 
 
-use App\Http\Requests\FormRequest;
 use App\Models\Role;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Role\Repositories\CmsRoleRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
+use Illuminate\Http\Resources\Json\JsonResource;
 
 class CmsRoleService extends CmsBaseResourceService
 {
@@ -26,14 +26,23 @@ class CmsRoleService extends CmsBaseResourceService
     }
 
     /**
-     * @param FormRequest $request
      * @param int $id
+     * @return JsonResource
+     */
+    public function getItemWithPermissions(int $id): JsonResource
+    {
+        return $this->repository->getItemWithPermissions($id);
+    }
+
+    /**
+     * @param int $id
+     * @param array $updateData
      * @return Role
      */
-    public function update(FormRequest $request, int $id): Role
+    public function update(int $id, array $updateData): Role
     {
-        $item = $this->repository->showModel($id);
+        $item = $this->repository->getItem($id);
 
-        return $this->repository->update($request->all(), $item);
+        return $this->repository->update($item, $updateData);
     }
 }

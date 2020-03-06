@@ -40,8 +40,8 @@ abstract class ClientBaseResourceService
      * @param int $id
      * @return mixed
      */
-    public function show(int $id)
+    public function getItem(int $id)
     {
-        return $this->repository->show($id);
+        return $this->repository->getItem($id);
     }
 }

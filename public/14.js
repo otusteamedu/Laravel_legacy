@@ -225,8 +225,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     updatePaginationAction: 'images/updatePaginationFields',
     setPreviousPageAction: 'images/setPreviousPage',
     removeImageAction: 'categories/removeImage',
-    showCategoryWithImagesAction: 'categories/showWithImages',
-    showCategoryImagesAction: 'categories/showImages'
+    getCategoryWithImagesAction: 'categories/getItemWithImages',
+    getImagesAction: 'categories/getImages'
   }), {
     init: function () {
       var _init = _asyncToGenerator(
@@ -289,9 +289,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     categoryInit: function categoryInit() {
       var _this2 = this;
 
-      this.showCategoryWithImagesAction({
+      this.getCategoryWithImagesAction({
         id: this.id,
-        data: this.paginationData
+        paginationData: this.paginationData
       }).then(function () {
         _this2.setPageTitle("\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \xAB".concat(_this2.category.title, "\xBB"));
 
@@ -316,21 +316,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     onRemove: function onRemove(id) {
       var _this3 = this;
 
-      var data = this.preparePaginationData();
+      var paginationData = this.preparePaginationData();
       this.removeImageAction({
         category_id: this.id,
         image_id: id,
-        paginationData: data
+        paginationData: paginationData
       }).then(function () {
-        if (!_this3.searchedData.length) {
-          _this3.pagination.current_page > 1 ? _this3.changePaginationSetting({
-            current_page: _this3.pagination.current_page - 1
-          }) : _this3.rebootImageList(true);
-        }
+        return _this3.checkGoToPreviousPage() ? _this3.goToPreviousPage() : _this3.rebootImageList(true);
       });
     },
     onDelete: function onDelete(item) {
-      var data = this.preparePaginationData();
+      var _this4 = this;
+
+      var paginationData = this.preparePaginationData();
       this["delete"]({
         payload: item.id,
         title: item.id,
@@ -338,7 +336,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         successText: 'Изображение удалено!',
         storeModule: this.storeModule,
         categoryId: this.id || null,
-        paginationData: data
+        paginationData: paginationData
+      }).then(function () {
+        return _this4.checkGoToPreviousPage() ? _this4.goToPreviousPage() : _this4.rebootImageList(true);
       });
     },
     onPublishChange: function onPublishChange(id) {
@@ -360,33 +360,33 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     search: function search(query) {
       var currentPageFirst = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var data = Object.assign({
+      var paginationData = Object.assign({
         query: query
       }, this.paginationData);
 
       if (currentPageFirst) {
-        data.current_page = 1;
+        paginationData.current_page = 1;
       }
 
-      this.category_type !== 'images' ? this.showCategoryImagesAction({
+      this.category_type !== 'images' ? this.getImagesAction({
         id: this.id,
-        data: data
-      }) : this.indexAction(data);
+        paginationData: paginationData
+      }) : this.indexAction(paginationData);
     },
     handleSearch: function handleSearch(query) {
       query ? this.search(query, true) : this.rebootImageList(true);
     },
     rebootImageList: function rebootImageList() {
       var currentPageFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var data = Object.assign({}, this.paginationData);
+      var paginationData = Object.assign({}, this.paginationData);
 
       if (currentPageFirst) {
-        data.current_page = 1;
+        paginationData.current_page = 1;
       }
 
-      return this.category_type === 'images' ? this.indexAction(data) : this.showCategoryImagesAction({
+      return this.category_type === 'images' ? this.indexAction(paginationData) : this.getImagesAction({
         id: this.id,
-        data: data
+        paginationData: paginationData
       });
     },
     preparePaginationData: function preparePaginationData() {
@@ -402,15 +402,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           current_page: this.previousPage
         });
       }
+    },
+    checkGoToPreviousPage: function checkGoToPreviousPage() {
+      return this.checkItemsLength() ? this.pagination.current_page > 1 : false;
+    },
+    checkItemsLength: function checkItemsLength() {
+      return !this.items.length || this.isSearchDataEmpty;
+    },
+    goToPreviousPage: function goToPreviousPage() {
+      this.changePaginationSetting({
+        current_page: this.pagination.current_page - 1
+      });
+    },
+    isSearchDataEmpty: function isSearchDataEmpty() {
+      return !!this.searchQuery && !this.searchedData.length;
     }
   }),
   created: function created() {
-    var _this4 = this;
+    var _this5 = this;
 
     this.paginationReset();
     this.init().then(function () {
-      return _this4.setPreviousPageAction(null);
+      return _this5.setPreviousPageAction(null);
     });
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.paginationReset();
   }
 });
 

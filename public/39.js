@@ -161,9 +161,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     isUniqueDisplayName: function isUniqueDisplayName() {
       return !!this.$store.getters['settings/isUniqueDisplayName'](this.displayName);
     }
-  }, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
-    firstType: 'settings/firstType'
-  })),
+  }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     indexWithTypesAction: 'settings/indexWithTypes',
     clearFieldsAction: 'settings/clearFields',

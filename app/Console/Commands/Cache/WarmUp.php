@@ -43,7 +43,7 @@ class WarmUp extends Command
         $tag = $this->argument('tag');
         $ttl = $this->option('ttl');
 
-        $this->cacheManager->set($tag, $ttl)
+        $this->cacheManager->setByTag($tag, $ttl)
             ? $this->info("Cache warm-up by tag '$tag' successfully completed!")
             : $this->error("Cache warming up failed for '$tag' tag");
     }

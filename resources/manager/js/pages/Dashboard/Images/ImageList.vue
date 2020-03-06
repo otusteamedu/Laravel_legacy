@@ -132,8 +132,8 @@
                 updatePaginationAction: 'images/updatePaginationFields',
                 setPreviousPageAction: 'images/setPreviousPage',
                 removeImageAction: 'categories/removeImage',
-                showCategoryWithImagesAction: 'categories/showWithImages',
-                showCategoryImagesAction: 'categories/showImages'
+                getCategoryWithImagesAction: 'categories/getItemWithImages',
+                getImagesAction: 'categories/getImages'
             }),
             async init () {
                 return this.category_type === 'images'
@@ -149,7 +149,7 @@
                     .catch(() => this.$router.push({ name: 'manager.dashboard' }));
             },
             categoryInit () {
-                this.showCategoryWithImagesAction({ id: this.id, data: this.paginationData })
+                this.getCategoryWithImagesAction({ id: this.id, paginationData: this.paginationData })
                     .then(() => {
                         this.setPageTitle(`Изображения категории «${this.category.title}»`);
                         this.responseData = true;
@@ -168,23 +168,19 @@
                 });
             },
             onRemove (id) {
-                const data = this.preparePaginationData();
+                const paginationData = this.preparePaginationData();
 
                 this.removeImageAction({
                     category_id: this.id,
                     image_id: id,
-                    paginationData: data
+                    paginationData
                 })
-                    .then(() => {
-                        if (! this.searchedData.length) {
-                            this.pagination.current_page > 1
-                                ? this.changePaginationSetting({ current_page: this.pagination.current_page - 1 })
-                                : this.rebootImageList(true);
-                        }
-                    });
+                    .then(() => this.checkGoToPreviousPage()
+                        ? this.goToPreviousPage()
+                        : this.rebootImageList(true));
             },
             onDelete (item) {
-                const data = this.preparePaginationData();
+                const paginationData = this.preparePaginationData();
 
                 this.delete({
                     payload: item.id,
@@ -193,8 +189,11 @@
                     successText: 'Изображение удалено!',
                     storeModule: this.storeModule,
                     categoryId: this.id || null,
-                    paginationData: data
-                });
+                    paginationData
+                })
+                    .then(() => this.checkGoToPreviousPage()
+                        ? this.goToPreviousPage()
+                        : this.rebootImageList(true));
             },
             onPublishChange (id) {
                 this.publishAction(id);
@@ -212,13 +211,15 @@
                     : this.rebootImageList();
             },
             search (query, currentPageFirst = false) {
-                const data = Object.assign({ query }, this.paginationData);
+                const paginationData = Object.assign({ query }, this.paginationData);
+
                 if (currentPageFirst) {
-                    data.current_page = 1;
+                    paginationData.current_page = 1;
                 }
+
                 this.category_type !== 'images'
-                    ? this.showCategoryImagesAction({ id: this.id, data })
-                    : this.indexAction(data);
+                    ? this.getImagesAction({ id: this.id, paginationData })
+                    : this.indexAction(paginationData);
             },
             handleSearch (query) {
                 query
@@ -226,15 +227,15 @@
                     : this.rebootImageList(true)
             },
             rebootImageList (currentPageFirst = false) {
-                const data = Object.assign({}, this.paginationData);
+                const paginationData = Object.assign({}, this.paginationData);
 
                 if (currentPageFirst) {
-                    data.current_page = 1;
+                    paginationData.current_page = 1;
                 }
 
                 return this.category_type === 'images'
-                    ? this.indexAction(data)
-                    : this.showCategoryImagesAction({ id: this.id, data });
+                    ? this.indexAction(paginationData)
+                    : this.getImagesAction({ id: this.id, paginationData });
             },
             preparePaginationData () {
                 return this.searchQuery
@@ -247,12 +248,27 @@
                 if (this.previousPage) {
                     this.updatePaginationAction({ current_page: this.previousPage });
                 }
+            },
+            checkGoToPreviousPage () {
+                return this.checkItemsLength() ? this.pagination.current_page > 1 : false;
+            },
+            checkItemsLength () {
+                return !this.items.length || this.isSearchDataEmpty;
+            },
+            goToPreviousPage () {
+                this.changePaginationSetting({ current_page: this.pagination.current_page - 1 })
+            },
+            isSearchDataEmpty () {
+                return !!this.searchQuery && !this.searchedData.length;
             }
         },
         created () {
             this.paginationReset();
             this.init()
                 .then(() => this.setPreviousPageAction(null));
+        },
+        beforeDestroy() {
+            this.paginationReset();
         }
     }
 </script>

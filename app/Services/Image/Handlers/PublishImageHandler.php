@@ -9,10 +9,7 @@ use App\Services\Image\Repositories\CmsImageRepository;
 
 class PublishImageHandler
 {
-    /**
-     * @var CmsImageRepository
-     */
-    private $repository;
+    private CmsImageRepository $repository;
 
     /**
      * DeleteImageHandler constructor.
@@ -27,7 +24,8 @@ class PublishImageHandler
      * @param Image $image
      * @return Image
      */
-    public function handle(Image $image): Image {
+    public function handle(Image $image): Image
+    {
         return $this->repository->publish($image);
     }
 }

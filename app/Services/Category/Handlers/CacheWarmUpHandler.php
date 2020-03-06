@@ -4,8 +4,6 @@
 namespace App\Services\Category\Handlers;
 
 
-use App\Models\Category;
-use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use App\Services\Cache\KeyManager as CacheKeyManager;
 use App\Services\Cache\Tag;
 use App\Services\Cache\TTL;
@@ -33,8 +31,9 @@ class CacheWarmUpHandler
     public function handle(?int $ttl = null)
     {
         $key = $this->cacheKeyManager->getCategoriesKey(['client', 'published']);
-        $items = $this->clientRepository->index();
         $ttl = $ttl ?? TTL::CATEGORIES_TTL;
+
+        $items = $this->clientRepository->index();
 
         return Cache::tags(Tag::CATEGORIES_TAG)->put($key, $items, $ttl);
     }

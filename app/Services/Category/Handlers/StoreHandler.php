@@ -4,22 +4,31 @@
 namespace App\Services\Category\Handlers;
 
 
-use App\Http\Requests\FormRequest;
-use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
+use App\Services\Category\Repositories\CmsCategoryRepository;
 use Illuminate\Support\Arr;
 
 class StoreHandler
 {
+    private CmsCategoryRepository $repository;
+
     /**
-     * @param FormRequest $request
-     * @param CmsBaseResourceRepository $repository
+     * StoreHandler constructor.
+     * @param CmsCategoryRepository $repository
+     */
+    public function __construct(CmsCategoryRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @param array $storeData
      * @return mixed
      */
-    public function handle(FormRequest $request, CmsBaseResourceRepository $repository)
+    public function handle(array $storeData)
     {
-        $uploadAttributes = uploader()->upload($request->image);
-        $data = Arr::add($request->except(['image']),'image_path', $uploadAttributes['path']);
+        $uploadAttributes = uploader()->upload($storeData['image']);
+        $storeData = Arr::add(Arr::except($storeData, ['image']),'image_path', $uploadAttributes['path']);
 
-        return $repository->store($data);
+        return $this->repository->store($storeData);
     }
 }

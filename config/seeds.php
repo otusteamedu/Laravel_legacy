@@ -296,50 +296,138 @@ return [
         'topics' => [
             [
                 'type' => 'topics',
-                'title' => 'Природа',
-                'alias' => 'nature',
-                'description' => 'Изображения природы',
-                'keywords' => 'природа, nature',
-                'publish' => 1
-            ],
-            [
-                'type' => 'topics',
-                'title' => 'Мегаполис',
-                'alias' => 'megapolice',
-                'description' => 'Изображения крупных городов (мегаполисов)',
-                'keywords' => 'megapolice, мегаполис, небоскреб, большой город',
-                'publish' => 1
-            ],
-            [
-                'type' => 'topics',
                 'title' => 'Абстракция',
                 'alias' => 'abstraction',
-                'description' => 'Изображения с абстракцией',
-                'keywords' => 'абстракция, abstraction',
+                'description' => '',
+                'keywords' => '',
                 'publish' => 1
             ],
             [
                 'type' => 'topics',
-                'title' => 'Улочки, скверы, арки',
-                'alias' => 'streets-squares-arches',
-                'description' => 'Изображения улочек, скверов, арок',
-                'keywords' => 'улочки, скверы, арки',
+                'title' => 'Архитектура',
+                'alias' => 'architecture',
+                'description' => '',
+                'keywords' => '',
                 'publish' => 1
             ],
             [
                 'type' => 'topics',
-                'title' => 'Море',
-                'alias' => 'sea',
-                'description' => 'Изображения с видом моря',
-                'keywords' => 'море, пляж, sea, beach, long beach, seaside',
+                'title' => 'Геометрия',
+                'alias' => 'geometry',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Живопись',
+                'alias' => 'painting',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Животные',
+                'alias' => 'animals',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Замки',
+                'alias' => 'castles',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Карты',
+                'alias' => 'maps',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Корабли',
+                'alias' => 'ships',
+                'description' => '',
+                'keywords' => '',
                 'publish' => 1
             ],
             [
                 'type' => 'topics',
                 'title' => 'Космос',
                 'alias' => 'space',
-                'description' => 'Изображения космоса',
-                'keywords' => 'космос, звездное небо, space',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Мегаполис',
+                'alias' => 'megalopolis',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Природа',
+                'alias' => 'nature',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Ретро',
+                'alias' => 'retro',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Текстуры',
+                'alias' => 'textures',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Улицы, улочки, дома',
+                'alias' => 'streets-houses',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Флористика',
+                'alias' => 'floristics',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Фоны',
+                'alias' => 'backgrounds',
+                'description' => '',
+                'keywords' => '',
+                'publish' => 1
+            ],
+            [
+                'type' => 'topics',
+                'title' => 'Цветы и растения',
+                'alias' => 'flowers-plants',
+                'description' => '',
+                'keywords' => '',
                 'publish' => 1
             ]
         ],

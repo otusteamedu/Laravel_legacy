@@ -9,13 +9,10 @@ use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 
 class UploadHandler
 {
-    /**
-     * @var Image
-     */
-    private $uploadModel;
+    private Image $uploadModel;
 
     /**
-     * UploadImagesToCategoryHandler constructor.
+     * UploadHandler constructor.
      * @param Image $uploadModel
      */
     public function __construct(Image $uploadModel)
@@ -24,15 +21,16 @@ class UploadHandler
     }
 
     /**
+     * @param $category
      * @param array $uploadImages
      * @param CmsBaseResourceRepository $repository
-     * @param $category
      * @return mixed
      */
-    public function handle(array $uploadImages, CmsBaseResourceRepository $repository, $category)
+    public function handle($category, array $uploadImages, CmsBaseResourceRepository $repository)
     {
         $images = array_map(function ($image) {
             $image = uploader()->store($image, $this->uploadModel);
+
             return $image->id;
         }, $uploadImages);
 

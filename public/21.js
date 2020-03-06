@@ -141,21 +141,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    indexAction: 'images/index',
     publishAction: 'images/publish',
     updatePaginationAction: 'images/updatePaginationFields',
-    showExcludedImagesAction: 'categories/showExcludedImages',
-    showWithExcludedImagesAction: 'categories/showWithExcludedImages'
+    getExcludedImagesAction: 'categories/getExcludedImages',
+    getCategoryWithExcludedImagesAction: 'categories/getItemWithExcludedImages'
   }), {
-    onDelete: function onDelete(item) {
-      return this["delete"]({
-        storeModule: this.storeModule,
-        payload: item.id,
-        title: item.id,
-        alertText: "\u0438\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \xAB".concat(item.id, "\xBB"),
-        successText: 'Изображение удалено!'
-      });
-    },
     onPublishChange: function onPublishChange(id) {
       this.publishAction(id);
     },
@@ -181,17 +171,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     search: function search(query) {
       var currentPageFirst = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
-      var data = Object.assign({
+      var paginationData = Object.assign({
         query: query
       }, this.paginationData);
 
       if (currentPageFirst) {
-        data.current_page = 1;
+        paginationData.current_page = 1;
       }
 
-      this.showExcludedImagesAction({
+      this.getExcludedImagesAction({
         id: this.id,
-        data: data
+        paginationData: paginationData
       });
     },
     handleSearch: function handleSearch(query) {
@@ -199,24 +189,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     rebootImageList: function rebootImageList() {
       var currentPageFirst = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      var data = Object.assign({}, this.paginationData);
+      var paginationData = Object.assign({}, this.paginationData);
 
       if (currentPageFirst) {
-        data.current_page = 1;
+        paginationData.current_page = 1;
       }
 
-      return this.showExcludedImagesAction({
+      return this.getExcludedImagesAction({
         id: this.id,
-        data: data
+        paginationData: paginationData
       });
     }
   }),
   created: function created() {
     var _this = this;
 
-    this.showWithExcludedImagesAction({
+    this.getCategoryWithExcludedImagesAction({
       id: this.id,
-      data: this.paginationData
+      paginationData: this.paginationData
     }).then(function () {
       _this.setPageTitle('Каталог изображений');
 

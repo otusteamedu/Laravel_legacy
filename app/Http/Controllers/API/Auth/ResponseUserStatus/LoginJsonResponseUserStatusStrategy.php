@@ -9,7 +9,7 @@ trait LoginJsonResponseUserStatusStrategy
     public function getLockedOut()
     {
         return response()->json([
-//            'message' => trans('auth.locked_out'),
+            'message' => trans('auth.locked_out'),
             'status' => 'danger'
         ], 403);
     }

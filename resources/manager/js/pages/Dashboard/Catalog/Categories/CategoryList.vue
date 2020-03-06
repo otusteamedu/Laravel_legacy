@@ -103,7 +103,7 @@
         },
         methods: {
             ...mapActions('categories', {
-                indexByTypeAction: 'indexByType',
+                getItemsByTypeAction: 'getItemsByType',
                 publishAction: 'publish',
                 clearFieldsAction: 'clearFields'
             }),
@@ -111,7 +111,7 @@
                 this.responseData = false;
                 await this.setPageTitle('');
                 await this.clearFieldsAction();
-                await this.indexByTypeAction(category_type)
+                await this.getItemsByTypeAction(category_type)
                     .then(() => {
                         this.setPageTitle(this.pageProps[category_type].PAGE_TITLE);
                         this.responseData = true;

@@ -17,4 +17,15 @@ class Setting extends Model
     public function group() {
         return $this->belongsTo('App\Models\SettingGroup');
     }
+
+    const TYPES = [
+        [
+            'name' => 'text',
+            'display_name' => 'Текстовое поле'
+        ],
+        [
+            'name' => 'file',
+            'display_name' => 'Изображение'
+        ]
+    ];
 }

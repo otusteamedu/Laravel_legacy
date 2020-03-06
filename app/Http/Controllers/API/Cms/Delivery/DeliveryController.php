@@ -26,7 +26,7 @@ class DeliveryController extends BaseResourceController
      */
     public function store(CreateDeliveryRequest $request): Delivery
     {
-        return $this->service->store($request);
+        return $this->service->store($request->all());
     }
 
     /**
@@ -36,6 +36,6 @@ class DeliveryController extends BaseResourceController
      */
     public function update(UpdateDeliveryRequest $request, int $id): Delivery
     {
-        return $this->service->update($request, $id);
+        return $this->service->update($id, $request->all());
     }
 }

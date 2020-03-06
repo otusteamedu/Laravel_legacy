@@ -9,10 +9,7 @@ use App\Services\Image\Repositories\CmsImageRepository;
 
 class SyncAssociativeCategoryOfImageHandler
 {
-    /**
-     * @var CmsImageRepository
-     */
-    private $repository;
+    private CmsImageRepository $repository;
 
     /**
      * UploadImageHandler constructor.
@@ -23,16 +20,17 @@ class SyncAssociativeCategoryOfImageHandler
         $this->repository = $repository;
     }
 
-    public function handle(string $relation, $data, Image $image)
+    /**
+     * @param Image $image
+     * @param string $relation
+     * @param $syncKeys
+     */
+    public function handle(Image $image, string $relation, $syncKeys)
     {
-        $syncData = [];
+        $syncData = $syncKeys
+            ? array_fill_keys($syncKeys, ['category_type' => $relation])
+            : [];
 
-        if ($data) {
-            foreach ($data as $value) {
-                $syncData[$value] = ['category_type' => $relation];
-            }
-        }
-
-        $this->repository->syncAssociations($relation, $syncData, $image);
+        $this->repository->syncAssociations($image, $relation, $syncData);
     }
 }

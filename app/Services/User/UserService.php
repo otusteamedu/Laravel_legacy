@@ -8,7 +8,7 @@ use App\Http\Requests\FormRequest;
 use App\Models\User;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\User\Handlers\CreateUserHandler;
+use App\Services\User\Handlers\StoreUserHandler;
 use App\Services\User\Handlers\UpdateUserHandler;
 use App\Services\User\Repositories\UserRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,9 +16,9 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class UserService extends CmsBaseResourceService
 {
     /**
-     * @var CreateUserHandler
+     * @var StoreUserHandler
      */
-    private CreateUserHandler $storeHandler;
+    private StoreUserHandler $storeHandler;
 
     /**
      * @var UpdateUserHandler
@@ -29,13 +29,13 @@ class UserService extends CmsBaseResourceService
      * UserServiceCms constructor.
      * @param UserRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
-     * @param CreateUserHandler $createUserHandler
+     * @param StoreUserHandler $createUserHandler
      * @param UpdateUserHandler $updateUserHandler
      */
     public function __construct(
         UserRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
-        CreateUserHandler $createUserHandler,
+        StoreUserHandler $createUserHandler,
         UpdateUserHandler $updateUserHandler
     )
     {
@@ -49,54 +49,55 @@ class UserService extends CmsBaseResourceService
      * @param int $id
      * @return JsonResource
      */
-    public function show(int $id): JsonResource
+    public function getItemWithRole(int $id): JsonResource
     {
-        return $this->repository->showWithRole($id);
+        return $this->repository->getItemWithRole($id);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $storeData
      * @return User
      */
-    public function store(FormRequest $request): User
+    public function store(array $storeData): User
     {
-        return $this->storeHandler->handle($request, $this->repository);
+        return $this->storeHandler->handle($storeData);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $updateData
      * @param int $id
      * @return User
      */
-    public function update(FormRequest $request, int $id): User
+    public function update(int $id, array $updateData): User
     {
-        $user = $this->repository->show($id);
+        $user = $this->repository->getItem($id);
 
-        return $this->updateHandler->handle($request, $user, $this->repository);
+        return $this->updateHandler->handle($user, $updateData);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $storeData
      * @param string $service
      * @return User
      */
-    public function storeWithSocial(FormRequest $request, string $service): User
+    public function storeWithSocial(array $storeData, string $service): User
     {
-        $user = $this->store($request);
+        $user = $this->store($storeData);
 
-        if (!$user->hasSocialLinked($service))
-            $this->storeUserSocial($user, $request->social_id, $service);
+        if (!$user->hasSocialLinked($service)) {
+            $this->storeUserSocial($user, $storeData['social_id'], $service);
+        }
 
         return $user;
     }
 
     /**
-     * @param $user
-     * @param $socialId
-     * @param $service
+     * @param User $user
+     * @param string $socialId
+     * @param string $service
      * @return \Illuminate\Database\Eloquent\Model
      */
-    public function storeUserSocial($user, $socialId, $service)
+    public function storeUserSocial(User $user, string $socialId, string $service)
     {
         return $this->repository->storeUserSocial($user, $socialId, $service);
     }

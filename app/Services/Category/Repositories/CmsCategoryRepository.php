@@ -13,7 +13,6 @@ class CmsCategoryRepository extends CmsBaseCategoryRepository
     public function __construct(Category $model)
     {
         $this->model = $model;
-        $this->table = 'categories';
     }
 
     /**
@@ -27,7 +26,7 @@ class CmsCategoryRepository extends CmsBaseCategoryRepository
      * @param string $type
      * @return Collection
      */
-    public function indexByType(string $type): Collection {
+    public function getItemsByType(string $type): Collection {
         return $this->model::where('type', $type)
             ->withCount('images')
             ->get();

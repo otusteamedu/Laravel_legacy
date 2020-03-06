@@ -59,22 +59,23 @@ const actions = {
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    indexByType(context, category_type) {
+    getItemsByType(context, category_type) {
         return axiosAction('get', context, {
             url: `/api/manager/catalog/categories/type/${category_type}`,
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    show(context, payload) {
+    getItem(context, payload) {
         return axiosAction('get', context, {
             url: `/api/manager/catalog/categories/${payload}`,
             thenContent: response => context.commit('UPDATE_FIELDS', response.data)
         })
     },
-    showImages(context, payload) {
+    getImages(context, payload) {
         const form = new FormData();
-        for(let field in payload.data) {
-            form.append(field, payload.data[field]);
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
         }
 
         return axiosAction('post', context, {
@@ -82,16 +83,17 @@ const actions = {
             data: form,
             thenContent: response => {
                 context.commit('images/SET_PAGINATION', response.data, { root: true });
-                payload.data['query']
+                payload.paginationData['query']
                     ? context.commit('SET_SEARCHED_DATA', response.data.data, { root: true })
                     : context.commit('images/UPDATE_ITEMS', response.data.data, { root: true });
             }
         })
     },
-    showWithImages(context, payload) {
+    getItemWithImages(context, payload) {
         const form = new FormData();
-        for(let field in payload.data) {
-            form.append(field, payload.data[field]);
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
         }
         return axiosAction('post', context, {
             url: `/api/manager/catalog/categories/${payload.id}/with-images`,
@@ -103,26 +105,11 @@ const actions = {
             }
         })
     },
-    // showQuerySearchImages(context, payload) {
-    //     const form = new FormData();
-    //     for(let field in payload.data) {
-    //         form.append(field, payload.data[field]);
-    //     }
-    //
-    //     return axiosAction('post', context, {
-    //         url: `/api/manager/catalog/categories/${payload.id}/images/search`,
-    //         data: form,
-    //         thenContent: response => {
-    //             context.commit('images/SET_PAGINATION', response.data, { root: true });
-    //             context.commit('SET_SEARCHED_DATA', response.data.data, { root: true });
-    //         }
-    //     })
-    // },
-    showExcludedImages(context, payload) {
+    getExcludedImages(context, payload) {
         const form = new FormData();
 
-        for(let field in payload.data) {
-            form.append(field, payload.data[field]);
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
         }
 
         return axiosAction('post', context, {
@@ -130,17 +117,17 @@ const actions = {
             data: form,
             thenContent: response => {
                 context.commit('images/SET_PAGINATION', response.data, { root: true });
-                payload.data['query']
+                payload.paginationData['query']
                     ? context.commit('SET_SEARCHED_DATA', response.data.data, { root: true })
                     : context.commit('images/UPDATE_ITEMS', response.data.data, { root: true });
             }
         })
     },
-    showWithExcludedImages(context, payload) {
+    getItemWithExcludedImages(context, payload) {
         const form = new FormData();
 
-        for(let field in payload.data) {
-            form.append(field, payload.data[field]);
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
         }
 
         return axiosAction('post', context, {
@@ -153,22 +140,6 @@ const actions = {
             }
         })
     },
-    // showQuerySearchExcludedImages(context, payload) {
-    //     const form = new FormData();
-    //
-    //     for(let field in payload.data) {
-    //         form.append(field, payload.data[field]);
-    //     }
-    //
-    //     return axiosAction('post', context, {
-    //         url: `/api/manager/catalog/categories/${payload.id}/images/excluded/search`,
-    //         data: form,
-    //         thenContent: response => {
-    //             context.commit('images/SET_PAGINATION', response.data, { root: true });
-    //             context.commit('SET_SEARCHED_DATA', response.data.data, { root: true });
-    //         }
-    //     })
-    // },
     publish(context, payload) {
         return axiosAction('get', context, {
             url: `/api/manager/catalog/categories/${payload}/publish`,
@@ -212,9 +183,11 @@ const actions = {
     },
     uploadImages(context, payload) {
         const form = new FormData();
+
         for(let file of payload.files) {
             form.append('images[]', file);
         }
+
         for(let field in payload.paginationData) {
             form.append(field, payload.paginationData[field]);
         }
@@ -224,7 +197,9 @@ const actions = {
             data: form,
             config: {
                 onUploadProgress: (imageUpload) => {
-                    context.commit('images/CHANGE_FILE_PROGRESS', Math.round((imageUpload.loaded / imageUpload.total) * 100), {root: true});
+                    context.commit(
+                        'images/CHANGE_FILE_PROGRESS',
+                        Math.round((imageUpload.loaded / imageUpload.total) * 100), {root: true});
                 }
             },
             thenContent: response => {
@@ -236,6 +211,7 @@ const actions = {
     },
     removeImage(context, payload) {
         const form = new FormData();
+
         for(let field in payload.paginationData) {
             form.append(field, payload.paginationData[field]);
         }

@@ -21,7 +21,7 @@ class TagController extends SubCategoryController
      */
     public function store(CreateTagRequest $request): JsonResponse
     {
-        return response()->json($this->service->store($request));
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
@@ -30,6 +30,6 @@ class TagController extends SubCategoryController
      */
     public function update(UpdateTagRequest $request, int $id)
     {
-        $this->service->update($request, $id);
+        $this->service->update($id, $request->all());
     }
 }

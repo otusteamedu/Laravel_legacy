@@ -18,6 +18,11 @@ class OwnerController extends SubCategoryController
      */
     private $imageService;
 
+    /**
+     * OwnerController constructor.
+     * @param OwnerService $service
+     * @param CmsImageService $imageService
+     */
     public function __construct(
         OwnerService $service,
         CmsImageService $imageService
@@ -31,28 +36,17 @@ class OwnerController extends SubCategoryController
      * @param CreateOwnerRequest $request
      * @return JsonResponse
      */
-    public function store(CreateOwnerRequest $request): JsonResponse {
-        return Response::Json($this->service->store($request));
+    public function store(CreateOwnerRequest $request): JsonResponse
+    {
+        return Response::Json($this->service->store($request->all()));
     }
 
     /**
      * @param UpdateOwnerRequest $request
      * @param int $id
      */
-    public function update(UpdateOwnerRequest $request, int $id) {
-        $this->service->update($request, $id);
-    }
-
-    /**
-     * @param FormRequest $request
-     * @param int $id
-     * @return JsonResponse
-     */
-    public function upload(FormRequest $request, int $id): JsonResponse
+    public function update(UpdateOwnerRequest $request, int $id)
     {
-        $uploads = $this->imageService->upload($request);
-        $this->service->associateWithImages($uploads, $id);
-
-        return response()->json($this->service->getImageList($id));
+        $this->service->update($id, $request->all());
     }
 }

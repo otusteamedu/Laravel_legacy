@@ -4,33 +4,32 @@
 namespace App\Services\Texture;
 
 
-use App\Http\Requests\FormRequest;
 use App\Models\Texture;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Texture\Repositories\CmsTextureRepository;
-use App\Services\Texture\Handlers\CreateTextureHandler;
+use App\Services\Texture\Handlers\StoreTextureHandler;
 use App\Services\Texture\Handlers\DeleteTextureHandler;
 use App\Services\Texture\Handlers\UpdateTextureHandler;
 
 class CmsTextureService extends CmsBaseResourceService
 {
-    private $storeHandler;
-    private $updateHandler;
-    private $destroyHandler;
+    private StoreTextureHandler $storeHandler;
+    private UpdateTextureHandler $updateHandler;
+    private DeleteTextureHandler $destroyHandler;
 
     /**
      * TextureServiceCms constructor.
      * @param CmsTextureRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
-     * @param CreateTextureHandler $createTextureHandler
+     * @param StoreTextureHandler $createTextureHandler
      * @param UpdateTextureHandler $updateTextureHandler
      * @param DeleteTextureHandler $deleteTextureHandler
      */
     public function __construct(
         CmsTextureRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
-        CreateTextureHandler $createTextureHandler,
+        StoreTextureHandler $createTextureHandler,
         UpdateTextureHandler $updateTextureHandler,
         DeleteTextureHandler $deleteTextureHandler
     )
@@ -42,24 +41,24 @@ class CmsTextureService extends CmsBaseResourceService
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $storeData
      * @return Texture
      */
-    public function store(FormRequest $request): Texture
+    public function store(array $storeData): Texture
     {
-        return $this->storeHandler->handle($request->all());
+        return $this->storeHandler->handle($storeData);
     }
 
     /**
-     * @param FormRequest $request
      * @param int $id
+     * @param array $updateData
      * @return Texture
      */
-    public function update(FormRequest $request, int $id): Texture
+    public function update(int $id, array $updateData): Texture
     {
-        $item = $this->repository->show($id);
+        $item = $this->repository->getItem($id);
 
-        return $this->updateHandler->handle($request->all(), $item);
+        return $this->updateHandler->handle($item, $updateData);
     }
 
     /**
@@ -69,7 +68,7 @@ class CmsTextureService extends CmsBaseResourceService
      */
     public function delete(int $id): int
     {
-        $item = $this->repository->show($id);
+        $item = $this->repository->getItem($id);
 
         return $this->destroyHandler->handle($item);
     }

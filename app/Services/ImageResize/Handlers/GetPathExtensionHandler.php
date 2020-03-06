@@ -25,7 +25,8 @@ class GetPathExtensionHandler
      * @param string $path
      * @return array
      */
-    public function handle(string $path): array {
+    public function handle(string $path): array
+    {
         $nameArray = explode('.', $path);
         $ext = array_pop($nameArray);
         $file = implode('.', $nameArray);
@@ -35,6 +36,7 @@ class GetPathExtensionHandler
             $filePath = $this->noImagePath;
             $ext = $this->noImageExtension;
         }
+
         return [$filePath, $ext];
     }
 }

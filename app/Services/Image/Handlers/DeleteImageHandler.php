@@ -9,10 +9,7 @@ use App\Services\Image\Repositories\CmsImageRepository;
 
 class DeleteImageHandler
 {
-    /**
-     * @var CmsImageRepository
-     */
-    private $repository;
+    private CmsImageRepository $repository;
 
     /**
      * DeleteImageHandler constructor.
@@ -28,7 +25,8 @@ class DeleteImageHandler
      * @return int
      * @throws \Exception
      */
-    public function handle(Image $image): int {
+    public function handle(Image $image): int
+    {
         uploader()->remove($image->path);
 
         return $this->repository->destroy($image);

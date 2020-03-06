@@ -26,25 +26,25 @@ abstract class CmsBaseResourceRepository
      * @param int $id
      * @return mixed
      */
-    public function show(int $id) {
+    public function getItem(int $id) {
         return $this->model::findOrFail($id);
     }
 
     /**
-     * @param array $data
+     * @param array $storeData
      * @return mixed
      */
-    public function store(array $data) {
-        return $this->model::create($data);
+    public function store(array $storeData) {
+        return $this->model::create($storeData);
     }
 
     /**
-     * @param array $data
      * @param $item
+     * @param array $updateData
      * @return mixed
      */
-    public function update(array $data, $item) {
-        $item->update($data);
+    public function update($item, array $updateData) {
+        $item->update($updateData);
 
         return $item;
     }

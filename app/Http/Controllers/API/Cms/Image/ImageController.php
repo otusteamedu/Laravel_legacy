@@ -25,12 +25,21 @@ class ImageController extends BaseResourceController
     }
 
     /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
+    {
+        return response()->json($this->service->getItemToEdit($id));
+    }
+
+    /**
      * @param FormRequest $request
      * @return JsonResponse
      */
-    public function paginateIndex(FormRequest $request): JsonResponse
+    public function getItems(FormRequest $request): JsonResponse
     {
-        return response()->json($this->service->paginateIndex($request->all()));
+        return response()->json($this->service->getItems($request->all()));
     }
 
     /**
@@ -39,7 +48,7 @@ class ImageController extends BaseResourceController
      */
     public function store(FormRequest $request): JsonResponse
     {
-        return response()->json($this->service->store($request));
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
@@ -48,6 +57,6 @@ class ImageController extends BaseResourceController
      */
     public function update(UpdateImageRequest $request, int $id)
     {
-        $this->service->update($request, $id);
+        $this->service->update($id, $request->all());
     }
 }
