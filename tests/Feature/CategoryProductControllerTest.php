@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Models\CategoryProduct;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
@@ -14,23 +13,29 @@ class CategoryProductControllerTest extends TestCase
 
     public function testCategoryProductIndex()
     {
-        Auth::loginUsingId(1);
+        $user = LoginControllerTest::usersGenerator('admin');
+        Auth::login($user);
 
         $response = $this->get(route('admin.category.index'));
         $response->assertStatus(200);
     }
-
+    /**
+     *
+     * @group CategoryProductCreateTest
+     */
     public function testCategoryProductCreate()
     {
-        Auth::loginUsingId(1);
+        $user = LoginControllerTest::usersGenerator('admin');
+        Auth::login($user);
 
-        $response = $this->get(route('admin.category.create'));
+        $response = $this->from(route('admin.category.index'))->get(route('admin.category.create'));
         $response->assertStatus(200);
     }
 
     public function testCategoryProductStore()
     {
-        Auth::loginUsingId(1);
+        $user = LoginControllerTest::usersGenerator('admin');
+        Auth::login($user);
 
         $response = $this->from(route('admin.category.create'))->post(route('admin.category.store'), [
             '_token' => csrf_token(),
@@ -43,22 +48,56 @@ class CategoryProductControllerTest extends TestCase
 
     public function testCategoryProductEdit()
     {
-        Auth::loginUsingId(1);
+        $user = LoginControllerTest::usersGenerator('admin');
+        Auth::login($user);
 
-        $response = $this->from(route('admin.category.index'))->get(route('admin.category.edit', ['category' => 1]));
+        $category = CategoryProductControllerTest::createTestCategory();
+
+        $response = $this->from(route('admin.category.index'))->get(route('admin.category.edit', ['category' => $category->id]));
+        $response->assertStatus(200);
+    }
+    /**
+     *
+     * @group CategoryUpdateTest
+     */
+    public function testCategoryUpdate()
+    {
+        $user = LoginControllerTest::usersGenerator('admin');
+        Auth::login($user);
+
+        $category = CategoryProductControllerTest::createTestCategory();
+
+        $response = $this->from(route('admin.category.edit',$category->id))->post(route('admin.category.update',
+            [
+                '_token' => csrf_token(),
+                '_method' => 'PUT',
+                'name' => 'tex t2',
+                'description' => 'tex t text',
+                'category' => $category->id,
+            ],
+            $category
+        ));
         $response->assertStatus(200);
     }
 
     public function testProductDestroy()
     {
-        Auth::loginUsingId(1);
+        $user = LoginControllerTest::usersGenerator('admin');
+        Auth::login($user);
 
-        $response = $this->from(route('admin.category.edit', ['category' => 1]))->post(route('admin.category.destroy',
+        $category = CategoryProductControllerTest::createTestCategory();
+
+        $response = $this->from(route('admin.category.edit', ['category' => $category->id]))->post(route('admin.category.destroy',
             ['category' => 1,
                 '_method' => 'DELETE',
                 '_token' => csrf_token(),
             ]
         ));
         $response->assertRedirect(route('admin.category.index'));
+    }
+
+    public static function createTestCategory(){
+
+        return factory(CategoryProduct::class)->create();
     }
 }

@@ -3,11 +3,15 @@
 namespace Tests\Feature;
 
 use App\Models\Product;
-use App\Services\Product\ProductService;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Auth;
 use Tests\TestCase;
 
+/**
+ * Class ProductControllerTest
+ * @package Tests\Feature
+ * @group TestProductController
+ */
 class ProductControllerTest extends TestCase
 {
     use DatabaseTransactions;
@@ -21,12 +25,20 @@ class ProductControllerTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /**
+     * @group ProductCreateTest
+     */
     public function testProductCreate()
     {
         $user = LoginControllerTest::usersGenerator('admin');
         Auth::login($user);
 
-        $response = $this->get(route('admin.product.create'));
+        $category = CategoryProductControllerTest::createTestCategory();
+
+        $response = $this->from(route('admin.product.index'))->get(route('admin.product.create',[
+            'category_id' => $category->id,
+        ]));
+
         $response->assertStatus(200);
     }
 
@@ -35,39 +47,58 @@ class ProductControllerTest extends TestCase
         $user = LoginControllerTest::usersGenerator('admin');
         Auth::login($user);
 
+        $category = CategoryProductControllerTest::createTestCategory();
+
         $response = $this->from(route('admin.product.create'))->post(route('admin.product.store'), [
             '_token' => csrf_token(),
             'name' => 'tet2',
             'description' => 'tex t text',
             'price' => rand(1000, 3000),
-            'category_id' => rand(1, 3),
+            'category_id' => $category->id,
         ]);
 
         $response->assertRedirect(route('admin.product.index'));
     }
 
+    /**
+     * @group ProductEditTest
+     */
     public function testProductEdit()
     {
         $user = LoginControllerTest::usersGenerator('admin');
         Auth::login($user);
 
-        $response = $this->from(route('admin.product.index'))->get(route('admin.product.edit',['product'=>1]));
+        $category = CategoryProductControllerTest::createTestCategory();
+        $product = $this->createTestProduct($category);
+
+        $response = $this->from(route('admin.product.index'))->get(route('admin.product.edit',['product'=>$product->id]));
         $response->assertStatus(200);
     }
 
+    /**
+     *
+     * @group ProductUpdateTest
+     */
     public function testProductUpdate()
     {
         $user = LoginControllerTest::usersGenerator('admin');
         Auth::login($user);
 
-        $response = $this->from(route('admin.product.edit',['product'=>1]))->get(route('admin.product.update',
-            ['_token' => csrf_token(),
-            'name' => 'tet2',
-            'description' => 'tex t text',
-            'price' => rand(1000, 3000),
-            'category_id' => rand(1, 3),
-                ],
-            Product::class
+        $category = CategoryProductControllerTest::createTestCategory();
+        $product = $this->createTestProduct($category);
+
+        $response = $this->from(route('admin.product.edit',$product->id))->post(route('admin.product.update',
+
+            [
+                'product' => $product->id,
+                '_method' => 'PUT',
+                '_token' => csrf_token(),
+                'name' => 'new name',
+                'description' => 'tex t text',
+                'price' => rand(1000, 3000),
+                'category_id' => $category->id,
+            ],
+            $product
         ));
         $response->assertStatus(200);
     }
@@ -77,14 +108,24 @@ class ProductControllerTest extends TestCase
         $user = LoginControllerTest::usersGenerator('admin');
         Auth::login($user);
 
+        $category = CategoryProductControllerTest::createTestCategory();
+        $product = $this->createTestProduct($category);
+
         $response = $this->from(route('admin.product.edit',['product' => 1]))->post(route('admin.product.destroy',
             [
-                'product' => 1,
+                'product' => $product->id,
                 '_method' => 'DELETE',
                 '_token' => csrf_token(),
             ]
         ));
         $response->assertRedirect(route('admin.product.index'));
+    }
+
+
+    public static function createTestProduct($category){
+        return factory(Product::class)->create([
+            'category_id' => $category->id,
+        ]);
     }
 
 }
