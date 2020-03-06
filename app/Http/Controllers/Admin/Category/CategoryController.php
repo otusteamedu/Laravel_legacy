@@ -15,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $category = Category::paginate(6);
+
+        return view('admin.category.page', compact('category'));
     }
 
     /**
@@ -25,7 +27,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.category.page',[
+            'category'=>[],
+            'categories'=>Category::with('children')->where('parent_id', 0)->get(),
+            'delimits'=>'-'
+        ]);
     }
 
     /**

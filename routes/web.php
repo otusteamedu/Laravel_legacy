@@ -28,7 +28,8 @@ Route::get('/delivery', function () {
 Route::name('admin.')->group(function(){
     Route::prefix('admin')->group(function(){
         Route::resources([
-            'news'=>'Admin\News\NewsController'
+            'news'=>'Admin\News\NewsController',
+            'category'=>'Admin\Category\CategoryController'
         ]);
     });
 }); 
