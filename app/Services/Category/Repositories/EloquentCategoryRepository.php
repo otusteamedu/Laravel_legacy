@@ -27,7 +27,7 @@ class EloquentCategoryRepository implements CategoryRepositoryInterface
     public function createFromArray(array $data): CategoryProduct
     {
         $category = new CategoryProduct();
-        $category->create($data);
+        $category = $category->create($data);
         return $category;
     }
 
