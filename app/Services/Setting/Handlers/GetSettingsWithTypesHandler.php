@@ -4,14 +4,14 @@
 namespace App\Services\Setting\Handlers;
 
 
+use App\Models\Setting;
 use App\Services\Setting\Repositories\CmsSettingRepository;
 
 class GetSettingsWithTypesHandler
 {
-    /**
-     * @var CmsSettingRepository
-     */
-    private $repository;
+    private CmsSettingRepository $repository;
+
+    private array $types;
 
     /**
      * GetTagHandler constructor.
@@ -20,6 +20,7 @@ class GetSettingsWithTypesHandler
     public function __construct(CmsSettingRepository $repository)
     {
         $this->repository = $repository;
+        $this->types = Setting::TYPES;
     }
 
     /**
@@ -28,8 +29,7 @@ class GetSettingsWithTypesHandler
     public function handle(): array
     {
         $items = $this->repository->index();
-        $types = config('setting_rules.types');
 
-        return [ 'items' => $items, 'types' => $types ];
+        return [ 'items' => $items, 'types' => $this->types ];
     }
 }

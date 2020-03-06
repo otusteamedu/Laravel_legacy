@@ -5,13 +5,10 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\API\Auth\ResponseUserStatus\SocialLoginResponseUserStatusStrategy;
 use App\Http\Controllers\API\Auth\Base\BaseLoginController;
 use App\Http\Controllers\API\Cms\User\Requests\UserSocialRequest;
-use App\Http\Middleware\UserActive;
-use App\Http\Middleware\UserVerified;
 use App\Models\User;
 use App\Services\Auth\AuthService;
 use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\JWTAuth;
@@ -53,7 +50,7 @@ class SocialLoginController extends BaseLoginController
     public function registered($service, UserSocialRequest $request): JsonResponse
     {
         /** @var User $user */
-        $user = $this->userService->storeWithSocial($request, $service);
+        $user = $this->userService->storeWithSocial($request->all(), $service);
 
         $this->authService->createEmailVerification($user);
 

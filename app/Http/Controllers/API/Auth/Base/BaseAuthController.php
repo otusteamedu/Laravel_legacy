@@ -9,15 +9,9 @@ use Tymon\JWTAuth\JWTAuth;
 
 abstract class BaseAuthController extends Controller
 {
-    /**
-     * @var JWTAuth
-     */
-    protected $auth;
+    protected JWTAuth $auth;
 
-    /**
-     * @var AuthService
-     */
-    protected $authService;
+    protected AuthService $authService;
 
     /**
      * BaseAuthController constructor.

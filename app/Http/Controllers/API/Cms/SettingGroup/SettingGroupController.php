@@ -22,9 +22,9 @@ class SettingGroupController extends BaseResourceController
     /**
      * @return JsonResponse
      */
-    public function indexWithSettings(): JsonResponse
+    public function getItemsWithSettings(): JsonResponse
     {
-        return response()->json($this->service->indexWithSettings());
+        return response()->json($this->service->getItemsWithSettings());
     }
 
     /**
@@ -33,7 +33,7 @@ class SettingGroupController extends BaseResourceController
      */
     public function store(CreateSettingGroupRequest $request): JsonResponse
     {
-        return response()->json($this->service->store($request));
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
@@ -43,6 +43,6 @@ class SettingGroupController extends BaseResourceController
      */
     public function update(UpdateSettingGroupRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->update($request, $id));
+        return response()->json($this->service->update($id, $request->all()));
     }
 }

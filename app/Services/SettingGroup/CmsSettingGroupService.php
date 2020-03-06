@@ -27,8 +27,8 @@ class CmsSettingGroupService extends CmsBaseResourceService
     /**
      * @return Collection
      */
-    public function indexWithSettings(): Collection
+    public function getItemsWithSettings(): Collection
     {
-        return $this->repository->indexWithSettings();
+        return $this->repository->getItemsWithSettings();
     }
 }

@@ -20,11 +20,16 @@ class UpdateImagePathHandler
         $this->uploadModel = $uploadModel;
     }
 
-    public function handle(UploadedFile $imageFile, Image $image) {
+    /**
+     * @param Image $image
+     * @param UploadedFile $imageFile
+     */
+    public function handle(Image $image, UploadedFile $imageFile)
+    {
         $upload = uploader();
         $uploadAttributes = $upload->upload($imageFile);
-        $upload->remove($image->path);
 
+        $upload->remove($image->path);
         $upload->update($image, $uploadAttributes);
     }
 }

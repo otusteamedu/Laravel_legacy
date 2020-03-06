@@ -36,7 +36,7 @@ class UserRepository extends CmsBaseResourceRepository
      * @param int $id
      * @return User
      */
-    public function show(int $id): User
+    public function getItem(int $id): User
     {
         return $this->model::findOrFail($id);
     }
@@ -45,7 +45,7 @@ class UserRepository extends CmsBaseResourceRepository
      * @param int $id
      * @return JsonResource
      */
-    public function showWithRole(int $id): JsonResource
+    public function getItemWithRole(int $id): JsonResource
     {
         return new UserResource($this->model::findOrFail($id));
     }
@@ -61,28 +61,28 @@ class UserRepository extends CmsBaseResourceRepository
     }
 
     /**
-     * @param array $data
-     * @param User $item
+     * @param $item
+     * @param array $updateData
      * @return User
      */
-    public function update(array $data, $item): User
+    public function update($item, array $updateData): User
     {
-        if (Arr::has($data, 'role')) {
-            $item->update(Arr::except($data, 'role'));
-            $item->syncRoles([$data['role']]);
+        if (Arr::has($updateData, 'role')) {
+            $item->update(Arr::except($updateData, 'role'));
+            $item->syncRoles([$updateData['role']]);
         } else {
-            $item->update($data);
+            $item->update($updateData);
         }
 
         return $item;
     }
 
     /**
+     * @param User $user
      * @param string $oldPassword
      * @param string $newPassword
-     * @param User $user
      */
-    public function setPassword(string $oldPassword, string $newPassword,  User $user)
+    public function setPassword(User $user, string $oldPassword, string $newPassword)
     {
         password_verify($oldPassword, $user->password)
             ? $user->password = bcrypt($newPassword)
@@ -110,19 +110,19 @@ class UserRepository extends CmsBaseResourceRepository
     }
 
     /**
-     * @param $token
+     * @param string $token
      * @return mixed
      */
-    public function getUserVerify($token)
+    public function getUserVerify(string $token)
     {
         return $this->model::getUserVerify($token)->first();
     }
 
     /**
-     * @param $email
+     * @param string $email
      * @return mixed
      */
-    public function getUserByEmail($email)
+    public function getUserByEmail(string $email)
     {
         return $this->model::where('email', $email)->first();
     }

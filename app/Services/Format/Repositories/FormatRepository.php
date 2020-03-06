@@ -12,7 +12,8 @@ class FormatRepository
     /**
      * @return Collection
      */
-    public function index(): Collection {
+    public function index(): Collection
+    {
         return Format::all();
     }
 }

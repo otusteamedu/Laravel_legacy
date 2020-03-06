@@ -60,6 +60,7 @@ const mutations = {
     },
     SET_SEARCH_QUERY(state, payload) {
         state.searchQuery = payload.trim();
+        console.log(`query: ${state.searchQuery}`)
     },
     SET_LOADING(state, payload) {
         state.loading = !!payload;

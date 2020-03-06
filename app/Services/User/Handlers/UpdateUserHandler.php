@@ -4,27 +4,38 @@
 namespace App\Services\User\Handlers;
 
 
-use App\Http\Requests\FormRequest;
 use App\Models\User;
 use App\Services\User\Repositories\UserRepository;
 use Illuminate\Support\Arr;
 
 class UpdateUserHandler
 {
+    private UserRepository $repository;
+
     /**
-     * @param FormRequest $request
-     * @param User $user
+     * StoreUserHandler constructor.
      * @param UserRepository $repository
+     */
+    public function __construct(UserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
+     * @param User $user
+     * @param array $updateData
      * @return User
      */
-    public function handle(FormRequest $request, User $user, UserRepository $repository): User
+    public function handle( User $user, array $updateData): User
     {
-        if ($request->has('old_password', 'password') && $request->filled(['old_password', 'password'])) {
-            $repository->setPassword($request['old_password'], $request['password'], $user);
+        if (Arr::has($updateData, ['old_password', 'password'])
+            && !empty($updateData['old_password'])
+            && !empty($updateData['password'])) {
+            $this->repository->setPassword($user, $updateData['old_password'], $updateData['password']);
         }
 
-        $request->publish = $request->publish ?? 0;
+        $updateData['publish'] = $updateData['publish'] ?? 0;
 
-        return $repository->update($request->except('old_password', 'password'), $user);
+        return $this->repository->update($user, Arr::except($updateData, ['old_password', 'password']));
     }
 }

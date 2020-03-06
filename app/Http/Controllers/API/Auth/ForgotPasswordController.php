@@ -32,7 +32,8 @@ class ForgotPasswordController extends Controller
     }
 
     /**
-     * Send password reset link.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function sendPasswordResetLink(Request $request)
     {

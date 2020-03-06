@@ -18,13 +18,18 @@ class CmsSettingGroupRepository extends CmsBaseResourceRepository
         $this->model = $model;
     }
 
+    /**
+     * @return Collection
+     */
     public function index(): Collection
     {
-        return $this->model::withCount('settings')
-            ->get();
+        return $this->model::withCount('settings')->get();
     }
 
-    public function indexWithSettings(): Collection
+    /**
+     * @return Collection
+     */
+    public function getItemsWithSettings(): Collection
     {
         return $this->model::has('settings')
             ->with('settings')

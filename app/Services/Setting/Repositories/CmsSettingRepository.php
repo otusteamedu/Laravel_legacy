@@ -29,7 +29,7 @@ class CmsSettingRepository extends CmsBaseResourceRepository
     /**
      * @return Collection
      */
-    public function indexWithGroup(): Collection
+    public function getItemsWithGroup(): Collection
     {
         return $this->model::with('group')->get();
     }
@@ -38,16 +38,7 @@ class CmsSettingRepository extends CmsBaseResourceRepository
      * @param int $id
      * @return Setting
      */
-    public function show(int $id): Setting
-    {
-        return $this->model::findOrFail($id);
-    }
-
-    /**
-     * @param int $id
-     * @return Setting
-     */
-    public function showModel(int $id): Setting
+    public function getItem(int $id): Setting
     {
         return $this->model::findOrFail($id);
     }
@@ -56,16 +47,16 @@ class CmsSettingRepository extends CmsBaseResourceRepository
      * @param string $key
      * @return Setting
      */
-    public function showByKey(string $key): Setting
+    public function getItemByKey(string $key): Setting
     {
         return $this->model::where('key_name', $key)->firstOrFail();
     }
 
     /**
-     * @param string|null $value
      * @param Setting $item
+     * @param string|null $value
      */
-    public function setValue($value, Setting $item)
+    public function setValue(Setting $item, $value)
     {
         $item->value = $value;
         $item->save();

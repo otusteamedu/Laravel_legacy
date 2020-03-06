@@ -200,6 +200,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     searchOnServer: function searchOnServer(query) {
       this.$emit('search', query);
+      console.log("search query: ".concat(query));
 
       if (!query) {
         this.setSearchedDataAction([]);
@@ -209,7 +210,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       query ? this.setSearchedDataAction(this.fuseSearch.search(query)) : this.setSearchedDataAction([]);
     },
     handleSearch: function handleSearch(query) {
-      console.log('handleSearch');
       this.serverPagination ? this.searchOnServer(query) : this.search(query);
     }
   }),
@@ -239,6 +239,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   mounted: function mounted() {
     this.setFuseSearch(this.searchFields);
     this.previousSortOrder = this.pagination.sort_order;
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearTimeout(this.searchTmt);
+    this.setSearchedDataAction([]);
+    this.setSearchQueryAction('');
   }
 });
 

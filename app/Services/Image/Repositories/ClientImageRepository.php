@@ -6,25 +6,27 @@ namespace App\Services\Image\Repositories;
 
 use App\Models\Image;
 use App\Services\Base\Resource\Repositories\ClientBaseResourceRepository;
-use Illuminate\Contracts\Pagination\Paginator;
-use App\Services\Image\Resources\ImageDetailed as ImageDetailedResource;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 class ClientImageRepository extends ClientBaseResourceRepository
 {
+    /**
+     * ClientImageRepository constructor.
+     * @param Image $model
+     */
     public function __construct(Image $model)
     {
         $this->model = $model;
     }
 
     /**
+     * @param array $pagination
      * @return Collection
      */
-    public function index(): Collection
+    public function getPublishedImages(array $pagination): Collection
     {
-        return $this->model::select(['id', 'path', 'format_id'])
-            ->where('publish', 1)
-            ->get();
+        return $this->model::where('publish', 1)
+            ->orderBy('id', $pagination['sort_order'] ?? 'asc')
+            ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page']);
     }
 }

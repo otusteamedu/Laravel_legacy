@@ -45,14 +45,14 @@ class UserServiceTest extends TestCase
         $this->assertEquals($users->count(), $usersCount);
     }
 
-    public function testUserServiceShow()
+    public function testUserServiceGetItemWithRole()
     {
         $this->seed('LaratrustSeeder');
 
         $user = factory(User::class)->create();
         $user->attachRole('user');
 
-        $userFromService = $this->service->show($user->id);
+        $userFromService = $this->service->getItemWithRole($user->id);
 
         $this->assertTrue($userFromService->hasRole('user'));
     }
@@ -65,7 +65,7 @@ class UserServiceTest extends TestCase
 
         $this->expectException('\Illuminate\Database\Eloquent\ModelNotFoundException');
 
-        $this->service->show(23432434);
+        $this->service->getItem(23432434);
     }
 
     public function testStoreUser()
@@ -78,7 +78,7 @@ class UserServiceTest extends TestCase
             'password' => '111111'
         ]);
 
-        $user = $this->service->store($request);
+        $user = $this->service->store($request->all());
 
         $this->assertEquals('Fifty Forty', $user->name);
     }
@@ -99,7 +99,7 @@ class UserServiceTest extends TestCase
 
         $this->expectException('\PDOException');
 
-        $this->service->store($request);
+        $this->service->store($request->all());
     }
 
     public function testUpdateUser()
@@ -112,7 +112,7 @@ class UserServiceTest extends TestCase
             'password' => 'password'
         ]);
 
-        $user = $this->service->store($request);
+        $user = $this->service->store($request->all());
 
         $request->merge([
             'name' => 'Don Diggi Don',
@@ -122,7 +122,7 @@ class UserServiceTest extends TestCase
             'publish' => 1
         ]);
 
-        $updateUser = $this->service->update($request, $user->id);
+        $updateUser = $this->service->update($user->id, $request->all());
 
         $this->assertTrue($updateUser->hasRole('administrator'));
     }
@@ -140,7 +140,7 @@ class UserServiceTest extends TestCase
 
         $social = 'vkontakte';
 
-        $user = $this->service->storeWithSocial($request, $social);
+        $user = $this->service->storeWithSocial($request->all(), $social);
 
         $services = $user->socials()->pluck('service');
 
@@ -175,7 +175,7 @@ class UserServiceTest extends TestCase
 
         $social = 'vkontakte';
 
-        $user = $this->service->storeWithSocial($request, $social);
+        $user = $this->service->storeWithSocial($request->all(), $social);
 
         $searchUser = $this->service->getUserBySocialId($social_id);
 
@@ -194,7 +194,7 @@ class UserServiceTest extends TestCase
             'password' => 'password'
         ]);
 
-        $user = $this->service->store($request);
+        $user = $this->service->store($request->all());
 
         $searchUser = $this->service->getUserByEmail($email);
 

@@ -59,13 +59,13 @@ class UserRepositoryTest extends TestCase
 
     public function testShow()
     {
-        $user = $this->repo->show($this->user->id);
+        $user = $this->repo->getItem($this->user->id);
 
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals($this->user->id, $user->id);
 
         $this->expectException(ModelNotFoundException::class);
-        $this->repo->show(433234342);
+        $this->repo->getItem(433234342);
     }
 
     public function testUpdate()
@@ -76,7 +76,7 @@ class UserRepositoryTest extends TestCase
             'publish' => 0
         ];
 
-        $updateUser = $this->repo->update($data, $this->user);
+        $updateUser = $this->repo->update($this->user, $data);
 
         $this->assertInstanceOf(User::class, $updateUser);
         $this->assertEquals($updateUser->id, $this->user->id);
@@ -93,7 +93,7 @@ class UserRepositoryTest extends TestCase
             'role' => 'administrator'
         ];
 
-        $updateUser = $this->repo->update($data, $this->user);
+        $updateUser = $this->repo->update($this->user, $data);
 
         $this->assertInstanceOf(User::class, $updateUser);
         $this->assertEquals($updateUser->id, $this->user->id);
@@ -111,14 +111,14 @@ class UserRepositoryTest extends TestCase
             'password' => bcrypt($oldPassword),
         ]);
 
-        $this->repo->setPassword($oldPassword, $newPassword, $user);
+        $this->repo->setPassword($user, $oldPassword, $newPassword);
 
         $this->assertTrue(password_verify($newPassword, $user->password));
 
         $this->expectException(HttpException::class);
         $this->expectErrorMessage(__('auth.wrong_active_password'));
 
-        $this->repo->setPassword('secret', $newPassword, $user);
+        $this->repo->setPassword($user, 'secret', $newPassword);
     }
 
     public function testSetVerifyToken()

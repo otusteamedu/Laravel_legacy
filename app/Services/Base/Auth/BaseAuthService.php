@@ -9,15 +9,9 @@ use Tymon\JWTAuth\JWTAuth;
 
 abstract class BaseAuthService
 {
-    /**
-     * @var JWTAuth
-     */
-    protected $auth;
+    protected JWTAuth $auth;
 
-    /**
-     * @var UserRepository
-     */
-    protected $repository;
+    protected UserRepository $repository;
 
     /**
      * BaseAuthService constructor.

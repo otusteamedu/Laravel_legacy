@@ -77968,19 +77968,19 @@ __webpack_require__.r(__webpack_exports__);
  // Image pages
 
 var ImageList = function ImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(14)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(14)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Images/ImageList.vue */ "./resources/manager/js/pages/Dashboard/Images/ImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var ExcludedImageList = function ExcludedImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(21)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(21)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Images/ExcludedImageList.vue */ "./resources/manager/js/pages/Dashboard/Images/ExcludedImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var ImageEdit = function ImageEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(4), __webpack_require__.e(38)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(4), __webpack_require__.e(38)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Images/ImageEdit.vue */ "./resources/manager/js/pages/Dashboard/Images/ImageEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Category pages
@@ -77993,126 +77993,126 @@ var CatalogPanel = function CatalogPanel(resolve) {
 };
 
 var CategoryList = function CategoryList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(22)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(22)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/Categories/CategoryList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/Categories/CategoryList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var CategoryCreate = function CategoryCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(19)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(19)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/Categories/CategoryCreate.vue */ "./resources/manager/js/pages/Dashboard/Catalog/Categories/CategoryCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var CategoryEdit = function CategoryEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(20)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(20)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/Categories/CategoryEdit.vue */ "./resources/manager/js/pages/Dashboard/Catalog/Categories/CategoryEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // SubCategories
 
 
 var SubCategoryList = function SubCategoryList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(36)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(6), __webpack_require__.e(36)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/SubCategoryList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/SubCategoryList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryCreate = function SubCategoryCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(23)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(23)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/SubCategoryCreate.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/SubCategoryCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryEdit = function SubCategoryEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(24)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(24)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/SubCategoryEdit.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/SubCategoryEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryImageList = function SubCategoryImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(13)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(13)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/ImageList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/ImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SubCategoryExcludedImageList = function SubCategoryExcludedImageList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(12)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(5), __webpack_require__.e(12)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Catalog/SubCategories/ExcludedImageList.vue */ "./resources/manager/js/pages/Dashboard/Catalog/SubCategories/ExcludedImageList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Textures
 
 
 var TextureList = function TextureList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(11)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(11)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Textures/TextureList.vue */ "./resources/manager/js/pages/Dashboard/Textures/TextureList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var TextureCreate = function TextureCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(7), __webpack_require__.e(42)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(7), __webpack_require__.e(42)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Textures/TextureCreate.vue */ "./resources/manager/js/pages/Dashboard/Textures/TextureCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var TextureEdit = function TextureEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(7), __webpack_require__.e(43)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(8), __webpack_require__.e(7), __webpack_require__.e(43)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Textures/TextureEdit.vue */ "./resources/manager/js/pages/Dashboard/Textures/TextureEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Users
 
 
 var UserList = function UserList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(18)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(18)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Users/UserList.vue */ "./resources/manager/js/pages/Dashboard/Users/UserList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var UserCreate = function UserCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(44)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(44)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Users/UserCreate.vue */ "./resources/manager/js/pages/Dashboard/Users/UserCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var UserEdit = function UserEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(45)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(45)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Users/UserEdit.vue */ "./resources/manager/js/pages/Dashboard/Users/UserEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Roles
 
 
 var RoleList = function RoleList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(17)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(17)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Roles/RoleList.vue */ "./resources/manager/js/pages/Dashboard/Roles/RoleList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var RoleCreate = function RoleCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(28)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(28)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Roles/RoleCreate.vue */ "./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var RoleEdit = function RoleEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(29)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(29)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Roles/RoleEdit.vue */ "./resources/manager/js/pages/Dashboard/Roles/RoleEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Permissions
 
 
 var PermissionList = function PermissionList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(15)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(15)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Permissions/PermissionList.vue */ "./resources/manager/js/pages/Dashboard/Permissions/PermissionList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var PermissionCreate = function PermissionCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(26)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(26)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Permissions/PermissionCreate.vue */ "./resources/manager/js/pages/Dashboard/Permissions/PermissionCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var PermissionEdit = function PermissionEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(27)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(27)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Permissions/PermissionEdit.vue */ "./resources/manager/js/pages/Dashboard/Permissions/PermissionEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Settings
@@ -78125,31 +78125,31 @@ var SettingList = function SettingList(resolve) {
 };
 
 var SettingAdministrationList = function SettingAdministrationList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(9)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(3), __webpack_require__.e(2), __webpack_require__.e(9)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Settings/SettingAdministrationList.vue */ "./resources/manager/js/pages/Dashboard/Settings/SettingAdministrationList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SettingCreate = function SettingCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(39)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(39)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Settings/SettingCreate.vue */ "./resources/manager/js/pages/Dashboard/Settings/SettingCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SettingEdit = function SettingEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(40)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(4), __webpack_require__.e(40)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Settings/SettingEdit.vue */ "./resources/manager/js/pages/Dashboard/Settings/SettingEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SettingGroupCreate = function SettingGroupCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(30)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(30)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Settings/SettingGroupCreate.vue */ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var SettingGroupEdit = function SettingGroupEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(31)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(31)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Settings/SettingGroupEdit.vue */ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Store
@@ -78163,19 +78163,19 @@ var StorePanel = function StorePanel(resolve) {
 
 
 var DeliveryList = function DeliveryList(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(16)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(16)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Store/Delivery/DeliveryList.vue */ "./resources/manager/js/pages/Dashboard/Store/Delivery/DeliveryList.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var DeliveryCreate = function DeliveryCreate(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(32)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(32)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Store/Delivery/DeliveryCreate.vue */ "./resources/manager/js/pages/Dashboard/Store/Delivery/DeliveryCreate.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 
 var DeliveryEdit = function DeliveryEdit(resolve) {
-  Promise.all(/*! require.ensure */[__webpack_require__.e(0), __webpack_require__.e(1), __webpack_require__.e(33)]).then((function () {
+  Promise.all(/*! require.ensure */[__webpack_require__.e(49), __webpack_require__.e(1), __webpack_require__.e(33)]).then((function () {
     resolve(__webpack_require__(/*! @/pages/Dashboard/Store/Delivery/DeliveryEdit.vue */ "./resources/manager/js/pages/Dashboard/Store/Delivery/DeliveryEdit.vue"));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 }; // Error pages
@@ -78501,6 +78501,7 @@ var mutations = {
   },
   SET_SEARCH_QUERY: function SET_SEARCH_QUERY(state, payload) {
     state.searchQuery = payload.trim();
+    console.log("query: ".concat(state.searchQuery));
   },
   SET_LOADING: function SET_LOADING(state, payload) {
     state.loading = !!payload;
@@ -78686,7 +78687,7 @@ var actions = {
       }
     });
   },
-  indexByType: function indexByType(context, category_type) {
+  getItemsByType: function getItemsByType(context, category_type) {
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
       url: "/api/manager/catalog/categories/type/".concat(category_type),
       thenContent: function thenContent(response) {
@@ -78694,7 +78695,7 @@ var actions = {
       }
     });
   },
-  show: function show(context, payload) {
+  getItem: function getItem(context, payload) {
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
       url: "/api/manager/catalog/categories/".concat(payload),
       thenContent: function thenContent(response) {
@@ -78702,11 +78703,11 @@ var actions = {
       }
     });
   },
-  showImages: function showImages(context, payload) {
+  getImages: function getImages(context, payload) {
     var form = new FormData();
 
-    for (var field in payload.data) {
-      form.append(field, payload.data[field]);
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
     }
 
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
@@ -78716,7 +78717,7 @@ var actions = {
         context.commit('images/SET_PAGINATION', response.data, {
           root: true
         });
-        payload.data['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+        payload.paginationData['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
           root: true
         }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
@@ -78724,11 +78725,11 @@ var actions = {
       }
     });
   },
-  showWithImages: function showWithImages(context, payload) {
+  getItemWithImages: function getItemWithImages(context, payload) {
     var form = new FormData();
 
-    for (var field in payload.data) {
-      form.append(field, payload.data[field]);
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
     }
 
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
@@ -78745,26 +78746,11 @@ var actions = {
       }
     });
   },
-  // showQuerySearchImages(context, payload) {
-  //     const form = new FormData();
-  //     for(let field in payload.data) {
-  //         form.append(field, payload.data[field]);
-  //     }
-  //
-  //     return axiosAction('post', context, {
-  //         url: `/api/manager/catalog/categories/${payload.id}/images/search`,
-  //         data: form,
-  //         thenContent: response => {
-  //             context.commit('images/SET_PAGINATION', response.data, { root: true });
-  //             context.commit('SET_SEARCHED_DATA', response.data.data, { root: true });
-  //         }
-  //     })
-  // },
-  showExcludedImages: function showExcludedImages(context, payload) {
+  getExcludedImages: function getExcludedImages(context, payload) {
     var form = new FormData();
 
-    for (var field in payload.data) {
-      form.append(field, payload.data[field]);
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
     }
 
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
@@ -78774,7 +78760,7 @@ var actions = {
         context.commit('images/SET_PAGINATION', response.data, {
           root: true
         });
-        payload.data['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+        payload.paginationData['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
           root: true
         }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
@@ -78782,11 +78768,11 @@ var actions = {
       }
     });
   },
-  showWithExcludedImages: function showWithExcludedImages(context, payload) {
+  getItemWithExcludedImages: function getItemWithExcludedImages(context, payload) {
     var form = new FormData();
 
-    for (var field in payload.data) {
-      form.append(field, payload.data[field]);
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
     }
 
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
@@ -78803,22 +78789,6 @@ var actions = {
       }
     });
   },
-  // showQuerySearchExcludedImages(context, payload) {
-  //     const form = new FormData();
-  //
-  //     for(let field in payload.data) {
-  //         form.append(field, payload.data[field]);
-  //     }
-  //
-  //     return axiosAction('post', context, {
-  //         url: `/api/manager/catalog/categories/${payload.id}/images/excluded/search`,
-  //         data: form,
-  //         thenContent: response => {
-  //             context.commit('images/SET_PAGINATION', response.data, { root: true });
-  //             context.commit('SET_SEARCHED_DATA', response.data.data, { root: true });
-  //         }
-  //     })
-  // },
   publish: function publish(context, payload) {
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
       url: "/api/manager/catalog/categories/".concat(payload, "/publish"),
@@ -80159,9 +80129,6 @@ var getters = {
     return function (value, id) {
       return Object(_mixins_getters__WEBPACK_IMPORTED_MODULE_0__["uniqueFieldEditMixin"])(state.items, 'display_name', value, id);
     };
-  },
-  firstType: function firstType(state) {
-    return state.types.slice(0, 1)[0] ? state.types.slice(0, 1)[0] : '';
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -80248,7 +80215,7 @@ var actions = {
       }
     });
   },
-  indexByType: function indexByType(context, category_type) {
+  getItemsWithType: function getItemsWithType(context, category_type) {
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
       url: "/api/manager/catalog/".concat(category_type),
       thenContent: function thenContent(response) {
@@ -80259,7 +80226,7 @@ var actions = {
       }
     });
   },
-  show: function show(context, payload) {
+  getItem: function getItem(context, payload) {
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
       url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id),
       thenContent: function thenContent(response) {
@@ -80267,23 +80234,87 @@ var actions = {
       }
     });
   },
-  showWithImages: function showWithImages(context, payload) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
-      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/with-images"),
+  getImages: function getImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/images"),
+      data: form,
       thenContent: function thenContent(response) {
-        context.commit('UPDATE_ITEM', response.data.item);
-        context.commit('images/UPDATE_ITEMS', response.data.images, {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        payload.paginationData['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
         });
       }
     });
   },
-  showWithExcludedImages: function showWithExcludedImages(context, payload) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
-      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/with-excluded-images"),
+  getItemWithImages: function getItemWithImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/with-images"),
+      data: form,
       thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data['paginateData'], {
+          root: true
+        });
         context.commit('UPDATE_ITEM', response.data.item);
-        context.commit('images/UPDATE_ITEMS', response.data.images, {
+        context.commit('images/UPDATE_ITEMS', response.data['paginateData'].data, {
+          root: true
+        });
+      }
+    });
+  },
+  getExcludedImages: function getExcludedImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/images/excluded"),
+      data: form,
+      thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        payload.paginationData['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
+          root: true
+        });
+      }
+    });
+  },
+  getItemWithExcludedImages: function getItemWithExcludedImages(context, payload) {
+    var form = new FormData();
+
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/with-excluded-images"),
+      data: form,
+      thenContent: function thenContent(response) {
+        context.commit('images/SET_PAGINATION', response.data['paginateData'], {
+          root: true
+        });
+        context.commit('UPDATE_ITEM', response.data.item);
+        context.commit('images/UPDATE_ITEMS', response.data['paginateData'].data, {
           root: true
         });
       }
@@ -80358,24 +80389,50 @@ var actions = {
       }
     }
 
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
     return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
       url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/upload"),
       data: form,
+      config: {
+        onUploadProgress: function onUploadProgress(imageUpload) {
+          context.commit('images/CHANGE_FILE_PROGRESS', Math.round(imageUpload.loaded / imageUpload.total * 100), {
+            root: true
+          });
+        }
+      },
       thenContent: function thenContent(response) {
         context.commit('images/CHANGE_FILE_PROGRESS', 0, {
           root: true
         });
-        context.commit('images/UPDATE_ITEMS', response.data, {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
         });
       }
     });
   },
   removeImage: function removeImage(context, payload) {
-    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('get', context, {
-      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.id, "/images/").concat(payload.image_id, "/remove"),
+    var form = new FormData();
+
+    for (var field in payload.paginationData) {
+      form.append(field, payload.paginationData[field]);
+    }
+
+    return Object(_mixins_actions__WEBPACK_IMPORTED_MODULE_1__["axiosAction"])('post', context, {
+      url: "/api/manager/catalog/".concat(payload.type, "/").concat(payload.category_id, "/images/").concat(payload.image_id, "/remove"),
+      data: form,
       thenContent: function thenContent(response) {
-        return context.commit('images/DELETE_ITEM', payload.image_id, {
+        context.commit('images/SET_PAGINATION', response.data, {
+          root: true
+        });
+        payload.paginationData['query'] ? context.commit('SET_SEARCHED_DATA', response.data.data, {
+          root: true
+        }) : context.commit('images/UPDATE_ITEMS', response.data.data, {
           root: true
         });
       }

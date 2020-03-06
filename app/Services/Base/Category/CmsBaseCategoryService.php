@@ -4,132 +4,136 @@
 namespace App\Services\Base\Category;
 
 
-use App\Http\Requests\FormRequest;
-use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
 use App\Services\Base\Category\Repositories\CmsBaseCategoryRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Category\Handlers\UploadHandler;
-use App\Services\Base\Category\Handlers\ShowImagesHandler;
+use App\Services\Base\Category\Handlers\GetImagesHandler;
+use App\Services\Base\Category\Handlers\GetExcludedImagesHandler;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
+use App\Services\Cache\Tag;
+use Illuminate\Support\Arr;
 
-abstract class CmsBaseCategoryService extends CmsBaseResourceService
+class CmsBaseCategoryService extends CmsBaseResourceService
 {
     protected UploadHandler $uploadHandler;
 
-    protected ShowImagesHandler $showImagesHandler;
+    protected GetImagesHandler $getImagesHandler;
 
-    protected ShowExcludedImagesHandler $showExcludedImagesHandler;
+    protected GetExcludedImagesHandler $getExcludedImagesHandler;
 
     /**
      * CmsBaseCategoryService constructor.
      * @param CmsBaseCategoryRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
-     * @param ShowImagesHandler $showImagesHandler
-     * @param ShowExcludedImagesHandler $showExcludedImagesHandler
+     * @param GetImagesHandler $getImagesHandler
+     * @param GetExcludedImagesHandler $getExcludedImagesHandler
      */
     public function __construct(
         CmsBaseCategoryRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadHandler $uploadHandler,
-        ShowImagesHandler $showImagesHandler,
-        ShowExcludedImagesHandler $showExcludedImagesHandler
+        GetImagesHandler $getImagesHandler,
+        GetExcludedImagesHandler $getExcludedImagesHandler
     )
     {
         parent::__construct($repository, $clearCacheByTagHandler);
         $this->uploadHandler = $uploadHandler;
-        $this->showImagesHandler = $showImagesHandler;
-        $this->showExcludedImagesHandler = $showExcludedImagesHandler;
-        $this->cacheTag = 'categories';
+        $this->getImagesHandler = $getImagesHandler;
+        $this->getExcludedImagesHandler = $getExcludedImagesHandler;
+        $this->cacheTag = Tag::CATEGORIES_TAG;
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $requestData
      * @param int $id
      * @return mixed
      */
-    public function upload(FormRequest $request, int $id)
+    public function upload(array $requestData, int $id)
     {
-        $category = $this->repository->show($id);
-        $uploadImages = $request->file('images');
-        $this->uploadHandler->handle($uploadImages, $this->repository, $category);
+        $category = $this->repository->getItem($id);
 
-        return $this->repository->showImages($category, $request->except('images'));
+        $uploadImages = $requestData['images'];
+        $pagination = Arr::except($requestData, ['images']);
+
+        $this->uploadHandler->handle($category, $uploadImages, $this->repository);
+
+        return $this->repository->getImages($category, $pagination);
     }
 
     /**
-     * @param array $data
-     * @param int $id
+     * @param int $categoryId
+     * @param array $pagination
      * @return mixed
      */
-    public function showImages(array $data, int $id)
+    public function getImages(int $categoryId, array $pagination)
     {
-        $category = $this->repository->show($id);
+        $category = $this->repository->getItem($categoryId);
 
-        return $this->showImagesHandler->handle($this->repository, $category, $data);
+        return $this->getImagesHandler->handle($category, $pagination);
     }
 
     /**
-     * @param array $data
-     * @param int $id
+     * @param int $categoryId
+     * @param array $pagination
      * @return array
      */
-    public function showWithImages(array $data, int $id): array
+    public function getItemWithImages(int $categoryId, array $pagination): array
     {
-        $category = $this->repository->show($id);
-        $paginateData = $this->repository->showImages($category, $data);
+        $category = $this->repository->getItem($categoryId);
+        $paginateData = $this->repository->getImages($category, $pagination);
 
         return ['item' => $category, 'paginateData' => $paginateData];
     }
 
     /**
-     * @param array $data
-     * @param int $id
+     * @param int $categoryId
+     * @param array $pagination
      * @return mixed
      */
-    public function showExcludedImages(array $data, int $id)
+    public function getExcludedImages(int $categoryId, array $pagination)
     {
-        $category = $this->repository->show($id);
+        $category = $this->repository->getItem($categoryId);
 
-        return $this->showExcludedImagesHandler->handle($this->repository, $category, $data);
+        return $this->getExcludedImagesHandler->handle($category, $pagination);
     }
 
     /**
-     * @param array $data
-     * @param int $id
+     * @param int $categoryId
+     * @param array $pagination
      * @return array
      */
-    public function showWithExcludedImages(array $data, int $id): array
+    public function getItemWithExcludedImages(int $categoryId, array $pagination): array
     {
-        $category = $this->repository->show($id);
-        $paginateData = $this->repository->showExcludedImages($category, $data);
+        $category = $this->repository->getItem($categoryId);
+        $paginateData = $this->repository->getExcludedImages($category, $pagination);
 
         return ['item' => $category, 'paginateData' => $paginateData];
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $images
      * @param int $id
      */
-    public function addImages(FormRequest $request, int $id)
+    public function addImages(int $id, array $images)
     {
-        $category = $this->repository->show($id);
-        $images = $request->toArray();
+        $category = $this->repository->getItem($id);
+
         $this->repository->addImages($category, $images);
     }
 
     /**
-     * @param array $data
      * @param int $categoryId
      * @param int $imageId
-     * @return mixed
+     * @param array $pagination
+     * @return mixed|void
      */
-    public function removeImage(array $data, int $categoryId, int $imageId)
+    public function removeImage(int $categoryId, int $imageId, array $pagination)
     {
-        $category = $this->repository->show($categoryId);
+        $category = $this->repository->getItem($categoryId);
 
-        return $this->repository->removeImage($category, $imageId)
-            ? $this->showImagesHandler->handle($this->repository, $category, $data)
+        return !!$this->repository->removeImage($category, $imageId)
+            ? $this->getImagesHandler->handle($category, $pagination)
             : abort(500);
     }
 }

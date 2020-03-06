@@ -24,10 +24,8 @@ class LoginController extends BaseLoginController
 
     /**
      * Where to redirect users after login.
-     *
-     * @var string
      */
-    protected $redirectTo = '';
+    protected string $redirectTo = '';
 
     /**
      * @param UserLoginRequest $request

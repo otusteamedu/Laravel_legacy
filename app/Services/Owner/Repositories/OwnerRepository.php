@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Collection;
 
 class OwnerRepository extends SubCategoryRepository
 {
+    protected string $table = 'owners';
+
     /**
      * OwnerRepository constructor.
      * @param Owner $model
@@ -17,38 +19,37 @@ class OwnerRepository extends SubCategoryRepository
     public function __construct(Owner $model)
     {
         $this->model = $model;
-        $this->table = 'owners';
     }
 
     /**
      * @param $category
-     * @param array $data
+     * @param array $pagination
      * @return mixed
      */
-    public function showExcludedImages($category, array $data)
+    public function getExcludedImages($category, array $pagination)
     {
         return Image::whereDoesntHave('owner')
             ->with(config('query_builder.image'))
-            ->orderBy($data['sort_by'], $data['sort_order'])
-            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
+            ->orderBy($pagination['sort_by'], $pagination['sort_order'])
+            ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page']);
     }
 
     /**
      * @param $category
-     * @param array $data
+     * @param array $pagination
      * @return mixed
      */
-    public function showQuerySearchExcludedImages($category, array $data)
+    public function getQueryExcludedImages($category, array $pagination)
     {
         return Image::whereDoesntHave('owner')
-            ->where('id', 'like', $data['query'] . '%')
+            ->where('id', 'like', $pagination['query'] . '%')
             ->with(config('query_builder.image'))
-            ->orderBy($data['sort_by'], $data['sort_order'])
-            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
+            ->orderBy($pagination['sort_by'], $pagination['sort_order'])
+            ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page']);
     }
 
     /**
-     * @param $categoryId
+     * @param mixed $categoryId
      * @param array $imageIds
      */
     public function addImages($categoryId, array $imageIds)
@@ -56,5 +57,17 @@ class OwnerRepository extends SubCategoryRepository
         Image::whereIn('id', $imageIds)->update([
             'owner_id' => $categoryId,
         ]);
+    }
+
+    /**
+     * @param mixed $categoryId
+     * @param int $imageId
+     * @return bool|int
+     */
+    public function removeImage($categoryId, int $imageId)
+    {
+        $image = Image::findOrFail($imageId);
+        $image->owner()->dissociate();
+        return $image->save();
     }
 }

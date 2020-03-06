@@ -7,7 +7,7 @@ namespace App\Services\Image\Repositories;
 use App\Models\Image;
 use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Contracts\Pagination\Paginator;
-use App\Services\Image\Resources\ImageDetailed as ImageDetailedResource;
+use App\Services\Image\Resources\ImageToEdit as ImageToEditResource;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class CmsImageRepository extends CmsBaseResourceRepository
@@ -22,50 +22,53 @@ class CmsImageRepository extends CmsBaseResourceRepository
     }
 
     /**
-     * @param $data
-     * @return Paginator
-     */
-    public function paginateIndex($data)
-    {
-        return $this->model::with(config('query_builder.image'))
-            ->orderBy($data['sort_by'], $data['sort_order'])
-            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
-    }
-
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function paginateQuerySearchIndex(array $data)
-    {
-        return $this->model::where('id', 'like', $data['query'] . '%')
-            ->with(config('query_builder.image'))
-            ->orderBy($data['sort_by'], $data['sort_order'])
-            ->paginate($data['per_page'], ['*'], '', $data['current_page']);
-    }
-
-    /**
      * @param int $id
      * @return JsonResource
      */
-    public function showDetailed(int $id): JsonResource {
-        return new ImageDetailedResource($this->model::findOrFail($id));
+    public function getItemToEdit(int $id): JsonResource
+    {
+        return new ImageToEditResource($this->model::findOrFail($id));
     }
 
     /**
+     * @param array $pagination
+     * @return Paginator
+     */
+    public function getItems(array $pagination)
+    {
+        return $this->model::with(config('query_builder.image'))
+            ->orderBy($pagination['sort_by'], $pagination['sort_order'])
+            ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page']);
+    }
+
+    /**
+     * @param array $pagination
+     * @return mixed
+     */
+    public function getQueryItems(array $pagination)
+    {
+        return $this->model::where('id', 'like', $pagination['query'] . '%')
+            ->with(config('query_builder.image'))
+            ->orderBy($pagination['sort_by'], $pagination['sort_order'])
+            ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page']);
+    }
+
+    /**
+     * @param Image $image
      * @param string $relation
      * @param $syncData
-     * @param Image $image
      */
-    public function syncAssociations(string $relation, $syncData, Image $image) {
+    public function syncAssociations(Image $image, string $relation, $syncData)
+    {
         $image->$relation()->sync($syncData);
     }
 
     /**
-     * @param array $data
      * @param Image $image
+     * @param array $fillData
      */
-    public function fillAttributesFromArray(array $data, Image $image) {
-        $image->fill($data)->save();
+    public function fillAttributesFromArray(Image $image, array $fillData)
+    {
+        $image->fill($fillData)->save();
     }
 }

@@ -10,6 +10,10 @@ use App\Services\Permission\CmsPermissionService;
 
 class PermissionController extends BaseResourceController
 {
+    /**
+     * PermissionController constructor.
+     * @param CmsPermissionService $service
+     */
     public function __construct(CmsPermissionService $service)
     {
         parent::__construct($service);
@@ -21,7 +25,7 @@ class PermissionController extends BaseResourceController
      */
     public function store(CreatePermissionRequest $request): Permission
     {
-        return $this->service->store($request);
+        return $this->service->store($request->all());
     }
 
     /**
@@ -31,6 +35,6 @@ class PermissionController extends BaseResourceController
      */
     public function update(UpdatePermissionRequest $request, int $id): Permission
     {
-        return $this->service->update($request, $id);
+        return $this->service->update($id, $request->all());
     }
 }

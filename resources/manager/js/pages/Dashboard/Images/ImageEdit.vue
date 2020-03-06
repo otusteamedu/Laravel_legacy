@@ -215,7 +215,7 @@
                 showAction: 'images/show',
                 clearFieldsAction: 'images/clearFields',
                 indexCategoryAction: 'categories/index',
-                indexSubcategoryAction: 'subCategories/indexByType',
+                getSubcategoryAction: 'subCategories/getItemsWithType',
                 setPreviousPageAction: 'images/setPreviousPage'
             }),
             onUpdate () {
@@ -254,8 +254,8 @@
             await this.clearFieldsAction();
             await this.showAction(this.id)
                 .then(() => this.indexCategoryAction())
-                .then(() => this.indexSubcategoryAction('tags'))
-                .then(() => this.indexSubcategoryAction('owners'))
+                .then(() => this.getSubcategoryAction('tags'))
+                .then(() => this.getSubcategoryAction('owners'))
                 .then(() => {
                     this.setPageTitle(`Изображение «${this.item.article}»`);
                     this.responseData = true;

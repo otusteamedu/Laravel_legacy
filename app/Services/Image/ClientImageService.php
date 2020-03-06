@@ -4,7 +4,6 @@
 namespace App\Services\Image;
 
 
-use App\Models\Image;
 use App\Services\Cache\KeyManager as CacheKeyManager;
 use App\Services\Cache\Tag;
 use App\Services\Cache\TTL;
@@ -32,14 +31,14 @@ class ClientImageService
         $this->cacheKeyManager = $cacheKeyManager;
     }
 
-    public function index($paginateData)
+    public function getPublishedImages($paginateData)
     {
-        $key = $this->cacheKeyManager->getImagesKey(Arr::collapse([['client', 'published'], Arr::flatten($paginateData)]));
+        $key = $this->cacheKeyManager
+            ->getImagesKey(Arr::collapse([['client', 'published'], Arr::flatten($paginateData)]));
 
-        return Cache::tags(Tag::IMAGES_TAG)->remember($key, TTL::IMAGES_TTL, function () use ($paginateData) {
-            return Image::where('publish', 1)
-                ->orderBy('id', $paginateData['sort_order'] ?? 'asc')
-                ->paginate($paginateData['per_page'], ['*'], '', $paginateData['current_page']);
+        return Cache::tags(Tag::IMAGES_TAG)
+            ->remember($key, TTL::IMAGES_TTL, function () use ($paginateData) {
+            return $this->repository->getPublishedImages($paginateData);
         });
     }
 }

@@ -61,7 +61,7 @@ const actions = {
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    indexByType(context, category_type) {
+    getItemsWithType(context, category_type) {
         return axiosAction('get', context, {
             url: `/api/manager/catalog/${category_type}`,
             thenContent: response => context.commit('UPDATE_ITEMS_BY_TYPE', {
@@ -70,27 +70,79 @@ const actions = {
             })
         })
     },
-    show(context, payload) {
+    getItem(context, payload) {
         return axiosAction('get', context, {
             url: `/api/manager/catalog/${payload.type}/${payload.id}`,
             thenContent: response => context.commit('UPDATE_FIELDS', response.data)
         })
     },
-    showWithImages(context, payload) {
-        return axiosAction('get', context, {
-            url: `/api/manager/catalog/${payload.type}/${payload.id}/with-images`,
+    getImages(context, payload) {
+        const form = new FormData();
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
+        return axiosAction('post', context, {
+            url: `/api/manager/catalog/${payload.type}/${payload.id}/images`,
+            data: form,
             thenContent: response => {
-                context.commit('UPDATE_ITEM', response.data.item);
-                context.commit('images/UPDATE_ITEMS', response.data.images, { root: true });
+                context.commit('images/SET_PAGINATION', response.data, { root: true });
+                payload.paginationData['query']
+                    ? context.commit('SET_SEARCHED_DATA', response.data.data, { root: true })
+                    : context.commit('images/UPDATE_ITEMS', response.data.data, { root: true });
             }
         })
     },
-    showWithExcludedImages(context, payload) {
-        return axiosAction('get', context, {
-            url: `/api/manager/catalog/${payload.type}/${payload.id}/with-excluded-images`,
+    getItemWithImages(context, payload) {
+        const form = new FormData();
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
+        return axiosAction('post', context, {
+            url: `/api/manager/catalog/${payload.type}/${payload.id}/with-images`,
+            data: form,
             thenContent: response => {
+                context.commit('images/SET_PAGINATION', response.data['paginateData'], { root: true });
                 context.commit('UPDATE_ITEM', response.data.item);
-                context.commit('images/UPDATE_ITEMS', response.data.images, { root: true });
+                context.commit('images/UPDATE_ITEMS', response.data['paginateData'].data, { root: true });
+            }
+        })
+    },
+    getExcludedImages(context, payload) {
+        const form = new FormData();
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
+        return axiosAction('post', context, {
+            url: `/api/manager/catalog/${payload.type}/${payload.id}/images/excluded`,
+            data: form,
+            thenContent: response => {
+                context.commit('images/SET_PAGINATION', response.data, { root: true });
+                payload.paginationData['query']
+                    ? context.commit('SET_SEARCHED_DATA', response.data.data, { root: true })
+                    : context.commit('images/UPDATE_ITEMS', response.data.data, { root: true });
+            }
+        })
+    },
+    getItemWithExcludedImages(context, payload) {
+        const form = new FormData();
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
+        return axiosAction('post', context, {
+            url: `/api/manager/catalog/${payload.type}/${payload.id}/with-excluded-images`,
+            data: form,
+            thenContent: response => {
+                context.commit('images/SET_PAGINATION', response.data['paginateData'], { root: true });
+                context.commit('UPDATE_ITEM', response.data.item);
+                context.commit('images/UPDATE_ITEMS', response.data['paginateData'].data, { root: true });
             }
         })
     },
@@ -131,22 +183,48 @@ const actions = {
     },
     uploadImages(context, payload) {
         let form = new FormData();
+
         for(let file of payload.files) {
             form.append('images[]', file);
         }
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
         return axiosAction('post', context, {
             url: `/api/manager/catalog/${payload.type}/${payload.id}/upload`,
             data: form,
+            config: {
+                onUploadProgress: (imageUpload) => {
+                    context.commit(
+                        'images/CHANGE_FILE_PROGRESS',
+                        Math.round((imageUpload.loaded / imageUpload.total) * 100), {root: true});
+                }
+            },
             thenContent: response => {
                 context.commit('images/CHANGE_FILE_PROGRESS', 0, { root: true });
-                context.commit('images/UPDATE_ITEMS', response.data, { root: true });
+                context.commit('images/SET_PAGINATION', response.data, { root: true });
+                context.commit('images/UPDATE_ITEMS', response.data.data, { root: true });
             }
         })
     },
     removeImage(context, payload) {
-        return axiosAction('get', context, {
-            url: `/api/manager/catalog/${payload.type}/${payload.id}/images/${payload.image_id}/remove`,
-            thenContent: response => context.commit('images/DELETE_ITEM', payload.image_id, { root: true })
+        const form = new FormData();
+
+        for(let field in payload.paginationData) {
+            form.append(field, payload.paginationData[field]);
+        }
+
+        return axiosAction('post', context, {
+            url: `/api/manager/catalog/${payload.type}/${payload.category_id}/images/${payload.image_id}/remove`,
+            data: form,
+            thenContent: response => {
+                context.commit('images/SET_PAGINATION', response.data, { root: true });
+                payload.paginationData['query']
+                    ? context.commit('SET_SEARCHED_DATA', response.data.data, { root: true })
+                    : context.commit('images/UPDATE_ITEMS', response.data.data, { root: true });
+            }
         })
     },
     addSelectedImages(context, payload) {

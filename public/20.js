@@ -123,8 +123,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     id: {
       type: [Number, String],
       required: true
-    },
-    result: []
+    } // result: []
+
   },
   mixins: [_mixins_categories__WEBPACK_IMPORTED_MODULE_2__["categoryPage"], _mixins_base__WEBPACK_IMPORTED_MODULE_3__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_4__["updateMethod"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_4__["deleteMethod"]],
   data: function data() {

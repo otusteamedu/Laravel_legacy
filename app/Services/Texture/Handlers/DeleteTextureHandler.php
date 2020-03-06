@@ -9,11 +9,12 @@ use App\Services\Texture\Repositories\CmsTextureRepository;
 
 class DeleteTextureHandler
 {
-    /**
-     * @var CmsTextureRepository
-     */
-    private $repository;
+    private CmsTextureRepository $repository;
 
+    /**
+     * DeleteTextureHandler constructor.
+     * @param CmsTextureRepository $repository
+     */
     public function __construct(CmsTextureRepository $repository)
     {
         $this->repository = $repository;

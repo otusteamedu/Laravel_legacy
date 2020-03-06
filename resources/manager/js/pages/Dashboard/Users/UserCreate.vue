@@ -67,12 +67,12 @@
 
                             <v-select v-if="roleList.length" title="Роль" placeholder="Выберите роль"
                                       name="roles"
+                                      :value="roles"
                                       :vField="$v.roles"
                                       :options="roleList"
                                       nameField="display_name"
                                       indexName="name"
                                       :module="storeModule" />
-
                         </md-card-content>
                     </md-card>
                 </div>
@@ -91,6 +91,8 @@
     import { pageTitle } from '@/mixins/base'
     import { createMethod } from '@/mixins/crudMethods'
 
+    import config from '@/config'
+
     export default {
         name: 'UserCreate',
         components: { VSelect },
@@ -100,6 +102,7 @@
                 responseData: false,
                 redirectRoute: { name: 'manager.users' },
                 storeModule: 'users',
+                defaultRole: config.DEFAULT_ROLE
             }
         },
         validations: {
@@ -151,7 +154,8 @@
             ...mapActions({
                 indexAction: 'users/index',
                 clearFieldsAction: 'users/clearFields',
-                indexRolesAction: 'roles/index'
+                indexRolesAction: 'roles/index',
+                updateFieldAction: 'users/updateField'
             }),
             onCreate() {
                 return this.create({
@@ -175,6 +179,7 @@
             this.indexAction()
                 .then(() => this.indexRolesAction())
                 .then(() => {
+                    this.updateFieldAction({ field: 'roles', value: this.defaultRole})
                     this.setPageTitle('Новый Пользователь');
                     this.responseData = true;
                 })

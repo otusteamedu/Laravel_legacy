@@ -6,8 +6,8 @@ namespace App\Http\Controllers\API\Cms\Role;
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
 use App\Http\Controllers\API\Cms\Role\Requests\CreateRoleRequest;
 use App\Http\Controllers\API\Cms\Role\Requests\UpdateRoleRequest;
-use App\Models\Role;
 use App\Services\Role\CmsRoleService;
+use Illuminate\Http\JsonResponse;
 
 class RoleController extends BaseResourceController
 {
@@ -21,21 +21,30 @@ class RoleController extends BaseResourceController
     }
 
     /**
-     * @param CreateRoleRequest $request
-     * @return Role
+     * @param int $id
+     * @return JsonResponse
      */
-    public function store(CreateRoleRequest $request): Role
+    public function getItemWithPermissions(int $id): JsonResponse
     {
-        return $this->service->store($request);
+        return response()->json($this->service->getItemWithPermissions($id));
+    }
+
+    /**
+     * @param CreateRoleRequest $request
+     * @return JsonResponse
+     */
+    public function store(CreateRoleRequest $request): JsonResponse
+    {
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
      * @param UpdateRoleRequest $request
      * @param int $id
-     * @return Role
+     * @return JsonResponse
      */
-    public function update(UpdateRoleRequest $request, int $id): Role
+    public function update(UpdateRoleRequest $request, int $id): JsonResponse
     {
-        return $this->service->update($request, $id);
+        return response()->json($this->service->update($id, $request->all()));
     }
 }

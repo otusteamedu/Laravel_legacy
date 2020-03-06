@@ -7,7 +7,7 @@ use App\Services\Base\Resource\CmsBaseResourceService;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 
-class ClearByTag
+abstract class ClearByTag
 {
     private CmsBaseResourceService $service;
 

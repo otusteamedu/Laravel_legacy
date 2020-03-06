@@ -24,7 +24,8 @@ class BaseResourceController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse {
+    public function index(): JsonResponse
+    {
         return response()->json($this->service->index());
     }
 
@@ -34,7 +35,7 @@ class BaseResourceController
      */
     public function show(int $id): JsonResponse
     {
-        return response()->json($this->service->show($id));
+        return response()->json($this->service->getItem($id));
     }
 
     /**

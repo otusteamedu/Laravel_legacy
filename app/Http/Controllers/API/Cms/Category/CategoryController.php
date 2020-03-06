@@ -30,7 +30,7 @@ class CategoryController extends BaseCategoryController
      */
     public function store(CreateCategoryRequest $request): JsonResponse
     {
-        return response()->json($this->service->store($request));
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
@@ -40,6 +40,6 @@ class CategoryController extends BaseCategoryController
      */
     public function update(UpdateCategoryRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->update($request, $id));
+        return response()->json($this->service->update($id, $request->all()));
     }
 }

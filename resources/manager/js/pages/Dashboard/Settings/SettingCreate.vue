@@ -61,7 +61,7 @@
 </template>
 
 <script>
-    import { mapActions, mapState, mapGetters } from 'vuex'
+    import { mapActions, mapState } from 'vuex'
 
     import { required, minLength } from 'vuelidate/lib/validators'
 
@@ -132,10 +132,7 @@
             },
             isUniqueDisplayName() {
                 return !!this.$store.getters['settings/isUniqueDisplayName'](this.displayName);
-            },
-            ...mapGetters({
-                firstType: 'settings/firstType'
-            })
+            }
         },
         methods: {
             ...mapActions({

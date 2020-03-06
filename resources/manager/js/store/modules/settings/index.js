@@ -164,8 +164,7 @@ const getters = {
     isUniqueKeyName: state => value => uniqueFieldMixin(state.items, 'key_name', value),
     isUniqueKeyNameEdit: state => (value, id) => uniqueFieldEditMixin(state.items, 'key_name', value, id),
     isUniqueDisplayName: state => value => uniqueFieldMixin(state.items, 'display_name', value),
-    isUniqueDisplayNameEdit: state => (value, id) => uniqueFieldEditMixin(state.items, 'display_name', value, id),
-    firstType: state => state.types.slice(0, 1)[0] ? state.types.slice(0, 1)[0] : ''
+    isUniqueDisplayNameEdit: state => (value, id) => uniqueFieldEditMixin(state.items, 'display_name', value, id)
 };
 
 export default {

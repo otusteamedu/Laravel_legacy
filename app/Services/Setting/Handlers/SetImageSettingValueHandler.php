@@ -8,10 +8,7 @@ use App\Services\Setting\Repositories\CmsSettingRepository;
 
 class SetImageSettingValueHandler
 {
-    /**
-     * @var CmsSettingRepository
-     */
-    private $repository;
+    private CmsSettingRepository $repository;
 
     /**
      * GetTagHandler constructor.
@@ -23,20 +20,20 @@ class SetImageSettingValueHandler
     }
 
     /**
-     * @param array $data
+     * @param array $setData
      */
-    public function handle(array $data)
+    public function handle(array $setData)
     {
-        $item = $this->repository->showByKey($data['key_name']);
+        $item = $this->repository->getItemByKey($setData['key_name']);
 
         if (!empty($item['value']))
             uploader()->remove($item['value']);
 
-        if (!empty($data['value'])) {
-            $uploadAttributes = uploader()->upload($data['value']);
-            $data['value'] = $uploadAttributes['path'];
+        if (!empty($setData['value'])) {
+            $uploadAttributes = uploader()->upload($setData['value']);
+            $setData['value'] = $uploadAttributes['path'];
         }
 
-        $this->repository->setValue($data['value'], $item);
+        $this->repository->setValue($item, $setData['value']);
     }
 }

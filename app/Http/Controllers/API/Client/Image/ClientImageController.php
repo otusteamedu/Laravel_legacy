@@ -15,8 +15,8 @@ class ClientImageController extends Controller
         $this->service = $service;
     }
 
-    public function index(FormRequest $request)
+    public function getPublishedImages(FormRequest $request)
     {
-        return response()->json($this->service->index($request->all()));
+        return response()->json($this->service->getPublishedImages($request->all()));
     }
 }

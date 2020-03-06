@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\API\Auth\Base;
 
+
 use App\Services\Auth\AuthService;
 use App\Services\User\UserService;
 use Tymon\JWTAuth\JWTAuth;
 
-
 abstract class BaseLoginController extends BaseAuthController
 {
-    protected $userService;
+    protected UserService $userService;
 
     /**
      * BaseLoginController constructor.

@@ -8,10 +8,7 @@ use App\Services\Setting\Repositories\CmsSettingRepository;
 
 class GetSettingWithTypesHandler
 {
-    /**
-     * @var CmsSettingRepository
-     */
-    private $repository;
+    private CmsSettingRepository $repository;
 
     /**
      * GetTagHandler constructor.

@@ -8,12 +8,9 @@ use App\Models\Texture;
 use App\Services\Texture\Repositories\CmsTextureRepository;
 use Illuminate\Support\Arr;
 
-class CreateTextureHandler
+class StoreTextureHandler
 {
-    /**
-     * @var CmsTextureRepository
-     */
-    private $repository;
+    private CmsTextureRepository $repository;
 
     public function __construct(CmsTextureRepository $repository)
     {
@@ -21,16 +18,17 @@ class CreateTextureHandler
     }
 
     /**
-     * @param array $data
+     * @param array $storeData
      * @return Texture
      */
-    public function handle(array $data): Texture {
-        $thumbAttributes = uploader()->upload($data['thumb']);
-        $sampleAttributes = uploader()->upload($data['sample']);
-        $backgroundAttributes = uploader()->upload($data['background']);
+    public function handle(array $storeData): Texture
+    {
+        $thumbAttributes = uploader()->upload($storeData['thumb']);
+        $sampleAttributes = uploader()->upload($storeData['sample']);
+        $backgroundAttributes = uploader()->upload($storeData['background']);
 
-        $data = Arr::collapse([
-            Arr::except($data, ['thumb', 'sample', 'background']),
+        $storeData = Arr::collapse([
+            Arr::except($storeData, ['thumb', 'sample', 'background']),
             [
                 'thumb_path' => $thumbAttributes['path'],
                 'sample_path' => $sampleAttributes['path'],
@@ -38,6 +36,6 @@ class CreateTextureHandler
             ]
         ]);
 
-        return $this->repository->store($data);
+        return $this->repository->store($storeData);
     }
 }

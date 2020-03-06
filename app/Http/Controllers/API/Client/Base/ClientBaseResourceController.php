@@ -23,6 +23,6 @@ abstract class ClientBaseResourceController extends Controller
 
     public function show(int $id): JsonResponse
     {
-        return response()->json($this->service->show($id));
+        return response()->json($this->service->getItem($id));
     }
 }

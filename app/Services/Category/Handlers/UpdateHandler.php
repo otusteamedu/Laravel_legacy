@@ -4,28 +4,36 @@
 namespace App\Services\Category\Handlers;
 
 
-use App\Http\Requests\FormRequest;
 use App\Models\Category;
-use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
+use App\Services\Category\Repositories\CmsCategoryRepository;
 use Illuminate\Support\Arr;
 
 class UpdateHandler
 {
+    private CmsCategoryRepository $repository;
+
     /**
-     * @param FormRequest $request
-     * @param CmsBaseResourceRepository $repository
+     * UpdateHandler constructor.
+     * @param CmsCategoryRepository $repository
+     */
+    public function __construct(CmsCategoryRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    /**
      * @param Category $category
+     * @param array $updateData
      * @return mixed
      */
-    public function handle(FormRequest $request, CmsBaseResourceRepository $repository, Category $category)
+    public function handle(Category $category, array $updateData)
     {
-        if($request->image) {
-            $uploadArray = uploader()->refresh($category->image_path, $request->image);
-            $data = Arr::add($request->except('image'), 'image_path', $uploadArray['path']);
-        } else {
-            $data = $request->all();
+        if($updateData['image']) {
+            $uploadArray = uploader()->refresh($category->image_path, $updateData['image']);
+
+            $updateData = Arr::add(Arr::except($updateData, ['image']), 'image_path', $uploadArray['path']);
         }
 
-        return $repository->update($data, $category);
+        return $this->repository->update($category, $updateData);
     }
 }

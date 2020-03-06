@@ -26,18 +26,20 @@
                     <md-card-content>
                         <image-list-table v-if="items.length"
                                           :items="items"
+                                          @search="handleSearch"
+                                          @changePage="changePage"
+                                          @changeSort="changeSort"
                                           @publish="onPublishChange">
 
                             <template #first-column="{ item }">
-                                <md-table-cell style="width: 50px">
-                                    <md-checkbox v-model="selected" :value="item.id" />
+                                <md-table-cell md-label="#" md-sort-by="id" style="width: 50px">
+                                    {{ item.id }}
                                 </md-table-cell>
                             </template>
 
                             <template #actions-column="{ item }">
-                                <md-table-cell v-if="item" md-label="Действия">
-                                    <image-table-actions :item="item"
-                                                         @delete="onDelete"/>
+                                <md-table-cell md-label="Выбрать">
+                                    <md-checkbox v-model="selected" :value="item.id" />
                                 </md-table-cell>
                             </template>
 
@@ -60,7 +62,7 @@
     import { mapState, mapActions } from 'vuex'
 
     import { pageTitle } from '@/mixins/base'
-    import { deleteMethod, subCategoryImageAddMethod } from '@/mixins/crudMethods'
+    import { subCategoryImageAddMethod } from '@/mixins/crudMethods'
 
     import ImageListTable from "@/custom_components/Tables/ImageListTable";
     import ImageTableActions from "@/custom_components/Tables/ImageTableActions";
@@ -70,7 +72,6 @@
         name: 'ExcludedImageList',
         mixins: [
             pageTitle,
-            deleteMethod,
             subCategoryImageAddMethod
         ],
         components: {
@@ -101,26 +102,27 @@
         computed: {
             ...mapState({
                 category: state => state.subCategories.item,
-                items: state => state.images.items
+                items: state => state.images.items,
+                pagination: state => state.images.pagination,
+                searchQuery: state => state.searchQuery,
+                searchedData: state => state.searchedData
             }),
+            paginationData () {
+                return {
+                    current_page: this.pagination.current_page,
+                    per_page: this.pagination.per_page,
+                    sort_by: this.pagination.sort_by,
+                    sort_order: this.pagination.sort_order
+                }
+            }
         },
         methods: {
-            ...mapActions('images', {
-                indexAction: 'index',
-                publishAction: 'publish'
+            ...mapActions({
+                publishAction: 'images/publish',
+                updatePaginationAction: 'images/updatePaginationFields',
+                getExcludedImagesAction: 'subCategories/getExcludedImages',
+                getCategoryWithExcludedImagesAction: 'subCategories/getItemWithExcludedImages'
             }),
-            ...mapActions('subCategories', {
-                getCategoryWithExcludedImages: 'showWithExcludedImages'
-            }),
-            onDelete (item) {
-                return this.delete({
-                    storeModule: this.storeModule,
-                    payload: item.id,
-                    title: item.id,
-                    alertText: `изображение «${item.id}»`,
-                    successText: 'Изображение удалено!'
-                });
-            },
             onPublishChange(id) {
                 this.publishAction(id);
             },
@@ -131,10 +133,50 @@
                     selected: this.selected,
                     redirectRoute: this.redirectRoute
                 })
+            },
+            changePage (item) {
+                this.changePaginationSetting({ current_page: item });
+            },
+            changeSort (sortOrder) {
+                this.changePaginationSetting({ sort_order: sortOrder });
+            },
+            changePaginationSetting (settingObject) {
+                this.updatePaginationAction(settingObject);
+
+                !!this.searchQuery && this.searchedData.length
+                    ? this.search(this.searchQuery)
+                    : this.rebootImageList();
+            },
+            search (query, currentPageFirst = false) {
+                const paginationData = Object.assign({ query }, this.paginationData);
+
+                if (currentPageFirst) {
+                    paginationData.current_page = 1;
+                }
+
+                this.getExcludedImagesAction({ id: this.id, type: this.category_type, paginationData });
+            },
+            handleSearch (query) {
+                query
+                    ? this.search(query, true)
+                    : this.rebootImageList(true)
+            },
+            rebootImageList (currentPageFirst = false) {
+                const paginationData = Object.assign({}, this.paginationData);
+
+                if (currentPageFirst) {
+                    paginationData.current_page = 1;
+                }
+
+                return this.getExcludedImagesAction({ id: this.id, type: this.category_type, paginationData })
             }
         },
         created() {
-            this.getCategoryWithExcludedImages({ type: this.category_type, id: this.id })
+            this.getCategoryWithExcludedImagesAction({
+                type: this.category_type,
+                id: this.id,
+                paginationData: this.paginationData
+            })
                 .then(() => {
                     this.setPageTitle(`Для категории «${this.category.title}»`);
                     this.responseData = true;

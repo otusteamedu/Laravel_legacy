@@ -10,9 +10,22 @@ use Illuminate\Http\JsonResponse;
 
 class UserController extends BaseResourceController
 {
+    /**
+     * UserController constructor.
+     * @param UserService $service
+     */
     public function __construct(UserService $service)
     {
         parent::__construct($service);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     */
+    public function show(int $id): JsonResponse
+    {
+        return response()->json($this->service->getItemWithRole($id));
     }
 
     /**
@@ -21,7 +34,7 @@ class UserController extends BaseResourceController
      */
     public function store(CreateUserRequest $request): JsonResponse
     {
-        return response()->json($this->service->store($request));
+        return response()->json($this->service->store($request->all()));
     }
 
     /**
@@ -31,6 +44,6 @@ class UserController extends BaseResourceController
      */
     public function update(UpdateUserRequest $request, int $id): JsonResponse
     {
-        return response()->json($this->service->update($request, $id));
+        return response()->json($this->service->update($id, $request->all()));
     }
 }

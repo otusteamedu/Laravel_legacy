@@ -5,19 +5,29 @@ namespace App\Services\Category\Handlers;
 
 
 use App\Models\Category;
-use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
+use App\Services\Category\Repositories\CmsCategoryRepository;
 
 class DestroyHandler
 {
+    private CmsCategoryRepository $repository;
+
+    /**
+     * DestroyHandler constructor.
+     * @param CmsCategoryRepository $repository
+     */
+    public function __construct(CmsCategoryRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * @param Category $category
-     * @param CmsBaseResourceRepository $repository
      * @return int
      */
-    public function handle(Category $category, CmsBaseResourceRepository $repository): int
+    public function handle(Category $category): int
     {
         uploader()->remove($category->image_path);
 
-        return $repository->destroy($category);
+        return $this->repository->destroy($category);
     }
 }

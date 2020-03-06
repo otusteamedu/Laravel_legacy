@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _custom_components_VForm_VSelect__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/custom_components/VForm/VSelect */ "./resources/manager/js/custom_components/VForm/VSelect.vue");
 /* harmony import */ var _mixins_base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/base */ "./resources/manager/js/mixins/base.js");
 /* harmony import */ var _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/mixins/crudMethods */ "./resources/manager/js/mixins/crudMethods.js");
+/* harmony import */ var _config__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/config */ "./resources/manager/js/config/index.js");
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -109,6 +110,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'UserCreate',
   components: {
@@ -121,7 +123,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       redirectRoute: {
         name: 'manager.users'
       },
-      storeModule: 'users'
+      storeModule: 'users',
+      defaultRole: _config__WEBPACK_IMPORTED_MODULE_5__["default"].DEFAULT_ROLE
     };
   },
   validations: {
@@ -183,7 +186,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
     indexAction: 'users/index',
     clearFieldsAction: 'users/clearFields',
-    indexRolesAction: 'roles/index'
+    indexRolesAction: 'roles/index',
+    updateFieldAction: 'users/updateField'
   }), {
     onCreate: function onCreate() {
       return this.create({
@@ -209,6 +213,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.indexAction().then(function () {
       return _this.indexRolesAction();
     }).then(function () {
+      _this.updateFieldAction({
+        field: 'roles',
+        value: _this.defaultRole
+      });
+
       _this.setPageTitle('Новый Пользователь');
 
       _this.responseData = true;
@@ -403,6 +412,7 @@ var render = function() {
                                       title: "Роль",
                                       placeholder: "Выберите роль",
                                       name: "roles",
+                                      value: _vm.roles,
                                       vField: _vm.$v.roles,
                                       options: _vm.roleList,
                                       nameField: "display_name",
@@ -432,6 +442,21 @@ var staticRenderFns = []
 render._withStripped = true
 
 
+
+/***/ }),
+
+/***/ "./resources/manager/js/config/index.js":
+/*!**********************************************!*\
+  !*** ./resources/manager/js/config/index.js ***!
+  \**********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  'DEFAULT_ROLE': 'user'
+});
 
 /***/ }),
 

@@ -259,7 +259,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     showAction: 'images/show',
     clearFieldsAction: 'images/clearFields',
     indexCategoryAction: 'categories/index',
-    indexSubcategoryAction: 'subCategories/indexByType',
+    getSubcategoryAction: 'subCategories/getItemsWithType',
     setPreviousPageAction: 'images/setPreviousPage'
   }), {
     onUpdate: function onUpdate() {
@@ -312,9 +312,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               return this.showAction(this.id).then(function () {
                 return _this.indexCategoryAction();
               }).then(function () {
-                return _this.indexSubcategoryAction('tags');
+                return _this.getSubcategoryAction('tags');
               }).then(function () {
-                return _this.indexSubcategoryAction('owners');
+                return _this.getSubcategoryAction('owners');
               }).then(function () {
                 _this.setPageTitle("\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u0435 \xAB".concat(_this.item.article, "\xBB"));
 

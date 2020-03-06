@@ -4,17 +4,17 @@
 namespace App\Services\Image;
 
 
-use App\Http\Requests\FormRequest;
 use App\Services\Base\Resource\CmsBaseResourceService;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
+use App\Services\Cache\Tag;
 use App\Services\Image\Handlers\DeleteImageHandler;
-use App\Services\Image\Handlers\IndexHandler;
+use App\Services\Image\Handlers\GetItemsHandler;
 use App\Services\Image\Handlers\SyncAssociativeCategoryOfImageHandler;
 use App\Services\Image\Handlers\UpdateImagePathHandler;
 use App\Services\Image\Handlers\UploadImageHandler;
 use App\Services\Image\Repositories\CmsImageRepository;
 use Illuminate\Http\Resources\Json\JsonResource;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Arr;
 
 class CmsImageService extends CmsBaseResourceService
 {
@@ -22,7 +22,7 @@ class CmsImageService extends CmsBaseResourceService
     private UpdateImagePathHandler $updateItemPathHandler;
     private SyncAssociativeCategoryOfImageHandler $syncAssociativeCategoryHandler;
     private DeleteImageHandler $destroyHandler;
-    private IndexHandler $indexHandler;
+    private GetItemsHandler $getItemsHandler;
 
     public function __construct(
         CmsImageRepository $repository,
@@ -31,7 +31,7 @@ class CmsImageService extends CmsBaseResourceService
         UpdateImagePathHandler $updateImagePathHandler,
         SyncAssociativeCategoryOfImageHandler $syncAssociativeCategoryOfImageHandler,
         DeleteImageHandler $deleteImageHandler,
-        IndexHandler $indexHandler
+        GetItemsHandler $getItemsHandler
     )
     {
         parent::__construct($repository, $clearCacheByTagHandler);
@@ -39,69 +39,68 @@ class CmsImageService extends CmsBaseResourceService
         $this->updateItemPathHandler = $updateImagePathHandler;
         $this->syncAssociativeCategoryHandler = $syncAssociativeCategoryOfImageHandler;
         $this->destroyHandler = $deleteImageHandler;
-        $this->indexHandler = $indexHandler;
+        $this->getItemsHandler = $getItemsHandler;
+        $this->cacheTag = Tag::IMAGES_TAG;
     }
 
     /**
-     * @param array $data
+     * @param array $pagination
      * @return mixed
      */
-    public function paginateIndex(array $data)
+    public function getItems(array $pagination)
     {
-        return $this->indexHandler->handle($this->repository, $data);
+        return $this->getItemsHandler->handle($pagination);
     }
 
     /**
      * @param int $id
      * @return JsonResource
      */
-    public function show(int $id): JsonResource
+    public function getItemToEdit(int $id): JsonResource
     {
-        return $this->repository->showDetailed($id);
+        return $this->repository->getItemToEdit($id);
     }
 
     /**
-     * @param FormRequest $request
+     * @param array $storeData
      * @return mixed
      */
-    public function store(FormRequest $request)
+    public function store(array $storeData)
     {
-        Cache::tags('images')->flush();
+        $this->storeHandler->handle($storeData['images']);
 
-        $this->storeHandler->handle($request->file('images'));
+        $pagination = Arr::except($storeData, ['images']);
 
-        return $this->repository->paginateIndex($request->except('images'));
+        return $this->repository->getItems($pagination);
     }
 
     /**
-     * @param FormRequest $request
      * @param int $id
+     * @param array $updateData
+     * @return mixed|void
      */
-    public function update(FormRequest $request, int $id)
+    public function update(int $id, array $updateData)
     {
-        $image = $this->repository->show($id);
+        $image = $this->repository->getItem($id);
 
-        $this->syncAssociativeCategoryHandler->handle('topics', $request->topics, $image);
-        $this->syncAssociativeCategoryHandler->handle('colors', $request->colors, $image);
-        $this->syncAssociativeCategoryHandler->handle('interiors', $request->interiors, $image);
+        $this->syncAssociativeCategoryHandler
+            ->handle($image, 'topics', $updateData['topics'] ?? null);
+        $this->syncAssociativeCategoryHandler
+            ->handle($image, 'colors', $updateData['colors'] ?? null);
+        $this->syncAssociativeCategoryHandler
+            ->handle($image, 'interiors', $updateData['interiors'] ?? null);
 
-        $this->repository->syncAssociations('tags', $request->tags, $image);
+        $this->repository
+            ->syncAssociations($image, 'tags', $updateData['tags'] ?? null);
 
-        $request['owner_id'] = +$request['owner_id'] !== 0
-            ? $request['owner_id']
-            : null;
-
-        $this->repository->fillAttributesFromArray(
-            $request->only(['publish', 'owner_id', 'description']),
-            $image
-        );
-
-        $imageFile = $request->file('image');
-        if ($imageFile) {
-            $this->updateItemPathHandler->handle($imageFile, $image);
+        if ($updateData['owner_id'] == 0) {
+            $updateData['owner_id'] = null;
         }
 
-        Cache::tags('images')->flush();
+        $this->repository
+            ->fillAttributesFromArray($image, Arr::only($updateData, ['publish', 'owner_id', 'description']));
+
+        Arr::has($updateData, 'image') && $this->updateItemPathHandler->handle($image, $updateData['image']);
     }
 
     /**
@@ -111,9 +110,7 @@ class CmsImageService extends CmsBaseResourceService
      */
     public function destroy(int $id): int
     {
-        $image = $this->repository->show($id);
-
-        Cache::tags('images')->flush();
+        $image = $this->repository->getItem($id);
 
         return $this->destroyHandler->handle($image);
     }
@@ -124,9 +121,7 @@ class CmsImageService extends CmsBaseResourceService
      */
     public function publish(int $id)
     {
-        $item = $this->repository->show($id);
-
-        Cache::tags('images')->flush();
+        $item = $this->repository->getItem($id);
 
         return $this->repository->publish($item);
     }

@@ -5,14 +5,10 @@ namespace App\Http\Controllers\API\Cms\Format;
 
 use App\Services\Format\FormatService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Response;
 
 class FormatController
 {
-    /**
-     * @var FormatService
-     */
-    protected $service;
+    protected FormatService $service;
 
     /**
      * CategoryController constructor.
@@ -26,7 +22,8 @@ class FormatController
     /**
      * @return JsonResponse
      */
-    public function index(): JsonResponse {
-        return Response::Json($this->service->index());
+    public function index(): JsonResponse
+    {
+        return response()->json($this->service->index());
     }
 }

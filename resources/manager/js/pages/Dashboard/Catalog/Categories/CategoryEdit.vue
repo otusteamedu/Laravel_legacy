@@ -105,7 +105,7 @@
                 type: [ Number, String ],
                 required: true
             },
-            result: []
+            // result: []
         },
         mixins: [
             categoryPage,

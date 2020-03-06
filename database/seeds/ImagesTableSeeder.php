@@ -26,7 +26,7 @@ class ImagesTableSeeder extends Seeder
         $images = getImagesFromLocal($seedsUploadImageDir);
 
         $i = 0;
-        while ($i < 300) {
+        while ($i < config('seed_settings.images_count')) {
 
             $uploadedImage = getFakerImageFromLocal($images, $seedsUploadImageDir, $seedsImageDir);
 

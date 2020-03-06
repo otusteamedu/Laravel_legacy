@@ -4,13 +4,13 @@
 namespace App\Services\Owner;
 
 
-use App\Http\Requests\FormRequest;
-use App\Services\Base\Category\Handlers\ShowExcludedImagesHandler;
-use App\Services\Base\Category\Handlers\ShowImagesHandler;
+use App\Services\Base\Category\Handlers\GetExcludedImagesHandler;
+use App\Services\Base\Category\Handlers\GetImagesHandler;
 use App\Services\Base\Category\Handlers\UploadHandler;
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
 use App\Services\Owner\Repositories\OwnerRepository;
 use App\Services\SubCategory\SubCategoryService;
+use Illuminate\Support\Arr;
 
 class OwnerService extends SubCategoryService
 {
@@ -19,15 +19,15 @@ class OwnerService extends SubCategoryService
      * @param OwnerRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
-     * @param ShowImagesHandler $showImagesHandler
-     * @param ShowExcludedImagesHandler $showExcludedImagesHandler
+     * @param GetImagesHandler $showImagesHandler
+     * @param GetExcludedImagesHandler $showExcludedImagesHandler
      */
     public function __construct(
         OwnerRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadHandler $uploadHandler,
-        ShowImagesHandler $showImagesHandler,
-        ShowExcludedImagesHandler $showExcludedImagesHandler
+        GetImagesHandler $showImagesHandler,
+        GetExcludedImagesHandler $showExcludedImagesHandler
     )
     {
         parent::__construct(
@@ -37,6 +37,23 @@ class OwnerService extends SubCategoryService
             $showImagesHandler,
             $showExcludedImagesHandler
         );
+    }
+
+    /**
+     * @param array $requestData
+     * @param int $id
+     * @return mixed
+     */
+    public function upload(array $requestData, int $id)
+    {
+        $category = $this->repository->getItem($id);
+
+        $uploadImages = $requestData['images'];
+        $pagination = Arr::except($requestData, ['images']);
+
+        $this->uploadHandler->handle($id, $uploadImages, $this->repository);
+
+        return $this->repository->getImages($category, $pagination);
     }
 
     /**
@@ -52,12 +69,26 @@ class OwnerService extends SubCategoryService
     }
 
     /**
-     * @param FormRequest $request
      * @param int $id
+     * @param array $images
      */
-    public function addImages(FormRequest $request, int $id)
+    public function addImages(int $id, array $images)
     {
-        $images = $request->toArray();
         $this->repository->addImages($id, $images);
+    }
+
+    /**
+     * @param int $categoryId
+     * @param int $imageId
+     * @param array $pagination
+     * @return mixed|void
+     */
+    public function removeImage(int $categoryId, int $imageId, array $pagination)
+    {
+        $category = $this->repository->getItem($categoryId);
+
+        return !!$this->repository->removeImage(null, $imageId)
+            ? $this->getImagesHandler->handle($category, $pagination)
+            : abort(500);
     }
 }
