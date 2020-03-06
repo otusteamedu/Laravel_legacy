@@ -13,6 +13,7 @@ use App\Services\Category\CategoryService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\View;
 use App\Services\Product\ProductService;
 
@@ -76,7 +77,9 @@ class ProductController extends Controller
         $data = $request->getFormData();
         $data['created_user_id'] = Auth::id();
 
-        $this->productService->createProduct($data);
+        $product = $this->productService->createProduct($data);
+
+        info('Добавлен новый продукт - "'. $product->name . '" . Стоимость - '.$product->price);
 
         return redirect(route('admin.product.index'));
     }
@@ -124,6 +127,8 @@ class ProductController extends Controller
             'product' => $product,
             'category' => $category,
         ]);
+
+        info('Изменены данные о продукте №"'. $product->id);
 
         return view('admin.product.edit');
     }

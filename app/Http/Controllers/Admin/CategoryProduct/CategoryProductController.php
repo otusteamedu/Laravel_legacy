@@ -65,7 +65,9 @@ class CategoryProductController extends Controller
         $data['created_user_id'] = Auth::id();
 
         //сохраняем категорию через сервис
-        $this->categoryService->createCategory($data);
+        $category = $this->categoryService->createCategory($data);
+
+        info('Создана новая категория №'. $category->id.' " - '.$category->name.'" ');
 
         return redirect(route('admin.category.index'));
     }
@@ -103,6 +105,8 @@ class CategoryProductController extends Controller
         View::share([
             'category' => $category
         ]);
+
+        info('Обновлена категория №'. $category->id.' " - '.$category->name.'" ');
 
         return view('admin.category.edit');
     }

@@ -16,6 +16,8 @@
  * @var
  */
 
+use Illuminate\Support\Facades\Log;
+
 Route::name('admin.')->group(function () {
     Route::prefix('admin')
         ->middleware(['auth'])
@@ -78,5 +80,11 @@ Route::get('checkout', function (){
 });
 
 Auth::routes();
+
+Route::get('logme', function (){
+    Log::info('логирование удалось');
+    Log::warning('Что-то может идти не так.');
+    Log::error('Что-то действительно идёт не так.');
+});
 
 //Route::get('/home', 'HomeController@index')->name('home');

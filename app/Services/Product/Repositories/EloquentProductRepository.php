@@ -28,9 +28,9 @@ class EloquentProductRepository implements ProductRepositoryInterface
 
     public function createFromArray(array $data): Product
     {
-        $category = new Product();
-        $category->create($data);
-        return $category;
+        $product = new Product();
+        $product = $product->create($data);
+        return $product;
     }
 
     public function updateFromArray(Product $product, array $data)
