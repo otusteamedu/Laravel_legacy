@@ -12,12 +12,12 @@ class MpollsTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('mpolls')->delete();
-        
+
         \DB::table('mpolls')->insert(array (
-            0 => 
+            0 =>
             array (
                 'id' => 1,
                 'name' => 'Survey for 0.6£ YS Oct.',
@@ -48,7 +48,7 @@ class MpollsTableSeeder extends Seeder
                 'check_geo' => 1,
                 'customer_id' => 8,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 2,
                 'name' => 'Federated Oct.',
@@ -79,7 +79,7 @@ class MpollsTableSeeder extends Seeder
                 'check_geo' => 1,
                 'customer_id' => 16,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 3,
                 'name' => 'CINT Oct.',
@@ -110,9 +110,9 @@ class MpollsTableSeeder extends Seeder
                 'check_geo' => 1,
                 'customer_id' => 3,
             ),
-            3 => 
+            3 =>
             array (
-                'id' => 80,
+                'id' => 4,
                 'name' => 'Dalia GB Speak UP',
                 'created' => '2019-10-15 23:48:52',
                 'modified' => '2019-11-20 02:22:49',
@@ -141,9 +141,9 @@ class MpollsTableSeeder extends Seeder
                 'check_geo' => 1,
                 'customer_id' => 2,
             ),
-            4 => 
+            4 =>
             array (
-                'id' => 81,
+                'id' => 5,
                 'name' => 'Survey for 0.45£ Toluna Oct.  ',
                 'created' => '2019-10-25 21:47:17',
                 'modified' => '2019-12-04 20:23:20',
@@ -173,7 +173,7 @@ class MpollsTableSeeder extends Seeder
                 'customer_id' => 11,
             ),
         ));
-        
-        
+
+
     }
 }
