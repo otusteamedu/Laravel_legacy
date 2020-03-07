@@ -43,8 +43,4 @@ class Article extends Model
         'picture_id',
     ];
 
-    public function getCreatedAtAttribute($date)
-    {
-        Carbon::createFromFormat('Y-m-d H:i:s', $date)->format('Y.m.d');
-    }
 }

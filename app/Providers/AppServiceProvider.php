@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Articles\Repositories\EloquentArticleRepository;
+use App\Services\Articles\Repositories\ArticleRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -30,6 +32,11 @@ class AppServiceProvider extends ServiceProvider
 
     private function registerBindings()
     {
+        $this->app->bind(
+            ArticleRepositoryInterface::class,
+            EloquentArticleRepository::class
+        );
+
         $this->app->bind(
             UserRepositoryInterface::class,
             EloquentUserRepository::class
