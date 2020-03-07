@@ -5,5 +5,5 @@
 @stop
 
 @section("content")
-
+    <p>Раздел находится в разработке</p>
 @stop
