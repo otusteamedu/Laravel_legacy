@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Articles\Repositories\EloquentArticleRepository;
 use App\Services\Articles\Repositories\ArticleRepositoryInterface;
+use App\Services\News\Repositories\EloquentNewsRepository;
+use App\Services\News\Repositories\NewsRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -35,6 +37,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ArticleRepositoryInterface::class,
             EloquentArticleRepository::class
+        );
+
+        $this->app->bind(
+            NewsRepositoryInterface::class,
+            EloquentNewsRepository::class
         );
 
         $this->app->bind(

@@ -26,7 +26,7 @@ class UpdateArticleRequest extends FormRequest
     {
         return [
             'name' => 'required|unique:articles,name,' . $this->article->id . '|max:100',
-            'description' => 'required|unique:articles,description|max:30000',
+            'description' => 'required|max:30000',
         ];
     }
 
