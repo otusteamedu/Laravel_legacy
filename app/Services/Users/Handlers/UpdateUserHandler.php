@@ -4,6 +4,7 @@ namespace App\Services\Users\Handlers;
 
 use App\Models\User;
 use App\Services\Users\Repositories\EloquentUserRepository;
+use App\Services\Users\Repositories\UserRepositoryInterface;
 
 /**
  * Class UpdateUserHandler
@@ -13,7 +14,7 @@ class UpdateUserHandler {
     private $userRepository;
 
     public function __construct(
-        EloquentUserRepository $userRepository // @ToDO: переделать красиво на UserRepositoryInterface по уроку об DI
+        UserRepositoryInterface $userRepository
     )
     {
         $this->userRepository = $userRepository;

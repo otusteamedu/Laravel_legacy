@@ -49,8 +49,51 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Event extends Model
 {
     use SoftDeletes;
+    //@ToDo: добавить в миграцию флаг активности события и других сущностей
+
+    protected $fillable = [
+        'id',
+        'is_solved',
+        'description',
+        'country_id',
+        'author_id',
+        'type_id',
+        'region',
+        'locality',
+        'lat',
+        'long',
+    ];
 
     public function participants() {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class)
+            ->withTimestamps()
+            ->withPivot('is_successful');
     }
+
+    public function getTypeName() {
+        return $this->belongsTo(
+            EventType::class,
+            'type_id'
+        )->first()->name;
+    }
+
+    public function getCountryName() {
+        return $this->belongsTo(
+            Country::class,
+            'country_id'
+        )->first()->name;
+    }
+
+    public function getAuthor() {
+        return $this->belongsTo(
+            User::class,
+            'author_id'
+        )->first();
+    }
+
+    public function pictures() {
+        return $this->belongsToMany('App\Models\Picture')
+            ->using('App\Models\EventPicture');
+    }
+
 }

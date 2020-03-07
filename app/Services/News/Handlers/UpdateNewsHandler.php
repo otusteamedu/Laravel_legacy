@@ -4,7 +4,6 @@ namespace App\Services\News\Handlers;
 
 use App\Models\News;
 use App\Services\News\Repositories\NewsRepositoryInterface;
-use App\Services\News\Repositories\EloquentNewsRepository;
 
 /**
  * Class UpdateNewsHandler

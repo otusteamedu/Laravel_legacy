@@ -49,7 +49,9 @@
                             </button>
                             <p class="float-left mr-2">
                                 <a class="btn btn-sm btn-outline-secondary" href="{{route('admin.articles.show', $article)}}">
-                                    <svg height="12" class="octicon octicon-person" viewBox="0 0 12 16" version="1.1" width="24" aria-hidden="true"><path fill-rule="evenodd" d="M12 14.002a.998.998 0 01-.998.998H1.001A1 1 0 010 13.999V13c0-2.633 4-4 4-4s.229-.409 0-1c-.841-.62-.944-1.59-1-4 .173-2.413 1.867-3 3-3s2.827.586 3 3c-.056 2.41-.159 3.38-1 4-.229.59 0 1 0 1s4 1.367 4 4v1.002z"></path></svg>
+                                    <svg height="12" class="octicon octicon-person" viewBox="0 0 12 16" version="1.1" width="24" aria-hidden="true">
+                                        <g transform="scale(0.015625 0.015625)"><path d="M864 0h-768c-52.8 0-96 43.2-96 96v832c0 52.8 43.2 96 96 96h768c52.8 0 96-43.2 96-96v-832c0-52.8-43.2-96-96-96zM832 896h-704v-768h704v768zM256 448h448v64h-448zM256 576h448v64h-448zM256 704h448v64h-448zM256 320h448v64h-448z"></path></g>
+                                    </svg>
                                     На детальную
                                 </a>
                             </p>
