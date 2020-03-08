@@ -17,6 +17,9 @@ class PagesService
     /** @var PageRepositoryInterface  */
     protected $pageRepository;
 
+    /** @var string */
+    protected $locale;
+
     /**
      * PagesService constructor.
      * @param PageRepositoryInterface $pageRepository
@@ -24,6 +27,7 @@ class PagesService
     public function __construct(PageRepositoryInterface $pageRepository)
     {
         $this->pageRepository = $pageRepository;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -52,7 +56,10 @@ class PagesService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.pages.show', ['page' => $page->id]);
+            $url = route('cms.pages.show', [
+                'page' => $page->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notCreate.page'),
@@ -62,7 +69,9 @@ class PagesService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.pages.create');
+            $url = route('cms.pages.create', [
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -84,7 +93,10 @@ class PagesService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.pages.show', ['page' => $page->id]);
+            $url = route('cms.pages.show', [
+                'page' => $page->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notUpdate.page'),
@@ -95,7 +107,10 @@ class PagesService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.pages.edit', ['page' => $page->id]);
+            $url = route('cms.pages.edit', [
+                'page' => $page->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -116,7 +131,9 @@ class PagesService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.pages.index');
+            $url = route('cms.pages.index', [
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notDestroy.page'),
@@ -126,7 +143,10 @@ class PagesService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.pages.show', ['page' => $page->id]);
+            $url = route('cms.pages.show', [
+                'page' => $page->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }

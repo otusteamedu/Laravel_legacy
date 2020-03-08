@@ -62,6 +62,8 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cms.menu' => \App\Http\Middleware\Cms\Menu\GenerateCmsMenu::class,
+        'locale' => \App\Http\Middleware\Localization::class,
+        'share.data' => \App\Http\Middleware\ShareCMSData::class,
     ];
 
     /**
@@ -78,6 +80,9 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\ThrottleRequests::class,
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
+        \App\Http\Middleware\Localization::class,
+        \App\Http\Middleware\ShareCMSData::class,
         \Illuminate\Auth\Middleware\Authorize::class,
+        \App\Http\Middleware\Cms\Menu\GenerateCmsMenu::class,
     ];
 }

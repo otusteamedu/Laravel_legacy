@@ -60,7 +60,9 @@ class CommentsController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $comment);
 
-        return view('cms.comment.show', ['comment' => $comment]);
+        return view('cms.comment.show', [
+            'comment' => $comment,
+        ]);
     }
 
     /**

@@ -67,7 +67,7 @@ class GroupsController extends Controller
         $this->checkAbility($request, Abilities::CREATE, Group::class);
 
         return view('cms.group.create', [
-            'rights' => $this->rightsService->getArrayList()
+            'rights' => $this->rightsService->getArrayList(),
         ]);
     }
 
@@ -99,7 +99,9 @@ class GroupsController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $group);
 
-        return view('cms.group.show', ['group' => $group]);
+        return view('cms.group.show', [
+            'group' => $group,
+        ]);
     }
 
     /**
@@ -115,7 +117,7 @@ class GroupsController extends Controller
 
         return view('cms.group.edit', [
             'group' => $group,
-            'rights' => $this->rightsService->getArrayList()
+            'rights' => $this->rightsService->getArrayList(),
         ]);
     }
 

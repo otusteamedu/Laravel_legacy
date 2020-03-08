@@ -21,7 +21,7 @@ use \Illuminate\Http\Request;
  * Class CmsMenu
  * @package App\Services\Cms\Menu
  */
-class CmsMenu
+class CmsMenuService
 {
     /** @var Menu  */
     protected $menu;
@@ -266,6 +266,8 @@ class CmsMenu
         ],
     ];
 
+    protected $locale;
+
     /**
      * CmsMenu constructor.
      * @param Menu $menu
@@ -275,6 +277,7 @@ class CmsMenu
     {
         $this->menu = $menu;
         $this->request = $request;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -334,7 +337,7 @@ class CmsMenu
             ];
 
             if ($params['onlyBread'] === null && isset($item['url'])) {
-                $params['url'] = route($item['url']);
+                $params['url'] = route($item['url'], ['locale' => $this->locale]);
             } elseif (
                 $params['onlyBread'] === true
                 && $this->request->route()->getName() === $item['url']

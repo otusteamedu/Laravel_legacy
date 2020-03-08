@@ -22,9 +22,13 @@ class UsersService
     /** @var UserRepositoryInterface $userRepository */
     protected $userRepository;
 
+    /** @var string */
+    protected $locale;
+
     public function __construct(UserRepositoryInterface $userRepository)
     {
         $this->userRepository = $userRepository;
+        $this->locale = \App::getLocale();
     }
 
     /**
@@ -84,7 +88,10 @@ class UsersService
                 ]
             );
 
-            $url = route('cms.users.show', ['user' => $user->id]);
+            $url = route('cms.users.show', [
+                'user' => $user->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notCreate.user'),
@@ -95,7 +102,9 @@ class UsersService
                 ]
             );
 
-            $url = route('cms.users.create');
+            $url = route('cms.users.create', [
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -130,7 +139,10 @@ class UsersService
                 ]
             );
 
-            $url = route('cms.users.show', ['user' => $user->id]);
+            $url = route('cms.users.show', [
+                'user' => $user->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notUpdate.user'),
@@ -141,7 +153,10 @@ class UsersService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.users.edit', ['user' => $user->id]);
+            $url = route('cms.users.edit', [
+                'user' => $user->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -196,11 +211,13 @@ class UsersService
                 __('log.info.destroy.user'),
                 [
                     'id' => $user->id,
-                    'name' => $group->name,
+                    'name' => $user->name,
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.users.index');
+            $url = route('cms.users.index', [
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notDestroy.user'),
@@ -210,7 +227,10 @@ class UsersService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.users.show', ['user' => $user->id]);
+            $url = route('cms.users.show', [
+                'user' => $user->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }

@@ -12,7 +12,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">{{__('cms.actions.close')}}</button>
-                {{Form::open(['url' => route('cms.groups.destroy', ['group' => $group->id]), 'method'=>'DELETE'])}}
+                {{Form::open(['url' => route('cms.groups.destroy', ['group' => $group->id, 'locale' => $locale]), 'method'=>'DELETE'])}}
                     {{Form::submit(__('cms.actions.destroy'), ['class' => 'btn btn-danger'])}}
                 {{Form::close()}}
             </div>

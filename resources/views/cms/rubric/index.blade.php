@@ -4,7 +4,7 @@
 @section('controls')
     @can(\App\Policies\Abilities::CREATE, \App\Models\Post\Rubric::class)
         <div class="p-2">
-            <a class="btn btn-primary" href="{{ route('cms.rubrics.create') }}" role="button">{{__('cms.rubric.actions.add')}}</a>
+            <a class="btn btn-primary" href="{{ route('cms.rubrics.create', ['locale' => $locale]) }}" role="button">{{__('cms.rubric.actions.add')}}</a>
         </div>
     @endcan
 @endsection

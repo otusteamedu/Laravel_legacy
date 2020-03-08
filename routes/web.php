@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\Auth\LoginController;
-
 Route::name('portal.')
     ->group(function () {
         Route::get(
@@ -71,10 +69,12 @@ Route::name('portal.')
     });
 
 Route::name('cms.')
-    ->prefix('cms')
+    ->prefix('{locale}/cms')
     ->middleware([
         'auth',
-        'cms.menu'
+        'locale',
+        'share.data',
+        'cms.menu',
     ])
     ->group(function () {
         Route::get('', 'Cms\IndexController')->name('index');

@@ -13,6 +13,11 @@ use App\Http\Controllers\Controller;
  */
 class SettingsController extends Controller
 {
+
+    public function __construct()
+    {
+    }
+
     /**
      * Display a listing of the resource.
      *

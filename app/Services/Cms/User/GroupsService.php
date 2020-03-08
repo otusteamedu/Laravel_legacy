@@ -17,6 +17,8 @@ class GroupsService
     /** @var GroupRepositoryInterface $groupRepository */
     protected $groupRepository;
 
+    protected $locale;
+
     /**
      * GroupsService constructor.
      * @param GroupRepositoryInterface $groupRepository
@@ -24,6 +26,7 @@ class GroupsService
     public function __construct(GroupRepositoryInterface $groupRepository)
     {
         $this->groupRepository = $groupRepository;
+        $this->locale = \App::getLocale();
     }
 
 
@@ -53,7 +56,10 @@ class GroupsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.groups.show', ['group' => $group->id]);
+            $url = route('cms.groups.show', [
+                'group' => $group->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notCreate.group'),
@@ -63,7 +69,9 @@ class GroupsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.groups.create');
+            $url = route('cms.groups.create', [
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -85,7 +93,10 @@ class GroupsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.groups.show', ['group' => $group->id]);
+            $url = route('cms.groups.show', [
+                'group' => $group->id,
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notUpdate.group'),
@@ -96,7 +107,10 @@ class GroupsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.groups.edit', ['group' => $group->id]);
+            $url = route('cms.groups.edit', [
+                'group' => $group->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }
@@ -117,7 +131,9 @@ class GroupsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.groups.index');
+            $url = route('cms.groups.index', [
+                'locale' => $this->locale,
+            ]);
         } catch (\Throwable $exception) {
             Log::critical(
                 __('log.critical.notDestroy.group'),
@@ -127,7 +143,10 @@ class GroupsService
                     'user' => Auth::user()->id,
                 ]
             );
-            $url = route('cms.groups.show', ['group' => $group->id]);
+            $url = route('cms.groups.show', [
+                'group' => $group->id,
+                'locale' => $this->locale,
+            ]);
         }
         return $url;
     }

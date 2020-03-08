@@ -91,7 +91,9 @@ class RubricsController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $rubric);
 
-        return view('cms.rubric.show', ['rubric' => $rubric]);
+        return view('cms.rubric.show', [
+            'rubric' => $rubric,
+        ]);
     }
 
     /**
@@ -105,7 +107,9 @@ class RubricsController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $rubric);
 
-        return view('cms.rubric.edit', ['rubric' => $rubric]);
+        return view('cms.rubric.edit', [
+            'rubric' => $rubric,
+        ]);
     }
 
     /**

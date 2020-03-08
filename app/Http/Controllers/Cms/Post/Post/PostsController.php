@@ -31,6 +31,11 @@ class PostsController extends Controller
     /** @var RubricsService $rubricsService */
     protected $rubricsService;
 
+    /**
+     * PostsController constructor.
+     * @param PostsService $postsService
+     * @param RubricsService $rubricsService
+     */
     public function __construct(PostsService $postsService, RubricsService $rubricsService)
     {
         $this->postsService = $postsService;
@@ -62,12 +67,9 @@ class PostsController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, Post::class);
 
-        return  view(
-            'cms.post.create',
-            [
-                'rubrics' => $this->rubricsService->getArrayList(),
-            ]
-        );
+        return  view('cms.post.create', [
+            'rubrics' => $this->rubricsService->getArrayList(),
+        ]);
     }
 
     /**
@@ -96,13 +98,10 @@ class PostsController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $post);
 
-        return view(
-            'cms.post.show',
-            [
-                'post' => $post,
-                'image' => $this->postsService->getPostImage($post),
-            ]
-        );
+        return view('cms.post.show', [
+            'post' => $post,
+            'image' => $this->postsService->getPostImage($post),
+        ]);
     }
 
     /**
@@ -116,14 +115,11 @@ class PostsController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $post);
 
-        return view(
-            'cms.post.edit',
-            [
-                'post' => $post,
-                'rubrics' => $this->rubricsService->getArrayList(),
-                'image' => $this->postsService->getPostImage($post),
-            ]
-        );
+        return view('cms.post.edit', [
+            'post' => $post,
+            'rubrics' => $this->rubricsService->getArrayList(),
+            'image' => $this->postsService->getPostImage($post),
+        ]);
     }
 
     /**

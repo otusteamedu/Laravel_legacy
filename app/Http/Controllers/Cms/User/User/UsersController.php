@@ -32,6 +32,11 @@ class UsersController extends Controller
     /** @var GroupsService $groupsService */
     protected $groupsService;
 
+    /**
+     * UsersController constructor.
+     * @param UsersService $usersService
+     * @param GroupsService $groupsService
+     */
     public function __construct(UsersService $usersService, GroupsService $groupsService)
     {
         $this->usersService = $usersService;
@@ -63,12 +68,9 @@ class UsersController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, User::class);
 
-        return view(
-            'cms.user.create',
-            [
-                'groups' => $this->groupsService->getArrayList(),
-            ]
-        );
+        return view('cms.user.create', [
+            'groups' => $this->groupsService->getArrayList(),
+        ]);
     }
 
     /**
@@ -97,13 +99,10 @@ class UsersController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $user);
 
-        return view(
-            'cms.user.show',
-            [
-                'user' => $user,
-                'image' => $this->usersService->getUserImage($user),
-            ]
-        );
+        return view('cms.user.show', [
+            'user' => $user,
+            'image' => $this->usersService->getUserImage($user),
+        ]);
     }
 
     /**
@@ -117,14 +116,11 @@ class UsersController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $user);
 
-        return view(
-            'cms.user.edit',
-            [
-                'user' => $user,
-                'groups' => $this->groupsService->getArrayList(),
-                'image' => $this->usersService->getUserImage($user),
-            ]
-        );
+        return view('cms.user.edit', [
+            'user' => $user,
+            'groups' => $this->groupsService->getArrayList(),
+            'image' => $this->usersService->getUserImage($user),
+        ]);
     }
 
     /**

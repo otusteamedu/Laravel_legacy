@@ -3,7 +3,7 @@
 @section('h1', __('cms.rubric.title.create'))
 @section('content')
 @include('cms.blocks.forms.errors')
-{{Form::open(['url' => route('cms.rubrics.store'), 'method' => 'POST'])}}
+{{Form::open(['url' => route('cms.rubrics.store', ['locale' => $locale]), 'method' => 'POST'])}}
 @include('cms.rubric.blocks.form.create')
 {{Form::close()}}
 @endsection

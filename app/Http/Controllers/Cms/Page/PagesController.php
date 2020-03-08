@@ -23,7 +23,7 @@ class PagesController extends Controller
 {
     use CurrentUser;
 
-    /** @var PagesService  */
+    /** @var PagesService */
     protected $pagesService;
 
     /**
@@ -91,7 +91,9 @@ class PagesController extends Controller
     {
         $this->checkAbility($request, Abilities::VIEW, $page);
 
-        return view('cms.page.show', ['page' => $page]);
+        return view('cms.page.show', [
+            'page' => $page,
+        ]);
     }
 
     /**
@@ -105,7 +107,9 @@ class PagesController extends Controller
     {
         $this->checkAbility($request, Abilities::UPDATE, $page);
 
-        return view('cms.page.edit', ['page' => $page]);
+        return view('cms.page.edit', [
+            'page' => $page,
+        ]);
     }
 
     /**

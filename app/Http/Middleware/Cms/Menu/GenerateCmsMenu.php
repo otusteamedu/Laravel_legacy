@@ -2,20 +2,25 @@
 
 namespace App\Http\Middleware\Cms\Menu;
 
-use App\Services\Cms\Menu\CmsMenu;
+use App\Services\Cms\Menu\CmsMenuService;
 use Closure;
 
+/**
+ * Class GenerateCmsMenu
+ * @package App\Http\Middleware\Cms\Menu
+ */
 class GenerateCmsMenu
 {
-    protected $cmsMenu;
+    /** @var CmsMenuService  */
+    protected $cmsMenuService;
 
     /**
      * GenerateCmsMenu constructor.
-     * @param CmsMenu $cmsMenu
+     * @param CmsMenuService $cmsMenu
      */
-    public function __construct(CmsMenu $cmsMenu)
+    public function __construct(CmsMenuService $cmsMenuService)
     {
-        $this->cmsMenu = $cmsMenu;
+        $this->cmsMenuService = $cmsMenuService;
     }
 
     /**
@@ -27,7 +32,7 @@ class GenerateCmsMenu
      */
     public function handle($request, Closure $next)
     {
-        $this->cmsMenu->createMenu();
+        $this->cmsMenuService->createMenu();
         return $next($request);
     }
 }

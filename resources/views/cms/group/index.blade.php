@@ -4,7 +4,7 @@
 @section('controls')
     @can(\App\Policies\Abilities::CREATE, \App\Models\User\Group::class)
         <div class="p-2">
-            <a class="btn btn-primary" href="{{ route('cms.groups.create') }}" role="button">{{__('cms.group.actions.add')}}</a>
+            <a class="btn btn-primary" href="{{ route('cms.groups.create', ['locale' => $locale]) }}" role="button">{{__('cms.group.actions.add')}}</a>
         </div>
     @endcan
 @endsection
