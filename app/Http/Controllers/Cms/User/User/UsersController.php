@@ -32,9 +32,6 @@ class UsersController extends Controller
     /** @var GroupsService $groupsService */
     protected $groupsService;
 
-    /** @var string  */
-    protected $locale;
-
     /**
      * UsersController constructor.
      * @param UsersService $usersService
@@ -44,7 +41,6 @@ class UsersController extends Controller
     {
         $this->usersService = $usersService;
         $this->groupsService = $groupsService;
-        $this->locale = \App::getLocale();
     }
 
     /**
@@ -59,7 +55,6 @@ class UsersController extends Controller
 
         return view('cms.user.index', [
             'users' => $this->usersService->paginationList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -75,7 +70,6 @@ class UsersController extends Controller
 
         return view('cms.user.create', [
             'groups' => $this->groupsService->getArrayList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -108,7 +102,6 @@ class UsersController extends Controller
         return view('cms.user.show', [
             'user' => $user,
             'image' => $this->usersService->getUserImage($user),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -127,7 +120,6 @@ class UsersController extends Controller
             'user' => $user,
             'groups' => $this->groupsService->getArrayList(),
             'image' => $this->usersService->getUserImage($user),
-            'locale' => $this->locale,
         ]);
     }
 

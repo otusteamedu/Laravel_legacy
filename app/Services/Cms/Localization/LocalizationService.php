@@ -3,10 +3,14 @@
 namespace App\Services\Cms\Localization;
 
 use App;
-use http\Exception\InvalidArgumentException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Класс определение локали
+ * Class LocalizationService
+ * @package App\Services\Cms\Localization
+ */
 class LocalizationService
 {
     /** @var string[]  */
@@ -19,6 +23,9 @@ class LocalizationService
     {
     }
 
+    /**
+     * @param Request $request
+     */
     public function setLocale(Request $request): void
     {
         try {

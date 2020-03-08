@@ -32,11 +32,6 @@ class IndexController extends Controller
             abort(404);
         }
 
-        return view(
-            'cms.index',
-            [
-                'locale' => \App::getLocale(),
-            ]
-        );
+        return view('cms.index');
     }
 }

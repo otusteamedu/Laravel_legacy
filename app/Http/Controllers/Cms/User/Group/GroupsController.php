@@ -30,9 +30,6 @@ class GroupsController extends Controller
     /** @var RightsService  */
     protected $rightsService;
 
-    /** @var string  */
-    protected $locale;
-
     /**
      * GroupsController constructor.
      * @param GroupsService $groupsService
@@ -42,7 +39,6 @@ class GroupsController extends Controller
     {
         $this->groupsService = $groupsService;
         $this->rightsService = $rightsService;
-        $this->locale = \App::getLocale();
     }
 
     /**
@@ -57,7 +53,6 @@ class GroupsController extends Controller
 
         return view('cms.group.index', [
             'groups' => $this->groupsService->paginationList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -73,7 +68,6 @@ class GroupsController extends Controller
 
         return view('cms.group.create', [
             'rights' => $this->rightsService->getArrayList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -107,7 +101,6 @@ class GroupsController extends Controller
 
         return view('cms.group.show', [
             'group' => $group,
-            'locale' => $this->locale,
         ]);
     }
 
@@ -125,7 +118,6 @@ class GroupsController extends Controller
         return view('cms.group.edit', [
             'group' => $group,
             'rights' => $this->rightsService->getArrayList(),
-            'locale' => $this->locale,
         ]);
     }
 

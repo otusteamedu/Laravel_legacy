@@ -31,13 +31,15 @@ class PostsController extends Controller
     /** @var RubricsService $rubricsService */
     protected $rubricsService;
 
-    protected $locale;
-
+    /**
+     * PostsController constructor.
+     * @param PostsService $postsService
+     * @param RubricsService $rubricsService
+     */
     public function __construct(PostsService $postsService, RubricsService $rubricsService)
     {
         $this->postsService = $postsService;
         $this->rubricsService = $rubricsService;
-        $this->locale = \App::getLocale();
     }
 
     /**
@@ -52,7 +54,6 @@ class PostsController extends Controller
 
         return view('cms.post.index', [
             'posts' => $this->postsService->paginationList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -68,7 +69,6 @@ class PostsController extends Controller
 
         return  view('cms.post.create', [
             'rubrics' => $this->rubricsService->getArrayList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -101,7 +101,6 @@ class PostsController extends Controller
         return view('cms.post.show', [
             'post' => $post,
             'image' => $this->postsService->getPostImage($post),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -120,7 +119,6 @@ class PostsController extends Controller
             'post' => $post,
             'rubrics' => $this->rubricsService->getArrayList(),
             'image' => $this->postsService->getPostImage($post),
-            'locale' => $this->locale,
         ]);
     }
 

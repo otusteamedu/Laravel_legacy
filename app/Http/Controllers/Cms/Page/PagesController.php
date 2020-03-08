@@ -26,9 +26,6 @@ class PagesController extends Controller
     /** @var PagesService */
     protected $pagesService;
 
-    /** @var string */
-    protected $locale;
-
     /**
      * PagesController constructor.
      * @param PagesService $pagesService
@@ -36,7 +33,6 @@ class PagesController extends Controller
     public function __construct(PagesService $pagesService)
     {
         $this->pagesService = $pagesService;
-        $this->locale = \App::getLocale();
     }
 
     /**
@@ -51,7 +47,6 @@ class PagesController extends Controller
 
         return view('cms.page.index', [
             'pages' => $this->pagesService->paginationList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -65,9 +60,7 @@ class PagesController extends Controller
     {
         $this->checkAbility($request, Abilities::CREATE, Page::class);
 
-        return view('cms.page.create', [
-            'locale' => $this->locale,
-        ]);
+        return view('cms.page.create');
     }
 
     /**
@@ -100,7 +93,6 @@ class PagesController extends Controller
 
         return view('cms.page.show', [
             'page' => $page,
-            'locale' => $this->locale,
         ]);
     }
 
@@ -117,7 +109,6 @@ class PagesController extends Controller
 
         return view('cms.page.edit', [
             'page' => $page,
-            'locale' => $this->locale,
         ]);
     }
 

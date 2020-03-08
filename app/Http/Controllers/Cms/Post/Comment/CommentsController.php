@@ -25,9 +25,6 @@ class CommentsController extends Controller
     /** @var CommentsService $commentsService */
     protected $commentsService;
 
-    /** @var string */
-    protected $locale;
-
     /**
      * CommentsController constructor.
      * @param CommentsService $commentsService
@@ -35,8 +32,6 @@ class CommentsController extends Controller
     public function __construct(CommentsService $commentsService)
     {
         $this->commentsService = $commentsService;
-
-        $this->locale = \App::getLocale();
     }
 
     /**
@@ -51,7 +46,6 @@ class CommentsController extends Controller
 
         return view('cms.comment.index', [
             'comments' => $this->commentsService->paginationList(),
-            'locale' => $this->locale,
         ]);
     }
 
@@ -68,7 +62,6 @@ class CommentsController extends Controller
 
         return view('cms.comment.show', [
             'comment' => $comment,
-            'locale' => $this->locale,
         ]);
     }
 

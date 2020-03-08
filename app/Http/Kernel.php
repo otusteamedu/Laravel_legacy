@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'cms.menu' => \App\Http\Middleware\Cms\Menu\GenerateCmsMenu::class,
         'locale' => \App\Http\Middleware\Localization::class,
+        'share.data' => \App\Http\Middleware\ShareCMSData::class,
     ];
 
     /**
@@ -80,6 +81,7 @@ class Kernel extends HttpKernel
         \Illuminate\Session\Middleware\AuthenticateSession::class,
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \App\Http\Middleware\Localization::class,
+        \App\Http\Middleware\ShareCMSData::class,
         \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\Cms\Menu\GenerateCmsMenu::class,
     ];

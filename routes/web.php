@@ -11,8 +11,6 @@
 |
 */
 
-use App\Http\Controllers\Auth\LoginController;
-
 Route::name('portal.')
     ->group(function () {
         Route::get(
@@ -75,6 +73,7 @@ Route::name('cms.')
     ->middleware([
         'auth',
         'locale',
+        'share.data',
         'cms.menu',
     ])
     ->group(function () {
