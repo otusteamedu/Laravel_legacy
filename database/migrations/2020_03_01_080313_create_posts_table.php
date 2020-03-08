@@ -20,9 +20,9 @@ class CreatePostsTable extends Migration
             $table->string('img');
             $table->decimal('price', 10, 2);
             $table->unsignedBigInteger('category_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('city_id');
-            $table->bigInteger('type_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('city_id');
+            $table->unsignedBigInteger('type_id');
             $table->enum('confirm', array(0, 1))->default(0);
             $table->dateTime('time_over');
             $table->enum('is_actual', array(0, 1));

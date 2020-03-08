@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('hash');
             $table->string('session', 32);
-            $table->unsignedBigInteger('role_id');
+            $table->string('role_id');
             $table->rememberToken();
             $table->timestamps();
 
