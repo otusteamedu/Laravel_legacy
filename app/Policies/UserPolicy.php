@@ -4,22 +4,28 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Services\UserGroup\UserGroupRightService;
+use App\Services\UserGroup\UserGroupService;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class UserPolicy
 {
     use HandlesAuthorization;
 
-    protected UserGroupRightService $userGroupRightService;
+    public const CAN_VIEW_CLIENT_LIST = 'viewClientList';
+    public const CAN_CREATE = 'create';
 
-    public function __construct(UserGroupRightService $userGroupRightService)
+    protected UserGroupRightService $userGroupRightService;
+    protected UserGroupService $userGroupService;
+
+    public function __construct(UserGroupRightService $userGroupRightService, UserGroupService $userGroupService)
     {
         $this->userGroupRightService = $userGroupRightService;
+        $this->userGroupService = $userGroupService;
     }
 
     public function before(User $user): ?bool
     {
-        return $user->isAdmin() ? true : null;
+        return $this->userGroupService->isAdmin($user) ? true : null;
     }
 
     /**

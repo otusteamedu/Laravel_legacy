@@ -24,7 +24,6 @@ class ClientRepository implements ClientRepositoryInterface
     {
         return User::whereId($clientId)
             ->with('clientInformation')
-            ->get()
             ->first();
     }
 
@@ -79,7 +78,7 @@ class ClientRepository implements ClientRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function create(int $masterId, array $userData)
+    public function create(int $masterId, array $userData): ?User
     {
         $groupService = app(UserGroupService::class);
 
@@ -89,7 +88,7 @@ class ClientRepository implements ClientRepositoryInterface
         $user->phone_number = $userData['phone_number'];
         $user->email = $userData['email'];
         $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
-        $user->group_id = $groupService->getIdByCode(UserGroupRepositoryInterface::CLIENT);
+        $user->group_id = $groupService->getIdByCode(UserGroupRepositoryInterface::CLIENT_GROUP_CODE);
 
         $user->save();
 
@@ -99,7 +98,7 @@ class ClientRepository implements ClientRepositoryInterface
 
         $user->clientInformation()->save($clientInformation);
 
-        return $user;
+        return $user === false ? null : $user;
     }
 
     /**
@@ -109,7 +108,6 @@ class ClientRepository implements ClientRepositoryInterface
     {
         /** @var User $user */
         $user = User::orderBy('id', 'desc')
-            ->limit(1)
             ->first();
 
         return $user->id;

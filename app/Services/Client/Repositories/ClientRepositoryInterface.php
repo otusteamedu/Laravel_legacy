@@ -40,9 +40,9 @@ interface ClientRepositoryInterface
     /**
      * @param int $masterId
      * @param array $userData
-     * @return User|false
+     * @return User|null
      */
-    public function create(int $masterId, array $userData);
+    public function create(int $masterId, array $userData): ?User;
 
     /**
      * @return int

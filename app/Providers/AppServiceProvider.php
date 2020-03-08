@@ -53,11 +53,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      *
-     * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot(): void
     {
         User::observe(UserObserver::class);
-        UserGroupRight::observe(UserGroupRightObserver::class);
+        UserGroupRight::observe($this->app->make(UserGroupRightObserver::class));
     }
 }

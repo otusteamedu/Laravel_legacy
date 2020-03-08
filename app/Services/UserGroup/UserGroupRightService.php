@@ -9,6 +9,8 @@ use Illuminate\Support\Collection;
 
 class UserGroupRightService
 {
+    public const CACHE_USER_GROUP_CACHE_LIST = 'user.group.right.list';
+
     protected UserGroupRightRepositoryInterface $userGroupRightRepository;
 
     public function __construct(UserGroupRightRepositoryInterface $userGroupRightRepository)
@@ -19,7 +21,7 @@ class UserGroupRightService
     public function getList(): ?Collection
     {
         // TODO return cache - has a problems
-//        return \Cache::rememberForever('user.group.right.list', function () {
+//        return \Cache::rememberForever(self::CACHE_USER_GROUP_CACHE_LIST, function () {
 //            $this->userGroupRightRepository->getList();
 //        });
 
@@ -43,5 +45,13 @@ class UserGroupRightService
         });
 
         return $first !== null;
+    }
+
+    /**
+     * @throws \Psr\SimpleCache\InvalidArgumentException
+     */
+    public function clearCache(): void
+    {
+        \Cache::delete(self::CACHE_USER_GROUP_CACHE_LIST);
     }
 }

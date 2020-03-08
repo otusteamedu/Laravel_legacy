@@ -118,19 +118,6 @@ class User extends Authenticatable
         return $this->clients()->wherePivot('master_id', '=', $masterId)->first() !== null;
     }
 
-    public function hasRecord(int $recordId): bool
-    {
-        return $this->masterRecords()->where('id', '=', $recordId)->first() !== null;
-    }
-
-    public function isAdmin()
-    {
-        $userGroupService = app(UserGroupService::class);
-        $adminGroupId = $userGroupService->getIdByCode(UserGroupRepositoryInterface::ADMIN);
-
-        return $adminGroupId === $this->group_id;
-    }
-
     /**
      * Return user group (UserGroup)
      *

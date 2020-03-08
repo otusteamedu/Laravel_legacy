@@ -3,6 +3,7 @@
 namespace App\Services\UserGroup;
 
 
+use App\Models\User;
 use App\Models\UserGroup;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
@@ -68,5 +69,33 @@ class UserGroupService
 
             return $group->code;
         });
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isAdmin(User $user): bool
+    {
+        return $this->isUserGroup($user, UserGroupRepositoryInterface::ADMIN_GROUP_CODE);
+    }
+
+    /**
+     * @param User $user
+     * @return bool
+     */
+    public function isModerator(User $user): bool
+    {
+        return $this->isUserGroup($user, UserGroupRepositoryInterface::MASTER_GROUP_CODE);
+    }
+
+    /**
+     * @param User $user
+     * @param string $groupCode
+     * @return bool
+     */
+    public function isUserGroup(User $user, string $groupCode): bool
+    {
+        return $user->group_id === $this->getIdByCode($groupCode);
     }
 }

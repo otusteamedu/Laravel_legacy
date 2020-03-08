@@ -50,9 +50,9 @@ class ClientService
     /**
      * @param int $masterId
      * @param array $userData
-     * @return User|false
+     * @return User|null
      */
-    public function createClient(int $masterId, array $userData)
+    public function createClient(int $masterId, array $userData): ?User
     {
         if (empty($userData['email'])) {
             $userData['email'] = $this->generateFakeEmail();

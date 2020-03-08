@@ -23,7 +23,7 @@ class RecordRepository implements RecordRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function getMasterRecords(int $masterId): ?Collection
+    public function getMasterRecords(int $masterId): Collection
     {
         return Record::whereMasterId($masterId)
             ->orderBy('date_start', 'desc')
@@ -60,5 +60,15 @@ class RecordRepository implements RecordRepositoryInterface
         }
 
         return $record;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function masterHasRecord(int $masterId, int $recordId): bool
+    {
+        return Record::where('id', '=', $recordId)
+            ->where('master_id', '=', $masterId)
+            ->first('id') !== null;
     }
 }

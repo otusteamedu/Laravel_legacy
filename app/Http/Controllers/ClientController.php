@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Client\StoreClient;
 use App\Http\Requests\Record\StoreRecord;
 use App\Models\User;
+use App\Policies\UserPolicy;
 use App\Services\Client\ClientService;
 use App\Services\Record\RecordService;
 use Carbon\Carbon;
@@ -23,7 +24,7 @@ class ClientController extends Controller
     public function list()
     {
         $currentUser = \Auth::user();
-        $this->authorize('viewClientList', $currentUser);
+        $this->authorize(UserPolicy::CAN_VIEW_CLIENT_LIST, $currentUser);
 
         $masterClient = $this->clientService->getMasterClientsPagination($currentUser->id);
 
@@ -39,7 +40,7 @@ class ClientController extends Controller
     public function showCreate()
     {
         $currentUser = \Auth::user();
-        $this->authorize('create', $currentUser);
+        $this->authorize(UserPolicy::CAN_CREATE, $currentUser);
 
         return view('pages.master.user.createEdit', [
             'title' => 'Создание клиента',
@@ -50,7 +51,7 @@ class ClientController extends Controller
     public function create(StoreClient $request)
     {
         $currentUser = \Auth::user();
-        $this->authorize('create', $currentUser);
+        $this->authorize(UserPolicy::CAN_CREATE, $currentUser);
 
         $userData = $request->only(['last_name', 'first_name', 'phone_number', 'email', 'material', 'note']);
 
@@ -101,33 +102,13 @@ class ClientController extends Controller
 
     public function createRecord(StoreRecord $storeRecordRequest)
     {
-        $currentUser = \Auth::user();
-        $this->authorize('create', $currentUser);
+        $this->authorize('create', \Auth::user());
 
         // Check master-user relation
         $client = $this->clientService->getMasterClient($storeRecordRequest->post('client_id'));
         $this->authorize('update', $client);
 
-        $recordData = $storeRecordRequest->only(['client_id', 'price']);
-        $recordData['master_id'] = $currentUser->id;
-
-        // Transform times (workaround)
-        // TODO use datepicker at front-end and send timestamps to back-end
-        $unTransformDates = $storeRecordRequest->only(['date', 'time_start', 'time_finish']);
-
-        $dateStart = Carbon::createFromFormat('d.m.Y', $unTransformDates['date']);
-        $dateFinish = clone $dateStart;
-        [$hoursStart, $minutesStart] = explode(':', $unTransformDates['time_start']);
-        [$hoursFinish, $minutesFinish] = explode(':', $unTransformDates['time_finish']);
-
-        $dateStart->setHour((int)$hoursStart);
-        $dateStart->setMinute((int)$minutesStart);
-
-        $dateFinish->setHour((int)$hoursFinish);
-        $dateFinish->setMinute((int)$minutesFinish);
-
-        $recordData['date_start'] = $dateStart->timestamp;
-        $recordData['date_finish'] = $dateFinish->timestamp;
+        $recordData = $storeRecordRequest->getFormData();
 
         $record = $this->recordService->create($recordData);
 

@@ -4,7 +4,9 @@ namespace App\Policies;
 
 use App\Models\Record;
 use App\Models\User;
+use App\Services\Record\Repositories\RecordRepository;
 use App\Services\UserGroup\UserGroupRightService;
+use App\Services\UserGroup\UserGroupService;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class RecordPolicy
@@ -12,15 +14,23 @@ class RecordPolicy
     use HandlesAuthorization;
 
     protected UserGroupRightService $userGroupRightService;
+    protected UserGroupService $userGroupService;
+    protected RecordRepository $recordRepository;
 
-    public function __construct(UserGroupRightService $userGroupRightService)
+    public function __construct(
+        UserGroupRightService $userGroupRightService,
+        UserGroupService $userGroupService,
+        RecordRepository $recordRepository
+    )
     {
         $this->userGroupRightService = $userGroupRightService;
+        $this->userGroupService = $userGroupService;
+        $this->recordRepository = $recordRepository;
     }
 
     public function before(User $user): ?bool
     {
-        return $user->isAdmin() ? true : null;
+        return $this->userGroupService->isAdmin($user) ? true : null;
     }
 
     /**
@@ -32,7 +42,7 @@ class RecordPolicy
      */
     public function view(User $user, Record $record)
     {
-        return $user->hasRecord($record->id);
+        return $this->recordRepository->masterHasRecord($user->id, $record->id);
     }
 
     /**
@@ -44,7 +54,7 @@ class RecordPolicy
      */
     public function update(User $user, Record $record)
     {
-        return $user->hasRecord($record->id);
+        return $this->recordRepository->masterHasRecord($user->id, $record->id);
     }
 
     /**
@@ -56,6 +66,6 @@ class RecordPolicy
      */
     public function delete(User $user, Record $record)
     {
-        return $user->hasRecord($record->id);
+        return $this->recordRepository->masterHasRecord($user->id, $record->id);
     }
 }

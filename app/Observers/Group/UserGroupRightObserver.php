@@ -3,9 +3,17 @@
 namespace App\Observers\Group;
 
 use App\Models\UserGroupRight;
+use App\Services\UserGroup\UserGroupRightService;
 
 class UserGroupRightObserver
 {
+    protected UserGroupRightService $userGroupRightService;
+
+    public function __construct(UserGroupRightService $userGroupRightService)
+    {
+        $this->userGroupRightService = $userGroupRightService;
+    }
+
     /**
      * Handle the user group right "created" event.
      *
@@ -15,7 +23,7 @@ class UserGroupRightObserver
      */
     public function created(UserGroupRight $userGroupRight): void
     {
-        \Cache::delete('user.group.right.list');
+        $this->userGroupRightService->clearCache();
     }
 
     /**
@@ -25,9 +33,9 @@ class UserGroupRightObserver
      * @return void
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function updated(UserGroupRight $userGroupRight)
+    public function updated(UserGroupRight $userGroupRight): void
     {
-        \Cache::delete('user.group.right.list');
+        $this->userGroupRightService->clearCache();
     }
 
     /**
@@ -37,9 +45,9 @@ class UserGroupRightObserver
      * @return void
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function deleted(UserGroupRight $userGroupRight)
+    public function deleted(UserGroupRight $userGroupRight): void
     {
-        \Cache::delete('user.group.right.list');
+        $this->userGroupRightService->clearCache();
     }
 
     /**
@@ -49,9 +57,9 @@ class UserGroupRightObserver
      * @return void
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function restored(UserGroupRight $userGroupRight)
+    public function restored(UserGroupRight $userGroupRight): void
     {
-        \Cache::delete('user.group.right.list');
+        $this->userGroupRightService->clearCache();
     }
 
     /**
@@ -61,8 +69,8 @@ class UserGroupRightObserver
      * @return void
      * @throws \Psr\SimpleCache\InvalidArgumentException
      */
-    public function forceDeleted(UserGroupRight $userGroupRight)
+    public function forceDeleted(UserGroupRight $userGroupRight): void
     {
-        \Cache::delete('user.group.right.list');
+        $this->userGroupRightService->clearCache();
     }
 }

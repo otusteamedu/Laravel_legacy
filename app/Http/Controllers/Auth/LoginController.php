@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserGroup;
+use App\Services\UserGroup\UserGroupRepositoryInterface;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -56,9 +57,10 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         /** @var UserGroup $clientGroup */
-        $clientGroup = UserGroup::whereIn('code', ['admin', 'master'])
-            ->pluck('id')
-            ->toArray();
+        $clientGroup = UserGroup::whereIn(
+            'code',
+            [UserGroupRepositoryInterface::ADMIN_GROUP_CODE, UserGroupRepositoryInterface::MASTER_GROUP_CODE]
+        )->pluck('id')->toArray();
 
         $credentials['group_id'] = $clientGroup;
 

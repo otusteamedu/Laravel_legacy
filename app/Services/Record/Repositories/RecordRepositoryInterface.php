@@ -40,4 +40,11 @@ interface RecordRepositoryInterface
      * @return Record
      */
     public function create(array $recordData): Record;
+
+    /**
+     * @param int $masterId
+     * @param int $recordId
+     * @return bool
+     */
+    public function masterHasRecord(int $masterId, int $recordId): bool;
 }

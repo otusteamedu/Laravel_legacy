@@ -9,9 +9,9 @@ use Illuminate\Support\Collection;
 
 interface UserGroupRepositoryInterface
 {
-    public const ADMIN = 'admin';
-    public const MASTER = 'master';
-    public const CLIENT = 'client';
+    public const ADMIN_GROUP_CODE = 'admin';
+    public const MASTER_GROUP_CODE = 'master';
+    public const CLIENT_GROUP_CODE = 'client';
 
     /**
      * @param string $code
