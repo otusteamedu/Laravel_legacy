@@ -17,5 +17,8 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 
-Route::resource('operations', 'Api\OperationController')->except(['create', 'edit'])->middleware(['auth:api', 'UserByApiToken']);
+Route::get('/me/email', 'UsersController@getEmail')->middleware('auth:api', 'scope:user.email');
+Route::get('/me/name', 'UsersController@getName')->middleware('auth:api', 'scopes');
+
+Route::resource('operations', 'Api\OperationController')->except(['create', 'edit'])->middleware('auth:api');
 

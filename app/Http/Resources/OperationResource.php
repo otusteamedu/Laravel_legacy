@@ -2,9 +2,8 @@
 
 namespace App\Http\Resources;
 
-use App\Models\Category;
-use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\CategoryResource;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Carbon\Carbon;
 
 class OperationResource extends JsonResource
@@ -21,7 +20,7 @@ class OperationResource extends JsonResource
             'id' => $this->id,
             'sum' => $this->sum,
             'description' => $this->description,
-            'category' => new CategoryResource(Category::find($this->category_id)),
+            'category' => new CategoryResource($this->category),
             'created_at' => Carbon::createFromFormat('Y-m-d H:i:s', $this->created_at)->format('d.m.Y'),
         ];
     }

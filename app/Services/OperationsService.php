@@ -48,6 +48,17 @@ class OperationsService
     }
 
     /**
+     * Get operations by user id
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public function getOperationsByUserId($userId)
+    {
+        return $this->operationRepository->getOperationsByUserId($userId);
+    }
+
+    /**
      * Count of income and consumption for the period
      *
      * @param $operations

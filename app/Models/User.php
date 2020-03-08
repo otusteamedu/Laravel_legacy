@@ -7,10 +7,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Arr;
 use Watson\Rememberable\Rememberable;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
-    use Notifiable, Rememberable;
+    use Notifiable, Rememberable, HasApiTokens;
 
     const IS_ADMIN = 'admin';
     const IS_USER = 'user';
@@ -116,16 +117,5 @@ class User extends Authenticatable
                 $assigned_roles[] = false;
         }
         $this->roles()->attach($assigned_roles);
-    }
-
-    /**
-     * Найтм пользователя по токену
-     *
-     * @param $token
-     * @return mixed
-     */
-    public static function getUserByToken($token)
-    {
-        return User::where('api_token', $token)->first();
     }
 }

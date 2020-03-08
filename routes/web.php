@@ -12,7 +12,6 @@
 */
 Auth::routes();
 
-
 Route::get('setlocale/{locale}', function ($locale) {
     if (in_array($locale, \Config::get('app.locales'))) {
         Session::put('locale', $locale);
@@ -35,7 +34,5 @@ Route::middleware('auth')->group(function () {
     Route::get('operation/period', 'OperationsController@setPeriod')->name('operation.period');
 
     Route::resource('reviews', 'ReviewsController')->except(['show']);
+//    Route::get('admin/oauth', 'OAuthController@index')->name('admin.oauth');
 });
-
-
-

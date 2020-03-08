@@ -62,7 +62,7 @@
 @endsection
 
 @section('scripts')
-    @parent
+@include('sections.users.scripts')
     <!-- This is data table -->
     <script src="/assets/plugins/datatables/datatables.min.js"></script>
     <!-- start - This is for export functionality only -->
