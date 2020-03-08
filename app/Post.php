@@ -6,5 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    //
+    public function type()
+    {
+        return $this->hasOne(Type::class);
+    }
 }
