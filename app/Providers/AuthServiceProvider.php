@@ -7,7 +7,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use App\Policies\ReviewPolicy;
 use App\Models\Review;
-
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -45,6 +45,13 @@ class AuthServiceProvider extends ServiceProvider
 //                return $user->id === $review->user_id;
 //            }
 //        });
+
+        Passport::routes();
+
+        Passport::tokensCan([
+            'user.email' => 'See your email',
+            'user.name' => 'See your name',
+        ]);
 
     }
 }
