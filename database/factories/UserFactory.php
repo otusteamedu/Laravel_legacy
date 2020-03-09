@@ -20,6 +20,7 @@ $factory->define(User::class, function (Faker $faker) {
         'phone' => $faker->unique()->phoneNumber,
         'password' => md5(rand()),
         'picture_id' => (Picture::all()->count() > 0) ? Picture::all()->random()->id : factory(Picture::class, 100),
+        'api_token' => Str::random(60),
     ];
 });
 

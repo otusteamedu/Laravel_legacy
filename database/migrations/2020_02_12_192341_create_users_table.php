@@ -27,6 +27,10 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('password');
+            $table->string('api_token', 80)
+                ->unique()
+                ->nullable()
+                ->default(null);
             $table->unsignedBigInteger('picture_id')->nullable();
             $table->rememberToken();
             $table->timestamps();

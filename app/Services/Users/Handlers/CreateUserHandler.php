@@ -5,6 +5,7 @@ namespace App\Services\Users\Handlers;
 use App\Models\User;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use Carbon\Carbon;
+use Str;
 
 /**
  * Class CreateUserHandler
@@ -28,6 +29,7 @@ class CreateUserHandler {
         $data['region'] = ucfirst($data['region']);
         $data['locality'] = ucfirst($data['locality']);
         $data['password'] = trim($data['password']);
+        $data['api_token'] = Str::random(60);
 
         return $this->userRepository->createFromArray($data);
     }
