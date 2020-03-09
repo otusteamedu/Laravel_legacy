@@ -18,10 +18,10 @@ class CreateCatalogCategoriesTable extends Migration
             $table->integer('parent_id')->default(0);
             $table->string('title', 255);
             $table->boolean('visible')->default(0);
-            $table->text('description');
-            $table->string('meta_title', 255);
-            $table->text('meta_description');
-            $table->string('url', 255);
+            $table->text('description')->nullable();
+            $table->string('meta_title', 255)->nullable();
+            $table->text('meta_description')->nullable();
+            $table->string('url', 255)->nullable();
             $table->integer('order')->default(0);
             $table->bigInteger('file_id')->nullable();
 

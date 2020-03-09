@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
 
+    protected $guarded = [];
+    
     public function item()
     {
         return $this->hasMany(Item::class);

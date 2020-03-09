@@ -72,7 +72,7 @@ class NewsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\News\UpdateNewsRequest  $request
      * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
