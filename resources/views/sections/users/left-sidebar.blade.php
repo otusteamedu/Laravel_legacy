@@ -76,6 +76,11 @@
                         <li><a href="{{route('reviews.create')}}">Добавить отзыв</a></li>
                     </ul>
                 </li>
+{{--                <li> <a class="has-arrow waves-effect waves-dark" href="#" aria-expanded="false"><i class="mdi mdi-book-multiple"></i><span class="hide-menu">Для разработчиков</span></a>--}}
+{{--                    <ul aria-expanded="false" class="collapse">--}}
+{{--                        <li><a href="{{route('admin.oauth')}}">OAuth</a></li>--}}
+{{--                    </ul>--}}
+{{--                </li>--}}
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

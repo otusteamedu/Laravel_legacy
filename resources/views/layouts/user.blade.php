@@ -18,6 +18,8 @@
     <!-- Bootstrap Core CSS -->
     <link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/assets/plugins/datatables/media/css/dataTables.bootstrap4.css" rel="stylesheet">
+    <!-- Vue CSS -->
+{{--    <link href="{{ asset('css/app.css') }}" rel="stylesheet">--}}
     <!-- Custom CSS -->
     <link href="/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -32,61 +34,39 @@
 </head>
 
 <body class="fix-sidebar fix-header card-no-border">
-
-@include('sections.users.preloader')
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
-<div id="main-wrapper">
-@include('sections.users.header')
-@include('sections.users.left-sidebar')
-    <!-- ============================================================== -->
-    <!-- Page wrapper  -->
-    <!-- ============================================================== -->
-    <div class="page-wrapper">
+    <div id="app">
+        @include('sections.users.preloader')
         <!-- ============================================================== -->
-        <!-- Container fluid  -->
+        <!-- Main wrapper - style you can find in pages.scss -->
         <!-- ============================================================== -->
-        <div class="container-fluid">
-            @yield('content')
+        <div id="main-wrapper">
+        @include('sections.users.header')
+        @include('sections.users.left-sidebar')
+            <!-- ============================================================== -->
+            <!-- Page wrapper  -->
+            <!-- ============================================================== -->
+            <div class="page-wrapper">
+                <!-- ============================================================== -->
+                <!-- Container fluid  -->
+                <!-- ============================================================== -->
+                <div class="container-fluid">
+                    @yield('content')
+                </div>
+            </div>
+                <!-- ============================================================== -->
+                <!-- End Container fluid  -->
+                <!-- ============================================================== -->
         </div>
+        <!-- ============================================================== -->
+        <!-- End Page wrapper  -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- End Wrapper -->
+        <!-- ============================================================== -->
+
+        @yield('scripts')
+        <!-- Vue JS -->
+{{--        <script src="{{ asset('js/app.js') }}"></script>--}}
     </div>
-        <!-- ============================================================== -->
-        <!-- End Container fluid  -->
-        <!-- ============================================================== -->
-</div>
-<!-- ============================================================== -->
-<!-- End Page wrapper  -->
-<!-- ============================================================== -->
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->
-
-@section('scripts')
-    <script src="/assets/plugins/jquery/jquery.min.js"></script>
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="/assets/plugins/popper/popper.min.js"></script>
-    <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="/js/jquery.slimscroll.js"></script>
-    <!--Wave Effects -->
-    <script src="/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="/js/sidebarmenu.js"></script>
-    <!--stickey kit -->
-    <script src="/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-    <script src="/assets/plugins/sparkline/jquery.sparkline.min.js"></script>
-    <!--Custom JavaScript -->
-    <script src="/js/custom.min.js"></script>
-@show
-<!-- ============================================================== -->
-<!-- Style switcher -->
-<!-- ============================================================== -->
-<script src="/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
-
 </body>
 </html>

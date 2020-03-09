@@ -35,9 +35,11 @@ class ReviewsController extends Controller
      */
     public function index()
     {
+
         if(!Cache::has(Key::REVIEWS)){
             $reviews = $this->reviewsService->gelAllReviews();
-            Cache::tags([$this->tag::REVIEWS])->put(Key::REVIEWS, $reviews, self::CACHE_SET_TIME_IN_SECONDS);
+//            Cache::tags([$this->tag::REVIEWS])->put(Key::REVIEWS, $reviews, self::CACHE_SET_TIME_IN_SECONDS);
+            Cache::put(Key::REVIEWS, $reviews, self::CACHE_SET_TIME_IN_SECONDS);
         }
 
         return view('users.reviews.list', [

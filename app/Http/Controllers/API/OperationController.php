@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\OperationResource;
 use App\Http\Resources\OperationCollection;
 use App\Services\OperationsService;
+use App\Helpers\JsonResponseHelper;
 
 class OperationController extends Controller
 {
@@ -22,12 +23,14 @@ class OperationController extends Controller
     }
 
     /**
+     * Get user operations
+     *
      * @param Request $request
-     * @return OperationCollection
+     * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        return new OperationCollection($this->operationsService->getOperationsByUserId($request->user->id));
+        return JsonResponseHelper::getResponseWithHeaders(new OperationCollection($this->operationsService->getOperationsByUserId(auth()->user()->id)), 200);
     }
 
     /**
@@ -45,10 +48,10 @@ class OperationController extends Controller
             'sum' => $request->sum,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'user_id' => $request->user->id,
+            'user_id' => auth()->user()->id,
         ]);
 
-        return response()->json($operation,201);
+        return JsonResponseHelper::getResponseWithHeaders($operation, 201);
     }
 
     /**
@@ -60,11 +63,11 @@ class OperationController extends Controller
      */
     public function show(Request $request, Operation $operation)
     {
-        if($operation->user_id !== $request->user->id){
+        if($operation->user_id !== auth()->user()->id){
             return response()->json(['message' => 'Operation not created by this user'], 404);
         }
 
-        return new OperationResource($operation);
+        return JsonResponseHelper::getResponseWithHeaders(new OperationResource($operation), 200);
     }
 
     /**
@@ -77,7 +80,7 @@ class OperationController extends Controller
      */
     public function update(Request $request, Operation $operation)
     {
-        if($operation->user_id !== $request->user->id){
+        if($operation->user_id !== auth()->user()->id){
             return response()->json(['message' => 'Operation not created by this user'], 404);
         }
 
@@ -90,9 +93,9 @@ class OperationController extends Controller
         ], $operation);
 
         if($result){
-            return response()->json(['message' => 'Operation update success'],200);
+            return JsonResponseHelper::getResponseWithHeaders(['message' => 'Operation update success'], 200);
         } else {
-            return response()->json(['message' => 'Operation update with error'],500);
+            return JsonResponseHelper::getResponseWithHeaders(['message' => 'Operation update with error'], 500);
         }
     }
 
@@ -105,15 +108,15 @@ class OperationController extends Controller
      */
     public function destroy(Request $request, Operation $operation)
     {
-        if($operation->user_id !== $request->user->id){
+        if($operation->user_id !== auth()->user()->id){
             return response()->json(['message' => 'Operation not created by this user'], 404);
         }
 
         $result = $this->operationsService->destroyOperation($operation);
         if($result){
-            return response()->json(['message' => 'Operation delete success'],200);
+            return JsonResponseHelper::getResponseWithHeaders(['message' => 'Operation delete success'], 200);
         } else {
-            return response()->json(['message' => 'Operation not delete'],500);
+            return JsonResponseHelper::getResponseWithHeaders(['message' => 'Operation not delete'], 200);
         }
     }
 }
