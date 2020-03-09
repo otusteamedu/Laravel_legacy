@@ -39,11 +39,11 @@ class UpdateEventHandler
         }
 
         if (isset($data['lat'])) {
-            $data['lat'] = (real)($data['lat']);
+            $data['lat'] = (float)($data['lat']);
         }
 
         if (isset($data['long'])) {
-            $data['long'] = (real)($data['long']);
+            $data['long'] = (float)($data['long']);
         }
 
         if (isset($data['type_id'])) {

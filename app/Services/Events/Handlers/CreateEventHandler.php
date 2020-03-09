@@ -26,8 +26,8 @@ class CreateEventHandler {
         $data['description'] = ucfirst(trim($data['description']));
         $data['region'] = ucfirst(trim($data['region']));
         $data['locality'] = ucfirst(trim($data['locality']));
-        $data['lat'] = (real)($data['lat']);
-        $data['long'] = (real)($data['long']);
+        $data['lat'] = (float)($data['lat']);
+        $data['long'] = (float)($data['long']);
         $data['type_id'] = (int)($data['type_id']);
         $data['author_id'] = (int)($data['author_id']);
 

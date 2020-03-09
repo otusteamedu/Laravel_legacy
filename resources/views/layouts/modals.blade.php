@@ -7,7 +7,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body mx-3">
                 @include('layouts.blocks.alerts.auth_form')
             </div>
         </div>

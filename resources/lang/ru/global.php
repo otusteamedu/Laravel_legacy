@@ -9,7 +9,8 @@ return [
     'phone_number' => 'Телефон',
     'country' => 'Страна',
     'default_country' => 'Россия',
-    'city' => 'Город',
+    'city' => 'Регион',
     'default_city' => 'Москва',
-    'timezone' => 'Часовой пояс'
+    'timezone' => 'Часовой пояс',
+    'picture' => 'Изображение'
 ];

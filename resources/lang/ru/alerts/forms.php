@@ -5,6 +5,7 @@ return [
     'default_phone_number' => '+7 900 999 99 99',
     'required_field' => 'Обязательное поле',
     'remember_me' => 'Запомнить меня',
+    'forgot_your_password' => 'Забыли пароль?',
     'come_in' => 'Войти',
     'about_self' => 'О себе',
     'write_about_self' => 'Напишите кратко о себе',

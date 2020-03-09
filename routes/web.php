@@ -11,6 +11,8 @@
 |
 */
 
+Auth::routes();
+
 Route::get('/', function () {
     return view('index');
 });
@@ -27,19 +29,15 @@ Route::get('/auth/', function () {
     return view('auth.index');
 });
 
-Route::get('/registration/', function () {
-    return view('register.index');
-});
-
 Route::get('/personal/', function () {
     return view('personal.index');
-});
+})->middleware(['auth']);
 
 Route::get('admin', function () {
     return view('admin.index');
-})->name('admin.index');
+})->name('admin.index')->middleware(['auth']);
 
-Route::name('admin.')->group(function () {
+Route::name('admin.')->middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resources([
             'articles' => 'Web\Admin\Articles\ArticlesController',
