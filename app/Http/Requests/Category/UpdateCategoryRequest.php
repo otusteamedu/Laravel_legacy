@@ -24,7 +24,9 @@ class UpdateCategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|min:6',
+            'parent_id' => 'required',
+            'visible'=>'boolean',
         ];
     }
 }

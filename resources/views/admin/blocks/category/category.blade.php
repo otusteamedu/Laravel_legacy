@@ -13,7 +13,7 @@
         @isset($categoryItem->children)
             @include('admin.blocks.category.category',[
                 'categories'=>$categoryItem->children,
-                'delimits'=>'- '.$delimits
+                'delimits'=>'-'.$delimits
             ])
         @endisset
 @endforeach

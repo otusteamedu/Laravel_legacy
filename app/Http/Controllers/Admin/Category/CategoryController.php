@@ -111,6 +111,6 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        dd( __METHOD__ ,$category);
     }
 }
