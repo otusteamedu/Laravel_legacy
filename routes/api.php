@@ -18,4 +18,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::resource('projects', 'Api\ProjectController')->except('create', 'edit')
-    ->middleware('auth:api, scope:projects');
+    ->middleware(['auth:api', 'scope:projects']);
