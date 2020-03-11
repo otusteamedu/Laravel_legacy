@@ -53,3 +53,5 @@ Route::match(['get','post'],'/test/write','Subscriptions\MainController@write')-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+

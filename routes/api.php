@@ -17,12 +17,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-<<<<<<< HEAD
 
 Route::resource('projects', 'Api\ProjectController')
     ->except('create', 'edit')
     ->middleware(['auth:api', 'scope:projects']);
-=======
-Route::resource('projects', 'Api\ProjectController')->except('create', 'edit')
-    ->middleware('auth:api, scope:projects');
->>>>>>> 6fec2bb6808c3e01ed5b534b82a58e49b8f8c4a0
+
+Route::get('/user/{id}', 'Api\UserController@show')->name('user_api');
