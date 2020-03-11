@@ -21,5 +21,12 @@
         "sass": "^1.15.2",
         "sass-loader": "^8.0.0",
         "vue-template-compiler": "^2.6.11"
+    },
+    "dependencies": {
+        "velocity-animate": "^1.5.2",
+        "vue": "^2.6.11",
+        "vue-confirm-dialog": "^0.2.5",
+        "vue2-notify": "^1.4.0",
+        "vuetify-toast-snackbar": "^0.6.1"
     }
 }

@@ -1,1 +1,74 @@
 require('./bootstrap');
+import Vue from 'vue';
+import axios from "axios/index";
+import Notify from 'vue2-notify';
+import VueConfirmDialog from "vue-confirm-dialog";
+
+Vue.use(Notify, {position: 'top-right'});
+Vue.use(VueConfirmDialog);
+
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
+const App = new Vue({
+    el: '#app',
+    data: {
+        add: 0,
+        edit: 0,
+    },
+    methods: {
+        save: function (url, id, fields) {
+           let data = {};
+           fields.forEach((field) => {
+               data.id = id;
+               data[field] = this.$refs[field + '_' + id].value;
+           });
+           axios.post(url, data)
+               .then((response) => {
+                   if (this.checkResult(response.data)) {
+                       document.location.reload();
+                   }
+               })
+               .catch(function (error) {
+                   Vue.$notify(error, 'error');
+               })
+           ;
+        },
+        remove: function (url, id) {
+            this.$vueConfirm.confirm(
+                {
+                    auth: false,
+                    message: 'Вы уверены?',
+                    button: {
+                        no: 'Нет',
+                        yes: 'Да'
+                    }
+                },
+                (confirm) => {
+                    if (confirm == true) {
+                        axios.post(url, {id: id})
+                            .then((response) => {
+                                if (this.checkResult(response.data)) {
+                                    document.location.reload();
+                                }
+                            })
+                            .catch(function (error) {
+                                Vue.$notify(error, 'error');
+                            })
+                        ;
+                    }
+                }
+            );
+        },
+        checkResult: function (data) {
+            let result = !!data.result ? data.result : '';
+            if (result != 'success') {
+                Vue.$notify(!!result ? result : 'Неизвестная ошибка!', 'error');
+                return false;
+            }
+            return true;
+        }
+    },
+});
