@@ -81,7 +81,7 @@ class ProductController extends Controller
 
         info('Добавлен новый продукт - "'. $product->name . '" . Стоимость - '.$product->price);
 
-        return redirect(route('admin.product.index'));
+        return redirect(route('admin.product.index',['locale'=>app()->getLocale()]));
     }
 
     /**
@@ -143,7 +143,7 @@ class ProductController extends Controller
     {
         $count = $this->productService->destroyProduct($id);
 
-        return redirect(route('admin.product.index'));
+        return redirect(route('admin.product.index',['locale'=>app()->getLocale()]));
     }
 
 }
