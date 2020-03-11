@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Models\UserGroup;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,13 +53,6 @@ class LoginController extends Controller
     {
         $remember = $request->post('remember') === 'on';
         $credentials = $request->only('email', 'password');
-
-        /** @var UserGroup $clientGroup */
-        $clientGroup = UserGroup::whereIn('code', ['admin', 'master'])
-            ->pluck('id')
-            ->toArray();
-
-        $credentials['group_id'] = $clientGroup;
 
         if (Auth::attempt($credentials, $remember)) {
             return \Redirect::route('master.record.list');
