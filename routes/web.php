@@ -32,7 +32,7 @@ Route::get('logout', [LoginController::class, 'logout'])
     ->name('logout');
 
 Route::prefix('clients')
-    ->middleware('auth')
+    ->middleware(['auth', 'group:admin,master'])
     ->group(static function () {
         // Список клиентов
         Route::get('', [ClientController::class, 'list'])
@@ -56,7 +56,7 @@ Route::prefix('clients')
     });
 
 Route::prefix('records')
-    ->middleware('auth')
+    ->middleware(['auth', 'group:admin,master'])
     ->group(static function () {
         // Список записей у мастера (всех)
         Route::get('', [RecordController::class, 'list'])
