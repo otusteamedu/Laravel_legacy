@@ -19,8 +19,8 @@
 use Illuminate\Support\Facades\Log;
 
 Route::name('admin.')->group(function () {
-    Route::prefix('admin')
-        ->middleware(['auth'])
+    Route::prefix('{locale}/admin')
+        ->middleware(['auth','localize'])
         ->group(function () {
             Route::resources([
                 '/' => 'Admin\CategoryProduct\CategoryProductController',

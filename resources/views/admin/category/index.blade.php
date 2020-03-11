@@ -1,10 +1,12 @@
 @extends('admin.layout')
+
 @section('content')
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-        <h1 class="h2">Categories products</h1>
+        <h1 class="h2">{{__('dashboard.category')}}</h1>
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
-                <a class="btn btn-md btn-outline-secondary" href="{{ route('admin.category.create')}}" role="button">Add category</a>
+                <a class="btn btn-md btn-outline-secondary"
+                   href="{{ route('admin.category.create',['locale'=>app()->getLocale()])}}" role="button">{{__('dashboard.category.add')}}</a>
             </div>
         </div>
     </div>
@@ -15,8 +17,8 @@
         <thead>
         <tr>
             <th scope="col">#</th>
-            <th scope="col">Category Name</th>
-            <th scope="col">Description</th>
+            <th scope="col">{{__('dashboard.category.name')}}</th>
+            <th scope="col">{{__('dashboard.description')}}</th>
             <th scope="col"></th>
         </tr>
         </thead>
@@ -28,10 +30,10 @@
                         echo (($key+1)+$category->perPage()*($category->currentPage()-1));
                     @endphp
                 </th>
-                <td><a href="{{ route('admin.category.edit',[$item->id])}}">{{$item->name}}</a></td>
+                <td><a href="{{ route('admin.category.edit',['category'=>$item->id,'locale'=>app()->getLocale()])}}">{{$item->name}}</a></td>
                 <td>{{$item->description}}</td>
                 <td>
-                    <a class="btn btn-link" href="{{route('admin.category.edit',[$item->id])}}" role="button">Edit</a>
+                    <a class="btn btn-link" href="{{route('admin.category.edit',['category'=>$item->id,'locale'=>app()->getLocale()])}}" role="button">{{__('dashboard.edit')}}</a>
                 </td>
             </tr>
         @endforeach

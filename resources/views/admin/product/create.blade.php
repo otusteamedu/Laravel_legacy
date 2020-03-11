@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Add product</h1>
     </div>
-{!! Form::open(['url' => route('admin.product.store')]) !!}
+{!! Form::open(['url' => route('admin.product.store',['locale'=>app()->getLocale()])]) !!}
     <div class="form-group">
         {{ Form::label('name', 'Name product') }}
         {{ Form::text('name', null, array('class'=>'form-control','placeholder'=>'123213','id'=>'name')) }}

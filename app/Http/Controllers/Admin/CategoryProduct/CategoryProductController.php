@@ -69,7 +69,7 @@ class CategoryProductController extends Controller
 
         info('Создана новая категория №'. $category->id.' " - '.$category->name.'" ');
 
-        return redirect(route('admin.category.index'));
+        return redirect(route('admin.category.index',['locale'=>app()->getLocale()]));
     }
 
     /**
@@ -123,6 +123,6 @@ class CategoryProductController extends Controller
         $this->authorize(Abilities::DELETE, CategoryProduct::class);
         $count = $this->categoryService->destroyCategory($id);
 
-        return redirect(route('admin.category.index'));
+        return redirect(route('admin.category.index',['locale'=>app()->getLocale()]));
     }
 }
