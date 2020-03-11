@@ -11,11 +11,11 @@ class CitiesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        //
+        return view('cms.cities.index', ['cities' => City::paginate()]);
     }
 
     /**
@@ -42,12 +42,12 @@ class CitiesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\City  $city
-     * @return \Illuminate\Http\Response
+     * @param City $cityId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(City $city)
+    public function show(City $cityId)
     {
-        //
+        return view('cms.cities.show', ['city' => City::findOrFail($cityId)]);
     }
 
     /**

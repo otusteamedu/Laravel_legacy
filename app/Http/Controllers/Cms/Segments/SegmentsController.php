@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Cms\Countries;
+namespace App\Http\Controllers\Cms\Segments;
 
 use App\Http\Controllers\Controller;
-use App\Models\Country;
+use App\Models\Segment;
 use Illuminate\Http\Request;
 
-class CountriesController extends Controller
+class SegmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,14 +15,11 @@ class CountriesController extends Controller
      */
     public function index()
     {
-        return view('cms.countries.index', ['countries' => Country::paginate()]);
+        return view('cms.segments.index', ['segments' => Segment::paginate()]);
     }
 
     /**
      * Show the form for creating a new resource.
-Активные  15
-Проданные  98
-Удалённые  50
      *
      * @return \Illuminate\Http\Response
      */
@@ -45,21 +42,21 @@ class CountriesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param Country $countryId
+     * @param  \App\Models\Segment  $segmentId
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function show(Country $countryId)
+    public function show(Segment $segmentId)
     {
-        return view('cms.countries.show', ['country' => Country::findOrFail($countryId)]);
+        return view('cms.segments.show', ['segment' => Segment::findOrFail($segmentId)]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Country $country)
+    public function edit(Segment $segment)
     {
         //
     }
@@ -68,10 +65,10 @@ class CountriesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Country $country)
+    public function update(Request $request, Segment $segment)
     {
         //
     }
@@ -79,10 +76,10 @@ class CountriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Country  $country
+     * @param  \App\Models\Segment  $segment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Country $country)
+    public function destroy(Segment $segment)
     {
         //
     }

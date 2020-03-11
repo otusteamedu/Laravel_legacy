@@ -29,9 +29,15 @@ Route::get('/offer', function () {
 
 Route::name('cms.')->group(function () {
     Route::prefix('cms')->group(function () {
-        Route::resources([
+        Route::resources([ // resources позволяет разложить методы контроллеров по CRUD роутам
             'countries' => 'Cms\Countries\CountriesController',
-            'cities' => 'Cms\Countries\CitiesController',
+            'cities' => 'Cms\Cities\CitiesController',
+            'categories' => 'Cms\Categories\CategoriesController',
+            'tariffs' => 'Cms\Tariffs\TariffsController',
+            'segments' => 'Cms\Segments\SegmentsController',
+            'users' => 'Cms\Users\UsersController',
+            'projects' => 'Cms\Projects\ProjectsController',
+            'offers' => 'Cms\Offers\OffersController',
         ], [
             'except' => 'destroy',
         ]);
