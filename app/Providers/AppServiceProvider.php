@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\Record;
 use App\Models\User;
 use App\Models\UserGroupRight;
 use App\Observers\Group\UserGroupRightObserver;
+use App\Observers\Record\RecordObserver;
 use App\Observers\User\UserObserver;
 use App\Services\Client\Repositories\ClientRepository;
 use App\Services\Client\Repositories\ClientRepositoryInterface;
@@ -59,5 +61,6 @@ class AppServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         UserGroupRight::observe($this->app->make(UserGroupRightObserver::class));
+        Record::observe($this->app->make(RecordObserver::class));
     }
 }
