@@ -16,7 +16,7 @@
 @endsection
 
 @section('title')
-    Список стран
+    Редактирование страны
 @endsection
 
 @section('content')
@@ -38,13 +38,13 @@
                             <div class="form-group">
                                 <label for="inputName" class="control-label col-xs-2">Название страны</label>
                                 <div class="col-xs-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Россия">
+                                    <input type="text" class="form-control" id="inputName" placeholder="Например: Россия" value="{{$country->name}}">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="inputName" class="control-label col-xs-2">Континент</label>
                                 <div class="col-xs-10">
-                                    <input type="text" class="form-control" id="inputContinentName" placeholder="Евразия">
+                                    <input type="text" class="form-control" id="inputContinentName" placeholder="Например: Евразия" value="{{$country->continent_name}}">
                                 </div>
                             </div>
                             <div class="form-group">
