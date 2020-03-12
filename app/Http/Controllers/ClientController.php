@@ -56,7 +56,7 @@ class ClientController extends Controller
         $userData = $request->only(['last_name', 'first_name', 'phone_number', 'email', 'material', 'note']);
 
         /** @var User $user */
-        $user = $this->clientService->createClient($currentUser->id, $userData);
+        $user = $this->clientService->createClient($currentUser, $userData);
 
         return redirect()->to(route('master.user.detail', ['id' => $user->id]));
     }

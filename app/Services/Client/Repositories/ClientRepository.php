@@ -78,7 +78,7 @@ class ClientRepository implements ClientRepositoryInterface
     /**
      * @inheritDoc
      */
-    public function create(int $masterId, array $userData): ?User
+    public function create(User $masterUser, array $userData): ?User
     {
         $groupService = app(UserGroupService::class);
 
@@ -90,7 +90,13 @@ class ClientRepository implements ClientRepositoryInterface
         $user->password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; // password
         $user->group_id = $groupService->getIdByCode(UserGroupRepositoryInterface::CLIENT_GROUP_CODE);
 
-        $user->save();
+        if (!$user->save()) {
+            throw new \LogicException('Client save error.');
+        }
+
+        if (!$masterUser->clients()->save($user)) {
+            throw new \LogicException('Error. Can\'t create relation master-client');
+        }
 
         $clientInformation = new ClientInformation();
         $clientInformation->material = $userData['material'];

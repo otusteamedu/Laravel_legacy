@@ -21,7 +21,8 @@ class CreateRecordsTable extends Migration
             $table->timestampTz('date_start')->nullable(false);
             $table->timestampTz('date_finish')->nullable(false);
             $table->integer('price')->nullable();
-            $table->timestamps();
+            $table->timestampTz('created_at')->nullable();
+            $table->timestampTz('updated_at')->nullable();
             $table->softDeletes();
 
             $table->foreign('client_id')->references('id')->on('users');

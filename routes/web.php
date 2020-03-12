@@ -73,6 +73,9 @@ Route::prefix('records')
 //    })->name('master.record.detail');
 
         // Редактирование записи
-        Route::get('{id}/edit', [RecordController::class, 'edit'])
+        Route::get('{id}/edit', [RecordController::class, 'showEdit'])
+            ->name('master.record.edit');
+
+        Route::post('{id}/edit', [RecordController::class, 'edit'])
             ->name('master.record.edit');
     });

@@ -38,11 +38,11 @@ interface ClientRepositoryInterface
     public function getList(int $masterId);
 
     /**
-     * @param int $masterId
+     * @param User $masterUser
      * @param array $userData
      * @return User|null
      */
-    public function create(int $masterId, array $userData): ?User;
+    public function create(User $masterUser, array $userData): ?User;
 
     /**
      * @return int

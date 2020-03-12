@@ -49,6 +49,17 @@ class RecordRepository implements RecordRepositoryInterface
     public function create(array $recordData): Record
     {
         $record = new Record();
+        return $this->fillAndSave($record, $recordData);
+    }
+
+    public function update(int $recordId, array $recordData): Record
+    {
+        $record = Record::findOrFail($recordId);
+        return $this->fillAndSave($record, $recordData);
+    }
+
+    protected function fillAndSave(Record $record, $recordData): Record
+    {
         $record->client_id = (int)$recordData['client_id'];
         $record->master_id = (int)$recordData['master_id'];
         $record->date_start = $recordData['date_start'];

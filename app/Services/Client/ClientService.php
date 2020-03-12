@@ -48,17 +48,17 @@ class ClientService
     }
 
     /**
-     * @param int $masterId
+     * @param User $masterUser
      * @param array $userData
      * @return User|null
      */
-    public function createClient(int $masterId, array $userData): ?User
+    public function createClient(User $masterUser, array $userData): ?User
     {
         if (empty($userData['email'])) {
             $userData['email'] = $this->generateFakeEmail();
         }
 
-        return $this->clientRepository->create($masterId, $userData);
+        return $this->clientRepository->create($masterUser, $userData);
     }
 
     /**

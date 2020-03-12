@@ -47,4 +47,11 @@ interface RecordRepositoryInterface
      * @return bool
      */
     public function masterHasRecord(int $masterId, int $recordId): bool;
+
+    /**
+     * @param int $recordId
+     * @param array $recordData
+     * @return Record
+     */
+	public function update(int $recordId, array $recordData): Record;
 }
