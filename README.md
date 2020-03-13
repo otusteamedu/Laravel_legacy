@@ -103,3 +103,7 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 * В контейнере выполнить `composer install`
 * В контейнере выполнить `php artisan key:generate`
 
+## Отгрузка
+* В корне проекта запустить `npm run dev`
+
+
