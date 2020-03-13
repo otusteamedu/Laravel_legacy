@@ -76,3 +76,30 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+## Запуск среды
+* В корне проекта выполнить cp .env.example .env
+
+* В директории на уровень выше корня проекта выполнить `git clone https://github.com/laradock/laradock.git`
+
+В результате был скопирован проект. Получилась структура:
++ laradock
++ Laravel
+
+* В директории laradock выполнить `cp env-example .env`
+* В файле `.env` изменить APP_CODE_PATH_HOST=../Laravel/
+
+* В директори laradock выполнить `docker-compose up -d nginx php-fpm mysql`
+
+в результате этого поднимуться следующие контейнеры:
+
+    + Recreating laradock_docker-in-docker_1 ... done
+    + Recreating laradock_mysql_1            ... done
+    + Recreating laradock_workspace_1        ... done
+    + Recreating laradock_php-fpm_1          ... done
+    + Recreating laradock_nginx_1            ... done
+    
+* Зайти к контейнер `docker exec -ti laradock_workspace_1 /bin/bash`
+* В контейнере выполнить `composer install`
+* В контейнере выполнить `php artisan key:generate`
+
