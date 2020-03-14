@@ -106,4 +106,24 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 ## Отгрузка
 * В корне проекта запустить `npm run dev`
 
+## hw5
+* поменять настройки Laravel/.env
+
+
+    + DB_CONNECTION=mysql
+    + DB_HOST=mysql
+    + DB_PORT=3306
+    + DB_DATABASE=laravel
+    + DB_USERNAME=root
+    + DB_PASSWORD=root
+
+* поменять настройки laradock/.env
+
+ 
+    + MYSQL_DATABASE=laravel
+* накатить миграции
+
+
+    + docker exec -ti laradock_workspace_1 /bin/bash
+    + php artisan migrate
 
