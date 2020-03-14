@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Log;
 
 class CacheRepository implements CacheRepositoryInterface
 {
@@ -41,5 +42,14 @@ class CacheRepository implements CacheRepositoryInterface
             // и только потом верни
             return $users;
         }
+    }
+
+    /**
+     * Очистить кэш, хранящий всех пользователей
+     */
+    public function clearUserCache()
+    {
+        Cache::flush();
+        Log::info("Кэш очищен.");
     }
 }
