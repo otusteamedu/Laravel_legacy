@@ -181,6 +181,7 @@ return [
         App\Services\Users\UsersServiceProvider::class,
         App\Providers\BladeServiceProvider::class,
         App\Services\MobileDetection\MobileDetectionServiceProvider::class,
+        App\Services\Cache\CacheServiceProvider::class,
     ],
 
     /*

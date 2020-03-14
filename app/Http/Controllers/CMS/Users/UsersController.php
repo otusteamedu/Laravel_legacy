@@ -10,6 +10,7 @@ use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Http\Response;
 use App\Services\Users\UsersService;
 use App\Http\Controllers\Controller;
+use App\Services\Cache\Repositories\CacheRepositoryInterface;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -20,16 +21,18 @@ class UsersController extends Controller
     // Добавил для паттерна Репозиторий
     protected $user;
     protected $usersService;
+    protected $cacheRepository;
 
     /**
      * UsersController constructor.
      *
      * @param UserRepositoryInterface $user
      */
-    public function __construct(UserRepositoryInterface $user, UsersService $userService)
+    public function __construct(UserRepositoryInterface $user, UsersService $userService, CacheRepositoryInterface $cacheRepository)
     {
         $this->user = $user;
         $this->usersService = $userService;
+        $this->cacheRepository = $cacheRepository;
         $this->middleware('auth');
         $this->middleware('admin-only')->except('updateProfile');
     }
@@ -41,7 +44,10 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = $this->user->all();
+        // БЫЛО так :
+        // $users = $this->user->all();
+        // СТАЛО так :
+        $users = $this->cacheRepository->getAllUsers();
         return view('pages.admin.index')->withUsers($users);
     }
 

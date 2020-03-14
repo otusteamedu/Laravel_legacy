@@ -362,3 +362,7 @@ app/config/admin_ips.php
     app/Services/CityByIpResolver
     app/Services/MobileDetection
     app/Services/SearchBotByIpResolver
+
+2020.03.12 Часть 1
+Добавил кэш-репозиторий : CacheRepository.
+Пока кэшируется только запрос на получение всех пользователей.
