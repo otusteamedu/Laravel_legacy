@@ -53,3 +53,69 @@ api_token - api токен пользователя;
 DELETE destroy (Destroy operation)
 
 http://laravel-smartgit/api/operations/{operation}
+*******************
+USERS
+*******************
+POST register (User registration)
+
+http://laravel-smartgit/api/user/register
+
+HEADERS
+Content-Type application/json
+
+BODY
+
+{
+     "name" : "Евгений",
+     "email" : "evgeny.vesnovski@softlex.pro",
+     "password" : "12345678",
+     "password_confirmation" : "12345678"
+}
+
+required fields: name, email, password, password_confirmation
+***********************************
+POST login (User login)
+
+http://laravel-smartgit/oauth/token
+
+HEADERS
+
+Content-Type application/json
+
+BODY
+
+{
+    "grant_type":"password",
+    "client_id":"2",
+    "client_secret":"GvTAFLz5QsDIXXCLTwZ9K6Pi3jTmyormnaUIJIeh",
+    "username" : "evgeny.vesnovski@softlex.pro",
+    "password" : "12345678",
+    "scope":""
+}
+
+required fields: grant_type, client_id, client_secret, username, password, scope
+***********************************
+GET logout (Logout user)
+
+http://laravel-smartgit/api/user/logout
+***********************************
+GET getUser (Get user)
+
+http://laravel-smartgit/api/user
+***********************************
+PUT passwordUpdate (User password update)
+
+http://laravel-smartgit/api/user/password/update
+
+HEADERS
+
+Content-Type application/json
+
+BODY
+
+{
+      "old_password" : "12345678",
+      "new_password" : "87654321"
+}
+
+required fields: old_password,new_password
