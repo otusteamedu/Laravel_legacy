@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\User\ClearUserCache;
+use App\Services\Events\Models\User\UserCreated;
+use App\Services\Events\Models\User\UserDeleted;
+use App\Services\Events\Models\User\UserUpdated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -20,6 +24,16 @@ class EventServiceProvider extends ServiceProvider
             SendEmailVerificationNotification::class,
             LogRegisteredUser::class,
         ],
+        /*
+         * Добавил своих слушателей
+         */
+        UserCreated::class => [ ClearUserCache::class   ],
+        UserUpdated::class => [ ClearUserCache::class   ],
+        UserDeleted::class => [ ClearUserCache::class   ],
+
+        // проверка : залогинившийся пользователь администратор или нет
+        'Illuminate\Auth\Events\Login' => [ 'App\Listeners\CheckUserIsAdmin' ],
+        'App\Services\Events\Models\User\UserIsAdmin' => [ 'App\Listeners\WarmUpUserCache']
     ];
 
     /**

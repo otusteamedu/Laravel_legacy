@@ -1,5 +1,6 @@
 <?php
 namespace App\Services\CityByIpResolver;
+
 class CityByIpResolver
 {
 
@@ -24,7 +25,6 @@ class CityByIpResolver
     public static function getCityFromIP($ip)
     {
         $query="https://suggestions.dadata.ru/suggestions/api/4_1/rs/detectAddressByIp?ip=".$ip;
-
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $query);
 
