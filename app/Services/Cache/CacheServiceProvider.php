@@ -1,4 +1,7 @@
 <?php
+/**
+ * Регистрация в сервис-контейнере Laravel.
+ */
 
 namespace App\Services\Cache;
 

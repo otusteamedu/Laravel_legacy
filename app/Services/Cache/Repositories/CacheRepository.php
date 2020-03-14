@@ -1,6 +1,10 @@
 <?php
+/**
+ * Реализация методов работы с кэшем.
+ */
 
 namespace App\Services\Cache\Repositories;
+
 use App\Models\User;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Database\Eloquent\Builder;
@@ -9,6 +13,9 @@ use Illuminate\Support\Facades\Log;
 
 class CacheRepository implements CacheRepositoryInterface
 {
+    /**
+     * @var UserRepositoryInterface
+     */
     private $userRepository;
 
     /**
@@ -26,19 +33,15 @@ class CacheRepository implements CacheRepositoryInterface
      */
     public function getAllUsers()
     {
-        if(Cache::has('users'))
-        {
+        if (Cache::has('users')) {
             // верни значение из кэша
             return Cache::get('users');
-        }
-        else
-        {
+        } else {
             // если нет в кэше
             // получи из БД
             $users = $this->userRepository->all();
-            // $users = User::all();
             // запомни в кэш
-            Cache::forever('users',$users);
+            Cache::forever('users', $users);
             // и только потом верни
             return $users;
         }
@@ -51,5 +54,16 @@ class CacheRepository implements CacheRepositoryInterface
     {
         Cache::flush();
         Log::info("Кэш очищен.");
+    }
+
+    /**
+     * Наполнить кэш при прогреве
+     */
+    public function warmupUserCache()
+    {
+        // получи из БД
+        $users = $this->userRepository->all();
+        // запомни в кэш
+        Cache::forever('users', $users);
     }
 }

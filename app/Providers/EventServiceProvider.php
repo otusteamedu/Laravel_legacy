@@ -30,6 +30,10 @@ class EventServiceProvider extends ServiceProvider
         UserCreated::class => [ ClearUserCache::class   ],
         UserUpdated::class => [ ClearUserCache::class   ],
         UserDeleted::class => [ ClearUserCache::class   ],
+
+        // проверка : залогинившийся пользователь администратор или нет
+        'Illuminate\Auth\Events\Login' => [ 'App\Listeners\CheckUserIsAdmin' ],
+        'App\Services\Events\Models\User\UserIsAdmin' => [ 'App\Listeners\WarmUpUserCache']
     ];
 
     /**
