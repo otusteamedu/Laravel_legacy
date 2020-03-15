@@ -7,6 +7,7 @@ use App\Models\Post\Rubric;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use InvalidArgumentException;
 
 /**
  * Class RubricRepository
@@ -34,6 +35,13 @@ class RubricRepository implements RubricRepositoryInterface
         return $query->pluck('name', 'id')->toArray();
     }
 
+    /** @inheritDoc */
+    public function list(array $options): Collection
+    {
+        $query = $this->buildQuery($options);
+        return $query->get();
+    }
+
     /**
      * @param array $options
      * @return Builder
@@ -43,6 +51,9 @@ class RubricRepository implements RubricRepositoryInterface
         $query = Rubric::query();
         foreach ($options as $key=>$value) {
             switch ($key) {
+                case 'select':
+                    $query->select($value);
+                    break;
                 case 'with':
                     $query->with($value);
                     break;
@@ -58,6 +69,17 @@ class RubricRepository implements RubricRepositoryInterface
     public function find(int $id): Rubric
     {
         return Rubric::findOrFail($id);
+    }
+
+    /** @inheritDoc */
+    public function getBySlug(string $slug): Rubric
+    {
+        if ($slug === '') {
+            throw new InvalidArgumentException('Не передан обязательный параметр $slug');
+        }
+
+        return Rubric::where('slug', '=', $slug)
+            ->firstOrFail();
     }
 
     /** @inheritDoc */

@@ -23,11 +23,25 @@ interface PostRepositoryInterface
     public function paginationList(array $options = []): LengthAwarePaginator;
 
     /**
+     * Возвращаем список новостей с пагенацией
+     * @param array $options
+     * @return Collection
+     */
+    public function list(array $options = []): Collection;
+
+    /**
      * Получаем новость по ID
      * @param int $id
      * @return Post
      */
     public function find(int $id): Post;
+
+    /**
+     * Получаем новость по slug
+     * @param string $slug
+     * @return Post
+     */
+    public function getBySlug(string $slug): Post;
 
     /**
      * Создаем новость по параметрам

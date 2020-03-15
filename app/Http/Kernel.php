@@ -2,6 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Portal\Menu\PageMenu;
+use App\Http\Middleware\Portal\Menu\RubricMenu;
+use App\Http\Middleware\Portal\Menu\UserMenu;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,6 +67,9 @@ class Kernel extends HttpKernel
         'cms.menu' => \App\Http\Middleware\Cms\Menu\GenerateCmsMenu::class,
         'locale' => \App\Http\Middleware\Localization::class,
         'share.data' => \App\Http\Middleware\ShareCMSData::class,
+        'page.menu' => PageMenu::class,
+        'rubric.menu' => RubricMenu::class,
+        'user.menu' => UserMenu::class,
     ];
 
     /**

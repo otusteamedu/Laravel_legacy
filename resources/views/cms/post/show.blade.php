@@ -122,7 +122,7 @@
                 @if ($post->user->trashed())
                 {{$post->user->name}}
                 @else
-                {{ link_to(route('cms.users.show', ['user' => $post->user->id]), $post->user->name, ['target' => '_blank']) }}
+                {{ link_to(route('cms.users.show', ['user' => $post->user->id, 'locale' => $locale]), $post->user->name, ['target' => '_blank']) }}
                 @endif
             </td>
         </tr>

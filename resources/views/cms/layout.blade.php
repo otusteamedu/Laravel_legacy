@@ -21,7 +21,7 @@
             <div class="col-3 col-md-3 col-sm-4 pl-0 pr-0">
                 <div class="p-2 text-right breadcrumb-bg">
                     ({{ link_to(route('cms.users.show', ['user' => \Auth::user()->id, 'locale' => $locale]), \Auth::user()->name) }})
-                    {{link_to(route('portal.logout'), __('cms.actions.logout'))}}
+                    {{link_to(route('authentication.logout'), __('cms.actions.logout'))}}
                 </div>
             </div>
         </header>

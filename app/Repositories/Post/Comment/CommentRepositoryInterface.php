@@ -27,6 +27,13 @@ interface CommentRepositoryInterface
     public function paginationList(array $options): LengthAwarePaginator;
 
     /**
+     * Возвращаем список комментариев
+     * @param array $options
+     * @return Collection
+     */
+    public function list(array $options): Collection;
+
+    /**
      * Получаем комментарий по ID
      * @param int $id
      * @return Comment

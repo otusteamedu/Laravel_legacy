@@ -6,6 +6,7 @@ use App\Models\Page\Page;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use InvalidArgumentException;
 
 class PageRepository implements PageRepositoryInterface
 {
@@ -22,6 +23,24 @@ class PageRepository implements PageRepositoryInterface
         return $query->paginate();
     }
 
+    /** @inheritDoc */
+    public function getBySlug(string $slug): Page
+    {
+        if ($slug === '') {
+            throw new InvalidArgumentException('Не передан обязательный параметр $slug');
+        }
+
+        return Page::where('slug', '=', $slug)
+            ->firstOrFail();
+    }
+
+    /** @inheritDoc */
+    public function list(array $options): Collection
+    {
+        $query = $this->buildQuery($options);
+        return $query->get();
+    }
+
     /**
      * @param array $options
      * @return Builder
@@ -31,6 +50,9 @@ class PageRepository implements PageRepositoryInterface
         $query = Page::query();
         foreach ($options as $key=>$value) {
             switch ($key) {
+                case 'select':
+                    $query->select($value);
+                    break;
                 case 'with':
                     $query->with($value);
                     break;

@@ -13,6 +13,7 @@
         "fideloper/proxy": "^4.0",
         "imagine/imagine": "^1.2",
         "laravel/framework": "^6.2",
+        "laravel/telescope": "^3.1",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "lavary/laravel-menu": "^1.7",

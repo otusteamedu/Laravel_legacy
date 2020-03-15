@@ -7,6 +7,7 @@ use App\Http\Controllers\Cms\Post\Post\Requests\UpdatePostRequest;
 use App\Models\Post\Post;
 use App\Repositories\Post\Post\PostRepositoryInterface;
 use App\Services\Image\CleanPath;
+use App\Services\Image\Image;
 use App\Services\Image\ImageServices;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -19,11 +20,16 @@ use Illuminate\Support\Facades\Log;
  */
 class PostsService
 {
+    use Image;
+
     /** @var PostRepositoryInterface $postRepository */
     protected $postRepository;
 
     /** @var string */
     protected $locale;
+
+    /** @var string  */
+    protected const SMALL_IMAGE = 'small';
 
     /**
      * PostService constructor.
@@ -52,19 +58,9 @@ class PostsService
      */
     public function getPostImage(Post $post): ?array
     {
-        if ($post->image === null) {
-            return null;
-        }
-
-        /** @var ImageServices $imageService */
-        $imageService = app(ImageServices::class);
-        $imageService->setPath(Post::IMAGE_PATH)
-            ->setImage($post->image)
-            ->setEntityId($post->id);
-        return [
-            'path' => $imageService->getPublicPath(),
-            'image' => $imageService->getImageName('small'),
-        ];
+        return $post->image !== null
+            ? $this->getImage($post->id, Post::IMAGE_PATH, $post->image, self::SMALL_IMAGE)
+            : null;
     }
 
 
