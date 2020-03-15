@@ -14,8 +14,12 @@
             @php /** @var \App\Models\News $oneNews */ @endphp
             <tr>
                 <td>{{ $oneNews->title }}</td>
-            <td class="col-lg-1"><a href="{{ route('admin.news.edit', $oneNews->id) }}" class="color-edit"><span data-feather="edit"></span></a></td>
-                <td class="col-lg-1"><a href="#" class="color-del"><span data-feather="x-octagon"></span></a></td>
+                <td class="col-lg-1"><a href="{{ route('admin.news.edit', $oneNews->id) }}" class="color-edit"><span data-feather="edit"></span></a></td>
+                <td class="col-lg-1">
+                    {{ Form::model($news, ['url' => route('admin.news.destroy', ['news' => $oneNews]), 'method' => 'DELETE']) }}
+                        {{ Form::button('<span data-feather="x-octagon"></span>',array_merge(['class' => 'color-del', 'type'=>'submit'])) }}
+                    {{ Form::close() }}
+                </td>
             </tr>
         @endforeach
 

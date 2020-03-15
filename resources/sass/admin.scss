@@ -112,5 +112,7 @@ body {
     color: $indigo;
   }
   .color-del{
+      border: none;
+      background-color: inherit;
       color: $red;
   }

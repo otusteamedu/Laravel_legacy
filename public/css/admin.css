@@ -11015,6 +11015,8 @@ body {
 }
 
 .color-del {
+  border: none;
+  background-color: inherit;
   color: #e3342f;
 }
 

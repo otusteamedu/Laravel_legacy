@@ -27,8 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::paginate(6);
-
+        $category = $this->categoryRepository->getCategoryPaginate();
         return view('admin.category.page', compact('category'));
     }
 
@@ -99,7 +98,6 @@ class CategoryController extends Controller
     public function update(UpdateCategoryRequest $request, Category $category)
     {
         $category->update($request->all());
-        
         return redirect(route('admin.category.index'));
     }
 
@@ -111,6 +109,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        dd( __METHOD__ ,$category);
+        $category->delete();
+        return redirect(route('admin.category.index'));
     }
 }
