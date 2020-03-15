@@ -9,7 +9,7 @@ $factory->define(
     Role::class,
     function (Faker $faker) {
         return [
-            'name' => $faker->name(),
+            'name' => $faker->word(),
             'code' => $faker->unique()->domainWord,
         ];
     }

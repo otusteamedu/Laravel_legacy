@@ -19,9 +19,10 @@ class CreateArticlesTable extends Migration
             $table->string('title', 255);
             $table->text('text');
             $table->string('image_url', 255)->nullable();
+            $table->boolean('published')->default(false);
             $table->timestamps();
             $table->softDeletes();
-            $table->index(['deleted_at', 'user_id']);
+            $table->index(['deleted_at', 'published', 'user_id']);
 
             $table->foreign('user_id')
                 ->references('id')

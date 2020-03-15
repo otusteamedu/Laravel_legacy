@@ -18,6 +18,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         $stateList = ['admin', 'moderator', 'author'];
+
         foreach ($stateList as $state) {
             factory(Role::class)->state($state)->create();
         }

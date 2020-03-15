@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class Role
  * @package App\Model\User
  *
- * Класс ролей пользователей
+ * Роль
  *
  * @property int $id Идентификатор
  * @property string $name Название роли
