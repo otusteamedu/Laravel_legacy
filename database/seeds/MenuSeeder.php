@@ -3,6 +3,11 @@
 use Illuminate\Database\Seeder;
 use App\Model\Menu\Menu;
 
+/**
+ * Class MenuSeeder
+ *
+ * Заполняет таблицу меню
+ */
 class MenuSeeder extends Seeder
 {
     /**

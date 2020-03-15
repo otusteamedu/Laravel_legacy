@@ -1,7 +1,13 @@
 <?php
 
+use App\Model\User\Role;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class RoleSeeder
+ *
+ * Заполняет таблицу ролей
+ */
 class RoleSeeder extends Seeder
 {
     /**
@@ -11,6 +17,9 @@ class RoleSeeder extends Seeder
      */
     public function run()
     {
-        //
+        $stateList = ['admin', 'moderator', 'author'];
+        foreach ($stateList as $state) {
+            factory(Role::class)->state($state)->create();
+        }
     }
 }
