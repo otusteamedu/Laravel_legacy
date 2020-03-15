@@ -7,6 +7,7 @@ use App\Http\Controllers\Cms\User\User\Requests\UpdateUserRequest;
 use App\Models\User\User;
 use App\Repositories\User\User\UserRepositoryInterface;
 use App\Services\Image\CleanPath;
+use App\Services\Image\Image;
 use App\Services\Image\ImageServices;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Foundation\Http\FormRequest;
@@ -19,11 +20,16 @@ use Illuminate\Support\Facades\Log;
  */
 class UsersService
 {
+    use Image;
+
     /** @var UserRepositoryInterface $userRepository */
     protected $userRepository;
 
     /** @var string */
     protected $locale;
+
+    /** @var string  */
+    protected const SMALL_IMAGE = 'small';
 
     public function __construct(UserRepositoryInterface $userRepository)
     {
@@ -48,19 +54,9 @@ class UsersService
      */
     public function getUserImage(User $user): ?array
     {
-        if ($user->icon === null) {
-            return null;
-        }
-
-        /** @var ImageServices $imageService */
-        $imageService = app(ImageServices::class);
-        $imageService->setPath(User::IMAGE_PATH)
-                ->setImage($user->icon)
-                ->setEntityId($user->id);
-        return [
-            'path' => $imageService->getPublicPath(),
-            'image' => $imageService->getImageName('small'),
-        ];
+        return $user->icon !== null
+            ? $this->getImage($user->id, User::IMAGE_PATH, $user->icon, self::SMALL_IMAGE)
+            : null;
     }
 
     /**

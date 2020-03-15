@@ -26,6 +26,19 @@ interface PageRepositoryInterface
      */
     public function paginationList(array $options): LengthAwarePaginator;
 
+    /**
+     * Возвращает страницу по slug
+     * @param string $slug
+     * @return Page
+     */
+    public function getBySlug(string $slug): Page;
+
+    /**
+     * Возвращаем список страниц
+     * @param array $options
+     * @return Collection
+     */
+    public function list(array $options): Collection;
 
     /**
      * Получаем страницу по ID

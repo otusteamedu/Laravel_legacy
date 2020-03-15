@@ -5,6 +5,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>@yield('title') - News Portal</title>
+        <meta name="description" content="@yield('description')" />
+        <meta name="keywords" content="@yield('keywords')" />
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         @yield('styles')
     </head>
@@ -13,26 +15,10 @@
             <div class="float-lg-left float-md-left navbar">
                 <a href="/" class="nav-item nav-link text-black-50">Новостной Портал</a>
             </div>
-            @php
-                $rubrics = [
-                    [
-                        'name' => __('messages.news'),
-                        'is_active' => false,
-                        'slug' => '/news'
-                    ],
-                    [
-                        'name' => __('messages.reviews'),
-                        'is_active' => false,
-                        'slug' => '/reviews'
-                    ],
-                    [
-                        'name' => __('messages.equipment'),
-                        'is_active' => false,
-                        'slug' => '/equipment'
-                    ],
-                ];
-            @endphp
-            @include('portal.blocks.navigation.rubrics', ['rubrics'=>$rubrics])
+            @include('portal.blocks.navigation.menu', [
+                'items' => $rubricMenu->roots(),
+                'class' => 'navbar float-lg-right float-md-right'
+            ])
             <div class="clearfix"></div>
         </header>
         <div class="container pd-pg-bottom">

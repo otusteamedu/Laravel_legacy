@@ -28,11 +28,25 @@ interface RubricRepositoryInterface
     public function paginationList(array $options): LengthAwarePaginator;
 
     /**
+     * Возвращает список рубрик
+     * @param array $options
+     * @return Collection
+     */
+    public function list(array $options): Collection;
+
+    /**
      * Получаем рубрику по ID
      * @param int $id
      * @return Rubric
      */
     public function find(int $id): Rubric;
+
+    /**
+     * Получаем рубрику по slug
+     * @param string $slug
+     * @return Rubric
+     */
+    public function getBySlug(string $slug): Rubric;
 
     /**
      * Создаем рубрику по параметрам

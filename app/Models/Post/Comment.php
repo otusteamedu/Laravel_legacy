@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
  * @property string $content
  * @property string $short_content
  * @property int $user_id
+ * @property int $post_id
  * @property bool $is_published
  * @property Carbon $published_at
  * @property Carbon $created_at

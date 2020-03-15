@@ -37,7 +37,9 @@ class CommentsService
     {
         return $this->commentRepository->paginationList([
             'with' => 'post',
-            'order' => ['column' => 'id', 'order' => 'asc'],
+            'order' => [
+                ['column' => 'id', 'order' => 'asc'],
+            ],
         ]);
     }
 
