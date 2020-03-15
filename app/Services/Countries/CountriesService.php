@@ -24,4 +24,42 @@ class CountriesService
         $this->countryRepository = $countryRepository;
     }
 
+    /**
+     * @param int $id
+     * @return Country|null
+     */
+    public function findCountry(int $id)
+    {
+        return $this->countryRepository->find($id);
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function searchCountries(): LengthAwarePaginator
+    {
+        return $this->countryRepository->search();
+    }
+
+    /**
+     * @param array $data
+     * @return Country
+     */
+    public function storeCountry(array $data): Country
+    {
+        $country = $this->createCountryHandler->handle($data);
+
+        return $country;
+    }
+
+    /**
+     * @param Country $country
+     * @param array $data
+     * @return Country
+     */
+    public function updateCountry(Country $country, array $data): Country
+    {
+        return $this->countryRepository->updateFromArray($country, $data);
+    }
 }

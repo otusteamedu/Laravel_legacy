@@ -18,7 +18,6 @@ class CreateCountryHandler
         $this->countryRepository = $countryRepository;
     }
 
-
     public function handle(array $data): Country
     {
         $data['created_at'] = Carbon::create()->subDay();

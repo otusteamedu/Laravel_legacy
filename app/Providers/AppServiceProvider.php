@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Countries\Repositories\CountryRepositoryInterface;
+use App\Services\Countries\Repositories\EloquentCountryRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerBindings();
     }
 
     /**
@@ -24,5 +26,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    private function registerBindings(){
+        $this->app->bind(
+            CountryRepositoryInterface::class,
+            EloquentCountryRepository::class
+        );
     }
 }
