@@ -14,7 +14,7 @@ class CreateUserStatisticsTable extends Migration
     public function up()
     {
         Schema::create(
-            'statistics',
+            'user_statistics',
             function (Blueprint $table) {
                 $table->bigIncrements('id');
                 $table->unsignedBigInteger('user_id')->unique();
@@ -36,6 +36,6 @@ class CreateUserStatisticsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('statistics');
+        Schema::dropIfExists('user_statistics');
     }
 }
