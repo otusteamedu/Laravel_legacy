@@ -18,13 +18,10 @@ use Illuminate\Support\Str;
 
 $factory->define(\App\Models\Setting::class, function (Faker $faker) {
 
-
     return [
-        "data" => '{
-                 "contact": {
-                             "type": "string",
-                             "name": "name.findName"
-                           }
-                  }'
+        "data" => json_encode(["contact" =>[
+            "type"=>"string",
+            "name"=>"name.findName",
+        ]])
     ];
 });

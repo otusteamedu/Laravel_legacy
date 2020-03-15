@@ -33,6 +33,6 @@ class Setting extends Model
 
     public function Account(){
 
-        return $this->hasOne('App\Models\Account');
+        return $this->hasOne('App\Models\Account','id','created_account_id');
     }
 }

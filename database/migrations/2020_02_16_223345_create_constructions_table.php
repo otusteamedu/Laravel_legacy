@@ -19,8 +19,10 @@ class CreateConstructionsTable extends Migration
 
             $table->string('name');
             $table->text('description');
+            $table->unsignedBigInteger('hard');
 
-            $table->unsignedBigInteger('type_id');
+            $table->string('code')->unique();
+            $table->string('type_code');
 
             $table->unsignedBigInteger('created_account_id');
             $table->timestamps();
@@ -31,6 +33,12 @@ class CreateConstructionsTable extends Migration
             $table->foreign('created_account_id')
                 ->references('id')
                 ->on('accounts');
+        });
+
+        Schema::table('constructions', function (Blueprint $table) {
+            $table->foreign('type_code')
+                ->references('code')
+                ->on('construction_types');
         });
     }
 

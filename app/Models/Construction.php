@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string name
  * @property string description
- * @property int type_id
+ * @property string type_code
  * @property int created_account_id
  * @property Carbon created_at
  * @property Carbon update_at
@@ -30,6 +30,6 @@ class Construction extends Model
 
     public function constructionType()
     {
-        return $this->belongsTo('App\Models\ConstructionType');
+        return $this->belongsTo(ConstructionType::class);
     }
 }

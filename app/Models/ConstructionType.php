@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string name
  * @property string description
+ * @property string code
  *
  * @property int created_account_id
  * @property Carbon created_at
@@ -27,8 +28,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class ConstructionType extends Model
 {
+    protected $guarded = [];
+
     public function construction()
     {
-        return $this->hasMany('App\Model\Construction');
+        return $this->hasMany(Construction::class);
     }
 }

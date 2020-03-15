@@ -1,5 +1,5 @@
-@extends('layouts.app-specialty')
+@extends('app')
 
 @section('content')
-    @include('login.index')
+
 @endsection
