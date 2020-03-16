@@ -5,7 +5,7 @@
 @section('content')
 
 <div class="container">
-
+    <h1>{{ $locale }}</h1>
     @php
         $breadcrumbs = [
             [
@@ -13,7 +13,7 @@
                 'title' => __('messages.home'),
             ],
             [
-                'url' => route('cms.countries.index'),
+                'url' => route('cms.countries.index', ['locale' => $locale]),
                 'title' => __('messages.countries'),
             ],
         ];

@@ -21,8 +21,8 @@
 //});
 
 Route::name('cms.')->group(function () {
-    Route::prefix('cms')->middleware([
-        'auth',
+    Route::prefix('{locale}/cms')->middleware([
+        'shareCommonData',
     ])->group(function () {
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',

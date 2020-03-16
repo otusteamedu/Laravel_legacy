@@ -39,19 +39,8 @@ class CountriesController extends Controller
         $countries = $this->countriesService->searchCountriesWithCities([
             'cities',
         ]);
-        if ($this->getCurrentUser()->cant(Abilities::VIEW_ANY, Country::class)) {
-            abort(403, 'Hoho' , [
+//        $this->authorize(Abilities::VIEW_ANY, Country::class);
 
-            ]);
-        }
-        try {
-            $this->authorize(Abilities::VIEW_ANY, Country::class);
-        } catch (AuthorizationException $e) {
-            \Log::critical('User is not authorized', [
-                $request->all(),
-            ]);
-            return response()->json([], 403);
-        }
 
         return view('countries.index', [
             'countries' => $countries,
@@ -135,7 +124,7 @@ class CountriesController extends Controller
      */
     public function show(Request $request, Country $country)
     {
-        $this->authorize(Abilities::VIEW, $country);
+//        $this->authorize(Abilities::VIEW, $country);
 
         $cities = $country->cities()
             ->paginate();
