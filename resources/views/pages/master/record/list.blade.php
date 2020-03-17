@@ -1,3 +1,9 @@
+<?php
+/** @var \Illuminate\Support\Collection $masterRecords */
+
+//dd($masterRecords);
+?>
+
 @extends('layout')
 
 @section('body')
@@ -5,6 +11,7 @@
         @component('components.header')@endcomponent
 
         <div class="container">
+            @if($masterRecords->count() > 0)
             <h4>Список записей</h4>
 
             <table>
@@ -19,170 +26,36 @@
                 </thead>
             </table>
 
-            <div class="card-panel pink lighten-3 sticky no-margin record-list">23.04.2019</div>
+            <?php /** @var \Illuminate\Support\Collection $day */ ?>
+            @foreach($masterRecords->all() as $day)
+                @php
+                /** @var \App\Models\Record $firstDay */
+                $firstDay = $day->all()[0];
+                $firstDayDate = $firstDay->date_start->format('d.m.Y');
+                @endphp
+            <div class="pink lighten-3 sticky no-margin record-list">
+                {{ $firstDayDate }}
+            </div>
             <table>
                 <tbody>
+                <?php /** @var \App\Models\Record $item */ ?>
+                    @foreach($day->all() as $item)
                     <tr>
-                        <td>1</td>
-                        <td>Мария</td>
-                        <td>Слепакова</td>
-                        <td>18:10</td>
+                        <td>{{ $item->id }}</td>
+                        <td>{{ $item->client->first_name }}</td>
+                        <td>{{ $item->client->last_name }}</td>
+                        <td>{{ $item->date_start->format('H:i') }}</td>
                         <td>
-                            <a href="{{ route('master.record.edit', ['id' => 1]) }}"><i class="material-icons">edit</i></a>
+                            <a href="{{ route('master.record.edit', ['id' => $item->id]) }}">
+                                <i class="material-icons">edit</i>
+                            </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Александра</td>
-                        <td>Григорьева</td>
-                        <td>18:10</td>
-                        <td>
-                            <a href="{{ route('master.record.edit', ['id' => 2]) }}"><i class="material-icons">edit</i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Ольга</td>
-                        <td>Кондратьева</td>
-                        <td>18:10</td>
-                        <td>
-                            <a href="{{ route('master.record.edit', ['id' => 3]) }}"><i class="material-icons">edit</i></a>
-                        </td>
-                    </tr>
+                    @endforeach
                 </tbody>
             </table>
-
-            <div class="card-panel pink lighten-3 sticky no-margin record-list">22.04.2019</div>
-            <table>
-                <tbody>
-                <tr>
-                    <td>4</td>
-                    <td>Мария</td>
-                    <td>Слепакова</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 1]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>Александра</td>
-                    <td>Григорьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 2]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>6</td>
-                    <td>Ольга</td>
-                    <td>Кондратьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 3]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div class="card-panel pink lighten-3 sticky no-margin record-list">21.04.2019</div>
-            <table>
-                <tbody>
-                <tr>
-                    <td>7</td>
-                    <td>Мария</td>
-                    <td>Слепакова</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 1]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>8</td>
-                    <td>Александра</td>
-                    <td>Григорьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 2]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>9</td>
-                    <td>Ольга</td>
-                    <td>Кондратьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 3]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div class="card-panel pink lighten-3 sticky no-margin record-list">20.04.2019</div>
-            <table>
-                <tbody>
-                <tr>
-                    <td>10</td>
-                    <td>Мария</td>
-                    <td>Слепакова</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 1]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>11</td>
-                    <td>Александра</td>
-                    <td>Григорьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 2]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>12</td>
-                    <td>Ольга</td>
-                    <td>Кондратьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 3]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-
-            <div class="card-panel pink lighten-3 sticky no-margin record-list">19.04.2019</div>
-            <table>
-                <tbody>
-                <tr>
-                    <td>13</td>
-                    <td>Мария</td>
-                    <td>Слепакова</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 1]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>14</td>
-                    <td>Александра</td>
-                    <td>Григорьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 2]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>15</td>
-                    <td>Ольга</td>
-                    <td>Кондратьева</td>
-                    <td>18:10</td>
-                    <td>
-                        <a href="{{ route('master.record.edit', ['id' => 3]) }}"><i class="material-icons">edit</i></a>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            @endforeach
+            @endif
         </div>
 
     </main>

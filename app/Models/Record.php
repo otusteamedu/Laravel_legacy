@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -10,8 +11,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  *
  * @property int $id
  * @property int $user_id
- * @property string $date_start
- * @property string $date_finish
+ * @property Carbon $date_start
+ * @property Carbon $date_finish
  * @property int|null $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -38,12 +39,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Record whereMasterId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Record withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Record withoutTrashed()
+ * @property-read \App\Models\User $client
+ * @property-read \App\Models\User $master
  */
 class Record extends BaseModel
 {
     use SoftDeletes;
 
-    protected string $dateFormat = 'Y-m-d H:i:sO';
+    protected $dateFormat = 'Y-m-d H:i:sO';
 
     /**
      * The attributes that should be mutated to dates.
@@ -55,8 +58,19 @@ class Record extends BaseModel
         'date_finish',
     ];
 
-    public function user(): BelongsTo
+    /**
+     * @return BelongsTo
+     */
+    public function client(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'client_id');
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function master(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'master_id');
     }
 }

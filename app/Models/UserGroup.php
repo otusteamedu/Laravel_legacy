@@ -36,6 +36,10 @@ class UserGroup extends BaseModel
 {
     use SoftDeletes;
 
+    public const ADMIN_CODE = 'admin';
+    public const MASTER_CODE = 'master';
+    public const CLIENT_CODE = 'client';
+
     public function users(): HasMany
     {
         return $this->hasMany(User::class, 'group_id', 'id');

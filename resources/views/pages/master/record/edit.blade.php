@@ -1,3 +1,11 @@
+<?php
+/**
+ * @var \App\Models\Record $record
+ * @var \Illuminate\Support\Collection $clients
+ * @var int $clientId
+ */
+?>
+
 @extends('layout')
 
 @section('body')
@@ -7,7 +15,15 @@
         <div class="container">
             <h4>Редактирование записи</h4>
 
-            @component('components.pages.master.record.create_edit_form', ['button_text' => 'Сохранить'])@endcomponent
+            @component(
+	            'components.pages.master.record.create_edit_form',
+                [
+                    'button_text' => 'Сохранить',
+                	'record' => $record,
+                	'clients' => $clients,
+                	'clientId' => $clientId
+                ])
+            @endcomponent
         </div>
     </main>
 

@@ -5,7 +5,7 @@ use App\Models\UserGroup;
 
 class FillUserGroupTable extends Migration
 {
-    private array $groups = [
+    private $groups = [
         'admin' => [
             'code' => 'admin',
             'description' => 'Application administrator'

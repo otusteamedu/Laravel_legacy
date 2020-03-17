@@ -3,7 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\UserGroup;
+use App\Services\UserGroup\UserGroupRepositoryInterface;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 
 class LoginController extends Controller
 {
@@ -25,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/records';
 
     /**
      * Create a new controller instance.
@@ -35,5 +40,34 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function showLoginForm()
+    {
+        return view('pages.login');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function authenticate(Request $request): RedirectResponse
+    {
+        $remember = $request->post('remember') === 'on';
+        $credentials = $request->only('email', 'password');
+
+        /** @var UserGroup $clientGroup */
+        $clientGroup = UserGroup::whereIn(
+            'code',
+            [UserGroupRepositoryInterface::ADMIN_GROUP_CODE, UserGroupRepositoryInterface::MASTER_GROUP_CODE]
+        )->pluck('id')->toArray();
+
+        $credentials['group_id'] = $clientGroup;
+
+        if (Auth::attempt($credentials, $remember)) {
+            return \Redirect::route('master.record.list');
+        }
+
+        return \Redirect::back()->withErrors('Ошибка авторизации');
     }
 }
