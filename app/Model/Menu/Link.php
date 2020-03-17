@@ -5,17 +5,18 @@ namespace App\Model\Menu;
 use App\Model\BaseModel;
 
 /**
- * Class Menu
- * @package App\Model\Menu
+ * Class Link
+ * @package App\Model\Link
  *
- * Меню
+ * Ссылка меню
  *
  * @property int $id Идентификатор
  * @property string $route_name Имя роута
  * @property string $name Наименование пункта
+ * @property string $type Тип
  * @property boolean $disabled Флаг выключенного пункта
  */
-class Menu extends BaseModel
+class Link extends BaseModel
 {
     /** @var bool Не имеет полей created_at и updated_at */
     public $timestamps = false;
