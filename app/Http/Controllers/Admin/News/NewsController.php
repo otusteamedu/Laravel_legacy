@@ -3,14 +3,23 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Controller;
+use App\Http\Handlers\News\NewsHandlers;
 use App\Http\Requests\News\StoreNewsRequest;
 use App\Http\Requests\News\UpdateNewsRequest;
 use App\Models\News;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\View as FacadesView;
+
 
 class NewsController extends Controller
 {
+
+    protected $newsHandlers;
+
+    public function __construct(
+        NewsHandlers $newsHandlers
+    )
+    {
+        $this->newsHandlers = $newsHandlers;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,8 +51,7 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        News::create($request->all());
-
+        $this->newsHandlers->storeData($request);
         return redirect(route('admin.news.index'));
     }
 
@@ -78,8 +86,7 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        $news->update($request->all());
-        
+        $this->newsHandlers->updateData($news, $request);
         return redirect(route('admin.news.index'));
     }
 
@@ -91,7 +98,7 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        $news->delete();
+        $this->newsHandlers->destroyData($news);
         return redirect(route('admin.news.index'));
     }
 }

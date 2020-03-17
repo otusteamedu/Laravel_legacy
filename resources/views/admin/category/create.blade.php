@@ -17,8 +17,9 @@
       </div>
       <div class="col-12 mb-3">
         <div class="form-check">
-          {{ Form::checkbox('visible', null,null, array_merge(['class' => 'form-check-input'],['id'=>'visible'])) }}
-          {{ Form::label('visible', 'Отображать категорию', array_merge(['class' => 'form-check-label'])) }}
+          {{ Form::hidden('visible',0) }}
+          {{ Form::checkbox('visible', 1, null, array_merge(['id'=>'visible'],['class'=>'form-check-input']))}}
+          {{ Form::label('visible', 'Отображать категорию') }}
         </div>
       </div>
       <div class="col-12 mb-3">

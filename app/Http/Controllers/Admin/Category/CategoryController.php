@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
+use App\Http\Handlers\Category\CategoryHandlers;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Catalog\Category;
@@ -13,12 +14,15 @@ class CategoryController extends Controller
 {
 
     protected $categoryRepository;
+    protected $categoryHandlers;
 
     public function __construct(
-        CategoryRepository $categoryRepository
+        CategoryRepository $categoryRepository,
+        CategoryHandlers $categoryHandlers
     )
     {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryHandlers = $categoryHandlers;
     }
     /**
      * Display a listing of the resource.
@@ -55,7 +59,8 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->all());
+ 
+        $this->categoryHandlers->storeData($request);
 
         return redirect(route('admin.category.index'));
     }
@@ -97,7 +102,7 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->all());
+        $this->categoryHandlers->updateData($category, $request);
         return redirect(route('admin.category.index'));
     }
 
@@ -109,7 +114,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $category->delete();
+        $this->categoryHandlers->destroyData($category);
         return redirect(route('admin.category.index'));
     }
 }
