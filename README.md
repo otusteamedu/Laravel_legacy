@@ -133,3 +133,16 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 * users один к одному user_statistics
 * users один ко многим articles
 * articles многие ко многим tags через article_tag  
+
+## hw7
+
+* Добавил миграцию ролей и меню
+* Сделал модели Article, Tag, Menu, Role ,User ,UserStatistic
+* Сделал фабрики ArticleFactory, TagFactory, MenuFactory, RoleFactory, UserFactory, UserStatisticFactory
+* Сделал сиды ArticleSeeder, TagSeeder, MenuSeeder, RoleSeeder , UserSeeder, UserStatisticSeeder
+
+* Пересобрал базу
+
+
+    + docker exec -ti laradock_workspace_1 /bin/bash
+    + php artisan migrate:fresh --seed

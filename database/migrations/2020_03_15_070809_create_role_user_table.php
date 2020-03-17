@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateArticlesTable extends Migration
+class CreateRoleUserTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,15 @@ class CreateArticlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('articles', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('role_user', function (Blueprint $table) {
+            $table->unsignedBigInteger('role_id');
             $table->unsignedBigInteger('user_id');
-            $table->string('title', 255);
-            $table->text('text');
-            $table->string('image_url', 255)->nullable();
-            $table->boolean('published')->default(false);
-            $table->timestamps();
-            $table->softDeletes();
-            $table->index(['deleted_at', 'published', 'user_id']);
+            $table->primary(['role_id', 'user_id']);
+
+            $table->foreign('role_id')
+                ->references('id')
+                ->on('roles')
+                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')
@@ -38,6 +37,6 @@ class CreateArticlesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('role_user');
     }
 }
