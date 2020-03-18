@@ -23,3 +23,42 @@ Route::get('/contact', function () {
 Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
+<<<<<<< Updated upstream
+=======
+
+Route::name('admin.')->group(function(){
+    Route::prefix('admin')->group(function(){
+        Route::resources([
+            'news'=>'Admin\News\NewsController',
+            'category'=>'Admin\Category\CategoryController'
+        ]);
+    });
+}); 
+
+/* Route::get('/admin/news', function () {
+    return view('admin.news.page');
+}); */
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+>>>>>>> Stashed changes

@@ -18,7 +18,7 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+/* $factory->define(User::class, function (Faker $faker) {
     $faker = \Faker\Factory::create('ru_RU');
     return [
         'name' => $faker->name,
@@ -35,4 +35,4 @@ $factory->defineAs(Role::class, 'role',  function(Faker $faker){
         'id'=>1,
         'name'=>'Администратор'
     ];
-});
+}); */
