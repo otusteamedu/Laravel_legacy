@@ -34,8 +34,7 @@
     ];
     @endphp
 
-    @component('blocks.navbar.default', ['navbar' => $navbar])
-    @endcomponent
+    @include('blocks.navbar.default', ['navbar' => $navbar])
     @yield('content')
 </div>
 </body>
