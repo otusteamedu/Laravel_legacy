@@ -28,3 +28,8 @@ Route::get('/news/', function () {
 })->name('news');
 
 
+Route::prefix('system')->group(
+    static function () {
+        Route::resource('links', 'System\Menu\LinkController');
+    }
+);

@@ -15,6 +15,7 @@ use App\Model\BaseModel;
  * @property string $name Наименование пункта
  * @property string $type Тип
  * @property boolean $disabled Флаг выключенного пункта
+ * @method static paginate(int $int)
  */
 class Link extends BaseModel
 {
