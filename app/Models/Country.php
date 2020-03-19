@@ -27,6 +27,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Country extends Model
 {
+    public $fillable = ['id','name','name_eng','currency_id'];
     public function currency() {
         return $this->hasOne('App\Models\Currency','id', 'currency_id');
     }

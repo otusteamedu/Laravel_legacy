@@ -77,7 +77,7 @@
                                     <a href="javascript:void(0);" @click.stop.prevent="remove('{{ route('cms.countries.delete') }}', '{{ $item->id }}')" class="btn btn-danger">Удалить</a>
                                 </template>
                                 <template v-else>
-                                    <a href="javascript:void(0);" @click="save('{{ route('cms.countries.store') }}', '{{ $item->id }}', ['name','name_eng','currency_id'])" class="btn btn-success" >Сохранить</a>
+                                    <a href="javascript:void(0);" @click="save('{{ route('cms.countries.update') }}', '{{ $item->id }}', ['name','name_eng','currency_id'])" class="btn btn-success" >Сохранить</a>
                                     <a href="javascript:void(0);" @click="edit = 0" class="btn btn-info" >Отмена</a>
                                 </template>
 

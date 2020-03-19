@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\ValidationException;
-
+use App\Http\Controllers\Cms\Currencies\Requests\StoreCurrencyRequest;
+use App\Http\Controllers\Cms\Currencies\Requests\UpdateCurrencyRequest;
+use App\Http\Controllers\Cms\Currencies\Requests\DeleteCurrencyRequest;
 /**
  * Class CurrenciesController
  * @package App\Http\Controllers\Cms\Currencies
@@ -32,65 +34,69 @@ class CurrenciesController extends Controller
      */
     public function index(Request $request)
     {
-        $currencies = $this->currenciesService->search($request->all());
-        return view('cms.currencies', ['currencies' => $currencies, 'code' => $request->get('code', '')]);
+        $code = $request->get('code', '');
+        $currencies = $this->currenciesService->searchByCode($code);
+        return view('cms.currencies', ['currencies' => $currencies, 'code' => $code]);
     }
 
-
     /**
-     * Сохранение валюты
+     * Сохранение страны
      *
      * @param Request $request
      * @return string
      */
-    public function store(Request $request): string
+    public function store(StoreCurrencyRequest $request): string
     {
-        $result = 'success';
-        $validator = Validator::make($request->all(), [
-            'code' => 'required|alpha_num',
-        ]);
-
-        if ($validator->fails()) {
-            $result = $validator->errors();
-        } else {
-            $id = (int)$request->get('id', 0);
-            if ($id) {
-                $success = $this->currenciesService->update($id, $request->all());
-            } else {
-                $success = $this->currenciesService->store(['code' => $request->get('code')]);
-            }
-            if (!$success) {
-                $result = $this->currenciesService->getErrors();
-            }
+        try {
+            $country = $this->currenciesService->store($request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Store error',
+                'errors' => [[ $e->getMessage() ]],
+            ], 400)->send();
         }
-
-        return json_encode(['result' => $result]);
+        return response()->json($country,200)->send();
     }
 
     /**
-     * Удаление валюты
+     * Изменение страны
      *
      * @param Request $request
      * @return string
      */
-    public function delete(Request $request): string
+    public function update(UpdateCurrencyRequest $request): string
     {
-        $result = 'success';
-        $validator = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-        ]);
-        if ($validator->fails()) {
-            $result = $validator->errors();
-        } else {
-            $id = $request->get('id');
-            $success = $this->currenciesService->delete($id);
-            if (!$success) {
-                $result = $this->currenciesService->getErrors();
-                if (empty($result)) {
-                    $result = 'Не удалось удалить запись!';
-                }
-            }
+        $id = (int)$request->get('id', 0);
+        try {
+            $country = $this->currenciesService->update($id, $request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Update error',
+                'errors' => [[ $e->getMessage() ]],
+            ], 400)->send();
         }
-        return json_encode(['result' => $result]);
+        return json_encode($country);
     }
+
+
+    /**
+     * Удаление страны
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function delete(DeleteCurrencyRequest $request): string
+    {
+        $id = $request->get('id');
+        try {
+            $this->currenciesService->delete($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Delete error',
+                'errors' => [[ $e->getMessage() ]],
+            ], 400)->send();
+        }
+        return json_encode([]);
+    }
+
 }

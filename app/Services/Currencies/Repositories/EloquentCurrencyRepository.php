@@ -11,19 +11,30 @@ use App\Services\Currencies\Repositories\CurrencyRepositoryInterface;
 class EloquentCurrencyRepository implements CurrencyRepositoryInterface
 {
 
+    /**
+     * @param int $id
+     * @return Currency|Currency[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
     public function find(int $id)
     {
-        return Currency::find($id)->toArray();
+        return Currency::find($id);
     }
 
-    public function search(array $filters = [])
+    /**
+     * @param string $code
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function searchByCode($code = '')
     {
-        if (isset($filters['code'])) {
-            return Currency::where('code', $filters['code'])->orderBy('id', 'desc')->paginate();
+        if ($code) {
+            return Currency::where('code', 'like', '%' . $code . '%')->orderBy('id', 'desc')->paginate();
         }
         return Currency::orderBy('id', 'desc')->paginate();
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         $currencies = Currency::all()->toArray();
@@ -36,16 +47,33 @@ class EloquentCurrencyRepository implements CurrencyRepositoryInterface
         return $result;
     }
 
+    /**
+     * @param array $data
+     * @return Currency
+     */
     public function createFromArray(array $data)
     {
-        return Currency::insertOrIgnore($data);
+        $currency = new Currency();
+        $currency->create($data);
+        return $currency;
     }
 
+    /**
+     * @param int $id
+     * @param array $data
+     * @return Currency|Currency[]|\Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
     public function updateFromArray($id, array $data)
     {
-        return Currency::where('id', $id)->update($data);
+        $currency = $this->find($id);
+        $currency->update($data);
+        return $currency;
     }
 
+    /**
+     * @param int $id
+     * @return mixed
+     */
     public function delete($id)
     {
         return Currency::where('id', $id)->delete();

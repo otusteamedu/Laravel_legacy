@@ -12,32 +12,22 @@ class EloquentCountryRepository implements CountryRepositoryInterface
 
     public function find(int $id)
     {
-        return Country::find($id)->toArray();
+        return Country::find($id);
     }
 
     /**
      * Поиск и выдача резултата по таблице стран
-     * @param array $filters
-     * @param bool $like сравнивать по неполному соответствию
+     * @param string $name фильтр по наименованию страны
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function search(array $filters = [], bool $like = false)
+    public function searchByNames(string $name = '')
     {
-        if ($like && isset($filters['name'])) {
-            $countries = Country::where('name', 'like', "%" . $filters['name'] . "%")
-                ->orWhere('name_eng', 'like', "%" . $filters['name'] . "%")
+        if ($name) {
+            $countries = Country::where('name', 'like', "%" . $name . "%")
+                ->orWhere('name_eng', 'like', "%" . $name . "%")
                 ->orderBy('id', 'desc')
                 ->paginate();
-        } elseif (!empty($filters['name'])) {
-            $countries = Country::where('name', $filters['name'])
-                ->orderBy('id', 'desc')
-                ->paginate();
-        } elseif (!empty($filters['name_eng'])) {
-            $countries = Country::where('name', $filters['name_eng'])
-                ->orderBy('id', 'desc')
-                ->paginate();
-        }
-        else {
+        } else {
             $countries = Country::orderBy('id', 'desc')->paginate();
         }
         $countries->load('currency');
@@ -47,22 +37,26 @@ class EloquentCountryRepository implements CountryRepositoryInterface
     /**
      * Создание записи
      * @param array $data
-     * @return int
+     * @return Country
      */
     public function createFromArray(array $data)
     {
-        return Country::insertOrIgnore($data);
+        $country = new Country();
+        $country->create($data);
+        return $country;
     }
 
     /**
      * Изменение записи
      * @param int $id
      * @param array $data
-     * @return int
+     * @return Country
      */
     public function updateFromArray($id, array $data)
     {
-        return Country::where('id', $id)->update($data);
+        $country = $this->find($id);
+        $country->update($data);
+        return $country;
     }
 
     /**

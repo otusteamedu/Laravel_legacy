@@ -25,9 +25,9 @@ class UpdateCurrencyHandler
     /**
      * @param int $id
      * @param array $data
-     * @return bool
+     * @return Currency
      */
-    public function handle(int $id, array $data): int
+    public function handle(int $id, array $data): Currency
     {
         $data['code'] = strtoupper($data['code']);
         return $this->currencyRepository->updateFromArray($id, $data);

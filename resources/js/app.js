@@ -32,7 +32,8 @@ const App = new Vue({
                    }
                })
                .catch(function (error) {
-                   Vue.$notify(error, 'error');
+                   console.log(error.response);
+                   Vue.$notify(error.response.data.message, 'error');
                })
            ;
         },
@@ -55,7 +56,8 @@ const App = new Vue({
                                 }
                             })
                             .catch(function (error) {
-                                Vue.$notify(error, 'error');
+                                console.log(error.response);
+                                Vue.$notify(error.response.data.message, 'error');
                             })
                         ;
                     }
@@ -63,9 +65,8 @@ const App = new Vue({
             );
         },
         checkResult: function (data) {
-            let result = !!data.result ? data.result : '';
-            if (result != 'success') {
-                Vue.$notify(!!result ? result : 'Неизвестная ошибка!', 'error');
+            if (!!data.errors) {
+                Vue.$notify(!!data.message ? data.message : 'Неизвестная ошибка!', 'error');
                 return false;
             }
             return true;

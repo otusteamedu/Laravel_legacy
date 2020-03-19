@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Cms\Countries;
 
 use App\Services\Countries\CountriesService;
@@ -7,6 +6,11 @@ use App\Services\Currencies\CurrenciesService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Cms\Countries\Requests\StoreCountryRequest;
+use App\Http\Controllers\Cms\Countries\Requests\UpdateCountryRequest;
+use App\Http\Controllers\Cms\Countries\Requests\DeleteCountryRequest;
+
+use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
 /**
@@ -36,12 +40,13 @@ class CountriesController extends Controller
      */
     public function index(Request $request)
     {
-        $data = $this->countriesService->search($request->all(), true);
+        $name = $request->get('name', '');
+        $data = $this->countriesService->searchByNames((string)$name);
         $currencies = $this->currenciesService->all();
         $currencies[''] = '';
         return view('cms.countries', [
             'countries' => $data,
-            'name' => $request->get('name', ''),
+            'name' => $name,
             'currencies' => $currencies,
         ]);
     }
@@ -53,30 +58,39 @@ class CountriesController extends Controller
      * @param Request $request
      * @return string
      */
-    public function store(Request $request): string
+    public function store(StoreCountryRequest $request): string
     {
-        $result = 'success';
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'name_eng' => 'required',
-        ]);
-
-        if ($validator->fails()) {
-            $result = $validator->errors();
-        } else {
-            $id = (int)$request->get('id', 0);
-            if ($id) {
-                $success = $this->countriesService->update($id, $request->all());
-            } else {
-                $success = $this->countriesService->store($request->all());
-            }
-            if (!$success) {
-                $result = $this->countriesService->getErrors();
-            }
+        try {
+            $country = $this->countriesService->store($request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Store error',
+                'errors' => [[ $e->getMessage() ]],
+            ], 400)->send();
         }
-
-        return json_encode(['result' => $result]);
+        return response()->json($country,200)->send();
     }
+
+    /**
+     * Изменение страны
+     *
+     * @param Request $request
+     * @return string
+     */
+    public function update(UpdateCountryRequest $request): string
+    {
+        $id = (int)$request->get('id', 0);
+        try {
+            $country = $this->countriesService->update($id, $request->all());
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Update error',
+                'errors' => [[ $e->getMessage() ]],
+            ], 400)->send();
+        }
+        return json_encode($country);
+    }
+
 
     /**
      * Удаление страны
@@ -84,24 +98,17 @@ class CountriesController extends Controller
      * @param Request $request
      * @return string
      */
-    public function delete(Request $request): string
+    public function delete(DeleteCountryRequest $request): string
     {
-        $result = 'success';
-        $validator = Validator::make($request->all(), [
-            'id' => 'required|numeric',
-        ]);
-        if ($validator->fails()) {
-            $result = $validator->errors();
-        } else {
-            $id = $request->get('id');
-            $success = $this->countriesService->delete($id);
-            if (!$success) {
-                $result = $this->countriesService->getErrors();
-                if (empty($result)) {
-                    $result = 'Не удалось удалить запись!';
-                }
-            }
+        $id = $request->get('id');
+        try {
+            $this->countriesService->delete($id);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Delete error',
+                'errors' => [[ $e->getMessage() ]],
+            ], 400)->send();
         }
-        return json_encode(['result' => $result]);
+        return json_encode([]);
     }
 }

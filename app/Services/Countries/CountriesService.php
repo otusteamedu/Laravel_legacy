@@ -5,14 +5,14 @@
 
 namespace App\Services\Countries;
 
-use App\Services\BaseServiceInterface;
+use App\Models\Country;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use App\Services\Countries\Handlers\CreateCountryHandler;
 use App\Services\Countries\Handlers\UpdateCountryHandler;
 use App\Services\Countries\Handlers\DeleteCountryHandler;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
-class CountriesService implements BaseServiceInterface
+class CountriesService
 {
 
     /** @var CountryRepositoryInterface */
@@ -51,25 +51,21 @@ class CountriesService implements BaseServiceInterface
 
     /**
      * Поиск и выдача резултата по таблице стран
-     * @param array $filters
-     * @param bool $like сравнивать по неполному соответствию
+     * @param string $name фильтр по наименованию страны
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function search($filters, $like = false): LengthAwarePaginator
+    public function searchByNames($name): LengthAwarePaginator
     {
-        return $this->repository->search($filters, $like);
+        return $this->repository->searchByNames($name);
     }
 
     /**
      * Создание страны
      * @param array $data
-     * @return int
+     * @return Country
      */
     public function store(array $data)
     {
-        if (!$this->checkDuplicate($data)) {
-            return 0;
-        }
         return $this->createHandler->handle($data);
     }
 
@@ -77,13 +73,10 @@ class CountriesService implements BaseServiceInterface
      * Изменение страны
      * @param int $id
      * @param array $data
-     * @return bool
+     * @return Country
      */
     public function update(int $id, array $data)
     {
-        if (!$this->checkDuplicate($data, $id)) {
-            return false;
-        }
         return $this->updateHandler->handle($id, $data);
     }
 
@@ -94,43 +87,7 @@ class CountriesService implements BaseServiceInterface
      */
     public function delete(int $id)
     {
-        try {
-            $result = $this->deleteHandler->handle($id);
-        } catch (\Exception $e) {
-            $this->errors = $e->getMessage();
-            $result = false;
-        }
-        return $result;
-    }
-
-
-    /**
-     * Проберка на то что такая страна уже существует
-     * @param array $search
-     * @param int $currentId
-     * @return bool
-     */
-    public function checkDuplicate($data, $currentId = 0) {
-        $res = $this->repository->search(['name' => $data['name'] ?? '']);
-        if (!empty($res[0]->id) && $res[0]->id != $currentId) {
-            $this->errors[] = "Такая страна уже есть в базе (id = {$res[0]->id})!";
-            return false;
-        }
-        $res = $this->repository->search(['name_eng' => $data['name_eng'] ?? '']);
-        if (!empty($res[0]->id) && $res[0]->id != $currentId) {
-            $this->errors[] = "Такая страна уже есть в базе (id = {$res[0]->id})!";
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Получение массива ошибок
-     * @return array
-     */
-    public function getErrors()
-    {
-       return $this->errors;
+        return $this->deleteHandler->handle($id);
     }
 
 }

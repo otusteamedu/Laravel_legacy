@@ -21,6 +21,7 @@ Route::name('cms.')->group(function () {
             Route::prefix('currencies')->group(function() {
                 Route::any('/',  'Cms\Currencies\CurrenciesController@index')->name('index');
                 Route::post('/store',  'Cms\Currencies\CurrenciesController@store')->name('store');
+                Route::post('/update',  'Cms\Currencies\CurrenciesController@update')->name('update');
                 Route::post('/delete',  'Cms\Currencies\CurrenciesController@delete')->name('delete');
             });
         });
@@ -29,6 +30,7 @@ Route::name('cms.')->group(function () {
             Route::prefix('countries')->group(function() {
                 Route::any('/',  'Cms\Countries\CountriesController@index')->name('index');
                 Route::post('/store',  'Cms\Countries\CountriesController@store')->name('store');
+                Route::post('/update',  'Cms\Countries\CountriesController@update')->name('update');
                 Route::post('/delete',  'Cms\Countries\CountriesController@delete')->name('delete');
             });
         });

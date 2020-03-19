@@ -24,9 +24,9 @@ class CreateCurrencyHandler
 
     /**
      * @param array $data
-     * @return int
+     * @return Currency
      */
-    public function handle(array $data): int
+    public function handle(array $data): Currency
     {
         $data['code'] = strtoupper($data['code']);
         return $this->currencyRepository->createFromArray($data);

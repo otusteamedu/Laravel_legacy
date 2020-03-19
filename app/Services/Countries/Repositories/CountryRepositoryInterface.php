@@ -10,7 +10,7 @@ interface CountryRepositoryInterface
 {
     public function find(int $id);
 
-    public function search(array $filters = [], bool $like = false);
+    public function searchByNames(string $name = '');
 
     public function createFromArray(array $data);
 

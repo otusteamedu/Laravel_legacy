@@ -19,7 +19,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(BaseServiceInterface::class, CurrenciesService::class);
         $this->app->bind(CurrencyRepositoryInterface::class, EloquentCurrencyRepository::class);
         $this->app->bind(CountryRepositoryInterface::class, EloquentCountryRepository::class);
     }

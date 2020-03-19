@@ -22,5 +22,5 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Currency extends Model
 {
-
+    public $fillable = ['id','code'];
 }

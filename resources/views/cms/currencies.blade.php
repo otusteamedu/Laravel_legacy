@@ -46,7 +46,7 @@
                                     <a href="javascript:void(0);" @click.stop.prevent="remove('{{ route('cms.currencies.delete') }}', '{{ $item->id }}')" class="btn btn-danger">Удалить</a>
                                 </template>
                                 <template v-else>
-                                    <a href="javascript:void(0);" @click="save('{{ route('cms.currencies.store') }}', '{{ $item->id }}', ['code'])" class="btn btn-success" >Сохранить</a>
+                                    <a href="javascript:void(0);" @click="save('{{ route('cms.currencies.update') }}', '{{ $item->id }}', ['code'])" class="btn btn-success" >Сохранить</a>
                                     <a href="javascript:void(0);" @click="edit = 0" class="btn btn-info" >Отмена</a>
                                 </template>
 

@@ -6,6 +6,7 @@
 namespace App\Services\Countries\Handlers;
 
 
+use App\Models\Country;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use Carbon\Carbon;
 
@@ -23,12 +24,12 @@ class CreateCountryHandler
 
     /**
      * @param array $data
-     * @return int
+     * @return Country
      */
-    public function handle(array $data): int
+    public function handle(array $data): Country
     {
-        $data['name'] = ucfirst($data['name'] ?? '');
-        $data['name_eng'] = ucfirst($data['name_eng'] ?? '');
+        $data['name'] = trim(ucfirst($data['name'] ?? ''));
+        $data['name_eng'] = trim(ucfirst($data['name_eng'] ?? ''));
         return $this->countryRepository->createFromArray($data);
     }
 
