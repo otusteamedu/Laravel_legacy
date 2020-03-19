@@ -1,4 +1,3 @@
-@isset($navbar)
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     @isset($navbar['brand'])
         <a class="navbar-brand" href="{{ $navbar['brand']['url'] }}">{{ $navbar['brand']['name']  }}</a>
@@ -21,4 +20,3 @@
         </ul>
     </div>
 </nav>
-@endisset

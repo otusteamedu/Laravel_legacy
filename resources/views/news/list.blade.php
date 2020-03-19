@@ -20,8 +20,7 @@
         </div>
     </div>
     <div class="row justify-content-center mt-4">
-        @component('blocks.pagination.default')
-        @endcomponent
+        @include('blocks.pagination.default')
     </div>
 </div>
 
