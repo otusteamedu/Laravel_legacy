@@ -5,7 +5,6 @@ namespace App\Contract\Repository\Menu;
 
 
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Interface LinkRepositoryInterface
@@ -21,4 +20,26 @@ interface LinkRepositoryInterface
      * @return LengthAwarePaginator
      */
     public function paginate(int $size): LengthAwarePaginator;
+
+    /**
+     * Создает новую ссылку по данным
+     * @param array $data данные
+     * @return int идентификатор
+     */
+    public function create(array $data): int;
+
+    /**
+     * Обновляет ссылку по данным
+     * @param int $id идентификатор ссылки
+     * @param array $data данные
+     * @return bool
+     */
+    public function update(int $id, array $data): bool;
+
+    /**
+     * Удаляет ссылку
+     * @param int $id идентификатор ссылки
+     * @return bool
+     */
+    public function destroy(int $id): bool;
 }

@@ -1,5 +1,7 @@
 {!! Form::open(['url' => route('register'), 'method' => 'post']) !!}
 
+@include('shared.errors')
+
 <div class="form-group row">
     <label for="name"
            class="col-md-4 col-form-label text-md-right">@lang('register.label.name')</label>

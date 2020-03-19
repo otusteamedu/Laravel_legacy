@@ -34,6 +34,24 @@ class LinkService implements LinkServiceInterface
     /** @inheritDoc */
     public function getList(): LengthAwarePaginator
     {
-        return $this->linkRepository->paginate(5);
+        return $this->linkRepository->paginate(self::PAGE_SIZE);
+    }
+
+    /** @inheritDoc */
+    public function create(array $data): int
+    {
+        return $this->linkRepository->create($data);
+    }
+
+    /** @inheritDoc */
+    public function update(int $id, array $data)
+    {
+        $this->linkRepository->update($id, $data);
+    }
+
+    /** @inheritDoc */
+    public function destroy(int $id)
+    {
+        $this->linkRepository->destroy($id);
     }
 }
