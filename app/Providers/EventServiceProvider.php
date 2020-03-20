@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\CacheHitEventListener;
 use App\Listeners\Cache\Country\ClearCountryCache;
 use App\Listeners\LogAuthenticated;
 use App\Listeners\LogAuthenticationAttempt;
@@ -17,6 +18,7 @@ use Illuminate\Auth\Events\Failed;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
+use Illuminate\Cache\Events\CacheHit;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -58,6 +60,10 @@ class EventServiceProvider extends ServiceProvider
 
         CountrySaved::class => [
             ClearCountryCache::class,
+        ],
+
+        CacheHit::class => [
+            CacheHitEventListener::class,
         ],
     ];
 

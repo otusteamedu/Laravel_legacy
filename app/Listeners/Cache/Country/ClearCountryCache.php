@@ -9,6 +9,7 @@ namespace App\Listeners\Cache\Country;
 
 
 use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
+use App\Services\Events\Models\Country\CountrySaved;
 
 class ClearCountryCache
 {
@@ -28,11 +29,13 @@ class ClearCountryCache
     }
 
     /**
-     *
+     * @param CountrySaved $countrySaved
      */
-    public function handle()
+    public function handle(CountrySaved $countrySaved)
     {
-        $this->cachedCountryRepository->clearSearchCache();
+        $this->cachedCountryRepository->clearCountryCache(
+            $countrySaved->getCountry()
+        );
     }
 
 }

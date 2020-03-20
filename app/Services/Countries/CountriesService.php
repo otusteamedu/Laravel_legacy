@@ -13,6 +13,7 @@ use App\Services\Countries\Handlers\CreateCountryHandler;
 use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 class CountriesService
 {
@@ -33,6 +34,15 @@ class CountriesService
         $this->createCountryHandler = $createCountryHandler;
         $this->cachedCountryRepository = $cachedCountryRepository;
         $this->countryRepository = $countryRepository;
+    }
+
+    /**
+     * @param int $id
+     * @return Country|null
+     */
+    public function findCountryCached(int $id)
+    {
+        return $this->cachedCountryRepository->find($id);
     }
 
     /**
@@ -62,6 +72,16 @@ class CountriesService
         return $this->countryRepository->search([], [
             'cities'
         ]);
+    }
+
+    /**
+     * @param int $limit
+     * @param int $offset
+     * @return Collection
+     */
+    public function getCountries(int $limit, int $offset): Collection
+    {
+        return $this->countryRepository->getList($limit, $offset);
     }
 
     /**

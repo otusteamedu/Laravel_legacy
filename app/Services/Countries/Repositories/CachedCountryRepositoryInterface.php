@@ -8,11 +8,17 @@
 namespace App\Services\Countries\Repositories;
 
 
+use App\Models\Country;
+
 interface CachedCountryRepositoryInterface
 {
 
     public function search(array $filters = [], array $with = []);
 
     public function clearSearchCache();
+
+    public function find(int $id);
+
+    public function clearCountryCache(Country $country);
 
 }

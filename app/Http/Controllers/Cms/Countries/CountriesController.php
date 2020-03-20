@@ -6,6 +6,7 @@ use App\Helpers\RouteBuilder;
 use App\Http\Controllers\Cms\CmsController;
 use App\Policies\Abilities;
 use Auth;
+use Cache;
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Models\Country;
 use App\Services\Countries\CountriesService;
@@ -27,14 +28,17 @@ class CountriesController extends CmsController
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws AuthorizationException
      */
-    public function index()
+    public function index(Request $request)
     {
-        $countries = $this->countriesService->searchCachedCountriesWithCities();
-        $this->authorize(Abilities::VIEW_ANY, Country::class);
+        $key = $request->user()->id . '|' . $request->getUri();
+        return Cache::remember($key, 60, function () {
+            $this->authorize(Abilities::VIEW_ANY, Country::class);
 
-        return view('countries.index', [
-            'countries' => $countries,
-        ]);
+            $countries = $this->countriesService->searchCachedCountriesWithCities();
+            return view('countries.index', [
+                'countries' => $countries,
+            ])->render();
+        });
     }
 
     /**
@@ -57,15 +61,20 @@ class CountriesController extends CmsController
     {
         $this->authorize(Abilities::CREATE, Country::class);
 
-        $this->validate($request, [
-            'name' => 'required|unique:countries,name|max:100',
-            'continent_name' => 'required|max:20'
-        ]);
-        $data = $request->all();
-        $data['created_user_id'] = Auth::id();
-        $country = $this->countriesService->storeCountry($data);
-
-        return response()->json($country, 201);
+        $lockKey = 'create-country';
+        $lock = Cache::lock($lockKey, 5);
+        if ($lock->get()) {
+            $this->validate($request, [
+                'name' => 'required|unique:countries,name|max:100',
+                'continent_name' => 'required|max:20'
+            ]);
+            $data = $request->all();
+            $data['created_user_id'] = Auth::id();
+            $country = $this->countriesService->storeCountry($data);
+            $lock->release();
+            return response()->json($country, 201);
+        }
+        abort(422);
     }
 
     /**

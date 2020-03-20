@@ -26,6 +26,18 @@ class CacheKeyManager
     }
 
     /**
+     * @param int $country_id
+     * @return string
+     */
+    public function getCountryKey(int $country_id): string
+    {
+        return $this->getKey(
+            Key::CMS_COUNTRY_PREFIX,
+            $country_id
+        );
+    }
+
+    /**
      * @param array $filters
      * @return string
      */

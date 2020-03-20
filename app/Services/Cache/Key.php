@@ -10,6 +10,6 @@ namespace App\Services\Cache;
 
 class Key
 {
+    const CMS_COUNTRY_PREFIX = 'cms-country';
     const CMS_COUNTRIES_PREFIX = 'cms-countries';
-
 }
