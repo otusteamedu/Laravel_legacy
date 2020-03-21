@@ -16,4 +16,14 @@ class UpdateCountryRequest extends StoreCountryRequest
         return true;
     }
 
+    public function rules()
+    {
+        return [
+            'name' => 'required|unique:countries,name|max:100',
+            'continent_name' => 'required|max:20'
+        ];
+    }
+
+
+
 }

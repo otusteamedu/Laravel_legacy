@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cms\Cities;
 
 use App\Http\Controllers\Cms\Cities\Requests\StoreCityRequest;
+use App\Models\Country;
 use App\Services\Countries\CountriesService;
 use App\Services\Cities\CitiesService;
 use App\Http\Controllers\Controller;
@@ -32,7 +33,7 @@ class CitiesController extends Controller
     {
         View::share([
             'cities' => City::paginate(),
-        ]);
+            ]);
 
         return view('cms.cities.index');
     }
@@ -44,7 +45,11 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        return view('cities.create');
+        $countries = Country::get(['name']);
+
+        return view('cms.cities.create', [
+            'countries' => $countries,
+        ]);
     }
 
     /**
@@ -69,7 +74,6 @@ class CitiesController extends Controller
      */
     public function show(City $cityId)
     {
-        //return view('cms.cities.show', ['city' => City::findOrFail($cityId)]);
         return view('cms.cities.show', [
             'cities' => City::paginate(),
         ]);
@@ -83,8 +87,11 @@ class CitiesController extends Controller
      */
     public function edit(City $city)
     {
+        $country = Country::where('id', $city->country_id);
+
         return view('cms.cities.edit', [
             'cities' => $city,
+            'country' => $country,
         ]);
     }
 
