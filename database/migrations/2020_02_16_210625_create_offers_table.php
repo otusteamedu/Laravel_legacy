@@ -16,6 +16,7 @@ class CreateOffersTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description');
+            $table->string('teaser_image')->nullable();
             $table->timestamp('expiration_date');
             $table->integer('project_id');
             $table->integer('city_id');
