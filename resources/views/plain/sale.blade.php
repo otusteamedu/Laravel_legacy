@@ -2,7 +2,7 @@
 
 @section('header-styles')
     <link rel="stylesheet" href="css/jquery.arcticmodal-0.3.css">
-    <link rel="stylesheet" href="css/big-sale.css">
+    <link rel="stylesheet" href="css/badum.css">
 @endsection
 
 @section('header-scripts')
@@ -10,7 +10,7 @@
     <script src="js/jquery.arcticmodal-0.3.min.js"></script>
     <script src="js/inputmask.min.js"></script>
     <script src="https://yastatic.net/share2/share.js" async="async"></script>
-    <script src="js/big-sale.js"></script>
+    <script src="js/badum.js"></script>
 @endsection
 
 @section('title')Каталог предложений@endsection

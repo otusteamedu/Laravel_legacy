@@ -3,7 +3,7 @@
 @section('header-styles')
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/jquery.arcticmodal-0.3.css">
-    <link rel="stylesheet" href="css/big-sale.css">
+    <link rel="stylesheet" href="css/badum.css">
     <link rel="stylesheet" href="css/base-laravel-style.css">
 @endsection
 
@@ -12,7 +12,7 @@
     <script src="js/jquery.arcticmodal-0.3.min.js"></script>
     <script src="js/inputmask.min.js"></script>
     <script src="https://yastatic.net/share2/share.js" async="async"></script>
-    <script src="js/big-sale.js"></script>
+    <script src="js/badum.js"></script>
 @endsection
 
 @section('title')
