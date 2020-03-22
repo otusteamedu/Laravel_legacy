@@ -9,6 +9,10 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use League\Flysystem\Plugin\AbstractPlugin;
 
+/**
+ * Class BaseMail Просто строит письмо по заданному шаблону.
+ * @package App\Mail
+ */
 class BaseMail extends Mailable
 {
     use Queueable, SerializesModels;

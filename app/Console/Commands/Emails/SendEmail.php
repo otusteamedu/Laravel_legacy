@@ -90,5 +90,8 @@ class SendEmail extends Command
     {
         Mail::to($user->email)
             ->send(new BaseMail($user, $template_name));
+
+        // теперь пометь в таблице emails, что данное письмо больше не нужно отправлять
+
     }
 }
