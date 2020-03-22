@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Offer withoutTrashed()
  * @mixin \Eloquent
  */
-class Offer extends Model
+class Offer extends BaseModel
 {
     use SoftDeletes;
 

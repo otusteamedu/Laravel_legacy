@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Segment whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Segment extends Model
+class Segment extends BaseModel
 {
     public function user()
     {
