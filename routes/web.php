@@ -23,8 +23,6 @@ Route::get('/contact', function () {
 Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
-<<<<<<< Updated upstream
-=======
 
 Route::name('admin.')->group(function(){
     Route::prefix('admin')->group(function(){
@@ -41,24 +39,3 @@ Route::name('admin.')->group(function(){
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
->>>>>>> Stashed changes
