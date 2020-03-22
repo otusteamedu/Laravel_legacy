@@ -68,6 +68,14 @@ class User extends Authenticatable
     }
 
     /**
+     * Get emails for the user.
+     */
+    public function emails()
+    {
+        return $this->hasMany('App\Models\Email');
+    }
+
+    /**
      * @return bool is this user admin ?
      */
     public function isAdmin(): bool

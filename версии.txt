@@ -408,3 +408,34 @@ getAllUsers(), clearUserCache(), warmupUserCache().
 В .env файл добавил параметры для настройки почтового сервиса mailtrap.io
 
 Создал команду app/Console/Emails/SendEmail.php
+
+Часть 3
+Организация email-рассылки по расписанию.
+
+Создал модель Email. Прописал отношения в моделях Email и User.
+
+Создал миграцию create_emails_table.
+Мигрировал командой : $ php artisan migrate --path=/database/migrations/2020_03_22_082338_create_emails_table.php
+
+Создал фабрику EmailFactory.php - понадобится для генерации новой записи Email.
+
+Создал консольную команду SeedEmailsTable.php
+
+Создал класс правил EmailRules.php
+--
+Сейчас можно сгенерировать email-рассылку консольной командой :
+$ php artisan emails:seed new_action
+Вместо 'new_action' можно использовать другие аргументы. См.Models/Email.php
+
+В результате в таблице emails появятся строки о том, какому пользователю нужно будет отправить письмо
+по шаблону views/emails/new_action.blade.php
+--
+Чтобы запустить email-рассылку, по заданию в таблице emails, нужно вызвать команду :
+$ php artisan emails:send new_action --id=all
+
+Рассылка успешно ваыполняется, ОДНАКО, нужно ещё пометить в таблице emails, что соот-ее письмо
+для указанного пользователя успешно отправлено. Это буду делать в следующей части.
+
+Часть 4
+Исправил app/Console/Commands/Emails/SendEmail.php
+Теперь, после отправки письма получателю, в таблице emails делается пометка, что письмо больше отправлять не надо.
