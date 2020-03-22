@@ -393,3 +393,8 @@ getAllUsers(), clearUserCache(), warmupUserCache().
 Для прогрева кэша слушаю : только-что залогинившийся пользователь администратор или нет. Если да, то прогреваю кэш.
 Использую 2 пары "событие-слушатель". См. EventServiceProvider.php
 Событие Illuminate\Auth\Events\Login вызывает слушатель App\Listeners\CheckUserIsAdmin, который проверяет : пользователь администратор или нет ? Если ответ true, то вызывается событие App\Services\Events\Models\User\UserIsAdmin, которое обрабатывает слушатель App\Listeners\WarmUpUserCache.
+
+2020.03.18 den-abidov/hw21.1
+Часть 1
+Создал команду для прогрева кэша.
+Добавил команду в крон.

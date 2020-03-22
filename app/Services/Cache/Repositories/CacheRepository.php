@@ -65,5 +65,6 @@ class CacheRepository implements CacheRepositoryInterface
         $users = $this->userRepository->all();
         // запомни в кэш
         Cache::forever('users', $users);
+        Log::info("Кэш сейчас был наполнен пользователями.");
     }
 }
