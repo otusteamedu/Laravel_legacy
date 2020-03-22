@@ -3,11 +3,16 @@
 namespace App\Console\Commands\Emails;
 
 use App\Mail\BaseMail;
+use App\Models\Email;
 use App\Models\User;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class SendEmail Это консольная команда, которая запускает email-рассылку.
+ * @package App\Console\Commands\Emails
+ */
 class SendEmail extends Command
 {
     /**
@@ -65,8 +70,16 @@ class SendEmail extends Command
 
             foreach($users as $user)
             {
-                $this->sendEmailToUser($user, $template_name);
-                $bar->advance();
+                $email = $user->emails()
+                               ->where('type',$template_name)
+                               ->where('need_to_send',true)
+                               ->first();
+
+                if($email !=null) // если для данного пользователя есть письмо, которое нужно ему отправить
+                {
+                    $this->sendEmailToUser($email, $template_name);
+                    $bar->advance();
+                }
             }
             $bar->finish();
 
@@ -83,15 +96,20 @@ class SendEmail extends Command
 
     /**
      * Отправка письма пользователю
-     * @param User $user пользователь - получатель письма
+     * @param Email $email строка в таблице emails, где указано какому пользователю - какое письмо отправить
      * @param string $template_name шаблон письма
      */
-    private function sendEmailToUser(User $user, $template_name)
+    private function sendEmailToUser(Email $email, $template_name)
     {
+        // хозяин - получатель этого письма
+        $user = $email->user;
+
+        // отправь письмо
         Mail::to($user->email)
             ->send(new BaseMail($user, $template_name));
 
         // теперь пометь в таблице emails, что данное письмо больше не нужно отправлять
-
+        $email->need_to_send = false;
+        $email->save();
     }
 }
