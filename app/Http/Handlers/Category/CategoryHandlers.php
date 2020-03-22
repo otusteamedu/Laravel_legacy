@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Handlers\Category;
+/* namespace App\Http\Handlers\Category;
 
 use App\Http\Repositories\CoreRepository;
 use App\Models\Catalog\Category AS Model;
@@ -14,7 +14,7 @@ class CategoryHandlers extends CoreRepository
     }
 
     public function storeData(Request $request){
-        $this->startConditions()->create($request->all());
+        $this->getModel()->create($request->all());
     }
 
     public function updateData(Model $category, Request $request){
@@ -25,3 +25,4 @@ class CategoryHandlers extends CoreRepository
         $category->delete();
     }
 }
+ */

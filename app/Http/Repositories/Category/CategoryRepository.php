@@ -14,8 +14,8 @@ class CategoryRepository extends CoreRepository
         return Model::class;
     }
 
-    public function getParentCategory(){
-        $result = $this->startConditions()
+    public function getParen(){
+        $result = $this->getModel()
                         ->with('children')
                         ->where('parent_id', 0)
                         ->get();
@@ -23,8 +23,8 @@ class CategoryRepository extends CoreRepository
         return $result;
     }
 
-    public function getCategoryPaginate(){
-        $result = $this->startConditions()
+    public function getPaginate(){
+        $result = $this->getModel()
                     ->paginate(self::PAGINATE_COUNT);
 
         return $result;

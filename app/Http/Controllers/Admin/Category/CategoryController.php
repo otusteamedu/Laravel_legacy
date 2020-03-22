@@ -3,26 +3,22 @@
 namespace App\Http\Controllers\Admin\Category;
 
 use App\Http\Controllers\Controller;
-use App\Http\Handlers\Category\CategoryHandlers;
 use App\Http\Requests\Category\StoreCategoryRequest;
 use App\Http\Requests\Category\UpdateCategoryRequest;
 use App\Models\Catalog\Category;
 
-use App\Http\Repositories\Category\CategoryRepository;
+use App\Http\Services\Category\CategoryService;
 
 class CategoryController extends Controller
 {
 
-    protected $categoryRepository;
-    protected $categoryHandlers;
+    protected $categoryService;
 
     public function __construct(
-        CategoryRepository $categoryRepository,
-        CategoryHandlers $categoryHandlers
+        CategoryService $categoryService
     )
     {
-        $this->categoryRepository = $categoryRepository;
-        $this->categoryHandlers = $categoryHandlers;
+        $this->categoryService = $categoryService;
     }
     /**
      * Display a listing of the resource.
@@ -31,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = $this->categoryRepository->getCategoryPaginate();
+        $category = $this->categoryService->getCategoryPaginate();
         return view('admin.category.page', compact('category'));
     }
 
@@ -42,11 +38,11 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $parentCategory = $this->categoryRepository->getParentCategory();
+        $parentCategory = $this->categoryService->getCategoryParent();
 
         return view('admin.category.page',[
             'category'=>[],
-            'categories'=>$parentCategory,
+            'parentCategory'=>$parentCategory,
             'delimits'=>'-'
         ]);
     }
@@ -54,13 +50,14 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  App\Http\Requests\Category\StoreCategoryRequest  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreCategoryRequest $request)
     {
  
-        $this->categoryHandlers->storeData($request);
+        $requestArray = $request->getFormArray();
+        $this->categoryService->createCategory($requestArray);
 
         return redirect(route('admin.category.index'));
     }
@@ -84,11 +81,11 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        $parentCategory = $this->categoryRepository->getParentCategory();
+        $parentCategory = $this->categoryService->getCategoryParent();
 
         return view('admin.category.page', [
             'category'=>$category,
-            'categories'=>$parentCategory,
+            'parentCategory'=>$parentCategory,
             'delimits'=>'-'
         ]);
     }
@@ -96,13 +93,14 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Http\Requests\Category\UpdateCategoryRequest  $request
      * @param  \App\Models\Catalog\Category  $category
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $this->categoryHandlers->updateData($category, $request);
+        $requestArray = $request->getFormArray();
+        $this->categoryService->updateCategory($category, $requestArray);
         return redirect(route('admin.category.index'));
     }
 
@@ -114,7 +112,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $this->categoryHandlers->destroyData($category);
+        $this->categoryService->deleteCategory($category);
         return redirect(route('admin.category.index'));
     }
 }

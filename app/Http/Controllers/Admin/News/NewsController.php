@@ -6,19 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Http\Handlers\News\NewsHandlers;
 use App\Http\Requests\News\StoreNewsRequest;
 use App\Http\Requests\News\UpdateNewsRequest;
+use App\Http\Services\News\NewsService;
 use App\Models\News;
 
 
 class NewsController extends Controller
 {
 
-    protected $newsHandlers;
+    const PAGINATE_COUNT = 6;
+
+    protected $newsService;
 
     public function __construct(
-        NewsHandlers $newsHandlers
+        NewsService $newsService
     )
     {
-        $this->newsHandlers = $newsHandlers;
+        $this->newsService = $newsService;
     }
     /**
      * Display a listing of the resource.
@@ -28,7 +31,7 @@ class NewsController extends Controller
     public function index()
     {
         
-        $news = News::paginate(6);
+        $news = News::paginate(self::PAGINATE_COUNT);
 
         return view('admin.news.page', compact('news'));
     }
@@ -51,7 +54,8 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        $this->newsHandlers->storeData($request);
+        $requestArray = $request->getFormArray();
+        $this->newsService->createNews($requestArray);
         return redirect(route('admin.news.index'));
     }
 
@@ -86,7 +90,8 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        $this->newsHandlers->updateData($news, $request);
+        $requestArray = $request->getFormArray();
+        $this->newsService->updateNews($news, $requestArray);
         return redirect(route('admin.news.index'));
     }
 
@@ -98,7 +103,7 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        $this->newsHandlers->destroyData($news);
+        $this->newsService->deleteNews($news);
         return redirect(route('admin.news.index'));
     }
 }

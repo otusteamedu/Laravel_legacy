@@ -14,7 +14,7 @@ class NewsHandlers extends CoreRepository
     }
 
     public function storeData(Request $request){
-        $this->startConditions()->create($request->all());
+        $this->getModel()->create($request->all());
     }
 
     public function updateData(Model $news, Request $request){

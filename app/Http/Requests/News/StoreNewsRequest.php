@@ -32,4 +32,9 @@ class StoreNewsRequest extends FormRequest
             //'file_id'=>'integer'
         ];
     }
+
+    public function getFormArray(){
+        $result = $this->request->all();
+        return $result;
+    }
 }

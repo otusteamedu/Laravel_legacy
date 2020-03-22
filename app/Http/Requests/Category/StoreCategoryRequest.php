@@ -29,4 +29,9 @@ class StoreCategoryRequest extends FormRequest
             'visible'=>'boolean',
         ];
     }
+
+    public function getFormArray(){
+        $result = $this->request->all();
+        return $result;
+    }
 }
