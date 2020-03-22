@@ -20,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Country whereName($value)
  * @mixin \Eloquent
  */
-class Country extends Model
+class Country extends BaseModel
 {
     public $timestamps = false;
 

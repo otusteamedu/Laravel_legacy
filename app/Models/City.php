@@ -19,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\City whereName($value)
  * @mixin \Eloquent
  */
-class City extends Model
+class City extends BaseModel
 {
     public $timestamps = false;
 

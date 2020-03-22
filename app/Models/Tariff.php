@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Tariff whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Tariff extends Model
+class Tariff extends BaseModel
 {
     protected $casts = [
         'condition' => 'array'
