@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Web\Admin\Users\Requests\StoreUserRequest;
 use App\Http\Controllers\Web\Admin\Users\Requests\UpdateUserRequest;
 use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Users\UsersService;
 use Illuminate\Http\Request;
 
@@ -26,6 +27,8 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize(Abilities::VIEW_ANY, User::class);
+
         $userList = $this->usersService->searchUsers($request->all());
         \View::share([
             'userList' => $userList
@@ -41,6 +44,8 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, User::class);
+
         return view('admin.users.create');
     }
 
@@ -52,6 +57,8 @@ class UsersController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize(Abilities::CREATE, User::class);
+
         $user = $this->usersService->storeUser($request->getFormData());
 
         return redirect(route('admin.users.show', $user));
@@ -65,6 +72,8 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize(Abilities::VIEW, User::class);
+
         return view('admin.users.show', [
             'user' => $user
         ]);
@@ -78,6 +87,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize(Abilities::UPDATE, User::class);
+
         return view('admin.users.edit', [
             'user' => $user
         ]);
@@ -92,6 +103,8 @@ class UsersController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
+        $this->authorize(Abilities::UPDATE, User::class);
+
         $this->usersService->updateUser($user, $request->getFormData());
 
         return redirect(route('admin.users.show', $user));
@@ -105,6 +118,8 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize(Abilities::DELETE, User::class);
+
         $this->usersService->deleteUser($user);
 
         return view(

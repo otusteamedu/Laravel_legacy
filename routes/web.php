@@ -35,9 +35,9 @@ Route::get('/personal/', function () {
 
 Route::get('admin', function () {
     return view('admin.index');
-})->name('admin.index')->middleware(['auth']);
+})->name('admin.index')->middleware(['auth', 'can:admin-section-available']);
 
-Route::name('admin.')->middleware(['auth'])->group(function () {
+Route::name('admin.')->middleware(['auth', 'can:admin-section-available'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::resources([
             'articles' => 'Web\Admin\Articles\ArticlesController',

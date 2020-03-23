@@ -122,4 +122,14 @@ class User extends Authenticatable
             ->using('App\Models\RoleUser')
             ->withTimestamps();
     }
+
+    public function isAdmin() {
+        // @ToDo: переделать на реальную проверку наличия админской группы. Пока что админом будет первый пользователь
+        return $this->id === 1;
+    }
+
+    public function isModerator() {
+        // @ToDo: переделать на реальную проверку наличия модераторской группы. Пока что модератором будет второй пользователь
+        return $this->id === 2;
+    }
 }

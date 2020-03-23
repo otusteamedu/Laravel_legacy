@@ -2,8 +2,22 @@
 
 namespace App\Providers;
 
+use App\Models\Article;
+use App\Models\Country;
+use App\Models\Event;
+use App\Models\Language;
+use App\Models\News;
+use App\Models\Role;
+use App\Models\User;
+use App\Policies\ArticlePolicy;
+use App\Policies\CountryPolicy;
+use App\Policies\EventPolicy;
+use App\Policies\LanguagePolicy;
+use App\Policies\NewsPolicy;
+use App\Policies\RolePolicy;
+use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Gate;
+use Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +27,13 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class,
+        Country::class => CountryPolicy::class,
+        Event::class => EventPolicy::class,
+        Language::class => LanguagePolicy::class,
+        News::class => NewsPolicy::class,
+        Role::class => RolePolicy::class,
+        User::class => UserPolicy::class,
     ];
 
     /**
@@ -24,7 +44,12 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->registerGates();
+    }
 
-        //
+    public function registerGates() {
+        Gate::define('admin-section-available', function (User $user) {
+            return $user->isAdmin() || $user->isModerator();
+        });
     }
 }
