@@ -4,19 +4,9 @@ namespace App\Policies;
 
 use App\Models\News;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
 
-class NewsPolicy
+class NewsPolicy extends BasePolicy
 {
-    use HandlesAuthorization;
-
-    public function before(User $user)
-    {
-        if ($user->isAdmin()) {
-            return true;
-        }
-    }
-
     /**
      * Determine whether the user can view any news.
      *
