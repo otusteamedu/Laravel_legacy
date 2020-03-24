@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class MpollsQuotasTableSeeder extends Seeder
+class MpollQuotaTableSeeder extends Seeder
 {
 
     /**
@@ -12,12 +12,12 @@ class MpollsQuotasTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('mpolls_quotas')->delete();
-        
-        \DB::table('mpolls_quotas')->insert(array (
-            0 => 
+
+        \DB::table('mpoll_quota')->delete();
+
+        \DB::table('mpoll_quota')->insert(array (
+            0 =>
             array (
                 'id' => 37,
                 'mpoll_id' => NULL,
@@ -32,11 +32,11 @@ class MpollsQuotasTableSeeder extends Seeder
                 'prescreener' => NULL,
                 'overquota' => 0,
                 'screenout' => 0,
-                'created' => '2019-09-29 16:46:52',
-                'modified' => '2019-09-29 16:46:52',
+                'created_at' => '2019-09-29 16:46:52',
+                'updated_at' => '2019-09-29 16:46:52',
                 'complete' => 0,
             ),
-            1 => 
+            1 =>
             array (
                 'id' => 38,
                 'mpoll_id' => NULL,
@@ -51,11 +51,11 @@ class MpollsQuotasTableSeeder extends Seeder
                 'prescreener' => NULL,
                 'overquota' => 0,
                 'screenout' => 0,
-                'created' => '2019-10-15 23:48:52',
-                'modified' => '2019-10-15 23:48:52',
+                'created_at' => '2019-10-15 23:48:52',
+                'updated_at' => '2019-10-15 23:48:52',
                 'complete' => 0,
             ),
-            2 => 
+            2 =>
             array (
                 'id' => 39,
                 'mpoll_id' => NULL,
@@ -70,12 +70,12 @@ class MpollsQuotasTableSeeder extends Seeder
                 'prescreener' => NULL,
                 'overquota' => 0,
                 'screenout' => 0,
-                'created' => '2019-10-25 21:47:17',
-                'modified' => '2019-10-25 21:47:17',
+                'created_at' => '2019-10-25 21:47:17',
+                'updated_at' => '2019-10-25 21:47:17',
                 'complete' => 0,
             ),
         ));
-        
-        
+
+
     }
 }

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class FiltersQuotasTableSeeder extends Seeder
+class FilterQuotaTableSeeder extends Seeder
 {
 
     /**
@@ -12,11 +12,11 @@ class FiltersQuotasTableSeeder extends Seeder
      */
     public function run()
     {
-        
 
-        \DB::table('filters_quotas')->delete();
-        
-        
-        
+
+        \DB::table('filter_quota')->delete();
+
+
+
     }
 }

@@ -25,8 +25,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => NULL,
                 'status' => 0,
                 'user_ip' => NULL,
-                'created' => '2019-09-29 15:00:02',
-                'modified' => '2019-09-29 15:00:02',
+                'created_at' => '2019-09-29 15:00:02',
+                'updated_at' => '2019-09-29 15:00:02',
             ),
             1 => 
             array (
@@ -36,8 +36,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => NULL,
                 'status' => 0,
                 'user_ip' => NULL,
-                'created' => '2019-09-29 16:51:29',
-                'modified' => '2019-09-29 16:51:29',
+                'created_at' => '2019-09-29 16:51:29',
+                'updated_at' => '2019-09-29 16:51:29',
             ),
             2 => 
             array (
@@ -47,8 +47,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => NULL,
                 'status' => 0,
                 'user_ip' => NULL,
-                'created' => '2019-10-15 23:48:52',
-                'modified' => '2019-11-20 02:22:49',
+                'created_at' => '2019-10-15 23:48:52',
+                'updated_at' => '2019-11-20 02:22:49',
             ),
             3 => 
             array (
@@ -58,8 +58,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => 55,
                 'status' => 1,
                 'user_ip' => '80.232.243.220',
-                'created' => '2019-10-25 17:21:41',
-                'modified' => '2019-10-25 17:21:41',
+                'created_at' => '2019-10-25 17:21:41',
+                'updated_at' => '2019-10-25 17:21:41',
             ),
             4 => 
             array (
@@ -69,8 +69,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => 55,
                 'status' => 1,
                 'user_ip' => '80.232.243.220',
-                'created' => '2019-10-25 17:37:28',
-                'modified' => '2019-10-25 17:37:28',
+                'created_at' => '2019-10-25 17:37:28',
+                'updated_at' => '2019-10-25 17:37:28',
             ),
             5 => 
             array (
@@ -80,8 +80,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => 55,
                 'status' => 1,
                 'user_ip' => '80.232.243.220',
-                'created' => '2019-10-25 17:38:39',
-                'modified' => '2019-10-25 17:38:39',
+                'created_at' => '2019-10-25 17:38:39',
+                'updated_at' => '2019-10-25 17:38:39',
             ),
             6 => 
             array (
@@ -91,8 +91,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => NULL,
                 'status' => 0,
                 'user_ip' => NULL,
-                'created' => '2019-10-25 21:47:17',
-                'modified' => '2019-12-04 20:23:20',
+                'created_at' => '2019-10-25 21:47:17',
+                'updated_at' => '2019-12-04 20:23:20',
             ),
             7 => 
             array (
@@ -102,8 +102,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => 55,
                 'status' => 1,
                 'user_ip' => '80.232.243.220',
-                'created' => '2019-11-07 16:32:32',
-                'modified' => '2019-11-07 16:32:32',
+                'created_at' => '2019-11-07 16:32:32',
+                'updated_at' => '2019-11-07 16:32:32',
             ),
             8 => 
             array (
@@ -113,8 +113,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => 76,
                 'status' => 1,
                 'user_ip' => '37.235.122.254',
-                'created' => '2019-11-12 08:43:06',
-                'modified' => '2019-11-12 08:43:06',
+                'created_at' => '2019-11-12 08:43:06',
+                'updated_at' => '2019-11-12 08:43:06',
             ),
             9 => 
             array (
@@ -124,8 +124,8 @@ class MlinksTableSeeder extends Seeder
                 'user_id' => 84,
                 'status' => 1,
                 'user_ip' => '82.28.197.137',
-                'created' => '2019-11-19 08:56:04',
-                'modified' => '2019-11-19 08:56:04',
+                'created_at' => '2019-11-19 08:56:04',
+                'updated_at' => '2019-11-19 08:56:04',
             ),
         ));
         

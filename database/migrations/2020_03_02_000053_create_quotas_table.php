@@ -27,8 +27,9 @@ class CreateQuotasTable extends Migration
             $table->integer('completes')->nullable()->default('0');
             $table->integer('over_quotas')->nullable()->default('0');
             $table->integer('screenout')->nullable()->default('0');
-            $table->dateTime('created')->nullable()->default(null);
-            $table->dateTime('modified')->nullable()->default(null);
+//            $table->dateTime('created_at')->nullable()->default(null);
+//            $table->dateTime('updated_at')->nullable()->default(null);
+            $table->timestamps();
         });
     }
 

@@ -2,13 +2,13 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreateMpollsQuotasTable extends Migration
+class CreateMpollQuotaTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'mpolls_quotas';
+    public $tableName = 'mpoll_quota';
     /**
      * Run the migrations.
      * @table mpolls_quotas
@@ -32,9 +32,10 @@ class CreateMpollsQuotasTable extends Migration
             $table->string('prescreener')->nullable()->default(null);
             $table->integer('overquota')->nullable()->default('0');
             $table->integer('screenout')->nullable()->default('0');
-            $table->dateTime('created')->nullable()->default(null);
-            $table->dateTime('modified')->nullable()->default(null);
+           /* $table->dateTime('created_at')->nullable()->default(null);
+            $table->dateTime('updated_at')->nullable()->default(null);*/
             $table->integer('complete')->nullable()->default('0');
+            $table->timestamps();
         });
     }
 
