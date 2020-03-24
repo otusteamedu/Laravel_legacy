@@ -8,7 +8,7 @@ class CreateFilterTypesTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'filter_types';
+    public $tableName = 'filter_type';
     /**
      * Run the migrations.
      * @table filter_types
@@ -22,8 +22,9 @@ class CreateFilterTypesTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->string('description', 250);
-            $table->dateTime('created')->nullable()->default(null);
-            $table->dateTime('modified')->nullable()->default(null);
+            /*$table->dateTime('created_at')->nullable()->default(null);
+            $table->dateTime('updated_at')->nullable()->default(null);*/
+            $table->timestamps();
         });
     }
 
