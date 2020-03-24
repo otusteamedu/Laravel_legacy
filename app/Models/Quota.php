@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+
 
 /**
  * App\Models\Quota
@@ -31,10 +31,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quota whereOverQuotas($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quota whereScreenout($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quota whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Quota whereUpdatedAt($value)
  */
-class Quota extends Model
+class Quota extends BaseModel
 {
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
+    /*const CREATED_AT = 'created';
+    const UPDATED_AT = 'modified';*/
     //
 }

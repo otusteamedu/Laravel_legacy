@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Mlink
@@ -27,10 +26,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mlink whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mlink whereUserIp($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mlink whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mlink whereUpdatedAt($value)
  */
-class Mlink extends Model
+class Mlink extends BaseModel
 {
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
+    /*const CREATED_AT = 'created';
+    const UPDATED_AT = 'modified';*/
     //
 }

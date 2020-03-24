@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * App\Models\Mpoll
@@ -67,10 +68,22 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mpoll whereStarttime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mpoll whereSurvlimit($value)
  * @mixin \Eloquent
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Mpoll onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mpoll whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mpoll whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mpoll whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Mpoll withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Mpoll withoutTrashed()
  */
-class Mpoll extends Model
+class Mpoll extends BaseModel
 {
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
+    /*const CREATED_AT = 'created';
+    const UPDATED_AT = 'modified';*/
     //
+    use SoftDeletes;
 }

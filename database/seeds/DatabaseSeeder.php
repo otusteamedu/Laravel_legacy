@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(MstatusesTableSeeder::class);
         $this->call(MtypesTableSeeder::class);
         $this->call(QuotasTableSeeder::class);
+        factory(\App\Models\Mlink::class, 100)->create();
     }
 }

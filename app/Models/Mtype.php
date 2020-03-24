@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+
 
 /**
  * App\Models\Mtype
@@ -18,7 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mtype whereName($value)
  * @mixin \Eloquent
  */
-class Mtype extends Model
+class Mtype extends BaseModel
 {
     public $timestamps = false;
 }

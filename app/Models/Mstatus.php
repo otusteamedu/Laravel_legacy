@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+
 
 /**
  * App\Models\Mstatus
@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Mstatus whereName($value)
  * @mixin \Eloquent
  */
-class Mstatus extends Model
+class Mstatus extends BaseModel
 {
     public $timestamps = false;
 }
