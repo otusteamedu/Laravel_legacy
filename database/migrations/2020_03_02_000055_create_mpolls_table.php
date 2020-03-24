@@ -21,8 +21,8 @@ class CreateMpollsTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('name', 45)->nullable()->default(null);
-            $table->dateTime('created');
-            $table->dateTime('modified')->nullable()->default(null);
+            /*$table->dateTime('created_at');
+            $table->dateTime('updated_at')->nullable()->default(null);*/
             $table->integer('mstatus_id')->nullable()->default('0');
             $table->integer('mtype_id')->nullable()->default(null);
             $table->dateTime('starttime')->nullable()->default(null)->comment('Surveyee start');
@@ -47,6 +47,8 @@ class CreateMpollsTable extends Migration
             $table->integer('mail_id')->nullable()->default(null);
             $table->tinyInteger('check_geo')->nullable()->default('1')->comment('1- check; 0 - no;');
             $table->integer('customer_id')->nullable()->default('0')->comment('Cint, fed');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 
