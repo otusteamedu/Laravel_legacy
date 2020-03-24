@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\ViewControllerMethod;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->registerBindings();
     }
 
     /**
@@ -24,5 +25,10 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+    }
+
+    private function registerBindings()
+    {
+        $this->app->singleton(ViewControllerMethod::class, ViewControllerMethod::class);
     }
 }
