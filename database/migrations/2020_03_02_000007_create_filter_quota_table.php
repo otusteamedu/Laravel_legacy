@@ -2,13 +2,13 @@
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-class CreateFiltersQuotasTable extends Migration
+class CreateFilterQuotaTable extends Migration
 {
     /**
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'filters_quotas';
+    public $tableName = 'filter_quota';
     /**
      * Run the migrations.
      * @table filters_quotas
@@ -22,8 +22,9 @@ class CreateFiltersQuotasTable extends Migration
             $table->increments('id');
             $table->integer('filter_id')->nullable()->default(null);
             $table->integer('quota_id')->nullable()->default(null);
-            $table->dateTime('created')->nullable()->default(null);
-            $table->dateTime('modified')->nullable()->default(null);
+            /*$table->dateTime('created_at')->nullable()->default(null);
+            $table->dateTime('updated_at')->nullable()->default(null);*/
+            $table->timestamps();
         });
     }
 

@@ -11,15 +11,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        $this->call(UsersTableSeeder::class);
         $this->call(FiltersTableSeeder::class);
-        $this->call(FilterTypesTableSeeder::class);
-        $this->call(FiltersQuotasTableSeeder::class);
+        $this->call(FilterTypeTableSeeder::class);
+        $this->call(FilterQuotaTableSeeder::class);
         $this->call(MlinksTableSeeder::class);
         $this->call(MpollsTableSeeder::class);
-        $this->call(MpollsQuotasTableSeeder::class);
+        $this->call(MpollQuotaTableSeeder::class);
         $this->call(MstatusesTableSeeder::class);
         $this->call(MtypesTableSeeder::class);
         $this->call(QuotasTableSeeder::class);
+        factory(\App\Models\Mlink::class, 100)->create();
     }
 }
