@@ -13,7 +13,9 @@
 
 Route::get('/', function () {
     return view('plain.sale');
-});
+})->middleware([
+    'auth.basic'
+]);
 
 Route::get('/user', function () {
     return view('plain.user');
@@ -28,7 +30,9 @@ Route::get('/offer', function () {
 });
 
 Route::name('cms.')->group(function () {
-    Route::prefix('cms')->group(function () {
+    Route::prefix('cms')->middleware([
+        'auth'
+    ])->group(function () {
         // resources позволяет разложить методы контроллеров по CRUD роутам
         Route::resources([
             'countries' => 'Cms\Countries\CountriesController',
