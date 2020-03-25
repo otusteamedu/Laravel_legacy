@@ -2,10 +2,12 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Model;
+use App\Models\News;
+use App\Models\File;
 use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factory;
 
-$factory->define(App\Models\News::class, function (Faker $faker) {
+Factory::define(News::class, function (Faker $faker) {
     return [
         'title'=>$faker->title,
         'text'=>$faker->text,
@@ -15,11 +17,4 @@ $factory->define(App\Models\News::class, function (Faker $faker) {
 
 
     ];
-});
-
-$factory->defineAs(App\Models\File::class, 'file', function(Faker $faker){
-    return [
-        'name'=>$faker->title
-    ];
-
 });

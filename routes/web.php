@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', function () {
 
     return view('public.index.page');
@@ -25,9 +24,16 @@ Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
 
+Route::get('/admin', function () {
+    return view('admin.auth.login');
+});
+
 Route::name('admin.')->group(function(){
-    Route::prefix('admin')->group(function(){
+    Route::prefix('admin')->middleware([
+            'auth'
+        ])->group(function(){
         Route::resources([
+            'index'=>'Admin\Index\IndexController',
             'news'=>'Admin\News\NewsController',
             'category'=>'Admin\Category\CategoryController'
         ]);
