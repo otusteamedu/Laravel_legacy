@@ -39,11 +39,6 @@ class SendEmail extends Command
     private $userRepository;
 
     /**
-     * @var bool есть получатели рассылки
-     */
-    private $has_recipients = true;
-
-    /**
      * Create a new command instance.
      *
      * @param UserRepositoryInterface $userRepository
@@ -61,46 +56,39 @@ class SendEmail extends Command
      */
     public function handle()
     {
-        echo PHP_EOL."Получено задание : разослать письма.".PHP_EOL;
+        echo PHP_EOL . "Задание : разослать письма." . PHP_EOL;
         // получи параметры команды из консоли
         // шаблон письма
         $template_name = $this->argument('template_name');
 
         $users = $this->getUsers();
 
-        // Проверь : существуют ли пользователи с указанными id  ?
-        if($this->allElementsAreNull($users))
-        {
-            // в коллекции одни null
-            $this->has_recipients = false;
-            echo PHP_EOL."Предупреждение : нет пользователей с указанными id.".PHP_EOL;
-        }
+        // @todo Проверь : существуют ли пользователи с указанными id  ? См. ветку den-abidov/hw21.5
 
-        // если пользователи существуют
-        if($this->has_recipients)
-        {
-            $bar = $this->output->createProgressBar(count($users));
-            $bar->start();
+        // допустим пользователи существуют
 
-            foreach ($users as $user) {
-                if ($user != null) {
-                    $email = $user->emails()
-                        ->where('type', $template_name)
-                        ->where('need_to_send', true)
-                        ->first();
+        $bar = $this->output->createProgressBar(count($users));
+        $bar->start();
 
-                    if ($email != null) // если для данного пользователя есть письмо, которое нужно ему отправить
-                    {
-                        $this->sendEmail($email, $template_name);
-                        $bar->advance();
-                    }
+        foreach ($users as $user) {
+            if ($user != null) {
+                $email = $user->emails()
+                    ->where('type', $template_name)
+                    ->where('need_to_send', true)
+                    ->first();
+
+                if ($email != null) // если для данного пользователя есть письмо, которое нужно ему отправить
+                {
+                    $this->sendEmail($email, $template_name);
+                    $bar->advance();
                 }
             }
-            $bar->finish();
-            echo PHP_EOL;
-            echo "Задание выполнено." . PHP_EOL;
         }
+        $bar->finish();
+        echo PHP_EOL;
+        echo "Задание выполнено." . PHP_EOL;
     }
+
 
     /**
      * Отправка письма пользователю
@@ -150,32 +138,6 @@ class SendEmail extends Command
         $users = collect($users);
 
         return $users;
-    }
-
-    /**
-     * Передумал использовать этот метод. Но пусть сохранится, возможно на будущее использование.
-     * @param Collection $collection
-     * @return bool вернёт true, если в коллекции все элементы null
-     */
-    private function allElementsAreNull(Collection $collection):bool
-    {
-        $result = false;
-        $count_nulls = 0;
-        if($collection!=null)
-        {
-            foreach($collection as $item)
-            {
-                if($item == null)
-                {
-                    $count_nulls++;
-                }
-            }
-        }
-        if(count($collection) == $count_nulls)
-        {
-            $result = true;
-        }
-        return $result;
     }
 
 }
