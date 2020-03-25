@@ -7,6 +7,7 @@ use App\Models\Email;
 use App\Models\User;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -22,7 +23,8 @@ class SendEmail extends Command
      */
     protected $signature = 'emails:send
                             { template_name : Название шаблона письма }
-                            { --id= : id пользователя, который получит письмо }';
+                            { --all : сделать рассылку всем пользователям, кто удовлетворяет критериям рассылки }
+                            { --id=* : id пользователя, который удовлетворяет критериям рассылки и кому будет отправлено письмо }';
 
     /**
      * The console command description.
@@ -35,6 +37,11 @@ class SendEmail extends Command
      * @var UserRepositoryInterface
      */
     private $userRepository;
+
+    /**
+     * @var bool есть получатели рассылки
+     */
+    private $has_recipients = true;
 
     /**
      * Create a new command instance.
@@ -54,43 +61,44 @@ class SendEmail extends Command
      */
     public function handle()
     {
+        echo PHP_EOL."Получено задание : разослать письма.".PHP_EOL;
         // получи параметры команды из консоли
         // шаблон письма
         $template_name = $this->argument('template_name');
 
-        // id пользователя - получателя письма
-        $id = $this->option('id');
+        $users = $this->getUsers();
 
-        if($id == 'all')
+        // Проверь : существуют ли пользователи с указанными id  ?
+        if($this->allElementsAreNull($users))
         {
-            $users = $this->userRepository->all();//User::all();
+            // в коллекции одни null
+            $this->has_recipients = false;
+            echo PHP_EOL."Предупреждение : нет пользователей с указанными id.".PHP_EOL;
+        }
 
+        // если пользователи существуют
+        if($this->has_recipients)
+        {
             $bar = $this->output->createProgressBar(count($users));
             $bar->start();
 
-            foreach($users as $user)
-            {
-                $email = $user->emails()
-                               ->where('type',$template_name)
-                               ->where('need_to_send',true)
-                               ->first();
+            foreach ($users as $user) {
+                if ($user != null) {
+                    $email = $user->emails()
+                        ->where('type', $template_name)
+                        ->where('need_to_send', true)
+                        ->first();
 
-                if($email !=null) // если для данного пользователя есть письмо, которое нужно ему отправить
-                {
-                    $this->sendEmailToUser($email, $template_name);
-                    $bar->advance();
+                    if ($email != null) // если для данного пользователя есть письмо, которое нужно ему отправить
+                    {
+                        $this->sendEmail($email, $template_name);
+                        $bar->advance();
+                    }
                 }
             }
             $bar->finish();
-
             echo PHP_EOL;
-            echo "Все письма отправлены.".PHP_EOL;
-        }
-        else
-        {
-            $user = $this->userRepository->get($id);
-            $this->sendEmailToUser($user, $template_name);
-            echo "Письмо [".$user->name."] отправлено.".PHP_EOL;
+            echo "Задание выполнено." . PHP_EOL;
         }
     }
 
@@ -99,7 +107,7 @@ class SendEmail extends Command
      * @param Email $email строка в таблице emails, где указано какому пользователю - какое письмо отправить
      * @param string $template_name шаблон письма
      */
-    private function sendEmailToUser(Email $email, $template_name)
+    private function sendEmail(Email $email, $template_name)
     {
         // хозяин - получатель этого письма
         $user = $email->user;
@@ -112,4 +120,62 @@ class SendEmail extends Command
         $email->need_to_send = false;
         $email->save();
     }
+
+    /**
+     * @return Collection коллекция пользователей, чьи id были получены из опций в консоли
+     */
+    private function getUsers():Collection
+    {
+        $users = []; // массив пользователей, кому нужно будет отправить письмо
+
+        if($this->option('all'))
+        {
+            $users = $this->userRepository->all();
+            echo PHP_EOL."Получена опция all".PHP_EOL;
+        }
+
+        if($this->option('id'))
+        {
+            $user_ids = $this->option('id');
+
+            foreach($user_ids as $id)
+            {
+                //при получении несуществующих id, вернёт null
+                $users[] = $this->userRepository->get((int)$id);
+            }
+            echo PHP_EOL."Получены индивидуальные id".PHP_EOL;
+        }
+
+        // конвертация array->Collection
+        $users = collect($users);
+
+        return $users;
+    }
+
+    /**
+     * Передумал использовать этот метод. Но пусть сохранится, возможно на будущее использование.
+     * @param Collection $collection
+     * @return bool вернёт true, если в коллекции все элементы null
+     */
+    private function allElementsAreNull(Collection $collection):bool
+    {
+        $result = false;
+        $count_nulls = 0;
+        if($collection!=null)
+        {
+            foreach($collection as $item)
+            {
+                if($item == null)
+                {
+                    $count_nulls++;
+                }
+            }
+        }
+        if(count($collection) == $count_nulls)
+        {
+            $result = true;
+        }
+        return $result;
+    }
+
 }
