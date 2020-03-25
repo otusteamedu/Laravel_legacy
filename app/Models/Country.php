@@ -21,6 +21,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Country extends Model
 {
+    protected $fillable = [
+        'name',
+        'phone_code'
+    ];
+
     public $timestamps = false;
 
     public function language()

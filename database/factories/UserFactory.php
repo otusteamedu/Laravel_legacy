@@ -12,7 +12,7 @@ $factory->define(User::class, function (Faker $faker) {
         'active' => $faker->numberBetween(0, 1),
         'name' => $faker->name,
         'last_name' => $faker->lastName,
-        'country_id' => Country::get()->random()->id,
+        'country_id' => Country::get()->random()->id || factory(Country::class, 1),
         'region' => $faker->state,
         'locality' => $faker->city,
         'email' => $faker->unique()->safeEmail,

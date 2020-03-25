@@ -81,7 +81,8 @@ class User extends Authenticatable
         'country_id',
         'region',
         'locality',
-        'picture_id'
+        'picture_id',
+        'api_token'
     ];
 
     /**
@@ -124,12 +125,22 @@ class User extends Authenticatable
     }
 
     public function isAdmin() {
-        // @ToDo: переделать на реальную проверку наличия админской группы. Пока что админом будет первый пользователь
-        return $this->id === 1;
+        foreach ($this->roles as $role) {
+            if ($role->name === 'administrators') {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function isModerator() {
-        // @ToDo: переделать на реальную проверку наличия модераторской группы. Пока что модератором будет второй пользователь
-        return $this->id === 2;
+        foreach ($this->roles as $role) {
+            if ($role->name === 'moderators') {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -11,31 +11,15 @@
 |
 */
 
+use App\Models\User;
+
 Auth::routes();
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'HomeController@index')->name('index');
 
-Route::get('/about/', function () {
-    return view('about.index');
-});
+Route::get('/about/', 'HomeController@about')->name('about.index');
 
-Route::get('/news/', function () {
-    return view('news.index');
-});
-
-Route::get('/auth/', function () {
-    return view('auth.index');
-});
-
-Route::get('/personal/', function () {
-    return view('personal.index');
-})->middleware(['auth']);
-
-Route::get('admin', function () {
-    return view('admin.index');
-})->name('admin.index')->middleware(['auth', 'can:admin-section-available']);
+Route::get('admin', 'HomeController@admin')->name('admin.index')->middleware(['auth', 'can:admin-section-available']);
 
 Route::name('admin.')->middleware(['auth', 'can:admin-section-available'])->group(function () {
     Route::prefix('admin')->group(function () {
@@ -50,3 +34,13 @@ Route::name('admin.')->middleware(['auth', 'can:admin-section-available'])->grou
         ]);
     });
 });
+
+Route::get('/auth/', function () {
+    return view('auth.index');
+});
+
+Route::get('/news/', function () {
+    return view('news.index');
+});
+
+Route::get('/personal/', 'HomeController@personal')->middleware(['auth']);
