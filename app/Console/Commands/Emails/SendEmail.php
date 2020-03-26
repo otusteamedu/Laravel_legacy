@@ -7,6 +7,7 @@ use App\Models\Email;
 use App\Models\User;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Console\Command;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -22,7 +23,8 @@ class SendEmail extends Command
      */
     protected $signature = 'emails:send
                             { template_name : Название шаблона письма }
-                            { --id= : id пользователя, который получит письмо }';
+                            { --all : сделать рассылку всем пользователям, кто удовлетворяет критериям рассылки }
+                            { --id=* : id пользователя, который удовлетворяет критериям рассылки и кому будет отправлено письмо }';
 
     /**
      * The console command description.
@@ -54,52 +56,46 @@ class SendEmail extends Command
      */
     public function handle()
     {
+        echo PHP_EOL . "Задание : разослать письма." . PHP_EOL;
         // получи параметры команды из консоли
         // шаблон письма
         $template_name = $this->argument('template_name');
 
-        // id пользователя - получателя письма
-        $id = $this->option('id');
+        $users = $this->getUsers();
 
-        if($id == 'all')
-        {
-            $users = $this->userRepository->all();//User::all();
+        // @todo Проверь : существуют ли пользователи с указанными id  ? См. ветку den-abidov/hw21.5
 
-            $bar = $this->output->createProgressBar(count($users));
-            $bar->start();
+        // допустим пользователи существуют
 
-            foreach($users as $user)
-            {
+        $bar = $this->output->createProgressBar(count($users));
+        $bar->start();
+
+        foreach ($users as $user) {
+            if ($user != null) {
                 $email = $user->emails()
-                               ->where('type',$template_name)
-                               ->where('need_to_send',true)
-                               ->first();
+                    ->where('type', $template_name)
+                    ->where('need_to_send', true)
+                    ->first();
 
-                if($email !=null) // если для данного пользователя есть письмо, которое нужно ему отправить
+                if ($email != null) // если для данного пользователя есть письмо, которое нужно ему отправить
                 {
-                    $this->sendEmailToUser($email, $template_name);
+                    $this->sendEmail($email, $template_name);
                     $bar->advance();
                 }
             }
-            $bar->finish();
-
-            echo PHP_EOL;
-            echo "Все письма отправлены.".PHP_EOL;
         }
-        else
-        {
-            $user = $this->userRepository->get($id);
-            $this->sendEmailToUser($user, $template_name);
-            echo "Письмо [".$user->name."] отправлено.".PHP_EOL;
-        }
+        $bar->finish();
+        echo PHP_EOL;
+        echo "Задание выполнено." . PHP_EOL;
     }
+
 
     /**
      * Отправка письма пользователю
      * @param Email $email строка в таблице emails, где указано какому пользователю - какое письмо отправить
      * @param string $template_name шаблон письма
      */
-    private function sendEmailToUser(Email $email, $template_name)
+    private function sendEmail(Email $email, $template_name)
     {
         // хозяин - получатель этого письма
         $user = $email->user;
@@ -112,4 +108,36 @@ class SendEmail extends Command
         $email->need_to_send = false;
         $email->save();
     }
+
+    /**
+     * @return Collection коллекция пользователей, чьи id были получены из опций в консоли
+     */
+    private function getUsers():Collection
+    {
+        $users = []; // массив пользователей, кому нужно будет отправить письмо
+
+        if($this->option('all'))
+        {
+            $users = $this->userRepository->all();
+            echo PHP_EOL."Получена опция all".PHP_EOL;
+        }
+
+        if($this->option('id'))
+        {
+            $user_ids = $this->option('id');
+
+            foreach($user_ids as $id)
+            {
+                //при получении несуществующих id, вернёт null
+                $users[] = $this->userRepository->get((int)$id);
+            }
+            echo PHP_EOL."Получены индивидуальные id".PHP_EOL;
+        }
+
+        // конвертация array->Collection
+        $users = collect($users);
+
+        return $users;
+    }
+
 }
