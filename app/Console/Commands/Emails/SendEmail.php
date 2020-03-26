@@ -5,6 +5,7 @@ namespace App\Console\Commands\Emails;
 use App\Mail\BaseMail;
 use App\Models\Email;
 use App\Models\User;
+use App\Services\Emails\EmailsService;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -39,13 +40,20 @@ class SendEmail extends Command
     private $userRepository;
 
     /**
+     * @var EmailsService
+     */
+    private $emailsService;
+
+    /**
      * Create a new command instance.
      *
      * @param UserRepositoryInterface $userRepository
+     * @param EmailsService $emailsService
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, EmailsService $emailsService)
     {
         $this->userRepository = $userRepository;
+        $this->emailsService = $emailsService;
         parent::__construct();
     }
 
@@ -72,10 +80,8 @@ class SendEmail extends Command
 
         foreach ($users as $user) {
             if ($user != null) {
-                $email = $user->emails()
-                    ->where('type', $template_name)
-                    ->where('need_to_send', true)
-                    ->first();
+
+                $email = $this->emailsService->getNewEmailForUser($user, $template_name);
 
                 if ($email != null) // если для данного пользователя есть письмо, которое нужно ему отправить
                 {
@@ -105,8 +111,8 @@ class SendEmail extends Command
             ->send(new BaseMail($user, $template_name));
 
         // теперь пометь в таблице emails, что данное письмо больше не нужно отправлять
-        $email->need_to_send = false;
-        $email->save();
+        $this->emailsService-> setEmailStatusSent($email);
+
     }
 
     /**

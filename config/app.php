@@ -182,6 +182,7 @@ return [
         App\Providers\BladeServiceProvider::class,
         App\Services\MobileDetection\MobileDetectionServiceProvider::class,
         App\Services\Cache\CacheServiceProvider::class,
+        App\Services\Emails\EmailsServiceProvider::class,
     ],
 
     /*
