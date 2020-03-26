@@ -27,7 +27,11 @@ Route::get('/offer', function () {
     return view('plain.offer');
 });
 
-Route::name('cms.')->group(function () {
+Route::get('/cms', function () {
+    return view('cms.index.index');
+})->middleware('auth');
+
+Route::name('cms.')->middleware('auth')->group(function () {
     Route::prefix('cms')->group(function () {
         // resources позволяет разложить методы контроллеров по CRUD роутам
         Route::resources([
