@@ -5,6 +5,7 @@ namespace App\Console\Commands\Emails;
 use App\Mail\BaseMail;
 use App\Models\Email;
 use App\Models\User;
+use App\Services\Emails\EmailsService;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Exception;
 use Illuminate\Console\Command;
@@ -37,16 +38,23 @@ class SeedEmailsTable extends Command
     /**
      * @var UserRepositoryInterface
      */
-    private $userRepository;
+    protected $userRepository;
+
+    /**
+     * @var EmailsService
+     */
+    protected $emailsService;
 
     /**
      * Create a new command instance.
      *
      * @param UserRepositoryInterface $userRepository
+     * @param EmailsService $emailsService
      */
-    public function __construct(UserRepositoryInterface $userRepository)
+    public function __construct(UserRepositoryInterface $userRepository, EmailsService $emailsService)
     {
         $this->userRepository = $userRepository;
+        $this->emailsService = $emailsService;
         parent::__construct();
     }
 
@@ -65,33 +73,29 @@ class SeedEmailsTable extends Command
         {
             // ошибка
             echo PHP_EOL;
-            echo "Кампания указана неверно. Выберите что-то из : ".Email::TYPE_NEW_ACTION.", ".Email::TYPE_ORDER_ACCEPTED.", ".Email::TYPE_ORDER_SHIPPED;
+            echo "Кампания указана неверно. Выберите что-то из : ".Email::TEMPLATE_NEW_ACTION.", ".Email::TEMPLATE_ORDER_ACCEPTED.", ".Email::TEMPLATE_ORDER_SHIPPED;
             echo PHP_EOL;
-            dd("Выполнение команды прервано.");
+            $this->error("Выполнение команды прервано.");
         }
 
         $users = $this->userRepository->all();
-
-            /*$emails = Email::all()
-                ->where('type',$campaign)
-                ->where('need_to_send',true);*/
 
         $bar = $this->output->createProgressBar(count($users));
         $bar->start();
 
         foreach($users as $user)
         {
-            if($campaign == Email::TYPE_NEW_ACTION && EmailRules::qualifiesForNewActionEmail($user))
+            if($campaign == Email::TEMPLATE_NEW_ACTION && EmailRules::qualifiesForNewActionEmail($user))
             {
-                $this->markUserForEmailing($user, $campaign);
+                $this->emailsService->createEmail($user, $campaign);
             }
-            if($campaign == Email::TYPE_ORDER_ACCEPTED && EmailRules::qualifiesForOrderAcceptedEmail($user))
+            if($campaign == Email::TEMPLATE_ORDER_ACCEPTED && EmailRules::qualifiesForOrderAcceptedEmail($user))
             {
-                $this->markUserForEmailing($user, $campaign);
+                $this->emailsService->createEmail($user, $campaign);
             }
-            if($campaign == Email::TYPE_ORDER_SHIPPED && EmailRules::qualifiesForOrderShippedEmail($user))
+            if($campaign == Email::TEMPLATE_ORDER_SHIPPED && EmailRules::qualifiesForOrderShippedEmail($user))
             {
-                $this->markUserForEmailing($user, $campaign);
+                $this->emailsService->createEmail($user, $campaign);
             }
 
            $bar->advance();
@@ -102,21 +106,18 @@ class SeedEmailsTable extends Command
         return ;
     }
 
+    /**
+     * @param string $campaign название e-mail рассылки = название шаблона письма
+     * @return bool если в списке разрёшённых значений, вернёт true
+     */
     private function validate(string $campaign):bool
     {
-        $valid_campaigns = [Email::TYPE_NEW_ACTION, Email::TYPE_ORDER_ACCEPTED, Email::TYPE_ORDER_SHIPPED];
+        $valid_campaigns = [Email::TEMPLATE_NEW_ACTION, Email::TEMPLATE_ORDER_ACCEPTED, Email::TEMPLATE_ORDER_SHIPPED];
         $campaign_is_valid = in_array($campaign, $valid_campaigns);
         return $campaign_is_valid;
     }
-    private function markUserForEmailing(User $user, string $campaign)
-    {
-        $email = factory(\App\Models\Email::class)->create([
-            'user_id' => $user->id,
-            'type' => $campaign,
-            'need_to_send' => true
-        ]);
-        $email->save();
-    }
+
+
     /**
      * Отправка письма пользователю
      * @param User $user пользователь - получатель письма

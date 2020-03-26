@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             # Column methods   : https://laravel.com/docs/6.x/migrations#columns
             # Column modifiers : https://laravel.com/docs/6.x/migrations#column-modifiers
             $table->bigIncrements('id');
+            $table->unsignedInteger('level')->default(User::LEVEL_USER);
             $table->string('source')->default('');
             $table->date('date')->default(now());
             $table->string('type')->default('');

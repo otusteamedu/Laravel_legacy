@@ -447,3 +447,51 @@ Bнёс изменения в SendEmail.php
 
 Часть 6
 Оставил только предложенные Егором изменения в SendEmail.php
+
+Часть 7
+
+Изменение 1 : модель Email
+    переименовал свойства TYPE_xxx:string => TEMPLATE_xxx:string.
+    переименовал свойство need_to_send:bool => status:string
+
+Изменение 2 : обновил таблицу create_emails_table
+
+Изменение 3 : Создал классы
+    Repositories\
+        EmailRepository.php
+            getNewEmailForUser(:User, :string):Email
+            setEmailStatus(:Email, :int):void
+
+    Handlers\
+        CreateEmailHandler.php
+            handle(:User, :string): void
+        EmailSentHandler.php
+            handle(:Email):void
+
+    EmailsService.php
+        getNewEmailForUser(:User, :string):Email
+        createEmail(:User, :string):void
+        setEmailStatusSent(:Email):void
+
+    EmailsServiceProvider.php
+
+Изменение 4 : Зарегистрировал EmailsServiceProvider в app\config.php
+
+Изменение 5 : консольная команда SeedEmailsTable.php
+    - генерирует письма для пользователей, сохраняет ("засевает") их в БД в таблицу emails.
+    Для пользователя, вызываю
+    $this->emailsService->createEmail(User: $user, string: $campaign);
+
+
+Изменение 6 : консольная команда SendEmail.php
+    - Итерирует по пользователям, получает письмо из БД, из таблицы emails таким образом:
+    $email = $this->emailsService->getNewEmailForUser($user, $template_name);
+
+    потом отправляет письмо
+    после отправки помечает письмо как отправленное
+    $this->emailsService-> setEmailStatusSent($email);
+
+НО, при вызове команды $ php artisan emails:seed, выбрасывает ОШИБКУ :
+Illuminate\Contracts\Container\BindingResolutionException  : Target [App\Services\Emails\Repositories\EmailRepositoryInterface] is not instantiable while building [App\Console\Commands\Emails\SendEmail, App\Services\Emails\EmailsService].
+
+Последняя работоспособная ветка : den-abidov/hw21.6
