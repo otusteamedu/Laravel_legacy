@@ -61,6 +61,8 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  * @mixin \Eloquent
+ * @property string|null $api_token
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereApiToken($value)
  */
 class User extends Authenticatable
 {
