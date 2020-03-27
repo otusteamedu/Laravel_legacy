@@ -11,7 +11,6 @@
 |
 */
 
-use App\Models\User;
 
 Auth::routes();
 
@@ -43,4 +42,4 @@ Route::get('/news/', function () {
     return view('news.index');
 });
 
-Route::get('/personal/', 'HomeController@personal')->middleware(['auth']);
+Route::get('/personal/', 'HomeController@personal')->middleware(['auth'])->name('personal.index');

@@ -126,7 +126,7 @@ class User extends Authenticatable
 
     public function isAdmin() {
         foreach ($this->roles as $role) {
-            if ($role->name === 'administrators') {
+            if ($role->name === Role::AVAILABLE_SPEC_ROLE_LIST['administrators']) {
                 return true;
             }
         }
@@ -136,7 +136,7 @@ class User extends Authenticatable
 
     public function isModerator() {
         foreach ($this->roles as $role) {
-            if ($role->name === 'moderators') {
+            if ($role->name === Role::AVAILABLE_SPEC_ROLE_LIST['moderators']) {
                 return true;
             }
         }

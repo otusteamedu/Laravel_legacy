@@ -16,7 +16,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Role extends Model
 {
-    public const ROLES_AVAILABLE_NAME_LIST = [
+    const AVAILABLE_SPEC_ROLE_LIST = [
         'administrators' => 'administrators',
         'moderators' => 'moderators',
     ];

@@ -9,7 +9,7 @@ use Faker\Generator as Faker;
 
 $factory->define(EventPicture::class, function (Faker $faker) {
     return [
-        'event_id' => (Event::all()->count() > 0) ? Event::all()->random()->id : factory(Event::class, 100),
-        'picture_id' => (Picture::all()->count() > 0) ? Picture::all()->random()->id : factory(Picture::class, 100),
+        'event_id' => factory(Event::class, 1),
+        'picture_id' => factory(Picture::class, 1),
     ];
 });

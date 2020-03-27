@@ -54,11 +54,11 @@
                                 <div id="navbarNav">
                                     <ul class="navbar-nav">
                                         @guest
-                                            <li class="nav-item active <?// @ToDo: подставлять active только на соответствующей странице?> mx-auto mx-md-0">
+                                            <li class="nav-item active <?// @ToDo: подставлять active только на соответствующей странице?> mx-auto mx-md-0 js-auth">
                                                 <a class="nav-link" data-toggle="modal" data-target=".bd-modal-auth" href="{{ route('login') }}">Вход</a>
                                             </li>
                                             @if (Route::has('register'))
-                                                <li class="nav-item active <?// @ToDo: подставлять active только на соответствующей странице?> mx-auto mx-md-0">
+                                                <li class="nav-item active <?// @ToDo: подставлять active только на соответствующей странице?> mx-auto mx-md-0 js-register">
                                                     <a class="nav-link" data-toggle="modal" data-target=".bd-modal-registration" href="{{ route('register') }}">Регистрация</a>
                                                 </li>
                                             @endif

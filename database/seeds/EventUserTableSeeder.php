@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Event;
 use App\Models\EventUser;
+use Illuminate\Database\Seeder;
 
 class EventUserTableSeeder extends Seeder
 {
@@ -12,6 +14,11 @@ class EventUserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(EventUser::class, 100)->create();
+        for ($i = 1; $i < 50; $i++) {
+            factory(EventUser::class, 1)->create([
+                'user_id' => User::all()->random()->id,
+                'event_id' => Event::all()->random()->id,
+            ]);
+        }
     }
 }

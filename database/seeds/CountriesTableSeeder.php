@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Country;
 use Illuminate\Database\Seeder;
 
 class CountriesTableSeeder extends Seeder
@@ -11,7 +12,7 @@ class CountriesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('countries')->insert([
+        $defaultCountryList = [
             [
                 'name' => 'Россия',
                 'phone_code' => '+7'
@@ -20,6 +21,15 @@ class CountriesTableSeeder extends Seeder
                 'name' => 'Україна',
                 'phone_code' => '+38'
             ]
-        ]);
+        ];
+
+        foreach ($defaultCountryList as $country) {
+            factory(Country::class, 1)->create(
+                [
+                    'name' => $country['name'],
+                    'phone_code' => $country['phone_code'],
+                ]
+            );
+        }
     }
 }

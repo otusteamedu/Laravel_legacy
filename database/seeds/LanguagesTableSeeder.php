@@ -1,18 +1,14 @@
 <?php
 
+use App\Models\Country;
+use App\Models\Language;
 use Illuminate\Database\Seeder;
-use \App\Models\Country;
 
 class LanguagesTableSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
-    public function run()
+    private function getAvailableLanguageList()
     {
-        DB::table('languages')->insert([
+        return [
             [
                 'name' => 'english',
                 'code' => 'eng',
@@ -33,6 +29,18 @@ class LanguagesTableSeeder extends Seeder
                 'code' => 'zho',
                 'country_id' => null,
             ]
-        ]);
+        ];
+    }
+
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        foreach ($this->getAvailableLanguageList() as $language) {
+            factory(Language::class, 1)->create($language);
+        }
     }
 }

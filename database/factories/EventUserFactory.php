@@ -2,15 +2,15 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\EventUser;
-use App\Models\Event;
 use App\Models\User;
+use App\Models\Event;
+use App\Models\EventUser;
 use Faker\Generator as Faker;
 
 $factory->define(EventUser::class, function (Faker $faker) {
     return [
-        'user_id' => (User::all()->count() > 0) ? User::all()->random()->id : factory(User::class, 100),
-        'event_id' => (Event::all()->count() > 0) ? Event::all()->random()->id : factory(Event::class, 100),
+        'user_id' => factory(User::class, 1),
+        'event_id' => factory(Event::class, 1),
         'is_successful' => $faker->numberBetween(0, 1),
     ];
 });

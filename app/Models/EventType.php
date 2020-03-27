@@ -24,4 +24,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class EventType extends Model
 {
+
 }

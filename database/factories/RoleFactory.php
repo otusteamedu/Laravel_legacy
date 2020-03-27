@@ -6,14 +6,20 @@ use App\Models\Role;
 use Faker\Generator as Faker;
 
 $factory->define(Role::class, function (Faker $faker) {
-    $currentRoleName = getCurrentRoleName();
     return [
-        'name' => $currentRoleName,
+        'name' => getUniqueRoleName($faker)
     ];
 });
 
-if (!function_exists('getCurrentRoleName')) {
-    function getCurrentRoleName() {
-        return Role::ROLES_AVAILABLE_NAME_LIST[array_rand(Role::ROLES_AVAILABLE_NAME_LIST)];
+if (!function_exists('getUniqueRoleName')) {
+    function getUniqueRoleName(Faker $faker)
+    {
+        $name = $faker->word();
+
+        if (Role::where('name', $name)->count()) {
+            return getUniqueRoleName($faker);
+        }
+
+        return $name;
     }
 }

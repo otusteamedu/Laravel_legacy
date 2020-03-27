@@ -14,6 +14,11 @@ class RoleUserTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(RoleUser::class, 10)->create();
+        for ($i = 1; $i < 10; $i++) {
+            factory(RoleUser::class, 1)->create([
+                'role_id' => Role::where(['name' => Role::AVAILABLE_SPEC_ROLE_LIST['moderators']])->first()->id,
+                'user_id' => User::all()->random()->id,
+            ]);
+        }
     }
 }

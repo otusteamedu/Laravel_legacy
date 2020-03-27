@@ -24,7 +24,8 @@
         "laravel/ui": "^2.0",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^4.1",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/php-code-coverage": "^7.0.9",
+        "phpunit/phpunit": "^8.5.2"
     },
     "config": {
         "optimize-autoloader": true,

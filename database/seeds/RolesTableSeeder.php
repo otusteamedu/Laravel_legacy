@@ -5,6 +5,10 @@ use App\Models\Role;
 
 class RolesTableSeeder extends Seeder
 {
+    private function getAvailableRoleList() {
+        return Role::AVAILABLE_SPEC_ROLE_LIST;
+    }
+
     /**
      * Run the database seeds.
      *
@@ -12,7 +16,7 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        foreach (Role::ROLES_AVAILABLE_NAME_LIST as $role) {
+        foreach ($this->getAvailableRoleList() as $role) {
             factory(Role::class, 1)->create(['name' => $role]);
         }
     }

@@ -1,7 +1,9 @@
 <?php
 
-use Illuminate\Database\Seeder;
+use App\Models\Event;
+use App\Models\Picture;
 use App\Models\EventPicture;
+use Illuminate\Database\Seeder;
 
 class EventPictureTableSeeder extends Seeder
 {
@@ -12,6 +14,11 @@ class EventPictureTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(EventPicture::class, 100)->create();
+        for ($i = 1; $i < 50; $i++) {
+            factory(EventPicture::class, 1)->create([
+                'event_id' => Event::all()->random()->id,
+                'picture_id' => Picture::all()->random()->id,
+            ]);
+        }
     }
 }
