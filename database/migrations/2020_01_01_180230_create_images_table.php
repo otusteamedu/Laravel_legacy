@@ -20,8 +20,8 @@ class CreateImagesTable extends Migration
             $table->string('mime', 11);
             $table->smallInteger('width')->unsigned();
             $table->smallInteger('height')->unsigned();
-            $table->integer('format_id')->unsigned();
-            $table->integer('owner_id')->unsigned()->default(0);
+            $table->integer('format_id')->unsigned()->nullable();
+            $table->integer('owner_id')->unsigned()->nullable();
             $table->integer('views')->unsigned()->default(0);
             $table->tinyInteger('publish')->unsigned()->default(1 );
             $table->text('description')->nullable();

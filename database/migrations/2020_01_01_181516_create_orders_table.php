@@ -21,7 +21,6 @@ class CreateOrdersTable extends Migration
             $table->bigInteger('address_id')->unsigned();
             $table->bigInteger('delivery_id')->unsigned();
             $table->text('user_message')->nullable();
-            $table->tinyInteger('status_id')->unsigned()->nullable();
             $table->timestamps();
         });
 

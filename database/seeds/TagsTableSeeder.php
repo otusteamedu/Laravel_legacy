@@ -11,6 +11,8 @@ class TagsTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Tag::class, 50)->create();
+        foreach (config('seeds.tags') as $format) {
+            DB::table('tags')->insert($format);
+        }
     }
 }

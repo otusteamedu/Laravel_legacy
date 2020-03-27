@@ -11,6 +11,8 @@ class OwnersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Owner::class, 5)->create();
+        foreach (config('seeds.owners') as $format) {
+            DB::table('owners')->insert($format);
+        }
     }
 }

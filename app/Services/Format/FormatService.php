@@ -4,29 +4,30 @@
 namespace App\Services\Format;
 
 
-use App\Services\Format\Handlers\GetAllFormatHandler;
+use App\Services\Format\Repositories\FormatRepository;
 use Illuminate\Database\Eloquent\Collection;
 
 class FormatService
 {
     /**
-     * @var GetAllFormatHandler
+     * @var FormatRepository
      */
-    private $getAllHandler;
+    private $repository;
 
     /**
      * FormatService constructor.
-     * @param GetAllFormatHandler $getAllFormatHandler
+     * @param FormatRepository $repository
      */
-    public function __construct(GetAllFormatHandler $getAllFormatHandler)
+    public function __construct(FormatRepository $repository)
     {
-        $this->getAllHandler = $getAllFormatHandler;
+        $this->repository = $repository;
     }
 
     /**
      * @return Collection
      */
-    public function getAll(): Collection {
-        return $this->getAllHandler->handle();
+    public function index(): Collection
+    {
+        return $this->repository->index();
     }
 }

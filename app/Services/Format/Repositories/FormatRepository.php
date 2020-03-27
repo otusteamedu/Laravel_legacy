@@ -12,7 +12,7 @@ class FormatRepository
     /**
      * @return Collection
      */
-    public function getAll(): Collection {
+    public function index(): Collection {
         return Format::all();
     }
 }

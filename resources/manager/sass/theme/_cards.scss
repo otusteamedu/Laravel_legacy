@@ -1,0 +1,45 @@
+$status-colors: (
+    // Цвета, которые закоментированы - уже есть в шаблоне
+    //purple (primary)
+    //green
+    //orange (warning)
+    //danger (red)
+    //rose
+    deep-purple: ("name": "deep-purple", "main": $deep-purple, "light": $deep-purple-400, "dark": $deep-purple-600),
+    indigo: ("name": "indigo", "main": $indigo, "light": $indigo-400, "dark": $indigo-600),
+    blue: ("name": "blue", "main": $blue, "light": $blue-400, "dark": $blue-600),
+    light-blue: ("name": "light-blue", "main": $light-blue, "light": $light-blue-400, "dark": $light-blue-600),
+    cyan: ("name": "cyan", "main": $cyan, "light": $cyan-400, "dark": $cyan-600),
+    teal: ("name": "teal", "main": $teal, "light": $teal-400, "dark": $teal-600),
+    light-green: ("name": "teal", "main": $teal, "light": $teal-400, "dark": $teal-600),
+    lime: ("name": "light-green", "main": $light-green, "light": $light-green-400, "dark": $light-green-600),
+    yellow: ("name": "yellow", "main": $yellow, "light": $yellow-400, "dark": $yellow-600),
+    amber: ("name": "amber", "main": $amber, "light": $amber-400, "dark": $amber-600),
+    deep-orange: ("name": "deep-orange", "main": $deep-orange, "light": $deep-orange-400, "dark": $deep-orange-600),
+    brown: ("name": "brown", "main": $brown, "light": $brown-400, "dark": $brown-600),
+    grey: ("name": "grey", "main": $grey, "light": $grey-400, "dark": $grey-600),
+    blue-grey: ("name": "blue-grey", "main": $blue-grey, "light": $blue-grey-400, "dark": $blue-grey-600),
+);
+
+@each $status, $mapValues in $status-colors {
+    $map: $mapValues;
+    $name: map_get($map, "name");
+    $lightColor: map_get($map, "light");
+    $darkColor: map_get($map, "dark");
+    $mainColor: map_get($map, "main");
+    .md-card-header-#{$name} .card-icon,
+    .md-card-header-#{$name} .card-text,
+    .md-card-header-#{$name}:not(.md-card-header-icon):not(.md-card-header-text),
+    [data-background-color=#{$name}],
+    .md-tabs.md-success .md-tabs-navigation{
+        background: linear-gradient(60deg, $lightColor, $darkColor);
+    }
+
+    [data-background-color=#{$name}],
+    .md-tabs.md-success .md-tabs-navigation,
+    .md-card-header-#{$name} .card-icon,
+    .md-card-header-#{$name}:not(.md-card-header-icon):not(.md-card-header-text),
+    .md-card-header-#{$name} .card-text{
+        @include shadow-big-color($mainColor);
+    }
+}

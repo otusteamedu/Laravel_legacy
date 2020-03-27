@@ -1,0 +1,222 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+@import url('https://use.fontawesome.com/releases/v5.0.8/css/all.css');
+
+@import 'material-dashboard';
+@import 'theme/import';
+
+// Width
+
+.width-small {
+    max-width: 50px !important;
+    width: 50px !important;
+}
+
+.space{
+    height: 130px;
+    display: block;
+}
+.space-110{
+    height: 110px;
+    display: block;
+}
+.space-50{
+    height: 50px;
+    display: block;
+}
+.space-70{
+    height: 70px;
+    display: block;
+}
+.space-30{
+    height: 30px;
+    display: block;
+}
+.space-20{
+    height: 20px;
+    display: block;
+}
+.space-10{
+    height: 10px;
+    display: block;
+}
+.space-1{
+    height: 1px;
+    display: block;
+}
+// Margins
+
+.mr-10 {
+    margin-right: .6em;
+}
+
+.mt-0 {
+    margin-top: 0 !important;
+}
+
+.mt-1 {
+    margin-top: .6em;
+}
+
+.mt-2 {
+    margin-top: 1.2em;
+}
+
+.mt-3 {
+    margin-top: 1.8em;
+}
+
+.mt-4 {
+    margin-top: 2.4em;
+}
+
+.mt-5 {
+    margin-top: 3em;
+}
+
+.mb-0 {
+    margin-bottom: 0 !important;
+}
+
+.mb-1 {
+    margin-bottom: .6em !important;
+}
+
+.mb-2 {
+    margin-bottom: 1.2em !important;
+}
+
+.mb-3 {
+    margin-bottom: 1.8em !important;
+}
+
+// Paddings
+
+.pr-0 {
+    padding-right: 0 !important;
+}
+
+// Form Errors
+
+.md-field.md-has-textarea:not(.md-autogrow).md-error:before {
+    border-color: #f44336 !important;
+}
+.md-field.md-has-textarea:not(.md-autogrow).md-valid:before {
+    border-color: #4caf50 !important;
+}
+
+// Notices
+
+.under-input-notice {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(70%);
+    font-size: .8em;
+    line-height: 1.2;
+}
+
+.under-textarea-notice {
+    @extend .under-input-notice;
+    transform: translateY(120%);
+}
+
+.md-field.md-has-textarea:not(.md-autogrow) {
+    &::before {
+        border-color: #00b0ff !important;
+    }
+    .md-textarea {
+        padding-left: 0 !important;
+        padding-right: 32px !important;
+    }
+    span.md-count {
+        bottom: -30px;
+    }
+}
+
+.md-field .md-input {
+    padding-right: 32px !important;
+}
+
+// Card
+
+.md-card .md-card-actions {
+    border: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+// Flex
+
+.md-flex {
+    display: flex;
+}
+
+.md-justify-end {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.md-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+// Spinner
+
+.spinner__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Transform
+
+.rotate-180 {
+    transform: rotate(180deg);
+}
+
+// Tables
+
+.md-table-row {
+    .md-color-icon {
+        background: #fafafa;
+        border-radius: 50%;
+        margin: 1px;
+    }
+}
+
+.md-table-cell-container {
+    button.md-just-icon {
+        margin-left: 3px;
+        margin-right: 3px;
+    }
+}
+
+.md-category-tag {
+    display: inline-block;
+    padding: 3px 5px;
+    background-color: #dddddd;
+    border-radius: 3px;
+    margin: 3px;
+}
+
+// Tabs
+
+.md-card-tabs {
+    .tab-content {
+        div[class^="tab-pane-"] {
+            width: 100%;
+        }
+    }
+}
+
+// Transitions
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+}

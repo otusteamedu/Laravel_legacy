@@ -22,6 +22,11 @@ class CreateFormatsTable extends Migration
             $table->decimal('max', 2,1)->unsigned();
             $table->timestamps();
         });
+
+        Schema::table('images', function(Blueprint $table) {
+            $table->foreign('format_id')->references('id')->on('formats')
+                ->onDelete('set null')->onUpdate('cascade');
+        });
     }
 
     /**
@@ -31,6 +36,7 @@ class CreateFormatsTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('formats');
     }
 }

@@ -14,7 +14,7 @@ class CreateCategoryImageTable extends Migration
     public function up()
     {
         Schema::create('category_image', function (Blueprint $table) {
-            $table->bigInteger('category_id')->unsigned();
+            $table->integer('category_id')->unsigned();
             $table->bigInteger('image_id')->unsigned();
             $table->string('category_type', 20);
             $table->primary(['category_id', 'image_id']);
