@@ -51,5 +51,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('admin-section-available', function (User $user) {
             return $user->isAdmin() || $user->isModerator();
         });
+
+        Gate::define('logs-section-available', function (User $user) {
+            return $user->isAdmin() || $user->isModerator();
+        });
     }
 }
