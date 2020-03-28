@@ -8,6 +8,7 @@ use App\Services\Countries\CountriesService;
 use App\Services\Cities\CitiesService;
 use App\Http\Controllers\Controller;
 use App\Models\City;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use View;
 
@@ -27,7 +28,7 @@ class CitiesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
@@ -41,11 +42,12 @@ class CitiesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
-        $countries = Country::get(['name']);
+        $countries = Country::all();
+
 
         return view('cms.cities.create', [
             'countries' => $countries,
@@ -55,13 +57,13 @@ class CitiesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @param StoreCityRequest $request
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreCityRequest $request)
     {
         $data = $request->getFormData();
-        $this->citiesService->createCity($data);
+        $this->citiesService->storeCity($data);
 
         return redirect(route('cms.cities.index'));
     }
@@ -70,7 +72,7 @@ class CitiesController extends Controller
      * Display the specified resource.
      *
      * @param City $cityId
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show(City $cityId)
     {
@@ -83,7 +85,7 @@ class CitiesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\City  $city
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit(City $city)
     {
@@ -100,7 +102,7 @@ class CitiesController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\City  $city
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, City $city)
     {

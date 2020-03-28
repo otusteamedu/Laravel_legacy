@@ -22,7 +22,7 @@ class CitiesService
      * @param array $data
      * @return City
      */
-    public function createCity(array $data): City
+    public function storeCity(array $data): City
     {
         return $this->createCityHandler->handle($data);
     }

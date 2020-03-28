@@ -48,9 +48,7 @@ class CountriesService
      */
     public function storeCountry(array $data): Country
     {
-        $country = $this->createCountryHandler->handle($data);
-
-        return $country;
+        return $this->createCountryHandler->handle($data);
     }
 
     /**

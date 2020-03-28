@@ -4,7 +4,10 @@
 namespace App\Http\Controllers\Cms\Cities\Requests;
 
 
-use App\Http\Requests\FormRequest;
+use Auth;
+use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Arr;
+
 
 class StoreCityRequest extends FormRequest
 {
@@ -24,6 +27,20 @@ class StoreCityRequest extends FormRequest
             'name' => 'required|unique:cities,name|max:100',
             'country_id' => 'required'
         ];
+    }
+
+    public function getFormData()
+    {
+        $data = $this->request->all();
+
+        //dd($data);
+
+        $data = Arr::except($data, [
+            '_token',
+        ]);
+        $data['created_user_id'] = Auth::id();
+
+        return $data;
     }
 
 }

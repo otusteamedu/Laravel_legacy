@@ -23,7 +23,4 @@ class UpdateCountryRequest extends StoreCountryRequest
             'continent_name' => 'required|max:20'
         ];
     }
-
-
-
 }

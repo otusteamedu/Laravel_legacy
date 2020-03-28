@@ -8,7 +8,7 @@
     <div class="col-sm-4 col-md-4">
         <div class="form-group">
             {{ Form::label('url', 'Страна') }}
-            {{ Form::select('countries', $countries->all() )}}
+            {{ Form::select('country_id', $countries->pluck('name', 'id')->toArray(), $countries->pluck('country_id')->toArray(), array('class'=>'form-control form-control')) }}
         </div>
     </div>
 </div>

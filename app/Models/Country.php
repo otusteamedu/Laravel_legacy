@@ -30,6 +30,7 @@ class Country extends BaseModel
     }
 
     protected $fillable = [
+        'id',
         'name',
         'continent_name',
     ];
