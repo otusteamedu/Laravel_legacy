@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\User;
 
 class HomeController extends Controller
 {
@@ -13,7 +13,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        //$this->middleware('auth');
+
     }
 
     /**
@@ -38,6 +38,8 @@ class HomeController extends Controller
 
     public function personal()
     {
-        return view('personal.index');
+        $user = \Auth::user();
+
+        return view('personal.index', ['user' => $user]);
     }
 }
