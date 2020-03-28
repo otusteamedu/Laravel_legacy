@@ -37,14 +37,14 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single', 'daily', 'codeblogslack'],
             'ignore_exceptions' => false,
         ],
 
         'single' => [
             'driver' => 'single',
             'path' => storage_path('logs/laravel.log'),
-            'level' => 'debug',
+            'level' => env('FILE_LOGGING_LEVEL'),
         ],
 
         'daily' => [
@@ -52,6 +52,14 @@ return [
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
             'days' => 14,
+        ],
+
+        'codeblogslack' => [
+            'driver' => 'slack',
+            'url' => env('LOG_GEOCASHING_SLACK_WEBHOOK_URL'), // для моего канала: https://hooks.slack.com/services/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
+            'username' => 'Laravel Log',
+            'emoji' => ':boom:',
+            'level' => 'warning',
         ],
 
         'slack' => [
