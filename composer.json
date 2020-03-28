@@ -11,6 +11,7 @@
         "php": "^7.2",
         "arcanedev/log-viewer": "^7.0",
         "fideloper/proxy": "^4.0",
+        "intervention/image": "^2.5",
         "laravel/framework": "^7.0.8",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0"
