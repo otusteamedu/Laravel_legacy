@@ -9,7 +9,7 @@
 @endsection
 
 @section('title')
-    Сегменты пользователей
+    Список сегментов пользователей
 @endsection
 
 @section('content')
@@ -20,12 +20,13 @@
     <main>
         <div class="wrapper">
             <div class="header">
-                <h1>Сегменты пользователей</h1>
+                <h1>Список сегментов пользователей</h1>
                 @include('plain.blocks.header-sub-cms')
             </div>
 
             <div class="content">
-                @include('cms.segments.blocks.list.index')
+                @include('cms.segments.blocks.header.list', ['segments' => $segments])
+                @include('cms.segments.blocks.list.index', ['segments' => $segments])
             </div>
         </div>
     </main>

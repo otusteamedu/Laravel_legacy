@@ -6,8 +6,12 @@ use App\Http\Controllers\Cms\Countries\Requests\StoreCountryRequest;
 use App\Http\Controllers\Cms\Countries\Requests\UpdateCountryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Services\Countries\CountriesService;
+use Illuminate\Routing\Redirector;
 use View;
 
 class CountriesController extends Controller
@@ -25,7 +29,7 @@ class CountriesController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
@@ -40,7 +44,7 @@ class CountriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -49,7 +53,7 @@ class CountriesController extends Controller
 
     /**
      * @param StoreCountryRequest $request
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      */
     public function store(StoreCountryRequest $request)
     {
@@ -64,7 +68,7 @@ class CountriesController extends Controller
      * Display the specified resource.
      *
      * @param Country $country
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\View\View
      */
     public function show(Country $country)
     {
@@ -78,7 +82,7 @@ class CountriesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Country $country
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|\Illuminate\View\View
      */
     public function edit(Country $country)
     {
@@ -90,7 +94,7 @@ class CountriesController extends Controller
     /**
      * @param UpdateCountryRequest $request
      * @param Country $country
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @return RedirectResponse|Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function update(UpdateCountryRequest $request, Country $country)

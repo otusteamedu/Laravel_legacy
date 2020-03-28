@@ -9,7 +9,7 @@
 @endsection
 
 @section('title')
-    Категории предложений
+    Список категорий товарных предложений
 @endsection
 
 @section('content')
@@ -20,12 +20,13 @@
     <main>
         <div class="wrapper">
             <div class="header">
-                <h1>Категории предложений</h1>
+                <h1>Список категорий товарных предложений</h1>
                 @include('plain.blocks.header-sub-cms')
             </div>
 
             <div class="content">
-                @include('cms.categories.blocks.list.index')
+                @include('cms.categories.blocks.header.list', ['categories' => $categories])
+                @include('cms.categories.blocks.list.index', ['categories' => $categories])
             </div>
         </div>
     </main>
@@ -33,5 +34,6 @@
     <footer>
         @include('plain.blocks.footer')
     </footer>
+
 
 @endsection

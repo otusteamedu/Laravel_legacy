@@ -1,5 +1,1 @@
-@component('blocks.header.countries.show')
-    @slot('title', __('messages.countries'))
-    @slot('description', __('messages.companiesHeaderDescription'))
-    <a class="btn btn-primary btn-lg" href="{{ route('cms.countries.create') }}" role="button">@lang('messages.addCountry')</a>
-@endcomponent
+<a class="btn btn-primary btn-lg" href="{{ route('cms.categories.create') }}" role="button">Добавить категорию</a>

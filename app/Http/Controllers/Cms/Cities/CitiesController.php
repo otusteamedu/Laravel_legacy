@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Cms\Cities;
 
 use App\Http\Controllers\Cms\Cities\Requests\StoreCityRequest;
 use App\Models\Country;
-use App\Services\Countries\CountriesService;
 use App\Services\Cities\CitiesService;
+use App\Services\Countries\CountriesService;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use Illuminate\Contracts\Foundation\Application;
@@ -47,7 +47,6 @@ class CitiesController extends Controller
     public function create()
     {
         $countries = Country::all();
-
 
         return view('cms.cities.create', [
             'countries' => $countries,

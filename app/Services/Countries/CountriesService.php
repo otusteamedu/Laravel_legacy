@@ -10,9 +10,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class CountriesService
 {
-    /** @var CountryRepositoryInterface */
     private $countryRepository;
-    /** @var CreateCountryHandler */
     private $createCountryHandler;
 
     public function __construct(

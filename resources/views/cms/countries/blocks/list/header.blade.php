@@ -1,7 +1,7 @@
 <thead>
 <tr>
     <th scope="col">#</th>
-    <th scope="col">Страна</th>
-    <th scope="col">Континент</th>
+    <th scope="col">наименование</th>
+    <th scope="col">Условия</th>
 </tr>
 </thead>

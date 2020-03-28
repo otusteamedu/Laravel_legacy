@@ -9,7 +9,7 @@
 @endsection
 
 @section('title')
-    Список пользователей
+    Список тарифов пользователей
 @endsection
 
 @section('content')
@@ -20,35 +20,13 @@
     <main>
         <div class="wrapper">
             <div class="header">
-                <h1>Список пользователей</h1>
+                <h1>Список тарифов пользователей</h1>
                 @include('plain.blocks.header-sub')
             </div>
 
             <div class="content">
-                <div class="edit-data-form">
-                    <form class="form-horizontal">
-                        <fieldset>
-                            <div class="form-group">
-                                <label for="inputName" class="control-label col-xs-2">Название страны</label>
-                                <div class="col-xs-10">
-                                    <input type="text" class="form-control" id="inputName" placeholder="Россия">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="inputName" class="control-label col-xs-2">Континент</label>
-                                <div class="col-xs-10">
-                                    <input type="text" class="form-control" id="inputContinentName" placeholder="Евразия">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-xs-offset-2 col-xs-10">
-                                    <button type="submit" class="btn btn-primary">Сохранить</button>
-                                </div>
-                            </div>
-                        </fieldset>
-                    </form>
-
-                </div>
+                @include('cms.tariffs.blocks.header.list', ['tariff' => $tariff])
+                @include('cms.tariffs.blocks.list.index', ['tariff' => $tariff])
             </div>
 
         </div>
