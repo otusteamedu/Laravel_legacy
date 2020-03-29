@@ -43,3 +43,7 @@ Route::get('/news/', function () {
 });
 
 Route::get('/personal/', 'HomeController@personal')->middleware(['auth'])->name('personal.index');
+Route::get('/personal/{user}', 'Web\Users\UsersController@edit')->middleware(['auth'])->name('user.edit');
+Route::put('/personal/{user}', 'Web\Users\UsersController@update')->middleware(['auth'])->name('user.update');
+Route::post('/personal/{user}', 'Web\Users\UsersController@store')->middleware(['auth'])->name('user.store');
+

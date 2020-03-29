@@ -3,7 +3,6 @@
 namespace App\Services\Users\Handlers;
 
 use App\Models\User;
-use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 
 /**
@@ -38,6 +37,12 @@ class UpdateUserHandler {
             $data['password'] = trim($data['password']);
         } else {
             $data['password'] = $user->password;
+        }
+
+        if (isset($data['picture_id'])) {
+            $data['picture_id'] = (int)$data['picture_id'];
+        } else {
+            $data['picture_id'] = $user->picture_id;
         }
 
         return $this->userRepository->updateFromArray($user, $data);

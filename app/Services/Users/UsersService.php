@@ -9,6 +9,7 @@ use App\Services\Users\Handlers\UpdateUserHandler;
 use App\Services\Users\Handlers\DeleteUserHandler;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use App\Services\Pictures\Resolvers\PictureIdByUploadedFileResolver;
 
 class UsersService
 {
@@ -16,18 +17,21 @@ class UsersService
     private $updateUserHandler;
     private $deleteUserHandler;
     private $userRepository;
+    private $pictureIdByUploadedFileResolver;
 
     public function __construct(
         CreateUserHandler $createUserHandler,
         UpdateUserHandler $updateUserHandler,
         DeleteUserHandler $deleteUserHandler,
-        UserRepositoryInterface $userRepository
+        UserRepositoryInterface $userRepository,
+        PictureIdByUploadedFileResolver $pictureIdByUploadedFileResolver
     )
     {
         $this->createUserHandler = $createUserHandler;
         $this->updateUserHandler = $updateUserHandler;
         $this->deleteUserHandler = $deleteUserHandler;
         $this->userRepository = $userRepository;
+        $this->pictureIdByUploadedFileResolver = $pictureIdByUploadedFileResolver;
     }
 
     /**
@@ -64,6 +68,11 @@ class UsersService
      */
     public function updateUser(User $user, array $data): User
     {
+        if (!empty($data['avatar_uploaded_file'])) {
+            $data['picture_id'] = $this->pictureIdByUploadedFileResolver->resolve($data['avatar_uploaded_file']);
+            unset($data['avatar_uploaded_file']);
+        }
+
         return $this->updateUserHandler->handle($user, $data);
     }
 

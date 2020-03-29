@@ -14,7 +14,9 @@ class EloquentUserRepository implements UserRepositoryInterface
 {
     public function find(int $id)
     {
-        return User::find($id);
+        $user = User::find($id);
+
+        return $user;
     }
 
     public function search(array $filters = []): LengthAwarePaginator

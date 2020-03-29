@@ -119,6 +119,22 @@ class User extends Authenticatable
             ->withTimestamps();
     }
 
+    public function picture()
+    {
+        return $this->belongsTo(Picture::class);
+    }
+
+    public function getPictureFullPath()
+    {
+        $picture = $this->picture;
+
+        if (empty($picture)) {
+            return '';
+        }
+
+        return 'storage/upload/' . $picture->path;
+    }
+
     public function roles()
     {
         return $this->belongsToMany('App\Models\Role')

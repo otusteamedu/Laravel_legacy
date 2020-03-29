@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
-
 class HomeController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * HomeController constructor.
      */
     public function __construct()
     {
-
     }
 
     /**

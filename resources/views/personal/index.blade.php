@@ -4,13 +4,9 @@
 @section("content")
     <div class="row my-2">
         <div class="col-lg-4 mb-4 text-center">
+            {{$user->picture_id}}
             <img src="https://ya-webdesign.com/images/avatar-png-1.png"
                  class="mx-auto img-fluid img-circle d-block" alt="avatar" width="200px" height="200px">
-            <h6 class="mt-2">@lang('pages/personal_index.choose_another_photo')</h6>
-            <label class="custom-file">
-                <input type="file" id="file" class="custom-file-input">
-                <span class="custom-file-control btn btn-primary">@lang('pages/personal_index.choose_file')</span>
-            </label>
         </div>
         <div class="col-lg-8 mb-4">
             <ul class="nav nav-tabs">
@@ -80,42 +76,68 @@
                     </div>
                 </div>
                 <div class="tab-pane" id="edit">
-                    <form role="form">
+                    @include('layouts.blocks.form.errors')
+                    {{ Form::model(
+                        $user,
+                        [
+                            'route' => ['user.update', $user->id],
+                            'files' => true,  'method' => 'put', 'role' => 'form', 'enctype'=>'multipart/form-data'
+                        ])
+                    }}
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.avatar')</label>
+                            <div class="col-lg-9">
+                                <label class="custom-file">
+                                    <input type="file" id="file" name="avatar" class="custom-file-control">
+                                </label>
+                            </div>
+                        </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('global.first_name')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" placeholder="@lang('global.default_first_name')" value="">
+                                {{ Form::text('name', $user->name, ['class' => 'form-control', 'placeholder' => __('global.default_first_name')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('global.last_name')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" placeholder="@lang('global.default_last_name')" value="">
+                                {{ Form::text('last_name', $user->last_name, ['class' => 'form-control', 'placeholder' => __('global.default_last_name')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">Email</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="email" placeholder="@lang('alerts/forms.default_email')" value="">
+                                {{ Form::text('email', $user->email, ['class' => 'form-control', 'placeholder' => __('global.default_email')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('global.phone_number')</label>
                             <div class="col-lg-9">
-                                <input id="form_phone" type="tel" name="phone" class="form-control"
-                                       placeholder="@lang('alerts/forms.default_phone_number')">
+                                {{ Form::text('phone', $user->phone, ['class' => 'form-control', 'placeholder' => __('global.default_phone_number')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('global.country')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" name="country" placeholder="@lang('global.default_country')" value="">
+                               {{ Form::select(
+                                    'country_id',
+                                    ['1' => 'Россия', '2' => 'Украина'],
+                                    null,
+                                    ['class' => 'form-control'])
+                                }} <!-- @ToDo: заменить на динамические значения  -->
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('global.city')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="text" name="city" placeholder="@lang('global.default_city')" value="">
+                                {{ Form::text('region', $user->region, ['class' => 'form-control', 'placeholder' => __('global.default_city')]) }}
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-lg-3 col-form-label form-control-label">@lang('global.locality')</label>
+                            <div class="col-lg-9">
+                                {{ Form::text('locality', $user->locality, ['class' => 'form-control', 'placeholder' => __('global.default_locality')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
@@ -144,23 +166,23 @@
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('alerts/forms.password')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" placeholder="@lang('alerts/forms.password_default')" value="">
+                                {{ Form::text('password', '', ['class' => 'form-control', 'placeholder' => __('alerts/forms.password_default')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label">@lang('alerts/forms.confirm_password')</label>
                             <div class="col-lg-9">
-                                <input class="form-control" type="password" placeholder="@lang('alerts/forms.password')" value="">
+                                {{ Form::text('password_confirm', '', ['class' => 'form-control', 'placeholder' => __('alerts/forms.password_default')]) }}
                             </div>
                         </div>
                         <div class="form-group row">
                             <label class="col-lg-3 col-form-label form-control-label"></label>
                             <div class="col-lg-9">
                                 <input type="reset" class="btn btn-secondary" value="@lang('alerts/forms.cancel')">
-                                <input type="button" class="btn btn-primary" value="@lang('alerts/forms.save_changes')">
+                                <input type="submit" class="btn btn-primary" value="@lang('alerts/forms.save_changes')">
                             </div>
                         </div>
-                    </form>
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

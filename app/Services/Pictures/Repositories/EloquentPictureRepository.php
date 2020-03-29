@@ -33,12 +33,13 @@ class EloquentPictureRepository implements PictureRepositoryInterface
     public function createFromArray(array $data): Picture
     {
         $picture = new Picture();
-
         try {
             $picture->fill($data)->save();
         } catch (\Throwable $exception) {
-            return 'Произошла ошибка при сохранении:'
-                . $exception->getMessage(); // @ToDo: прикрутить обработку ошибок и их вывод на экран
+            // @ToDo: добавить логирование ошибки
+            /*return 'Произошла ошибка при сохранении:'
+                . $exception->getMessage();*/
+            // @ToDo: прикрутить обработку ошибок и их вывод на экран
         }
 
         return $picture;
