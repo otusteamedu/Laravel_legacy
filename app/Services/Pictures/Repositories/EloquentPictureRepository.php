@@ -36,10 +36,10 @@ class EloquentPictureRepository implements PictureRepositoryInterface
         try {
             $picture->fill($data)->save();
         } catch (\Throwable $exception) {
-            // @ToDo: добавить логирование ошибки
+            // @ToDo: прикрутить обработку ошибок и их вывод на экран
+            \Log::error('Impossible to create picture by params array', $data);
             /*return 'Произошла ошибка при сохранении:'
                 . $exception->getMessage();*/
-            // @ToDo: прикрутить обработку ошибок и их вывод на экран
         }
 
         return $picture;

@@ -34,6 +34,8 @@ class EloquentUserRepository implements UserRepositoryInterface
         try {
             $user->fill($data)->save(); // @ToDo: выяснить, почему вариант кода $user->create($data); не возвращет пользователя
         } catch (\Throwable $exception) {
+            \Log::error('Impossible to create user by params array', $data);
+
             return 'Произошла ошибка при сохранении:'
                 . $exception->getMessage(); // @ToDo: прикрутить обработку ошибок и их вывод на экран
         }

@@ -59,7 +59,7 @@ return [
             'url' => env('LOG_GEOCASHING_SLACK_WEBHOOK_URL'), // для моего канала: https://hooks.slack.com/services/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
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
-            'level' => 'warning',
+            'level' => 'error',
         ],
 
         'slack' => [

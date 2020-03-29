@@ -32,6 +32,8 @@ class EloquentEventRepository implements EventRepositoryInterface
         try {
             $event->fill($data)->save(); // @ToDo: выяснить, почему вариант кода $event->create($data); не возвращет событие
         } catch (\Throwable $exception) {
+            \Log::error('Impossible to create event by params array', $data);
+
             return 'Произошла ошибка при сохранении:'
                 . $exception->getMessage(); // @ToDo: прикрутить обработку ошибок и их вывод на экран
         }
