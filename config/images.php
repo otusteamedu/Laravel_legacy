@@ -15,6 +15,7 @@ return [
         'size' => [
             'height' => 1000,
             'width' => 1000,
-        ]
+        ],
+        'default_path' => 'storage/upload/default-content/avatar.png'
     ],
 ];

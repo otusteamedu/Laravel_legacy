@@ -4,9 +4,9 @@
 @section("content")
     <div class="row my-2">
         <div class="col-lg-4 mb-4 text-center">
-            {{$user->picture_id}}
-            <img src="https://ya-webdesign.com/images/avatar-png-1.png"
-                 class="mx-auto img-fluid img-circle d-block" alt="avatar" width="200px" height="200px">
+            <img src="@if (empty($pictureFullPath = $user->getPictureFullPath())) {{\Config::get('images.avatar.default_path')}}
+                @else{{ $pictureFullPath }}@endif"
+                class="mx-auto img-fluid img-circle d-block" alt="avatar" width="200px" height="200px">
         </div>
         <div class="col-lg-8 mb-4">
             <ul class="nav nav-tabs">
