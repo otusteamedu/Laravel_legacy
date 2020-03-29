@@ -10,6 +10,8 @@ use App\Services\News\Repositories\EloquentNewsRepository;
 use App\Services\News\Repositories\NewsRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
+use App\Services\Pictures\Repositories\EloquentPictureRepository;
+use App\Services\Pictures\Repositories\PictureRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 
@@ -59,6 +61,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             UserRepositoryInterface::class,
             EloquentUserRepository::class
+        );
+
+        $this->app->bind(
+            PictureRepositoryInterface::class,
+            EloquentPictureRepository::class
         );
 
         /*
