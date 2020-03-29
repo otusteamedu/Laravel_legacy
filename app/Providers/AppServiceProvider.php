@@ -6,6 +6,10 @@ use App\Services\Categories\Repositories\EloquentCategoryRepository;
 use App\Services\Categories\Repositories\CategoryRepositoryInterface;
 use App\Services\Cities\Repositories\EloquentCityRepository;
 use App\Services\Cities\Repositories\CityRepositoryInterface;
+use App\Services\Offers\Repositories\EloquentOfferRepository;
+use App\Services\Offers\Repositories\OfferRepositoryInterface;
+use App\Services\Projects\Repositories\EloquentProjectRepository;
+use App\Services\Projects\Repositories\ProjectRepositoryInterface;
 use App\Services\Segments\Repositories\EloquentSegmentRepository;
 use App\Services\Segments\Repositories\SegmentRepositoryInterface;
 use App\Services\Tariffs\Repositories\EloquentTariffRepository;
@@ -66,14 +70,15 @@ class AppServiceProvider extends ServiceProvider
             CategoryRepositoryInterface::class,
             EloquentCategoryRepository::class
         );
-        /*
+
         $this->app->bind(
             ProjectRepositoryInterface::class,
             EloquentProjectRepository::class
         );
+
         $this->app->bind(
             OfferRepositoryInterface::class,
             EloquentOfferRepository::class
-        );*/
+        );
     }
 }
