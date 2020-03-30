@@ -11,8 +11,9 @@
 |
 */
 
-Route::get('/', function () {
 
+
+Route::name('index')->get('/', function () {
     return view('public.index.page');
 });
 
@@ -24,13 +25,12 @@ Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
 
-Route::get('/admin', function () {
-    return view('admin.auth.login');
-});
+Route::get('/admin', 'Auth\AdminPathInvokeRoutController');
 
 Route::name('admin.')->group(function(){
     Route::prefix('admin')->middleware([
-            'auth'
+            'auth',
+            'check_user'
         ])->group(function(){
         Route::resources([
             'index'=>'Admin\Index\IndexController',
@@ -40,9 +40,5 @@ Route::name('admin.')->group(function(){
     });
 }); 
 
-/* Route::get('/admin/news', function () {
-    return view('admin.news.page');
-}); */
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');

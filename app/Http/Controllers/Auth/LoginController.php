@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
@@ -37,11 +38,14 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->redirectTo = route('admin.index.index');
-        $this->middleware('guest')->except('logout');
+        $this->middleware('check_user')->except('logout');
     }
 
     public function showLoginForm()
     {
+        if(Auth::check()){
+            return redirect($this->redirectTo);
+        }
         return view('admin.auth.login');
     }
 
