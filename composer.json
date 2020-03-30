@@ -14,7 +14,8 @@
         "laravel/framework": "^6.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
-        "laravelcollective/html": "^6.1"
+        "laravelcollective/html": "^6.1",
+        "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
