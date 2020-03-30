@@ -19,6 +19,7 @@ class CreateConstructionTypesTable extends Migration
 
             $table->string('name');
             $table->text('description');
+            $table->string('code')->unique();
 
             $table->unsignedBigInteger('created_account_id');
             $table->timestamps();

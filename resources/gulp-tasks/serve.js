@@ -36,8 +36,8 @@ gulp.task('sass', function () {
 gulp.task('serve', gulp.series('sass', function () {
 
     browserSync.init({
-        port: 3000,
-        server: "./",
+        port: 80,
+        server: "http://homework.test/",
         ghostMode: false,
         notify: false
     });
