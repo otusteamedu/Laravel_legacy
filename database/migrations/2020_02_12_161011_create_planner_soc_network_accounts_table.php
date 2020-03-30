@@ -34,6 +34,6 @@ class CreatePlannerSocNetworkAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('socnetworkaccounts');
+        Schema::dropIfExists('planner_soc_network_accounts');
     }
 }

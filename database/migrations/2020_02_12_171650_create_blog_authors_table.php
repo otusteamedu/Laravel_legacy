@@ -17,8 +17,8 @@ class CreateBlogAuthorsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
 
-            $table->unsignedBigInteger('photo')->nullable();
-            $table->foreign('photo')->references('id')->on('pictures')->onDelete('set null');
+            $table->unsignedBigInteger('photo_id')->nullable();
+            $table->foreign('photo_id')->references('id')->on('files')->onDelete('set null');
 
             $table->timestamps();
         });

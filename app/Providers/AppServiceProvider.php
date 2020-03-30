@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Providers\Faker\Image;
+use Faker\Generator;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        // Добавляем свой провадер для генерации рандомных картинок.
+        $faker = $this->app->make(Generator::class);
+        $faker->addProvider(new Image($faker));
     }
 }

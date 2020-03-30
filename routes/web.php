@@ -31,10 +31,19 @@ Route::get('/personal', function () {
     return view('main.personal.index');
 });
 
-Route::get('/registration', function () {
-    return view('main.personal.registration');
-});
+//Route::get('/registration', function () {
+//    return view('main.personal.registration');
+//});
+//Route::get('/registration', 'Auth\RegisterController@index');
+Route::group(['middleware' => ['auth']], function()
+{
+    Route::get('planner', 'PlannerController@index');
+    Route::get('planner/gallery', 'PlannerController@gallery');
 
-Route::get('/planner', function () {
-    return view('layouts.planner.index');
 });
+//Route::get('/planner', 'PlannerController@index');
+//Route::get('/planner/gallery', 'PlannerController@gallery');
+
+Route::Auth();
+Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
+

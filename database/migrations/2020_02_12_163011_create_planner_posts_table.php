@@ -38,6 +38,6 @@ class CreatePlannerPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('planner_posts');
     }
 }
