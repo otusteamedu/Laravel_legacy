@@ -1,0 +1,1 @@
+{"virtualbox":{"/var/www/project.local":{"guestpath":"/var/www/project.local","hostpath":"D:/OpenServer/OSPanel/domains/projects-course/php-cli/task-1.1/www/project.local","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"D:/OpenServer/OSPanel/domains/projects-course/php-cli/task-1.1","disabled":false,"__vagrantfile":true}}}
