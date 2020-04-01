@@ -29,7 +29,7 @@ class FiltersController extends Controller
     public function index()
     {
         $filters = $this->filtersService->search([]) ;
-//        ddd($filters);
+//        dd($filters, $filters[0], $filters[0]['value'], $filters[0]->value);
         View::share([
             'filters' => $filters
         ]);
@@ -76,7 +76,10 @@ class FiltersController extends Controller
      */
     public function edit(Filter $filter)
     {
-        //
+        View::share([
+            'filter' => $filter,
+        ]);
+        return view('cms.filters.edit');
     }
 
     /**
@@ -97,8 +100,26 @@ class FiltersController extends Controller
      * @param \App\Models\Filter $filter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Filter $filter)
+    public function destroy(int $id)
     {
-        //
+//        dd(\request()->all());
+//        dd($id);
+//        $result = Filter::where('id', $id)->forceDelete();
+        $result = Filter::find($id)->delete();
+//        dd($result);
+//        $result->delete();
+//        dd($result);
+//        $result = Filter::destroy($id);
+
+        if ($result) {
+            return redirect()
+                ->route('cms.filters.index')
+                ->with(['success' => "Запись id[$id] удалена"]);
+        } else {
+            dd($result);
+            return back()
+                ->withErrors(['msg' => 'Ошибка удаления'])
+                ->withInput();
+        }
     }
 }

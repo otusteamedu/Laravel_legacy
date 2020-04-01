@@ -2,12 +2,14 @@
 
 namespace App\Providers;
 
+use App\Providers\Views\BladeStatements;
 use App\Services\Filters\Repositories\EloquentFilterRepository;
 use App\Services\Filters\Repositories\FilterRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
+    use BladeStatements;
     /**
      * Register any application services.
      *
@@ -25,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->bootBladeStatements();
     }
 
 

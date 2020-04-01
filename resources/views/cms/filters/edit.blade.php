@@ -11,17 +11,16 @@
             $breadcrumbs = [
                 [
                     'url' => route('home'),
-                    'title' => __('messages.home'),
+                    'title' => __('cms.home'),
                 ],
                 [
                     'url' => route('cms.filters.index'),
-                    'title' => __('messages.countries'),
+                    'title' => __('cms.countries'),
                 ],
             ];
         @endphp
         @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
-{{--        @include('cms.filters.blocks.header.list')--}}
-        @include('cms.filters.blocks.list.index')
+        @include('cms.filters.blocks.header.edit')
+        @include('cms.filters.blocks.form.edit')
     </div>
 @endsection
-

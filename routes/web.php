@@ -15,7 +15,9 @@
 
 Route::view('/', 'HomeController@index')->name('home');
 
-
+Route::get('/test',function () {
+    return view('test');
+});
 Route::get('/news/{id}/{name}', function ($id, $name) {
     return view('welcome');
 });
@@ -32,7 +34,7 @@ Route::group([
 
     //CmsFilters
     Route::namespace('Filters')->group(function () {
-        $methods = ['index', 'edit', 'update', 'create', 'store'];
+        $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('filters', 'FiltersController')
             ->only($methods)
             ->names('cms.filters');

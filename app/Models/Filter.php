@@ -32,5 +32,8 @@ namespace App\Models;
  */
 class Filter extends BaseModel
 {
-    public $timestamps = false;
+//    public $timestamps = false;
+/*    protected $fillable = [
+        'title', 'description', 'price',
+    ];*/
 }

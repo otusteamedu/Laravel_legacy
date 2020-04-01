@@ -5,6 +5,7 @@ namespace App\Services\Filters\Repositories;
 
 
 use App\Models\Filter;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class EloquentFilterRepository implements FilterRepositoryInterface
@@ -17,7 +18,12 @@ class EloquentFilterRepository implements FilterRepositoryInterface
 
     public function search(array $filters = []) :LengthAwarePaginator
     {
-        return Filter::paginate();
+//        return Filter::paginate();
+        $query = Filter::query();
+//        var_dump($query);
+//        ddd( $query);
+        $this->applyFilters($query, $filters);
+        return $query->paginate();
     }
 
     public function getFiltersByFilterType(string $filterType)
@@ -37,6 +43,13 @@ class EloquentFilterRepository implements FilterRepositoryInterface
     {
         $filter->update($data);
         return $filter;
+    }
+
+    private function applyFilters(Builder $builder, array $filters)
+    {
+        if (isset($filters['name'])) {
+            $builder->where('name', $filters['name']);
+        }
     }
 
 }
