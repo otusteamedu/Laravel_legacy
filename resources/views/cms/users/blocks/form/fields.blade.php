@@ -27,14 +27,13 @@
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
             {{ Form::label('tariff', 'Тариф') }}
-            {{ Form::text('tariff', null, array('class'=>'form-control')) }}
-            {{ Form::select('country_id', $tariffs->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
+            {{ Form::select('tariff_id', $tariffs->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
             {{ Form::label('segment', 'Сегмент') }}
-            {{ Form::select('country_id', $segments->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
+            {{ Form::select('segment_id', $segments->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
         </div>
     </div>
 </div>
