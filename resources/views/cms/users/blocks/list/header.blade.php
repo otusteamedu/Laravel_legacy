@@ -4,7 +4,5 @@
     <th scope="col">Имя пользователя</th>
     <th scope="col">Email</th>
     <th scope="col">Телефон</th>
-    <th scope="col">Тариф</th>
-    <th scope="col">Сегмент</th>
 </tr>
 </thead>
