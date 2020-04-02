@@ -1,18 +1,11 @@
 @extends('plain.layout')
 
 @section('header-styles')
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/jquery.arcticmodal-0.3.css">
-    <link rel="stylesheet" href="css/badum.css">
-    <link rel="stylesheet" href="css/base-laravel-style.css">
+    @include('plain.blocks.header-styles')
 @endsection
 
 @section('header-scripts')
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="js/jquery.arcticmodal-0.3.min.js"></script>
-    <script src="js/inputmask.min.js"></script>
-    <script src="https://yastatic.net/share2/share.js" async="async"></script>
-    <script src="js/badum.js"></script>
+    @include('plain.blocks.header-scripts')
 @endsection
 
 @section('title')
@@ -33,18 +26,64 @@
 
             <div class="content">
                 <div class="registration-form">
-                    <form class="form-horizontal">
+                    <form method="POST" action="{{ route('register') }}" class="form-horizontal">
+                        @csrf
+
                         <fieldset>
                             <div class="form-group">
-                                <label for="inputName" class="control-label col-xs-2">Имя</label>
+                                <label for="name" class="control-label col-xs-2">Имя</label>
+
                                 <div class="col-xs-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="Иван">
+                                    <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Иван">
+
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="inputEmail" class="control-label col-xs-2">Телефон</label>
+                                <label for="email" class="control-label col-xs-2">Email</label>
                                 <div class="col-xs-10">
-                                    <input type="email" class="form-control" id="inputEmail" placeholder="+7 (999) 123-45-67">
+                                    <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="ivan@mail.ru">
+
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="control-label col-xs-2">Телефон</label>
+                                <div class="col-xs-10">
+                                    <input id="phone" type="tel" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" required autocomplete="tel" placeholder="+7 (999) 123-45-67">
+
+                                    @error('phone')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password" class="control-label col-xs-2">Пароль</label>
+                                <div class="col-xs-10">
+                                    <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+
+                                    @error('password')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone" class="control-label col-xs-2">Подтверждение пароля</label>
+                                <div class="col-xs-10">
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                                 </div>
                             </div>
 

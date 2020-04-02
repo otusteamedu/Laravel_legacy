@@ -1,23 +1,36 @@
-@extends('layouts.app')
+@extends('plain.layout')
+
+@section('header-styles')
+    @include('plain.blocks.header-styles')
+@endsection
+
+@section('header-scripts')
+    @include('plain.blocks.header-scripts')
+@endsection
+
+@section('title')
+    Авторизация
+@endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+    <header>
+        @include('plain.blocks.header')
+    </header>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <main>
+        <div class="wrapper">
+            <div class="header">
+                <h1>Авторизация</h1>
+                @include('plain.blocks.header-sub')
+            </div>
 
-                    You are logged in!
-                </div>
+            <div class="content">
+                Вы успешло авторизованы
             </div>
         </div>
-    </div>
-</div>
+
+        <footer>
+            @include('plain.blocks.footer')
+        </footer>
+
 @endsection
