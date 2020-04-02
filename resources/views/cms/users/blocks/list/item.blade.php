@@ -8,6 +8,6 @@
     <th>{{ link_to(route('cms.users.show', ['user' => $user->id]), $user->name) }}</th>
     <td>{{ link_to(route('cms.users.show', ['user' => $user->id]), $user->email) }}</td>
     <td>{{ link_to(route('cms.users.show', ['user' => $user->id]), $user->phone) }}</td>
-    <td>{{ link_to(route('cms.users.show', ['user' => $user->id]), $tariff = App\Models\Tariff::find(1)->name) }}</td>
-    <td>{{ link_to(route('cms.users.show', ['user' => $user->id]), $segment = App\Models\Segment::find(1)->name) }}</td>
+    <td>{{ link_to(route('cms.users.show', ['user' => $user->tariff_id]), $tariff = App\Models\Tariff::find(1)->name) }}</td>
+    <td>{{ link_to(route('cms.users.show', ['user' => $user->segment_id]), $segment = App\Models\Segment::find(1)->name) }}</td>
 </tr>
