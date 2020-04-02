@@ -12,6 +12,8 @@ use App\Services\Countries\Repositories\EloquentCountryRepository;
 use App\Services\Foo\Bar;
 use App\Services\Foo\Foo;
 use App\Services\Foo\FooInterface;
+use App\Services\Invoices\Services\InvoicesService;
+use App\Services\Invoices\Services\InvoicesServiceInterface;
 use App\Services\SimpleBar;
 use App\Services\SimpleFoo;
 use Illuminate\Support\ServiceProvider;
@@ -40,35 +42,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootBladeStatements();
-        
+
         $this->bootBindingsEvents();
     }
 
     private function registerBindings()
     {
-        $this->app->bind(FooInterface::class, Foo::class);
-        $this->app->bind(CountryRepositoryInterface::class, EloquentCountryRepository::class);
-        $this->app->bind(CachedCountryRepositoryInterface::class, CachedCountryRepository::class);
-
-        $this->app->when(CountriesController::class)
-            ->needs(SimpleFoo::class)
-            ->give(function() {
-                return new SimpleFoo(
-                    new Bar()
-                );
-            });
-
-        $simpleBar = new SimpleBar(config('app.name'));
-
-        $this->app->instance(SimpleBar::class, $simpleBar);
+        $this->app->bind(InvoicesServiceInterface::class, InvoicesService::class);
 
     }
 
     private function bootBindingsEvents()
     {
-        $this->app->resolving(SimpleFoo::class, function (SimpleFoo $simpleFoo, $app) {
-            \Log::info('Hey me was created');
-            $simpleFoo->saveFoo([]);
-        });
+
     }
 }
