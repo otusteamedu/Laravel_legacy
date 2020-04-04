@@ -24,8 +24,8 @@ class CreatePlannerPostsTable extends Migration
             $table->unsignedBigInteger('planner_geo_id')->nullable();
             $table->foreign('planner_geo_id')->references('id')->on('planner_geos')->onDelete('set null');
 
-            $table->unsignedBigInteger('planner_soc_network_account_id')->nullable();
-            $table->foreign('planner_soc_network_account_id')->references('id')->on('planner_soc_network_accounts')->onDelete('cascade');
+            $table->unsignedBigInteger('planner_social_network_account_id')->nullable();
+            $table->foreign('planner_social_network_account_id')->references('id')->on('planner_social_network_accounts')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -38,6 +38,6 @@ class CreatePlannerPostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('planner_posts');
     }
 }

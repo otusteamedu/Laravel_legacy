@@ -29,6 +29,6 @@ class CreatePlannerGeosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('geos');
+        Schema::dropIfExists('planner_geos');
     }
 }

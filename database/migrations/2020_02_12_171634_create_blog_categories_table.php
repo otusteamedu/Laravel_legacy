@@ -17,11 +17,20 @@ class CreateBlogCategoriesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
 
-            $table->unsignedBigInteger('preview_picture')->nullable();
-            $table->foreign('preview_picture')->references('id')->on('pictures')->onDelete('set null');
+            $table->bigInteger('parent_id')->nullable()->unsigned();
+            $table->foreign('parent_id')->references('id')->on('blog_categories')->onDelete('set null');
 
-            $table->unsignedBigInteger('detail_picture')->nullable();
-            $table->foreign('detail_picture')->references('id')->on('pictures')->onDelete('set null');
+            $table->unsignedBigInteger('preview_picture_id')->nullable();
+            $table->foreign('preview_picture_id')->references('id')->on('files')->onDelete('set null');
+
+            $table->unsignedBigInteger('detail_picture_id')->nullable();
+            $table->foreign('detail_picture_id')->references('id')->on('files')->onDelete('set null');
+
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->unsignedBigInteger('updated_by_id')->nullable();
+            $table->foreign('updated_by_id')->references('id')->on('users')->onDelete('set null');
 
             $table->timestamps();
         });

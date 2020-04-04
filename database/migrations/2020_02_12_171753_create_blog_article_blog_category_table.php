@@ -15,12 +15,10 @@ class CreateBlogArticleBlogCategoryTable extends Migration
     {
         Schema::create('blog_article_blog_category', function (Blueprint $table) {
             $table->unsignedBigInteger('blog_category_id')->nullable();
-            $table->foreign('blog_category_id')->references('id')->on('blog_categories');
+            $table->foreign('blog_category_id')->references('id')->on('blog_categories')->onDelete('cascade');
 
             $table->unsignedBigInteger('blog_article_id')->nullable();
-            $table->foreign('blog_article_id')->references('id')->on('blog_articles');
-
-            $table->timestamps();
+            $table->foreign('blog_article_id')->references('id')->on('blog_articles')->onDelete('cascade');
         });
     }
 
