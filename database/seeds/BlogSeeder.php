@@ -1,9 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use \App\Models\Blog\Category,
-    \App\Models\Blog\Article,
-    \App\Models\Blog\Author;
 
 class BlogSeeder extends Seeder
 {

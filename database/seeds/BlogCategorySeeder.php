@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Models\File;
+use App\Models\User;
+use App\Models\Blog\BlogCategory;
 
 class BlogCategorySeeder extends Seeder
 {
@@ -12,14 +15,14 @@ class BlogCategorySeeder extends Seeder
     public function run()
     {
         // Сидим одну картинку для превью
-        factory(\App\Models\File::class, 1)->create([
-            'usage' => App\Models\File::USAGE_BLOG_CATEGORY_DETAIL_PICTURE
+        factory(File::class, 1)->create([
+            'usage' => File::USAGE_BLOG_CATEGORY_DETAIL_PICTURE
         ])->each(function ($detailImage) {
 
             /** СОЗДАЕМ МИНИАТЮРУ **/
             // Получаем путь для превью картинки
             $strPreviewImageName = App\Providers\Faker\Image::imageName();
-            $strPreviewImagePath = storage_path(join(DIRECTORY_SEPARATOR, Array(\App\Models\File::STORAGE_PATH, $strPreviewImageName)));
+            $strPreviewImagePath = storage_path(join(DIRECTORY_SEPARATOR, Array(File::STORAGE_PATH, $strPreviewImageName)));
 
             // Ресайзим картинку
             $detailPicture = \Intervention\Image\Facades\Image::make($detailImage->fullPath());
@@ -29,12 +32,12 @@ class BlogCategorySeeder extends Seeder
             $arFile['source_id'] = $detailImage->id;
 
             // Сохраняем картинку
-            $previewImage = \App\Models\File::create($arFile);
+            $previewImage = File::create($arFile);
 
             // Получаем админа
-            $user = App\Models\User::find(1)->first();
+            $user = User::find(1)->first();
 
-            factory(\App\Models\Blog\Category::class, 1)->create([
+            factory(BlogCategory::class, 1)->create([
                 'preview_picture_id' => $previewImage->id,
                 'detail_picture_id' => $detailImage->id,
                 'created_by_id' => $user->id,
