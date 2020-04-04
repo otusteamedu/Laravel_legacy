@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\File
  *
@@ -49,8 +47,6 @@ class File extends BaseModel
     const FILE_TYPE_VIDEO = 2;
 
     const STORAGE_PATH = "app/public/upload";
-
-    protected $table = 'files';
 
     protected $fillable = [
         'path',
