@@ -26,6 +26,12 @@ class CreateBlogCategoriesTable extends Migration
             $table->unsignedBigInteger('detail_picture_id')->nullable();
             $table->foreign('detail_picture_id')->references('id')->on('files')->onDelete('set null');
 
+            $table->unsignedBigInteger('created_by_id')->nullable();
+            $table->foreign('created_by_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->unsignedBigInteger('updated_by_id')->nullable();
+            $table->foreign('updated_by_id')->references('id')->on('users')->onDelete('set null');
+
             $table->timestamps();
         });
     }

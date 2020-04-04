@@ -19,8 +19,6 @@ class CreateBlogArticleBlogCategoryTable extends Migration
 
             $table->unsignedBigInteger('blog_article_id')->nullable();
             $table->foreign('blog_article_id')->references('id')->on('blog_articles')->onDelete('cascade');
-
-            $table->timestamps();
         });
     }
 

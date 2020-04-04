@@ -8,6 +8,6 @@ use \App\Helpers\File\Helper;
 
 $factory->define(App\Models\Blog\Category::class, function (Faker $faker) {
     return [
-        'name' => $faker->name
+        'name' => $faker->name,
     ];
 });

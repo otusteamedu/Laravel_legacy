@@ -16,9 +16,11 @@ class BlogSeeder extends Seeder
     {
         // Сидим категории
         $this->call(BlogCategorySeeder::class);
+
         // Сидим авторов
         $this->call(BlogAuthorSeeder::class);
-        //Силим посты
-        $this->call(BlogArticleTableSeeder::class);
+
+        //Сидим посты
+        $this->call(BlogArticleSeeder::class);
     }
 }

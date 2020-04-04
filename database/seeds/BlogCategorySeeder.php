@@ -21,18 +21,23 @@ class BlogCategorySeeder extends Seeder
             $strPreviewImageName = App\Providers\Faker\Image::imageName();
             $strPreviewImagePath = storage_path(join(DIRECTORY_SEPARATOR, Array(\App\Models\File::STORAGE_PATH, $strPreviewImageName)));
 
-            // Ресайзим картинку и сорхраняем ее
+            // Ресайзим картинку
             $detailPicture = \Intervention\Image\Facades\Image::make($detailImage->fullPath());
             $detailPicture->resize(320, 320)->save($strPreviewImagePath);
 
             $arFile = \App\Helpers\File\Helper::getFileArray($strPreviewImagePath);
             $arFile['source_id'] = $detailImage->id;
 
+            // Сохраняем картинку
             $previewImage = \App\Models\File::create($arFile);
+
+            // Получаем админа
+            $user = App\Models\User::find(1)->first();
 
             factory(\App\Models\Blog\Category::class, 1)->create([
                 'preview_picture_id' => $previewImage->id,
                 'detail_picture_id' => $detailImage->id,
+                'created_by_id' => $user->id,
             ]);
         });
     }
