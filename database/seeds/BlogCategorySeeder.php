@@ -22,7 +22,7 @@ class BlogCategorySeeder extends Seeder
             /** СОЗДАЕМ МИНИАТЮРУ **/
             // Получаем путь для превью картинки
             $strPreviewImageName = App\Providers\Faker\Image::imageName();
-            $strPreviewImagePath = storage_path(join(DIRECTORY_SEPARATOR, Array(File::STORAGE_PATH, $strPreviewImageName)));
+            $strPreviewImagePath = storage_path(join(DIRECTORY_SEPARATOR, Array(config('filesystems.storage_path'), $strPreviewImageName)));
 
             // Ресайзим картинку
             $detailPicture = \Intervention\Image\Facades\Image::make($detailImage->fullPath());

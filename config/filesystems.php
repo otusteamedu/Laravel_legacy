@@ -66,4 +66,6 @@ return [
 
     ],
 
+    'storage_path' => "app/public/upload"
+
 ];

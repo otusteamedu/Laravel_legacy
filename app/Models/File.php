@@ -46,8 +46,6 @@ class File extends BaseModel
     const FILE_TYPE_IMAGE = 1;
     const FILE_TYPE_VIDEO = 2;
 
-    const STORAGE_PATH = "app/public/upload";
-
     protected $fillable = [
         'path',
         'mime_type',
@@ -64,7 +62,7 @@ class File extends BaseModel
     }
 
     public function relativePath() {
-        return join(DIRECTORY_SEPARATOR, Array("", self::STORAGE_PATH,  $this->path));
+        return join(DIRECTORY_SEPARATOR, Array("", config('filesystems.storage_path'),  $this->path));
     }
 
     public function fullPath() {
