@@ -13,17 +13,18 @@ class CreatePlannerSocNetworkAccountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('planner_soc_network_accounts', function (Blueprint $table) {
+        Schema::create('planner_social_network_accounts', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('login');
             $table->string('password');
-            $table->unsignedBigInteger('user_id');
-            $table->timestamps();
 
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+
+            $table->timestamps();
         });
     }
 
@@ -34,6 +35,6 @@ class CreatePlannerSocNetworkAccountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('planner_soc_network_accounts');
+        Schema::dropIfExists('planner_social_network_accounts');
     }
 }

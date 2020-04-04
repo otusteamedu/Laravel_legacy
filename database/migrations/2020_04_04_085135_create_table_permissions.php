@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableAclPermissions extends Migration
+class CreateTablePermissions extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableAclPermissions extends Migration
      */
     public function up()
     {
-        Schema::create('acl_permissions', function (Blueprint $table) {
+        Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('display_name');
@@ -30,6 +30,6 @@ class CreateTableAclPermissions extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acl_permissions');
+        Schema::dropIfExists('permissions');
     }
 }

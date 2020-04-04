@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTableAclRoles extends Migration
+class CreateTableRoles extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTableAclRoles extends Migration
      */
     public function up()
     {
-        Schema::create('acl_roles', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('display_name');
@@ -29,6 +29,6 @@ class CreateTableAclRoles extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('acl_roles');
+        Schema::dropIfExists('roles');
     }
 }
