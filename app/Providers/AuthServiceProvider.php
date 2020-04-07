@@ -226,5 +226,13 @@ class AuthServiceProvider extends ServiceProvider
             return in_array('delete-offer', $whoCan[$user->role]);
         });
 
+        Gate::define('show-cms', function ($user) {
+
+            $authorize = new AuthorizationClass();
+            $whoCan = $authorize->getRoles();
+
+            return in_array('show-cms', $whoCan[$user->role]);
+        });
+
     }
 }
