@@ -9,6 +9,7 @@ class AuthorizationClass
     public function getRoles() {
         return [
             'admin' => [
+                'show-cms',
                 'create-country',
                 'create-city',
                 'create-user',
@@ -38,6 +39,7 @@ class AuthorizationClass
 
             ],
             'marketing' => [
+                'show-cms',
                 'create-tariff',
                 'create-segment',
                 'create-category',
@@ -55,7 +57,6 @@ class AuthorizationClass
                 'delete-category',
                 'delete-project',
                 'delete-offer',
-
             ],
             'user' => [
 

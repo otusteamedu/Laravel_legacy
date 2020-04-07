@@ -28,7 +28,10 @@ Route::get('/offer', function () {
 });
 
 Route::get('/cms', function () {
-    return view('cms.index.index');
+    if (\Illuminate\Support\Facades\Gate::allows('show-cms'))
+        return view('cms.index.index');
+    else
+        return view('plain.not-allowed');
 })->middleware('auth');
 
 Route::name('cms.')->middleware('auth')->group(function () {
