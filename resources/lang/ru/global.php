@@ -15,5 +15,8 @@ return [
     'default_city' => 'Москва',
     'default_locality' => 'Долгопрудный',
     'timezone' => 'Часовой пояс',
-    'picture' => 'Изображение'
+    'picture' => 'Изображение',
+    'search' => 'поиск',
+    'quit' => 'Выйти',
+    'language' => 'Язык',
 ];
