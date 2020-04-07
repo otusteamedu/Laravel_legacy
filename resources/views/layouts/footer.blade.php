@@ -1,4 +1,4 @@
-@if (Request::url() !== 'http://otus')
+@if (!Route::is('index'))
     </div>
     <div class="col-lg-4">
         @include('layouts.blocks.content.sidebar')
