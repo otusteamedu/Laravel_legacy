@@ -95,7 +95,7 @@
     </div>
 </nav>
 <main role="main" class="container">
-@if (Request::url() !== 'http://otus')
+@if (!Route::is('index'))
     <div class="row">
         <div class="col-lg-8">
             <nav aria-label="breadcrumb">
