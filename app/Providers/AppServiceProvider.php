@@ -7,6 +7,8 @@ use App\Services\Articles\Repositories\ArticleRepositoryInterface;
 use App\Services\Events\Repositories\EloquentEventRepository;
 use App\Services\Events\Repositories\EventRepositoryInterface;
 use App\Services\News\Repositories\EloquentNewsRepository;
+use App\Services\Languages\Repositories\EloquentLanguageRepository;
+use App\Services\Languages\Repositories\LanguageRepositoryInterface;
 use App\Services\News\Repositories\NewsRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
@@ -56,6 +58,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             NewsRepositoryInterface::class,
             EloquentNewsRepository::class
+        );
+
+        $this->app->bind(
+            LanguageRepositoryInterface::class,
+            EloquentLanguageRepository::class
         );
 
         $this->app->bind(

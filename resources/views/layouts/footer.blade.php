@@ -43,9 +43,9 @@
                 <div class="col-lg-2 col-md-6 footer-links">
                     <h4>@lang('layouts/footer.for_acquaintance')</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.about_project')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{{ route('about.index') }}">@lang('layouts/footer.about_project')</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.events_list')</a></li>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/news/">@lang('layouts/footer.project_news')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{{ route('news.index') }}">@lang('layouts/footer.project_news')</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.articles')</a></li>
                     </ul>
                 </div>
@@ -53,7 +53,7 @@
                 <div class="col-lg-3 col-md-6 footer-links">
                     <h4>@lang('layouts/footer.our_service')</h4>
                     <ul>
-                        <li><i class="bx bx-chevron-right"></i> <a href="/personal/">@lang('layouts/footer.personal_cabinet')</a></li>
+                        <li><i class="bx bx-chevron-right"></i> <a href="{{ route('personal.index') }}">@lang('layouts/footer.personal_cabinet')</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.users_ratings')</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.security_policy')</a></li>
                         <li><i class="bx bx-chevron-right"></i> <a href="#">@lang('layouts/footer.feedbacks_about_us')</a></li>

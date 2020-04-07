@@ -11,22 +11,25 @@
 |
 */
 
-Auth::routes();
-Route::get('/', 'HomeController@index')->name('index');
-Route::get('/about/', 'HomeController@about')->name('about.index');
+Route::prefix(resolve('\App\Services\Locales\LocalesService')->getCurrentLocalePath())
+    ->middleware(['localize'])->group(function () {
+    Auth::routes();
+    Route::get('/', 'HomeController@index')->name('index');
+    Route::get('/about/', 'HomeController@about')->name('about.index');
 
-Route::get('/auth/', function () {
-    return view('auth.index');
-})->name('auth.index');
+    Route::get('/auth/', function () {
+        return view('auth.index');
+    })->name('auth.index');
 
-Route::get('/news/', function () {
-    return view('news.index');
-})->name('news.index');
+    Route::get('/news/', function () {
+        return view('news.index');
+    })->name('news.index');
 
-Route::get('/personal/', 'HomeController@personal')->middleware(['auth'])->name('personal.index');
-Route::get('/personal/{user}', 'Web\Users\UsersController@edit')->middleware(['auth'])->name('user.edit');
-Route::put('/personal/{user}', 'Web\Users\UsersController@update')->middleware(['auth'])->name('user.update');
-Route::post('/personal/{user}', 'Web\Users\UsersController@store')->middleware(['auth'])->name('user.store');
+    Route::get('/personal/', 'HomeController@personal')->middleware(['auth'])->name('personal.index');
+    Route::get('/personal/{user}', 'Web\Users\UsersController@edit')->middleware(['auth'])->name('user.edit');
+    Route::put('/personal/{user}', 'Web\Users\UsersController@update')->middleware(['auth'])->name('user.update');
+    Route::post('/personal/{user}', 'Web\Users\UsersController@store')->middleware(['auth'])->name('user.store');
+});
 
 Route::get('admin', 'HomeController@admin')->name('admin.index')->middleware(['auth', 'can:admin-section-available']);
 
