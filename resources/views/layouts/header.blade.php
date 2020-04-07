@@ -28,7 +28,7 @@
                         <div class="col-12 col-md-6 col-lg-3 mt-1 text-center">
                             <div class="btn-group">
                                 <button class="btn btn-secondary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Язык
+                                    @lang('global.language')
                                 </button>
                                 <div class="dropdown-menu">
                                     <a href="#" class="dropdown-item">Eng</a>
@@ -46,7 +46,7 @@
                                     <circle cx="10.5" cy="10.5" r="7.5"></circle>
                                     <line x1="21" y1="21" x2="15.8" y2="15.8"></line>
                                 </svg>
-                                поиск
+                                @lang('global.search')
                             </a>
                         </div>
                         <div class="col-12 col-md-6 col-lg-2 justify-content-end">
@@ -70,12 +70,12 @@
 
                                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                                     <a class="dropdown-item" href="{{ route('personal.index') }}">
-                                                        Профиль
+                                                        @lang('pages/personal_index.profile')
                                                     </a>
                                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                                        onclick="event.preventDefault();
                                                          document.getElementById('logout-form').submit();">
-                                                        Выйти
+                                                        @lang('global.quit')
                                                     </a>
 
                                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
