@@ -5,20 +5,20 @@
                 <header class="py-3">
                     <div class="row">
                         <div class="col-12 col-md-1 col-lg-1 pt-1">
-                            <a class="py-2" href="/">
+                            <a class="py-2" href="{{ route('index') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
                             </a>
                         </div>
                         <div class="col-11 col-md-11 col-lg-6">
                             <ul class="nav justify-content-center">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/about/">@lang('layouts/header.top_menu_about')</a>
+                                    <a class="nav-link" href="{{ route('about.index') }}">@lang('layouts/header.top_menu_about')</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/events/">@lang('layouts/header.top_menu_event_list')</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/news/">@lang('layouts/header.top_menu_news')</a>
+                                    <a class="nav-link" href="{{ route('news.index') }}">@lang('layouts/header.top_menu_news')</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/articles/">@lang('layouts/header.top_menu_articles')</a>
@@ -39,7 +39,7 @@
                                     <a href="#" class="dropdown-item">Es (España)</a>
                                 </div>
                             </div>
-                            <a class="text-muted" href="#">
+                            <a class="text-muted" href="{{ route('index') }}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
                                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                                      class="mx-3">
@@ -100,7 +100,7 @@
         <div class="col-lg-8">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Главная</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('index') }}">Главная</a></li>
                     <li class="breadcrumb-item"><a href="#">Раздел</a></li>
                     <li class="breadcrumb-item active" aria-current="page">Детальная</li>
                 </ol>
