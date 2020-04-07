@@ -12,6 +12,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Services\Countries\CountriesService;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 class CountriesController extends Controller
@@ -48,7 +49,11 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        return view('cms.countries.create');
+        if (Gate::allows('create-country')) {
+            return view('cms.countries.create');
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -86,9 +91,13 @@ class CountriesController extends Controller
      */
     public function edit(Country $country)
     {
-        return view('cms.countries.edit', [
-            'country' => $country,
-        ]);
+        if (Gate::allows('update-country')) {
+            return view('cms.countries.edit', [
+                'country' => $country,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**

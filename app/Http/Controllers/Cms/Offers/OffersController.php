@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\Offers\OffersService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 
@@ -46,13 +47,17 @@ class OffersController extends Controller
      */
     public function create()
     {
-        $projects = Project::all();
-        $cities = City::all();
+        if (Gate::allows('create-offer')) {
+            $projects = Project::all();
+            $cities = City::all();
 
-        return view('cms.offers.create', [
-            'projects' => $projects,
-            'cities' => $cities,
-        ]);
+            return view('cms.offers.create', [
+                'projects' => $projects,
+                'cities' => $cities,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -91,9 +96,13 @@ class OffersController extends Controller
      */
     public function edit(Offer $offer)
     {
-        return view('cms.offers.edit', [
-            'offer' => $offer,
-        ]);
+        if (Gate::allows('update-offer')) {
+            return view('cms.offers.edit', [
+                'offer' => $offer,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**

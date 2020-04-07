@@ -10,6 +10,7 @@ use App\Services\Tariffs\TariffsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use View;
+use Illuminate\Support\Facades\Gate;
 
 
 class TariffsController extends Controller
@@ -43,7 +44,11 @@ class TariffsController extends Controller
      */
     public function create()
     {
-        return view('cms.tariffs.create');
+        if (Gate::allows('create-tariff')) {
+            return view('cms.tariffs.create');
+        } else {
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -82,9 +87,15 @@ class TariffsController extends Controller
      */
     public function edit(Tariff $tariff)
     {
-        return view('cms.tariffs.edit', [
-            'tariff' => $tariff,
-        ]);
+        if (Gate::allows('update-tariff')) {
+
+            return view('cms.tariffs.edit', [
+                'tariff' => $tariff,
+            ]);
+
+        } else {
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -114,4 +125,5 @@ class TariffsController extends Controller
     {
         //
     }
+
 }

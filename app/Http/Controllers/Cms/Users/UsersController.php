@@ -11,6 +11,7 @@ use App\Models\User;
 use App\Services\Users\UsersService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 
@@ -45,13 +46,18 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $tariffs = Tariff::all();
-        $segments = Segment::all();
+        if (Gate::allows('create-user')) {
 
-        return view('cms.users.create', [
-            'tariffs' => $tariffs,
-            'segments' => $segments,
-        ]);
+            $tariffs = Tariff::all();
+            $segments = Segment::all();
+
+            return view('cms.users.create', [
+                'tariffs' => $tariffs,
+                'segments' => $segments,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -90,9 +96,13 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('cms.users.edit', [
-            'user' => $user,
-        ]);
+        if (Gate::allows('update-user')) {
+            return view('cms.users.edit', [
+                'user' => $user,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**

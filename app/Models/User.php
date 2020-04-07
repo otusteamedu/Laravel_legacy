@@ -46,5 +46,6 @@ class User extends Authenticatable
         'password',
         'tariff_id',
         'segment_id',
+        'role',
     ];
 }

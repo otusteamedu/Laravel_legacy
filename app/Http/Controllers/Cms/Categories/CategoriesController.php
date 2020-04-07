@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Services\Categories\CategoriesService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 
@@ -42,7 +43,11 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        return view('cms.categories.create');
+        if (Gate::allows('create-category')) {
+            return view('cms.categories.create');
+        } else {
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -81,9 +86,13 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        return view('cms.categories.edit', [
-            'category' => $category,
-        ]);
+        if (Gate::allows('update-category')) {
+            return view('cms.categories.edit', [
+                'category' => $category,
+            ]);
+        } else {
+            return view('plain.not-allowed');
+        }
     }
 
     /**
