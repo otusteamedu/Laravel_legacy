@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 
@@ -46,11 +47,15 @@ class ProjectsController extends Controller
      */
     public function create()
     {
-        $users = User::all();
+        if (Gate::allows('create-project')) {
+            $users = User::all();
 
-        return view('cms.projects.create', [
-            'users' => $users,
-        ]);
+            return view('cms.projects.create', [
+                'users' => $users,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -89,9 +94,13 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        return view('cms.projects.edit', [
-            'project' => $project,
-        ]);
+        if (Gate::allows('update-project')) {
+            return view('cms.projects.edit', [
+                'project' => $project,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**

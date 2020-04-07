@@ -9,6 +9,7 @@ use App\Models\Segment;
 use App\Services\Segments\SegmentsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 
@@ -43,7 +44,11 @@ class SegmentsController extends Controller
      */
     public function create()
     {
-        return view('cms.segments.create');
+        if (Gate::allows('create-segment')) {
+            return view('cms.segments.create');
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**
@@ -82,9 +87,13 @@ class SegmentsController extends Controller
      */
     public function edit(Segment $segment)
     {
-        return view('cms.segments.edit', [
-            'segment' => $segment,
-        ]);
+        if (Gate::allows('update-segment')) {
+            return view('cms.segments.edit', [
+                'segment' => $segment,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**

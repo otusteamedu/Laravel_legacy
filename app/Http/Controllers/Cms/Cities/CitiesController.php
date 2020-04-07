@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use View;
 
 class CitiesController extends Controller
@@ -46,11 +47,17 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        $countries = Country::all();
+        if (Gate::allows('create-city')) {
 
-        return view('cms.cities.create', [
-            'countries' => $countries,
-        ]);
+            $countries = Country::all();
+
+            return view('cms.cities.create', [
+                'countries' => $countries,
+            ]);
+        } else {
+            return view('plain.not-allowed');
+        }
+
     }
 
     /**
@@ -88,12 +95,16 @@ class CitiesController extends Controller
      */
     public function edit(City $city)
     {
-        $country = Country::where('id', $city->country_id);
+        if (Gate::allows('update-city')) {
+            $country = Country::where('id', $city->country_id);
 
-        return view('cms.cities.edit', [
-            'cities' => $city,
-            'country' => $country,
-        ]);
+            return view('cms.cities.edit', [
+                'cities' => $city,
+                'country' => $country,
+            ]);
+        }else{
+            return view('plain.not-allowed');
+        }
     }
 
     /**
