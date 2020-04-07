@@ -11,12 +11,12 @@ class LanguagesTableSeeder extends Seeder
         return [
             [
                 'name' => 'english',
-                'code' => 'eng',
+                'code' => 'en',
                 'country_id' => null,
             ],
             [
                 'name' => 'русский',
-                'code' => 'rus',
+                'code' => 'ru',
                 'country_id' => Country::where('phone_code', '+7')->value('id')
             ],
             [
