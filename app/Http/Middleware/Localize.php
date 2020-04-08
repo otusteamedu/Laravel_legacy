@@ -29,8 +29,11 @@ class Localize
         \App::setLocale($locale);
         \View::share(['locale' => $locale]);
 
+        if ($redirect = $this->localesService->getRedirectIfNeed()) {
+            return $redirect;
+        }
+
         if ($this->localesService->isDefaultLocaleSet()) {
-            // @ToDo: заменить 404 на 301 на эту же самую страницу без префикса в url
             return abort(404);
         }
 
