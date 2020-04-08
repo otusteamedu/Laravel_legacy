@@ -14,9 +14,9 @@
 Route::prefix(resolve('\App\Services\Locales\LocalesService')->getCurrentLocalePath())
     ->middleware(['localize'])->group(function () {
     Auth::routes();
+    Route::get('/set-locale/{locale}', 'HomeController@setLocale')->name('set.locale');
     Route::get('/', 'HomeController@index')->name('index');
     Route::get('/about/', 'HomeController@about')->name('about.index');
-
     Route::get('/auth/', function () {
         return view('auth.index');
     })->name('auth.index');

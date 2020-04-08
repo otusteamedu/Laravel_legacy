@@ -31,12 +31,11 @@
                                     @lang('global.language')
                                 </button>
                                 <div class="dropdown-menu">
-                                    <a href="#" class="dropdown-item">Eng</a>
-                                    <a href="#" class="dropdown-item">Rus (Россия)</a>
-                                    <a href="#" class="dropdown-item">Uk (Україна)</a>
-                                    <a href="#" class="dropdown-item">Fr (France)</a>
-                                    <a href="#" class="dropdown-item">De (Deutschland)</a>
-                                    <a href="#" class="dropdown-item">Es (España)</a>
+                                    @foreach ($alLocaleList as $locale)
+                                        <a href="{{ route('set.locale', $locale['code']) }}" class="dropdown-item">
+                                            {{ucfirst($locale['code'])}} ({{ ($locale['name']) }})
+                                        </a>
+                                    @endforeach
                                 </div>
                             </div>
                             <a class="text-muted" href="{{ route('index') }}">

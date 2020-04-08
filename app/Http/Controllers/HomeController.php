@@ -2,13 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Locales\LocalesService;
+
 class HomeController extends Controller
 {
+    private $localesService;
+
     /**
      * HomeController constructor.
      */
-    public function __construct()
+    public function __construct(LocalesService $localesService)
     {
+        $this->localesService = $localesService;
     }
 
     /**
@@ -36,5 +41,11 @@ class HomeController extends Controller
         $user = \Auth::user();
 
         return view('personal.index', ['user' => $user]);
+    }
+
+    public function setLocale(string $locale = '') {
+        $this->localesService->setUserLocale($locale);
+
+        return redirect()->back();
     }
 }
