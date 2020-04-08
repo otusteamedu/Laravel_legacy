@@ -19,13 +19,6 @@ class UserPolicy
         //
     }
 
-    use HandlesAuthorization;
-
-    public function before(User $user)
-    {
-        return $user->isAdmin();
-    }
-
 
     /**
      * Determine whether the user can view users

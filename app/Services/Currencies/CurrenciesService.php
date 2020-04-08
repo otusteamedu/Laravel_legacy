@@ -38,16 +38,6 @@ class CurrenciesService
     }
 
     /**
-     * Получение по ид
-     * @param int $id
-     * @return array|null
-     */
-    public function find(int $id)
-    {
-        return $this->repository->find($id);
-    }
-
-    /**
      * Поиск и выдача результата
      * @param string $code код валюты
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator

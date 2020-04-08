@@ -41,10 +41,6 @@ class UsersController extends Controller
         $this->getCurrentUser()->cant(Abilities::VIEW, User::class);
         $this->authorize(Abilities::VIEW, User::class);
         $search = $request->get('search', '');
-        $user = Auth::user();
-        if ($user->can('view','users')) {
-            echo 111;
-        }
         $users = $this->usersService->searchByNameOrEmail($search);
         $levels = $this->usersService->getUserLevels();
         return view('cms.users', ['users' => $users, 'levels' => $levels, 'search' => $search]);
