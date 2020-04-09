@@ -27,6 +27,7 @@ class UpdateSettingGroupRequest extends FormRequest
 
         return [
             'title' => 'bail|required|unique:setting_groups,title,' . $id . '|min:' . config('validation.title.min') . '|max:' . config('validation.title.max'),
+            'alias' => 'bail|required|unique:setting_groups,alias,' . $id . '|min:' . config('validation.alias.min') . '|max:' . config('validation.alias.max') . '|regex:' . config('validation.alias.pattern'),
             'description' => 'max:' . config('validation.description.max')
         ];
     }

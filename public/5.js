@@ -286,7 +286,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 
@@ -317,7 +317,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 

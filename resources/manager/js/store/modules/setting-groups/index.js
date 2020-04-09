@@ -4,6 +4,7 @@ import {axiosAction} from "../../mixins/actions";
 const state = {
     fields: {
         title: '',
+        alias: '',
         description: ''
     },
     items: []
@@ -20,7 +21,7 @@ const mutations = {
         state.items = state.items.filter(item => item.id !== payload);
     },
     CLEAR_FIELDS(state) {
-        for(let field in state.fields) {
+        for(let field of Object.keys(state.fields)) {
             state.fields[field] = '';
         }
     },
@@ -34,7 +35,7 @@ const mutations = {
         }
     },
     UPDATE_FIELDS(state, payload) {
-        for(let field in state.fields) {
+        for(let field of Object.keys(state.fields)) {
             state.fields[field] = payload[field] === null ? '' : payload[field];
         }
     },
@@ -50,19 +51,19 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
+    getItems(context) {
         return axiosAction('get', context, {
             url: '/api/manager/setting-groups',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    indexWithSettings(context) {
+    getItemsWithSettings(context) {
         return axiosAction('get', context, {
             url: '/api/manager/setting-groups/with-settings',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    show(context, id) {
+    getItem(context, id) {
         return axiosAction('get', context, {
             url: `/api/manager/setting-groups/${id}`,
             thenContent: response => context.commit('UPDATE_FIELDS', response.data)
@@ -70,8 +71,8 @@ const actions = {
     },
     store(context, payload) {
         const form = new FormData();
-        for(let field in payload) {
-            form.append(field, payload[field]);
+        for(const [field, value] of Object.entries(payload)) {
+            form.append(field, value);
         }
         return axiosAction('post', context, {
             url: '/api/manager/setting-groups',
@@ -80,8 +81,8 @@ const actions = {
     },
     update(context, payload) {
         const form = new FormData();
-        for(let field in payload.formData) {
-            form.append(field, payload.formData[field]);
+        for(const [field, value] of Object.entries(payload.formData)) {
+            form.append(field, value);
         }
         return axiosAction('post', context, {
             url: `/api/manager/setting-groups/${payload.id}`,
@@ -108,6 +109,8 @@ const actions = {
 const getters = {
     isUniqueTitle: state => value => uniqueFieldMixin(state.items, 'title', value),
     isUniqueTitleEdit: state => (value, id) => uniqueFieldEditMixin(state.items, 'title', value, id),
+    isUniqueAlias: state => title => uniqueFieldMixin(state.items, 'alias', title),
+    isUniqueAliasEdit: state => (title, id) => uniqueFieldEditMixin(state.items, 'alias', title, id),
     firstGroupId: state => state.items.slice(0, 1)[0] ? state.items.slice(0, 1)[0].id : ''
 };
 

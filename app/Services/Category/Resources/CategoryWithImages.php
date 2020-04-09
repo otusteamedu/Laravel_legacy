@@ -19,7 +19,6 @@ class CategoryWithImages extends JsonResource
             'type' => $this->type,
             'title' => $this->title,
             'images' => $this->images,
-//            'images_count' => $this->images()->count(),
         ];
     }
 }

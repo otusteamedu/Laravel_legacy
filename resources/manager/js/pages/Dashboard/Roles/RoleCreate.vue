@@ -129,9 +129,9 @@
         },
         methods: {
             ...mapActions({
-                indexAction: 'roles/index',
+                getItemsAction: 'roles/getItems',
                 clearFieldsAction: 'roles/clearFields',
-                indexPermissionsAction: 'permissions/index'
+                getPermissionsAction: 'permissions/getItems'
             }),
             onCreate() {
                 return this.create({
@@ -149,8 +149,8 @@
             }
         },
         created() {
-            this.indexAction()
-                .then(() => this.indexPermissionsAction())
+            this.getItemsAction()
+                .then(() => this.getPermissionsAction())
                 .then(() => {
                     this.setPageTitle('Новая Роль');
                     this.clearFieldsAction();

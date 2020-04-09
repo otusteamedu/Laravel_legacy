@@ -29,8 +29,8 @@ class StoreUserHandler
     {
         $storeData['password'] = bcrypt($storeData['password']);
 
-        if (!Arr::has($storeData, 'role'))
-            $storeData['role'] = config('roles.default_role');
+        if (!Arr::has($storeData, 'roles'))
+            $storeData['roles'] = config('roles.default_role');
 
         return  $this->repository->store($storeData);
     }

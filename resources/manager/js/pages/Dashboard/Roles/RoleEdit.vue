@@ -147,10 +147,10 @@
         },
         methods: {
             ...mapActions({
-                indexAction: 'roles/index',
-                showAction: 'roles/show',
+                getItemsAction: 'roles/getItems',
+                getItemAction: 'roles/getItem',
                 clearFieldsAction: 'roles/clearFields',
-                indexPermissionsAction: 'permissions/index',
+                getPermissionsAction: 'permissions/getItems',
             }),
             onCheck() {
                 this.isDiffer(this.permissions, this.selectedPermissions)
@@ -188,10 +188,12 @@
                 })
             }
         },
-        created() {
-            this.indexAction()
-                .then(() => this.indexPermissionsAction())
-                .then(() => this.showAction(this.id))
+        async created() {
+            await Promise.all([
+                this.getItemsAction(),
+                this.getPermissionsAction(),
+                this.getItemAction(this.id)
+            ])
                 .then(() => {
                     this.setPageTitle(this.displayName);
                     this.selectedPermissions = this.permissions.slice(0);

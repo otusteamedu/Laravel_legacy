@@ -56,8 +56,8 @@ class UserRepository extends CmsBaseResourceRepository
      */
     public function store(array $data): User
     {
-        return $this->model::create(Arr::except($data, 'role'))
-            ->attachRole($data['role']);
+        return $this->model::create(Arr::except($data, 'roles'))
+            ->attachRole($data['roles']);
     }
 
     /**
@@ -67,9 +67,9 @@ class UserRepository extends CmsBaseResourceRepository
      */
     public function update($item, array $updateData): User
     {
-        if (Arr::has($updateData, 'role')) {
-            $item->update(Arr::except($updateData, 'role'));
-            $item->syncRoles([$updateData['role']]);
+        if (Arr::has($updateData, 'roles')) {
+            $item->update(Arr::except($updateData, 'roles'));
+            $item->syncRoles([$updateData['roles']]);
         } else {
             $item->update($updateData);
         }

@@ -85,7 +85,7 @@
         },
         methods: {
             ...mapActions('roles', {
-                indexAction: 'index'
+                getItemsAction: 'getItems'
             }),
             onDelete(item) {
                 return this.delete({
@@ -98,7 +98,7 @@
             }
         },
         created() {
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Роли');
                     this.responseData = true;

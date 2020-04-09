@@ -60,11 +60,17 @@ const mutations = {
     },
     SET_SEARCH_QUERY(state, payload) {
         state.searchQuery = payload.trim();
-        console.log(`query: ${state.searchQuery}`)
     },
     SET_LOADING(state, payload) {
         state.loading = !!payload;
-    }
+    },
+    CHANGE_PUBLISH(state, payload) {
+        state.searchedData.forEach(item => {
+            if(item.id === payload.id) {
+                return item.publish = payload.publish;
+            }
+        });
+    },
 };
 
 const actions = {

@@ -108,9 +108,9 @@ var jvm = {
     var deferred = new jvm.$.Deferred(),
         img = jvm.$('<img/>');
 
-    img.error(function(){
+    img.on('error', function(){
       deferred.reject();
-    }).load(function(){
+    }).on('load', function(){
       deferred.resolve(img);
     });
     img.attr('src', url);
@@ -2631,6 +2631,7 @@ jvm.Map.prototype = {
   createTip: function(){
     var map = this;
 
+    jvm.$('body > .jvectormap-tip').remove();
     this.tip = jvm.$('<div/>').addClass('jvectormap-tip').appendTo(jvm.$('body'));
 
     this.container.mousemove(function(e){

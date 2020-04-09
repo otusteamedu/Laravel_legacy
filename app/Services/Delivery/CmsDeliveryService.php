@@ -5,21 +5,23 @@ namespace App\Services\Delivery;
 
 
 use App\Services\Base\Resource\Handlers\ClearCacheByTagHandler;
-use App\Services\Delivery\Repositories\DeliveryRepositoryCms;
+use App\Services\Cache\Tag;
+use App\Services\Delivery\Repositories\CmsDeliveryRepository;
 use App\Services\Base\Resource\CmsBaseResourceService;
 
 class CmsDeliveryService extends CmsBaseResourceService
 {
     /**
      * CmsDeliveryService constructor.
-     * @param DeliveryRepositoryCms $repository
+     * @param CmsDeliveryRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      */
     public function __construct(
-        DeliveryRepositoryCms $repository,
+        CmsDeliveryRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler
     )
     {
         parent::__construct($repository, $clearCacheByTagHandler);
+        $this->cacheTag = Tag::DELIVERY_TAG;
     }
 }

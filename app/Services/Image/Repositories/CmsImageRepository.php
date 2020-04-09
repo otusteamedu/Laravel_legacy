@@ -47,6 +47,11 @@ class CmsImageRepository extends CmsBaseResourceRepository
      */
     public function getQueryItems(array $pagination)
     {
+//        ->when($sortBy, function ($query, $sortBy) {
+//            return $query->orderBy($sortBy);
+//        }, function ($query) {
+//            return $query->orderBy('name');
+//        })
         return $this->model::where('id', 'like', $pagination['query'] . '%')
             ->with(config('query_builder.image'))
             ->orderBy($pagination['sort_by'], $pagination['sort_order'])

@@ -109,24 +109,18 @@
                 touch: false,
                 minLength: minLength(2),
                 isUnique (value) {
-                    return (value.trim() === '') && !this.$v.title.$dirty
-                        ? true
-                        : !this.isUniqueTitle
+                    return ((value.trim() === '') && !this.$v.title.$dirty) || !this.isUniqueTitle
                 }
             },
             alias: {
                 required,
                 touch: false,
                 testAlias (value) {
-                    return value.trim() === ''
-                        ? true
-                        : (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
+                    return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
                 },
                 minLength: minLength(2),
                 isUnique (value) {
-                    return (value.trim() === '') && !this.$v.alias.$dirty
-                        ? true
-                        : !this.isUniqueAlias
+                    return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAlias
                 },
             },
             image: {
@@ -158,7 +152,7 @@
         },
         methods: {
             ...mapActions('categories', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields'
             }),
             onCreate () {
@@ -180,7 +174,7 @@
             }
         },
         created () {
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle(this.pageProps[this.category_type].CREATE_PAGE_TITLE);
                     this.clearFieldsAction();

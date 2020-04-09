@@ -136,9 +136,9 @@
         },
         methods: {
             ...mapActions({
-                indexWithTypesAction: 'settings/indexWithTypes',
+                getItemsWithTypesAction: 'settings/getItemsWithTypes',
                 clearFieldsAction: 'settings/clearFields',
-                indexGroupsAction: 'settingGroups/index'
+                getGroupsAction: 'settingGroups/getItems'
             }),
             onCreate() {
                 return this.create({
@@ -157,8 +157,8 @@
         },
         created() {
             this.clearFieldsAction();
-            this.indexWithTypesAction()
-                .then(() => this.indexGroupsAction())
+            this.getItemsWithTypesAction()
+                .then(() => this.getGroupsAction())
                 .then(() => {
                     if(!this.settingGroups.length) this.$router.push(this.redirectRoute);
                     this.setPageTitle('Новая настройка');

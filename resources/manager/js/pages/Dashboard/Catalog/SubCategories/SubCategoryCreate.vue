@@ -91,7 +91,7 @@
         },
         methods: {
             ...mapActions('subCategories', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields'
             }),
             onCreate () {
@@ -112,7 +112,7 @@
             }
         },
         created () {
-            this.indexAction(this.category_type)
+            this.getItemsAction(this.category_type)
                 .then(() => {
                     this.setPageTitle(this.pageProps[this.category_type].CREATE_PAGE_TITLE);
                     this.clearFieldsAction();

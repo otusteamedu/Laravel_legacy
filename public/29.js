@@ -9,11 +9,19 @@
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
-/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _mixins_base__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/mixins/base */ "./resources/manager/js/mixins/base.js");
-/* harmony import */ var _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/crudMethods */ "./resources/manager/js/mixins/crudMethods.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vuelidate/lib/validators */ "./node_modules/vuelidate/lib/validators/index.js");
+/* harmony import */ var vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _mixins_base__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/mixins/base */ "./resources/manager/js/mixins/base.js");
+/* harmony import */ var _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/mixins/crudMethods */ "./resources/manager/js/mixins/crudMethods.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
@@ -99,7 +107,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'RoleEdit',
-  mixins: [_mixins_base__WEBPACK_IMPORTED_MODULE_2__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["updateMethod"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["deleteMethod"]],
+  mixins: [_mixins_base__WEBPACK_IMPORTED_MODULE_3__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_4__["updateMethod"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_4__["deleteMethod"]],
   props: {
     id: {
       type: [Number, String],
@@ -119,9 +127,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   validations: {
     name: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
       touch: false,
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(2),
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(2),
       isUnique: function isUnique(value) {
         return value.trim() === '' && !this.$v.name.$dirty ? true : !this.isUniqueNameEdit;
       },
@@ -130,9 +138,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     displayName: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["required"],
       touch: false,
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(2),
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_2__["minLength"])(2),
       isUnique: function isUnique(value) {
         return value.trim() === '' && !this.$v.displayName.$dirty ? true : !this.isUniqueDisplayNameEdit;
       }
@@ -144,7 +152,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       touch: false
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
     name: function name(state) {
       return state.roles.fields.name;
     },
@@ -168,11 +176,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return !!this.$store.getters['roles/isUniqueDisplayName'](this.displayName);
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    indexAction: 'roles/index',
-    showAction: 'roles/show',
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
+    getItemsAction: 'roles/getItems',
+    getItemAction: 'roles/getItem',
     clearFieldsAction: 'roles/clearFields',
-    indexPermissionsAction: 'permissions/index'
+    getPermissionsAction: 'permissions/getItems'
   }), {
     onCheck: function onCheck() {
       this.isDiffer(this.permissions, this.selectedPermissions) ? this.$v.permissions.$touch() : this.$v.permissions.$reset();
@@ -215,22 +223,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.indexAction().then(function () {
-      return _this.indexPermissionsAction();
-    }).then(function () {
-      return _this.showAction(_this.id);
-    }).then(function () {
-      _this.setPageTitle(_this.displayName);
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return Promise.all([_this.getItemsAction(), _this.getPermissionsAction(), _this.getItemAction(_this.id)]).then(function () {
+                _this.setPageTitle(_this.displayName);
 
-      _this.selectedPermissions = _this.permissions.slice(0);
-      _this.responseData = true;
-    }).then(function () {
-      _this.$v.$reset();
+                _this.selectedPermissions = _this.permissions.slice(0);
+                _this.responseData = true;
+              }).then(function () {
+                _this.$v.$reset();
 
-      _this.controlSaveVisibilities = true;
-    })["catch"](function () {
-      return _this.$router.push(_this.redirectRoute);
-    });
+                _this.controlSaveVisibilities = true;
+              })["catch"](function () {
+                return _this.$router.push(_this.redirectRoute);
+              });
+
+            case 2:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    }))();
   }
 });
 
@@ -503,7 +521,7 @@ var createMethod = {
           text: "\xAB".concat(title, "\xBB"),
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }
@@ -528,7 +546,7 @@ var updateMethod = {
           text: "\xAB".concat(title, "\xBB"),
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }
@@ -560,10 +578,10 @@ var deleteMethod = {
             }
 
             if (paginationData) {
-              categoryId ? _this3.$store.dispatch('categories/showImages', {
+              categoryId ? _this3.$store.dispatch('categories/getImages', {
                 id: categoryId,
                 data: paginationData
-              }) : _this3.$store.dispatch('images/index', paginationData);
+              }) : _this3.$store.dispatch('images/getItems', paginationData);
             }
 
             return deleteSwalFireAlert(successText, title);
@@ -578,10 +596,12 @@ var deleteSwalFireConfirm = function deleteSwalFireConfirm(alertText) {
   return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
     title: 'Вы уверены?',
     text: "\u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u0443\u0434\u0430\u043B\u0438\u0442 ".concat(alertText, " \u0431\u0435\u0437\u0432\u043E\u0437\u0432\u0440\u0430\u0442\u043D\u043E!"),
-    type: 'warning',
+    icon: 'warning',
     showCancelButton: true,
-    confirmButtonClass: 'md-button md-success btn-fill',
-    cancelButtonClass: 'md-button md-danger btn-fill',
+    customClass: {
+      confirmButton: 'md-button md-success btn-fill',
+      cancelButton: 'md-button md-danger btn-fill'
+    },
     confirmButtonText: 'Удалить',
     cancelButtonText: 'Отменить',
     buttonsStyling: false
@@ -593,17 +613,17 @@ var deleteSwalFireAlert = function deleteSwalFireAlert(successText, title) {
     title: successText,
     text: "\xAB".concat(title, "\xBB"),
     timer: 2000,
-    type: 'success',
+    icon: 'success',
     showConfirmButton: false
   });
 };
 
 var uploadMethod = {
   methods: {
-    upload: function () {
-      var _upload = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref4) {
+    upload: function upload(_ref4) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var uploadFiles, _ref4$type, type, _ref4$id, id, _ref4$storeModule, storeModule, paginationData, files, module;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -620,7 +640,7 @@ var uploadMethod = {
                 }
 
                 _context.next = 6;
-                return this.$store.dispatch("".concat(module, "/uploadImages"), {
+                return _this4.$store.dispatch("".concat(module, "/uploadImages"), {
                   files: files,
                   id: id,
                   type: type,
@@ -633,7 +653,7 @@ var uploadMethod = {
 
               case 8:
                 _context.next = 10;
-                return this.$store.dispatch('images/store', {
+                return _this4.$store.dispatch('images/store', {
                   files: files,
                   paginationData: paginationData
                 });
@@ -645,7 +665,7 @@ var uploadMethod = {
                   text: '',
                   timer: 2000,
                   showConfirmButton: false,
-                  type: 'success'
+                  icon: 'success'
                 });
 
               case 12:
@@ -656,21 +676,15 @@ var uploadMethod = {
                 return _context.stop();
             }
           }
-        }, _callee, this);
-      }));
-
-      function upload(_x) {
-        return _upload.apply(this, arguments);
-      }
-
-      return upload;
-    }()
+        }, _callee);
+      }))();
+    }
   }
 };
 var imageAddMethod = {
   methods: {
     addImages: function addImages(_ref5) {
-      var _this4 = this;
+      var _this5 = this;
 
       var category = _ref5.category,
           selected = _ref5.selected;
@@ -678,7 +692,7 @@ var imageAddMethod = {
         category_id: category.id,
         selected_images: selected
       }).then(function () {
-        _this4.$router.push({
+        _this5.$router.push({
           name: 'manager.catalog.categories.images',
           params: {
             id: category.id
@@ -690,7 +704,7 @@ var imageAddMethod = {
           text: '',
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }
@@ -699,7 +713,7 @@ var imageAddMethod = {
 var subCategoryImageAddMethod = {
   methods: {
     addImages: function addImages(_ref6) {
-      var _this5 = this;
+      var _this6 = this;
 
       var type = _ref6.type,
           id = _ref6.id,
@@ -710,14 +724,14 @@ var subCategoryImageAddMethod = {
         id: id,
         selected_images: selected
       }).then(function () {
-        _this5.$router.push(redirectRoute);
+        _this6.$router.push(redirectRoute);
 
         return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
           title: 'Изображения добавлены!',
           text: '',
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }

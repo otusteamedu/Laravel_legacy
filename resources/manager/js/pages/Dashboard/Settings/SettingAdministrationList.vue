@@ -86,6 +86,10 @@
                                 <span class="md-subheading">{{ item.title }}</span>
                             </md-table-cell>
 
+                            <md-table-cell md-label="Алиас">
+                                {{ item.alias }}
+                            </md-table-cell>
+
                             <md-table-cell md-label="Описание">
                                 {{ item.description }}
                             </md-table-cell>
@@ -148,8 +152,8 @@
         },
         methods: {
             ...mapActions({
-                indexWithGroupAction: 'settings/indexWithGroup',
-                indexActionGroups: 'settingGroups/index',
+                getItemsWithGroupAction: 'settings/getItemsWithGroup',
+                getGroupsAction: 'settingGroups/getItems',
             }),
             onDeleteSetting(item) {
                 return this.delete({
@@ -173,8 +177,8 @@
         created() {
             if (this.$route.params.activeTab)
                 this.activeTab = this.$route.params.activeTab;
-            this.indexActionGroups()
-                .then(() => this.indexWithGroupAction())
+            this.getGroupsAction()
+                .then(() => this.getItemsWithGroupAction())
                 .then(() => {
                     this.setPageTitle('Администрирование');
                     this.responseData = true;

@@ -9,17 +9,17 @@ use Faker\Generator as Faker;
 use Tymon\JWTAuth\JWTAuth;
 
 if (! function_exists('getUploadedFileFromPath')) {
-    function getUploadedFileFromPath($path, $public = false)
+    function getUploadedFileFromPath(string $path, bool $public = false)
     {
         $name = File::name($path);
         $extension = File::extension($path);
         $originalName = $name . '.' . $extension;
         $mimeType = File::mimeType($path);
-        $size = File::size($path);
+//        $size = File::size($path); // Deprecated: since from v7.0
         $error = null;
         $test = $public;
 
-        return new UploadedFile($path, $originalName, $mimeType, $size, $error, $test);
+        return new UploadedFile($path, $originalName, $mimeType, $error, $test);
     }
 }
 
@@ -160,5 +160,12 @@ if (! function_exists('jwtAuth')) {
     function jwtAuth()
     {
         return app()->make(JWTAuth::class);
+    }
+}
+
+if (! function_exists('getOrderNumber')) {
+    function getOrderNumber()
+    {
+        return +str_pad(crc32(time()), 9, rand(0,999));
     }
 }

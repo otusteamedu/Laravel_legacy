@@ -5,7 +5,9 @@ import { axiosAction } from "../../mixins/actions";
 const state = {
     fields: {
         title: '',
+        alias: '',
         cost: '',
+        order: '',
         publish: '',
         description: ''
     },
@@ -26,12 +28,12 @@ const mutations = {
         state.items = state.items.filter(item => item.id !== payload);
     },
     CLEAR_FIELDS(state) {
-        for(let field in state.fields) {
+        for(const field of Object.keys(state.fields)) {
             state.fields[field] = '';
         }
     },
     UPDATE_FIELDS(state, payload) {
-        for(let field in state.fields) {
+        for(const field of Object.keys(state.fields)) {
             state.fields[field] = payload[field] === null ? '' : payload[field];
         }
     },
@@ -45,13 +47,13 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
+    getItems(context) {
         return axiosAction('get', context, {
             url: '/api/manager/store/deliveries',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    show(context, id) {
+    getItem(context, id) {
         return axiosAction('get', context, {
             url: `/api/manager/store/deliveries/${id}`,
             thenContent: response => context.commit('UPDATE_FIELDS', response.data)
@@ -59,8 +61,8 @@ const actions = {
     },
     store(context, payload) {
         const form = new FormData();
-        for(let item in payload) {
-            form.append(item, payload[item]);
+        for(const [key, value] of Object.entries(payload)) {
+            form.append(key, value);
         }
         return axiosAction('post', context, {
             url: '/api/manager/store/deliveries',
@@ -69,8 +71,8 @@ const actions = {
     },
     update(context, payload) {
         const form = new FormData();
-        for(let item in payload.formData) {
-            form.append(item, payload.formData[item]);
+        for(const [key, value] of Object.entries(payload.formData)) {
+            form.append(key, value);
         }
         return axiosAction('post', context, {
             url: `/api/manager/store/deliveries/${payload.id}`,
@@ -104,6 +106,8 @@ const actions = {
 const getters = {
     isUniqueTitle: state => value => uniqueFieldMixin(state.items, 'title', value),
     isUniqueTitleEdit: state => (value, id) => uniqueFieldEditMixin(state.items, 'title', value, id),
+    isUniqueAlias: state => title => uniqueFieldMixin(state.items, 'alias', title),
+    isUniqueAliasEdit: state => (title, id) => uniqueFieldEditMixin(state.items, 'alias', title, id),
 };
 
 export default {

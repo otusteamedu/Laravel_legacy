@@ -40,6 +40,61 @@ class ImageResizeController extends Controller
      * @param string $path
      * @return mixed
      */
+    public function crop(string $width, string $height, string $path)
+    {
+        return $this->service->crop($width, $height, $path);
+    }
+
+    /**
+     * @param string $width
+     * @param string $height
+     * @param string $x
+     * @param string $y
+     * @param string $flip
+     * @param string $colorize
+     * @param string $path
+     * @return mixed
+     */
+    public function getOrderImage(
+        string $width,
+        string $height,
+        string $x,
+        string $y,
+        string $flip,
+        string $colorize,
+        string $path)
+    {
+        return $this->service->getOrderImage($path, $width, $height, $x, $y, $flip, $colorize);
+    }
+
+    /**
+     * @param string $width
+     * @param string $height
+     * @param string $x
+     * @param string $y
+     * @param string $flip
+     * @param string $colorize
+     * @param string $path
+     * @return mixed
+     */
+    public function getOrderImageThumb(
+        string $width,
+        string $height,
+        string $x,
+        string $y,
+        string $flip,
+        string $colorize,
+        string $path)
+    {
+        return $this->service->getOrderImageThumb($path, $width, $height, $x, $y, $flip, $colorize);
+    }
+
+    /**
+     * @param string $width
+     * @param string $height
+     * @param string $path
+     * @return mixed
+     */
     public function fit(string $width, string $height, string $path)
     {
         return $this->service->fit($width, $height, $path);
@@ -72,5 +127,14 @@ class ImageResizeController extends Controller
     public function show(string $path)
     {
         return $this->service->show($path);
+    }
+
+    /**
+     * @param string $path
+     * @return mixed
+     */
+    public function showGrayscale(string $path)
+    {
+        return $this->service->showGrayscale($path);
     }
 }

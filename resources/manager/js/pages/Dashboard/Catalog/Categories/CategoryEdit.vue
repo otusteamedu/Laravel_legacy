@@ -124,9 +124,7 @@
                 touch: false,
                 minLength: minLength(2),
                 isUnique (value) {
-                    return (value.trim() === '') && !this.$v.title.$dirty
-                        ? true
-                        : !this.isUniqueTitleEdit
+                    return ((value.trim() === '') && !this.$v.title.$dirty) || !this.isUniqueTitleEdit
                 }
             },
             alias: {
@@ -134,14 +132,10 @@
                 touch: false,
                 minLength: minLength(2),
                 isUnique (value) {
-                    return (value.trim() === '') && !this.$v.alias.$dirty
-                        ? true
-                        : !this.isUniqueAliasEdit
+                    return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAliasEdit
                 },
                 testAlias (value) {
-                    return value.trim() === ''
-                        ? true
-                        : (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
+                    return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
                 }
             },
             image: {
@@ -176,8 +170,8 @@
         },
         methods: {
             ...mapActions('categories', {
-                showAction: 'show',
-                indexAction: 'index'
+                getItemAction: 'getItem',
+                getItemsAction: 'getItems'
             }),
             onUpdate () {
                 return this.update({
@@ -211,8 +205,8 @@
             }
         },
         created() {
-            this.indexAction()
-                .then(() => this.showAction(this.id))
+            this.getItemsAction()
+                .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(this.title);
                     this.responseData = true;

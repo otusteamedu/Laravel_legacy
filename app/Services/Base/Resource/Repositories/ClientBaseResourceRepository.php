@@ -14,16 +14,11 @@ abstract class ClientBaseResourceRepository
     protected $model;
 
     /**
-     * Value of published resource
-     */
-    const PUBLISH = 1;
-
-    /**
      * @return Collection
      */
     public function index(): Collection
     {
-        return $this->model::where('publish', self::PUBLISH)->get();
+        return $this->model::published()->get();
     }
 
     /**

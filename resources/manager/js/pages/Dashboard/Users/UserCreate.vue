@@ -152,9 +152,9 @@
         },
         methods: {
             ...mapActions({
-                indexAction: 'users/index',
+                getItemsAction: 'users/getItems',
                 clearFieldsAction: 'users/clearFields',
-                indexRolesAction: 'roles/index',
+                getRolesAction: 'roles/getItems',
                 updateFieldAction: 'users/updateField'
             }),
             onCreate() {
@@ -176,8 +176,8 @@
         },
         created() {
             this.clearFieldsAction();
-            this.indexAction()
-                .then(() => this.indexRolesAction())
+            this.getItemsAction()
+                .then(() => this.getRolesAction())
                 .then(() => {
                     this.updateFieldAction({ field: 'roles', value: this.defaultRole})
                     this.setPageTitle('Новый Пользователь');

@@ -121,7 +121,7 @@
         },
         methods: {
             ...mapActions('permissions', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields',
             }),
             onCreate() {
@@ -139,7 +139,7 @@
             }
         },
         created() {
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Новая Привилегия');
                     this.clearFieldsAction();

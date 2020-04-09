@@ -52,13 +52,13 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
+    getItems(context) {
         return axiosAction('get', context, {
             url: '/api/manager/textures',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    show(context, payload) {
+    getItem(context, payload) {
         return axiosAction('get', context, {
             url: `/api/manager/textures/${payload}`,
             thenContent: response => context.commit('UPDATE_FIELDS', response.data)

@@ -55,19 +55,19 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
+    getItems(context) {
         return axiosAction('get', context, {
             url: '/api/manager/settings',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    indexWithGroup(context) {
+    getItemsWithGroup(context) {
         return axiosAction('get', context, {
             url: '/api/manager/settings/with-group',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    indexWithTypes(context) {
+    getItemsWithTypes(context) {
         return axiosAction('get', context, {
             url: '/api/manager/settings/with-types',
             thenContent: response => {
@@ -77,7 +77,7 @@ const actions = {
             }
         })
     },
-    show(context, id) {
+    getItem(context, id) {
         return axiosAction('get', context, {
             url: `/api/manager/settings/${id}`,
             thenContent: response => {

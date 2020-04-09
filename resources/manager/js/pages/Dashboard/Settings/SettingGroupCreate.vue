@@ -29,6 +29,14 @@
                                  :module="storeModule"
                                  :vRules="{ required: true, unique: true, minLength: true }" />
 
+                        <v-input title="Алиас"
+                                 icon="code"
+                                 name="alias"
+                                 :vDelay="true"
+                                 :vField="$v.alias"
+                                 :module="storeModule"
+                                 :vRules="{ required: true, unique: true, minLength: true, alias: true }" />
+
                         <v-textarea name="description"
                                     :vField="$v.description"
                                     :module="storeModule" />
@@ -68,9 +76,18 @@
                 touch: false,
                 minLength: minLength(2),
                 isUnique (value) {
-                    return (value.trim() === '') && !this.$v.title.$dirty
-                        ? true
-                        : !this.isUniqueTitle
+                    return ((value.trim() === '') && !this.$v.title.$dirty) || !this.isUniqueTitle
+                },
+            },
+            alias: {
+                required,
+                touch: false,
+                testAlias (value) {
+                    return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
+                },
+                minLength: minLength(2),
+                isUnique (value) {
+                    return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAlias
                 },
             },
             description: {
@@ -80,21 +97,26 @@
         computed: {
             ...mapState('settingGroups', {
                 title: state => state.fields.title,
+                alias: state => state.fields.alias,
                 description: state => state.fields.description
             }),
             isUniqueTitle() {
                 return !!this.$store.getters['settingGroups/isUniqueTitle'](this.title);
+            },
+            isUniqueAlias () {
+                return !!this.$store.getters['settingGroups/isUniqueAlias'](this.alias);
             }
         },
         methods: {
             ...mapActions('settingGroups', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields',
             }),
             onCreate() {
                 return this.create({
                     sendData: {
                         title : this.title,
+                        alias: this.alias,
                         description : this.description
                     },
                     title: this.title,
@@ -106,7 +128,7 @@
         },
         created() {
             this.clearFieldsAction();
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Новая группа');
                     this.responseData = true;

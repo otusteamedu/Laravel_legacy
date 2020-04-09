@@ -29,7 +29,7 @@
             }
         },
         created() {
-            this.setPageTitle('Категории');
+            this.setPageTitle('Каталог');
         }
     }
 </script>

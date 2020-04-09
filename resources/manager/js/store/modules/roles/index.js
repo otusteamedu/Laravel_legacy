@@ -47,13 +47,13 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
+    getItems(context) {
         return axiosAction('get', context, {
             url: '/api/manager/roles',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)
         })
     },
-    show(context, id) {
+    getItem(context, id) {
         return axiosAction('get', context, {
             url: `/api/manager/roles/${id}`,
             thenContent: response => context.commit('UPDATE_FIELDS', response.data)

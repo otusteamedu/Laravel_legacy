@@ -25,12 +25,28 @@
                                  :module="storeModule"
                                  :vRules="{ required: true, unique: true, minLength: true }" />
 
+                        <v-input title="Алиас"
+                                 icon="code"
+                                 name="alias"
+                                 :vDelay="true"
+                                 :vField="$v.alias"
+                                 :module="storeModule"
+                                 :vRules="{ required: true, unique: true, minLength: true, alias: true }" />
+
                         <v-input title="Стоимость"
                                  icon="attach_money"
                                  name="cost"
                                  :vDelay="true"
                                  :vField="$v.cost"
                                  :maxlength="5"
+                                 :module="storeModule"
+                                 :vRules="{ numeric: true }" />
+
+                        <v-input title="Порядок"
+                                 icon="sort"
+                                 name="order"
+                                 :vField="$v.order"
+                                 :maxlength="2"
                                  :module="storeModule"
                                  :vRules="{ numeric: true }" />
 
@@ -86,7 +102,22 @@
                         : !this.isUniqueTitle
                 }
             },
+            alias: {
+                required,
+                touch: false,
+                testAlias (value) {
+                    return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
+                },
+                minLength: minLength(2),
+                isUnique (value) {
+                    return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAlias
+                },
+            },
             cost: {
+                numeric,
+                touch: false
+            },
+            order: {
                 numeric,
                 touch: false
             },
@@ -97,24 +128,31 @@
         computed: {
             ...mapState('deliveries', {
                 title: state => state.fields.title,
+                alias: state => state.fields.alias,
                 cost: state => state.fields.cost,
+                order: state => state.fields.order,
                 publish: state => state.fields.publish,
                 description: state => state.fields.description
             }),
             isUniqueTitle() {
                 return !!this.$store.getters['deliveries/isUniqueTitle'](this.title);
+            },
+            isUniqueAlias () {
+                return !!this.$store.getters['deliveries/isUniqueAlias'](this.alias);
             }
         },
         methods: {
             ...mapActions('deliveries', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields',
             }),
             onCreate() {
                 return this.create({
                     sendData: {
                         title: this.title,
+                        alias: this.alias,
                         cost: +this.cost,
+                        order: +this.order,
                         publish: +this.publish,
                         description: this.description
                     },
@@ -127,7 +165,7 @@
         },
         created() {
             this.clearFieldsAction();
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Новый способ доставки');
                     this.responseData = true;

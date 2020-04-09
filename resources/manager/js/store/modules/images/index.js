@@ -100,7 +100,7 @@ const mutations = {
 };
 
 const actions = {
-    index(context, payload) {
+    getItems(context, payload) {
         const form = new FormData();
         for(let field in payload) {
             form.append(field, payload[field]);
@@ -117,7 +117,7 @@ const actions = {
             }
         })
     },
-    show(context, id) {
+    getItem(context, id) {
         return axiosAction('get', context, {
             url: `/api/manager/images/${id}`,
             thenContent: response => {
@@ -184,7 +184,12 @@ const actions = {
     publish(context, itemId) {
         return axiosAction('get', context, {
             url: `/api/manager/images/${itemId}/publish`,
-            thenContent: response => context.commit('CHANGE_PUBLISH', response.data)
+            thenContent: response => {
+                context.commit('CHANGE_PUBLISH', response.data)
+                // if searchedData.length
+                    ? context.commit('CHANGE_PUBLISH', response.data, { root: true })
+                    : context.commit('CHANGE_PUBLISH', response.data)
+            }
         })
     },
     updateField(context, payload) {

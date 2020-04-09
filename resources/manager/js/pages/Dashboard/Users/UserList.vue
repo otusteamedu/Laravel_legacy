@@ -96,7 +96,7 @@
         },
         methods: {
             ...mapActions('users', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 publishAction: 'publish'
             }),
             onDelete(item) {
@@ -113,7 +113,7 @@
             },
         },
         created() {
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Пользователи');
                     this.responseData = true;

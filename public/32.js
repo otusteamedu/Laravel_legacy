@@ -79,6 +79,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -104,7 +120,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         return value.trim() === '' && !this.$v.title.$dirty ? true : !this.isUniqueTitle;
       }
     },
+    alias: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      touch: false,
+      testAlias: function testAlias(value) {
+        return value.trim() === '' || /^([a-z0-9]+[-]?)+[a-z0-9]$/.test(value);
+      },
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(2),
+      isUnique: function isUnique(value) {
+        return value.trim() === '' && !this.$v.alias.$dirty || !this.isUniqueAlias;
+      }
+    },
     cost: {
+      numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["numeric"],
+      touch: false
+    },
+    order: {
       numeric: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["numeric"],
       touch: false
     },
@@ -116,8 +147,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     title: function title(state) {
       return state.fields.title;
     },
+    alias: function alias(state) {
+      return state.fields.alias;
+    },
     cost: function cost(state) {
       return state.fields.cost;
+    },
+    order: function order(state) {
+      return state.fields.order;
     },
     publish: function publish(state) {
       return state.fields.publish;
@@ -128,17 +165,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }), {
     isUniqueTitle: function isUniqueTitle() {
       return !!this.$store.getters['deliveries/isUniqueTitle'](this.title);
+    },
+    isUniqueAlias: function isUniqueAlias() {
+      return !!this.$store.getters['deliveries/isUniqueAlias'](this.alias);
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('deliveries', {
-    indexAction: 'index',
+    getItemsAction: 'getItems',
     clearFieldsAction: 'clearFields'
   }), {
     onCreate: function onCreate() {
       return this.create({
         sendData: {
           title: this.title,
+          alias: this.alias,
           cost: +this.cost,
+          order: +this.order,
           publish: +this.publish,
           description: this.description
         },
@@ -153,7 +195,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     this.clearFieldsAction();
-    this.indexAction().then(function () {
+    this.getItemsAction().then(function () {
       _this.setPageTitle('Новый способ доставки');
 
       _this.responseData = true;
@@ -264,12 +306,41 @@ var render = function() {
                       _vm._v(" "),
                       _c("v-input", {
                         attrs: {
+                          title: "Алиас",
+                          icon: "code",
+                          name: "alias",
+                          vDelay: true,
+                          vField: _vm.$v.alias,
+                          module: _vm.storeModule,
+                          vRules: {
+                            required: true,
+                            unique: true,
+                            minLength: true,
+                            alias: true
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-input", {
+                        attrs: {
                           title: "Стоимость",
                           icon: "attach_money",
                           name: "cost",
                           vDelay: true,
                           vField: _vm.$v.cost,
                           maxlength: 5,
+                          module: _vm.storeModule,
+                          vRules: { numeric: true }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("v-input", {
+                        attrs: {
+                          title: "Порядок",
+                          icon: "sort",
+                          name: "order",
+                          vField: _vm.$v.order,
+                          maxlength: 2,
                           module: _vm.storeModule,
                           vRules: { numeric: true }
                         }
@@ -378,7 +449,7 @@ var createMethod = {
           text: "\xAB".concat(title, "\xBB"),
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }
@@ -403,7 +474,7 @@ var updateMethod = {
           text: "\xAB".concat(title, "\xBB"),
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }
@@ -435,10 +506,10 @@ var deleteMethod = {
             }
 
             if (paginationData) {
-              categoryId ? _this3.$store.dispatch('categories/showImages', {
+              categoryId ? _this3.$store.dispatch('categories/getImages', {
                 id: categoryId,
                 data: paginationData
-              }) : _this3.$store.dispatch('images/index', paginationData);
+              }) : _this3.$store.dispatch('images/getItems', paginationData);
             }
 
             return deleteSwalFireAlert(successText, title);
@@ -453,10 +524,12 @@ var deleteSwalFireConfirm = function deleteSwalFireConfirm(alertText) {
   return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
     title: 'Вы уверены?',
     text: "\u0414\u0430\u043D\u043D\u043E\u0435 \u0434\u0435\u0439\u0441\u0442\u0432\u0438\u0435 \u0443\u0434\u0430\u043B\u0438\u0442 ".concat(alertText, " \u0431\u0435\u0437\u0432\u043E\u0437\u0432\u0440\u0430\u0442\u043D\u043E!"),
-    type: 'warning',
+    icon: 'warning',
     showCancelButton: true,
-    confirmButtonClass: 'md-button md-success btn-fill',
-    cancelButtonClass: 'md-button md-danger btn-fill',
+    customClass: {
+      confirmButton: 'md-button md-success btn-fill',
+      cancelButton: 'md-button md-danger btn-fill'
+    },
     confirmButtonText: 'Удалить',
     cancelButtonText: 'Отменить',
     buttonsStyling: false
@@ -468,17 +541,17 @@ var deleteSwalFireAlert = function deleteSwalFireAlert(successText, title) {
     title: successText,
     text: "\xAB".concat(title, "\xBB"),
     timer: 2000,
-    type: 'success',
+    icon: 'success',
     showConfirmButton: false
   });
 };
 
 var uploadMethod = {
   methods: {
-    upload: function () {
-      var _upload = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref4) {
+    upload: function upload(_ref4) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var uploadFiles, _ref4$type, type, _ref4$id, id, _ref4$storeModule, storeModule, paginationData, files, module;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -495,7 +568,7 @@ var uploadMethod = {
                 }
 
                 _context.next = 6;
-                return this.$store.dispatch("".concat(module, "/uploadImages"), {
+                return _this4.$store.dispatch("".concat(module, "/uploadImages"), {
                   files: files,
                   id: id,
                   type: type,
@@ -508,7 +581,7 @@ var uploadMethod = {
 
               case 8:
                 _context.next = 10;
-                return this.$store.dispatch('images/store', {
+                return _this4.$store.dispatch('images/store', {
                   files: files,
                   paginationData: paginationData
                 });
@@ -520,7 +593,7 @@ var uploadMethod = {
                   text: '',
                   timer: 2000,
                   showConfirmButton: false,
-                  type: 'success'
+                  icon: 'success'
                 });
 
               case 12:
@@ -531,21 +604,15 @@ var uploadMethod = {
                 return _context.stop();
             }
           }
-        }, _callee, this);
-      }));
-
-      function upload(_x) {
-        return _upload.apply(this, arguments);
-      }
-
-      return upload;
-    }()
+        }, _callee);
+      }))();
+    }
   }
 };
 var imageAddMethod = {
   methods: {
     addImages: function addImages(_ref5) {
-      var _this4 = this;
+      var _this5 = this;
 
       var category = _ref5.category,
           selected = _ref5.selected;
@@ -553,7 +620,7 @@ var imageAddMethod = {
         category_id: category.id,
         selected_images: selected
       }).then(function () {
-        _this4.$router.push({
+        _this5.$router.push({
           name: 'manager.catalog.categories.images',
           params: {
             id: category.id
@@ -565,7 +632,7 @@ var imageAddMethod = {
           text: '',
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }
@@ -574,7 +641,7 @@ var imageAddMethod = {
 var subCategoryImageAddMethod = {
   methods: {
     addImages: function addImages(_ref6) {
-      var _this5 = this;
+      var _this6 = this;
 
       var type = _ref6.type,
           id = _ref6.id,
@@ -585,14 +652,14 @@ var subCategoryImageAddMethod = {
         id: id,
         selected_images: selected
       }).then(function () {
-        _this5.$router.push(redirectRoute);
+        _this6.$router.push(redirectRoute);
 
         return sweetalert2__WEBPACK_IMPORTED_MODULE_1___default.a.fire({
           title: 'Изображения добавлены!',
           text: '',
           timer: 2000,
           showConfirmButton: false,
-          type: 'success'
+          icon: 'success'
         });
       });
     }

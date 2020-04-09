@@ -184,8 +184,6 @@
             searchOnServer (query) {
                 this.$emit('search', query);
 
-                console.log(`search query: ${query}`)
-
                 if (! query) {
                     this.setSearchedDataAction([])
                 }

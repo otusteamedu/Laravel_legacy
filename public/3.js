@@ -1,21 +1,1304 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[3],{
 
-/***/ "./node_modules/fuse.js/dist/fuse.js":
-/*!*******************************************!*\
-  !*** ./node_modules/fuse.js/dist/fuse.js ***!
-  \*******************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/fuse.js/dist/fuse.esm.js":
+/*!***********************************************!*\
+  !*** ./node_modules/fuse.js/dist/fuse.esm.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/*!
- * Fuse.js v3.4.6 - Lightweight fuzzy-search (http://fusejs.io)
- * 
- * Copyright (c) 2012-2017 Kirollos Risk (http://kiro.me)
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/**
+ * Fuse.js v5.1.0 - Lightweight fuzzy-search (http://fusejs.io)
+ *
+ * Copyright (c) 2020 Kiro Risk (http://kiro.me)
  * All Rights Reserved. Apache Software License 2.0
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
  */
-!function(e,t){ true?module.exports=t():undefined}(this,function(){return function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}return n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=1)}([function(e,t){e.exports=function(e){return Array.isArray?Array.isArray(e):"[object Array]"===Object.prototype.toString.call(e)}},function(e,t,n){function r(e){return(r="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function o(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var i=n(2),a=n(8),s=n(0),c=function(){function e(t,n){var r=n.location,o=void 0===r?0:r,i=n.distance,s=void 0===i?100:i,c=n.threshold,h=void 0===c?.6:c,l=n.maxPatternLength,u=void 0===l?32:l,f=n.caseSensitive,d=void 0!==f&&f,v=n.tokenSeparator,p=void 0===v?/ +/g:v,g=n.findAllMatches,y=void 0!==g&&g,m=n.minMatchCharLength,k=void 0===m?1:m,S=n.id,x=void 0===S?null:S,b=n.keys,M=void 0===b?[]:b,_=n.shouldSort,L=void 0===_||_,w=n.getFn,A=void 0===w?a:w,C=n.sortFn,I=void 0===C?function(e,t){return e.score-t.score}:C,O=n.tokenize,j=void 0!==O&&O,P=n.matchAllTokens,F=void 0!==P&&P,T=n.includeMatches,z=void 0!==T&&T,E=n.includeScore,K=void 0!==E&&E,$=n.verbose,J=void 0!==$&&$;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:s,threshold:h,maxPatternLength:u,isCaseSensitive:d,tokenSeparator:p,findAllMatches:y,minMatchCharLength:k,id:x,keys:M,includeMatches:z,includeScore:K,shouldSort:L,getFn:A,sortFn:I,verbose:J,tokenize:j,matchAllTokens:F},this.setCollection(t)}var t,n,c;return t=e,(n=[{key:"setCollection",value:function(e){return this.list=e,e}},{key:"search",value:function(e){var t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:{limit:!1};this._log('---------\nSearch pattern: "'.concat(e,'"'));var n=this._prepareSearchers(e),r=n.tokenSearchers,o=n.fullSearcher,i=this._search(r,o),a=i.weights,s=i.results;return this._computeScore(a,s),this.options.shouldSort&&this._sort(s),t.limit&&"number"==typeof t.limit&&(s=s.slice(0,t.limit)),this._format(s)}},{key:"_prepareSearchers",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:"",t=[];if(this.options.tokenize)for(var n=e.split(this.options.tokenSeparator),r=0,o=n.length;r<o;r+=1)t.push(new i(n[r],this.options));return{tokenSearchers:t,fullSearcher:new i(e,this.options)}}},{key:"_search",value:function(){var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1?arguments[1]:void 0,n=this.list,r={},o=[];if("string"==typeof n[0]){for(var i=0,a=n.length;i<a;i+=1)this._analyze({key:"",value:n[i],record:i,index:i},{resultMap:r,results:o,tokenSearchers:e,fullSearcher:t});return{weights:null,results:o}}for(var s={},c=0,h=n.length;c<h;c+=1)for(var l=n[c],u=0,f=this.options.keys.length;u<f;u+=1){var d=this.options.keys[u];if("string"!=typeof d){if(s[d.name]={weight:1-d.weight||1},d.weight<=0||d.weight>1)throw new Error("Key weight has to be > 0 and <= 1");d=d.name}else s[d]={weight:1};this._analyze({key:d,value:this.options.getFn(l,d),record:l,index:c},{resultMap:r,results:o,tokenSearchers:e,fullSearcher:t})}return{weights:s,results:o}}},{key:"_analyze",value:function(e,t){var n=e.key,r=e.arrayIndex,o=void 0===r?-1:r,i=e.value,a=e.record,c=e.index,h=t.tokenSearchers,l=void 0===h?[]:h,u=t.fullSearcher,f=void 0===u?[]:u,d=t.resultMap,v=void 0===d?{}:d,p=t.results,g=void 0===p?[]:p;if(null!=i){var y=!1,m=-1,k=0;if("string"==typeof i){this._log("\nKey: ".concat(""===n?"-":n));var S=f.search(i);if(this._log('Full text: "'.concat(i,'", score: ').concat(S.score)),this.options.tokenize){for(var x=i.split(this.options.tokenSeparator),b=[],M=0;M<l.length;M+=1){var _=l[M];this._log('\nPattern: "'.concat(_.pattern,'"'));for(var L=!1,w=0;w<x.length;w+=1){var A=x[w],C=_.search(A),I={};C.isMatch?(I[A]=C.score,y=!0,L=!0,b.push(C.score)):(I[A]=1,this.options.matchAllTokens||b.push(1)),this._log('Token: "'.concat(A,'", score: ').concat(I[A]))}L&&(k+=1)}m=b[0];for(var O=b.length,j=1;j<O;j+=1)m+=b[j];m/=O,this._log("Token score average:",m)}var P=S.score;m>-1&&(P=(P+m)/2),this._log("Score average:",P);var F=!this.options.tokenize||!this.options.matchAllTokens||k>=l.length;if(this._log("\nCheck Matches: ".concat(F)),(y||S.isMatch)&&F){var T=v[c];T?T.output.push({key:n,arrayIndex:o,value:i,score:P,matchedIndices:S.matchedIndices}):(v[c]={item:a,output:[{key:n,arrayIndex:o,value:i,score:P,matchedIndices:S.matchedIndices}]},g.push(v[c]))}}else if(s(i))for(var z=0,E=i.length;z<E;z+=1)this._analyze({key:n,arrayIndex:z,value:i[z],record:a,index:c},{resultMap:v,results:g,tokenSearchers:l,fullSearcher:f})}}},{key:"_computeScore",value:function(e,t){this._log("\n\nComputing score:\n");for(var n=0,r=t.length;n<r;n+=1){for(var o=t[n].output,i=o.length,a=1,s=1,c=0;c<i;c+=1){var h=e?e[o[c].key].weight:1,l=(1===h?o[c].score:o[c].score||.001)*h;1!==h?s=Math.min(s,l):(o[c].nScore=l,a*=l)}t[n].score=1===s?a:s,this._log(t[n])}}},{key:"_sort",value:function(e){this._log("\n\nSorting...."),e.sort(this.options.sortFn)}},{key:"_format",value:function(e){var t=[];if(this.options.verbose){var n=[];this._log("\n\nOutput:\n\n",JSON.stringify(e,function(e,t){if("object"===r(t)&&null!==t){if(-1!==n.indexOf(t))return;n.push(t)}return t})),n=null}var o=[];this.options.includeMatches&&o.push(function(e,t){var n=e.output;t.matches=[];for(var r=0,o=n.length;r<o;r+=1){var i=n[r];if(0!==i.matchedIndices.length){var a={indices:i.matchedIndices,value:i.value};i.key&&(a.key=i.key),i.hasOwnProperty("arrayIndex")&&i.arrayIndex>-1&&(a.arrayIndex=i.arrayIndex),t.matches.push(a)}}}),this.options.includeScore&&o.push(function(e,t){t.score=e.score});for(var i=0,a=e.length;i<a;i+=1){var s=e[i];if(this.options.id&&(s.item=this.options.getFn(s.item,this.options.id)[0]),o.length){for(var c={item:s.item},h=0,l=o.length;h<l;h+=1)o[h](s,c);t.push(c)}else t.push(s.item)}return t}},{key:"_log",value:function(){var e;this.options.verbose&&(e=console).log.apply(e,arguments)}}])&&o(t.prototype,n),c&&o(t,c),e}();e.exports=c},function(e,t,n){function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=n(3),i=n(4),a=n(7),s=function(){function e(t,n){var r=n.location,o=void 0===r?0:r,i=n.distance,s=void 0===i?100:i,c=n.threshold,h=void 0===c?.6:c,l=n.maxPatternLength,u=void 0===l?32:l,f=n.isCaseSensitive,d=void 0!==f&&f,v=n.tokenSeparator,p=void 0===v?/ +/g:v,g=n.findAllMatches,y=void 0!==g&&g,m=n.minMatchCharLength,k=void 0===m?1:m;!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.options={location:o,distance:s,threshold:h,maxPatternLength:u,isCaseSensitive:d,tokenSeparator:p,findAllMatches:y,minMatchCharLength:k},this.pattern=this.options.isCaseSensitive?t:t.toLowerCase(),this.pattern.length<=u&&(this.patternAlphabet=a(this.pattern))}var t,n,s;return t=e,(n=[{key:"search",value:function(e){if(this.options.isCaseSensitive||(e=e.toLowerCase()),this.pattern===e)return{isMatch:!0,score:0,matchedIndices:[[0,e.length-1]]};var t=this.options,n=t.maxPatternLength,r=t.tokenSeparator;if(this.pattern.length>n)return o(e,this.pattern,r);var a=this.options,s=a.location,c=a.distance,h=a.threshold,l=a.findAllMatches,u=a.minMatchCharLength;return i(e,this.pattern,this.patternAlphabet,{location:s,distance:c,threshold:h,findAllMatches:l,minMatchCharLength:u})}}])&&r(t.prototype,n),s&&r(t,s),e}();e.exports=s},function(e,t){var n=/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g;e.exports=function(e,t){var r=arguments.length>2&&void 0!==arguments[2]?arguments[2]:/ +/g,o=new RegExp(t.replace(n,"\\$&").replace(r,"|")),i=e.match(o),a=!!i,s=[];if(a)for(var c=0,h=i.length;c<h;c+=1){var l=i[c];s.push([e.indexOf(l),l.length-1])}return{score:a?.5:1,isMatch:a,matchedIndices:s}}},function(e,t,n){var r=n(5),o=n(6);e.exports=function(e,t,n,i){for(var a=i.location,s=void 0===a?0:a,c=i.distance,h=void 0===c?100:c,l=i.threshold,u=void 0===l?.6:l,f=i.findAllMatches,d=void 0!==f&&f,v=i.minMatchCharLength,p=void 0===v?1:v,g=s,y=e.length,m=u,k=e.indexOf(t,g),S=t.length,x=[],b=0;b<y;b+=1)x[b]=0;if(-1!==k){var M=r(t,{errors:0,currentLocation:k,expectedLocation:g,distance:h});if(m=Math.min(M,m),-1!==(k=e.lastIndexOf(t,g+S))){var _=r(t,{errors:0,currentLocation:k,expectedLocation:g,distance:h});m=Math.min(_,m)}}k=-1;for(var L=[],w=1,A=S+y,C=1<<(S<=31?S-1:30),I=0;I<S;I+=1){for(var O=0,j=A;O<j;){r(t,{errors:I,currentLocation:g+j,expectedLocation:g,distance:h})<=m?O=j:A=j,j=Math.floor((A-O)/2+O)}A=j;var P=Math.max(1,g-j+1),F=d?y:Math.min(g+j,y)+S,T=Array(F+2);T[F+1]=(1<<I)-1;for(var z=F;z>=P;z-=1){var E=z-1,K=n[e.charAt(E)];if(K&&(x[E]=1),T[z]=(T[z+1]<<1|1)&K,0!==I&&(T[z]|=(L[z+1]|L[z])<<1|1|L[z+1]),T[z]&C&&(w=r(t,{errors:I,currentLocation:E,expectedLocation:g,distance:h}))<=m){if(m=w,(k=E)<=g)break;P=Math.max(1,2*g-k)}}if(r(t,{errors:I+1,currentLocation:g,expectedLocation:g,distance:h})>m)break;L=T}return{isMatch:k>=0,score:0===w?.001:w,matchedIndices:o(x,p)}}},function(e,t){e.exports=function(e,t){var n=t.errors,r=void 0===n?0:n,o=t.currentLocation,i=void 0===o?0:o,a=t.expectedLocation,s=void 0===a?0:a,c=t.distance,h=void 0===c?100:c,l=r/e.length,u=Math.abs(s-i);return h?l+u/h:u?1:l}},function(e,t){e.exports=function(){for(var e=arguments.length>0&&void 0!==arguments[0]?arguments[0]:[],t=arguments.length>1&&void 0!==arguments[1]?arguments[1]:1,n=[],r=-1,o=-1,i=0,a=e.length;i<a;i+=1){var s=e[i];s&&-1===r?r=i:s||-1===r||((o=i-1)-r+1>=t&&n.push([r,o]),r=-1)}return e[i-1]&&i-r>=t&&n.push([r,i-1]),n}},function(e,t){e.exports=function(e){for(var t={},n=e.length,r=0;r<n;r+=1)t[e.charAt(r)]=0;for(var o=0;o<n;o+=1)t[e.charAt(o)]|=1<<n-o-1;return t}},function(e,t,n){var r=n(0);e.exports=function(e,t){return function e(t,n,o){if(n){var i=n.indexOf("."),a=n,s=null;-1!==i&&(a=n.slice(0,i),s=n.slice(i+1));var c=t[a];if(null!=c)if(s||"string"!=typeof c&&"number"!=typeof c)if(r(c))for(var h=0,l=c.length;h<l;h+=1)e(c[h],s,o);else s&&e(c,s,o);else o.push(c.toString())}else o.push(t);return o}(e,t,[])}}])});
+
+function bitapScore(
+  pattern,
+  { errors = 0, currentLocation = 0, expectedLocation = 0, distance = 100 }
+) {
+  const accuracy = errors / pattern.length;
+  const proximity = Math.abs(expectedLocation - currentLocation);
+
+  if (!distance) {
+    // Dodge divide by zero error.
+    return proximity ? 1.0 : accuracy
+  }
+
+  return accuracy + proximity / distance
+}
+
+function matchedIndiced(matchmask = [], minMatchCharLength = 1) {
+  let matchedIndices = [];
+  let start = -1;
+  let end = -1;
+  let i = 0;
+
+  for (let len = matchmask.length; i < len; i += 1) {
+    let match = matchmask[i];
+    if (match && start === -1) {
+      start = i;
+    } else if (!match && start !== -1) {
+      end = i - 1;
+      if (end - start + 1 >= minMatchCharLength) {
+        matchedIndices.push([start, end]);
+      }
+      start = -1;
+    }
+  }
+
+  // (i-1 - start) + 1 => i - start
+  if (matchmask[i - 1] && i - start >= minMatchCharLength) {
+    matchedIndices.push([start, i - 1]);
+  }
+
+  return matchedIndices
+}
+
+function bitapSearch(
+  text,
+  pattern,
+  patternAlphabet,
+  {
+    location = 0,
+    distance = 100,
+    threshold = 0.6,
+    findAllMatches = false,
+    minMatchCharLength = 1,
+    includeMatches = false
+  }
+) {
+  const patternLen = pattern.length;
+  // Set starting location at beginning text and initialize the alphabet.
+  const textLen = text.length;
+  // Handle the case when location > text.length
+  const expectedLocation = Math.max(0, Math.min(location, textLen));
+  // Highest score beyond which we give up.
+  let currentThreshold = threshold;
+  // Is there a nearby exact match? (speedup)
+  let bestLocation = text.indexOf(pattern, expectedLocation);
+
+  // a mask of the matches
+  const matchMask = [];
+  for (let i = 0; i < textLen; i += 1) {
+    matchMask[i] = 0;
+  }
+
+  if (bestLocation !== -1) {
+    let score = bitapScore(pattern, {
+      errors: 0,
+      currentLocation: bestLocation,
+      expectedLocation,
+      distance
+    });
+    currentThreshold = Math.min(score, currentThreshold);
+
+    // What about in the other direction? (speed up)
+    bestLocation = text.lastIndexOf(pattern, expectedLocation + patternLen);
+
+    if (bestLocation !== -1) {
+      let score = bitapScore(pattern, {
+        errors: 0,
+        currentLocation: bestLocation,
+        expectedLocation,
+        distance
+      });
+      currentThreshold = Math.min(score, currentThreshold);
+    }
+  }
+
+  // Reset the best location
+  bestLocation = -1;
+
+  let lastBitArr = [];
+  let finalScore = 1;
+  let binMax = patternLen + textLen;
+
+  const mask = 1 << (patternLen <= 31 ? patternLen - 1 : 30);
+
+  for (let i = 0; i < patternLen; i += 1) {
+    // Scan for the best match; each iteration allows for one more error.
+    // Run a binary search to determine how far from the match location we can stray
+    // at this error level.
+    let binMin = 0;
+    let binMid = binMax;
+
+    while (binMin < binMid) {
+      const score = bitapScore(pattern, {
+        errors: i,
+        currentLocation: expectedLocation + binMid,
+        expectedLocation,
+        distance
+      });
+
+      if (score <= currentThreshold) {
+        binMin = binMid;
+      } else {
+        binMax = binMid;
+      }
+
+      binMid = Math.floor((binMax - binMin) / 2 + binMin);
+    }
+
+    // Use the result from this iteration as the maximum for the next.
+    binMax = binMid;
+
+    let start = Math.max(1, expectedLocation - binMid + 1);
+    let finish = findAllMatches
+      ? textLen
+      : Math.min(expectedLocation + binMid, textLen) + patternLen;
+
+    // Initialize the bit array
+    let bitArr = Array(finish + 2);
+
+    bitArr[finish + 1] = (1 << i) - 1;
+
+    for (let j = finish; j >= start; j -= 1) {
+      let currentLocation = j - 1;
+      let charMatch = patternAlphabet[text.charAt(currentLocation)];
+
+      if (charMatch) {
+        matchMask[currentLocation] = 1;
+      }
+
+      // First pass: exact match
+      bitArr[j] = ((bitArr[j + 1] << 1) | 1) & charMatch;
+
+      // Subsequent passes: fuzzy match
+      if (i !== 0) {
+        bitArr[j] |=
+          ((lastBitArr[j + 1] | lastBitArr[j]) << 1) | 1 | lastBitArr[j + 1];
+      }
+
+      if (bitArr[j] & mask) {
+        finalScore = bitapScore(pattern, {
+          errors: i,
+          currentLocation,
+          expectedLocation,
+          distance
+        });
+
+        // This match will almost certainly be better than any existing match.
+        // But check anyway.
+        if (finalScore <= currentThreshold) {
+          // Indeed it is
+          currentThreshold = finalScore;
+          bestLocation = currentLocation;
+
+          // Already passed `loc`, downhill from here on in.
+          if (bestLocation <= expectedLocation) {
+            break
+          }
+
+          // When passing `bestLocation`, don't exceed our current distance from `expectedLocation`.
+          start = Math.max(1, 2 * expectedLocation - bestLocation);
+        }
+      }
+    }
+
+    // No hope for a (better) match at greater error levels.
+    const score = bitapScore(pattern, {
+      errors: i + 1,
+      currentLocation: expectedLocation,
+      expectedLocation,
+      distance
+    });
+
+    if (score > currentThreshold) {
+      break
+    }
+
+    lastBitArr = bitArr;
+  }
+
+  let result = {
+    isMatch: bestLocation >= 0,
+    // Count exact matches (those with a score of 0) to be "almost" exact
+    score: !finalScore ? 0.001 : finalScore
+  };
+
+  if (includeMatches) {
+    result.matchedIndices = matchedIndiced(matchMask, minMatchCharLength);
+  }
+
+  return result
+}
+
+function patternAlphabet(pattern) {
+  let mask = {};
+  let len = pattern.length;
+
+  for (let i = 0; i < len; i += 1) {
+    mask[pattern.charAt(i)] = 0;
+  }
+
+  for (let i = 0; i < len; i += 1) {
+    mask[pattern.charAt(i)] |= 1 << (len - i - 1);
+  }
+
+  return mask
+}
+
+// Machine word size
+const MAX_BITS = 32;
+
+class BitapSearch {
+  constructor(
+    pattern,
+    {
+      // Approximately where in the text is the pattern expected to be found?
+      location = 0,
+      // Determines how close the match must be to the fuzzy location (specified above).
+      // An exact letter match which is 'distance' characters away from the fuzzy location
+      // would score as a complete mismatch. A distance of '0' requires the match be at
+      // the exact location specified, a threshold of '1000' would require a perfect match
+      // to be within 800 characters of the fuzzy location to be found using a 0.8 threshold.
+      distance = 100,
+      // At what point does the match algorithm give up. A threshold of '0.0' requires a perfect match
+      // (of both letters and location), a threshold of '1.0' would match anything.
+      threshold = 0.6,
+      // Indicates whether comparisons should be case sensitive.
+      isCaseSensitive = false,
+      // When true, the algorithm continues searching to the end of the input even if a perfect
+      // match is found before the end of the same input.
+      findAllMatches = false,
+      // Minimum number of characters that must be matched before a result is considered a match
+      minMatchCharLength = 1,
+
+      includeMatches = false
+    }
+  ) {
+    this.options = {
+      location,
+      distance,
+      threshold,
+      isCaseSensitive,
+      findAllMatches,
+      includeMatches,
+      minMatchCharLength
+    };
+
+    if (pattern.length > MAX_BITS) {
+      throw new Error(`Pattern length exceeds max of ${MAX_BITS}.`)
+    }
+
+    this.pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+    this.patternAlphabet = patternAlphabet(this.pattern);
+  }
+
+  searchIn(value) {
+    let text = value.$;
+    return this.searchInString(text)
+  }
+
+  searchInString(text) {
+    const { isCaseSensitive, includeMatches } = this.options;
+
+    if (!isCaseSensitive) {
+      text = text.toLowerCase();
+    }
+
+    // Exact match
+    if (this.pattern === text) {
+      let result = {
+        isMatch: true,
+        score: 0
+      };
+
+      if (includeMatches) {
+        result.matchedIndices = [[0, text.length - 1]];
+      }
+
+      return result
+    }
+
+    // Otherwise, use Bitap algorithm
+    const {
+      location,
+      distance,
+      threshold,
+      findAllMatches,
+      minMatchCharLength
+    } = this.options;
+    return bitapSearch(text, this.pattern, this.patternAlphabet, {
+      location,
+      distance,
+      threshold,
+      findAllMatches,
+      minMatchCharLength,
+      includeMatches
+    })
+  }
+}
+
+// Token: 'file
+// Match type: exact-match
+// Description: Items that include `file`
+
+const isForPattern = (pattern) => pattern.charAt(0) == "'";
+
+const sanitize = (pattern) => pattern.substr(1);
+
+const match = (pattern, text) => {
+  const sanitizedPattern = sanitize(pattern);
+  const index = text.indexOf(sanitizedPattern);
+  const isMatch = index > -1;
+
+  return {
+    isMatch,
+    score: 0
+  }
+};
+
+var exactMatch = {
+  isForPattern,
+  sanitize,
+  match
+};
+
+// Token: !fire
+// Match type: inverse-exact-match
+// Description: Items that do not include `fire`
+
+const isForPattern$1 = (pattern) => pattern.charAt(0) == '!';
+
+const sanitize$1 = (pattern) => pattern.substr(1);
+
+const match$1 = (pattern, text) => {
+  const sanitizedPattern = sanitize$1(pattern);
+  const isMatch = text.indexOf(sanitizedPattern) === -1;
+
+  return {
+    isMatch,
+    score: 0
+  }
+};
+
+var inverseExactMatch = {
+  isForPattern: isForPattern$1,
+  sanitize: sanitize$1,
+  match: match$1
+};
+
+// Token: ^file
+// Match type: prefix-exact-match
+// Description: Items that start with `file`
+
+const isForPattern$2 = (pattern) => pattern.charAt(0) == '^';
+
+const sanitize$2 = (pattern) => pattern.substr(1);
+
+const match$2 = (pattern, text) => {
+  const sanitizedPattern = sanitize$2(pattern);
+  const isMatch = text.startsWith(sanitizedPattern);
+
+  return {
+    isMatch,
+    score: 0
+  }
+};
+
+var prefixExactMatch = {
+  isForPattern: isForPattern$2,
+  sanitize: sanitize$2,
+  match: match$2
+};
+
+// Token: !^fire
+// Match type: inverse-prefix-exact-match
+// Description: Items that do not start with `fire`
+
+const isForPattern$3 = (pattern) =>
+  pattern.charAt(0) == '!' && pattern.charAt(1) == '^';
+
+const sanitize$3 = (pattern) => pattern.substr(2);
+
+const match$3 = (pattern, text) => {
+  const sanitizedPattern = sanitize$3(pattern);
+  const isMatch = !text.startsWith(sanitizedPattern);
+
+  return {
+    isMatch,
+    score: 0
+  }
+};
+
+var inversePrefixExactMatch = {
+  isForPattern: isForPattern$3,
+  sanitize: sanitize$3,
+  match: match$3
+};
+
+// Token: .file$
+// Match type: suffix-exact-match
+// Description: Items that end with `.file`
+
+const isForPattern$4 = (pattern) => pattern.charAt(pattern.length - 1) == '$';
+
+const sanitize$4 = (pattern) => pattern.substr(0, pattern.length - 1);
+
+const match$4 = (pattern, text) => {
+  const sanitizedPattern = sanitize$4(pattern);
+  const isMatch = text.endsWith(sanitizedPattern);
+
+  return {
+    isMatch,
+    score: 0
+  }
+};
+
+var suffixExactMatch = {
+  isForPattern: isForPattern$4,
+  sanitize: sanitize$4,
+  match: match$4
+};
+
+// Token: !.file$
+// Match type: inverse-suffix-exact-match
+// Description: Items that do not end with `.file`
+
+const isForPattern$5 = (pattern) =>
+  pattern.charAt(0) == '!' && pattern.charAt(pattern.length - 1) == '$';
+
+const sanitize$5 = (pattern) => pattern.substring(1, pattern.length - 1);
+
+const match$5 = (pattern, text) => {
+  const sanitizedPattern = sanitize$5(pattern);
+  const isMatch = !text.endsWith(sanitizedPattern);
+
+  return {
+    isMatch,
+    score: 0
+  }
+};
+
+var inverseSuffixExactMatch = {
+  isForPattern: isForPattern$5,
+  sanitize: sanitize$5,
+  match: match$5
+};
+
+const INFINITY = 1 / 0;
+
+const isArray = (value) =>
+  !Array.isArray
+    ? Object.prototype.toString.call(value) === '[object Array]'
+    : Array.isArray(value);
+
+// Adapted from:
+// https://github.com/lodash/lodash/blob/f4ca396a796435422bd4fd41fadbd225edddf175/.internal/baseToString.js
+const baseToString = (value) => {
+  // Exit early for strings to avoid a performance hit in some environments.
+  if (typeof value == 'string') {
+    return value
+  }
+  let result = value + '';
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result
+};
+
+const toString = (value) => (value == null ? '' : baseToString(value));
+
+const isString = (value) => typeof value === 'string';
+
+const isNumber = (value) => typeof value === 'number';
+
+const isDefined = (value) => value !== undefined && value !== null;
+
+// Return a 2D array representation of the query, for simpler parsing.
+// Example:
+// "^core go$ | rb$ | py$ xy$" => [["^core", "go$"], ["rb$"], ["py$", "xy$"]]
+const queryfy = (pattern) =>
+  pattern.split('|').map((item) => item.trim().split(/ +/g));
+
+/**
+ * Command-like searching
+ * ======================
+ *
+ * Given multiple search terms delimited by spaces.e.g. `^jscript .python$ ruby !java`,
+ * search in a given text.
+ *
+ * Search syntax:
+ *
+ * | Token       | Match type                 | Description                            |
+ * | ----------- | -------------------------- | -------------------------------------- |
+ * | `jscript`   | fuzzy-match                | Items that match `jscript`             |
+ * | `'python`   | exact-match                | Items that include `python`            |
+ * | `!ruby`     | inverse-exact-match        | Items that do not include `ruby`       |
+ * | `^java`     | prefix-exact-match         | Items that start with `java`           |
+ * | `!^earlang` | inverse-prefix-exact-match | Items that do not start with `earlang` |
+ * | `.js$`      | suffix-exact-match         | Items that end with `.js`              |
+ * | `!.go$`     | inverse-suffix-exact-match | Items that do not end with `.go`       |
+ *
+ * A single pipe character acts as an OR operator. For example, the following
+ * query matches entries that start with `core` and end with either`go`, `rb`,
+ * or`py`.
+ *
+ * ```
+ * ^core go$ | rb$ | py$
+ * ```
+ */
+class ExtendedSearch {
+  constructor(pattern, options) {
+    const { isCaseSensitive } = options;
+    this.query = null;
+    this.options = options;
+    // A <pattern>:<BitapSearch> key-value pair for optimizing searching
+    this._fuzzyCache = {};
+
+    if (isString(pattern) && pattern.trim().length > 0) {
+      this.pattern = isCaseSensitive ? pattern : pattern.toLowerCase();
+      this.query = queryfy(this.pattern);
+    }
+  }
+
+  searchIn(value) {
+    const query = this.query;
+
+    if (!this.query) {
+      return {
+        isMatch: false,
+        score: 1
+      }
+    }
+
+    let text = value.$;
+
+    text = this.options.isCaseSensitive ? text : text.toLowerCase();
+
+    let matchFound = false;
+
+    for (let i = 0, qLen = query.length; i < qLen; i += 1) {
+      const parts = query[i];
+      let result = null;
+      matchFound = true;
+
+      for (let j = 0, pLen = parts.length; j < pLen; j += 1) {
+        let token = parts[j];
+        result = this._search(token, text);
+        if (!result.isMatch) {
+          // AND condition, short-circuit and move on to next part
+          matchFound = false;
+          break
+        }
+      }
+
+      // OR condition, so if TRUE, return
+      if (matchFound) {
+        return result
+      }
+    }
+
+    // Nothing was matched
+    return {
+      isMatch: false,
+      score: 1
+    }
+  }
+
+  _search(pattern, text) {
+    if (exactMatch.isForPattern(pattern)) {
+      return exactMatch.match(pattern, text)
+    } else if (prefixExactMatch.isForPattern(pattern)) {
+      return prefixExactMatch.match(pattern, text)
+    } else if (inversePrefixExactMatch.isForPattern(pattern)) {
+      return inversePrefixExactMatch.match(pattern, text)
+    } else if (inverseSuffixExactMatch.isForPattern(pattern)) {
+      return inverseSuffixExactMatch.match(pattern, text)
+    } else if (suffixExactMatch.isForPattern(pattern)) {
+      return suffixExactMatch.match(pattern, text)
+    } else if (inverseExactMatch.isForPattern(pattern)) {
+      return inverseExactMatch.match(pattern, text)
+    } else {
+      let searcher = this._fuzzyCache[pattern];
+      if (!searcher) {
+        searcher = new BitapSearch(pattern, this.options);
+        this._fuzzyCache[pattern] = searcher;
+      }
+      return searcher.searchInString(text)
+    }
+  }
+}
+
+const NGRAM_LEN = 3;
+
+function ngram(
+  text,
+  { n = NGRAM_LEN, pad = true, sort = false }
+) {
+  let nGrams = [];
+
+  if (text === null || text === undefined) {
+    return nGrams
+  }
+
+  text = text.toLowerCase();
+  if (pad) {
+    text = ` ${text} `;
+  }
+
+  let index = text.length - n + 1;
+  if (index < 1) {
+    return nGrams
+  }
+
+  while (index--) {
+    nGrams[index] = text.substr(index, n);
+  }
+
+  if (sort) {
+    nGrams.sort((a, b) => (a == b ? 0 : a < b ? -1 : 1));
+  }
+
+  return nGrams
+}
+
+// Assumes arrays are sorted
+function union (arr1, arr2) {
+  let result = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < arr1.length && j < arr2.length) {
+    let item1 = arr1[i];
+    let item2 = arr2[j];
+
+    if (item1 < item2) {
+      result.push(item1);
+      i += 1;
+    } else if (item2 < item1) {
+      result.push(item2);
+      j += 1;
+    } else {
+      result.push(item2);
+      i += 1;
+      j += 1;
+    }
+  }
+
+  while (i < arr1.length) {
+    result.push(arr1[i]);
+    i += 1;
+  }
+
+  while (j < arr2.length) {
+    result.push(arr2[j]);
+    j += 1;
+  }
+
+  return result
+}
+
+// Assumes arrays are sorted
+function intersection(arr1, arr2) {
+  let result = [];
+  let i = 0;
+  let j = 0;
+
+  while (i < arr1.length && j < arr2.length) {
+    let item1 = arr1[i];
+    let item2 = arr2[j];
+
+    if (item1 == item2) {
+      result.push(item1);
+      i += 1;
+      j += 1;
+    } else if (item1 < item2) {
+      i += 1;
+    } else if (item1 > item2) {
+      j += 1;
+    } else {
+      i += 1;
+      j += 1;
+    }
+  }
+
+  return result
+}
+
+function jaccardDistance(nGram1, nGram2) {
+  let nGramUnion = union(nGram1, nGram2);
+  let nGramIntersection = intersection(nGram1, nGram2);
+
+  return 1 - nGramIntersection.length / nGramUnion.length
+}
+
+class NGramSearch {
+  constructor(pattern, options = { threshold: 0.6 }) {
+    // Create the ngram, and sort it
+    this.options = options;
+    this.patternNgram = ngram(pattern, { sort: true });
+  }
+  searchIn(value) {
+    let textNgram = value.ng;
+    if (!textNgram) {
+      textNgram = ngram(value.$, { sort: true });
+      value.ng = textNgram;
+    }
+
+    let jacardResult = jaccardDistance(this.patternNgram, textNgram);
+
+    const isMatch = jacardResult < this.options.threshold;
+
+    return {
+      score: isMatch ? jacardResult : 1,
+      isMatch
+    }
+  }
+}
+
+function get(obj, path) {
+  let list = [];
+  let arr = false;
+
+  const _get = (obj, path) => {
+    if (!path) {
+      // If there's no path left, we've gotten to the object we care about.
+      list.push(obj);
+    } else {
+      const dotIndex = path.indexOf('.');
+
+      let key = path;
+      let remaining = null;
+
+      if (dotIndex !== -1) {
+        key = path.slice(0, dotIndex);
+        remaining = path.slice(dotIndex + 1);
+      }
+
+      const value = obj[key];
+
+      if (isDefined(value)) {
+        if (!remaining && (isString(value) || isNumber(value))) {
+          list.push(toString(value));
+        } else if (isArray(value)) {
+          arr = true;
+          // Search each item in the array.
+          for (let i = 0, len = value.length; i < len; i += 1) {
+            _get(value[i], remaining);
+          }
+        } else if (remaining) {
+          // An object. Recurse further.
+          _get(value, remaining);
+        }
+      }
+    }
+  };
+
+  _get(obj, path);
+
+  if (arr) {
+    return list
+  }
+
+  return list[0]
+}
+
+function createIndex(
+  keys,
+  list,
+  { getFn = get, ngrams = false } = {}
+) {
+  let indexedList = [];
+
+  // List is Array<String>
+  if (isString(list[0])) {
+    // Iterate over every string in the list
+    for (let i = 0, len = list.length; i < len; i += 1) {
+      const value = list[i];
+
+      if (isDefined(value)) {
+        // if (!isCaseSensitive) {
+        //   value = value.toLowerCase()
+        // }
+
+        let record = {
+          $: value,
+          idx: i
+        };
+
+        if (ngrams) {
+          record.ng = ngram(value, { sort: true });
+        }
+
+        indexedList.push(record);
+      }
+    }
+  } else {
+    // List is Array<Object>
+    const keysLen = keys.length;
+
+    for (let i = 0, len = list.length; i < len; i += 1) {
+      let item = list[i];
+
+      let record = { idx: i, $: {} };
+
+      // Iterate over every key (i.e, path), and fetch the value at that key
+      for (let j = 0; j < keysLen; j += 1) {
+        let key = keys[j];
+        let value = getFn(item, key);
+
+        if (!isDefined(value)) {
+          continue
+        }
+
+        if (isArray(value)) {
+          let subRecords = [];
+          const stack = [{ arrayIndex: -1, value }];
+
+          while (stack.length) {
+            const { arrayIndex, value } = stack.pop();
+
+            if (!isDefined(value)) {
+              continue
+            }
+
+            if (isString(value)) {
+              // if (!isCaseSensitive) {
+              //   v = v.toLowerCase()
+              // }
+
+              let subRecord = { $: value, idx: arrayIndex };
+
+              if (ngrams) {
+                subRecord.ng = ngram(value, { sort: true });
+              }
+
+              subRecords.push(subRecord);
+            } else if (isArray(value)) {
+              for (let k = 0, arrLen = value.length; k < arrLen; k += 1) {
+                stack.push({
+                  arrayIndex: k,
+                  value: value[k]
+                });
+              }
+            }
+          }
+          record.$[key] = subRecords;
+        } else {
+          // if (!isCaseSensitive) {
+          //   value = value.toLowerCase()
+          // }
+
+          let subRecord = { $: value };
+
+          if (ngrams) {
+            subRecord.ng = ngram(value, { sort: true });
+          }
+
+          record.$[key] = subRecord;
+        }
+      }
+
+      indexedList.push(record);
+    }
+  }
+
+  return indexedList
+}
+
+class KeyStore {
+  constructor(keys) {
+    this._keys = {};
+    this._keyNames = [];
+    this._length = keys.length;
+
+    // Iterate over every key
+    if (keys.length && isString(keys[0])) {
+      for (let i = 0; i < this._length; i += 1) {
+        const key = keys[i];
+        this._keys[key] = {
+          weight: 1
+        };
+        this._keyNames.push(key);
+      }
+    } else {
+      let totalWeight = 0;
+
+      for (let i = 0; i < this._length; i += 1) {
+        const key = keys[i];
+
+        if (!Object.prototype.hasOwnProperty.call(key, 'name')) {
+          throw new Error('Missing "name" property in key object')
+        }
+
+        const keyName = key.name;
+        this._keyNames.push(keyName);
+
+        if (!Object.prototype.hasOwnProperty.call(key, 'weight')) {
+          throw new Error('Missing "weight" property in key object')
+        }
+
+        const weight = key.weight;
+
+        if (weight <= 0 || weight >= 1) {
+          throw new Error(
+            '"weight" property in key must be in the range of (0, 1)'
+          )
+        }
+
+        this._keys[keyName] = {
+          weight
+        };
+
+        totalWeight += weight;
+      }
+
+      // Normalize weights so that their sum is equal to 1
+      for (let i = 0; i < this._length; i += 1) {
+        const keyName = this._keyNames[i];
+        const keyWeight = this._keys[keyName].weight;
+        this._keys[keyName].weight = keyWeight / totalWeight;
+      }
+    }
+  }
+  get(key, name) {
+    return this._keys[key] ? this._keys[key][name] : -1
+  }
+  keys() {
+    return this._keyNames
+  }
+  count() {
+    return this._length
+  }
+  toJSON() {
+    return JSON.stringify(this._keys)
+  }
+}
+
+function transformMatches(result, data) {
+  const matches = result.matches;
+  data.matches = [];
+
+  if (!isDefined(matches)) {
+    return
+  }
+
+  for (let i = 0, len = matches.length; i < len; i += 1) {
+    let match = matches[i];
+
+    if (!isDefined(match.indices) || match.indices.length === 0) {
+      continue
+    }
+
+    let obj = {
+      indices: match.indices,
+      value: match.value
+    };
+
+    if (match.key) {
+      obj.key = match.key;
+    }
+
+    if (match.idx > -1) {
+      obj.refIndex = match.idx;
+    }
+
+    data.matches.push(obj);
+  }
+}
+
+function transformScore(result, data) {
+  data.score = result.score;
+}
+
+const BasicOptions = {
+  // When true, the algorithm continues searching to the end of the input even if a perfect
+  // match is found before the end of the same input.
+  isCaseSensitive: false,
+  // Minimum number of characters that must be matched before a result is considered a match
+  findAllMatches: false,
+  includeMatches: false,
+  includeScore: false,
+  // List of properties that will be searched. This also supports nested properties.
+  keys: [],
+  // Minimum number of characters that must be matched before a result is considered a match
+  minMatchCharLength: 1,
+  // Whether to sort the result list, by score
+  shouldSort: true,
+  // Default sort function
+  sortFn: (a, b) => a.score - b.score
+};
+
+const FuzzyOptions = {
+  // Approximately where in the text is the pattern expected to be found?
+  location: 0,
+  // At what point does the match algorithm give up. A threshold of '0.0' requires a perfect match
+  // (of both letters and location), a threshold of '1.0' would match anything.
+  threshold: 0.6,
+  // Determines how close the match must be to the fuzzy location (specified above).
+  // An exact letter match which is 'distance' characters away from the fuzzy location
+  // would score as a complete mismatch. A distance of '0' requires the match be at
+  // the exact location specified, a threshold of '1000' would require a perfect match
+  // to be within 800 characters of the fuzzy location to be found using a 0.8 threshold.
+  distance: 100
+};
+
+const AdvancedOptions = {
+  // Enabled extended-searching
+  useExtendedSearch: false,
+  // The get function to use when fetching an object's properties.
+  // The default will search nested paths *ie foo.bar.baz*
+  getFn: get
+};
+
+const defaultOptions = {
+  ...BasicOptions,
+  ...FuzzyOptions,
+  ...AdvancedOptions
+};
+
+class Fuse {
+  constructor(list, options = defaultOptions, index = null) {
+    this.options = { ...defaultOptions, ...options };
+    // `caseSensitive` is deprecated, use `isCaseSensitive` instead
+    this.options.isCaseSensitive = options.caseSensitive;
+    delete this.options.caseSensitive;
+
+    this._processKeys(this.options.keys);
+    this.setCollection(list, index);
+  }
+
+  setCollection(list, index = null) {
+    this.list = list;
+    this.listIsStringArray = isString(list[0]);
+
+    if (index) {
+      this.setIndex(index);
+    } else {
+      this.setIndex(this._createIndex());
+    }
+  }
+
+  setIndex(listIndex) {
+    this._indexedList = listIndex;
+  }
+
+  _processKeys(keys) {
+    this._keyStore = new KeyStore(keys);
+  }
+
+  _createIndex() {
+    return createIndex(this._keyStore.keys(), this.list, {
+      getFn: this.options.getFn
+    })
+  }
+
+  search(pattern, opts = { limit: false }) {
+    const { useExtendedSearch, shouldSort } = this.options;
+
+    let searcher = null;
+
+    if (useExtendedSearch) {
+      searcher = new ExtendedSearch(pattern, this.options);
+    } else if (pattern.length > MAX_BITS) {
+      searcher = new NGramSearch(pattern, this.options);
+    } else {
+      searcher = new BitapSearch(pattern, this.options);
+    }
+
+    let results = this._searchUsing(searcher);
+
+    this._computeScore(results);
+
+    if (shouldSort) {
+      this._sort(results);
+    }
+
+    if (opts.limit && isNumber(opts.limit)) {
+      results = results.slice(0, opts.limit);
+    }
+
+    return this._format(results)
+  }
+
+  _searchUsing(searcher) {
+    const list = this._indexedList;
+    const results = [];
+    const { includeMatches } = this.options;
+
+    // List is Array<String>
+    if (this.listIsStringArray) {
+      // Iterate over every string in the list
+      for (let i = 0, len = list.length; i < len; i += 1) {
+        let value = list[i];
+        let { $: text, idx } = value;
+
+        if (!isDefined(text)) {
+          continue
+        }
+
+        let searchResult = searcher.searchIn(value);
+
+        const { isMatch, score } = searchResult;
+
+        if (!isMatch) {
+          continue
+        }
+
+        let match = { score, value: text };
+
+        if (includeMatches) {
+          match.indices = searchResult.matchedIndices;
+        }
+
+        results.push({
+          item: text,
+          idx,
+          matches: [match]
+        });
+      }
+    } else {
+      // List is Array<Object>
+      const keyNames = this._keyStore.keys();
+      const keysLen = this._keyStore.count();
+
+      for (let i = 0, len = list.length; i < len; i += 1) {
+        let { $: item, idx } = list[i];
+
+        if (!isDefined(item)) {
+          continue
+        }
+
+        let matches = [];
+
+        // Iterate over every key (i.e, path), and fetch the value at that key
+        for (let j = 0; j < keysLen; j += 1) {
+          let key = keyNames[j];
+          let value = item[key];
+
+          if (!isDefined(value)) {
+            continue
+          }
+
+          if (isArray(value)) {
+            for (let k = 0, len = value.length; k < len; k += 1) {
+              let arrItem = value[k];
+              let text = arrItem.$;
+              let idx = arrItem.idx;
+
+              if (!isDefined(text)) {
+                continue
+              }
+
+              let searchResult = searcher.searchIn(arrItem);
+
+              const { isMatch, score } = searchResult;
+
+              if (!isMatch) {
+                continue
+              }
+
+              let match = { score, key, value: text, idx };
+
+              if (includeMatches) {
+                match.indices = searchResult.matchedIndices;
+              }
+
+              matches.push(match);
+            }
+          } else {
+            let text = value.$;
+            let searchResult = searcher.searchIn(value);
+
+            const { isMatch, score } = searchResult;
+
+            if (!isMatch) {
+              continue
+            }
+
+            let match = { score, key, value: text };
+
+            if (includeMatches) {
+              match.indices = searchResult.matchedIndices;
+            }
+
+            matches.push(match);
+          }
+        }
+
+        if (matches.length) {
+          results.push({
+            idx,
+            item,
+            matches
+          });
+        }
+      }
+    }
+
+    return results
+  }
+
+  _computeScore(results) {
+    for (let i = 0, len = results.length; i < len; i += 1) {
+      const result = results[i];
+      const matches = result.matches;
+      const scoreLen = matches.length;
+
+      let totalWeightedScore = 1;
+
+      for (let j = 0; j < scoreLen; j += 1) {
+        const item = matches[j];
+        const key = item.key;
+        const keyWeight = this._keyStore.get(key, 'weight');
+        const weight = keyWeight > -1 ? keyWeight : 1;
+        const score =
+          item.score === 0 && keyWeight > -1 ? Number.EPSILON : item.score;
+
+        totalWeightedScore *= Math.pow(score, weight);
+      }
+
+      result.score = totalWeightedScore;
+    }
+  }
+
+  _sort(results) {
+    results.sort(this.options.sortFn);
+  }
+
+  _format(results) {
+    const finalOutput = [];
+
+    const { includeMatches, includeScore } = this.options;
+
+    let transformers = [];
+
+    if (includeMatches) transformers.push(transformMatches);
+    if (includeScore) transformers.push(transformScore);
+
+    for (let i = 0, len = results.length; i < len; i += 1) {
+      const result = results[i];
+      const { idx } = result;
+
+      const data = {
+        item: this.list[idx],
+        refIndex: idx
+      };
+
+      if (transformers.length) {
+        for (let j = 0, len = transformers.length; j < len; j += 1) {
+          transformers[j](result, data);
+        }
+      }
+
+      finalOutput.push(data);
+    }
+
+    return finalOutput
+  }
+}
+
+Fuse.version = '5.1.0';
+Fuse.createIndex = createIndex;
+Fuse.defaultOptions = defaultOptions;
+
+/* harmony default export */ __webpack_exports__["default"] = (Fuse);
+
 
 /***/ })
 

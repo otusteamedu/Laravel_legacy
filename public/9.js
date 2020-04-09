@@ -281,6 +281,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -310,8 +314,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    indexWithGroupAction: 'settings/indexWithGroup',
-    indexActionGroups: 'settingGroups/index'
+    getItemsWithGroupAction: 'settings/getItemsWithGroup',
+    getGroupsAction: 'settingGroups/getItems'
   }), {
     onDeleteSetting: function onDeleteSetting(item) {
       return this["delete"]({
@@ -336,8 +340,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     if (this.$route.params.activeTab) this.activeTab = this.$route.params.activeTab;
-    this.indexActionGroups().then(function () {
-      return _this.indexWithGroupAction();
+    this.getGroupsAction().then(function () {
+      return _this.getItemsWithGroupAction();
     }).then(function () {
       _this.setPageTitle('Администрирование');
 
@@ -411,7 +415,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 
@@ -442,7 +446,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 
@@ -894,6 +898,18 @@ var render = function() {
                                     _vm._v(" "),
                                     _c(
                                       "md-table-cell",
+                                      { attrs: { "md-label": "Алиас" } },
+                                      [
+                                        _vm._v(
+                                          "\n                            " +
+                                            _vm._s(item.alias) +
+                                            "\n                        "
+                                        )
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c(
+                                      "md-table-cell",
                                       { attrs: { "md-label": "Описание" } },
                                       [
                                         _vm._v(
@@ -936,7 +952,7 @@ var render = function() {
                             ],
                             null,
                             false,
-                            2699949298
+                            2879426936
                           )
                         })
                       : [

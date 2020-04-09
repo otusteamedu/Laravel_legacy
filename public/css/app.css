@@ -2803,6 +2803,10 @@ select.uk-form-width-xsmall {
   max-width: 1400px;
 }
 
+.uk-container-xlarge {
+  max-width: 1600px;
+}
+
 .uk-container-expand {
   max-width: none;
 }
@@ -2857,6 +2861,11 @@ select.uk-form-width-xsmall {
   .uk-container-expand-left.uk-container-large,
   .uk-container-expand-right.uk-container-large {
     max-width: calc(50% + (1400px / 2) - 40px);
+  }
+
+  .uk-container-expand-left.uk-container-xlarge,
+  .uk-container-expand-right.uk-container-xlarge {
+    max-width: calc(50% + (1600px / 2) - 40px);
   }
 }
 
@@ -5997,8 +6006,9 @@ ul.uk-nav-sub {
 /*
  * 1. Hide by default
  * 2. Position
- * 3. Dimensions
- * 4. Style
+ * 3. Remove tooltip from document flow to keep the UIkit container from changing its size when injected into the document initially
+ * 4. Dimensions
+ * 5. Style
  */
 
 .uk-tooltip {
@@ -6008,11 +6018,13 @@ ul.uk-nav-sub {
   position: absolute;
   z-index: 1030;
   /* 3 */
+  top: 0;
+  /* 4 */
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   max-width: 200px;
   padding: 3px 6px;
-  /* 4 */
+  /* 5 */
   background: #666;
   border-radius: 2px;
   color: #fff;

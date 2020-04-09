@@ -129,10 +129,10 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 
     /**
      * @param $query
-     * @param $token
+     * @param string $token
      * @return mixed
      */
-    public function scopeGetUserVerify($query, $token)
+    public function scopeGetUserVerify($query, string $token)
     {
         return $query->whereHas('verifyUser', function (Builder $query) use ($token) {
             $query->where('token', 'like', $token);

@@ -126,7 +126,7 @@
         },
         methods: {
             ...mapActions({
-                indexAction: 'images/index',
+                getItemsAction: 'images/getItems',
                 resetPagination: 'images/resetPagination',
                 publishAction: 'images/publish',
                 updatePaginationAction: 'images/updatePaginationFields',
@@ -141,7 +141,7 @@
                     : await this.categoryInit();
             },
             imageInit () {
-                this.indexAction(this.paginationData)
+                this.getItemsAction(this.paginationData)
                     .then(() => {
                         this.setPageTitle('Изображения');
                         this.responseData = true;
@@ -219,7 +219,7 @@
 
                 this.category_type !== 'images'
                     ? this.getImagesAction({ id: this.id, paginationData })
-                    : this.indexAction(paginationData);
+                    : this.getItemsAction(paginationData);
             },
             handleSearch (query) {
                 query
@@ -234,7 +234,7 @@
                 }
 
                 return this.category_type === 'images'
-                    ? this.indexAction(paginationData)
+                    ? this.getItemsAction(paginationData)
                     : this.getImagesAction({ id: this.id, paginationData });
             },
             preparePaginationData () {

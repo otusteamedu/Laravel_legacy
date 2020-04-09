@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Events\Models\Order\OrderDeleted;
+use App\Events\Models\Order\OrderSaved;
+use App\Events\Models\Order\OrderUpdated;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
@@ -10,6 +13,14 @@ class Order extends Model
      * @var array
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    protected $dispatchesEvents = [
+        'saved' => OrderSaved::class,
+        'updated' => OrderUpdated::class,
+        'deleted' => OrderDeleted::class,
+    ];
+
+    const DEFAULT_STATUS_ID = 1;
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

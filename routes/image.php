@@ -10,6 +10,33 @@ Route::group(['prefix' => 'image'], function() {
             'path' => '[\w\.]+',
         ]);
 
+    Route::get('crop/{width}/{height}/{path}','ImageResize\ImageResizeController@crop')
+        ->where([
+            'width' => '\d+',
+            'height' => '\d+',
+            'path' => '[\w\.]+',
+        ]);
+
+    Route::get('order-image/{width}/{height}/{x}/{y}/{flip}/{colorize}/{path}','ImageResize\ImageResizeController@getOrderImage')
+        ->where([
+            'width' => '\d+',
+            'height' => '\d+',
+            'x' => '\d+',
+            'y' => '\d+',
+            'flip' => '[0,1]',
+            'path' => '[\w\.]+'
+        ]);
+
+    Route::get('order-image-thumb/{width}/{height}/{x}/{y}/{flip}/{colorize}/{path}','ImageResize\ImageResizeController@getOrderImageThumb')
+        ->where([
+            'width' => '\d+',
+            'height' => '\d+',
+            'x' => '\d+',
+            'y' => '\d+',
+            'flip' => '[0,1]',
+            'path' => '[\w\.]+'
+        ]);
+
     Route::get('fit/{width}/{height}/{path}','ImageResize\ImageResizeController@fit')
         ->where([
             'width' => '\d+',
@@ -29,5 +56,9 @@ Route::group(['prefix' => 'image'], function() {
             'path' => '[\w\.]+',
         ]);
 
-    Route::get('show/{path}','ImageResize\ImageResizeController@show')->where('path','[\w\.]+');
+    Route::get('show/{path}','ImageResize\ImageResizeController@show')
+        ->where('path','[\w\.]+');
+
+    Route::get('grayscale/{path}','ImageResize\ImageResizeController@showGrayscale')
+        ->where('path','[\w\.]+');
 });

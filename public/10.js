@@ -253,7 +253,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   })),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    indexWithSettingsAction: 'settingGroups/indexWithSettings',
+    getItemsWithSettingsAction: 'settingGroups/getItemsWithSettings',
     updateTextValueAction: 'settings/setTextValue',
     updateImageValueAction: 'settings/setImageValue'
   }), {
@@ -267,7 +267,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.indexWithSettingsAction().then(function () {
+    this.getItemsWithSettingsAction().then(function () {
       _this.setPageTitle('Конфигурация');
 
       _this.responseData = true;
@@ -321,7 +321,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 

@@ -109,8 +109,8 @@
         },
         methods: {
             ...mapActions('subCategories', {
-                showAction: 'show',
-                indexAction: 'index'
+                getItemAction: 'getItem',
+                getItemsAction: 'getItems'
             }),
             onUpdate () {
                 return this.update({
@@ -144,8 +144,8 @@
             }
         },
         created() {
-            this.indexAction(this.category_type)
-                .then(() => this.showAction({
+            this.getItemsAction(this.category_type)
+                .then(() => this.getItemAction({
                     type: this.category_type,
                     id: this.id
                 }))

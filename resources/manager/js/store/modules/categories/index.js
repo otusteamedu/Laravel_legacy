@@ -53,7 +53,7 @@ const mutations = {
 };
 
 const actions = {
-    index(context) {
+    getItems(context) {
         return axiosAction('get', context, {
             url: '/api/manager/catalog/categories',
             thenContent: response => context.commit('UPDATE_ITEMS', response.data)

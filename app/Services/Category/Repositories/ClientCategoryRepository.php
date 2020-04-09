@@ -6,6 +6,7 @@ namespace App\Services\Category\Repositories;
 
 use App\Models\Category;
 use App\Services\Base\Resource\Repositories\ClientBaseResourceRepository;
+use App\Services\Image\Resources\ImageToClientCollection;
 use Illuminate\Database\Eloquent\Collection;
 
 class ClientCategoryRepository extends ClientBaseResourceRepository
@@ -20,7 +21,8 @@ class ClientCategoryRepository extends ClientBaseResourceRepository
      */
     public function index(): Collection {
         return $this->model::select(['id', 'type', 'title', 'alias', 'image_path'])
-            ->where('publish', 1)
+            ->has('images')
+            ->published()
             ->get();
     }
 
@@ -28,7 +30,7 @@ class ClientCategoryRepository extends ClientBaseResourceRepository
      * @param int $id
      * @return mixed
      */
-    public function show(int $id)
+    public function getItem(int $id)
     {
         return $this->model::findOrFail($id);
     }
@@ -43,17 +45,45 @@ class ClientCategoryRepository extends ClientBaseResourceRepository
     }
 
     /**
-     * @param $category
+     * @param Category $category
      * @param array $pagination
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     * @param array|null $filter
+     * @return ImageToClientCollection
      */
-    public function getImages($category, array $pagination)
+    public function getImages(Category $category, array $pagination, array $filter = null)
     {
-        return $category->images()
-            ->where('publish', 1)
-            ->select(['id', 'format_id', 'views'])
-            ->withCount('likes')
-            ->orderBy($pagination['sort_by'], $pagination['sort_order'])
-            ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page']);
+        return new ImageToClientCollection(
+            $category->images()
+                ->published()
+                ->when($filter, function ($query, $filter) {
+                    return $query->filtered($filter);
+                })
+                ->orderBy($pagination['sort_by'], $pagination['sort_order'])
+                ->paginate($pagination['per_page'], ['*'], '', $pagination['current_page'])
+        );
+    }
+
+    /**
+     * @param int $categoryId
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function getFilters(int $categoryId)
+    {
+        return $this->model::select(['id', 'title', 'alias', 'image_path', 'type'])
+                            ->getFilters($categoryId)
+                            ->withImageCountWhereCategoryId($categoryId)
+                            ->published()
+                            ->get();
+    }
+
+    /**
+     * WishList Filters
+     * @param array $ids
+     * @return mixed
+     */
+    public function getFiltersByImageIds(array $ids)
+    {
+        return $this->model::select(['id', 'title', 'alias', 'image_path', 'type'])
+            ->getFiltersByImageIds($ids);
     }
 }

@@ -160,7 +160,7 @@
         },
         methods: {
             ...mapActions('textures', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields'
             }),
             onCreate() {
@@ -184,7 +184,7 @@
         },
         created() {
             this.clearFieldsAction();
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Новая фактура');
                     this.responseData = true;

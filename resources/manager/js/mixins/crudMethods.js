@@ -14,7 +14,7 @@ export const createMethod = {
                         text: `«${title}»`,
                         timer: 2000,
                         showConfirmButton: false,
-                        type: 'success'
+                        icon: 'success'
                     });
                 });
         }
@@ -35,7 +35,7 @@ export const updateMethod = {
                         text: `«${title}»`,
                         timer: 2000,
                         showConfirmButton: false,
-                        type: 'success'
+                        icon: 'success'
                     });
 
                 });
@@ -64,16 +64,18 @@ export const deleteMethod = {
                         return this.$store.dispatch(`${module}destroy`, payload)
                             .then(() => {
                                 if (redirectRoute) {
-                                    this.$router.go(-1) ? this.$router.go(-1) : this.$router.push(redirectRoute);
+                                    this.$router.go(-1)
+                                        ? this.$router.go(-1)
+                                        : this.$router.push(redirectRoute);
                                 }
 
                                 if (paginationData) {
                                     categoryId
-                                        ? this.$store.dispatch('categories/showImages', {
+                                        ? this.$store.dispatch('categories/getImages', {
                                             id: categoryId,
                                             data: paginationData
                                         })
-                                        : this.$store.dispatch('images/index', paginationData);
+                                        : this.$store.dispatch('images/getItems', paginationData);
                                 }
 
                                 return deleteSwalFireAlert(successText, title);
@@ -88,10 +90,12 @@ const deleteSwalFireConfirm = alertText => {
     return swal.fire({
         title: 'Вы уверены?',
         text: `Данное действие удалит ${alertText} безвозвратно!`,
-        type: 'warning',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonClass: 'md-button md-success btn-fill',
-        cancelButtonClass: 'md-button md-danger btn-fill',
+        customClass: {
+            confirmButton: 'md-button md-success btn-fill',
+            cancelButton: 'md-button md-danger btn-fill'
+        },
         confirmButtonText: 'Удалить',
         cancelButtonText: 'Отменить',
         buttonsStyling: false
@@ -103,7 +107,7 @@ const deleteSwalFireAlert = (successText, title) => {
         title: successText,
         text: `«${title}»`,
         timer: 2000,
-        type: 'success',
+        icon: 'success',
         showConfirmButton: false
     })
 }
@@ -123,7 +127,7 @@ export const uploadMethod = {
                 text: '',
                 timer: 2000,
                 showConfirmButton: false,
-                type: 'success'
+                icon: 'success'
             });
         }
     }
@@ -141,7 +145,7 @@ export const imageAddMethod = {
                         text: '',
                         timer: 2000,
                         showConfirmButton: false,
-                        type: 'success'
+                        icon: 'success'
                     });
                 });
         }
@@ -160,7 +164,7 @@ export const subCategoryImageAddMethod = {
                         text: '',
                         timer: 2000,
                         showConfirmButton: false,
-                        type: 'success'
+                        icon: 'success'
                     });
                 });
         }

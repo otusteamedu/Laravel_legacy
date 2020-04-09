@@ -147,7 +147,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('roles', ['items'])),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('roles', {
-    indexAction: 'index'
+    getItemsAction: 'getItems'
   }), {
     onDelete: function onDelete(item) {
       return this["delete"]({
@@ -162,7 +162,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.indexAction().then(function () {
+    this.getItemsAction().then(function () {
       _this.setPageTitle('Роли');
 
       _this.responseData = true;
@@ -216,7 +216,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 

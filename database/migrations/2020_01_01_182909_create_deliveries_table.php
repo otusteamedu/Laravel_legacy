@@ -16,7 +16,9 @@ class CreateDeliveriesTable extends Migration
         Schema::create('deliveries', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('title')->unique();
-            $table->integer('cost')->nullable();
+            $table->string('alias')->unique();
+            $table->integer('price')->nullable();
+            $table->integer('order')->default(0);
             $table->tinyInteger('publish')->unsigned()->default(0);
             $table->string('description')->nullable();
             $table->timestamps();

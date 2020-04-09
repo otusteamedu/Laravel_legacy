@@ -212,10 +212,10 @@
         },
         methods: {
             ...mapActions({
-                showAction: 'images/show',
+                getItemAction: 'images/getItem',
                 clearFieldsAction: 'images/clearFields',
-                indexCategoryAction: 'categories/index',
-                getSubcategoryAction: 'subCategories/getItemsWithType',
+                getCategoriesAction: 'categories/getItems',
+                getSubcategoriesAction: 'subCategories/getItemsWithType',
                 setPreviousPageAction: 'images/setPreviousPage'
             }),
             onUpdate () {
@@ -252,10 +252,10 @@
         },
         async created() {
             await this.clearFieldsAction();
-            await this.showAction(this.id)
-                .then(() => this.indexCategoryAction())
-                .then(() => this.getSubcategoryAction('tags'))
-                .then(() => this.getSubcategoryAction('owners'))
+            await this.getItemAction(this.id)
+                .then(() => this.getCategoriesAction())
+                .then(() => this.getSubcategoriesAction('tags'))
+                .then(() => this.getSubcategoriesAction('owners'))
                 .then(() => {
                     this.setPageTitle(`Изображение «${this.item.article}»`);
                     this.responseData = true;

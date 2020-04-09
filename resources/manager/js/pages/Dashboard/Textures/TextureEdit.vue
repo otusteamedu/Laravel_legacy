@@ -192,8 +192,8 @@
         },
         methods: {
             ...mapActions('textures', {
-                showAction: 'show',
-                indexAction: 'index',
+                getItemAction: 'getItem',
+                getItemsAction: 'getItems',
                 clearFieldsAction: 'clearFields'
             }),
             onUpdate () {
@@ -229,8 +229,8 @@
             }
         },
         created() {
-            this.indexAction()
-                .then(() => this.showAction(this.id))
+            this.getItemsAction()
+                .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(`Фактура «${this.name}»`);
                     this.responseData = true;

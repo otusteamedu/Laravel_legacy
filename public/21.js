@@ -83,15 +83,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
- // import ImageTableActions from "@/custom_components/Tables/ImageTableActions";
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ExcludedImageList',
-  mixins: [_mixins_categories__WEBPACK_IMPORTED_MODULE_1__["categoryPage"], _mixins_base__WEBPACK_IMPORTED_MODULE_2__["pageTitle"], // deleteMethod,
-  _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["imageAddMethod"]],
+  mixins: [_mixins_categories__WEBPACK_IMPORTED_MODULE_1__["categoryPage"], _mixins_base__WEBPACK_IMPORTED_MODULE_2__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["imageAddMethod"]],
   components: {
-    ImageListTable: _custom_components_Tables_ImageListTable__WEBPACK_IMPORTED_MODULE_4__["default"] // ImageTableActions
-
+    ImageListTable: _custom_components_Tables_ImageListTable__WEBPACK_IMPORTED_MODULE_4__["default"]
   },
   props: {
     id: {
@@ -259,7 +256,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 

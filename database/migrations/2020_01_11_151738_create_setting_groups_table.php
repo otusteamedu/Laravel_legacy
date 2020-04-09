@@ -16,6 +16,7 @@ class CreateSettingGroupsTable extends Migration
         Schema::create('setting_groups', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();
+            $table->string('alias')->unique();
             $table->string('description')->nullable();
             $table->timestamps();
         });

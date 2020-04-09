@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+
 use App\Events\Models\Image\ImageDeleted;
 use App\Events\Models\Image\ImageSaved;
 use App\Events\Models\Image\ImageUpdated;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 use Laravel\Scout\Searchable;
 
 class Image extends Model
@@ -96,5 +97,23 @@ class Image extends Model
     public function likes()
     {
         return $this->hasMany('App\Models\Like');
+    }
+
+    /**
+     * @param $query
+     * @param array $filter
+     * @return mixed
+     */
+    public function scopeFiltered($query, array $filter)
+    {
+        list('categories' => $categories, 'tags' => $tags) = $filter;
+
+        return $query
+            ->whereHas('tags', function (Builder $query) use ($tags) {
+                $query->whereIn('id', $tags);
+            })
+            ->orWhereHas('categories', function (Builder $query) use ($categories) {
+                $query->whereIn('id', $categories);
+            });
     }
 }

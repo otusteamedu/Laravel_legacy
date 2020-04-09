@@ -80,7 +80,7 @@
         },
         methods: {
             ...mapActions({
-                indexWithSettingsAction: 'settingGroups/indexWithSettings',
+                getItemsWithSettingsAction: 'settingGroups/getItemsWithSettings',
                 updateTextValueAction: 'settings/setTextValue',
                 updateImageValueAction: 'settings/setImageValue'
             }),
@@ -93,7 +93,7 @@
             },
         },
         created() {
-            this.indexWithSettingsAction()
+            this.getItemsWithSettingsAction()
                 .then(() => {
                     this.setPageTitle('Конфигурация');
                     this.responseData = true;

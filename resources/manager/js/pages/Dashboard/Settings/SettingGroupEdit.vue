@@ -34,6 +34,16 @@
                                  :module="storeModule"
                                  :vRules="{ required: true, unique: true, minLength: true }" />
 
+                        <v-input title="Алиас"
+                                 icon="code"
+                                 name="alias"
+                                 :value="alias"
+                                 :differ="true"
+                                 :vDelay="true"
+                                 :vField="$v.alias"
+                                 :module="storeModule"
+                                 :vRules="{ required: true, unique: true, minLength: true, alias: true }" />
+
                         <v-textarea name="description"
                                     :value="description"
                                     :vField="$v.description"
@@ -87,6 +97,17 @@
                         : !this.isUniqueTitleEdit
                 },
             },
+            alias: {
+                required,
+                touch: false,
+                minLength: minLength(2),
+                isUnique (value) {
+                    return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAliasEdit
+                },
+                testAlias (value) {
+                    return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
+                }
+            },
             description: {
                 touch: false
             }
@@ -94,22 +115,27 @@
         computed: {
             ...mapState('settingGroups', {
                 title: state => state.fields.title,
+                alias: state => state.fields.alias,
                 description: state => state.fields.description
             }),
             isUniqueTitleEdit() {
                 return !!this.$store.getters['settingGroups/isUniqueTitleEdit'](this.title, this.id);
+            },
+            isUniqueAliasEdit () {
+                return !!this.$store.getters['settingGroups/isUniqueAliasEdit'](this.alias, this.id);
             }
         },
         methods: {
             ...mapActions('settingGroups', {
-                indexAction: 'index',
-                showAction: 'show'
+                getItemsAction: 'getItems',
+                getItemAction: 'getItem'
             }),
             onUpdate() {
                 return this.update({
                     sendData: {
                         formData: {
                             title : this.title,
+                            alias: this.alias,
                             description : this.description
                         },
                         id: this.id
@@ -132,8 +158,8 @@
             },
         },
         created() {
-            this.indexAction()
-                .then(() => this.showAction(this.id))
+            this.getItemsAction()
+                .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(`Группа «${this.title}»`);
                     this.responseData = true;

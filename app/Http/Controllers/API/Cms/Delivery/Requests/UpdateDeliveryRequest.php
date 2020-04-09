@@ -27,7 +27,9 @@ class UpdateDeliveryRequest extends FormRequest
 
         return [
             'title' => 'bail|required|unique:deliveries,title,' . $id . '|min:' . config('validation.title.min') . '|max:' . config('validation.title.max'),
+            'alias' => 'bail|required|unique:deliveries,alias,' . $id . '|min:' . config('validation.alias.min') . '|max:' . config('validation.alias.max') . '|regex:' . config('validation.alias.pattern'),
             'cost' => 'bail|integer|nullable',
+            'order' => 'bail|integer|nullable',
             'publish' => 'bail|required|integer',
             'description' => 'max:' . config('validation.description.max')
         ];

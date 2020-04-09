@@ -241,9 +241,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
-    indexAction: 'users/index',
-    showAction: 'users/show',
-    indexRolesAction: 'roles/index',
+    getItemsAction: 'users/getItems',
+    getItemAction: 'users/getItem',
+    getRolesAction: 'roles/getItems',
     updateField: 'users/updateField'
   }), {
     onChangePassword: function onChangePassword() {
@@ -298,10 +298,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   created: function created() {
     var _this = this;
 
-    this.indexAction().then(function () {
-      return _this.indexRolesAction();
+    this.getItemsAction().then(function () {
+      return _this.getRolesAction();
     }).then(function () {
-      return _this.showAction(_this.id);
+      return _this.getItemAction(_this.id);
     }).then(function () {
       _this.setPageTitle(_this.name);
 
@@ -386,11 +386,7 @@ var render = function() {
                           _c("control-button", {
                             staticClass: "md-danger",
                             attrs: { title: "Удалить", icon: "delete" },
-                            on: {
-                              click: function($event) {
-                                return _vm.onDelete()
-                              }
-                            }
+                            on: { click: _vm.onDelete }
                           })
                         ],
                         1

@@ -30,6 +30,16 @@
                                  :module="storeModule"
                                  :vRules="{ required: true, unique: true, minLength: true }" />
 
+                        <v-input title="Алиас"
+                                 icon="code"
+                                 name="alias"
+                                 :value="alias"
+                                 :differ="true"
+                                 :vDelay="true"
+                                 :vField="$v.alias"
+                                 :module="storeModule"
+                                 :vRules="{ required: true, unique: true, minLength: true, alias: true }" />
+
                         <v-input title="Стоимость"
                                  icon="attach_money"
                                  name="cost"
@@ -38,6 +48,16 @@
                                  :vField="$v.cost"
                                  :differ="true"
                                  :maxlength="5"
+                                 :module="storeModule"
+                                 :vRules="{ numeric: true }" />
+
+                        <v-input title="Порядок"
+                                 icon="sort"
+                                 name="order"
+                                 :value="order"
+                                 :vDelay="true"
+                                 :vField="$v.order"
+                                 :maxlength="2"
                                  :module="storeModule"
                                  :vRules="{ numeric: true }" />
 
@@ -103,7 +123,22 @@
                         : !this.isUniqueTitleEdit
                 },
             },
+            alias: {
+                required,
+                touch: false,
+                minLength: minLength(2),
+                isUnique (value) {
+                    return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAliasEdit
+                },
+                testAlias (value) {
+                    return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
+                }
+            },
             cost: {
+                numeric,
+                touch: false
+            },
+            order: {
                 numeric,
                 touch: false
             },
@@ -117,25 +152,32 @@
         computed: {
             ...mapState('deliveries', {
                 title: state => state.fields.title,
+                alias: state => state.fields.alias,
                 cost: state => state.fields.cost,
+                order: state => state.fields.order,
                 publish: state => state.fields.publish,
                 description: state => state.fields.description
             }),
             isUniqueTitleEdit() {
                 return !!this.$store.getters['deliveries/isUniqueTitleEdit'](this.title, this.id);
+            },
+            isUniqueAliasEdit () {
+                return !!this.$store.getters['deliveries/isUniqueAliasEdit'](this.alias, this.id);
             }
         },
         methods: {
             ...mapActions('deliveries', {
-                indexAction: 'index',
-                showAction: 'show'
+                getItemsAction: 'getItems',
+                getItemAction: 'getItem'
             }),
             onUpdate() {
                 return this.update({
                     sendData: {
                         formData: {
                             title: this.title,
+                            alias: this.alias,
                             cost: +this.cost,
+                            order: +this.order,
                             publish: +this.publish,
                             description: this.description
                         },
@@ -159,8 +201,8 @@
             }
         },
         created() {
-            this.indexAction()
-                .then(() => this.showAction(this.id))
+            this.getItemsAction()
+                .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(this.title);
                     this.responseData = true;

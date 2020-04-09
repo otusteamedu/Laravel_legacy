@@ -58,5 +58,14 @@ return [
         'client_id' => env('YANDEX_CLIENT_ID'),
         'client_secret' => env('YANDEX_CLIENT_SECRET'),
         'redirect' => env('YANDEX_REDIRECT_URL')
-    ]
+    ],
+
+    'cdek' => [
+        'account'  => env('CDEK_ACCOUNT', ''),
+        'password' => env('CDEK_PASSWORD', ''),
+        'guzzle_options' => [ // необязательные параметры
+            'base_uri' => 'https://api.edu.cdek.ru/v2',
+            'timeout'  => 5,
+        ],
+    ],
 ];

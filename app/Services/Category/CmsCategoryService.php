@@ -28,8 +28,8 @@ class CmsCategoryService extends CmsBaseCategoryService
      * @param CmsCategoryRepository $repository
      * @param ClearCacheByTagHandler $clearCacheByTagHandler
      * @param UploadHandler $uploadHandler
-     * @param GetImagesHandler $showImagesHandler
-     * @param GetExcludedImagesHandler $showExcludedImagesHandler
+     * @param GetImagesHandler $getImagesHandler
+     * @param GetExcludedImagesHandler $getExcludedImagesHandler
      * @param StoreHandler $storeHandler
      * @param UpdateHandler $updateHandler
      * @param DestroyHandler $destroyHandler
@@ -38,8 +38,8 @@ class CmsCategoryService extends CmsBaseCategoryService
         CmsCategoryRepository $repository,
         ClearCacheByTagHandler $clearCacheByTagHandler,
         UploadHandler $uploadHandler,
-        GetImagesHandler $showImagesHandler,
-        GetExcludedImagesHandler $showExcludedImagesHandler,
+        GetImagesHandler $getImagesHandler,
+        GetExcludedImagesHandler $getExcludedImagesHandler,
         StoreHandler $storeHandler,
         UpdateHandler $updateHandler,
         DestroyHandler $destroyHandler
@@ -49,8 +49,8 @@ class CmsCategoryService extends CmsBaseCategoryService
             $repository,
             $clearCacheByTagHandler,
             $uploadHandler,
-            $showImagesHandler,
-            $showExcludedImagesHandler
+            $getImagesHandler,
+            $getExcludedImagesHandler
         );
         $this->storeHandler = $storeHandler;
         $this->updateHandler = $updateHandler;
@@ -94,7 +94,7 @@ class CmsCategoryService extends CmsBaseCategoryService
      */
     public function destroy(int $id): int
     {
-        $category = $this->repository->show($id);
+        $category = $this->repository->getItem($id);
 
         return $this->destroyHandler->handle($category);
     }

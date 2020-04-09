@@ -103,4 +103,15 @@ class CmsSettingService extends CmsBaseResourceService
     {
         $this->setImageValueHandler->handle($setData);
     }
+
+    /**
+     * @param string $key
+     * @return mixed
+     */
+    public function getItemValueByKey(string $key)
+    {
+        $item = $this->repository->getItemByKey($key);
+
+        return $item->value;
+    }
 }

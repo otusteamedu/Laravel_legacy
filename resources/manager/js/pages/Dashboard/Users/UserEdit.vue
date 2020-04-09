@@ -12,7 +12,7 @@
                             <slide-y-down-transition v-show="controlSaveVisibilities && $v.$anyDirty && !$v.$invalid">
                                 <control-button title="Сохранить" @click="onUpdate" />
                             </slide-y-down-transition>
-                            <control-button title="Удалить" @click="onDelete()" icon="delete" class="md-danger" />
+                            <control-button title="Удалить" @click="onDelete" icon="delete" class="md-danger" />
                         </div>
                     </md-card-content>
                 </md-card>
@@ -211,9 +211,9 @@
         },
         methods: {
             ...mapActions({
-                indexAction: 'users/index',
-                showAction: 'users/show',
-                indexRolesAction: 'roles/index',
+                getItemsAction: 'users/getItems',
+                getItemAction: 'users/getItem',
+                getRolesAction: 'roles/getItems',
                 updateField: 'users/updateField'
             }),
             onChangePassword() {
@@ -268,9 +268,9 @@
             }
         },
         created() {
-            this.indexAction()
-                .then(() => this.indexRolesAction())
-                .then(() => this.showAction(this.id))
+            this.getItemsAction()
+                .then(() => this.getRolesAction())
+                .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(this.name);
                     this.selectedRoles = this.roles;

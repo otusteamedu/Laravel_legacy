@@ -23,10 +23,10 @@ class DatabaseSeeder extends Seeder
             FormatsTableSeeder::class,
             TagsTableSeeder::class,
             OwnersTableSeeder::class,
+            OrderStatusesTableSeeder::class,
             ImagesTableSeeder::class,
             TexturesTableSeeder::class, // ! after ImagesTableSeeder::class
             CategoriesTableSeeder::class, // ! after ImagesTableSeeder::class
-//            OrderStatusesTableSeeder::class,
         ]);
     }
 }

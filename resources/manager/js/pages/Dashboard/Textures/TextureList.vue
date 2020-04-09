@@ -85,7 +85,7 @@
         },
         methods: {
             ...mapActions('textures', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 publishAction: 'publish'
             }),
             onPublishChange(id) {
@@ -102,7 +102,7 @@
             }
         },
         created() {
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Фактуры');
                     this.responseData = true;

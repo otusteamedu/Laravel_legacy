@@ -14,7 +14,7 @@
   </div>
 </template>
 <script>
-import {LockCard} from '@/components'
+import { LockCard } from '@/components'
 export default {
   components: {
     LockCard

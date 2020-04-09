@@ -13,6 +13,14 @@ use Illuminate\Http\Request;
 |
 */
 
+// SDEK
+
+//Route::get('/cdek/regions', 'CDEK\CDEKController@getRegions');
+Route::post('/cdek/pvzs', 'CDEK\CDEKController@getPVZS');
+Route::post('/cdek/settlements', 'CDEK\CDEKController@getSettlements');
+Route::post('/cdek/price', 'CDEK\CDEKController@getPrice');
+//Route::get('/cdek/curl', 'CDEK\CDEKController@curlGet');
+
 
 // Authorisation
 
@@ -38,11 +46,33 @@ Route::group(['prefix' => '/auth'], function() {
 
 // Client API
 
-Route::post('images', 'Client\Image\ClientImageController@getPublishedImages');
-Route::get('categories', 'Client\Category\ClientCategoryController@index');
-Route::post('catalog/{category}/with-images', 'Client\Category\ClientCategoryController@getItemWithImages');
-Route::post('catalog/{id}/images', 'Client\Category\ClientCategoryController@getImages')
+Route::post('catalog/images', 'Client\Image\ClientImageController@getItems');
+Route::get('catalog/images/{id}', 'Client\Image\ClientImageController@getItem')
     ->where('id', '[0-9]+');
+
+Route::post('catalog/images/wish-list', 'Client\Image\ClientImageController@getWishListItems');
+
+Route::get('catalog/categories', 'Client\Category\ClientCategoryController@index');
+
+Route::get('catalog/categories/{category}', 'Client\Category\ClientCategoryController@getItemByAlias');
+Route::post('catalog/categories/{id}/images', 'Client\Category\ClientCategoryController@getImages')
+    ->where('id', '[0-9]+');
+
+// Filters
+Route::get('catalog/categories/{id}/filters', 'Client\Category\ClientCategoryController@getFilters')
+    ->name('category.filters');
+Route::post('catalog/categories/filters/wish-list', 'Client\Category\ClientCategoryController@getFiltersByImageIds')
+    ->name('category.filters.wish-list');
+
+// Delivery
+Route::get('delivery', 'Client\Delivery\ClientDeliveryController@index');
+
+// Settings
+Route::get('settings', 'Client\SettingGroup\ClientSettingGroupController@index');
+
+// Orders
+Route::apiResource('orders', 'Client\Order\ClientOrderController')
+    ->except(['edit, delete']);
 
 
 // Cms
@@ -211,8 +241,10 @@ Route::group(['prefix' => 'manager'], function() {
     Route::group(['prefix' => 'roles'], function() {
         Route::post('{id}', 'Cms\Role\RoleController@update')
             ->where('id', '[0-9]+');
+        Route::get('{id}', 'Cms\Role\RoleController@getItemWithPermissions')
+            ->where('id', '[0-9]+');
     });
-    Route::apiResource('roles', 'Cms\Role\RoleController')->except(['create', 'edit', 'update']);
+    Route::apiResource('roles', 'Cms\Role\RoleController')->except(['show', 'create', 'edit', 'update']);
 
 
     // Permissions

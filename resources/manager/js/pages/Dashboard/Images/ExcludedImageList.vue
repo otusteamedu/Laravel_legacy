@@ -65,19 +65,16 @@
     import { imageAddMethod } from '@/mixins/crudMethods'
 
     import ImageListTable from "@/custom_components/Tables/ImageListTable";
-    // import ImageTableActions from "@/custom_components/Tables/ImageTableActions";
 
     export default {
         name: 'ExcludedImageList',
         mixins: [
             categoryPage,
             pageTitle,
-            // deleteMethod,
             imageAddMethod
         ],
         components: {
-            ImageListTable,
-            // ImageTableActions
+            ImageListTable
         },
         props: {
             id: {

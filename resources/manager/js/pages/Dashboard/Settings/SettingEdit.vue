@@ -141,9 +141,9 @@
         },
         methods: {
             ...mapActions({
-                indexWithTypesAction: 'settings/indexWithTypes',
-                showAction: 'settings/show',
-                indexGroupsAction: 'settingGroups/index'
+                getItemsWithTypesAction: 'settings/getItemsWithTypes',
+                getItemAction: 'settings/getItem',
+                getGroupsAction: 'settingGroups/getItems'
             }),
             onUpdate() {
                 return this.update({
@@ -174,9 +174,9 @@
             },
         },
         created() {
-            this.indexWithTypesAction()
-                .then(() => this.showAction(this.id))
-                .then(() => this.indexGroupsAction())
+            this.getItemsWithTypesAction()
+                .then(() => this.getItemAction(this.id))
+                .then(() => this.getGroupsAction())
                 .then(() => {
                     if(!this.settingGroups.length) this.$router.push(this.redirectRoute);
                     this.setPageTitle(this.displayName);

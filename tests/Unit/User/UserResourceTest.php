@@ -41,7 +41,7 @@ class UserResourceTest extends TestCase
 
         $userResponseJson = response()->json($userResource)->getData();
 
-        $userRole = $userResponseJson->role;
+        $userRole = $userResponseJson->roles;
 
         $role = Role::findOrFail($userRole);
 

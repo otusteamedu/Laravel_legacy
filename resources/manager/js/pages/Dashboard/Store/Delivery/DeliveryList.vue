@@ -33,6 +33,10 @@
                                     {{ item.description }}
                                 </md-table-cell>
 
+                                <md-table-cell md-label="Порядок">
+                                    {{ item.order }}
+                                </md-table-cell>
+
                                 <md-table-cell md-label="Опубликован">
                                     <md-switch :value="!item.publish" @change="onPublishChange(item)" />
                                 </md-table-cell>
@@ -84,7 +88,7 @@
         },
         methods: {
             ...mapActions('deliveries', {
-                indexAction: 'index',
+                getItemsAction: 'getItems',
                 publishAction: 'publish'
             }),
             onDelete(item) {
@@ -101,7 +105,7 @@
             }
         },
         created() {
-            this.indexAction()
+            this.getItemsAction()
                 .then(() => {
                     this.setPageTitle('Способы доставки');
                     this.responseData = true;

@@ -167,6 +167,7 @@ return [
          */
         Intervention\Image\ImageServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class,
+        \CdekSDK\LaravelCdekServiceProvider::class,
 
         /*
          * Application Service Providers...

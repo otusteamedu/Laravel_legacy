@@ -219,7 +219,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapActions"])({
-    indexAction: 'images/index',
+    getItemsAction: 'images/getItems',
     resetPagination: 'images/resetPagination',
     publishAction: 'images/publish',
     updatePaginationAction: 'images/updatePaginationFields',
@@ -228,21 +228,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     getCategoryWithImagesAction: 'categories/getItemWithImages',
     getImagesAction: 'categories/getImages'
   }), {
-    init: function () {
-      var _init = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+    init: function init() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(this.category_type === 'images')) {
+                if (!(_this.category_type === 'images')) {
                   _context.next = 6;
                   break;
                 }
 
                 _context.next = 3;
-                return this.imageInit();
+                return _this.imageInit();
 
               case 3:
                 _context.t0 = _context.sent;
@@ -251,7 +251,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
               case 6:
                 _context.next = 8;
-                return this.categoryInit();
+                return _this.categoryInit();
 
               case 8:
                 _context.t0 = _context.sent;
@@ -264,43 +264,37 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _context.stop();
             }
           }
-        }, _callee, this);
-      }));
-
-      function init() {
-        return _init.apply(this, arguments);
-      }
-
-      return init;
-    }(),
+        }, _callee);
+      }))();
+    },
     imageInit: function imageInit() {
-      var _this = this;
+      var _this2 = this;
 
-      this.indexAction(this.paginationData).then(function () {
-        _this.setPageTitle('Изображения');
+      this.getItemsAction(this.paginationData).then(function () {
+        _this2.setPageTitle('Изображения');
 
-        _this.responseData = true;
+        _this2.responseData = true;
       })["catch"](function () {
-        return _this.$router.push({
+        return _this2.$router.push({
           name: 'manager.dashboard'
         });
       });
     },
     categoryInit: function categoryInit() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.getCategoryWithImagesAction({
         id: this.id,
         paginationData: this.paginationData
       }).then(function () {
-        _this2.setPageTitle("\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \xAB".concat(_this2.category.title, "\xBB"));
+        _this3.setPageTitle("\u0418\u0437\u043E\u0431\u0440\u0430\u0436\u0435\u043D\u0438\u044F \u043A\u0430\u0442\u0435\u0433\u043E\u0440\u0438\u0438 \xAB".concat(_this3.category.title, "\xBB"));
 
-        _this2.responseData = true;
+        _this3.responseData = true;
       })["catch"](function () {
-        return _this2.$router.push({
+        return _this3.$router.push({
           name: 'manager.catalog.categories.list',
           params: {
-            category_type: _this2.category_type
+            category_type: _this3.category_type
           }
         });
       });
@@ -314,7 +308,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     onRemove: function onRemove(id) {
-      var _this3 = this;
+      var _this4 = this;
 
       var paginationData = this.preparePaginationData();
       this.removeImageAction({
@@ -322,11 +316,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         image_id: id,
         paginationData: paginationData
       }).then(function () {
-        return _this3.checkGoToPreviousPage() ? _this3.goToPreviousPage() : _this3.rebootImageList(true);
+        return _this4.checkGoToPreviousPage() ? _this4.goToPreviousPage() : _this4.rebootImageList(true);
       });
     },
     onDelete: function onDelete(item) {
-      var _this4 = this;
+      var _this5 = this;
 
       var paginationData = this.preparePaginationData();
       this["delete"]({
@@ -338,7 +332,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         categoryId: this.id || null,
         paginationData: paginationData
       }).then(function () {
-        return _this4.checkGoToPreviousPage() ? _this4.goToPreviousPage() : _this4.rebootImageList(true);
+        return _this5.checkGoToPreviousPage() ? _this5.goToPreviousPage() : _this5.rebootImageList(true);
       });
     },
     onPublishChange: function onPublishChange(id) {
@@ -371,7 +365,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.category_type !== 'images' ? this.getImagesAction({
         id: this.id,
         paginationData: paginationData
-      }) : this.indexAction(paginationData);
+      }) : this.getItemsAction(paginationData);
     },
     handleSearch: function handleSearch(query) {
       query ? this.search(query, true) : this.rebootImageList(true);
@@ -384,7 +378,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         paginationData.current_page = 1;
       }
 
-      return this.category_type === 'images' ? this.indexAction(paginationData) : this.getImagesAction({
+      return this.category_type === 'images' ? this.getItemsAction(paginationData) : this.getImagesAction({
         id: this.id,
         paginationData: paginationData
       });
@@ -419,11 +413,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
-    var _this5 = this;
+    var _this6 = this;
 
     this.paginationReset();
     this.init().then(function () {
-      return _this5.setPreviousPageAction(null);
+      return _this6.setPreviousPageAction(null);
     });
   },
   beforeDestroy: function beforeDestroy() {
@@ -492,7 +486,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 
@@ -523,7 +517,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 

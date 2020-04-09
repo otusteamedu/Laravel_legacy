@@ -47,6 +47,30 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Models\Image\ImageDeleted::class => [
             \App\Listeners\Cache\Image\ImageClearByTag::class,
         ],
+
+        \App\Events\Models\Delivery\DeliverySaved::class => [
+            \App\Listeners\Cache\Delivery\DeliveryClearByTag::class,
+        ],
+
+        \App\Events\Models\Delivery\DeliveryUpdated::class => [
+            \App\Listeners\Cache\Delivery\DeliveryClearByTag::class,
+        ],
+
+        \App\Events\Models\Delivery\DeliveryDeleted::class => [
+            \App\Listeners\Cache\Delivery\DeliveryClearByTag::class,
+        ],
+
+        \App\Events\Models\Order\OrderSaved::class => [
+            \App\Listeners\Cache\Order\OrderClearByTag::class,
+        ],
+
+        \App\Events\Models\Order\OrderUpdated::class => [
+            \App\Listeners\Cache\Order\OrderClearByTag::class,
+        ],
+
+        \App\Events\Models\Order\OrderDeleted::class => [
+            \App\Listeners\Cache\Order\OrderClearByTag::class,
+        ],
     ];
 
     /**

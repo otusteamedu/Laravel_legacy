@@ -51,3 +51,7 @@ Route::group(['prefix' => 'manager'], function() {
         ->where('any', '.*')
         ->name('manager');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

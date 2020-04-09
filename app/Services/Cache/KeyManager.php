@@ -27,6 +27,16 @@ class KeyManager
     }
 
     /**
+     * @param string $prefix
+     * @param array $params
+     * @return string
+     */
+    public function getResourceKey(string $prefix, array $params): string
+    {
+        return $this->getKey($prefix, $this->generateParamsKeySuffix($params));
+    }
+
+    /**
      * @param FormRequest $request
      * @param array|null $keys
      * @return string

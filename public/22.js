@@ -126,27 +126,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     publishAction: 'publish',
     clearFieldsAction: 'clearFields'
   }), {
-    init: function () {
-      var _init = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(category_type) {
-        var _this = this;
+    init: function init(category_type) {
+      var _this = this;
 
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                this.responseData = false;
+                _this.responseData = false;
                 _context.next = 3;
-                return this.setPageTitle('');
+                return _this.setPageTitle('');
 
               case 3:
                 _context.next = 5;
-                return this.clearFieldsAction();
+                return _this.clearFieldsAction();
 
               case 5:
                 _context.next = 7;
-                return this.getItemsByTypeAction(category_type).then(function () {
+                return _this.getItemsByTypeAction(category_type).then(function () {
                   _this.setPageTitle(_this.pageProps[category_type].PAGE_TITLE);
 
                   _this.responseData = true;
@@ -161,15 +159,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return _context.stop();
             }
           }
-        }, _callee, this);
-      }));
-
-      function init(_x) {
-        return _init.apply(this, arguments);
-      }
-
-      return init;
-    }(),
+        }, _callee);
+      }))();
+    },
     onDelete: function onDelete(item) {
       return this["delete"]({
         module: 'categories',
@@ -231,7 +223,7 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = api(module.i, content, options);
+var update = api(content, options);
 
 var exported = content.locals ? content.locals : {};
 

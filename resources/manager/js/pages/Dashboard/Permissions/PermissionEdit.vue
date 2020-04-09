@@ -132,8 +132,8 @@
         },
         methods: {
             ...mapActions('permissions', {
-                indexAction: 'index',
-                showAction: 'show'
+                getItemsAction: 'getItems',
+                getItemAction: 'getItem'
             }),
             onUpdate() {
                 return this.update({
@@ -163,8 +163,8 @@
             }
         },
         created() {
-            this.indexAction()
-                .then(() => this.showAction(this.id))
+            this.getItemsAction()
+                .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(this.displayName);
                     this.responseData = true;
