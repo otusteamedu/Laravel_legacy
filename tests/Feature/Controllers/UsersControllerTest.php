@@ -174,9 +174,9 @@ class UsersControllerTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => $data['name'],
         ]);
-        $testUser = User::where('name', $data['name'])->get();
+        $testUserId = User::where('name', $data['name'])->first()->id;
         $newData = $this->generateUserCreateData();
-        $newData['id'] = $testUser[0]->id;
+        $newData['id'] = $testUserId;
 
         $this->actingAs($user)
             ->post(route('cms.users.update'), $newData)
@@ -201,8 +201,7 @@ class UsersControllerTest extends TestCase
         $this->assertDatabaseHas('users', [
             'name' => $data['name'],
         ]);
-        $testUser = User::where('name', $data['name'])->get();
-        $testUserId = $testUser[0]->id;
+        $testUserId = User::where('name', $data['name'])->first()->id;
 
         $this->actingAs($user)
             ->post(route('cms.users.delete'), ['id' => $testUserId])

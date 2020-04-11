@@ -69,14 +69,8 @@ class AuthTest extends TestCase
             'name' => $user->name,
         ]);
 
-        $this->post(route('login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]))
-            ->assertStatus(302)
-        ;
-
-        $this->post(route('logout', []))
+        $this->actingAs($user)
+            ->post(route('logout', []))
             ->assertStatus(302)
         ;
 
@@ -98,14 +92,8 @@ class AuthTest extends TestCase
             'name' => $user->name,
         ]);
 
-        $this->post(route('login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]))
-            ->assertStatus(302)
-        ;
-
-        $this->get(route('cms.index'))
+        $this->actingAs($user)
+            ->get(route('cms.index'))
             ->assertStatus(200);
     }
 
@@ -122,14 +110,8 @@ class AuthTest extends TestCase
             'name' => $user->name,
         ]);
 
-        $this->post(route('login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]))
-            ->assertStatus(302)
-        ;
-
-        $this->get(route('cms.users.index'))
+        $this->actingAs($user)
+            ->get(route('cms.users.index'))
             ->assertStatus(403);
     }
 
@@ -146,14 +128,8 @@ class AuthTest extends TestCase
             'name' => $user->name,
         ]);
 
-        $this->post(route('login', [
-            'email' => $user->email,
-            'password' => 'password',
-        ]))
-            ->assertStatus(302)
-        ;
-
-        $this->get(route('cms.users.index'))
+        $this->actingAs($user)
+            ->get(route('cms.users.index'))
             ->assertStatus(200);
     }
 }

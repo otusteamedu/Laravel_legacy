@@ -104,8 +104,8 @@ class CurrenciesControllerTest extends TestCase
      */
     public function testAllCurrency()
     {
-        $currency1 = CurrencyGenerator::createRub();
-        $currency2 = CurrencyGenerator::createUsd();
+        CurrencyGenerator::createRub();
+        CurrencyGenerator::createUsd();
         $currencyRepository = $this->getCurrencyRepository();
         $currencies = $currencyRepository->all();
         $this->assertCount(2, $currencies);
@@ -185,9 +185,10 @@ class CurrenciesControllerTest extends TestCase
         $this->assertDatabaseHas('currencies', [
             'code' => $data['code'],
         ]);
-        $currency = Currency::where('code', $data['code'])->get();
+
+        $currencyId = Currency::where('code', $data['code'])->first()->id;
         $newData = $this->generateCurrencyCreateData();
-        $newData['id'] = $currency[0]->id;
+        $newData['id'] = $currencyId;
 
         $this->actingAs($user)
             ->post(route('cms.currencies.update'), $newData)
@@ -211,8 +212,7 @@ class CurrenciesControllerTest extends TestCase
         $this->assertDatabaseHas('currencies', [
             'code' => $data['code'],
         ]);
-        $currency = Currency::where('code', $data['code'])->get();
-        $currencyId = $currency[0]->id;
+        $currencyId = Currency::where('code', $data['code'])->first()->id;
 
         $this->actingAs($user)
             ->post(route('cms.currencies.delete'), ['id' => $currencyId])

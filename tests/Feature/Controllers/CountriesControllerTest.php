@@ -207,6 +207,7 @@ class CountriesControllerTest extends TestCase
         $data['currency_id'] = 111111;
         $this->actingAs($user)
             ->post(route('cms.countries.store'), $data)
+            ->assertSessionHasNoErrors()
         ;
         $this->assertDatabaseMissing('countries', [
             'name' => $data['name'],
@@ -288,9 +289,7 @@ class CountriesControllerTest extends TestCase
             'name' => $data['name'],
             'name_eng' => $data['name_eng'],
         ]);
-        $country = Country::where('name', $data['name'])->get();
-        $countryId = $country[0]->id;
-
+        $countryId = Country::where('name', $data['name'])->first()->id;
         $this->actingAs($user)
             ->post(route('cms.countries.delete'), ['id' => $countryId])
             ->assertStatus(200);
