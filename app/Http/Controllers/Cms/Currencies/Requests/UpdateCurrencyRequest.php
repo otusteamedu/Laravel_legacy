@@ -21,18 +21,4 @@ class UpdateCurrencyRequest extends FormRequest
         ];
     }
 
-    /**
-     * @return array
-     */
-    public function getFormData()
-    {
-        $data = $this->request->all();
-
-        $data = Arr::except($data, [
-            '_token',
-        ]);
-
-        return $data;
-    }
-
 }

@@ -40,16 +40,6 @@ class CountriesService
     }
 
     /**
-     * Получение страны по ид
-     * @param int $id
-     * @return array|null
-     */
-    public function find(int $id)
-    {
-        return $this->repository->find($id);
-    }
-
-    /**
      * Поиск и выдача резултата по таблице стран
      * @param string $name фильтр по наименованию страны
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
