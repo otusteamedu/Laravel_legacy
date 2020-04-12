@@ -22,7 +22,7 @@ class EloquentEventRepository implements EventRepositoryInterface
         $event = Event::query();
         $this->applyFilters($event, $filters);
 
-        return $event->paginate();
+        return $event->paginate(10);
     }
 
     public function createFromArray(array $data): Event
