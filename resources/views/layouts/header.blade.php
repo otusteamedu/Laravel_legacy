@@ -96,7 +96,11 @@
 <main role="main" class="container">
 @if (!Route::is('index'))
     <div class="row">
-        <div class="col-lg-8">
+        @if (Route::is('events.index'))
+            <div class="col-lg-12">
+        @else
+            <div class="col-lg-8">
+        @endif
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('index') }}">Главная</a></li>
@@ -108,7 +112,11 @@
         <div class="col-lg-4"></div>
     </div>
     <div class="row">
+    @if (Route::is('events.index'))
+        <div class="col-lg-12">
+    @else
         <div class="col-lg-8">
+    @endif
             <div style="height: 50px">
                 <h1 class="text-left">@yield('h1')</h1>
             </div>
