@@ -1,8 +1,10 @@
 @if (!Route::is('index'))
     </div>
+    @if (!Route::is('events.index'))
     <div class="col-lg-4">
         @include('layouts.blocks.content.sidebar')
     </div>
+    @endif
 </div>
 @endif
 </main>
