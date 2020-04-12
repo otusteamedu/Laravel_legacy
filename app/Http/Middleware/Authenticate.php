@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use Log;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 
 class Authenticate extends Middleware
@@ -15,6 +17,7 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
+            \Log::channel('info')->warning('Попытка зайти в CMS неавторизованным пользователем');
             return route('login');
         }
     }
