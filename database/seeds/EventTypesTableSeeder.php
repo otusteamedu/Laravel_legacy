@@ -6,7 +6,8 @@ class EventTypesTableSeeder extends Seeder
 {
     private function getAvailableEventTypeList () {
         return [
-            'meeting', 'traditional', 'without_coordinates',
+            'towing_required', 'need_to_push', 'need_tool',
+            'need_fuel', 'charge_battery', 'tire_fitting',
         ];
     }
 
