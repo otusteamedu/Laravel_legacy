@@ -15,7 +15,7 @@
                                     <a class="nav-link" href="{{ route('about.index') }}">@lang('layouts/header.top_menu_about')</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="/events/">@lang('layouts/header.top_menu_event_list')</a>
+                                    <a class="nav-link" href="{{ route('events.index') }}">@lang('layouts/header.top_menu_event_list')</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('news.index') }}">@lang('layouts/header.top_menu_news')</a>
