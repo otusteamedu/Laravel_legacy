@@ -40,7 +40,7 @@
                 @endforeach
             </div>
             <div class="my-2">
-                @include('layouts.blocks.pagination.conent_navbar')
+                {{ $eventList->links() }}
             </div>
         </div>
         <div class="col-8">
