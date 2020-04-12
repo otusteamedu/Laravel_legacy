@@ -29,6 +29,10 @@ Route::prefix(resolve('\App\Services\Locales\LocalesService')->getCurrentLocaleP
     Route::get('/personal/{user}', 'Web\Users\UsersController@edit')->middleware(['auth'])->name('user.edit');
     Route::put('/personal/{user}', 'Web\Users\UsersController@update')->middleware(['auth'])->name('user.update');
     Route::post('/personal/{user}', 'Web\Users\UsersController@store')->middleware(['auth'])->name('user.store');
+
+    Route::resources([
+        'events' => 'Web\Events\EventsController',
+    ]);
 });
 
 Route::get('admin', 'HomeController@admin')->name('admin.index')->middleware(['auth', 'can:admin-section-available']);
