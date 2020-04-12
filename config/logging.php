@@ -35,9 +35,20 @@ return [
     */
 
     'channels' => [
+        'info' => [
+            'driver' => 'stack',
+            'channels' => ['daily', 'slack_info'],
+            'ignore_exceptions' => false,
+        ],
+        'error' => [
+            'driver' => 'stack',
+            'channels' => ['daily', 'slack_error'],
+            'ignore_exceptions' => false,
+        ],
+
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -54,12 +65,20 @@ return [
             'days' => 14,
         ],
 
-        'slack' => [
+        'slack_info' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'url' => env('INFO_LOG_SLACK_WEBHOOK_URL'),
+            'username' => 'incoming-webhook',
+            'emoji' => ':alien:',
+            'level' => 'info',
+        ],
+
+        'slack_error' => [
+            'driver' => 'slack',
+            'url' => env('ERROR_LOG_SLACK_WEBHOOK_URL'),
+            'username' => 'incoming-webhook',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            'level' => 'error',
         ],
 
         'papertrail' => [

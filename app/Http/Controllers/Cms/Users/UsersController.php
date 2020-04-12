@@ -59,6 +59,7 @@ class UsersController extends Controller
         try {
             $user = $this->usersService->store($request->all());
         } catch (\Exception $e) {
+            \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store error',
                 'errors' => [[ $e->getMessage() ]],
@@ -81,6 +82,7 @@ class UsersController extends Controller
         try {
             $user = $this->usersService->update($id, $request->all());
         } catch (\Exception $e) {
+            \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update error',
                 'errors' => [[ $e->getMessage() ]],
@@ -104,6 +106,7 @@ class UsersController extends Controller
         try {
             $this->usersService->delete($id);
         } catch (\Exception $e) {
+            \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Delete error',
                 'errors' => [[ $e->getMessage() ]],

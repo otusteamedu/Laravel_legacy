@@ -63,6 +63,7 @@ class CountriesController extends Controller
         try {
             $country = $this->countriesService->store($request->all());
         } catch (\Exception $e) {
+            \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store error',
                 'errors' => [[ $e->getMessage() ]],
@@ -83,6 +84,7 @@ class CountriesController extends Controller
         try {
             $country = $this->countriesService->update($id, $request->all());
         } catch (\Exception $e) {
+            \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update error',
                 'errors' => [[ $e->getMessage() ]],
@@ -104,6 +106,7 @@ class CountriesController extends Controller
         try {
             $this->countriesService->delete($id);
         } catch (\Exception $e) {
+            \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Delete error',
                 'errors' => [[ $e->getMessage() ]],
