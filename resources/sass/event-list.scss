@@ -1,0 +1,35 @@
+#map {
+    width: 100%; height: 100%; padding: 0; margin: 0;
+}
+.list-group .list-group-item-action:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+    border-color: #007bff
+}
+.event-item {
+    overflow: hidden;
+    background-color: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    text-underline: none;
+}
+.event-item:hover {
+    z-index: 2;
+    color: #fff;
+    background-color: #007bff;
+}
+.event-item:hover a {
+    text-underline: none;
+}
+.event-item:hover span {
+    color: #ffffff;
+    text-underline: none;
+}
+.event-type-svg svg {
+    max-height: 50px;
+    max-width: 50px;
+}
+.author-name-picture svg {
+    max-height: 15px;
+    max-width: 15px;
+}
