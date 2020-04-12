@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateExamplesTable extends Migration
+class CreatePackageExampleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,14 @@ class CreateExamplesTable extends Migration
      */
     public function up()
     {
-        Schema::create('examples', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedBigInteger('package_id');
-            $table->string('name');
-            $table->string('code');
+        Schema::create('package_example', function (Blueprint $table) {
+            $table->integer('package_id')->unsigned()->index();
+            $table->foreign('package_id')->references('id')->on('packages')->onDelete('cascade');
+
+            $table->integer('example_id')->unsigned()->index();
+            $table->foreign('example_id')->references('id')->on('examples')->onDelete('cascade');
+
             $table->timestamps();
-            $table->softDeletes();
-            $table->index(['id', 'name']);
         });
     }
 
@@ -31,6 +31,6 @@ class CreateExamplesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('examples');
+        Schema::dropIfExists('package_example');
     }
 }
