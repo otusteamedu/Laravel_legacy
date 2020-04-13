@@ -11,6 +11,7 @@ use App\Services\Roles\RolesService;
 
 use App\Models\Role;
 
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use SebastianBergmann\CodeCoverage\TestFixture\C;
@@ -48,10 +49,14 @@ class UsersController extends BaseAdminController
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
-            //$users= $this->usersService->searchUsers();
+        //$user = Auth::user();
+        //$this->checkCurrentUserRouteAccess($user, $request->route()->getName());
+
         $users = $this->usersService->searchCachedUsers();
+
+        Log::critical('Users were visited');
+        //Log::channel('slack')->critical('Something happened!');
+
         return view('admin.users.index', [
             'users' => $users,
             'breadcrumbs' => $this->breadcrumbs

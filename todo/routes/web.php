@@ -14,17 +14,20 @@
 
 Route::name('admin.')->group(function () {
     App::setLocale('ru');
-    Route::prefix('admin')->group(function () {
-        Route::resources([
-            'users' => 'Admin\UsersController',
-            'roles' => 'Admin\RolesController',
-            'statuses' => 'Admin\StatusesController',
-            'permissions' => 'Admin\PermissionsController',
-            '/' => 'Admin\AdminController',
+    $locale = App::getLocale();
+    Route::prefix('admin')
+        ->middleware(\App\Http\Middleware\CheckAccess::class)
+        ->group(function () {
+            Route::resources([
+                'users' => 'Admin\UsersController',
+                'roles' => 'Admin\RolesController',
+                'statuses' => 'Admin\StatusesController',
+                'permissions' => 'Admin\PermissionsController',
+                '/' => 'Admin\AdminController',
 
-            // 'cities' => 'Cms\Cities\CitiesController',
-        ]);
-    });
+                // 'cities' => 'Cms\Cities\CitiesController',
+            ]);
+        });
 });
 
 Route::get('/', function () {
@@ -72,7 +75,7 @@ Route::get('/tasks', function () {
 
 });
 */
-Route::get('/tasks', 'Site\TasksController@index')->name('tasks');
+Route::get('/tasks', 'Site\TasksController@index')->name('tasks')->middleware(\App\Http\Middleware\CheckAccess::class);
 
 Route::get('/registration', function () {
 
