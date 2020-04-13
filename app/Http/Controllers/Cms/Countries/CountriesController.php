@@ -52,7 +52,7 @@ class CountriesController extends Controller
         if (Gate::allows('create-country')) {
             return view('cms.countries.create');
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -96,7 +96,7 @@ class CountriesController extends Controller
                 'country' => $country,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 

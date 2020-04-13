@@ -47,7 +47,7 @@ class TariffsController extends Controller
         if (Gate::allows('create-tariff')) {
             return view('cms.tariffs.create');
         } else {
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -61,7 +61,15 @@ class TariffsController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->tariffsService->storeTariff($data);
+        try {
+            $this->tariffsService->storeTariff($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store tariff error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.tariffs.index'));
     }
@@ -94,7 +102,7 @@ class TariffsController extends Controller
             ]);
 
         } else {
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -109,8 +117,16 @@ class TariffsController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $tariff);
 
-        $this->tariffsService->updateTariff($tariff, $request->all());
-        $tariff->update($request->all());
+        try {
+            $this->tariffsService->updateTariff($tariff, $request->all());
+            $tariff->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update tariff error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.tariffs.index'));
     }

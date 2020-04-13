@@ -47,7 +47,7 @@ class SegmentsController extends Controller
         if (Gate::allows('create-segment')) {
             return view('cms.segments.create');
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -61,7 +61,15 @@ class SegmentsController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->segmentsService->storeSegment($data);
+        try {
+            $this->segmentsService->storeSegment($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store segment error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.segments.index'));
     }
@@ -92,7 +100,7 @@ class SegmentsController extends Controller
                 'segment' => $segment,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -107,8 +115,16 @@ class SegmentsController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $segment);
 
-        $this->segmentsService->updateSegment($segment, $request->all());
-        $segment->update($request->all());
+        try {
+            $this->segmentsService->updateSegment($segment, $request->all());
+            $segment->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update segment error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.segments.index'));
     }
