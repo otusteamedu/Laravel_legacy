@@ -1,0 +1,29 @@
+{
+    "name": "vagrant/callback",
+    "description": "The package shows callback form and sends mail with order to admin email",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Albina Mukhamediyeva",
+            "email": "albinamkh@mail.ru"
+        }
+    ],
+    "require": {
+        "illuminate/support": "^6.5",
+        "illuminate/routing": "^6.5",
+        "illuminate/mail": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lara\\Callback\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Lara\\Callback\\ServiceProvider"
+            ]
+        }
+    }
+
+}

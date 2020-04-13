@@ -1,0 +1,27 @@
+.callme-button{
+    color:#fff;
+    background-color: rgba(89, 194, 175, 0.68);
+    border-radius: 50%;
+    position: fixed;
+    border: 1px solid #ccc;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+    padding: 10px 15px;
+    font-size: 25px;
+    box-shadow: 0 0 10px rgba(0,0,0,.2);
+}
+.callme-loader{
+    color: #50a12c;
+
+}
+.callme-button .glyphicon.glyphicon-earphone {
+    font-size:25px !important;
+    background-color: rgba(89, 194, 175, 0.01);
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    vertical-align: top;
+
+}

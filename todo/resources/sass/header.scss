@@ -1,0 +1,36 @@
+.header {
+  background-color: $body-bg;
+  padding: 30px 30px;
+  text-align: center;
+  margin-bottom: 30px;
+
+}
+
+.menu {
+
+  ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $body-bg;
+  }
+
+  li {
+    float: left;
+  }
+
+  li a {
+    display: block;
+    color: $grey_dark;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+  }
+
+  li a:hover {
+    background-color: $grey_hover;
+    color: $grey_dark_hover;
+  }
+
+}
