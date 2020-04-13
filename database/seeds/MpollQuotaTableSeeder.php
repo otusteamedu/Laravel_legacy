@@ -20,11 +20,11 @@ class MpollQuotaTableSeeder extends Seeder
             0 =>
             array (
                 'id' => 37,
-                'mpoll_id' => NULL,
-                'quota_id' => NULL,
+                'mpoll_id' => 1,
+                'quota_id' => 1,
                 'mstatus_id' => 0,
-                'completes' => 0,
-                'sent' => 0,
+                'completes' => 10,
+                'sent' => 100,
                 'send_posible' => 0,
                 'sending' => 0,
             'order' => 'RAND()',
@@ -39,11 +39,11 @@ class MpollQuotaTableSeeder extends Seeder
             1 =>
             array (
                 'id' => 38,
-                'mpoll_id' => NULL,
-                'quota_id' => NULL,
+                'mpoll_id' => 1,
+                'quota_id' => 2,
                 'mstatus_id' => 0,
-                'completes' => 0,
-                'sent' => 0,
+                'completes' => 20,
+                'sent' => 200,
                 'send_posible' => 0,
                 'sending' => 0,
             'order' => 'RAND()',
@@ -58,11 +58,11 @@ class MpollQuotaTableSeeder extends Seeder
             2 =>
             array (
                 'id' => 39,
-                'mpoll_id' => NULL,
-                'quota_id' => NULL,
+                'mpoll_id' => 2,
+                'quota_id' => 1,
                 'mstatus_id' => 0,
-                'completes' => 0,
-                'sent' => 0,
+                'completes' => 30,
+                'sent' => 300,
                 'send_posible' => 0,
                 'sending' => 0,
             'order' => 'RAND()',

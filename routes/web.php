@@ -13,7 +13,8 @@
 
 
 
-Route::view('/', 'HomeController@index')->name('home');
+//Route::view('/', 'HomeController@index')->name('home');
+Route::view('/', 'welcome')->name('home');
 
 Route::get('/test',function () {
     return view('test');
@@ -41,9 +42,9 @@ Route::group([
     });
 
     //CmsMpolls
-    $methods = ['index', 'edit', 'update', 'create', 'store'];
+//    $methods = ['index', 'edit', 'update', 'create', 'store','destroy'];
     Route::namespace('Mpolls')->group(function () {
-        $methods = ['index', 'edit', 'update', 'create', 'store'];
+        $methods = ['index', 'edit', 'update', 'create', 'store','destroy'];
         Route::resource('mpolls', 'MpollsController')
             ->only($methods)
             ->names('cms.mpolls');

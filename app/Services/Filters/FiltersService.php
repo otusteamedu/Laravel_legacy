@@ -4,7 +4,11 @@
 namespace App\Services\Filters;
 
 
+use App\Models\Filter;
+use App\Services\Filters\Handlers\CreateFilterHandler;
+use App\Services\Filters\Handlers\UpdateFilterHandler;
 use App\Services\Filters\Repositories\FilterRepositoryInterface;
+use App\Services\FilterTypes\Repositories\FilterTypeRepositoryInterface;
 
 class FiltersService
 {
@@ -12,23 +16,44 @@ class FiltersService
     /**
      * @var FilterRepositoryInterface
      */
-    private FilterRepositoryInterface $repository;
+    private FilterRepositoryInterface $filterRepository;
+    /**
+     * @var FilterTypeRepositoryInterface
+     */
+    private FilterTypeRepositoryInterface $filterTypeRepository;
     /**
      * @var CreateFilterHandler
      */
-    private $createFilterHandler;
+    private CreateFilterHandler $createFilterHandler;
+
+    private UpdateFilterHandler $updateFilterHandler;
 
     public function __construct(
-        FilterRepositoryInterface $repository
+        FilterRepositoryInterface $filterRepository,
+        FilterTypeRepositoryInterface $filterTypeRepository,
+        CreateFilterHandler $createFilterHandler,
+        UpdateFilterHandler $updateFilterHandler
     )
     {
-        $this->repository = $repository;
+        $this->filterRepository = $filterRepository;
+//        $this->filterTypeRepository = $filterTypeRepository;
+        $this->createFilterHandler = $createFilterHandler;
+        $this->updateFilterHandler = $updateFilterHandler;
     }
 
     public function search(array $filters)
     {
-        return $this->repository->search($filters);
+        return $this->filterRepository->search($filters);
     }
 
+    public function create(array $data)
+    {
+        return $this->createFilterHandler->handle($data);
+    }
+
+    public function update(Filter $model, array $data)
+    {
+        $this->updateFilterHandler->handle($model, $data);
+    }
 
 }

@@ -15,12 +15,17 @@
                 ],
                 [
                     'url' => route('cms.filters.index'),
-                    'title' => __('cms.countries'),
+                    'title' => __('cms.filters.filters'),
+                ],
+                 [
+                    'url' => route('cms.filters.index'),
+                    'title' => __('cms.filters.filters'),
                 ],
             ];
         @endphp
         @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
-        @include('cms.filters.blocks.header.edit')
+        @include('blocks.alerts.errors_success')
+        {{--        @include('cms.filters.blocks.header.edit')--}}
         @include('cms.filters.blocks.form.edit')
     </div>
 @endsection

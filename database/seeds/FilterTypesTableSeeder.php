@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class FilterTypeTableSeeder extends Seeder
+class FilterTypesTableSeeder extends Seeder
 {
 
     /**
@@ -14,9 +14,9 @@ class FilterTypeTableSeeder extends Seeder
     {
 
 
-        \DB::table('filter_type')->delete();
+        \DB::table('filter_types')->delete();
 
-        \DB::table('filter_type')->insert(array (
+        \DB::table('filter_types')->insert(array (
             0 =>
             array (
                 'id' => 1,

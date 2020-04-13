@@ -86,4 +86,21 @@ class Mpoll extends BaseModel
     const UPDATED_AT = 'modified';*/
     //
     use SoftDeletes;
+    protected $fillable = [
+        'created_at',
+        'updated_at',
+        'value',
+        'name',
+        'description',
+    ];
+
+
+    public function quotas()
+    {
+        return $this->belongsToMany(Quota::class)
+            ->withPivot('completes', 'sent')
+            ->withTimestamps()
+            ;
+    }
+
 }

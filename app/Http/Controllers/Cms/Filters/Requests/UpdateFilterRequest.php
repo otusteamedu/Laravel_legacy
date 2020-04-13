@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Cms\Filters\Requests;
 
-use Illuminate\Foundation\Http\FormRequest;
+
+
+use App\Http\Requests\FormRequest;
 
 class UpdateFilterRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class UpdateFilterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,21 @@ class UpdateFilterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|max:100|min:5',
+            'description' => 'required|min:3',
+            'filter_type_id' => 'required'
         ];
     }
+
+    /**
+     * @return array
+     */
+    public function getFormData(): array
+    {
+        return array_merge(parent::getFormData(), [
+//            'locale' => config('app.locale'),
+//            'author_id' => $this->user()->id,
+        ]);
+    }
+
 }

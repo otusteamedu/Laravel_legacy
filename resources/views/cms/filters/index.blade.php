@@ -15,11 +15,16 @@
                 ],
                 [
                     'url' => route('cms.filters.index'),
-                    'title' => __('messages.countries'),
+                    'title' => __('cms.filters.filters'),
                 ],
             ];
         @endphp
         @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
+
+        {{ link_to_route('cms.filters.create', $title = 'Create new', $parameters = [], $attributes = ['class' =>'btn btn-primary mb-3']) }}
+
+
+
 {{--        @include('cms.filters.blocks.header.list')--}}
         @include('cms.filters.blocks.list.index')
     </div>

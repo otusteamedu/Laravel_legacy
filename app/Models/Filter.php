@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models;
-
+use App\Models\BaseModel;
 /**
  * App\Models\Filter
  *
@@ -33,7 +33,8 @@ namespace App\Models;
 class Filter extends BaseModel
 {
 //    public $timestamps = false;
-/*    protected $fillable = [
-        'title', 'description', 'price',
-    ];*/
+    protected $fillable = [
+        'name', 'description', 'value', 'filter_type_id',
+        'quota_id'
+    ];
 }

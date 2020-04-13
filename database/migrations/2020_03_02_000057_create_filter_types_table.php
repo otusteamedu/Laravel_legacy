@@ -8,7 +8,7 @@ class CreateFilterTypesTable extends Migration
      * Schema table name to migrate
      * @var string
      */
-    public $tableName = 'filter_type';
+    public $tableName = 'filter_types';
     /**
      * Run the migrations.
      * @table filter_types

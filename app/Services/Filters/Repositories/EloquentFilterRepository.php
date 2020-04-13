@@ -34,9 +34,9 @@ class EloquentFilterRepository implements FilterRepositoryInterface
 
     public function createFromArray(array $data): Filter
     {
-        $filter = new Filter();
-        $filter->create($data);
-        return $filter;
+//        $filter = new Filter();
+//        $filter->create($data);
+        return Filter::create($data);
     }
 
     public function updateFromArray(Filter $filter, array $data)

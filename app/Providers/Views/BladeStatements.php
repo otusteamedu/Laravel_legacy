@@ -26,7 +26,7 @@ trait BladeStatements
     {
         Blade::directive('date', function ($expression) use ($format) {
             $format = $format ?: 'd.m.Y';
-            return "<?php echo ($expression)->format('$format'); ?>";
+            return "<?php  if(!$expression == null) echo ($expression)->format('$format'); ?>";
         });
     }
 
@@ -40,5 +40,5 @@ trait BladeStatements
             return "<?php echo ('$currency ' . $expression); ?>";
         });
     }
-    
+
 }

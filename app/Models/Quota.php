@@ -41,4 +41,9 @@ class Quota extends BaseModel
     /*const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';*/
     //
+    public function mpolls()
+    {
+        return $this->belongsToMany(Mpoll::class);
+    }
+
 }

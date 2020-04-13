@@ -1,0 +1,18 @@
+<thead>
+    <tr>
+        <th>#</th>
+        <th>Statuss</th>
+        <th>@lang('messages.name')</th>
+        <th>@lang('messages.price')</th>
+        <th>@lang('messages.country_id')</th>
+        <th>@lang('messages.click')</th>
+        <th>@lang('messages.cab_price')</th>
+        <th>@lang('messages.check_geo')</th>
+        <th>@lang('messages.incabinet')</th>
+        <th>@lang('messages.description')</th>
+        <th>@lang('messages.created')</th>
+        <th>@lang('messages.updated')</th>
+        <th>@lang('messages.deleted')</th>
+        <th>@lang('messages.actions')</th>
+    </tr>
+</thead>

@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Cms\Filters;
 
+use App\Http\Controllers\Cms\Filters\Requests\StoreFilterRequest;
+use App\Http\Controllers\Cms\Filters\Requests\UpdateFilterRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Filter;
+use App\Services\FilterTypes\FilterTypesService;
+use mysql_xdevapi\Exception;
 use View;
 use App\Services\Filters\FiltersService;
 use Illuminate\Http\Request;
@@ -11,13 +15,16 @@ use Illuminate\Http\Request;
 class FiltersController extends Controller
 {
 
-    private $filtersService;
+    private FiltersService $filtersService;
+    private FilterTypesService $filtersTypeService;
 
     public function __construct(
-        FiltersService $filtersService
+        FiltersService $filtersService,
+        FilterTypesService $filtersTypeService
     )
     {
         $this->filtersService = $filtersService;
+        $this->filtersTypeService = $filtersTypeService;
 
     }
 
@@ -43,7 +50,10 @@ class FiltersController extends Controller
      */
     public function create()
     {
-        //
+        View::share([
+            'filterTypeList' => $this->filtersTypeService->getForCombobox()
+        ]);
+        return view('cms.filters.create');
     }
 
     /**
@@ -52,9 +62,15 @@ class FiltersController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFilterRequest $request)
     {
-        //
+        $filter = $this->filtersService->create($request->getFormData());
+      /*  try{
+
+        }catch (Exception $exception){
+        }*/
+        return redirect()->route('cms.filters.edit', ['filter' => $filter->id]);
+
     }
 
     /**
@@ -76,8 +92,12 @@ class FiltersController extends Controller
      */
     public function edit(Filter $filter)
     {
+        if(isset($item)){
+            abort(404);
+        }
         View::share([
             'filter' => $filter,
+            'filterTypeList' => $this->filtersTypeService->getForCombobox()
         ]);
         return view('cms.filters.edit');
     }
@@ -89,9 +109,11 @@ class FiltersController extends Controller
      * @param \App\Models\Filter $filter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Filter $filter)
+    public function update(UpdateFilterRequest $request, Filter $filter)
     {
-        //
+//        dd($filter instanceof Filter);
+        $this->filtersService->update($filter, $request->getFormData());
+        return redirect()->route('cms.filters.index');
     }
 
     /**
@@ -116,7 +138,6 @@ class FiltersController extends Controller
                 ->route('cms.filters.index')
                 ->with(['success' => "Запись id[$id] удалена"]);
         } else {
-            dd($result);
             return back()
                 ->withErrors(['msg' => 'Ошибка удаления'])
                 ->withInput();
