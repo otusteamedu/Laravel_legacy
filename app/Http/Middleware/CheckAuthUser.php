@@ -21,8 +21,7 @@ class CheckAuthUser
     public function handle(Request $request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-            $userId = Auth::id();
-            $role = User::find($userId)->role->type;
+            $role = Auth::user()->role->type;
             switch ($role) {
                 case Role::LEVEL_ROOT:
                     return $next($request);
@@ -31,10 +30,10 @@ class CheckAuthUser
                     return $next($request);
                 break;
                 case Role::LEVEL_USER:
-                    return redirect(RouteServiceProvider::HOME);
+                    return redirect(route('index'));
                 break;
                 default:
-                    return redirect(RouteServiceProvider::HOME);
+                    return redirect(route('index'));
                 break;
             }
        }

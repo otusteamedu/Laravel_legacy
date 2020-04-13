@@ -32,7 +32,10 @@ class UserTableSeeder extends Seeder
             ]
         ];
 
-		DB::table('roles')->insert($roles);
+        $roleCount = Role::count();
+        if(empty($roleCount)){
+            DB::table('roles')->insert($roles);
+        }
         factory(User::class, 10)->create();
     }
 }

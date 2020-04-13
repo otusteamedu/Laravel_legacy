@@ -2,13 +2,19 @@
     <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
-          <a class="nav-link" href="{{route('admin.news.index')}}">
+            <a class="nav-link" href="{{route('admin.user.index')}}">
+              <span data-feather="file"></span>
+              Пользователи
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('admin.news.index')}}">
               <span data-feather="file"></span>
               News
             </a>
           </li>
           <li class="nav-item">
-          <a class="nav-link" href="{{route('admin.category.index')}}">
+            <a class="nav-link" href="{{route('admin.category.index')}}">
               <span data-feather="file"></span>
               Category
             </a>

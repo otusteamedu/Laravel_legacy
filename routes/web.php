@@ -25,7 +25,7 @@ Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
 
-Route::get('/admin', 'Auth\AdminPathInvokeRoutController');
+Route::get('/admin', 'Auth\LoginRedirectController');
 
 Route::name('admin.')->group(function(){
     Route::prefix('admin')->middleware([
@@ -34,6 +34,7 @@ Route::name('admin.')->group(function(){
         ])->group(function(){
         Route::resources([
             'index'=>'Admin\Index\IndexController',
+            'user'=>'Admin\Users\UsersController',
             'news'=>'Admin\News\NewsController',
             'category'=>'Admin\Category\CategoryController'
         ]);

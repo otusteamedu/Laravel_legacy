@@ -33,4 +33,15 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
+    public function isRoot(){
+        return $this->role->type === Role::LEVEL_ROOT;
+    }
+
+    public function isAdmin(){
+        return $this->role->type === Role::LEVEL_ADMIN;
+    }
+
+    public function isUser(){
+        return $this->role->type === Role::LEVEL_USER;
+    }
 }
