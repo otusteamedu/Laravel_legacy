@@ -5,10 +5,13 @@ namespace App\Http\Controllers\API\Auth;
 use App\Http\Controllers\API\Auth\ResponseUserStatus\SocialLoginResponseUserStatusStrategy;
 use App\Http\Controllers\API\Auth\Base\BaseLoginController;
 use App\Http\Controllers\API\Cms\User\Requests\UserSocialRequest;
+use App\Http\Middleware\UserActive;
+use App\Http\Middleware\UserVerified;
 use App\Models\User;
 use App\Services\Auth\AuthService;
 use App\Services\User\UserService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\JWTAuth;
@@ -68,21 +71,26 @@ class SocialLoginController extends BaseLoginController
 
         } catch (\Exception $e) {
 
-            return redirect(env('CLIENT_BASE_URL') . '/social-callback?'
-                . 'danger=' .trans('auth.unable_using_service', ['service' => Str::title($service)])
+            return redirect(env('CLIENT_BASE_URL')
+                . '/social-callback?'
+                . 'status=danger'
+                . '&message=' .trans('auth.unable_using_service', ['service' => Str::title($service)])
                 . '&origin=login');
         }
 
-        if ($user = $this->userService->getUserBySocialId($serviceUser->getId()))
+        if ($user = $this->userService->getUserBySocialId($serviceUser->getId())) {
             return $this->getStatusResponse($user);
+        }
 
         if ($user = $this->userService->getUserByEmail($serviceUser->getEmail())) {
+
             $this->userService->storeUserSocial($user, $serviceUser->getId(), $service);
 
             return $this->getStatusResponse($user);
         }
 
-        return redirect(env('CLIENT_BASE_URL') . '/social-callback?'
+        return redirect(env('CLIENT_BASE_URL')
+            . '/social-callback?'
             . 'name=' . ($serviceUser->getName() ? $serviceUser->getName() : '')
             . '&email=' . ($serviceUser->getEmail() ? $serviceUser->getEmail() : '')
             . '&social_id=' . $serviceUser->getId()

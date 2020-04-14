@@ -15,16 +15,15 @@ class AuthService extends BaseAuthService
      * @param Request $request
      * @return array
      */
-    public function index(Request $request): array
+    public function index(Request $request)
     {
         $user = $request->user();
 
-        if ($user->isActive() && $user->isVerified()) {
+        if ($user && $user->isActive() && $user->isVerified()) {
             return [
                 'data' => new UserResource($request->user())
             ];
         }
-
 //        $this->logout();
     }
 
@@ -43,15 +42,18 @@ class AuthService extends BaseAuthService
 
         if (!$user)
             return redirect(env('CLIENT_BASE_URL')
-                . '/login?danger='
-                . trans('auth.invalid_token'));
+                . '/login'
+                . '?message=' . __('auth.invalid_token')
+                . '&status=danger');
 
         $message = $this->repository->verifyUser($user)
-            ? trans('auth.email_verified')
-            : trans('auth.email_already_verified');
+            ? __('auth.email_verified')
+            : __('auth.email_already_verified');
 
         return redirect(env('CLIENT_BASE_URL')
-            . '/login?success=' . $message);
+            . '/login'
+            . '?message=' . $message
+            . '&status=success');
     }
 
     /**
@@ -69,9 +71,9 @@ class AuthService extends BaseAuthService
      */
     public function getMessageByRegistration(string $email): array
     {
-        return ['message' => [
-            'text' => trans('auth.send_activation_code', ['email' => $email]),
+        return [
+            'message' => __('auth.send_activation_code', ['email' => $email]),
             'status' => 'primary'
-        ]];
+        ];
     }
 }

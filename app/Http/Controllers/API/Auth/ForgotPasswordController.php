@@ -49,10 +49,8 @@ class ForgotPasswordController extends Controller
     protected function sendResetLinkResponse(Request $request, $response)
     {
         return response()->json([
-            'message' => [
-                'text' => trans('auth.password_reset_sent'),
-                'status' => 'success'
-            ]
+            'message' => __('auth.password_reset_sent'),
+            'status' => 'success'
         ]);
     }
     /**
@@ -65,10 +63,8 @@ class ForgotPasswordController extends Controller
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
         return response()->json([
-            'message' => [
-                'text' => trans('auth.email_not_sent'),
-                'status' => 'danger'
-            ]
+            'message' => __('auth.email_not_sent'),
+            'status' => 'danger'
         ]);
     }
 }
