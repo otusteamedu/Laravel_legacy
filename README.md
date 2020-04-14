@@ -127,3 +127,9 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
     + docker exec -ti laradock_workspace_1 /bin/bash
     + php artisan migrate
 
+## hw6
+
+Сделал структуру таблиц, чтобы описать все кейсы 
+* users один к одному user_statistics
+* users один ко многим articles
+* articles многие ко многим tags через article_tag  
