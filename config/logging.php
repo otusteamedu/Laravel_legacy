@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -54,10 +54,18 @@ return [
             'days' => 14,
         ],
 
-        'slack' => [
+        'slack-info' => [
             'driver' => 'slack',
-            'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'url' => env('SLACK_INFO_WEBHOOK_URLgit '),
+            'username' => 'Badum-info',
+            'emoji' => ':alien:',
+            'level' => 'info',
+        ],
+
+        'slack-critical' => [
+            'driver' => 'slack',
+            'url' => env('SLACK_CRITICAL_WEBHOOK_URL'),
+            'username' => 'Badum-critical',
             'emoji' => ':boom:',
             'level' => 'critical',
         ],

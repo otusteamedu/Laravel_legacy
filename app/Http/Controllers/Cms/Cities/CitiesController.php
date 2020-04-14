@@ -55,7 +55,7 @@ class CitiesController extends Controller
                 'countries' => $countries,
             ]);
         } else {
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
 
     }
@@ -103,7 +103,7 @@ class CitiesController extends Controller
                 'country' => $country,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 

@@ -31,7 +31,7 @@ Route::get('/cms', function () {
     if (\Illuminate\Support\Facades\Gate::allows('show-cms'))
         return view('cms.index.index');
     else
-        return view('plain.not-allowed');
+        return view('errors.not-allowed');
 })->middleware('auth');
 
 Route::name('cms.')->middleware('auth')->group(function () {

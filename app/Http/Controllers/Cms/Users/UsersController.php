@@ -56,7 +56,7 @@ class UsersController extends Controller
                 'segments' => $segments,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -70,7 +70,15 @@ class UsersController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->usersService->storeUser($data);
+        try {
+            $this->usersService->storeUser($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store user error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.users.index'));
     }
@@ -101,7 +109,7 @@ class UsersController extends Controller
                 'user' => $user,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -116,8 +124,16 @@ class UsersController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $user);
 
-        $this->usersService->updateUser($user, $request->all());
-        $user->update($request->all());
+        try {
+            $this->usersService->updateUser($user, $request->all());
+            $user->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update user error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.users.index'));
     }
