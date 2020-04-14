@@ -12,11 +12,12 @@
     @include('layouts.styles')
 </head>
 <body>
+@include('layouts.scripts') <!-- @ToDo: вынести js код Yandex map в отдельные модули webpack, правильно подключить и перенести подключение скриптов ниже -->
+@include('layouts.blocks.yandexmap.scripts') <!-- @ToDo:Перенести ниже -->
 @include('layouts.header')
 @yield('breadcrumbs')
 @yield('content')
 @include('layouts.footer')
-@include('layouts.scripts')
 @include('layouts.modals')
 </body>
 </html>
