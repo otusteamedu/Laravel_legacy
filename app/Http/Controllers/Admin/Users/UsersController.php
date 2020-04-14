@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin\Users;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Users\UpdateUsersRequest;
+use App\Http\Services\Roles\RolesService;
 use App\Http\Services\Users\UsersService;
 use App\Models\Role;
 use App\Models\User;
@@ -72,19 +74,25 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $arrayRoles = $this->usersService->getRoleFromUser();
+        return view('admin.user.page', [
+            'user'=>$user,
+            'arrayRoles'=>$arrayRoles,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request\UpdateUsersRequest  $request
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUsersRequest $request, User $user)
     {
-        //
+        $requestArray = $request->getFormArray();
+        $this->usersService->updateUser($user, $requestArray);
+        return redirect(route('admin.user.index'));
     }
 
     /**
@@ -95,6 +103,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $this->usersService->deleteUser($user);
+        return redirect(route('admin.user.index'));
     }
 }

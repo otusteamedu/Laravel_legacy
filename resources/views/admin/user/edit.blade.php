@@ -4,30 +4,23 @@
     @include('admin.blocks.errors.errors')
     <div class="form-row">
       <div class="col-12 mb-3">
-          {{ Form::label('title', 'Заголовок новости') }}
-          {{ Form::text('title', $user->title, array_merge(['class' => 'form-control'], ['placeholder'=>'Заголовок'])) }}
+          {{ Form::label('name', 'Имя пользователя') }}
+          {{ Form::text('name', $user->name, array_merge(['class' => 'form-control'], 
+                                                        ['placeholder'=>'Имя пользователя'],
+                                                        ['readonly'=>"readonly"])) }}
       </div>
       <div class="col-12 mb-3">
-          {{ Form::label('text', 'Текст') }}
-          {{ Form::textarea('text', $user->text, array_merge(['class' => 'form-control'])) }}
-      </div>
+        {{ Form::label('email', 'Логин/Email') }}
+        {{ Form::text('email', $user->email, array_merge(['class' => 'form-control'], 
+                                                          ['placeholder'=>'Логин/Email'], 
+                                                          ['readonly'=>"readonly"])) }}
+      </div>  
       <div class="col-12 mb-3">
-          {{ Form::label('meta_title', 'Мета заголовок') }}
-          {{ Form::text('meta_title', $user->meta_title, array_merge(['class' => 'form-control'], ['placeholder'=>'Мета заголовок'])) }}
-      </div>
-      <div class="col-12 mb-3">
-          {{ Form::label('meta_description', 'Мета описание') }}
-          {{ Form::textarea('meta_description', $user->meta_description, array_merge(['class' => 'form-control'])) }}
-      </div>
-      <div class="col-12 mb-3">
-          {{ Form::label('url', 'Url') }}
-          {{ Form::text('url', $user->url, array_merge(['class' => 'form-control'], ['placeholder'=>'Url'])) }}
-      </div>
-{{--       <div class="col-12 mb-3">
-          {{ Form::label('file', 'Загрузка файла') }}
-          {{  Form::file('file', array_merge(['class' => 'form-control'])) }}
-      </div> --}}
-      
+        {{ Form::label('role_id', 'Роли') }}
+        <select class="custom-select" name="role_id" id="role_id">
+          @include('admin.blocks.roles.roles')
+        </select>
+      </div>   
     </div>
 </div>
 <div class="col-12 col-lg-4">

@@ -10,13 +10,13 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('admin.news.index')}}">
               <span data-feather="file"></span>
-              News
+              Новости
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('admin.category.index')}}">
               <span data-feather="file"></span>
-              Category
+              Категории
             </a>
           </li>
 {{--           <li class="nav-item">

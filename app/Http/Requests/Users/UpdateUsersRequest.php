@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests\News;
+namespace App\Http\Requests\Users;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class StoreNewsRequest extends FormRequest
+class UpdateUsersRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,13 +24,10 @@ class StoreNewsRequest extends FormRequest
      */
     public function rules()
     {
-        
         return [
-            'title' => 'required|min:6',
-            'text' => 'min:10',
-            'meta_title'=>'present',
-            'meta_description'=>'present',
-            //'file_id'=>'integer'
+            'name' => 'required|min:6',
+            'email' => 'email',
+            'role_id' => 'integer|exists:roles,id'
         ];
     }
 
