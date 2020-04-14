@@ -96,7 +96,7 @@
 <main role="main" class="container">
 @if (!Route::is('index'))
     <div class="row">
-        @if (Route::is('events.index'))
+        @if (Route::is('events.index') || Route::is('events.show'))
             <div class="col-lg-12">
         @else
             <div class="col-lg-8">
@@ -112,15 +112,14 @@
         <div class="col-lg-4"></div>
     </div>
     <div class="row">
-    @if (Route::is('events.index'))
+    @if (Route::is('events.index') || Route::is('events.show'))
         <div class="col-lg-12">
     @else
         <div class="col-lg-8">
     @endif
-            <div style="height: 50px">
-                <h1 class="text-left">@yield('h1')</h1>
-            </div>
-
+    <div style="min-height: 50px">
+        <h1 class="text-left">@yield('h1')</h1>
+    </div>
 @endif
 
 
