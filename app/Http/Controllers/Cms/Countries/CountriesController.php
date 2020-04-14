@@ -6,12 +6,14 @@ use App\Http\Controllers\Cms\Countries\Requests\StoreCountryRequest;
 use App\Http\Controllers\Cms\Countries\Requests\UpdateCountryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Country;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Services\Countries\CountriesService;
 use Illuminate\Routing\Redirector;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use View;
 
@@ -29,16 +31,18 @@ class CountriesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Request $request
      * @return Application|Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index(Request $request)
+    public function index()
     {
+        $this->authorize('view', [Country::first()]);
+
         View::share([
             'countries' => Country::paginate(),
         ]);
 
-        return view('cms.countries.index');
+        return view(config('view.cms.countries.index'));
     }
 
 
@@ -49,11 +53,9 @@ class CountriesController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-country')) {
-            return view('cms.countries.create');
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Country::first());
+
+        return view(config('view.cms.countries.create'));
     }
 
     /**
@@ -62,6 +64,8 @@ class CountriesController extends Controller
      */
     public function store(StoreCountryRequest $request)
     {
+        $this->authorize('create', [Country::first()]);
+
         $data = $request->getFormData();
 
         try {
@@ -74,7 +78,7 @@ class CountriesController extends Controller
             ]);
         }
 
-        return redirect(route('cms.countries.index'));
+        return redirect(route(config('view.cms.countries.index')));
     }
 
     /**
@@ -85,7 +89,9 @@ class CountriesController extends Controller
      */
     public function show(Country $country)
     {
-        return view('cms.countries.show', [
+        $this->authorize('view', [Country::first()]);
+
+        return view(config('view.cms.countries.show'), [
             'country' => $country,
             'cities' => $country->cities()->paginate(),
         ]);
@@ -99,13 +105,11 @@ class CountriesController extends Controller
      */
     public function edit(Country $country)
     {
-        if (Gate::allows('update-country')) {
-            return view('cms.countries.edit', [
-                'country' => $country,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize('update', [Country::first()]);
+
+        return view(config('view.cms.countries.edit'), [
+            'country' => $country,
+        ]);
     }
 
     /**
@@ -116,7 +120,7 @@ class CountriesController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        $this->authorize(Abilities::UPDATE, $country);
+        $this->authorize('update', [Country::first()]);
 
         try {
             $this->countriesService->updateCountry($country, $request->all());
@@ -128,7 +132,8 @@ class CountriesController extends Controller
                 'errors' => [[$e->getMessage()]],
             ]);
         }
-        return redirect(route('cms.countries.index'));
+
+        return redirect(route(config('view.cms.countries.index')));
     }
 
     /**

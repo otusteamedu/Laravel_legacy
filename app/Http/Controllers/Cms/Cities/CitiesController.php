@@ -26,18 +26,22 @@ class CitiesController extends Controller
         $this->countriesService = $countriesService;
         $this->citiesService = $citiesService;
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index()
     {
+        $this->authorize('view', [City::first()]);
+
         View::share([
             'cities' => City::paginate(),
-            ]);
+        ]);
 
-        return view('cms.cities.index');
+        return view(config('view.cms.cities.index'));
     }
 
     /**
@@ -47,17 +51,13 @@ class CitiesController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-city')) {
+        $this->authorize(City::first());
 
-            $countries = Country::all();
+        $countries = Country::all();
 
-            return view('cms.cities.create', [
-                'countries' => $countries,
-            ]);
-        } else {
-            return view('errors.not-allowed');
-        }
-
+        return view(config('view.cms.cities.create'), [
+            'countries' => $countries,
+        ]);
     }
 
     /**
@@ -68,10 +68,21 @@ class CitiesController extends Controller
      */
     public function store(StoreCityRequest $request)
     {
-        $data = $request->getFormData();
-        $this->citiesService->storeCity($data);
+        $this->authorize('create', [City::first()]);
 
-        return redirect(route('cms.cities.index'));
+        $data = $request->getFormData();
+
+        try{
+            $this->citiesService->storeCity($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store city error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
+
+        return redirect(route(config('view.cms.cities.index')));
     }
 
     /**
@@ -82,7 +93,9 @@ class CitiesController extends Controller
      */
     public function show(City $cityId)
     {
-        return view('cms.cities.show', [
+        $this->authorize('view', [City::first()]);
+
+        return view(config('view.cms.cities.show'), [
             'cities' => City::paginate(),
         ]);
     }
@@ -95,16 +108,14 @@ class CitiesController extends Controller
      */
     public function edit(City $city)
     {
-        if (Gate::allows('update-city')) {
-            $country = Country::where('id', $city->country_id);
+        $this->authorize('update', [City::first()]);
 
-            return view('cms.cities.edit', [
-                'cities' => $city,
-                'country' => $country,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $country = Country::where('id', $city->country_id);
+
+        return view(config('view.cms.countries.edit'), [
+            'cities' => $city,
+            'country' => $country,
+        ]);
     }
 
     /**
@@ -116,12 +127,20 @@ class CitiesController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        $this->authorize(Abilities::UPDATE, $city);
+        $this->authorize('update', [City::first()]);
 
-        $this->countriesService->updateCountry($city, $request->all());
-        $city->update($request->all());
+        try {
+            $this->countriesService->updateCountry($city, $request->all());
+            $city->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update city error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
-        return redirect(route('cms.cities.index'));
+        return redirect(route(config('view.cms.cities.index')));
     }
 
     /**

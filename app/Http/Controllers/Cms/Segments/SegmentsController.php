@@ -34,7 +34,9 @@ class SegmentsController extends Controller
      */
     public function index()
     {
-        return view('cms.segments.index', ['segments' => Segment::paginate()]);
+        $this->authorize('view', [Segment::first()]);
+
+        return view(config('view.cms.segments.index'), ['segments' => Segment::paginate()]);
     }
 
     /**
@@ -44,11 +46,9 @@ class SegmentsController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-segment')) {
-            return view('cms.segments.create');
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Segment::first());
+
+        return view(config('view.cms.segments.create'));
     }
 
     /**
@@ -59,6 +59,8 @@ class SegmentsController extends Controller
      */
     public function store(StoreSegmentRequest $request)
     {
+        $this->authorize('create', [Segment::first()]);
+
         $data = $request->getFormData();
 
         try {
@@ -82,7 +84,9 @@ class SegmentsController extends Controller
      */
     public function show(Segment $segment)
     {
-        return view('cms.segments.show', [
+        $this->authorize('view', [Segment::first()]);
+
+        return view(config('view.cms.segments.show'), [
             'segment' => $segment,
         ]);
     }
@@ -95,13 +99,11 @@ class SegmentsController extends Controller
      */
     public function edit(Segment $segment)
     {
-        if (Gate::allows('update-segment')) {
-            return view('cms.segments.edit', [
+        $this->authorize('update', [Segment::first()]);
+
+        return view(config('view.cms.segments.edit'), [
                 'segment' => $segment,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        ]);
     }
 
     /**
@@ -113,10 +115,9 @@ class SegmentsController extends Controller
      */
     public function update(Request $request, Segment $segment)
     {
-        $this->authorize(Abilities::UPDATE, $segment);
+        $this->authorize('update', [Tariff::first()]);
 
         try {
-            $this->segmentsService->updateSegment($segment, $request->all());
             $segment->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -126,7 +127,7 @@ class SegmentsController extends Controller
             ]);
         }
 
-        return redirect(route('cms.segments.index'));
+        return redirect(route(config('view.cms.segments.index')));
     }
 
     /**

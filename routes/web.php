@@ -28,10 +28,11 @@ Route::get('/offer', function () {
 });
 
 Route::get('/cms', function () {
-    if (\Illuminate\Support\Facades\Gate::allows('show-cms'))
-        return view('cms.index.index');
-    else
-        return view('errors.not-allowed');
+    if (!\Illuminate\Support\Facades\Gate::allows('view-cms')) {
+        return view('errors.custom', ['message' => 'not-allowed']);
+    }
+    return view(config('view.cms.index'));
+
 })->middleware('auth');
 
 Route::name('cms.')->middleware('auth')->group(function () {

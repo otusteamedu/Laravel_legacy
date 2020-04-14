@@ -14,6 +14,14 @@ use View;
 
 class CategoriesController extends Controller
 {
+    const CREATE_OPERATION = 'create-category';
+    const UPDATE_OPERATION = 'update-category';
+    const INDEX_VIEW = 'cms.categories.index';
+    const SHOW_VIEW = 'cms.categories.show';
+    const CREATE_VIEW = 'cms.categories.create';
+    const EDIT_VIEW = 'cms.categories.edit';
+
+
     /**
      * @var CategoriesService
      */
@@ -33,7 +41,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        return view('cms.categories.index', ['categories' => Category::paginate()]);
+        return view(self::INDEX_VIEW, ['categories' => Category::paginate()]);
     }
 
     /**
@@ -43,11 +51,10 @@ class CategoriesController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-category')) {
-            return view('cms.categories.create');
-        } else {
-            return view('errors.not-allowed');
+        if (!Gate::allows(self::CREATE_OPERATION)) {
+            return view('errors.custom', ['message' => config('exceptions.messages.not-allowed')]);
         }
+        return view(self::CREATE_VIEW);
     }
 
     /**
@@ -70,7 +77,7 @@ class CategoriesController extends Controller
             ]);
         }
 
-        return redirect(route('cms.categories.index'));
+        return redirect(route(self::INDEX_VIEW));
     }
 
     /**
@@ -81,7 +88,7 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        return view('cms.categories.show', [
+        return view(self::SHOW_VIEW, [
             'category' => $category,
         ]);
     }
@@ -94,13 +101,12 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        if (Gate::allows('update-category')) {
-            return view('cms.categories.edit', [
-                'category' => $category,
-            ]);
-        } else {
-            return view('errors.not-allowed');
+        if (!Gate::allows(self::UPDATE_OPERATION)) {
+            return view('errors.custom', ['message' => config('exceptions.messages.not-allowed')]);
         }
+        return view(self::EDIT_VIEW, [
+            'category' => $category,
+        ]);
     }
 
     /**
@@ -112,8 +118,6 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        $this->authorize(Abilities::UPDATE, $category);
-
         try {
             $this->categoriesService->updateCategory($category, $request->all());
             $category->update($request->all());
@@ -125,7 +129,7 @@ class CategoriesController extends Controller
             ]);
         }
 
-        return redirect(route('cms.categories.index'));
+        return redirect(route(self::INDEX_VIEW));
     }
 
     /**

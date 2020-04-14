@@ -34,7 +34,9 @@ class TariffsController extends Controller
      */
     public function index()
     {
-        return view('cms.tariffs.index', ['tariffs' => Tariff::paginate()]);
+        $this->authorize('view', [Tariff::first()]);
+
+        return view(config('view.cms.tariffs.index'), ['tariffs' => Tariff::paginate()]);
     }
 
     /**
@@ -44,11 +46,9 @@ class TariffsController extends Controller
      */
     public function create()
     {
-        if (Gate::allows('create-tariff')) {
-            return view('cms.tariffs.create');
-        } else {
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Tariff::first());
+
+        return view(config('view.cms.tariffs.create'));
     }
 
     /**
@@ -59,6 +59,8 @@ class TariffsController extends Controller
      */
     public function store(StoreTariffRequest $request)
     {
+        $this->authorize('create', [Tariff::first()]);
+
         $data = $request->getFormData();
 
         try {
@@ -71,7 +73,7 @@ class TariffsController extends Controller
             ]);
         }
 
-        return redirect(route('cms.tariffs.index'));
+        return redirect(route(config('cms.tariffs.index')));
     }
 
     /**
@@ -82,7 +84,9 @@ class TariffsController extends Controller
      */
     public function show(Tariff $tariff)
     {
-        return view('cms.tariffs.show', [
+        $this->authorize('view', [Tariff::first()]);
+
+        return view(config('view.cms.tariffs.show'), [
             'tariff' => $tariff,
         ]);
     }
@@ -95,15 +99,11 @@ class TariffsController extends Controller
      */
     public function edit(Tariff $tariff)
     {
-        if (Gate::allows('update-tariff')) {
+        $this->authorize('update', [Tariff::first()]);
 
-            return view('cms.tariffs.edit', [
-                'tariff' => $tariff,
-            ]);
-
-        } else {
-            return view('errors.not-allowed');
-        }
+        return view(config('view.cms.tariffs.edit'), [
+            'tariff' => $tariff,
+        ]);
     }
 
     /**
@@ -115,10 +115,9 @@ class TariffsController extends Controller
      */
     public function update(Request $request, Tariff $tariff)
     {
-        $this->authorize(Abilities::UPDATE, $tariff);
+        $this->authorize('update', [Tariff::first()]);
 
         try {
-            $this->tariffsService->updateTariff($tariff, $request->all());
             $tariff->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -128,7 +127,7 @@ class TariffsController extends Controller
             ]);
         }
 
-        return redirect(route('cms.tariffs.index'));
+        return redirect(route(config('view.cms.tariffs.index')));
     }
 
     /**
