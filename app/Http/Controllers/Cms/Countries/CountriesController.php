@@ -64,7 +64,15 @@ class CountriesController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->countriesService->storeCountry($data);
+        try {
+            $this->countriesService->storeCountry($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store country error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.countries.index'));
     }
@@ -110,9 +118,16 @@ class CountriesController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $country);
 
-        $this->countriesService->updateCountry($country, $request->all());
-        $country->update($request->all());
-
+        try {
+            $this->countriesService->updateCountry($country, $request->all());
+            $country->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update country error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
         return redirect(route('cms.countries.index'));
     }
 

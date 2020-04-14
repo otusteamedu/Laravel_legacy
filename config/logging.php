@@ -60,7 +60,6 @@ return [
             'username' => 'Badum-info',
             'emoji' => ':alien:',
             'level' => 'info',
-            'path' => storage_path('logs/laravel-info.log'),
         ],
 
         'slack-critical' => [
@@ -69,7 +68,6 @@ return [
             'username' => 'Badum-critical',
             'emoji' => ':boom:',
             'level' => 'critical',
-            'path' => storage_path('logs/laravel-critical.log'),
         ],
 
         'papertrail' => [

@@ -71,7 +71,7 @@ class ProjectsController extends Controller
         try {
             $this->projectsService->storeProject($data);
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store project error',
                 'errors' => [[$e->getMessage()]],
@@ -126,7 +126,7 @@ class ProjectsController extends Controller
             $this->projectsService->updateProject($project, $request->all());
             $project->update($request->all());
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update project error',
                 'errors' => [[$e->getMessage()]],

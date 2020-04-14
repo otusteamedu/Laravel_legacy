@@ -73,7 +73,7 @@ class UsersController extends Controller
         try {
             $this->usersService->storeUser($data);
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store user error',
                 'errors' => [[$e->getMessage()]],
@@ -128,7 +128,7 @@ class UsersController extends Controller
             $this->usersService->updateUser($user, $request->all());
             $user->update($request->all());
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update user error',
                 'errors' => [[$e->getMessage()]],

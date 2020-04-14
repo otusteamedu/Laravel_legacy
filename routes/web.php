@@ -59,6 +59,3 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-// Exception routes for test
-Route::get('exception/index', 'ExceptionController@index');

@@ -73,7 +73,7 @@ class OffersController extends Controller
         try {
             $this->offersService->storeOffer($data);
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store offer error',
                 'errors' => [[$e->getMessage()]],
@@ -128,7 +128,7 @@ class OffersController extends Controller
             $this->offersService->updateOffer($offer, $request->all());
             $offer->update($request->all());
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update offer error',
                 'errors' => [[$e->getMessage()]],

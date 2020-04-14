@@ -64,7 +64,7 @@ class TariffsController extends Controller
         try {
             $this->tariffsService->storeTariff($data);
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store tariff error',
                 'errors' => [[$e->getMessage()]],
@@ -121,7 +121,7 @@ class TariffsController extends Controller
             $this->tariffsService->updateTariff($tariff, $request->all());
             $tariff->update($request->all());
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update tariff error',
                 'errors' => [[$e->getMessage()]],

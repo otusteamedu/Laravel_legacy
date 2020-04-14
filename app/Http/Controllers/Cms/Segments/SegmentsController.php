@@ -64,7 +64,7 @@ class SegmentsController extends Controller
         try {
             $this->segmentsService->storeSegment($data);
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store segment error',
                 'errors' => [[$e->getMessage()]],
@@ -119,7 +119,7 @@ class SegmentsController extends Controller
             $this->segmentsService->updateSegment($segment, $request->all());
             $segment->update($request->all());
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update segment error',
                 'errors' => [[$e->getMessage()]],

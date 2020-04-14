@@ -63,7 +63,7 @@ class CategoriesController extends Controller
         try {
             $this->categoriesService->storeCategory($data);
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Store category error',
                 'errors' => [[$e->getMessage()]],
@@ -118,7 +118,7 @@ class CategoriesController extends Controller
             $this->categoriesService->updateCategory($category, $request->all());
             $category->update($request->all());
         } catch (\Exception $e) {
-            \Log::channel('slack-critical')->error(__METHOD__ . ': ' . $e->getMessage());
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
                 'message' => 'Update category error',
                 'errors' => [[$e->getMessage()]],
