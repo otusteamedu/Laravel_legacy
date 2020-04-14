@@ -46,7 +46,7 @@ class CategoriesController extends Controller
         if (Gate::allows('create-category')) {
             return view('cms.categories.create');
         } else {
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -60,7 +60,15 @@ class CategoriesController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->categoriesService->storeCategory($data);
+        try {
+            $this->categoriesService->storeCategory($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store category error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.categories.index'));
     }
@@ -91,7 +99,7 @@ class CategoriesController extends Controller
                 'category' => $category,
             ]);
         } else {
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -106,8 +114,16 @@ class CategoriesController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $category);
 
-        $this->categoriesService->updateCategory($category, $request->all());
-        $category->update($request->all());
+        try {
+            $this->categoriesService->updateCategory($category, $request->all());
+            $category->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update category error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.categories.index'));
     }

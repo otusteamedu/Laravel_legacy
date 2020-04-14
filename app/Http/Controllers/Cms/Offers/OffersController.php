@@ -56,7 +56,7 @@ class OffersController extends Controller
                 'cities' => $cities,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -70,7 +70,15 @@ class OffersController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->offersService->storeOffer($data);
+        try {
+            $this->offersService->storeOffer($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store offer error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.offers.index'));
     }
@@ -101,7 +109,7 @@ class OffersController extends Controller
                 'offer' => $offer,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -116,8 +124,16 @@ class OffersController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $offer);
 
-        $this->offersService->updateOffer($offer, $request->all());
-        $offer->update($request->all());
+        try {
+            $this->offersService->updateOffer($offer, $request->all());
+            $offer->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update offer error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.offers.index'));
     }

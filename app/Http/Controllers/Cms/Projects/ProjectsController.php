@@ -54,7 +54,7 @@ class ProjectsController extends Controller
                 'users' => $users,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -68,7 +68,15 @@ class ProjectsController extends Controller
     {
         $data = $request->getFormData();
 
-        $this->projectsService->storeProject($data);
+        try {
+            $this->projectsService->storeProject($data);
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Store project error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.projects.index'));
     }
@@ -99,7 +107,7 @@ class ProjectsController extends Controller
                 'project' => $project,
             ]);
         }else{
-            return view('plain.not-allowed');
+            return view('errors.not-allowed');
         }
     }
 
@@ -114,8 +122,16 @@ class ProjectsController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $project);
 
-        $this->projectsService->updateProject($project, $request->all());
-        $project->update($request->all());
+        try {
+            $this->projectsService->updateProject($project, $request->all());
+            $project->update($request->all());
+        } catch (\Exception $e) {
+            \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
+            return response()->json([
+                'message' => 'Update project error',
+                'errors' => [[$e->getMessage()]],
+            ]);
+        }
 
         return redirect(route('cms.projects.index'));
     }
