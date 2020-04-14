@@ -1,6 +1,6 @@
 @if (!Route::is('index'))
     </div>
-    @if (!Route::is('events.index'))
+    @if (!Route::is('events.index') && !Route::is('events.show'))
     <div class="col-lg-4">
         @include('layouts.blocks.content.sidebar')
     </div>
