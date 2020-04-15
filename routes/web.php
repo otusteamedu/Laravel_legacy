@@ -11,7 +11,7 @@
 |
 */
 
-
+use Illuminate\Support\Facades\Log;
 
 Route::name('index')->get('/', function () {
     return view('public.index.page');
