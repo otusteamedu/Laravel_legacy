@@ -9,6 +9,7 @@ use App\Models\Segment;
 use App\Models\Tariff;
 use App\Models\Project;
 use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -33,39 +34,49 @@ class ProjectsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Project $project
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Project $project)
     {
-        return view('cms.projects.index', ['projects' => Project::paginate()]);
+        $this->authorize(Abilities::VIEW, $project);
+
+        return view('cms.projects.index', [
+            'projects' => Project::paginate()
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Project $project
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(Project $project)
     {
-        if (Gate::allows('create-project')) {
-            $users = User::all();
+        $this->authorize(Abilities::CREATE, $project);
 
-            return view('cms.projects.create', [
-                'users' => $users,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $users = User::all();
+
+        return view(config('view.cms.projects.create'), [
+            'users' => $users,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreProjectRequest $request
+     * @param Project $project
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreProjectRequest $request)
+    public function store(StoreProjectRequest $request, Project $project)
     {
+        $this->authorize(Abilities::CREATE, $project);
+
         $data = $request->getFormData();
 
         try {
@@ -78,7 +89,7 @@ class ProjectsController extends Controller
             ]);
         }
 
-        return redirect(route('cms.projects.index'));
+        return redirect(route(config('view.cms.projects.index')));
     }
 
     /**
@@ -89,7 +100,9 @@ class ProjectsController extends Controller
      */
     public function show(Project $project)
     {
-        return view('cms.projects.show', [
+        $this->authorize(Abilities::VIEW, $project);
+
+        return view(config('view.cms.projects.show'), [
             'project' => $project,
         ]);
     }
@@ -102,13 +115,11 @@ class ProjectsController extends Controller
      */
     public function edit(Project $project)
     {
-        if (Gate::allows('update-project')) {
-            return view('cms.projects.edit', [
-                'project' => $project,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Abilities::UPDATE, $project);
+
+        return view(config('view.cms.projects.edit'), [
+            'project' => $project,
+        ]);
     }
 
     /**
@@ -123,7 +134,7 @@ class ProjectsController extends Controller
         $this->authorize(Abilities::UPDATE, $project);
 
         try {
-            $this->projectsService->updateProject($project, $request->all());
+            //$this->projectsService->updateProject($project, $request->all());
             $project->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -133,7 +144,7 @@ class ProjectsController extends Controller
             ]);
         }
 
-        return redirect(route('cms.projects.index'));
+        return redirect(route(config('view.cms.projects.index')));
     }
 
     /**
@@ -144,6 +155,6 @@ class ProjectsController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        return false;
     }
 }

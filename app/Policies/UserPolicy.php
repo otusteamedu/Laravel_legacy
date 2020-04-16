@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -31,18 +31,19 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $model->entityName);
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param \App\Models\User $user
+     * @param User $model
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, User $model)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $model->entityName);
     }
 
     /**
@@ -54,7 +55,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $model->entityName);
     }
 
     /**
@@ -66,7 +67,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $model->entityName);
     }
 
     /**
@@ -78,7 +79,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -90,6 +91,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 }

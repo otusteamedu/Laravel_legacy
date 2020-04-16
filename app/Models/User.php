@@ -8,6 +8,7 @@ use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
 
 /**
@@ -29,6 +30,8 @@ class User extends Authenticatable
 {
     use Notifiable, HasApiTokens;
 
+    public $entityName = 'user';
+
     public function tariff()
     {
         return $this->belongsTo(Tariff::class);
@@ -48,4 +51,12 @@ class User extends Authenticatable
         'segment_id',
         'role',
     ];
+
+    public function isAdmin(){
+        return Auth::user()->role == config('auth.administrator_role_name');
+    }
+
+    public function canDo($action, $entity){
+        return config('user-actions.'.$this->role.'.'.$action.'-'.$entity, config('user-actions.default-value-if-null'));
+    }
 }

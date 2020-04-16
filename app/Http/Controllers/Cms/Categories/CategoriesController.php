@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cms\Categories;
 use App\Http\Controllers\Cms\Categories\Requests\StoreCategoryRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Policies\Abilities;
 use App\Services\Categories\CategoriesService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -14,14 +15,6 @@ use View;
 
 class CategoriesController extends Controller
 {
-    const CREATE_OPERATION = 'create-category';
-    const UPDATE_OPERATION = 'update-category';
-    const INDEX_VIEW = 'cms.categories.index';
-    const SHOW_VIEW = 'cms.categories.show';
-    const CREATE_VIEW = 'cms.categories.create';
-    const EDIT_VIEW = 'cms.categories.edit';
-
-
     /**
      * @var CategoriesService
      */
@@ -37,11 +30,17 @@ class CategoriesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Category $category
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Category $category)
     {
-        return view(self::INDEX_VIEW, ['categories' => Category::paginate()]);
+        $this->authorize(Abilities::VIEW, $category);
+
+        return view(config('view.cms.categories.index'), [
+            'categories' => Category::paginate()
+        ]);
     }
 
     /**
@@ -49,22 +48,25 @@ class CategoriesController extends Controller
      *
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Category $category)
     {
-        if (!Gate::allows(self::CREATE_OPERATION)) {
-            return view('errors.custom', ['message' => config('exceptions.messages.not-allowed')]);
-        }
-        return view(self::CREATE_VIEW);
+        $this->authorize(Abilities::CREATE, $category);
+
+        return view(config('view.cms.categories.create'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreCategoryRequest $request
+     * @param Category $category
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreCategoryRequest $request)
+    public function store(StoreCategoryRequest $request, Category $category)
     {
+        $this->authorize(Abilities::CREATE, $category);
+
         $data = $request->getFormData();
 
         try {
@@ -77,7 +79,7 @@ class CategoriesController extends Controller
             ]);
         }
 
-        return redirect(route(self::INDEX_VIEW));
+        return redirect(route(config('view.cms.categories.index')));
     }
 
     /**
@@ -88,7 +90,9 @@ class CategoriesController extends Controller
      */
     public function show(Category $category)
     {
-        return view(self::SHOW_VIEW, [
+        $this->authorize(Abilities::VIEW, $category);
+
+        return view(config('view.cms.categories.show'), [
             'category' => $category,
         ]);
     }
@@ -101,10 +105,9 @@ class CategoriesController extends Controller
      */
     public function edit(Category $category)
     {
-        if (!Gate::allows(self::UPDATE_OPERATION)) {
-            return view('errors.custom', ['message' => config('exceptions.messages.not-allowed')]);
-        }
-        return view(self::EDIT_VIEW, [
+        $this->authorize(Abilities::UPDATE, $category);
+
+        return view(config('view.cms.categories.edit'), [
             'category' => $category,
         ]);
     }
@@ -118,8 +121,10 @@ class CategoriesController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        $this->authorize(Abilities::UPDATE, $category);
+
         try {
-            $this->categoriesService->updateCategory($category, $request->all());
+            //$this->categoriesService->updateCategory($category, $request->all());
             $category->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -129,7 +134,7 @@ class CategoriesController extends Controller
             ]);
         }
 
-        return redirect(route(self::INDEX_VIEW));
+        return redirect(route(config('view.cms.categories.index')));
     }
 
     /**
@@ -140,6 +145,6 @@ class CategoriesController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        return false;
     }
 }

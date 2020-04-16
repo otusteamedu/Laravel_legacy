@@ -30,9 +30,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Country::class => CountryPolicy::class,
-        City::class => CityPolicy::class,
         Tariff::class => TariffPolicy::class,
+        City::class => CityPolicy::class,
+        Country::class => CountryPolicy::class,
         Segment::class => SegmentPolicy::class,
         User::class => UserPolicy::class,
         Category::class => CategoryPolicy::class,

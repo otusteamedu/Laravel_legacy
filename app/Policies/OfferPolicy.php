@@ -10,8 +10,6 @@ class OfferPolicy
 {
     use HandlesAuthorization;
 
-    protected $entity = 'offer';
-
     /**
      * Determine whether the user can view any offers.
      *
@@ -20,7 +18,7 @@ class OfferPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -32,7 +30,8 @@ class OfferPolicy
      */
     public function view(User $user, Offer $offer)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));    }
+        return $user->canDo(__FUNCTION__, $offer->entityName);
+    }
 
     /**
      * Determine whether the user can create offers.
@@ -40,9 +39,10 @@ class OfferPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Offer $offer)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));    }
+        return $user->canDo(__FUNCTION__, $offer->entityName);
+    }
 
     /**
      * Determine whether the user can update the offer.
@@ -53,7 +53,7 @@ class OfferPolicy
      */
     public function update(User $user, Offer $offer)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $offer->entityName);
     }
 
     /**
@@ -65,7 +65,7 @@ class OfferPolicy
      */
     public function delete(User $user, Offer $offer)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $offer->entityName);
     }
 
     /**
@@ -77,7 +77,7 @@ class OfferPolicy
      */
     public function restore(User $user, Offer $offer)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -89,6 +89,6 @@ class OfferPolicy
      */
     public function forceDelete(User $user, Offer $offer)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Cms\Segments\Requests\StoreSegmentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\Segments\Requests\StoreCityRequest;
 use App\Models\Segment;
+use App\Policies\Abilities;
 use App\Services\Segments\SegmentsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -30,11 +31,13 @@ class SegmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Segment $segment
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Segment $segment)
     {
-        $this->authorize('view', [Segment::first()]);
+        $this->authorize(Abilities::VIEW, $segment);
 
         return view(config('view.cms.segments.index'), ['segments' => Segment::paginate()]);
     }
@@ -42,11 +45,13 @@ class SegmentsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Segment $segment
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(Segment $segment)
     {
-        $this->authorize(Segment::first());
+        $this->authorize(Abilities::CREATE, $segment);
 
         return view(config('view.cms.segments.create'));
     }
@@ -54,12 +59,14 @@ class SegmentsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreSegmentRequest $request
+     * @param Segment $segment
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreSegmentRequest $request)
+    public function store(StoreSegmentRequest $request, Segment $segment)
     {
-        $this->authorize('create', [Segment::first()]);
+        $this->authorize(Abilities::CREATE, $segment);
 
         $data = $request->getFormData();
 
@@ -84,7 +91,7 @@ class SegmentsController extends Controller
      */
     public function show(Segment $segment)
     {
-        $this->authorize('view', [Segment::first()]);
+        $this->authorize(Abilities::VIEW, $segment);
 
         return view(config('view.cms.segments.show'), [
             'segment' => $segment,
@@ -99,7 +106,7 @@ class SegmentsController extends Controller
      */
     public function edit(Segment $segment)
     {
-        $this->authorize('update', [Segment::first()]);
+        $this->authorize(Abilities::UPDATE, $segment);
 
         return view(config('view.cms.segments.edit'), [
                 'segment' => $segment,
@@ -115,7 +122,7 @@ class SegmentsController extends Controller
      */
     public function update(Request $request, Segment $segment)
     {
-        $this->authorize('update', [Tariff::first()]);
+        $this->authorize(Abilities::UPDATE, $segment);
 
         try {
             $segment->update($request->all());
@@ -138,6 +145,6 @@ class SegmentsController extends Controller
      */
     public function destroy(Segment $segment)
     {
-        //
+        return false;
     }
 }

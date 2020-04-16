@@ -10,8 +10,6 @@ class ProjectPolicy
 {
     use HandlesAuthorization;
 
-    protected $entity = 'project';
-
     /**
      * Determine whether the user can view any projects.
      *
@@ -20,7 +18,7 @@ class ProjectPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -32,7 +30,7 @@ class ProjectPolicy
      */
     public function view(User $user, Project $project)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $project->entityName);
     }
 
     /**
@@ -41,9 +39,9 @@ class ProjectPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Project $project)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $project->entityName);
     }
 
     /**
@@ -55,7 +53,7 @@ class ProjectPolicy
      */
     public function update(User $user, Project $project)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $project->entityName);
     }
 
     /**
@@ -67,7 +65,7 @@ class ProjectPolicy
      */
     public function delete(User $user, Project $project)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $project->entityName);
     }
 
     /**
@@ -79,7 +77,7 @@ class ProjectPolicy
      */
     public function restore(User $user, Project $project)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -91,6 +89,6 @@ class ProjectPolicy
      */
     public function forceDelete(User $user, Project $project)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 }

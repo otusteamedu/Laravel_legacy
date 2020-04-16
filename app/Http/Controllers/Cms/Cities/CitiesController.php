@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Cms\Cities;
 
 use App\Http\Controllers\Cms\Cities\Requests\StoreCityRequest;
 use App\Models\Country;
+use App\Policies\Abilities;
 use App\Services\Cities\CitiesService;
 use App\Services\Countries\CountriesService;
 use App\Http\Controllers\Controller;
@@ -30,12 +31,13 @@ class CitiesController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param City $city
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(City $city)
     {
-        $this->authorize('view', [City::first()]);
+        $this->authorize(Abilities::VIEW, $city);
 
         View::share([
             'cities' => City::paginate(),
@@ -47,11 +49,13 @@ class CitiesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param City $city
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(City $city)
     {
-        $this->authorize(City::first());
+        $this->authorize(Abilities::CREATE, $city);
 
         $countries = Country::all();
 
@@ -64,11 +68,13 @@ class CitiesController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreCityRequest $request
+     * @param City $city
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreCityRequest $request)
+    public function store(StoreCityRequest $request, City $city)
     {
-        $this->authorize('create', [City::first()]);
+        $this->authorize(Abilities::CREATE, $city);
 
         $data = $request->getFormData();
 
@@ -88,12 +94,13 @@ class CitiesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param City $cityId
+     * @param City $city
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(City $cityId)
+    public function show(City $city)
     {
-        $this->authorize('view', [City::first()]);
+        $this->authorize(Abilities::VIEW, $city);
 
         return view(config('view.cms.cities.show'), [
             'cities' => City::paginate(),
@@ -108,7 +115,7 @@ class CitiesController extends Controller
      */
     public function edit(City $city)
     {
-        $this->authorize('update', [City::first()]);
+        $this->authorize(Abilities::UPDATE, $city);
 
         $country = Country::where('id', $city->country_id);
 
@@ -127,7 +134,7 @@ class CitiesController extends Controller
      */
     public function update(Request $request, City $city)
     {
-        $this->authorize('update', [City::first()]);
+        $this->authorize(Abilities::UPDATE, $city);
 
         try {
             $this->countriesService->updateCountry($city, $request->all());
@@ -151,6 +158,6 @@ class CitiesController extends Controller
      */
     public function destroy(City $city)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 }

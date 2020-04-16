@@ -10,9 +10,6 @@ class TariffPolicy
 {
     use HandlesAuthorization;
 
-    protected $entity = 'tariff';
-
-
     /**
      * Determine whether the user can view any tariffs.
      *
@@ -21,7 +18,7 @@ class TariffPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -33,7 +30,7 @@ class TariffPolicy
      */
     public function view(User $user, Tariff $tariff)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $tariff->entityName);
     }
 
     /**
@@ -42,9 +39,9 @@ class TariffPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Tariff $tariff)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $tariff->entityName);
     }
 
     /**
@@ -56,7 +53,7 @@ class TariffPolicy
      */
     public function update(User $user, Tariff $tariff)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $tariff->entityName);
     }
 
     /**
@@ -68,7 +65,7 @@ class TariffPolicy
      */
     public function delete(User $user, Tariff $tariff)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));
+        return $user->canDo(__FUNCTION__, $tariff->entityName);
     }
 
     /**
@@ -80,7 +77,7 @@ class TariffPolicy
      */
     public function restore(User $user, Tariff $tariff)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -92,6 +89,6 @@ class TariffPolicy
      */
     public function forceDelete(User $user, Tariff $tariff)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 }

@@ -10,8 +10,6 @@ class CategoryPolicy
 {
     use HandlesAuthorization;
 
-    protected $entity = 'category';
-
     /**
      * Determine whether the user can view any categories.
      *
@@ -20,7 +18,7 @@ class CategoryPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -32,7 +30,8 @@ class CategoryPolicy
      */
     public function view(User $user, Category $category)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));    }
+        return $user->canDo(__FUNCTION__, $category->entityName);
+    }
 
     /**
      * Determine whether the user can create categories.
@@ -40,9 +39,10 @@ class CategoryPolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user, Category $category)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));    }
+        return $user->canDo(__FUNCTION__, $category->entityName);
+    }
 
     /**
      * Determine whether the user can update the category.
@@ -53,7 +53,8 @@ class CategoryPolicy
      */
     public function update(User $user, Category $category)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));    }
+        return $user->canDo(__FUNCTION__, $category->entityName);
+    }
 
     /**
      * Determine whether the user can delete the category.
@@ -64,7 +65,8 @@ class CategoryPolicy
      */
     public function delete(User $user, Category $category)
     {
-        return config('user-actions.'.$user->role.'.'.__FUNCTION__.'-'.$this->entity, config('user-actions.default-value-if-null'));    }
+        return $user->canDo(__FUNCTION__, $category->entityName);
+    }
 
     /**
      * Determine whether the user can restore the category.
@@ -75,7 +77,7 @@ class CategoryPolicy
      */
     public function restore(User $user, Category $category)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 
     /**
@@ -87,6 +89,6 @@ class CategoryPolicy
      */
     public function forceDelete(User $user, Category $category)
     {
-        //
+        return config('user-actions.default-value-if-null');
     }
 }

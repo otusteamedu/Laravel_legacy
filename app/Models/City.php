@@ -23,6 +23,8 @@ class City extends BaseModel
 {
     public $timestamps = false;
 
+    public $entityName = 'city';
+
     public function country()
     {
         return $this->belongsTo(Country::class);

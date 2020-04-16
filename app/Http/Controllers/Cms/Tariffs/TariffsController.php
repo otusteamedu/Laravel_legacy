@@ -6,6 +6,7 @@ use App\Http\Controllers\Cms\Tariffs\Requests\StoreTariffRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\Tariffs\Requests\StoreCityRequest;
 use App\Models\Tariff;
+use App\Policies\Abilities;
 use App\Services\Tariffs\TariffsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -30,11 +31,13 @@ class TariffsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Tariff $tariff
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Tariff $tariff)
     {
-        $this->authorize('view', [Tariff::first()]);
+        $this->authorize(Abilities::VIEW, $tariff);
 
         return view(config('view.cms.tariffs.index'), ['tariffs' => Tariff::paginate()]);
     }
@@ -42,11 +45,13 @@ class TariffsController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Tariff $tariff
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(Tariff $tariff)
     {
-        $this->authorize(Tariff::first());
+        $this->authorize(Abilities::CREATE, $tariff);
 
         return view(config('view.cms.tariffs.create'));
     }
@@ -57,9 +62,9 @@ class TariffsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(StoreTariffRequest $request)
+    public function store(StoreTariffRequest $request, Tariff $tariff)
     {
-        $this->authorize('create', [Tariff::first()]);
+        $this->authorize(Abilities::CREATE, $tariff);
 
         $data = $request->getFormData();
 
@@ -73,7 +78,7 @@ class TariffsController extends Controller
             ]);
         }
 
-        return redirect(route(config('cms.tariffs.index')));
+        return redirect(route(config('view.cms.tariffs.index')));
     }
 
     /**
@@ -84,7 +89,7 @@ class TariffsController extends Controller
      */
     public function show(Tariff $tariff)
     {
-        $this->authorize('view', [Tariff::first()]);
+        $this->authorize(Abilities::VIEW, $tariff);
 
         return view(config('view.cms.tariffs.show'), [
             'tariff' => $tariff,
@@ -99,7 +104,7 @@ class TariffsController extends Controller
      */
     public function edit(Tariff $tariff)
     {
-        $this->authorize('update', [Tariff::first()]);
+        $this->authorize(Abilities::UPDATE, $tariff);
 
         return view(config('view.cms.tariffs.edit'), [
             'tariff' => $tariff,
@@ -115,7 +120,7 @@ class TariffsController extends Controller
      */
     public function update(Request $request, Tariff $tariff)
     {
-        $this->authorize('update', [Tariff::first()]);
+        $this->authorize(Abilities::UPDATE, $tariff);
 
         try {
             $tariff->update($request->all());
@@ -138,7 +143,7 @@ class TariffsController extends Controller
      */
     public function destroy(Tariff $tariff)
     {
-        //
+        return false;
     }
 
 }

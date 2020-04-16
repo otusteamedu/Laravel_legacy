@@ -24,6 +24,8 @@ class Country extends BaseModel
 {
     public $timestamps = false;
 
+    public $entityName = 'country';
+
     public function cities()
     {
         return $this->hasMany(City::class);

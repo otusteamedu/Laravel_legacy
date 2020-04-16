@@ -35,6 +35,7 @@ return [
 
     'cms' => [
         'index' => 'cms.index.index',
+
         'countries' => [
             'index' =>'cms.countries.index',
             'show' => 'cms.countries.show',

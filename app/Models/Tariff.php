@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tariff extends BaseModel
 {
+    public $entityName = 'tariff';
+
     protected $casts = [
         'condition' => 'array'
     ];
