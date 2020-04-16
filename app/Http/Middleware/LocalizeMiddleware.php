@@ -19,7 +19,9 @@ class LocalizeMiddleware
     public function handle($request, Closure $next)
     {
         $localPrefix = LocalizeFacade::localizePrefix();
-        App::setLocale($localPrefix);
+        if(!empty($localPrefix)){
+            App::setLocale($localPrefix);
+        }
         return $next($request);
     }
 }
