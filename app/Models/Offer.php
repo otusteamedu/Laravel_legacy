@@ -44,6 +44,8 @@ class Offer extends BaseModel
 {
     use SoftDeletes;
 
+    public $entityName = 'offer';
+
     public function project()
     {
         return $this->belongsTo(Project::class);

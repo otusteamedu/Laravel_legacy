@@ -8,6 +8,7 @@ use App\Http\Controllers\Cms\Users\Requests\StoreCityRequest;
 use App\Models\Segment;
 use App\Models\Tariff;
 use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Users\UsersService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -36,38 +37,43 @@ class UsersController extends Controller
      */
     public function index()
     {
-        return view('cms.users.index', ['users' => User::paginate()]);
+        return view(config('view.cms.users.index'), [
+            'users' => User::paginate()
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(User $user)
     {
-        if (Gate::allows('create-user')) {
+        $this->authorize(Abilities::CREATE, $user);
 
-            $tariffs = Tariff::all();
-            $segments = Segment::all();
+        $tariffs = Tariff::all();
+        $segments = Segment::all();
 
-            return view('cms.users.create', [
-                'tariffs' => $tariffs,
-                'segments' => $segments,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        return view(config('view.cms.users.create'), [
+            'tariffs' => $tariffs,
+            'segments' => $segments,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreUserRequest $request
+     * @param User $user
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreUserRequest $request)
+    public function store(StoreUserRequest $request, User $user)
     {
+        $this->authorize(Abilities::CREATE, $user);
+
         $data = $request->getFormData();
 
         try {
@@ -80,7 +86,7 @@ class UsersController extends Controller
             ]);
         }
 
-        return redirect(route('cms.users.index'));
+        return redirect(route(config('view.cms.users.index')));
     }
 
     /**
@@ -91,7 +97,9 @@ class UsersController extends Controller
      */
     public function show(User $user)
     {
-        return view('cms.users.show', [
+        $this->authorize(Abilities::VIEW, $user);
+
+        return view(config('view.cms.users.show'), [
             'user' => $user,
         ]);
     }
@@ -104,13 +112,11 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        if (Gate::allows('update-user')) {
-            return view('cms.users.edit', [
-                'user' => $user,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Abilities::UPDATE, $user);
+
+        return view(config('view.cms.users.edit'), [
+            'user' => $user,
+        ]);
     }
 
     /**
@@ -125,7 +131,7 @@ class UsersController extends Controller
         $this->authorize(Abilities::UPDATE, $user);
 
         try {
-            $this->usersService->updateUser($user, $request->all());
+            //$this->usersService->updateUser($user, $request->all());
             $user->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -135,17 +141,17 @@ class UsersController extends Controller
             ]);
         }
 
-        return redirect(route('cms.users.index'));
+        return redirect(route(config('view.cms.users.index')));
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
+     * @return bool
      */
     public function destroy(User $user)
     {
-        //
+        return false;
     }
 }

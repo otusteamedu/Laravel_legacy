@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Segment extends BaseModel
 {
+    public $entityName = 'segment';
+
     public function user()
     {
         return $this->belongsTo(User::class);

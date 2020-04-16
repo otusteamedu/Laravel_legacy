@@ -9,6 +9,7 @@ use App\Models\City;
 use App\Models\Offer;
 use App\Models\Project;
 use App\Models\User;
+use App\Policies\Abilities;
 use App\Services\Offers\OffersService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -33,41 +34,51 @@ class OffersController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Offer $offer
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Offer $offer)
     {
-        return view('cms.offers.index', ['offers' => Offer::paginate()]);
+        $this->authorize(Abilities::VIEW, $offer);
+
+        return view(config('view.cms.offers.index'), [
+            'offers' => Offer::paginate()
+        ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Offer $offer
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(Offer $offer)
     {
-        if (Gate::allows('create-offer')) {
-            $projects = Project::all();
-            $cities = City::all();
+        $this->authorize(Abilities::CREATE, $offer);
 
-            return view('cms.offers.create', [
-                'projects' => $projects,
-                'cities' => $cities,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $projects = Project::all();
+        $cities = City::all();
+
+        return view(config('view.cms.offers.create'), [
+            'projects' => $projects,
+            'cities' => $cities,
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreOfferRequest $request
+     * @param Offer $offer
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreOfferRequest $request)
+    public function store(StoreOfferRequest $request, Offer $offer)
     {
+        $this->authorize(Abilities::CREATE, $offer);
+
         $data = $request->getFormData();
 
         try {
@@ -80,7 +91,7 @@ class OffersController extends Controller
             ]);
         }
 
-        return redirect(route('cms.offers.index'));
+        return redirect(route(config('view.cms.offers.index')));
     }
 
     /**
@@ -91,7 +102,9 @@ class OffersController extends Controller
      */
     public function show(Offer $offer)
     {
-        return view('cms.offers.show', [
+        $this->authorize(Abilities::VIEW, $offer);
+
+        return view(config('view.cms.offers.show'), [
             'offer' => $offer,
         ]);
     }
@@ -104,13 +117,11 @@ class OffersController extends Controller
      */
     public function edit(Offer $offer)
     {
-        if (Gate::allows('update-offer')) {
-            return view('cms.offers.edit', [
-                'offer' => $offer,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Abilities::UPDATE, $offer);
+
+        return view(config('view.cms.offers.edit'), [
+            'offer' => $offer,
+        ]);
     }
 
     /**
@@ -125,7 +136,7 @@ class OffersController extends Controller
         $this->authorize(Abilities::UPDATE, $offer);
 
         try {
-            $this->offersService->updateOffer($offer, $request->all());
+            //$this->offersService->updateOffer($offer, $request->all());
             $offer->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -135,7 +146,7 @@ class OffersController extends Controller
             ]);
         }
 
-        return redirect(route('cms.offers.index'));
+        return redirect(route(config('view.cms.offers.index')));
     }
 
     /**
@@ -146,6 +157,6 @@ class OffersController extends Controller
      */
     public function destroy(Offer $offer)
     {
-        //
+        return false;
     }
 }

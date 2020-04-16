@@ -6,6 +6,7 @@ use App\Http\Controllers\Cms\Segments\Requests\StoreSegmentRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Cms\Segments\Requests\StoreCityRequest;
 use App\Models\Segment;
+use App\Policies\Abilities;
 use App\Services\Segments\SegmentsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
@@ -30,35 +31,43 @@ class SegmentsController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Segment $segment
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index()
+    public function index(Segment $segment)
     {
-        return view('cms.segments.index', ['segments' => Segment::paginate()]);
+        $this->authorize(Abilities::VIEW, $segment);
+
+        return view(config('view.cms.segments.index'), ['segments' => Segment::paginate()]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Segment $segment
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create()
+    public function create(Segment $segment)
     {
-        if (Gate::allows('create-segment')) {
-            return view('cms.segments.create');
-        }else{
-            return view('errors.not-allowed');
-        }
+        $this->authorize(Abilities::CREATE, $segment);
+
+        return view(config('view.cms.segments.create'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreSegmentRequest $request
+     * @param Segment $segment
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function store(StoreSegmentRequest $request)
+    public function store(StoreSegmentRequest $request, Segment $segment)
     {
+        $this->authorize(Abilities::CREATE, $segment);
+
         $data = $request->getFormData();
 
         try {
@@ -82,7 +91,9 @@ class SegmentsController extends Controller
      */
     public function show(Segment $segment)
     {
-        return view('cms.segments.show', [
+        $this->authorize(Abilities::VIEW, $segment);
+
+        return view(config('view.cms.segments.show'), [
             'segment' => $segment,
         ]);
     }
@@ -95,13 +106,11 @@ class SegmentsController extends Controller
      */
     public function edit(Segment $segment)
     {
-        if (Gate::allows('update-segment')) {
-            return view('cms.segments.edit', [
+        $this->authorize(Abilities::UPDATE, $segment);
+
+        return view(config('view.cms.segments.edit'), [
                 'segment' => $segment,
-            ]);
-        }else{
-            return view('errors.not-allowed');
-        }
+        ]);
     }
 
     /**
@@ -116,7 +125,6 @@ class SegmentsController extends Controller
         $this->authorize(Abilities::UPDATE, $segment);
 
         try {
-            $this->segmentsService->updateSegment($segment, $request->all());
             $segment->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
@@ -126,7 +134,7 @@ class SegmentsController extends Controller
             ]);
         }
 
-        return redirect(route('cms.segments.index'));
+        return redirect(route(config('view.cms.segments.index')));
     }
 
     /**
@@ -137,6 +145,6 @@ class SegmentsController extends Controller
      */
     public function destroy(Segment $segment)
     {
-        //
+        return false;
     }
 }

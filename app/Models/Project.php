@@ -36,6 +36,8 @@ class Project extends BaseModel
 {
     use SoftDeletes;
 
+    public $entityName = 'project';
+
     public function user()
     {
         return $this->belongsTo(User::class);

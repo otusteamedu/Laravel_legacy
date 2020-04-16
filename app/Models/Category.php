@@ -27,6 +27,9 @@ class Category extends BaseModel
 {
     protected $fillable = [
         'name',
-        'condition',
+        'description',
     ];
+
+    public $entityName = 'category';
+
 }
