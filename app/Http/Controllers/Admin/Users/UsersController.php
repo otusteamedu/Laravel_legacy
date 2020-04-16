@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Users;
 
+use App\Helpers\RouteBuilder;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Users\UpdateUsersRequest;
 use App\Http\Services\Roles\RolesService;

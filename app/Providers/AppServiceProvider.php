@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Services\Localize\LocalizeService;
 use App\Services\ViewControllerMethod;
 use Illuminate\Support\ServiceProvider;
 
@@ -15,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerBindings();
+        $this->app->bind('Localize', LocalizeService::class);
     }
 
     /**
