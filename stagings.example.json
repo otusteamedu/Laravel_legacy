@@ -1,0 +1,10 @@
+{
+  "livesite-otus": {
+    "host": "otus",
+    "source-directory-path": "/home/otus/source/livesite",
+    "deployment-path": "/home/otus/deploy/livesite",
+    "working-directory-path": "/home/otus/dots",
+    "project-type": "livesite",
+    "vendor-source-path": "home/otus/source"
+  }
+}
