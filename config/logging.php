@@ -35,6 +35,13 @@ return [
     */
 
     'channels' => [
+
+        'myLocalLog'=>[
+            'driver' => 'stack',
+            'channels' => ['daily', 'slack'],
+            'level' => 'debug',
+        ],
+
         'stack' => [
             'driver' => 'stack',
             'channels' => ['single'],
@@ -51,7 +58,7 @@ return [
             'driver' => 'daily',
             'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
-            'days' => 14,
+            'days' => 20,
         ],
 
         'slack' => [
@@ -59,7 +66,7 @@ return [
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
             'username' => 'Laravel Log',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            'level' => 'error',
         ],
 
         'papertrail' => [

@@ -11,9 +11,13 @@
 |
 */
 
+//use Illuminate\Routing\Route;
 
-Route::get('/', function () {
+use App\Http\Services\Localize\LocalizeFacade;
+use Illuminate\Support\Facades\Route;
 
+
+Route::name('index')->get('/', function () {
     return view('public.index.page');
 });
 
@@ -25,15 +29,26 @@ Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
 
-Route::name('admin.')->group(function(){
-    Route::prefix('admin')->group(function(){
-        Route::resources([
-            'news'=>'Admin\News\NewsController',
-            'category'=>'Admin\Category\CategoryController'
-        ]);
-    });
-}); 
+Route::get('/admin', 'Auth\LoginRedirectController');
 
-/* Route::get('/admin/news', function () {
-    return view('admin.news.page');
-}); */
+Route::name('admin.')->group(function(){
+Route::group(
+    [
+        'prefix'=> LocalizeFacade::localizePrefix().'/admin',
+        'middleware'=>[
+                'auth', 
+                'check_user', 
+                'localize'
+        ]
+    ],function(){
+            Route::resources([
+                'index'=>'Admin\Index\IndexController',
+                'user'=>'Admin\Users\UsersController',
+                'news'=>'Admin\News\NewsController',
+                'category'=>'Admin\Category\CategoryController'
+            ]);
+        });
+});
+
+Auth::routes();
+

@@ -22,17 +22,10 @@ $factory->define(User::class, function (Faker $faker) {
     $faker = \Faker\Factory::create('ru_RU');
     return [
         'name' => $faker->name,
-        'role_id' => '1',
-        'login'=> $faker->userName,
-        'phone' => $faker->phoneNumber,
+        'role_id' => rand(2, 3),
         'email' => $faker->unique()->safeEmail,
         'password' => bcrypt('12345'), // password
     ];
 });
 
-$factory->defineAs(Role::class, 'role',  function(Faker $faker){
-    return[
-        'id'=>1,
-        'name'=>'Администратор'
-    ];
-});
+

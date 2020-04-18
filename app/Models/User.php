@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'phone', 'password', 'login'
+        'name', 'email', 'role_id','password'
     ];
 
     /**
@@ -33,6 +33,15 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Role');
     }
 
+    public function isRoot(){
+        return $this->role->type === Role::LEVEL_ROOT;
+    }
 
+    public function isAdmin(){
+        return $this->role->type === Role::LEVEL_ADMIN;
+    }
 
+    public function isUser(){
+        return $this->role->type === Role::LEVEL_USER;
+    }
 }
