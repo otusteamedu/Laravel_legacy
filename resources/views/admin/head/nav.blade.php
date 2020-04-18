@@ -4,19 +4,19 @@
           <li class="nav-item">
             <a class="nav-link" href="{{route('admin.user.index')}}">
               <span data-feather="file"></span>
-              Пользователи
+            {{ __('cms.users') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('admin.news.index')}}">
               <span data-feather="file"></span>
-              Новости
+            {{ __('cms.news') }}
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="{{route('admin.category.index')}}">
               <span data-feather="file"></span>
-              Категории
+            {{ __('cms.category') }}
             </a>
           </li>
 {{--           <li class="nav-item">

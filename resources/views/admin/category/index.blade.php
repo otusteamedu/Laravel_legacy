@@ -14,7 +14,7 @@
             @php /** @var \App\Models\category $onecategory */ @endphp
             <tr>
                 <td>{{ $onecategory->title }}</td>
-                <td class="col-lg-1"><a href="{{ route('admin.category.edit', $onecategory->id) }}" class="color-edit"><span data-feather="edit"></span></a></td>
+                <td class="col-lg-1"><a href="{{ route('admin.category.edit', ['category' => $onecategory->id]) }}" class="color-edit"><span data-feather="edit"></span></a></td>
                 
                 <td class="col-lg-1">
                     {{ Form::model($category, ['url' => route('admin.category.destroy', ['category' => $onecategory]), 'method' => 'DELETE']) }}
