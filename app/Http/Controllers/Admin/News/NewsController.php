@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\News;
 
+use App\Helpers\RouteBuilder;
 use App\Http\Controllers\Controller;
 use App\Http\Handlers\News\NewsHandlers;
 use App\Http\Requests\News\StoreNewsRequest;
