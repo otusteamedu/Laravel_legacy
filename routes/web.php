@@ -51,29 +51,18 @@ Route::name('cms.')->group(function () {
     });
 });
 
-
 Route::get('/', function () {
     return view('welcome');
-});
+})->middleware([
+    'ShareCommonData'
+]);
 
-Route::any('/{lang}', function ($lang){
-    App::setLocale($lang);
-    $organizations = App\Models\Organization::all();
-    $organizations->load('country');
-    $organizations->load('orgBranch');
-    $organizations->load('orgType');
-    $organizations->load('orgGroup');
-
-    return view('index', ['page' => 'index', 'lang' => $lang, 'data' => $organizations]);
-});
-
-Route::any('/{lang}/profile', function ($lang){
-    App::setLocale($lang);
-    return view('profile', ['page' => 'profile']);
-});
-
-Route::any('/{lang}/register', function ($lang){
-    App::setLocale($lang);
-    return view('register', ['page' => 'register']);
+Route::name('dashboard.')->group(function () {
+    Route::prefix('/{locale}/')->middleware([
+        'ShareCommonData', 'auth',
+    ])->group(function () {
+        Route::any('/',  'Common\Dashboard\DashboardController@index')->name('index');
+        Route::post('/store',  'Common\Dashboard\DashboardController@store')->name('store');
+    });
 });
 

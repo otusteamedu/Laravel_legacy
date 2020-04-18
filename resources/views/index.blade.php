@@ -4,68 +4,83 @@
 
 @section('content')
     <div class="container">
+
         <div class="tab-pane mb-2">
-            <a class="btn btn-primary btn-lg" href="/{{ App::getLocale() }}/add" role="button">@lang('main.add')</a>
-            <a class="btn btn-primary btn-lg" href="?" role="button">@lang('main.refresh')</a>
+            <a class="btn btn-primary btn-lg" href="javascript:void(0);" role="button" @click="add = 1;">@lang('main.add')</a>
+            <a class="btn btn-primary btn-lg" href="{{ route('dashboard.index', $locale) }}" role="button">@lang('main.refresh')</a>
+            {{ Form::open(array('url' => route('dashboard.index', $locale), 'class' => 'btn')) }}
+            {{ Form::text('search', $search) }}
+            {{ Form::submit(__('main.search')) }}
+            {{ Form::close() }}
         </div>
+        <div v-if="add" class="mb-2">
+            <div class="form-group">
+                {{ Form::label(__('main.field_name')) }}
+                {{ Form::text('name', '',  ['ref' => 'name_0', 'class' => 'form-control']) }}
+            </div>
+            <div class="form-group">
+                {{ Form::label(__('main.field_price')) }}
+                {{ Form::text('summ', '',  ['ref' => 'summ_0', 'class' => 'form-control']) }}
+            </div>
+            <div class="form-group">
+                <a class="btn btn-success" href="javascript:void(0);" @click="save('{{ route('dashboard.store', $locale) }}', '0', ['name','summ'])">@lang('main.save')</a>
+                <a class="btn btn-info" href="javascript:void(0);" @click="add = 0">@lang('main.cancel')</a>
+            </div>
+        </div>
+
         <div class="table-responsive">
             <table class="table table-striped  table-bordered">
-                {{--
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">@lang('main.field_type')</th>
+                    {{--<th scope="col">Id</th>--}}
                     <th scope="col">@lang('main.field_name')</th>
                     <th scope="col">@lang('main.field_price')</th>
-                    <th scope="col">@lang('main.field_price_delta')</th>
-                    <th scope="col"></th>
+                    {{--<th scope="col">Действие</th>--}}
                 </tr>
                 </thead>
                 <tbody>
-
-                @php
-                    $items = [
-                        ['type' => 'emission', 'name' => 'Авангард-Агро, БО-001P-01', 'price' => 100.4, 'price_delta' => -0.20],
-                        ['type' => 'emission', 'name' => 'БАНК УРАЛСИБ, БО-П01', 'price' => 97, 'price_delta' => 0.5],
-                        ['type' => 'index', 'name' => 'USD/RUB', 'price' => 63.47, 'price_delta' => -0.1],
-                        ['type' => 'index', 'name' => 'XMR/RUB', 'price' => 5378.63, 'price_delta' => 0],
-                    ]
-                @endphp
-                @foreach($items as $item)
+                <tbody>
+                @foreach($incomes as $item)
                     <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>@lang("main.type_" . $item['type'])</td>
-                        <td>{{ $item['name'] }}</td>
-                        <td>{{ $item['price'] }}</td>
-                        <td class="@if($item['price_delta'] > 0) text-success @elseif($item['price_delta'] < 0) text-danger @endif">
-                            {{ $item['price_delta'] }}
+                        {{--<td>{{ $item->id }}</td>--}}
+                        <td>
+                            <template v-if="edit != '{{ $item->id }}'">
+                                {{ $item->name }}
+                            </template>
+                            <template v-else>
+                                {{ Form::text('code', $item->name, ['ref' => 'name_' .  $item->id]) }}
+                            </template>
                         </td>
                         <td>
-                            <a class="btn btn-default btn-sm text-danger">@lang("main.remove")</a>
+                            <template v-if="edit != '{{ $item->id }}'">
+                                {{ $item->summ }}
+                            </template>
+                            <template v-else>
+                                {{ Form::text('summ', $item->name, ['ref' => 'summ_' .  $item->id]) }}
+                            </template>
                         </td>
+                        {{--
+                        <td>
+                            <template v-if="edit != '{{ $item->id }}'">
+                                <a href="javascript:void(0);" @click="edit = '{{ $item->id }}'" class="btn btn-info">Изменить</a>
+                                <a href="javascript:void(0);" @click.stop.prevent="remove('{{ route('cms.currencies.delete') }}', '{{ $item->id }}')" class="btn btn-danger">Удалить</a>
+                            </template>
+                            <template v-else>
+                                <a href="javascript:void(0);" @click="save('{{ route('cms.currencies.update') }}', '{{ $item->id }}', ['code'])" class="btn btn-success" >Сохранить</a>
+                                <a href="javascript:void(0);" @click="edit = 0" class="btn btn-info" >Отмена</a>
+                            </template>
+                        </td>
+                        --}}
                     </tr>
                 @endforeach
-                </tbody>
-                --}}
-
-                <tbody>
-                @foreach($data as $item)
-                    <tr>
-                        {{--<td>{{ $loop->iteration }}</td>--}}
-                        <td>{{ $item->id }}</td>
-                        <td>{{ $lang == 'en' ? $item->name_eng : $item->name }}</td>
-                        <td>{{ $lang == 'en' ? $item->country->name_eng : $item->country->name }}</td>
-                        <td>{{ $lang == 'en' ? $item->orgBranch->name_eng : $item->orgBranch->name }}</td>
-                        <td>{{ $lang == 'en' ? $item->orgType->name_eng : $item->orgType->name }}</td>
-                        <td>{{ $lang == 'en' ? $item->orgGroup->name_eng : $item->orgGroup->name }}</td>
-                    </tr>
-                @endforeach
-
-
                 </tbody>
             </table>
 
+            {{ $incomes->links() }}
         </div>
 
+        <div class="row">
+            @lang('main.summ'): {{ $summ }}
+        </div>
     </div>
 @endsection

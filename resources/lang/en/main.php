@@ -9,4 +9,8 @@ return [
     'remove' => 'Remove',
     'type_emission' => 'Bond',
     'type_index' => 'Index',
+    'summ' => 'Summ',
+    'search' => 'Search',
+    'save' => 'Save',
+    'cancel' => 'Cancel',
 ];
