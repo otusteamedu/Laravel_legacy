@@ -29,24 +29,7 @@ Route::get('/delivery', function () {
     return view('public.delivery.page');
 });
 
-Route::get('{localize?}/users', function($localize = 'ru'){
-    dd($localize);
-    
-    Route::group(function () {
-        return 'ok';  
-        
-    });
-});
-
 Route::get('/admin', 'Auth\LoginRedirectController');
-
-
-/* Route::name('admin.')->group(function(){
-    Route::group(['prefix' => '{localize?}/admin'], function () {
-        
-    });
-});
- */
 
 Route::name('admin.')->group(function(){
 Route::group(
@@ -67,20 +50,5 @@ Route::group(
         });
 });
 
-/* Route::name('admin.')->group(function(){
-    Route::prefix('{localize?}/admin')->middleware([
-            'auth',
-            'check_user',
-            'localize'
-        ])->group(function(){
-        Route::resources([
-            'index'=>'Admin\Index\IndexController',
-            'user'=>'Admin\Users\UsersController',
-            'news'=>'Admin\News\NewsController',
-            'category'=>'Admin\Category\CategoryController'
-        ]);
-    });
-}); 
- */
 Auth::routes();
 
