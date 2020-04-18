@@ -9,6 +9,9 @@ use App\Services\Currencies\Repositories\CurrencyRepositoryInterface;
 use App\Services\Currencies\Repositories\EloquentCurrencyRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
+use App\Services\Income\Repositories\IncomeRepositoryInterface;
+use App\Services\Income\Repositories\EloquentIncomeRepository;
+
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CurrencyRepositoryInterface::class, EloquentCurrencyRepository::class);
         $this->app->bind(CountryRepositoryInterface::class, EloquentCountryRepository::class);
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
+        $this->app->bind(IncomeRepositoryInterface::class, EloquentIncomeRepository::class);
     }
 
     /**

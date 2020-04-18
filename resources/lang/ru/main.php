@@ -9,5 +9,8 @@ return [
     'remove' => 'Удалить',
     'type_emission' => 'Облигация',
     'type_index' => 'Индекс',
-
+    'summ' => 'Сумма',
+    'search' => 'Поиск',
+    'save' => 'Сохранить',
+    'cancel' => 'Отмена',
 ];

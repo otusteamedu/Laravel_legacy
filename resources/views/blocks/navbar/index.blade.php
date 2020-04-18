@@ -10,7 +10,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item @if ($page == 'index') active @endif">
-                <a class="nav-link" href="/{{ App::getLocale() }}/">@lang('menu.main') <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('dashboard.index', $locale) }}">@lang('menu.main') <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="/cms/">@lang('menu.cms') <span class="sr-only">(current)</span></a>
