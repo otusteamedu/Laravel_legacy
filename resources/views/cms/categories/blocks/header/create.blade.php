@@ -1,1 +1,1 @@
-<a class="btn btn-primary btn-lg" href="{{ route('cms.categories.create') }}" role="button">Добавить категорию</a>
+<a class="btn btn-primary btn-lg" href="{{ route('cms.categories.index') }}" role="button">Отменить и вернуться к списку</a>

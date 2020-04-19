@@ -26,7 +26,7 @@
 
             <div class="content">
                 @include('cms.cities.blocks.header.edit')
-                @include('cms.cities.blocks.form.edit')
+                @include('cms.cities.blocks.form.edit', ['city' => $cities])
             </div>
 
         </div>
@@ -35,6 +35,5 @@
     <footer>
         @include('plain.blocks.footer')
     </footer>
-
 
 @endsection

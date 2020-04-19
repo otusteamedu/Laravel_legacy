@@ -1,1 +1,1 @@
-<a class="btn btn-primary btn-lg" href="{{ route('cms.segments.create') }}" role="button">Добавить сегмент</a>
+<a class="btn btn-primary btn-lg" href="{{ route('cms.segments.index') }}" role="button">Отменить и вернуться к списку</a>

@@ -1,1 +1,1 @@
-<a class="btn btn-primary btn-lg" href="{{ route('cms.cities.create') }}" role="button">Добавить город</a>
+<a class="btn btn-primary btn-lg" href="{{ route('cms.cities.index') }}" role="button">Отменить и вернуться к списку</a>

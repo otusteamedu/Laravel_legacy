@@ -3,6 +3,6 @@
 {{ Form::model($user, ['url' => route('cms.users.update', ['user' => $user]), 'method' => 'PUT']) }}
 @include('users.blocks.form.fields')
 <div class="form-group">
-    {{ Form::submit('Изменить', array('class' => 'btn btn-success')) }}
+    {{ Form::submit('Сохранить', array('class' => 'btn btn-success')) }}
 </div>
 {{ Form::close() }}

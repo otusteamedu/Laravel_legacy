@@ -1,3 +1,17 @@
+@php
+    $users = \App\Models\User::all();
+
+    if (isset($project)){
+        $name = $project->name;
+        $description = $project->description;
+        $contact_data = $project->contact_data;
+    }else{
+        $name = '';
+        $description = '';
+        $contact_data = '';
+    }
+@endphp
+
 <div class="row">
     <div class="col-sm-12 col-md-6">
         <div class="form-group">

@@ -104,7 +104,7 @@ class OffersController extends Controller
     {
         $this->authorize(Abilities::VIEW, $offer);
 
-        return view(config('view.cms.offers.show'), [
+        return view(config('view.cms.offers.edit'), [
             'offer' => $offer,
         ]);
     }
@@ -119,8 +119,11 @@ class OffersController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $offer);
 
+
         return view(config('view.cms.offers.edit'), [
             'offer' => $offer,
+            'cities' => City::all(),
+            'projects' => Project::all(),
         ]);
     }
 

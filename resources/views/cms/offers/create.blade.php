@@ -25,10 +25,8 @@
             </div>
 
             <div class="content">
-
                 @include('cms.offers.blocks.header.create')
                 @include('cms.offers.blocks.form.create')
-
             </div>
 
         </div>
