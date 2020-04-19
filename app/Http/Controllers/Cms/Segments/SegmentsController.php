@@ -39,7 +39,9 @@ class SegmentsController extends Controller
     {
         $this->authorize(Abilities::VIEW, $segment);
 
-        return view(config('view.cms.segments.index'), ['segments' => Segment::paginate()]);
+        return view(config('view.cms.segments.index'), [
+            'segments' => Segment::paginate()
+        ]);
     }
 
     /**
@@ -93,7 +95,7 @@ class SegmentsController extends Controller
     {
         $this->authorize(Abilities::VIEW, $segment);
 
-        return view(config('view.cms.segments.show'), [
+        return view(config('view.cms.segments.edit'), [
             'segment' => $segment,
         ]);
     }
@@ -109,7 +111,7 @@ class SegmentsController extends Controller
         $this->authorize(Abilities::UPDATE, $segment);
 
         return view(config('view.cms.segments.edit'), [
-                'segment' => $segment,
+            'segment' => $segment,
         ]);
     }
 

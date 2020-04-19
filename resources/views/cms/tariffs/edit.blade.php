@@ -26,7 +26,7 @@
 
             <div class="content">
                 @include('cms.tariffs.blocks.header.edit')
-                @include('cms.tariffs.blocks.form.edit')
+                @include('cms.tariffs.blocks.form.edit', ['tariff' => $tariff])
             </div>
 
         </div>

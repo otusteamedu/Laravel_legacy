@@ -25,7 +25,7 @@
             </div>
 
             <div class="content">
-                @include('cms.tariffs.blocks.header.list', ['tariffs' => $tariffs])
+                @include('cms.tariffs.blocks.header.list')
                 @include('cms.tariffs.blocks.list.index', ['tariff' => $tariffs])
             </div>
         </div>

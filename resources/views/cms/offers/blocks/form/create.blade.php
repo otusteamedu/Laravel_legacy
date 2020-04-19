@@ -1,4 +1,5 @@
 @include('cms.offers.blocks.form.errors')
+
 {{ Form::open(['url' => route('cms.offers.store')]) }}
 @include('cms.offers.blocks.form.fields')
 <div class="form-group">

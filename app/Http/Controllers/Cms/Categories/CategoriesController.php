@@ -46,7 +46,9 @@ class CategoriesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Category $category
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create(Category $category)
     {
@@ -92,7 +94,7 @@ class CategoriesController extends Controller
     {
         $this->authorize(Abilities::VIEW, $category);
 
-        return view(config('view.cms.categories.show'), [
+        return view(config('view.cms.categories.edit'), [
             'category' => $category,
         ]);
     }

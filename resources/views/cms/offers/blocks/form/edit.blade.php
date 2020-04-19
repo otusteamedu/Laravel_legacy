@@ -1,8 +1,8 @@
-@include('offers.blocks.form.errors')
+@include('cms.offers.blocks.form.errors')
 
 {{ Form::model($offer, ['url' => route('cms.offers.update', ['offer' => $offer]), 'method' => 'PUT']) }}
-@include('offers.blocks.form.fields')
+@include('cms.offers.blocks.form.fields', $offer)
 <div class="form-group">
-    {{ Form::submit('Изменить', array('class' => 'btn btn-success')) }}
+    {{ Form::submit('Сохранить', array('class' => 'btn btn-success')) }}
 </div>
 {{ Form::close() }}

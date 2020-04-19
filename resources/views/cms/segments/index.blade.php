@@ -25,7 +25,7 @@
             </div>
 
             <div class="content">
-                @include('cms.segments.blocks.header.list', ['segments' => $segments])
+                @include('cms.segments.blocks.header.list')
                 @include('cms.segments.blocks.list.index', ['segments' => $segments])
             </div>
         </div>

@@ -91,7 +91,7 @@ class TariffsController extends Controller
     {
         $this->authorize(Abilities::VIEW, $tariff);
 
-        return view(config('view.cms.tariffs.show'), [
+        return view(config('view.cms.tariffs.edit'), [
             'tariff' => $tariff,
         ]);
     }

@@ -102,7 +102,7 @@ class CitiesController extends Controller
     {
         $this->authorize(Abilities::VIEW, $city);
 
-        return view(config('view.cms.cities.show'), [
+        return view(config('view.cms.cities.edit'), [
             'cities' => City::paginate(),
         ]);
     }
@@ -117,11 +117,8 @@ class CitiesController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $city);
 
-        $country = Country::where('id', $city->country_id);
-
-        return view(config('view.cms.countries.edit'), [
-            'cities' => $city,
-            'country' => $country,
+        return view(config('view.cms.cities.edit'), [
+            'city' => $city,
         ]);
     }
 

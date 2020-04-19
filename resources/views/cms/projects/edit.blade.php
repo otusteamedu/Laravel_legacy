@@ -26,7 +26,7 @@
 
             <div class="content">
                 @include('cms.projects.blocks.header.edit')
-                @include('cms.projects.blocks.form.edit')
+                @include('cms.projects.blocks.form.edit', ['project' => $project])
             </div>
 
         </div>

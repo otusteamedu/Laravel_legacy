@@ -26,7 +26,7 @@
 
             <div class="content">
                 @include('cms.segments.blocks.header.edit')
-                @include('cms.segments.blocks.form.edit')
+                @include('cms.segments.blocks.form.edit', ['segment' => $segment])
             </div>
 
         </div>

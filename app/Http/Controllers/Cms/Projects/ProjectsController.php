@@ -102,7 +102,7 @@ class ProjectsController extends Controller
     {
         $this->authorize(Abilities::VIEW, $project);
 
-        return view(config('view.cms.projects.show'), [
+        return view(config('view.cms.projects.edit'), [
             'project' => $project,
         ]);
     }
