@@ -53,8 +53,7 @@ class UsersController extends BaseAdminController
         //$this->checkCurrentUserRouteAccess($user, $request->route()->getName());
 
         $users = $this->usersService->searchCachedUsers();
-
-        Log::critical('Users were visited');
+        Log::critical('Users were visited.It was sent from default channels');
         //Log::channel('slack')->critical('Something happened!');
 
         return view('admin.users.index', [

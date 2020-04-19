@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Services\BaseService;
+use App\Services\AuthService;
 use Illuminate\Support\Facades\Auth;
 use Closure;
 
@@ -15,20 +15,17 @@ class CheckAccess
      * @param  \Closure  $next
      * @return mixed
      */
-    private $baseService;
-    public function __construct(BaseService $baseService)
+    private $authService;
+    public function __construct(AuthService $authService)
     {
-        $this->baseService = $baseService;
+        $this->authService = $authService;
     }
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if($user)
-            $this->baseService->checkCurrentUserRouteAccess($user, $request->route()->getName());
-        else {
-            abort(403);
+        if(!$user || !$this->authService->checkCurrentUserRouteAccess($user, $request->route()->getName())){
+           abort(403);
         }
-
         return $next($request);
     }
 }
