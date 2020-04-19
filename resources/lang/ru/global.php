@@ -19,4 +19,5 @@ return [
     'search' => 'поиск',
     'quit' => 'Выйти',
     'language' => 'Язык',
+    'event_type' => 'Тип события',
 ];
