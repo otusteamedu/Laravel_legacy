@@ -19,4 +19,5 @@ return [
     'search' => 'search',
     'quit' => 'Quit',
     'language' => 'Lang',
+    'event_type' => 'Event type',
 ];
