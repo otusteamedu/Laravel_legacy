@@ -19,7 +19,7 @@
     </div>
 
     <div class="form-group row col-md-6">
-        {{ Form::label('country_id', __('cms.mpolls.value')) }}
+        {{ Form::label('country_id', __('cms.mpolls.country_id')) }}
         {{ Form::text('country_id', null, ['class' => 'form-control']) }}
     </div>
     <div class="form-group row col-md-6">

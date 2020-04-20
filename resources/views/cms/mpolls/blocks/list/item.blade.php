@@ -22,7 +22,7 @@
         <td>
             {!! Form::open(['url' => route('cms.mpolls.destroy',  $mpoll->id), 'method' => 'delete', 'class' => '']) !!}
             <button class='btn btn-danger table-buttons' type='submit' value='submit'>
-                <i class='fas fa-trash'></i></button>
+                <i class='fas fa-trash text-danger'></i></button>
         </td>
 </tr>
 

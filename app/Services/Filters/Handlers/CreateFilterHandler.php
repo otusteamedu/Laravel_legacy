@@ -6,16 +6,16 @@ namespace App\Services\Filters\Handlers;
 
 use App\Models\Filter;
 use App\Services\Filters\Repositories\FilterRepositoryInterface;
-use App\Services\Filters\Resolvers\FilterAdditionalSataResolver;
+use App\Services\Filters\Resolvers\FilterAdditionalDataResolver;
 
 class CreateFilterHandler
 {
     private FilterRepositoryInterface $filterRepository;
-    private FilterAdditionalSataResolver $resolver;
+    private FilterAdditionalDataResolver $resolver;
 
     public function __construct(
         FilterRepositoryInterface $filterRepository,
-        FilterAdditionalSataResolver $resolver
+        FilterAdditionalDataResolver $resolver
     )
     {
         $this->filterRepository = $filterRepository;

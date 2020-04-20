@@ -92,6 +92,8 @@ class Mpoll extends BaseModel
         'value',
         'name',
         'description',
+        'country_id',
+        'price'
     ];
 
 

@@ -16885,7 +16885,7 @@ a.text-dark:focus {
   }
 }
 
-form button {
+.table-buttons {
   display: contents;
 }
 

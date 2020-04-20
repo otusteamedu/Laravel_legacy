@@ -12,12 +12,38 @@
 */
 
 
-
 //Route::view('/', 'HomeController@index')->name('home');
 Route::view('/', 'welcome')->name('home');
 
-Route::get('/test',function () {
-    return view('test');
+Route::get('/test', function () {
+
+    $data = [
+        "name" => "sfsfsfdf",
+        "description" => "qwertyy",
+        "country_id" => "22",
+        "quotas" => [
+            0 => "3",
+            1 => "1",
+        ],
+        "completes" => [
+            0 => "3",
+            1 => "1",
+        ],
+        "sent" => [
+            0 => "4",
+            1 => "1",
+        ],
+        "price" => 5.5,
+    ];
+    $tmp = [];
+    for($i = 0; $i < count($data['quotas']); $i++){
+        $quota_indx = $data['quotas'][$i];
+        $tmp[$quota_indx]['completes'] = $data['completes'][$i];
+        $tmp[$quota_indx]['sent'] = $data['sent'][$i];
+
+    }
+dd($tmp);
+    return $data;
 });
 Route::get('/news/{id}/{name}', function ($id, $name) {
     return view('welcome');
@@ -44,7 +70,7 @@ Route::group([
     //CmsMpolls
 //    $methods = ['index', 'edit', 'update', 'create', 'store','destroy'];
     Route::namespace('Mpolls')->group(function () {
-        $methods = ['index', 'edit', 'update', 'create', 'store','destroy'];
+        $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('mpolls', 'MpollsController')
             ->only($methods)
             ->names('cms.mpolls');
