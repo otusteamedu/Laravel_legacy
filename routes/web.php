@@ -12,5 +12,17 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('layouts.page_main');
+});
+
+Route::get('/auth', function () {
+    return view('layouts.page_auth');
+});
+
+Route::get('/blank', function () {
+    return view('layouts.page_blank');
+});
+
+Route::get('/personal', function () {
+    return view('layouts.page_personal');
 });
