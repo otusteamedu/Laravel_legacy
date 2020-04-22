@@ -3,7 +3,7 @@
 return [
     'default-value-if-null' => false,
 
-    'admin' => [
+    \App\Models\User::LEVEL_ADMIN => [
         'view-cms' => true,
 
         'view-country' => true,
@@ -43,7 +43,7 @@ return [
         'delete-offer' => true,
 
     ],
-    'marketing' => [
+    \App\Models\User::LEVEL_MARKETING => [
         'view-cms' => true,
         'create-tariff' => true,
         'create-segment' => true,

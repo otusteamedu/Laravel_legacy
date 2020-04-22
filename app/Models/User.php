@@ -32,6 +32,10 @@ class User extends Authenticatable
 
     public $entityName = 'user';
 
+    const LEVEL_USER = 'user';
+    const LEVEL_MARKETING = 'marketing';
+    const LEVEL_ADMIN = 'admin';
+
     public function tariff()
     {
         return $this->belongsTo(Tariff::class);
@@ -53,7 +57,7 @@ class User extends Authenticatable
     ];
 
     public function isAdmin(){
-        return Auth::user()->role == config('auth.administrator_role_name');
+        return Auth::user()->role == self::LEVEL_ADMIN;
     }
 
     public function canDo($action, $entity){
