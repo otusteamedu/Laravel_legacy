@@ -46,7 +46,3 @@
         @include('plain.blocks.footer')
     </footer>
 @endsection
-
-@section('hidden-content')
-    @include('plain.blocks.hidden')
-@endsection

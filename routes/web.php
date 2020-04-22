@@ -11,12 +11,15 @@
 |
 */
 
-Route::get('/sss', 'SaleOffers\SaleOffersController@index')->name('sss');
+Route::get('/', 'SaleOffers\SaleOffersController@index')->name('Главная');
+/*if (env('APP_ENV') == 'production'){
+    Route::get('/', 'SaleOffers\SaleOffersController@index')->name('Главная');
+}else{
+    Route::get('/', function () {
+        return view('plain.sale');
+    });
+}*/
 
-Route::get('/', function () {
-    return view('plain.sale');
-    //return view('plain.sale');
-});
 
 Route::get('/user', function () {
     return view('plain.user');
