@@ -46,6 +46,7 @@ class Project extends BaseModel
     protected $fillable = [
         'user_id',
         'name',
+        'logo_path',
         'description',
         'contact_data',
     ];

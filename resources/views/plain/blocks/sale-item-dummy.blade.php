@@ -15,9 +15,9 @@
 <div class="sale-item" data-tag-value="<?=isset($categoryByIndex) ? $categories[$categoryByIndex] : $categories[0] ?>">
     <img src="img/sale-logo.svg" alt=""/>
     <div class="sale-item__text">
-        <p>{{ App\Models\Project::find($offer->project_id)->name }}</p>
+        <p>Простой и удобный аптечный сервис для заказа лекарств, косметики...</p>
     </div>
-    <div class="sale-item__size"><span>{{$offer->name}}</div>
+    <div class="sale-item__size"><span>Скидки до &minus;25%</span>на все аптечные товары!</div>
     <div class="sale-item__btn">
         <button class="bs-btn js-modal">Получить&nbsp;<span class="mobile-hidden">скидку</span></button>
     </div>
@@ -27,7 +27,3 @@
         <div class="yes"><span class="mobile-hidden">В избранном /&nbsp;</span>Удалить</div>
     </div>
 </div>
-
-@section('hidden-content')
-    @include('plain.blocks.hidden', $offer)
-@endsection

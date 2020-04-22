@@ -54,8 +54,10 @@ class Offer extends BaseModel
     protected $fillable = [
         'name',
         'description',
+        'promo_code',
         'expiration_date',
         'project_id',
+        'category_id',
         'city_id',
         'lat',
         'lon',

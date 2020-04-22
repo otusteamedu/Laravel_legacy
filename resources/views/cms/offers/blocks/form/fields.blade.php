@@ -1,6 +1,7 @@
 @php
     $cities = \App\Models\City::all();
     $projects = \App\Models\Project::all();
+    $categories = \App\Models\Category::all();
 
     if (isset($offer)){
         $name = $offer->name;
@@ -34,14 +35,20 @@
     </div>
     <div class="col-sm-4 col-md-4">
         <div class="form-group">
-            {{ Form::label('project_id', 'Проект (магазин)') }}
-            {{ Form::select('project_id', $projects->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
+            {{ Form::label('category_id', 'Категория') }}
+            {{ Form::select('category_id', $categories->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
             {{ Form::label('description', 'Описание предложения') }}
             {{ Form::textarea('description', $description, array('class'=>'form-control')) }}
+        </div>
+    </div>
+    <div class="col-sm-4 col-md-4">
+        <div class="form-group">
+            {{ Form::label('project_id', 'Проект (магазин)') }}
+            {{ Form::select('project_id', $projects->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">

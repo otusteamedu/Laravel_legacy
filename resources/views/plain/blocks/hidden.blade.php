@@ -4,7 +4,7 @@
         <div class="modal-header">
             <div class="modal-header__img"><img src="img/img-1.jpg" alt=""></div>
             <div class="modal-header__sale-info">
-                <h2><span>Скидка -25%&nbsp;</span>на все лекарственные преппараты!</h2>
+                <h2><span>{{$offer->name}}</h2>
                 <div class="promocode">
                     <div class="promocode__text">
                         <input class="js-code hidden" type="text" value="bigsale03346667">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="promocode-info">
                     <div class="promocode-info__code">Как активировать код<span class="js-question"><img src="img/question-icon.svg" alt=""></span></div>
-                    <div class="promocode-info__date"><span class="mobile-hidden">Действует до</span><span class="mobile-visible">До</span> <span class="date">13.11.2019</span>
+                    <div class="promocode-info__date"><span class="mobile-hidden">Действует до</span><span class="mobile-visible">До</span> <span class="date">{{ \Carbon\Carbon::parse($offer->expiration_date)->format('d.m.Y')}}</span>
                     </div>
                 </div>
                 <div class="social-links"><a class="social-links__item" href="https://www.instagram.com/asna-group"><img src="img/ic-insta.svg" alt=""> @asna-group</a><a class="social-links__item" href="vk.com/asna-group" target="_blank"><img src="img/vk-icon-2.svg" alt="">vk.com/asna-group</a><a class="social-links__item" href="https://www.asna.ru" target="_blank"><img src="img/globe-icon.svg" alt="">https://www.asna.ru</a></div>
@@ -31,19 +31,10 @@
             </ul>
             <div class="modal-tabs__content">
                 <div class="active" id="description">
-                    <p><strong>АСНА&nbsp;</strong>- аптечный онлайн сервис по бронированию лекарственных препараторов и товаров для здоровья. Выбирайте из 130 000 наименований и забирайте заказ в ближайшей из 10 000 аптек. покупайте лекарства, БАДы, косметику и другие медицинские изделия по самым низким ценам с программой АСНА экономия.</p>
+                    <p><strong>{{\App\Models\Project::find($offer->project_id)->name}}&nbsp;</strong>- {{\App\Models\Project::find($offer->project_id)->description}}</p>
                 </div>
                 <div class="conditions" id="conditions">
-                    <div class="conditions__min-summ">
-                        <p><strong>Минимальная сумма заказа: <span>0 рублей</span></strong></p>
-                    </div>
-                    <p>По промокоду вы получаете скидку до 50% при любой покупке. Без промокода зелёные цены открываются, только если в корзине набирается товаров на сумму от 3000 рублей (или меньше для некоторых регионов России).</p>
-                    <ul>
-                        <li>Промокод включает зелёные цены по программе "АСНА Экономия" при любой сумме покупки;</li>
-                        <li>Промокод позволяет получить скидку до 50% в зависимости от выбранного товара и аптеки;</li>
-                        <li>Если сумма покупки превысила 3000 рублей (для некоторых регионов этот порог меньше), тогда любой товар доступен по программе "АСНА Экономия", независимо от ввода промокода;</li>
-                        <li>Акция действует только для товаров с зелёными ценами и для аптек, подключенных к программе «АСНА Экономия».</li>
-                    </ul>
+                    {{$offer->description}}
                 </div>
                 <div class="places" id="places">
                     <div class="places__map">

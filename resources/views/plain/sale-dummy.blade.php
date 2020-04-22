@@ -36,7 +36,7 @@
             </div>
 
             <div class="sale-list">
-                @include('plain.blocks.sale-list', $offers)
+                @include('plain.blocks.sale-list')
             </div>
 
         </div>
@@ -45,4 +45,8 @@
     <footer>
         @include('plain.blocks.footer')
     </footer>
+@endsection
+
+@section('hidden-content')
+    @include('plain.blocks.hidden')
 @endsection
