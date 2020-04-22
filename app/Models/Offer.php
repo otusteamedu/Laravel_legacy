@@ -56,6 +56,7 @@ class Offer extends BaseModel
         'description',
         'expiration_date',
         'project_id',
+        'category_id',
         'city_id',
         'lat',
         'lon',

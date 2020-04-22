@@ -36,7 +36,7 @@
             </div>
 
             <div class="sale-list">
-                @include('plain.blocks.sale-list', $offers)
+                @include('plain.blocks.sale-list')
             </div>
 
         </div>

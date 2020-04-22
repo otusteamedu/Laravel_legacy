@@ -11,8 +11,11 @@
 |
 */
 
+Route::get('/sss', 'SaleOffers\SaleOffersController@index')->name('sss');
+
 Route::get('/', function () {
     return view('plain.sale');
+    //return view('plain.sale');
 });
 
 Route::get('/user', function () {

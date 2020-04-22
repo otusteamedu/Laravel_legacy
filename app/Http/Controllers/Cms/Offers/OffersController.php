@@ -119,11 +119,8 @@ class OffersController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $offer);
 
-
         return view(config('view.cms.offers.edit'), [
             'offer' => $offer,
-            'cities' => City::all(),
-            'projects' => Project::all(),
         ]);
     }
 
@@ -139,7 +136,6 @@ class OffersController extends Controller
         $this->authorize(Abilities::UPDATE, $offer);
 
         try {
-            //$this->offersService->updateOffer($offer, $request->all());
             $offer->update($request->all());
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
