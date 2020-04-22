@@ -22,6 +22,10 @@
         </div>
         <div class="col-12 col-md-8">
             Контент
+
+            <div class="my-block-style">
+                мой стил из common.css
+            </div>
         </div>
     </div>
 </div>
