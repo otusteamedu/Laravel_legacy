@@ -29,6 +29,11 @@ class CreateStudentUserTable extends Migration
      */
     public function down()
     {
+        Schema::table('student_user', function(Blueprint $table) {
+            $table->dropForeign('student_id');
+            $table->dropForeign('user_id');
+        });
+
         Schema::dropIfExists('student_user');
     }
 }
