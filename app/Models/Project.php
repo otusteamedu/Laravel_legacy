@@ -49,5 +49,11 @@ class Project extends BaseModel
         'logo_path',
         'description',
         'contact_data',
+        'instagram',
+        'vk',
+        'website',
+        'address1',
+        'address2',
+        'address3',
     ];
 }
