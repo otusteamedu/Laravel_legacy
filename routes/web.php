@@ -12,14 +12,10 @@
 */
 
 Route::get('/', 'SaleOffers\SaleOffersController@index')->name('Главная');
-/*if (env('APP_ENV') == 'production'){
-    Route::get('/', 'SaleOffers\SaleOffersController@index')->name('Главная');
-}else{
-    Route::get('/', function () {
-        return view('plain.sale');
-    });
-}*/
 
+Route::get('/dummy', function () {
+    return view('plain.sale-dummy');
+});
 
 Route::get('/user', function () {
     return view('plain.user');
