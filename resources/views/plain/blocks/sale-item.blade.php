@@ -1,18 +1,4 @@
-@php($categories = [
-    'beauty',
-    'restaurants',
-    'health',
-    'entertainment',
-    'education',
-    'auto',
-    'fitness',
-    'children',
-    'various'
-])
-
-@php($categoryByIndex = mt_rand(0, count($categories)-1))
-
-<div class="sale-item" data-tag-value="<?=isset($categoryByIndex) ? $categories[$categoryByIndex] : $categories[0] ?>">
+<div class="sale-item" data-tag-value="{{str_slug(\App\Models\Category::find($offer->category_id)->name, '-')}}">
     <img src="img/sale-logo.svg" alt=""/>
     <div class="sale-item__text">
         <p>{{ App\Models\Project::find($offer->project_id)->name }}</p>

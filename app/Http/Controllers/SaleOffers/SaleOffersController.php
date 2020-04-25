@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\SaleOffers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Offer;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -18,7 +19,8 @@ class SaleOffersController extends Controller
     public function index()
     {
         return view('plain.sale', [
-           'offers' => Offer::paginate(),
+            'offers' => Offer::paginate(),
+            'categories' => Category::all(),
         ]);
     }
 }
