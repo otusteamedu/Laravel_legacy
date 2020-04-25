@@ -1,4 +1,4 @@
-<div class="sale-item" data-tag-value="{{str_slug(\App\Models\Category::find($offer->category_id)->name, '-')}}">
+<div class="sale-item" data-tag-value="{{ Str::slug( App\Models\Category::find($offer->category_id)->name, '-') }}">
     <img src="img/sale-logo.svg" alt=""/>
     <div class="sale-item__text">
         <p>{{ App\Models\Project::find($offer->project_id)->name }}</p>

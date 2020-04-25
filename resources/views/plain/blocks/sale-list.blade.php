@@ -1,5 +1,5 @@
 <div class="sale-list">
     @foreach ($offers as $offer)
-        @include('plain.blocks.sale-iatem', $offer)
+        @include('plain.blocks.sale-item', $offer)
     @endforeach
 </div>
