@@ -36,11 +36,11 @@ class CreateTransactionsTable extends Migration
      */
     public function down()
     {
-        Schema::table('transactions', function(Blueprint $table) {
-            $table->dropForeign('student_id');
-            $table->dropForeign('user_id');
-            $table->dropForeign('reason_id');
-        });
+//        Schema::table('transactions', function(Blueprint $table) {
+//            $table->dropForeign('student_id');
+//            $table->dropForeign('user_id');
+//            $table->dropForeign('reason_id');
+//        });
 
 
         Schema::dropIfExists('transactions');

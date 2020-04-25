@@ -29,10 +29,10 @@ class CreateRoleUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('role_user', function(Blueprint $table) {
-            $table->dropForeign('role_id');
-            $table->dropForeign('user_id');
-        });
+//        Schema::table('role_user', function(Blueprint $table) {
+//            $table->dropForeign('user_id');
+//            $table->dropForeign('role_id');
+//        });
 
         Schema::dropIfExists('role_user');
     }
