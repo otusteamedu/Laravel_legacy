@@ -32,7 +32,7 @@
 
 
             <div class="hash-tags js-tags">
-                @include('plain.blocks.tags')
+                @include('plain.blocks.tags-dummy')
             </div>
 
             <div class="sale-list">
