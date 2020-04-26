@@ -1,0 +1,21 @@
+/* PartialsForm */
+
+.form-group.has-error {
+    input{
+        border: 2px red solid;
+    }
+}
+
+/* buttons */
+.btn-as-link {
+    display: inline-block;
+
+    background-color:  transparent;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 16px;
+
+}

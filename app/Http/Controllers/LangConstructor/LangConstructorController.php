@@ -6,11 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Models\Construction;
 use App\Models\ConstructionType;
 use Illuminate\Http\Request;
+use App\Policies\Abilities;
 
 class LangConstructorController extends Controller
 {
+
     public function index()
     {
+
+        $this->authorize(Abilities::VIEW_ANY, Construction::class);
+
         /** @var Construction $langConstructor */
         $langConstructor = Construction::All();
 
@@ -19,6 +24,7 @@ class LangConstructorController extends Controller
 
     public function edit($id = null)
     {
+        $this->authorize(Abilities::UPDATE, Construction::class);
 
         /** @var Construction $langConstructor */
         $langConstructor = Construction::findOrNew($id);
@@ -40,6 +46,7 @@ class LangConstructorController extends Controller
 
     public function save(Request $request)
     {
+        $this->authorize(Abilities::UPDATE, Construction::class);
 
         $request->validate([
             'name' => 'required|string',
@@ -49,8 +56,7 @@ class LangConstructorController extends Controller
             'description' => 'required|string'
         ]);
 
-
-        $request->request->add(['created_account_id' => '1']);
+        $request->request->add(['created_account_id' => auth()->user()->account->id]);
         $langConstructor  = Construction::create($request->except(['_token']));
 
         return redirect(route('lang-constructor-edit', ['id' => $langConstructor->id]))->with('status',__('system.saved'));
@@ -59,6 +65,8 @@ class LangConstructorController extends Controller
 
     public function delete($id)
     {
+        $this->authorize(Abilities::DELETE, Construction::class);
+
         /** @var Construction $langConstructor */
         $langConstructor = Construction::find($id);
         $langConstructor->delete();

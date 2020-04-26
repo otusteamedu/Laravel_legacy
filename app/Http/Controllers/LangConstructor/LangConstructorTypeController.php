@@ -4,6 +4,7 @@ namespace App\Http\Controllers\LangConstructor;
 
 use App\Http\Controllers\Controller;
 use App\Models\ConstructionType;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class LangConstructorTypeController extends Controller
@@ -25,7 +26,7 @@ class LangConstructorTypeController extends Controller
         return view('lang-constructor.lang-constructor-type.edit',['langConstructorType' => $langConstructorType]);
     }
 
-    public function save(Request $request)
+    public function save(Request $request,User $user)
     {
 
         $request->validate([
@@ -33,6 +34,8 @@ class LangConstructorTypeController extends Controller
             'code' => 'required|string|regex:/^[a-zA-Z0-9\-\_]+$/u|unique:construction_types|max:255',
             'description' => 'required|string'
         ]);
+
+
 
         $request->request->add(['created_account_id' => '1']);
         $langConstructorType  = ConstructionType::create($request->except(['_token']));

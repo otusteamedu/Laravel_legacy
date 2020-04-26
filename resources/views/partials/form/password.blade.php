@@ -8,15 +8,13 @@
             'readOnly'=> $readOnly ?? false,
             'disabled'=> $disabled ?? false,
             'maxLength'=> $maxLength ?? false,
-            'required'=> $required ?? false,
-            'autofocus'=> $autofocus ?? false,
 
     ];
 @endphp
 
 <div class="form-group {{$errors->has($name) ? 'has-error' : ''}}">
     <label form="form-{{$name}}">{{$label ?? $name}}</label>
-    {!! Form::text($name, $value , $parameters) !!}
+    {!! Form::password($name, $parameters) !!}
 
 </div>
 

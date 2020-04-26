@@ -33,8 +33,13 @@
                     <a class="dropdown-item" href="#">
                         <i class="mdi mdi-cached mr-2 text-success"></i> Activity Log </a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">
-                        <i class="mdi mdi-logout mr-2 text-primary"></i> Signout </a>
+                    <span class="dropdown-item">
+                        <i class="mdi mdi-logout mr-2 text-primary"></i>
+                        <form id="logout-form" action="{{ url('/logout')}}" method="POST">
+                            {{ csrf_field() }}
+                            <input class="btn-as-link" type="submit" value="Signout"/>
+                        </form>
+                    </span>
                 </div>
             </li>
             <li class="nav-item d-none d-lg-block full-screen-link">
