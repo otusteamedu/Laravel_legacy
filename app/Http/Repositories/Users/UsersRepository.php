@@ -15,21 +15,23 @@ class UsersRepository extends CoreRepository
         return Model::class;
     }
 
-    public function getUserFromAdmin(){
+    public function getUserFromAdmin(int $paginateCount = self::PAGINATE_COUNT){
         $result = 
         $this->getModelClass()::whereHas('role', function($q){
                 $q->where('type', Role::LEVEL_USER);
-            })->paginate(self::PAGINATE_COUNT);
+            })->paginate($paginateCount);
 
         return $result;
     }
 
-    public function getUserFromRoot(){
+    public function getUserFromRoot(int $paginateCount = self::PAGINATE_COUNT){
         $result = 
         $this->getModelClass()::whereHas('role', function($q){
                 $q->where('type', '!=', Role::LEVEL_ROOT);
-            })->paginate(self::PAGINATE_COUNT);
+            })->paginate($paginateCount);
 
         return $result;
     }
+
+
 }

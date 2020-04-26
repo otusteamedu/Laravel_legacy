@@ -5,6 +5,7 @@ namespace App\Http\Services\Users;
 use App\Http\Handlers\Users\DeleteUsersHandler;
 use App\Http\Handlers\Users\UpdateUsersHandler;
 use App\Http\Repositories\Roles\RolesRepository;
+use App\Http\Repositories\Users\Cache\CacheUsersRepository;
 use App\Http\Repositories\Users\UsersRepository;
 use App\Models\Role;
 use App\Models\User;
@@ -16,17 +17,20 @@ class UsersService{
     protected $rolesRepository;
     protected $updateUsersHandler;
     protected $deleteUsersHandler;
+    protected $cacheUsersRepository;
 
     public function __construct(
         DeleteUsersHandler $deleteUsersHandler,
         UpdateUsersHandler $updateUsersHandler,
         UsersRepository $usersRepository,
-        RolesRepository $rolesRepository
+        RolesRepository $rolesRepository,
+        CacheUsersRepository $cacheUsersRepository
     ){
         $this->updateUsersHandler = $updateUsersHandler;
         $this->usersRepository = $usersRepository;
         $this->rolesRepository = $rolesRepository;
         $this->deleteUsersHandler = $deleteUsersHandler;
+        $this->cacheUsersRepository = $cacheUsersRepository;
     }
 
     public function getUsersFromUser(){
@@ -35,12 +39,13 @@ class UsersService{
         }
         switch ($roleAuth) {
             case Role::LEVEL_ROOT:
-                $result = $this->usersRepository->getUserFromRoot();
+                $result = $this->usersRepository->getUserFromRoot(CacheUsersRepository::USER_PAGINATE_COUNT);
             break;
             default:
-                $result = $this->usersRepository->getUserFromAdmin();
+                $result = $this->cacheUsersRepository->getUserFromAdmin();
             break;
         }
+
         return $result;
     }
 
@@ -58,6 +63,10 @@ class UsersService{
     public function deleteUser(User $user){
         $result = $this->deleteUsersHandler->handle($user);
         return $result;
+    }
+
+    public function clearAdminUserCache(){
+        $this->cacheUsersRepository->clearAdminUserCache();
     }
 
 }
