@@ -80,18 +80,19 @@ class Event extends Model
         return $this->created_at; // @ToDo: реализовать формат вида "час назад / день назад" итд
     }
 
-    public function getTypeName() {
+    public function getType() {
         return $this->belongsTo(
             EventType::class,
             'type_id'
-        )->first()->name;
+        );
+    }
+
+    public function getTypeName() {
+        return $this->getType->name;
     }
 
     public function getTypePicture(int $width = 32, int $height = 32) {
-        $typeName = $this->belongsTo(
-            EventType::class,
-            'type_id'
-        )->first()->name;
+        $typeName = $this->getTypeName();
 
         $typeNameToPictureMap = [
             'towing_required' => '<svg height="' . $height . '" viewBox="0 0 64 64" width="' . $width . '" xmlns="http://www.w3.org/2000/svg"><g id="Tow_Truck" data-name="Tow Truck"><path d="m19.63 27h-2.63v4h7.297z"/><circle cx="8" cy="38" r="1"/><circle cx="26" cy="38" r="1"/><path d="m4 37h1.184a2.982 2.982 0 0 1 5.632 0h12.368a2.982 2.982 0 0 1 5.632 0h1.184v-2.587l-1.406-1.413h-24.594z"/><path d="m15 27h-3.764a.994.994 0 0 0 -.894.553l-1.724 3.447h6.382z"/><path d="m56 40h4v2h-4z"/><path d="m44 25v9h15.267l-4.58-8.475a1 1 0 0 0 -.88-.525z"/><path d="m59 50a1 1 0 0 0 1-1v-1h-3v-2h3v-2h-4a2 2 0 0 1 -2-2v-2a2 2 0 0 1 2-2h4v-1.892c0-.037-.013-.072-.015-.108h-16.985a1 1 0 0 1 -1-1v-10h-2v25h3.09a5.993 5.993 0 0 1 11.82 0zm-13-10h-4v-2h4z"/><path d="m49 47a4 4 0 1 0 4 4 4 4 0 0 0 -4-4zm1 5h-2v-2h2z"/><path d="m38 50v-7h-34v7h2.09a5.993 5.993 0 0 1 11.82 0z"/><path d="m38 24.218-29.456-13.729-.845 1.817 30.301 14.125z"/><path d="m38 28.637-2-.932v13.295h2z"/><path d="m12 47a4 4 0 1 0 4 4 4 4 0 0 0 -4-4zm1 5h-2v-2h2z"/><path d="m7 24a3 3 0 0 1 -3-3h2a1 1 0 1 0 1-1 1 1 0 0 1 -1-1v-4.917h2v4.088a3 3 0 0 1 -1 5.829z"/></g></svg>',
@@ -105,18 +106,34 @@ class Event extends Model
         return $typeNameToPictureMap[$typeName];
     }
 
-    public function getCountryName() {
+    public function getCountry() {
         return $this->belongsTo(
             Country::class,
             'country_id'
-        )->first()->name;
+        );
+    }
+
+    public function getCountryName() {
+        return $this->getCountry->name;
     }
 
     public function getAuthor() {
         return $this->belongsTo(
             User::class,
             'author_id'
-        )->first();
+        );
+    }
+
+    public function getAuthorId() {
+        return $this->getAuthor->id;
+    }
+
+    public function getAuthorName() {
+        return $this->getAuthor->name;
+    }
+
+    public function getAuthorLastName() {
+        return $this->getAuthor->last_name;
     }
 
     public function pictures() {

@@ -37,6 +37,8 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
+        $event = $this->eventsService->findEvent($event->id);
+
         return view('events.show', [
             'event' => $event
         ]);

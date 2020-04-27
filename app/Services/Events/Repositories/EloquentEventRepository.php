@@ -3,8 +3,9 @@
 namespace App\Services\Events\Repositories;
 
 use App\Models\Event;
-use Illuminate\Pagination\LengthAwarePaginator;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * Class EloquentEventRepository
@@ -12,17 +13,40 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class EloquentEventRepository implements EventRepositoryInterface
 {
-    public function find(int $id)
+    public function find(int $eventId)
     {
-        return Event::find($id);
+        $eventCacheKey = 'event_' . $eventId;
+
+        $event = \Cache::tags([Event::class])->remember(
+            $eventCacheKey,
+            Carbon::now()->addSeconds(\Config::get('cache.cache_time.event_detail')),
+            function () use ($eventId) {
+                $event = Event::with('getType', 'pictures', 'getCountry', 'getAuthor', 'participants')->find($eventId);
+
+                return $event;
+            }
+        );
+
+        return $event;
     }
 
     public function search(array $filters = []): LengthAwarePaginator
     {
-        $event = Event::query();
-        $this->applyFilters($event, $filters);
+        $pageSize = 10; // @ToDo: подумать, куда вынести магическое число
+        $eventPaginateCacheKey = 'eventPaginate_' . md5(serialize($filters)) . $pageSize;
 
-        return $event->paginate(10);
+        $eventPaginator = \Cache::tags([Event::class])->remember(
+            $eventPaginateCacheKey,
+            Carbon::now()->addSeconds(\Config::get('cache.cache_time.event_list')),
+            function () use ($filters, $pageSize) {
+                $event = Event::query();
+                $this->applyFilters($event, $filters);
+
+                return $event->with('getType', 'pictures', 'getCountry', 'getAuthor')->paginate($pageSize);
+            }
+        );
+
+        return $eventPaginator;
     }
 
     public function createFromArray(array $data): Event

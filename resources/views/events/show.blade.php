@@ -38,7 +38,7 @@
                             <p>
                                 <strong>@lang('pages/events_show.author')</strong>
                                 <br>
-                                {{$event->getAuthor()->name ?? ' '}} {{$event->getAuthor()->last_name ?? ''}}
+                                {{$event->getAuthorName() ?? ' '}} {{$event->getAuthorLastName() ?? ''}}
                             </p>
                         </div>
                         <div class="col-2">
@@ -109,7 +109,7 @@
                             </div>
                         </div>
                     </div>
-                    @if (Auth::check() && $event->getAuthor()->id === auth()->user()->id)
+                    @if (Auth::check() && $event->getAuthorId() === auth()->user()->id)
                     <form class="float-left mr-2" action="#" method="POST">
                         <button class="btn btn-sm btn-outline-secondary" value="submit" type="submit">
                             @lang('pages/events_show.delete')
