@@ -13,7 +13,10 @@
 <body>
 @include('blocks.header.auth')
 
-@include('blocks.breadcrumps')
+
+@if(Request::path() != '/')
+    @include('blocks.breadcrumps')
+@endif
 
 <div class="container">
     <div class="row py-5">
@@ -21,11 +24,9 @@
             @include('blocks.menu_left.personal')
         </div>
         <div class="col-12 col-md-8">
-            Контент
 
-            <div class="my-block-style">
-                мой стил из common.css
-            </div>
+            @yield('content')
+
         </div>
     </div>
 </div>

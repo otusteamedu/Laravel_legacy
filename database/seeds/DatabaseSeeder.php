@@ -1,4 +1,6 @@
 <?php
+//php artisan migration:refresh --seed
+
 
 use Illuminate\Database\Seeder;
 
