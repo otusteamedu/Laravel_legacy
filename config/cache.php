@@ -100,4 +100,10 @@ return [
 
     'prefix' => env('CACHE_PREFIX', Str::slug(env('APP_NAME', 'laravel'), '_').'_cache'),
 
+    'cache_time' => [
+        'event_list' => 60 * 10,
+        'event_detail' => 60 * 10,
+        'language_list' => 60 * 60 * 24,
+        'language_detail' => 60 * 60 * 24,
+    ]
 ];
