@@ -191,6 +191,35 @@ const DeliveryEdit = resolve => {
     })
 };
 
+// OrderStatuses
+const OrderStatusList = resolve => {
+    require.ensure(['@/pages/Dashboard/Store/OrderStatuses/OrderStatusList.vue'], () => {
+        resolve(require('@/pages/Dashboard/Store/OrderStatuses/OrderStatusList.vue'))
+    })
+};
+const OrderStatusCreate = resolve => {
+    require.ensure(['@/pages/Dashboard/Store/OrderStatuses/OrderStatusCreate.vue'], () => {
+        resolve(require('@/pages/Dashboard/Store/OrderStatuses/OrderStatusCreate.vue'))
+    })
+};
+const OrderStatusEdit = resolve => {
+    require.ensure(['@/pages/Dashboard/Store/OrderStatuses/OrderStatusEdit.vue'], () => {
+        resolve(require('@/pages/Dashboard/Store/OrderStatuses/OrderStatusEdit.vue'))
+    })
+};
+
+// Orders
+const OrderList = resolve => {
+    require.ensure(['@/pages/Dashboard/Store/Orders/OrderList.vue'], () => {
+        resolve(require('@/pages/Dashboard/Store/Orders/OrderList.vue'))
+    })
+};
+const Order = resolve => {
+    require.ensure(['@/pages/Dashboard/Store/Orders/Order.vue'], () => {
+        resolve(require('@/pages/Dashboard/Store/Orders/Order.vue'))
+    })
+};
+
 // Error pages
 const Error404 = resolve => {
     require.ensure(['@/pages/Dashboard/Errors/404.vue'], () => {
@@ -467,6 +496,47 @@ const managerDeliveriesPages = {
     ]
 };
 
+const managerOrderStatusPages = {
+    path: '/manager/store',
+    component: DashboardLayout,
+    children: [
+        {
+            path: 'order-statuses',
+            name: 'manager.store.orderStatuses',
+            component: OrderStatusList
+        },
+        {
+            path: 'order-statuses/create',
+            name: 'manager.store.orderStatuses.create',
+            component: OrderStatusCreate
+        },
+        {
+            path: 'order-statuses/:id',
+            name: 'manager.store.orderStatuses.edit',
+            component: OrderStatusEdit,
+            props: true
+        }
+    ]
+};
+
+const managerOrderPages = {
+    path: '/manager/store',
+    component: DashboardLayout,
+    children: [
+        {
+            path: 'orders',
+            name: 'manager.store.orders',
+            component: OrderList
+        },
+        {
+            path: 'orders/:id',
+            name: 'manager.store.orders.order',
+            component: Order,
+            props: true
+        }
+    ]
+};
+
 const managerErrorPages = {
     path: '/manager/errors',
     component: ErrorsLayout,
@@ -484,6 +554,8 @@ const routes = [
     managerCategoriesPages,
     managerSubCategoriesPages,
     managerDeliveriesPages,
+    managerOrderPages,
+    managerOrderStatusPages,
     managerErrorPages,
     {
         path: '*',

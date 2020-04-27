@@ -24,6 +24,7 @@ import Chartist from "chartist";
 import CKEditor from '@ckeditor/ckeditor5-vue';
 
 import langLibrary from './lib/Validations';
+import config from "@/config";
 
 // router setup
 import routes from "./routes/routes";
@@ -35,6 +36,7 @@ Vue.use(Vuelidate);
 Vue.use(CKEditor);
 
 Vue.prototype.$langLib = langLibrary;
+Vue.prototype.$config = config;
 
 // configure router
 const router = new VueRouter({

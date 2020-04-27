@@ -2,8 +2,8 @@
 // @formatter:off
 
 /**
- * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.4.0 on 2020-04-06 10:58:51.
+ * A helper file for Laravel, to provide autocomplete information to your IDE
+ * Generated for Laravel 7.7.1 on 2020-04-24 07:50:06.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -3032,6 +3032,8 @@ namespace Illuminate\Support\Facades {
     /**
      * 
      *
+     * @method static \Illuminate\Contracts\Cache\Lock lock(string $name, int $seconds = 0, mixed $owner = null)
+     * @method static \Illuminate\Contracts\Cache\Lock restoreLock(string $name, string $owner)
      * @see \Illuminate\Cache\CacheManager
      * @see \Illuminate\Cache\Repository
      */ 
@@ -11142,6 +11144,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Create a new Route object.
+         *
+         * @param array|string $methods
+         * @param string $uri
+         * @param mixed $action
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function newRoute($methods, $uri, $action)
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->newRoute($methods, $uri, $action);
+        }
+        
+        /**
          * Return the response returned by the given route.
          *
          * @param string $name
@@ -13073,7 +13090,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function prepend($path, $data, $separator = '')
+        public static function prepend($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->prepend($path, $data, $separator);
@@ -13088,7 +13106,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function append($path, $data, $separator = '')
+        public static function append($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->append($path, $data, $separator);
@@ -15588,6 +15607,63 @@ namespace Barryvdh\Debugbar {
             //Method inherited from \DebugBar\DebugBar            
                         /** @var \Barryvdh\Debugbar\LaravelDebugbar $instance */
                         return $instance->offsetUnset($key);
+        }
+         
+    }
+ 
+}
+
+namespace Creativeorange\Gravatar\Facades { 
+
+    /**
+     * 
+     *
+     */ 
+    class Gravatar {
+        
+        /**
+         * Override the default image fallback set in the config.
+         * 
+         * Can either be a public URL to an image or a valid themed image.
+         * For more info, visit http://en.gravatar.com/site/implement/images/#default-image
+         *
+         * @param string $fallback
+         * @return \Creativeorange\Gravatar\Gravatar 
+         * @static 
+         */ 
+        public static function fallback($fallback)
+        {
+                        /** @var \Creativeorange\Gravatar\Gravatar $instance */
+                        return $instance->fallback($fallback);
+        }
+        
+        /**
+         * Check if Gravatar has an avatar for the given email address
+         *
+         * @param $email
+         * @return bool 
+         * @throws InvalidEmailException
+         * @static 
+         */ 
+        public static function exists($email)
+        {
+                        /** @var \Creativeorange\Gravatar\Gravatar $instance */
+                        return $instance->exists($email);
+        }
+        
+        /**
+         * Get the gravatar url
+         *
+         * @param $email
+         * @param string $configGroup
+         * @return string 
+         * @throws InvalidEmailException
+         * @static 
+         */ 
+        public static function get($email, $configGroup = 'default')
+        {
+                        /** @var \Creativeorange\Gravatar\Gravatar $instance */
+                        return $instance->get($email, $configGroup);
         }
          
     }
@@ -19998,7 +20074,7 @@ namespace  {
             /**
              * Add an "order by" clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $column
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
              * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException
@@ -20751,6 +20827,8 @@ namespace  {
     class Image extends \Intervention\Image\Facades\Image {}
 
     class Debugbar extends \Barryvdh\Debugbar\Facade {}
+
+    class Gravatar extends \Creativeorange\Gravatar\Facades\Gravatar {}
 
     class Flare extends \Facade\Ignition\Facades\Flare {}
 

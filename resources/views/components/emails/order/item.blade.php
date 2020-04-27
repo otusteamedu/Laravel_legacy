@@ -1,63 +1,96 @@
-<tr style="border-collapse:collapse;">
-    <td align="left" bgcolor="#ffffff" style="padding:0;Margin:0;padding-left:20px;padding-right:20px;background-color:#FFFFFF;">
-        <!--[if mso]><table width="560" cellpadding="0" cellspacing="0"><tr><td width="270" valign="top"><![endif]-->
-        <table cellpadding="0" cellspacing="0" class="es-left" align="left" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:left;">
-            <tr style="border-collapse:collapse;">
-                <td width="270" class="es-m-p20b" align="left" style="padding:0;Margin:0;">
-                    <table cellpadding="0" width="100%" bgcolor="transparent" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:transparent;" role="presentation">
-                        <tr style="border-collapse:collapse;">
-                            <td align="center" class="es-m-txt-c" style="padding:0;Margin:0;font-size:0px;">
-                                <img src="https://manager.npmrundev.ru/image/order-image-thumb/{{ $item['cropWidth'] }}/{{ $item['cropHeight'] }}/{{ $item['x'] }}/{{ $item['y'] }}/{{ $item['filter']['flip'] ? $item['filter']['flip'] : 0 }}/{{ $item['filter']['colorize'] ? $item['filter']['colorize'] : 0 }}/{{ $item['imageName'] }}" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic;" width="270">
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!--[if mso]></td><td width="20"></td><td width="270" valign="top"><![endif]-->
-        <table cellpadding="0" cellspacing="0" class="es-right" align="right" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;float:right;">
-            <tr style="border-collapse:collapse;">
-                <td width="270" align="left" style="padding:0;Margin:0;">
-                    <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;">
-                        <tr style="border-collapse:collapse;">
-                            <td align="left" style="padding:0;Margin:0;">
-                                <table border="0" cellspacing="1" cellpadding="1" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;width:100%;" class="cke_show_border" role="presentation">
-                                    <tr style="border-collapse:collapse;">
-                                        <td style="padding:0;Margin:0;color:#999999;font-size:16px;">Артикул:</td>
-                                        <td style="padding:0;Margin:0;font-size:16px;">{{ $item['imageArticle'] }}</td>
-                                    </tr>
-                                    <tr style="border-collapse:collapse;">
-                                        <td style="padding:0;Margin:0;color:#999999;font-size:16px;">Размеры:</td>
-                                        <td style="padding:0;Margin:0;font-size:16px;">{{ $item['width'] }} см × {{ $item['height'] }} см</td>
-                                    </tr>
-                                    <tr style="border-collapse:collapse;">
-                                        <td style="padding:0;Margin:0;color:#999999;font-size:16px;">Материал:</td>
-                                        <td style="padding:0;Margin:0;font-size:16px;">{{ $item['textureName']}}</td>
-                                    </tr>
-                                    <tr style="border-collapse:collapse;">
-                                        <td style="padding:0;Margin:0;color:#999999;font-size:16px;">Эффекты:</td>
-                                        <td style="padding:0;Margin:0;font-size:16px;">{{ $item['filterString'] }}</td>
-                                    </tr>
-                                    <tr style="border-collapse:collapse;">
-                                        <td style="padding:0;Margin:0;color:#999999;font-size:16px;">Количество:</td>
-                                        <td style="padding:0;Margin:0;font-size:16px;">{{ $item['qty'] }}</td>
-                                    </tr>
-                                </table></td>
-                        </tr>
-                        <tr style="border-collapse:collapse;">
-                            <td align="center" height="10" style="padding:0;Margin:0;"></td>
-                        </tr>
-                        <tr style="border-collapse:collapse;">
-                            <td align="left" style="padding:0;Margin:0;">
-                                <h2 style="Margin:0;line-height:36px;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;font-size:24px;font-style:normal;font-weight:normal;color:#3399FF;">
-                                    {{ $item['price'] }} ₽
-                                </h2>
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
-        </table>
-        <!--[if mso]></td></tr></table><![endif]-->
-    </td>
-</tr>
+<table class="spacer">
+    <tbody>
+        <tr>
+            <td height="24px" style="font-size:24px;line-height:24px;">&#xA0;</td>
+        </tr>
+    </tbody>
+</table>
+<table class="row">
+    <tbody>
+        <tr>
+            <th class="small-12 large-6 columns first">
+                <table>
+                    <tr>
+                        <th>
+                            <img class="small-float-center" src="{{ $item['thumbPath'] }}" width="240" alt="">
+                        </th>
+                        <th class="show-for-large" width="12px"></th>
+                    </tr>
+                </table>
+            </th>
+            <th class="small-12 large-6 columns last">
+                <table>
+                    <tr>
+                        <th class="show-for-large" width="12px"></th>
+                        <th>
+                            <table class="collapse">
+                                <tbody>
+                                <tr>
+                                    <td class="large-2">
+                                        <span class="bold">Артикул:</span>
+                                    </td>
+                                    <td>
+                                        {{ $item['article'] }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="large-2">
+                                        <span class="bold">Размеры:</span>
+                                    </td>
+                                    <td>
+                                        {{ $item['dimensions'] }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="large-2">
+                                        <span class="bold">Материал:</span>
+                                    </td>
+                                    <td>
+                                        {{ $item['texture'] }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="large-2">
+                                        <span class="bold">Эффекты:</span>
+                                    </td>
+                                    <td>
+                                        {{ $item['filter'] }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="large-2">
+                                        <span class="bold">Количество:</span>
+                                    </td>
+                                    <td>
+                                        {{ $item['qty'] }}
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <table class="spacer">
+                                <tbody>
+                                <tr>
+                                    <td height="12px" style="font-size:12px;line-height:12px;">&#xA0;</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <h2 class="price">{{ number_format($item['price'], 0, '.', ' ') }} ₽</h2>
+                        </th>
+                    </tr>
+                </table>
+            </th>
+        </tr>
+    </tbody>
+</table>
+<table class="spacer">
+    <tbody>
+    <tr>
+        <td height="12px" style="font-size:12px;line-height:12px;">&#xA0;</td>
+    </tr>
+    </tbody>
+</table>
+<table class="hr">
+    <tbody>
+    <th></th>
+    </tbody>
+</table>

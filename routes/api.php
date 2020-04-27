@@ -39,40 +39,75 @@ Route::group(['prefix' => '/auth', ['middleware' => 'throttle:20,5']], function(
 });
 
 Route::group(['prefix' => '/auth'], function() {
-    Route::get('/', 'Auth\AuthController@index');
+    Route::get('me', 'Auth\AuthController@me');
+//    Route::post('refresh', 'Auth\AuthController@refresh');
     Route::get('/logout', 'Auth\AuthController@logout')->middleware('jwt.auth');
 });
 
 
 // Client API
 
-Route::post('catalog/images', 'Client\Image\ClientImageController@getItems');
-Route::get('catalog/images/{id}', 'Client\Image\ClientImageController@getItem')
+Route::post('catalog/images', 'Client\Image\ImageController@getItems');
+Route::get('catalog/images/{id}', 'Client\Image\ImageController@getItem')
     ->where('id', '[0-9]+');
 
-Route::post('catalog/images/wish-list', 'Client\Image\ClientImageController@getWishListItems');
+Route::post('catalog/images/wish-list', 'Client\Image\ImageController@getWishListItems');
 
-Route::get('catalog/categories', 'Client\Category\ClientCategoryController@index');
+Route::get('catalog/categories', 'Client\Category\CategoryController@index');
 
-Route::get('catalog/categories/{category}', 'Client\Category\ClientCategoryController@getItemByAlias');
-Route::post('catalog/categories/{id}/images', 'Client\Category\ClientCategoryController@getImages')
+Route::get('catalog/categories/{category}', 'Client\Category\CategoryController@getItemByAlias');
+Route::post('catalog/categories/{id}/images', 'Client\Category\CategoryController@getImages')
     ->where('id', '[0-9]+');
 
 // Filters
-Route::get('catalog/categories/{id}/filters', 'Client\Category\ClientCategoryController@getFilters')
+Route::get('catalog/categories/{id}/filters', 'Client\Category\CategoryController@getFilters')
     ->name('category.filters');
-Route::post('catalog/categories/filters/wish-list', 'Client\Category\ClientCategoryController@getFiltersByImageIds')
+Route::post('catalog/categories/filters/wish-list', 'Client\Category\CategoryController@getFiltersByImageIds')
     ->name('category.filters.wish-list');
 
 // Delivery
-Route::get('delivery', 'Client\Delivery\ClientDeliveryController@index');
+Route::get('delivery', 'Client\Delivery\DeliveryController@index');
 
 // Settings
-Route::get('settings', 'Client\SettingGroup\ClientSettingGroupController@index');
+Route::get('settings', 'Client\SettingGroup\SettingGroupController@index');
 
 // Orders
-Route::apiResource('orders', 'Client\Order\ClientOrderController')
-    ->except(['edit, delete']);
+Route::group(['prefix' => 'orders'], function() {
+    Route::post('/', 'Client\Order\OrderController@store');
+});
+
+// Carts
+//Route::apiResource('carts', 'Client\Cart\CartController')
+//    ->except(['edit', 'delete']);
+Route::group(['prefix' => 'carts'], function() {
+    Route::post('/', 'Client\Cart\CartController@update')->middleware('jwt.auth');
+    Route::post('sync', 'Client\Cart\CartController@sync')->middleware('jwt.auth');
+    Route::post('set-qty', 'Client\Cart\CartController@setQty')->middleware('jwt.auth');
+    Route::delete('{id}', 'Client\Cart\CartController@delete')
+        ->where('id', '[0-9]+')
+        ->middleware('jwt.auth');
+    Route::post('add', 'Client\Cart\CartController@add')->middleware('jwt.auth');
+});
+
+// Users
+Route::prefix('profile')
+    ->middleware('jwt.auth')
+    ->group(function(){
+        Route::post('details', 'Client\User\UserDetailController@update');
+        Route::get('details', 'Client\User\UserDetailController@getItem');
+        Route::post('name', 'Client\User\UserController@updateName');
+        Route::post('email', 'Client\User\UserController@updateEmail');
+        Route::get('orders', 'Client\User\UserController@getOrders');
+        Route::get('orders/{number}/cancel', 'Client\User\UserController@cancelOrder')
+            ->where('number', '[0-9]+');
+        Route::get('orders/{number}', 'Client\User\UserController@getOrder')
+            ->where('number', '[0-9]+');
+        Route::group(['prefix' => 'wishlist'], function() {
+           Route::post('/sync', 'Client\User\UserController@syncLikes');
+           Route::get('/{imageId}/toggle', 'Client\User\UserController@toggleLike')
+               ->where('number', '[0-9]+');
+        });
+    });
 
 
 // Cms
@@ -256,13 +291,33 @@ Route::group(['prefix' => 'manager'], function() {
     Route::apiResource('permissions', 'Cms\Permission\PermissionController')->except(['create', 'edit', 'update']);
 
 
-    // Deliveries
+    // Store
 
-    Route::group(['prefix' => 'store/deliveries'], function() {
-        Route::post('{id}', 'Cms\Delivery\DeliveryController@update')
+    Route::group(['prefix' => 'store'], function() {
+
+        // Deliveries
+        Route::group(['prefix' => 'deliveries'], function() {
+            Route::post('{id}', 'Cms\Delivery\DeliveryController@update')
+                ->where('id', '[0-9]+');
+            Route::get('{id}/publish', 'Cms\Delivery\DeliveryController@publish')
+                ->where('id', '[0-9]+');
+        });
+        Route::apiResource('deliveries', 'Cms\Delivery\DeliveryController')->except(['create', 'edit', 'update']);
+
+        // Orders
+        Route::group(['prefix' => 'orders'], function() {
+            Route::get('/', 'Cms\Order\OrderController@getItems');
+            Route::get('/{id}', 'Cms\Order\OrderController@getItem');
+            Route::get('/{id}/details', 'Cms\Order\OrderController@getItemDetails');
+            Route::post('/{id}/status', 'Cms\Order\OrderController@changeStatus');
+        });
+
+        // OrderStatuses
+        Route::get('order-statuses/{id}/publish', 'Cms\OrderStatus\OrderStatusController@publish')
             ->where('id', '[0-9]+');
-        Route::get('{id}/publish', 'Cms\Delivery\DeliveryController@publish')
-            ->where('id', '[0-9]+');
+        Route::apiResource('order-statuses', 'Cms\OrderStatus\OrderStatusController');
+
+        // Carts
+//        Route::apiResource('carts', 'Cms\Cart\CmsCartController');
     });
-    Route::apiResource('store/deliveries', 'Cms\Delivery\DeliveryController')->except(['create', 'edit', 'update']);
 });

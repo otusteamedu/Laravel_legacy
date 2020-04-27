@@ -6,7 +6,7 @@ const state = {
     fields: {
         title: '',
         alias: '',
-        cost: '',
+        price: '',
         order: '',
         publish: '',
         description: ''

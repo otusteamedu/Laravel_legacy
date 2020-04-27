@@ -14,13 +14,14 @@ class Order extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    protected $dispatchesEvents = [
-        'saved' => OrderSaved::class,
-        'updated' => OrderUpdated::class,
-        'deleted' => OrderDeleted::class,
-    ];
+//    protected $dispatchesEvents = [
+//        'saved' => OrderSaved::class,
+//        'updated' => OrderUpdated::class,
+//        'deleted' => OrderDeleted::class,
+//    ];
 
-    const DEFAULT_STATUS_ID = 1;
+    const DEFAULT_STATUS = 'processing';
+    const CANCELED_STATUS = 'canceled';
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -41,21 +42,8 @@ class Order extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function statuses() {
-        return $this->belongsToMany('App\Models\OrderStatus', 'order_order_status', 'order_id', 'status_id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function delivery() {
-        return $this->belongsTo('App\Models\Delivery');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function address() {
-        return $this->belongsTo('App\Models\Address');
+        return $this->belongsToMany('App\Models\OrderStatus', 'order_order_status', 'order_id', 'status_id')
+            ->withPivot('created_at');
     }
 
     /**

@@ -163,9 +163,43 @@ if (! function_exists('jwtAuth')) {
     }
 }
 
-if (! function_exists('getOrderNumber')) {
-    function getOrderNumber()
+if (! function_exists('getImageArticle')) {
+    function getImageArticle(int $id)
     {
-        return +str_pad(crc32(time()), 9, rand(0,999));
+        return str_pad($id, config('settings.image_article_length'), "0", STR_PAD_LEFT);
+    }
+}
+
+if (! function_exists('wordsDeclension')) {
+    function wordsDeclension(int $n, array $words)
+    {
+        return ( $words[($n = ($n = $n % 100) > 19 ? ($n % 10) : $n) == 1 ? 0 : (($n > 1 && $n <= 4) ? 1 : 2 )]);
+    }
+}
+
+if (! function_exists('phoneFormat')) {
+    function phoneFormat($phone, $format, $mask = '#')
+    {
+        $phone = preg_replace('/[^0-9]/', '', $phone);
+
+        if (is_array($format)) {
+            if (array_key_exists(strlen($phone), $format)) {
+                $format = $format[strlen($phone)];
+            } else {
+                return false;
+            }
+        }
+
+        $pattern = '/' . str_repeat('([0-9])?', substr_count($format, $mask)) . '(.*)/';
+
+        $format = preg_replace_callback(
+            str_replace('#', $mask, '/([#])/'),
+            function () use (&$counter) {
+                return '${' . (++$counter) . '}';
+            },
+            $format
+        );
+
+        return ($phone) ? trim(preg_replace($pattern, $format, $phone, 1)) : false;
     }
 }

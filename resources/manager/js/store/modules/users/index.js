@@ -8,8 +8,8 @@ const state = {
         email: '',
         password: '',
         password_confirmation: '',
-        roles: [],
-        orders: '',
+        role: null,
+        orders: 0,
         publish: 0,
         old_password: ''
     },

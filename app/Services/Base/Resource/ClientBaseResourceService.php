@@ -11,7 +11,6 @@ use Illuminate\Database\Eloquent\Collection;
 abstract class ClientBaseResourceService
 {
     protected ClientBaseResourceRepository $repository;
-
     protected CacheKeyManager $cacheKeyManager;
 
     /**

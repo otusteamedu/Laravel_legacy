@@ -11,17 +11,17 @@
 |
 */
 
-Route::get('/user/verify/{token}', 'API\Auth\AuthController@verifyUser')
+Route::get('/user/confirm/{token}', 'API\Auth\AuthController@emailConfirm')
     ->name('user.verify');
 
 Route::get('/', function () {
     return view('pages.index');
 })->name('home');
 
-Route::get('/logme', function () {
-    Log::critical('Critical message in Slack!');
-    return 'log ok';
-})->name('logme');
+//Route::get('/logme', function () {
+//    Log::critical('Critical message in Slack!');
+//    return 'log ok';
+//})->name('logme');
 
 Route::get('materials', function () {
     return view('pages.materials');
@@ -51,7 +51,3 @@ Route::group(['prefix' => 'manager'], function() {
         ->where('any', '.*')
         ->name('manager');
 });
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

@@ -16,7 +16,7 @@ class ImageToEditor extends JsonResource
     {
         return [
             'id' => $this->id,
-            'article' => str_pad($this->id, 5, "0", STR_PAD_LEFT),
+            'article' => getImageArticle($this->id),
             'path' => $this->path,
             'format' => $this->format->title,
             'ratio' => $this->width / $this->height,

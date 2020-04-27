@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\API\Cms\User;
 
 use App\Http\Controllers\API\Cms\Base\BaseResourceController;
-use App\Http\Controllers\API\Cms\User\Requests\CreateUserRequest;
-use App\Http\Controllers\API\Cms\User\Requests\UpdateUserRequest;
-use App\Services\User\UserService;
+use App\Http\Controllers\API\Cms\User\Requests\CreateRequest;
+use App\Http\Controllers\API\Cms\User\Requests\UpdateRequest;
+use App\Services\User\CmsUserService;
 use Illuminate\Http\JsonResponse;
 
 class UserController extends BaseResourceController
 {
     /**
      * UserController constructor.
-     * @param UserService $service
+     * @param CmsUserService $service
      */
-    public function __construct(UserService $service)
+    public function __construct(CmsUserService $service)
     {
         parent::__construct($service);
     }
@@ -29,20 +29,20 @@ class UserController extends BaseResourceController
     }
 
     /**
-     * @param CreateUserRequest $request
+     * @param CreateRequest $request
      * @return JsonResponse
      */
-    public function store(CreateUserRequest $request): JsonResponse
+    public function store(CreateRequest $request): JsonResponse
     {
         return response()->json($this->service->store($request->all()));
     }
 
     /**
-     * @param UpdateUserRequest $request
+     * @param UpdateRequest $request
      * @param int $id
      * @return JsonResponse
      */
-    public function update(UpdateUserRequest $request, int $id): JsonResponse
+    public function update(UpdateRequest $request, int $id): JsonResponse
     {
         return response()->json($this->service->update($id, $request->all()));
     }

@@ -25,7 +25,7 @@ class GetOrderCustomerHandler
      */
     private function getFullName(array $customer): string
     {
-        return $customer['secondName'] . ' ' . $customer['firstName'] . ' ' . $customer['middleName'];
+        return $customer['last_name'] . ' ' . $customer['first_name'] . ' ' . $customer['middle_name'];
     }
 
     /**

@@ -70,7 +70,7 @@
                 this.activePanel = panel;
             },
             isActivePanel(panel) {
-                return this.activePanel == panel;
+                return this.activePanel === panel;
             },
             getColorButton: function (colorButton) {
                 return "md-" + colorButton + "";

@@ -16,7 +16,7 @@ trait SocialLoginResponseUserStatusStrategy
             . '&message=' . trans('auth.locked_out'));
     }
 
-    public function getNotVerified($email)
+    public function getNotConfirmed($email)
     {
         return redirect(env('CLIENT_BASE_URL')
             . '/social-callback?'

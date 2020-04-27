@@ -12,6 +12,8 @@ import permissions from './modules/permissions';
 import settings from './modules/settings';
 import settingGroups from './modules/setting-groups';
 import deliveries from './modules/deliveries';
+import orders from './modules/orders';
+import orderStatuses from './modules/order-statuses';
 
 Vue.use(Vuex);
 
@@ -108,6 +110,8 @@ export default new Vuex.Store({
         textures,
         settings,
         settingGroups,
-        deliveries
+        deliveries,
+        orders,
+        orderStatuses
     }
 });

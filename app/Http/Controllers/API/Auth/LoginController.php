@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\API\Auth\Base\BaseLoginController;
-use App\Http\Controllers\API\Cms\User\Requests\UserLoginRequest;
+use App\Http\Controllers\API\Client\User\Requests\LoginRequest;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 
@@ -28,10 +28,10 @@ class LoginController extends BaseLoginController
     protected string $redirectTo = '';
 
     /**
-     * @param UserLoginRequest $request
+     * @param LoginRequest $request
      * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
-    public function login(UserLoginRequest $request)
+    public function login(LoginRequest $request)
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);

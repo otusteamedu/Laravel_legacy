@@ -53,16 +53,16 @@
                 </md-card>
             </div>
             <div class="md-layout-item md-medium-size-50 md-small-size-100">
-                <template v-if="roleList.length">
+                <template v-if="roles.length">
                     <md-card>
                         <card-icon-header icon="business_center" title="Роли" />
                         <md-card-content>
 
-                            <v-select v-if="roleList.length" title="Роль" placeholder="Выберите роль"
-                                      name="roles"
-                                      :options="roleList"
-                                      :value="roles"
-                                      :vField="$v.roles"
+                            <v-select v-if="roles.length" title="Роль" placeholder="Выберите роль"
+                                      name="role"
+                                      :options="roles"
+                                      :value="role"
+                                      :vField="$v.role"
                                       :differ="true"
                                       nameField="display_name"
                                       :module="storeModule" />
@@ -140,7 +140,7 @@
         data () {
             return {
                 responseData: false,
-                selectedRoles: [],
+                selectedRole: [],
                 changePassword: false,
                 redirectRoute: { name: 'manager.users' },
                 storeModule: 'users',
@@ -166,7 +166,7 @@
             publish: {
                 touch: false
             },
-            roles: {
+            role: {
                 required,
                 touch: false
             },
@@ -196,11 +196,11 @@
                 name: state => state.users.fields.name,
                 email: state => state.users.fields.email,
                 publish: state => state.users.fields.publish,
-                roles: state => state.users.fields.roles,
+                role: state => state.users.fields.role,
                 oldPassword: state => state.users.fields.old_password,
                 password: state => state.users.fields.password,
                 passwordConfirmation: state => state.users.fields.password_confirmation,
-                roleList: state => state.roles.items
+                roles: state => state.roles.items
             }),
             isUniqueEmailEdit() {
                 return !!this.$store.getters['users/isUniqueEmailEdit'](this.email, this.id);
@@ -229,22 +229,18 @@
                 this.$v.passwordConfirmation.$reset();
             },
             onUpdate() {
+                const updateData = {
+                    name: this.name,
+                    email: this.email,
+                    role: this.role,
+                    publish: this.publish
+                }
                 const formData = this.changePassword
-                    ? {
-                        name: this.name,
-                        email: this.email,
-                        roles: this.roles,
-                        publish: this.publish,
+                    ? { ...updateData,
                         password: this.password,
                         old_password: this.oldPassword,
-                        password_confirmation: this.passwordConfirmation
-                    }
-                    : {
-                        name: this.name,
-                        email: this.email,
-                        roles: this.roles,
-                        publish: this.publish
-                    };
+                        password_confirmation: this.passwordConfirmation }
+                    : updateData;
                 return this.update({
                     sendData: {
                         formData,
@@ -273,7 +269,7 @@
                 .then(() => this.getItemAction(this.id))
                 .then(() => {
                     this.setPageTitle(this.name);
-                    this.selectedRoles = this.roles;
+                    this.selectedRole = this.role;
                     this.responseData = true;
                 })
                 .then(() => {

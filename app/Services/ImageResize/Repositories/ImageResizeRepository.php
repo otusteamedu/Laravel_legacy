@@ -185,10 +185,9 @@ class ImageResizeRepository
     public function sepia(\Intervention\Image\Image $image): \Intervention\Image\Image
     {
         return $image
-            ->brightness(-5)
-            ->contrast(3)
+            ->brightness(-12)
             ->greyscale()
-            ->colorize(13, 9, 3);
+            ->colorize(11, 8, 2);
     }
 
     /**

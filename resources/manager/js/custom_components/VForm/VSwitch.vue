@@ -45,7 +45,7 @@
             },
             fieldName() {
                 const fieldName = this.name[0].toUpperCase() + this.name.slice(1);
-                return `update${fieldName}Field`
+                return `toggle${fieldName}Field`
             }
         },
         methods: {

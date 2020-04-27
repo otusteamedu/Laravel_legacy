@@ -205,7 +205,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     },
     search: function search(query) {
-      query ? this.setSearchedDataAction(this.fuseSearch.search(query)) : this.setSearchedDataAction([]);
+      query ? this.setSearchedDataAction(this.fuseSearch.search(query).map(function (fuse) {
+        return fuse.item;
+      })) : this.setSearchedDataAction([]);
     },
     handleSearch: function handleSearch(query) {
       this.serverPagination ? this.searchOnServer(query) : this.search(query);
@@ -213,12 +215,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   }),
   watch: {
     items: function items() {
-      this.setFuseSearch(this.searchFields);
+      this.setFuseSearch();
     },
-    searchQuery: function searchQuery(value) {
+    searchQuery: function searchQuery() {
       var _this2 = this;
 
-      var query = value.trim();
+      var query = this.searchQuery;
 
       if (!query) {
         this.setSearchedDataAction([]);
@@ -226,7 +228,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       clearTimeout(this.searchTmt);
       this.searchTmt = setTimeout(function () {
-        return _this2.serverPagination ? _this2.searchOnServer(_this2.searchQuery) : _this2.search(_this2.searchQuery);
+        return _this2.serverPagination ? _this2.searchOnServer(query) : _this2.search(query);
       }, 300);
     }
   },
@@ -235,7 +237,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     this.setSearchQueryAction('');
   },
   mounted: function mounted() {
-    this.setFuseSearch(this.searchFields);
+    this.setFuseSearch();
     this.previousSortOrder = this.pagination.sort_order;
   },
   beforeDestroy: function beforeDestroy() {

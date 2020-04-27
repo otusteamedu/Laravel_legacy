@@ -92,11 +92,11 @@ class Image extends Model
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function likes()
     {
-        return $this->hasMany('App\Models\Like');
+        return $this->belongsToMany('App\Models\User', 'likes', 'image_id', 'user_id');
     }
 
     /**

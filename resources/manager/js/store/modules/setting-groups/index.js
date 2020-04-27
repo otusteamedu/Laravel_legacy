@@ -11,8 +11,8 @@ const state = {
 };
 
 const mutations = {
-    UPDATE_FIELD(state, payload) {
-        state.fields[payload.field] = payload.value;
+    UPDATE_FIELD(state, { field, value }) {
+        state.fields[field] = value;
     },
     UPDATE_ITEMS(state, payload) {
         state.items = payload;

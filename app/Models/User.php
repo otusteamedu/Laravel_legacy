@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use App\Notifications\MailEmailVerification;
+use App\Notifications\MailEmailConfirmation;
+use App\Notifications\MailNewEmailConfirmation;
 use App\Notifications\MailResetPassword;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Notifications\Notifiable;
@@ -16,13 +17,15 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     use LaratrustUserTrait;
     use Notifiable;
 
+    public const DEFAULT_ROLE  = 1;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'verified', 'publish'
+        'name', 'email', 'password', 'confirmed', 'publish'
     ];
 
     /**
@@ -42,6 +45,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
 //    protected $casts = [
 //        'email_verified_at' => 'datetime',
 //    ];
+
+    public function details()
+    {
+        return $this->hasOne(UserDetail::class);
+    }
 
     /**
      * @return mixed
@@ -84,17 +92,29 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
         $this->notify(new MailResetPassword($token));
     }
 
-    public function sendEmailVerificationNotification()
+    public function sendEmailConfirmationNotification()
     {
-        $this->notify(new MailEmailVerification);
+        $this->notify(new MailEmailConfirmation());
+    }
+
+    public function sendNewEmailConfirmationNotification()
+    {
+        $this->notify(new MailNewEmailConfirmation());
     }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function verifyUser()
+    public function emailConfirmation()
     {
-        return $this->hasOne(VerifyUser::class);
+        return $this->hasOne(EmailConfirmation::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function cart() {
+        return $this->hasOne('App\Models\Cart');
     }
 
     /**
@@ -105,10 +125,11 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function address() {
-        return $this->belongsTo('App\Models\Address');
+    public function likes()
+    {
+        return $this->belongsToMany('App\Models\Image', 'likes', 'user_id', 'image_id');
     }
 
     /**
@@ -122,9 +143,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
     /**
      * @return bool
      */
-    public function isVerified(): bool
+    public function isConfirmed(): bool
     {
-        return (bool) $this->verified;
+        return (bool) $this->confirmed;
     }
 
     /**
@@ -132,9 +153,9 @@ class User extends Authenticatable implements JWTSubject, MustVerifyEmail
      * @param string $token
      * @return mixed
      */
-    public function scopeGetUserVerify($query, string $token)
+    public function scopeGetEmailConfirmation($query, string $token)
     {
-        return $query->whereHas('verifyUser', function (Builder $query) use ($token) {
+        return $query->whereHas('emailConfirmation', function (Builder $query) use ($token) {
             $query->where('token', 'like', $token);
         });
     }

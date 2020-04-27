@@ -1,9 +1,9 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[31],{
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=script&lang=js&":
-/*!*************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=script&lang=js& ***!
-  \*************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -80,100 +80,89 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'SettingGroupEdit',
-  mixins: [_mixins_base__WEBPACK_IMPORTED_MODULE_2__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["updateMethod"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["deleteMethod"]],
-  props: {
-    id: {
-      type: [Number, String],
-      required: true
-    }
-  },
+  name: 'RoleCreate',
+  mixins: [_mixins_base__WEBPACK_IMPORTED_MODULE_2__["pageTitle"], _mixins_crudMethods__WEBPACK_IMPORTED_MODULE_3__["createMethod"]],
   data: function data() {
     return {
       responseData: false,
-      controlSaveVisibilities: false,
       redirectRoute: {
-        name: 'manager.settings.administration',
-        params: {
-          activeTab: 'Группы'
-        }
+        name: 'manager.roles'
       },
-      storeModule: 'settingGroups'
+      storeModule: 'roles',
+      selectedPermissions: []
     };
   },
   validations: {
-    title: {
+    name: {
       required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
       touch: false,
       minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(2),
       isUnique: function isUnique(value) {
-        return value.trim() === '' && !this.$v.title.$dirty ? true : !this.isUniqueTitleEdit;
-      }
-    },
-    alias: {
-      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
-      touch: false,
-      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(2),
-      isUnique: function isUnique(value) {
-        return value.trim() === '' && !this.$v.alias.$dirty || !this.isUniqueAliasEdit;
+        return value.trim() === '' && !this.$v.name.$dirty ? true : !this.isUniqueName;
       },
       testAlias: function testAlias(value) {
-        return value.trim() === '' || /^([a-z0-9]+[-]?)+[a-z0-9]$/.test(value);
+        return value.trim() === '' ? true : /^([a-z0-9]+[-]?)+[a-z0-9]$/.test(value);
+      }
+    },
+    displayName: {
+      required: vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["required"],
+      touch: false,
+      minLength: Object(vuelidate_lib_validators__WEBPACK_IMPORTED_MODULE_1__["minLength"])(2),
+      isUnique: function isUnique(value) {
+        return value.trim() === '' && !this.$v.displayName.$dirty ? true : !this.isUniqueDisplayName;
       }
     },
     description: {
       touch: false
+    },
+    permissions: {
+      touch: false
     }
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])('settingGroups', {
-    title: function title(state) {
-      return state.fields.title;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapState"])({
+    name: function name(state) {
+      return state.roles.fields.name;
     },
-    alias: function alias(state) {
-      return state.fields.alias;
+    displayName: function displayName(state) {
+      return state.roles.fields.display_name;
     },
     description: function description(state) {
-      return state.fields.description;
+      return state.roles.fields.description;
+    },
+    permissionList: function permissionList(state) {
+      return state.permissions.items;
     }
   }), {
-    isUniqueTitleEdit: function isUniqueTitleEdit() {
-      return !!this.$store.getters['settingGroups/isUniqueTitleEdit'](this.title, this.id);
+    isUniqueName: function isUniqueName() {
+      return !!this.$store.getters['roles/isUniqueName'](this.name);
     },
-    isUniqueAliasEdit: function isUniqueAliasEdit() {
-      return !!this.$store.getters['settingGroups/isUniqueAliasEdit'](this.alias, this.id);
+    isUniqueDisplayName: function isUniqueDisplayName() {
+      return !!this.$store.getters['roles/isUniqueDisplayName'](this.displayName);
     }
   }),
-  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])('settingGroups', {
-    getItemsAction: 'getItems',
-    getItemAction: 'getItem'
+  methods: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapActions"])({
+    getItemsAction: 'roles/getItems',
+    clearFieldsAction: 'roles/clearFields',
+    getPermissionsAction: 'permissions/getItems'
   }), {
-    onUpdate: function onUpdate() {
-      return this.update({
+    onCreate: function onCreate() {
+      return this.create({
         sendData: {
-          formData: {
-            title: this.title,
-            alias: this.alias,
-            description: this.description
-          },
-          id: this.id
+          name: this.name,
+          display_name: this.displayName,
+          description: this.description,
+          permissions: this.selectedPermissions
         },
-        title: this.title,
-        successText: 'Группа обновлена!',
-        storeModule: this.storeModule,
-        redirectRoute: this.redirectRoute
-      });
-    },
-    onDelete: function onDelete() {
-      return this["delete"]({
-        payload: this.id,
-        title: this.title,
-        alertText: "\u0433\u0440\u0443\u043F\u043F\u0443 \xAB".concat(this.title, "\xBB"),
-        successText: 'Группа удалена!',
+        title: this.displayName,
+        successText: 'Роль создана!',
         storeModule: this.storeModule,
         redirectRoute: this.redirectRoute
       });
@@ -183,15 +172,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     this.getItemsAction().then(function () {
-      return _this.getItemAction(_this.id);
+      return _this.getPermissionsAction();
     }).then(function () {
-      _this.setPageTitle("\u0413\u0440\u0443\u043F\u043F\u0430 \xAB".concat(_this.title, "\xBB"));
+      _this.setPageTitle('Новая Роль');
+
+      _this.clearFieldsAction();
 
       _this.responseData = true;
-    }).then(function () {
-      _this.$v.$reset();
-
-      _this.controlSaveVisibilities = true;
     })["catch"](function () {
       return _this.$router.push(_this.redirectRoute);
     });
@@ -200,10 +187,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=template&id=4e6302da&":
-/*!*****************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=template&id=4e6302da& ***!
-  \*****************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=template&id=2894cb34&":
+/*!********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=template&id=2894cb34& ***!
+  \********************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -231,46 +218,28 @@ var render = function() {
                     [
                       _c("router-button-link", {
                         attrs: {
-                          title: "В администрирование",
-                          route: _vm.redirectRoute.name,
-                          params: _vm.redirectRoute.params
+                          title: "К списку ролей",
+                          route: "manager.roles"
                         }
                       }),
                       _vm._v(" "),
                       _c(
-                        "div",
-                        [
-                          _c(
-                            "slide-y-down-transition",
+                        "slide-y-down-transition",
+                        {
+                          directives: [
                             {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value:
-                                    _vm.controlSaveVisibilities &&
-                                    _vm.$v.$anyDirty &&
-                                    !_vm.$v.$invalid,
-                                  expression:
-                                    "controlSaveVisibilities && $v.$anyDirty && !$v.$invalid"
-                                }
-                              ]
-                            },
-                            [
-                              _c("control-button", {
-                                attrs: { title: "Сохранить" },
-                                on: { click: _vm.onUpdate }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
+                              name: "show",
+                              rawName: "v-show",
+                              value: !_vm.$v.$invalid,
+                              expression: "!$v.$invalid"
+                            }
+                          ]
+                        },
+                        [
                           _c("control-button", {
-                            staticClass: "md-danger",
-                            attrs: { title: "Удалить", icon: "delete" },
                             on: {
                               click: function($event) {
-                                return _vm.onDelete()
+                                return _vm.onCreate("auto-close")
                               }
                             }
                           })
@@ -291,7 +260,9 @@ var render = function() {
         _c("div", { staticClass: "md-layout" }, [
           _c(
             "div",
-            { staticClass: "md-layout-item" },
+            {
+              staticClass: "md-layout-item md-medium-size-50 md-small-size-100"
+            },
             [
               _c(
                 "md-card",
@@ -303,12 +274,10 @@ var render = function() {
                     [
                       _c("v-input", {
                         attrs: {
-                          title: "Заголовок",
+                          title: "Имя",
                           icon: "title",
-                          name: "title",
-                          value: _vm.title,
-                          vField: _vm.$v.title,
-                          differ: true,
+                          name: "display_name",
+                          vField: _vm.$v.displayName,
                           module: _vm.storeModule,
                           vRules: {
                             required: true,
@@ -322,17 +291,14 @@ var render = function() {
                         attrs: {
                           title: "Алиас",
                           icon: "code",
-                          name: "alias",
-                          value: _vm.alias,
-                          differ: true,
-                          vDelay: true,
-                          vField: _vm.$v.alias,
+                          name: "name",
+                          vField: _vm.$v.name,
                           module: _vm.storeModule,
                           vRules: {
                             required: true,
                             unique: true,
-                            minLength: true,
-                            alias: true
+                            alias: true,
+                            minLength: true
                           }
                         }
                       }),
@@ -340,15 +306,60 @@ var render = function() {
                       _c("v-textarea", {
                         attrs: {
                           name: "description",
-                          value: _vm.description,
                           vField: _vm.$v.description,
-                          differ: true,
                           module: _vm.storeModule
                         }
                       }),
                       _vm._v(" "),
                       _c("div", { staticClass: "space-30" })
                     ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "md-layout-item md-medium-size-50 md-small-size-100"
+            },
+            [
+              _c(
+                "md-card",
+                [
+                  _c("card-icon-header", {
+                    attrs: { icon: "vpn_key", title: "Разрешения" }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "md-card-content",
+                    _vm._l(_vm.permissionList, function(permission) {
+                      return _c(
+                        "md-switch",
+                        {
+                          key: permission.id,
+                          attrs: { value: permission.id },
+                          model: {
+                            value: _vm.selectedPermissions,
+                            callback: function($$v) {
+                              _vm.selectedPermissions = $$v
+                            },
+                            expression: "selectedPermissions"
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                        " +
+                              _vm._s(permission.display_name) +
+                              "\n                    "
+                          )
+                        ]
+                      )
+                    }),
                     1
                   )
                 ],
@@ -632,17 +643,17 @@ var subCategoryImageAddMethod = {
 
 /***/ }),
 
-/***/ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue":
-/*!****************************************************************************!*\
-  !*** ./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue ***!
-  \****************************************************************************/
+/***/ "./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue":
+/*!*******************************************************************!*\
+  !*** ./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue ***!
+  \*******************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _SettingGroupEdit_vue_vue_type_template_id_4e6302da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./SettingGroupEdit.vue?vue&type=template&id=4e6302da& */ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=template&id=4e6302da&");
-/* harmony import */ var _SettingGroupEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./SettingGroupEdit.vue?vue&type=script&lang=js& */ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=script&lang=js&");
+/* harmony import */ var _RoleCreate_vue_vue_type_template_id_2894cb34___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RoleCreate.vue?vue&type=template&id=2894cb34& */ "./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=template&id=2894cb34&");
+/* harmony import */ var _RoleCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RoleCreate.vue?vue&type=script&lang=js& */ "./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -652,9 +663,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _SettingGroupEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _SettingGroupEdit_vue_vue_type_template_id_4e6302da___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _SettingGroupEdit_vue_vue_type_template_id_4e6302da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _RoleCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _RoleCreate_vue_vue_type_template_id_2894cb34___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _RoleCreate_vue_vue_type_template_id_2894cb34___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -664,38 +675,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue"
+component.options.__file = "resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************!*\
-  !*** ./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************/
+/***/ "./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=script&lang=js&":
+/*!********************************************************************************************!*\
+  !*** ./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingGroupEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SettingGroupEdit.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingGroupEdit_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./RoleCreate.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCreate_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=template&id=4e6302da&":
-/*!***********************************************************************************************************!*\
-  !*** ./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=template&id=4e6302da& ***!
-  \***********************************************************************************************************/
+/***/ "./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=template&id=2894cb34&":
+/*!**************************************************************************************************!*\
+  !*** ./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=template&id=2894cb34& ***!
+  \**************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingGroupEdit_vue_vue_type_template_id_4e6302da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./SettingGroupEdit.vue?vue&type=template&id=4e6302da& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Settings/SettingGroupEdit.vue?vue&type=template&id=4e6302da&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingGroupEdit_vue_vue_type_template_id_4e6302da___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCreate_vue_vue_type_template_id_2894cb34___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./RoleCreate.vue?vue&type=template&id=2894cb34& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/manager/js/pages/Dashboard/Roles/RoleCreate.vue?vue&type=template&id=2894cb34&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCreate_vue_vue_type_template_id_2894cb34___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_SettingGroupEdit_vue_vue_type_template_id_4e6302da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RoleCreate_vue_vue_type_template_id_2894cb34___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

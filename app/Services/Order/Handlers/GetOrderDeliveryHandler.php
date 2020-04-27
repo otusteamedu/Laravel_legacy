@@ -73,7 +73,7 @@ class GetOrderDeliveryHandler
     {
         return [
             'title' => $title,
-            'region' => config('delivery.pickup_default_region'),
+            'locality' => config('delivery.pickup_default_locality'),
             'address' => ucfirst($requestDelivery['pickup']),
             'price' => 0
         ];
@@ -88,7 +88,7 @@ class GetOrderDeliveryHandler
     {
         return [
             'title' => $title,
-            'region' => $this->getLocalityString($requestDelivery['locality']),
+            'locality' => $this->getLocalityString($requestDelivery['locality']),
             'address' => ucfirst($requestDelivery['pvz']['address']),
             'price' => $this->getPrice($requestDelivery['pvz']['postal_code']) ?? $requestDelivery['price']
         ];
@@ -103,7 +103,7 @@ class GetOrderDeliveryHandler
     {
         return [
             'title' => $title,
-            'region' => $this->getLocalityString($requestDelivery['locality']),
+            'locality' => $this->getLocalityString($requestDelivery['locality']),
             'address' => ucfirst($requestDelivery['street']) . ', ' . $requestDelivery['apartments'],
             'price' => $this->getPrice($requestDelivery['locality']['postCodeArray']) ?? $requestDelivery['price']
         ];

@@ -14,15 +14,15 @@ class CreateImagesTable extends Migration
     public function up()
     {
         Schema::create('images', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('path', 100);
             $table->string('extension', 4);
             $table->string('mime', 11);
             $table->smallInteger('width')->unsigned();
             $table->smallInteger('height')->unsigned();
-            $table->integer('format_id')->unsigned()->nullable();
-            $table->integer('owner_id')->unsigned()->nullable();
-            $table->integer('views')->unsigned()->default(0);
+            $table->unsignedInteger('format_id')->nullable();
+            $table->unsignedInteger('owner_id')->nullable();
+            $table->unsignedInteger('views')->default(0);
             $table->tinyInteger('publish')->unsigned()->default(1 );
             $table->text('description')->nullable();
             $table->timestamps();

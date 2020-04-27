@@ -14,7 +14,7 @@ class CreateUserSocialsTable extends Migration
     public function up()
     {
         Schema::create('user_socials', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('social_id')->nullable();
             $table->string('service');

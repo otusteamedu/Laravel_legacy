@@ -9,6 +9,7 @@ use App\Services\Base\Resource\Repositories\CmsBaseResourceRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 abstract class CmsBaseResourceService
 {
@@ -34,7 +35,7 @@ abstract class CmsBaseResourceService
     }
 
     /**
-     * @return LengthAwarePaginator|Paginator|Collection
+     * @return LengthAwarePaginator|Paginator|Collection|ResourceCollection
      */
     public function index()
     {

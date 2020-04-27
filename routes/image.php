@@ -17,7 +17,7 @@ Route::group(['prefix' => 'image'], function() {
             'path' => '[\w\.]+',
         ]);
 
-    Route::get('order-image/{width}/{height}/{x}/{y}/{flip}/{colorize}/{path}','ImageResize\ImageResizeController@getOrderImage')
+    Route::get('order-item-full/{width}/{height}/{x}/{y}/{flip}/{colorize}/{path}','ImageResize\ImageResizeController@getOrderImage')
         ->where([
             'width' => '\d+',
             'height' => '\d+',
@@ -27,7 +27,7 @@ Route::group(['prefix' => 'image'], function() {
             'path' => '[\w\.]+'
         ]);
 
-    Route::get('order-image-thumb/{width}/{height}/{x}/{y}/{flip}/{colorize}/{path}','ImageResize\ImageResizeController@getOrderImageThumb')
+    Route::get('order-item-thumb/{width}/{height}/{x}/{y}/{flip}/{colorize}/{path}','ImageResize\ImageResizeController@getOrderImageThumb')
         ->where([
             'width' => '\d+',
             'height' => '\d+',

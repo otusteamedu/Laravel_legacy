@@ -26,7 +26,7 @@
                                 </md-table-cell>
 
                                 <md-table-cell md-label="Стоимость">
-                                    {{ item.cost || 'Бесплатно' }}
+                                    {{ item.price || 'Бесплатно' }}
                                 </md-table-cell>
 
                                 <md-table-cell md-label="Описание">

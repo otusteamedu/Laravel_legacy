@@ -29,7 +29,7 @@ class UserValidator
     public function validateRequest(Request $request) {
         $this->isAuth($request);
         $this->isActive();
-        $this->isVerified();
+        $this->isConfirmed();
 
         return $this->isValid();
     }
@@ -61,15 +61,15 @@ class UserValidator
             : $this->handleFailActiveResponse();
     }
 
-    private function isVerified()
+    private function isConfirmed()
     {
         if (! $this->isValid) {
             return;
         }
 
-        $this->user->verified
+        $this->user->confirmed
             ? $this->handleSuccess()
-            : $this->handleFailVerifiedResponse();
+            : $this->handleFailConfirmedResponse();
     }
 
     private function handleFailAuthResponse()
@@ -92,9 +92,9 @@ class UserValidator
         $this->isValid = false;
     }
 
-    private function handleFailVerifiedResponse()
+    private function handleFailConfirmedResponse()
     {
-        $this->user->sendEmailVerificationNotification();
+        $this->user->sendEmailConfirmationNotification();
 
         $this->statusResponse = response()->json([
             'message' => __('auth.send_activation_code', ['email' => $this->user->email]),

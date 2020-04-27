@@ -9,7 +9,7 @@
                             <slide-y-down-transition v-show="controlSaveVisibilities && $v.$anyDirty && !$v.$invalid">
                                 <control-button title="Сохранить" @click="onUpdate" />
                             </slide-y-down-transition>
-                            <control-button title="Удалить" @click="onDelete()" icon="delete" class="md-danger" />
+                            <control-button title="Удалить" @click="onDelete" icon="delete" class="md-danger" />
                         </div>
                     </md-card-content>
                 </md-card>
@@ -42,10 +42,10 @@
 
                         <v-input title="Стоимость"
                                  icon="attach_money"
-                                 name="cost"
-                                 :value="cost"
+                                 name="price"
+                                 :value="price"
                                  :vDelay="true"
-                                 :vField="$v.cost"
+                                 :vField="$v.price"
                                  :differ="true"
                                  :maxlength="5"
                                  :module="storeModule"
@@ -134,7 +134,7 @@
                     return value.trim() === '' || (/^([a-z0-9]+[-]?)+[a-z0-9]$/).test(value);
                 }
             },
-            cost: {
+            price: {
                 numeric,
                 touch: false
             },
@@ -153,7 +153,7 @@
             ...mapState('deliveries', {
                 title: state => state.fields.title,
                 alias: state => state.fields.alias,
-                cost: state => state.fields.cost,
+                price: state => state.fields.price,
                 order: state => state.fields.order,
                 publish: state => state.fields.publish,
                 description: state => state.fields.description
@@ -176,7 +176,7 @@
                         formData: {
                             title: this.title,
                             alias: this.alias,
-                            cost: +this.cost,
+                            price: +this.price,
                             order: +this.order,
                             publish: +this.publish,
                             description: this.description

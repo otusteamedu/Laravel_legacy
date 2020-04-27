@@ -14,7 +14,7 @@ trait LoginJsonResponseUserStatusStrategy
         ], 403);
     }
 
-    public function getNotVerified($email)
+    public function getNotConfirmed($email)
     {
         return response()->json([
             'message' => trans('auth.send_activation_code', ['email' => $email]),

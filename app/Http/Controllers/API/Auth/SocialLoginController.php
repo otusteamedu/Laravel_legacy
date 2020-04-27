@@ -4,10 +4,10 @@ namespace App\Http\Controllers\API\Auth;
 
 use App\Http\Controllers\API\Auth\ResponseUserStatus\SocialLoginResponseUserStatusStrategy;
 use App\Http\Controllers\API\Auth\Base\BaseLoginController;
-use App\Http\Controllers\API\Cms\User\Requests\UserSocialRequest;
+use App\Http\Controllers\API\Client\User\Requests\SocialRequest;
 use App\Models\User;
 use App\Services\Auth\AuthService;
-use App\Services\User\UserService;
+use App\Services\User\ClientUserService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Str;
 use Laravel\Socialite\Facades\Socialite;
@@ -21,12 +21,12 @@ class SocialLoginController extends BaseLoginController
      * SocialLoginController constructor.
      * @param JWTAuth $auth
      * @param AuthService $authService
-     * @param UserService $userService
+     * @param ClientUserService $userService
      */
     public function __construct(
         JWTAuth $auth,
         AuthService $authService,
-        UserService $userService
+        ClientUserService $userService
     )
     {
         parent::__construct($auth, $authService, $userService);
@@ -44,17 +44,17 @@ class SocialLoginController extends BaseLoginController
 
     /**
      * @param $service
-     * @param UserSocialRequest $request
+     * @param SocialRequest $request
      * @return JsonResponse
      */
-    public function registered($service, UserSocialRequest $request): JsonResponse
+    public function registered($service, SocialRequest $request): JsonResponse
     {
         /** @var User $user */
         $user = $this->userService->storeWithSocial($request->all(), $service);
 
-        $this->authService->createEmailVerification($user);
+        $this->authService->createEmailConfirmation($user, $user->email);
 
-        return response()->json($this->authService->getMessageByRegistration($user->email), 200);
+        return response()->json($this->authService->getMessageByEmailConfirmation($user->email), 200);
     }
 
     /**

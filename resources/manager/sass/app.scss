@@ -12,6 +12,11 @@
     width: 50px !important;
 }
 
+.tm-width-1-2 {
+    max-width: 50% !important;
+    width: 50% !important;
+}
+
 .space{
     height: 130px;
     display: block;
@@ -88,6 +93,14 @@
 
 .mb-3 {
     margin-bottom: 1.8em !important;
+}
+
+.mb-4 {
+    margin-bottom: 2.4em !important;
+}
+
+.mb-5 {
+    margin-bottom: 3em !important;
 }
 
 // Paddings

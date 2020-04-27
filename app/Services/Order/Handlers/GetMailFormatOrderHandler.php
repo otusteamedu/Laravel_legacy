@@ -5,37 +5,83 @@ namespace App\Services\Order\Handlers;
 
 
 use App\Models\Order;
-use App\Services\Order\Repositories\ClientOrderRepository;
-use Illuminate\Support\Arr;
 
 class GetMailFormatOrderHandler
 {
-    private string $baseUrl;
-
-    private ClientOrderRepository $repository;
-
     /**
-     * CreateOrderHandler constructor.
-     * @param ClientOrderRepository $repository
+     * @param Order $order
+     * @return array
      */
-    public function __construct(ClientOrderRepository $repository)
+    public function handle(Order $order): array
     {
-        $this->repository = $repository;
-        $this->baseUrl = config('uploads.resizeImagePath');
+        $items = json_decode($order->items, true);
+        $delivery = json_decode($order->delivery, true);
+        $customer = json_decode($order->customer, true);
+        $goodQty = $this->getGoodsQtyString($items);
+
+        return [
+            'number' => $order->number,
+            'date' => $order->created_at->format('d.m.Y'),
+            'status' => $order->statuses->last()->title,
+            'items' => $this->getPreparedItems($items),
+            'delivery' => $delivery,
+            'customer' => $customer,
+            'goodsQty' => $goodQty,
+            'price' => $order->price,
+            'comment' => $order->comment
+        ];
     }
 
     /**
-     * @param array $requestData
-     * @return mixed
+     * @param array $items
+     * @return string
      */
-    public function handle(array $requestData)
+    private function getGoodsQtyString(array $items): string
     {
-        $number = getOrderNumber();
-        $defaultStatus = Order::DEFAULT_STATUS_ID;
+        return $this->getGoodsQty($items) . ' ' . wordsDeclension($this->getGoodsQty($items), [
+            'ТОВАР',
+            'ТОВАРА',
+            'ТОВАРОВ'
+        ]);
+    }
 
-        return $this->repository->store(Arr::collapse([$requestData, [
-            'number' => $number,
-            'status_id' => $defaultStatus
-        ]]));
+    /**
+     * @param array $items
+     * @return int
+     */
+    private function getGoodsQty(array $items): int
+    {
+        return array_reduce($items, function($carry, $item) {
+            $carry += $item['qty'];
+            return $carry;
+        }, 0);
+    }
+
+    /**
+     * @param array $items
+     * @return array
+     */
+    private function getPreparedItems(array $items): array
+    {
+        return array_map(function($item) {
+            return $this->getPreparedItem($item);
+        }, $items);
+    }
+
+    /**
+     * @param array $item
+     * @return array
+     */
+    private function getPreparedItem(array $item): array
+    {
+        return [
+            'thumbPath' => env('APP_URL', 'manager.calipari.ru') . $item['thumbPath'],
+            'article' => getImageArticle($item['imageId']),
+            'dimensions' => $item['width'] . ' см × ' . $item['height'] . ' см',
+            'texture' => $item['texture']['name'],
+            'filter' => $item['filterString'],
+            'qty' => $item['qty'],
+            'price' => $item['price'] * $item['qty']
+        ];
     }
 }

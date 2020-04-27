@@ -61,15 +61,15 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \App\Events\Models\Order\OrderSaved::class => [
-            \App\Listeners\Cache\Order\OrderClearByTag::class,
+            \App\Listeners\Mail\Order\SendCreated::class,
         ],
 
         \App\Events\Models\Order\OrderUpdated::class => [
-            \App\Listeners\Cache\Order\OrderClearByTag::class,
+            \App\Listeners\Mail\Order\SendCreated::class,
         ],
 
         \App\Events\Models\Order\OrderDeleted::class => [
-            \App\Listeners\Cache\Order\OrderClearByTag::class,
+            \App\Listeners\Mail\Order\SendCreated::class,
         ],
     ];
 

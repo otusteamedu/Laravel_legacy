@@ -14,7 +14,7 @@ class AuthController extends BaseAuthController
      * @param Request $request
      * @return JsonResponse
      */
-    public function index(Request $request): JsonResponse
+    public function me(Request $request): JsonResponse
     {
         return response()->json($this->authService->index($request));
     }
@@ -28,8 +28,18 @@ class AuthController extends BaseAuthController
      * @param string $token
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function verifyUser(string $token)
+    public function emailConfirm(string $token)
     {
-        return $this->authService->verifyUser($token);
+        return $this->authService->emailConfirm( $token);
+    }
+
+    /**
+     * Refresh a token.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        return auth()->refresh();
     }
 }

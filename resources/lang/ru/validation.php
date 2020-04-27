@@ -137,6 +137,7 @@ return [
         'sample' => '«Образец»',
         'background' => '«Фон»',
         'alias' => '«Алиас»',
+        'title' => '«Заголовок»',
         'display_name' => '«Имя»',
         'description' => '«Описание»',
         'content' => '«Контент»',

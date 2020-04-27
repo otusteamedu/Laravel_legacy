@@ -35,9 +35,9 @@
 
                         <v-input title="Стоимость"
                                  icon="attach_money"
-                                 name="cost"
+                                 name="price"
                                  :vDelay="true"
-                                 :vField="$v.cost"
+                                 :vField="$v.price"
                                  :maxlength="5"
                                  :module="storeModule"
                                  :vRules="{ numeric: true }" />
@@ -113,7 +113,7 @@
                     return ((value.trim() === '') && !this.$v.alias.$dirty) || !this.isUniqueAlias
                 },
             },
-            cost: {
+            price: {
                 numeric,
                 touch: false
             },
@@ -129,7 +129,7 @@
             ...mapState('deliveries', {
                 title: state => state.fields.title,
                 alias: state => state.fields.alias,
-                cost: state => state.fields.cost,
+                price: state => state.fields.price,
                 order: state => state.fields.order,
                 publish: state => state.fields.publish,
                 description: state => state.fields.description
@@ -151,7 +151,7 @@
                     sendData: {
                         title: this.title,
                         alias: this.alias,
-                        cost: +this.cost,
+                        price: +this.price,
                         order: +this.order,
                         publish: +this.publish,
                         description: this.description

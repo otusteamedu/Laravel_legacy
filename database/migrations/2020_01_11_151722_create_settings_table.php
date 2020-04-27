@@ -14,12 +14,12 @@ class CreateSettingsTable extends Migration
     public function up()
     {
         Schema::create('settings', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('display_name');
             $table->string('key_name')->index();
             $table->text('value')->nullable();
             $table->string('type');
-            $table->integer('group_id')->unsigned()->nullable();
+            $table->unsignedInteger('group_id')->nullable();
             $table->timestamps();
         });
     }

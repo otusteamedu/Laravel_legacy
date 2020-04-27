@@ -25,7 +25,8 @@
         "santigarcor/laratrust": "5.2.*",
         "socialiteproviders/vkontakte": "^4.0",
         "socialiteproviders/yandex": "^3.0",
-        "tymon/jwt-auth": "^1.0"
+        "tymon/jwt-auth": "^1.0",
+        "creativeorange/gravatar": "~1.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

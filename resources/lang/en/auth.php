@@ -25,6 +25,7 @@ return [
     'password_reset_sent' => 'Password reset email sent.',
     'email_not_sent' => 'Email could not be sent to this email address.',
     'email_already_verified' => 'Your email is already verified. You can now login.',
+    'email_matches_current' => 'Email matches current.',
     'email_verified' => 'Your email is verified. You can now login.',
     'email_cannot_identified' => 'Sorry your email cannot be identified',
     'unable_using_service' => 'Unable to login using service :service. Please try again',

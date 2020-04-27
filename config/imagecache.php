@@ -66,6 +66,7 @@ return array(
     |
     */
 
-    'lifetime' => 43200,
+//    'lifetime' => 43200,
+    'lifetime' => 3600 * 120,
 
 );

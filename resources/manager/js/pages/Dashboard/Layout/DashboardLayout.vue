@@ -20,6 +20,8 @@
                 <sidebar-item :link="{name: 'Изображения', icon: 'image', path: '/manager/images'}" />
                 <sidebar-item :link="{name: 'Магазин', icon: 'local_mall', path: '/manager/store'}">
                     <sidebar-item :link="{name: 'Доставка', icon: 'local_mall', path: '/manager/store/deliveries'}" />
+                    <sidebar-item :link="{name: 'Статусы заказа', icon: 'update', path: '/manager/store/order-statuses'}" />
+                    <sidebar-item :link="{name: 'Заказы', icon: 'shopping_cart', path: '/manager/store/orders'}" />
                 </sidebar-item>
                 <sidebar-item :link="{name: 'Каталог', icon: 'category'}">
                     <sidebar-item :link="{name: 'Темы', path: '/manager/catalog/categories/topics'}" />

@@ -660,27 +660,33 @@ return [
     'order_statuses' => [
         [
             'title' => 'В обработке',
-            'alias' => 'processing'
+            'alias' => 'processing',
+            'order' => 1
         ],
         [
             'title' => 'Подтвержден',
-            'alias' => 'confirmed'
+            'alias' => 'confirmed',
+            'order' => 2
         ],
         [
             'title' => 'Отменен',
-            'alias' => 'cancelled'
+            'alias' => 'canceled',
+            'order' => 3
         ],
         [
             'title' => 'Оплачен',
-            'alias' => 'paid'
+            'alias' => 'paid',
+            'order' => 4
         ],
         [
             'title' => 'Отправлен',
-            'alias' => 'shipped'
+            'alias' => 'shipped',
+            'order' => 5
         ],
         [
-            'title' => 'Завершен',
-            'alias' => 'completed'
+            'title' => 'Выполнен',
+            'alias' => 'completed',
+            'order' => 6
         ]
     ]
 ];

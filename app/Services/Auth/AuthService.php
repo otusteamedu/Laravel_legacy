@@ -19,7 +19,7 @@ class AuthService extends BaseAuthService
     {
         $user = $request->user();
 
-        if ($user && $user->isActive() && $user->isVerified()) {
+        if ($user && $user->isActive() && $user->isConfirmed()) {
             return [
                 'data' => new UserResource($request->user())
             ];
@@ -36,9 +36,9 @@ class AuthService extends BaseAuthService
      * @param string $token
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function verifyUser(string $token)
+    public function emailConfirm(string $token)
     {
-        $user = $this->repository->getUserVerify($token);
+        $user = $this->repository->getEmailConfirmation($token);
 
         if (!$user)
             return redirect(env('CLIENT_BASE_URL')
@@ -46,7 +46,7 @@ class AuthService extends BaseAuthService
                 . '?message=' . __('auth.invalid_token')
                 . '&status=danger');
 
-        $message = $this->repository->verifyUser($user)
+        $message = $this->repository->emailConfirm($user)
             ? __('auth.email_verified')
             : __('auth.email_already_verified');
 
@@ -57,19 +57,30 @@ class AuthService extends BaseAuthService
     }
 
     /**
-     * @param User $user
+     * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
+     * @param string $email
      */
-    public function createEmailVerification(User $user)
+    public function createEmailConfirmation($user, string $email)
     {
-        $this->repository->setVerifyToken($user);
-        $user->sendEmailVerificationNotification();
+        $this->repository->setConfirmToken($user, $email);
+        $user->sendEmailConfirmationNotification();
+    }
+
+    /**
+     * @param \Illuminate\Contracts\Auth\Authenticatable|User $user
+     * @param string $email
+     */
+    public function createNewEmailConfirmation($user, string $email)
+    {
+        $this->repository->setConfirmToken($user, $email);
+        $user->sendNewEmailConfirmationNotification();
     }
 
     /**
      * @param string $email
      * @return array
      */
-    public function getMessageByRegistration(string $email): array
+    public function getMessageByEmailConfirmation(string $email): array
     {
         return [
             'message' => __('auth.send_activation_code', ['email' => $email]),

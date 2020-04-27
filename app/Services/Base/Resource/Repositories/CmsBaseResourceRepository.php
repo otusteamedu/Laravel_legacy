@@ -7,6 +7,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
 abstract class CmsBaseResourceRepository
 {
@@ -16,7 +17,7 @@ abstract class CmsBaseResourceRepository
     protected $model;
 
     /**
-     * @return LengthAwarePaginator|Paginator|Collection
+     * @return LengthAwarePaginator|Paginator|Collection|ResourceCollection
      */
     public function index() {
         return $this->model::all();

@@ -168,7 +168,7 @@
                 })
             },
             setFuseSearch () {
-                if (! this.serverPagination) {
+                if (!this.serverPagination) {
                     this.initFuseSearch(this.searchFields);
                 }
             },
@@ -184,13 +184,13 @@
             searchOnServer (query) {
                 this.$emit('search', query);
 
-                if (! query) {
+                if (!query) {
                     this.setSearchedDataAction([])
                 }
             },
             search (query) {
                 query
-                    ? this.setSearchedDataAction(this.fuseSearch.search(query))
+                    ? this.setSearchedDataAction(this.fuseSearch.search(query).map(fuse => fuse.item))
                     : this.setSearchedDataAction([]);
             },
             handleSearch (query) {
@@ -201,19 +201,19 @@
         },
         watch: {
             items () {
-                this.setFuseSearch(this.searchFields);
+                this.setFuseSearch();
             },
-            searchQuery (value) {
-                const query = value.trim();
+            searchQuery () {
+                const query = this.searchQuery;
 
-                if (! query) {
+                if (!query) {
                     this.setSearchedDataAction([])
                 }
 
                 clearTimeout(this.searchTmt);
                 this.searchTmt = setTimeout(() => this.serverPagination
-                        ? this.searchOnServer(this.searchQuery)
-                        : this.search(this.searchQuery), 300);
+                        ? this.searchOnServer(query)
+                        : this.search(query), 300);
             }
         },
         created() {
@@ -221,7 +221,7 @@
             this.setSearchQueryAction('');
         },
         mounted () {
-            this.setFuseSearch(this.searchFields);
+            this.setFuseSearch();
             this.previousSortOrder = this.pagination.sort_order;
         },
         beforeDestroy() {

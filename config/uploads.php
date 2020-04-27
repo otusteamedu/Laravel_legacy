@@ -21,7 +21,6 @@ return [
         ],
     ],
     'serviceImagesPath' => 'uploads/service-images',
-    'resizeImagePath' => env('APP_URL', 'manager.calipari.ru') . '/images',
     'image_sizes' => [
         ['width' => 1920, 'height' => 1080],
         ['width' => 1920, 'height' => 1080],

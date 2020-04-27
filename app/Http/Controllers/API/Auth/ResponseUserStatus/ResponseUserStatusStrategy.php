@@ -19,10 +19,10 @@ trait ResponseUserStatusStrategy
         if (!$user->isActive()) {
             return $this->getLockedOut();
 
-        } else if (!$user->isVerified()) {
-            $this->authService->createEmailVerification($user);
+        } else if (!$user->isConfirmed()) {
+            $this->authService->createEmailConfirmation($user, $user->email);
 
-            return $this->getNotVerified($user->email);
+            return $this->getNotConfirmed($user->email);
         }
 
         return $this->getAllRights($user->name, $token);
@@ -42,7 +42,7 @@ trait ResponseUserStatusStrategy
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\JsonResponse
      */
-    abstract public function getNotVerified($email);
+    abstract public function getNotConfirmed($email);
 
     /**
      * Notifies that the user is auth.
