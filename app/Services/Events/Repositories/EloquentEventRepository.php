@@ -33,20 +33,12 @@ class EloquentEventRepository implements EventRepositoryInterface
     public function search(array $filters = []): LengthAwarePaginator
     {
         $pageSize = 10; // @ToDo: подумать, куда вынести магическое число
-        $eventPaginateCacheKey = 'eventPaginate_' . md5(serialize($filters)) . $pageSize;
 
-        $eventPaginator = \Cache::tags([Event::class])->remember(
-            $eventPaginateCacheKey,
-            Carbon::now()->addSeconds(\Config::get('cache.cache_time.event_list')),
-            function () use ($filters, $pageSize) {
-                $event = Event::query();
-                $this->applyFilters($event, $filters);
+        $event = Event::query();
+        $this->applyFilters($event, $filters);
 
-                return $event->with('getType', 'pictures', 'getCountry', 'getAuthor')->paginate($pageSize);
-            }
-        );
-
-        return $eventPaginator;
+        // @ToDo: вынести набор полей выше. Репозиторий не должен содержать эту логику.
+        return $event->with('getType', 'pictures', 'getCountry', 'getAuthor')->paginate($pageSize);
     }
 
     public function createFromArray(array $data): Event

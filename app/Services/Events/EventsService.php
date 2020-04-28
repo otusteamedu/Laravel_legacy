@@ -7,6 +7,7 @@ use App\Models\Event;
 use App\Services\Events\Handlers\CreateEventHandler;
 use App\Services\Events\Handlers\UpdateEventHandler;
 use App\Services\Events\Handlers\DeleteEventHandler;
+use App\Services\Events\Repositories\CacheEventRepositoryInterface;
 use App\Services\Events\Repositories\EventRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -16,18 +17,21 @@ class EventsService
     private $updateEventHandler;
     private $deleteEventHandler;
     private $eventRepository;
+    private $cacheEventRepository;
 
     public function __construct(
         CreateEventHandler $createEventHandler,
         UpdateEventHandler $updateEventHandler,
         DeleteEventHandler $deleteEventHandler,
-        EventRepositoryInterface $eventRepository
+        EventRepositoryInterface $eventRepository,
+        CacheEventRepositoryInterface $cacheEventRepository
     )
     {
         $this->createEventHandler = $createEventHandler;
         $this->updateEventHandler = $updateEventHandler;
         $this->deleteEventHandler = $deleteEventHandler;
         $this->eventRepository = $eventRepository;
+        $this->cacheEventRepository = $cacheEventRepository;
     }
 
     /**
@@ -36,7 +40,7 @@ class EventsService
      */
     public function findEvent(int $id)
     {
-        return $this->eventRepository->find($id);
+        return $this->cacheEventRepository->find($id);
     }
 
     /**
@@ -45,7 +49,7 @@ class EventsService
      */
     public function searchEvents(array $filters): LengthAwarePaginator
     {
-        return $this->eventRepository->search($filters);
+        return $this->cacheEventRepository->search($filters);
     }
 
     /**

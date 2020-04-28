@@ -22,20 +22,10 @@ class EloquentLanguageRepository implements LanguageRepositoryInterface
 
     public function search(array $filters = []): LengthAwarePaginator
     {
-        $languagePaginateCacheKey = 'languagePaginate_' . serialize($filters);
-        $languagePaginator = \Cache::driver('redis')->tags([Language::class])->remember(
-            $languagePaginateCacheKey,
-            Carbon::now()->addSeconds(\Config::get('cache.cache_time.language_list')),
-            function () use ($filters) {
-                $language = Language::query();
-                $this->applyFilters($language, $filters);
+        $language = Language::query();
+        $this->applyFilters($language, $filters);
 
-                return $language->paginate();
-            }
-        );
-
-        return $languagePaginator;
-
+        return $language->paginate();
     }
 
     public function createFromArray(array $data): Language
