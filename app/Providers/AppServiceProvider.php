@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Services\Articles\Repositories\EloquentArticleRepository;
 use App\Services\Articles\Repositories\ArticleRepositoryInterface;
+use App\Services\Events\Repositories\CacheEventRepository;
+use App\Services\Events\Repositories\CacheEventRepositoryInterface;
+use App\Services\Languages\Repositories\CacheLanguageRepository;
+use App\Services\Languages\Repositories\CacheLanguageRepositoryInterface;
 use App\Services\Events\Repositories\EloquentEventRepository;
 use App\Services\Events\Repositories\EventRepositoryInterface;
 use App\Services\News\Repositories\EloquentNewsRepository;
@@ -73,6 +77,16 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             PictureRepositoryInterface::class,
             EloquentPictureRepository::class
+        );
+
+        $this->app->bind(
+            CacheEventRepositoryInterface::class,
+            CacheEventRepository::class
+        );
+
+        $this->app->bind(
+            CacheLanguageRepositoryInterface::class,
+            CacheLanguageRepository::class
         );
 
         /*
