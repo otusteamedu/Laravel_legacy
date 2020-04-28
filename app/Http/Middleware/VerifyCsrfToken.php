@@ -19,6 +19,9 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'admin/*',//пришлось отключить, т.к. 419 ошибку выдает
+//        'admin/*',//пришлось отключить, т.к. 419 ошибку выдает
+//        'login',
+//        'logout',
+//        'register'
     ];
 }

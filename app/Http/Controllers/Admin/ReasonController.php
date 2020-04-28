@@ -31,6 +31,7 @@ class ReasonController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Transaction::class);
         return view('reason.create', [
             'reasons' => [],
         ]);
@@ -44,6 +45,7 @@ class ReasonController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', Transaction::class);
         $reason = Reason::create($request->all());
         return redirect()->route('admin.reason.index');
     }
@@ -81,6 +83,7 @@ class ReasonController extends Controller
      */
     public function edit(Reason $reason)
     {
+        $this->authorize('update', Transaction::class);
         return view('reason.edit', [
             'reason' => $reason
         ]);
@@ -95,6 +98,7 @@ class ReasonController extends Controller
      */
     public function update(Request $request, Reason $reason)
     {
+        $this->authorize('update', Transaction::class);
         $reason->update($request->all());
         return redirect()->route('admin.reason.index');
 
@@ -108,6 +112,7 @@ class ReasonController extends Controller
      */
     public function destroy(Reason $reason)
     {
+        $this->authorize('delete', Transaction::class);
         $reason->delete();
         return redirect()->route('admin.reason.index');
     }
