@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Users;
 
+use App\Http\Handlers\Users\CreateUsersHandler;
 use App\Http\Handlers\Users\DeleteUsersHandler;
 use App\Http\Handlers\Users\UpdateUsersHandler;
 use App\Http\Repositories\Roles\RolesRepository;
@@ -15,17 +16,21 @@ class UsersService{
 
     protected $usersRepository;
     protected $rolesRepository;
+
+    protected $createUsersHandler;
     protected $updateUsersHandler;
     protected $deleteUsersHandler;
     protected $cacheUsersRepository;
 
     public function __construct(
+        CreateUsersHandler $createUsersHandler,
         DeleteUsersHandler $deleteUsersHandler,
         UpdateUsersHandler $updateUsersHandler,
         UsersRepository $usersRepository,
         RolesRepository $rolesRepository,
         CacheUsersRepository $cacheUsersRepository
     ){
+        $this->createUsersHandler = $createUsersHandler;
         $this->updateUsersHandler = $updateUsersHandler;
         $this->usersRepository = $usersRepository;
         $this->rolesRepository = $rolesRepository;
@@ -52,6 +57,16 @@ class UsersService{
     public function getRoleFromUser(){
         $result = $this->rolesRepository->getRoleFromUser();
         
+        return $result;
+    }
+
+    public function searchParamUsers(string $field, string $value){
+        $result = $this->usersRepository->searchParamUsers($field, $value);
+        return $result;
+    }
+
+    public function createUser(array $data){
+        $result = $this->createUsersHandler->handle($data);
         return $result;
     }
 

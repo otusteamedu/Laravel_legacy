@@ -33,5 +33,9 @@ class UsersRepository extends CoreRepository
         return $result;
     }
 
+    public function searchParamUsers(string $field, string $value){
+        $result = $this->getModelClass()::where($field, $value)->get();
 
+        return $result;
+    }
 }
