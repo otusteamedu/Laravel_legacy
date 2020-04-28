@@ -18,6 +18,7 @@ class TransactionController extends Controller
      */
     public function index()
     {
+        $this->authorize('before', Transaction::class);
         return view('transaction.index', [
             'transactions' => Transaction::orderBy('id', 'desc')->paginate(10)
         ]);
@@ -30,6 +31,7 @@ class TransactionController extends Controller
      */
     public function create()
     {
+        $this->authorize('before', Transaction::class);
         return view('transaction.create', [
             'students' => Student::all(),
             'users' => User::all(),
@@ -45,6 +47,7 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('before', Transaction::class);
         Transaction::create($request->all());
         return redirect()->route('admin.transaction.index');
     }
@@ -57,6 +60,7 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
+        $this->authorize('before', Transaction::class);
         return view('transaction.show', [
             'transaction' => $transaction,
         ]);
@@ -70,6 +74,7 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
+        $this->authorize('before', Transaction::class);
         return view('transaction.edit', [
             'transaction' => $transaction,
             'students' => Student::all(),
@@ -87,6 +92,7 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
+        $this->authorize('before', Transaction::class);
         $transaction->update($request->all());
         return redirect()->route('admin.transaction.index');
 
@@ -100,6 +106,7 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
+        $this->authorize('before', Transaction::class);
         $transaction->delete();
         return redirect()->route('admin.transaction.index');
 

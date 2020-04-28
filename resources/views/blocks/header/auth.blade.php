@@ -26,6 +26,23 @@
                     </form> <!-- search-wrap .end// -->
                 </div> <!-- col.// -->
                 <div class="col-xl-4 col-lg-5 col-md-6">
+
+                    <div class="widgets-wrap float-md-right">
+                        <div class="widget-header mr-3">
+                            <a href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();" class="widget-view">
+                                <div class="icon-area">
+                                    <i class="fa fa-user"></i>
+                                </div>
+                                <small class="text">Выход</small>
+                            </a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+                        </div>
+                    </div> <!-- widgets-wrap.// -->
+
                     <div class="widgets-wrap float-md-right">
                         <div class="widget-header mr-3">
                             <a href="{{route('admin.main.index')}}" class="widget-view">
@@ -36,7 +53,12 @@
                             </a>
                         </div>
                     </div> <!-- widgets-wrap.// -->
+
+
                 </div> <!-- col.// -->
+
+
+
             </div> <!-- row.// -->
         </div> <!-- container.// -->
     </section> <!-- header-main .// -->

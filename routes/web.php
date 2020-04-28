@@ -14,7 +14,7 @@
 
 Route::get('/', 'MainController@index')->name('main');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {//, 'middleware'=>'auth'
+Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
     Route::get('/', 'MainController@index')->name('admin.main.index');
 
     //Route::get('/reasons/create/{group?}','ReasonsController@create')->where('group', '[0-9]+')->name('admin.reasons.create.group');
@@ -24,10 +24,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin'], function () {//, 'mi
 
 });
 
-
-Route::get('/auth', function () {
-    return view('layouts.page_auth');
-});
 
 Route::get('/blank', function () {
     return view('layouts.page_blank');
@@ -42,3 +38,7 @@ Route::get('/clear', function () {
     //Artisan::call('backup:clean');
     return "Кэш очищен.";
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

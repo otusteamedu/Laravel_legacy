@@ -7,23 +7,34 @@
  * Time: 9:33
  */
 namespace App\Services\User;
+use App\Services\User\Repositories\UserRepository;
 
-use App\Models\User;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Str;
 
-class UsersService
+class UserService
 {
+
+    protected $userRepository;
+
+    public function __construct(
+        UserRepository $userRepository
+    )
+    {
+        $this->userRepository = $userRepository;
+    }
+
+
     /**
      * получаем всех пользователей
      * @return Collection|static[]
      */
     public function all()
     {
-        return User::all();
+        return $this->userRepository->all();
     }
 
 }

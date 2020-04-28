@@ -4,6 +4,14 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use App\Models\User;
+use Auth;
+use App\Models\Transaction;
+use App\Policies\TransactionPolicy;
+use App\Models\Reason;
+use App\Policies\ReasonPolicy;
+
+
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +21,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Transaction::class=>TransactionPolicy::class,
+        Reason::class=>ReasonPolicy::class,
     ];
 
     /**
@@ -25,6 +34,19 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+
+        Gate::define('is-owner', function ($user, $student) {
+
+            foreach ($user->roles as $role) {
+                if ($role->id == 1) {
+                    return TRUE;
+                }
+                if ($role->id == 2) {
+                    return $user->id == $student->created_by;
+                }
+            }
+            return FALSE;
+        });
+
     }
 }

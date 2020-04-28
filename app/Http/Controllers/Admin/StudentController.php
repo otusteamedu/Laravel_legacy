@@ -6,21 +6,27 @@ use App\Models\Student;
 use App\Models\User;
 
 use App\Services\User\UserService;
+use App\Services\Student\StudentService;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+use Gate;
 
 class StudentController extends Controller
 {
 
     protected $userService;
+    protected $studentServicel;
 
-//    public function __construct(
-//        UserService $userService
-//    )
-//    {
-//        $this->userService = $userService;
-//    }
+    public function __construct(
+        UserService $userService,
+        StudentService $studentService
+    )
+    {
+        $this->userService = $userService;
+        $this->studentService = $studentService;
+    }
 
 
     /**
@@ -31,7 +37,7 @@ class StudentController extends Controller
     public function index()
     {
         return view('student.index', [
-            'students' => Student::orderBy('id', 'desc')->paginate(10)
+            'students' => $this->studentService->paginate(10)
         ]);
     }
 
@@ -44,8 +50,8 @@ class StudentController extends Controller
     {
         return view('student.create', [
             'students' => [],
-            'users' => User::all(),
-//            'users' => $this->userService->all(),
+//            'users' => User::all(),
+            'users' => $this->userService->all(),
         ]);
     }
 
@@ -57,13 +63,7 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-
-        $student = Student::create($request->except('user_id'));
-        if ($request->input('user_id')):
-            $student->users()->attach($request->input('user_id'));
-        endif;
-
-
+        $this->studentService->create($request);
         return redirect()->route('admin.student.index');
     }
 
@@ -88,10 +88,15 @@ class StudentController extends Controller
      */
     public function edit(Student $student)
     {
+
+        if (Gate::denies('is-owner', $student)) {
+            return 'нет прав';
+        }
+
         return view('student.edit', [
             'student' => $student,
-            'users' => User::all(),
-//          'users' => $this->userService->all(),
+//            'users' => User::all(),
+            'users' => $this->userService->all(),
         ]);
     }
 
@@ -104,6 +109,12 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+
+        if (Gate::denies('is-owner', $student)) {
+            return 'нет прав';
+        }
+
+
         $student->update($request->except('user_id'));
         $student->users()->detach();
         if ($request->input('user_id')) {
@@ -121,6 +132,10 @@ class StudentController extends Controller
      */
     public function destroy(Student $student)
     {
+        if (Gate::denies('is-owner', $student)) {
+            return 'нет прав';
+        }
+
         $student->users()->detach();
         $student->delete();
         return redirect()->route('admin.student.index');

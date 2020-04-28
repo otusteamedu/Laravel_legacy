@@ -12,32 +12,6 @@
 
 namespace App\Models{
 /**
- * App\Models\Reason
- *
- * @property int $id
- * @property string $name
- * @property string $description
- * @property int $amount
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereDescription($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reason whereUpdatedAt($value)
- * @mixin \Eloquent
- */
-	class Reason extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
  * App\Models\RoleUser
  *
  * @property int $role_id
@@ -54,41 +28,17 @@ namespace App\Models{
 
 namespace App\Models{
 /**
- * App\Models\StudentsUser
+ * App\Models\StudentUser
  *
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentsUser newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentsUser newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentsUser query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentUser newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentUser newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentUser query()
  * @mixin \Eloquent
- */
-	class StudentsUser extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\Transaction
- *
- * @property int $id
  * @property int $student_id
  * @property int $user_id
- * @property int $reason_id
- * @property int $amount
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction query()
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereAmount($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereDeletedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereReasonId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereStudentId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Transaction whereUserId($value)
- * @mixin \Eloquent
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentUser whereStudentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\StudentUser whereUserId($value)
  */
-	class Transaction extends \Eloquent {}
+	class StudentUser extends \Eloquent {}
 }
 

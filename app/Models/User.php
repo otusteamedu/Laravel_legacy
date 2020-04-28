@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'api_token'
     ];
 
     /**
@@ -53,6 +53,28 @@ class User extends Authenticatable
     public function transaction()
     {
         return $this->hasMany(Transaction::class);
+    }
+
+
+
+
+    public function isAdmin(){
+
+        foreach ($this->roles as $role) {
+            if ($role->id == 1) {
+                return TRUE;
+            }
+        }
+        return false;
+    }
+
+    public function isKaznachey(){
+        foreach ($this->roles as $role) {
+            if ($role->id == 3) {
+                return TRUE;
+            }
+        }
+        return false;
     }
 
 }
