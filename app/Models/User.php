@@ -47,6 +47,13 @@ class User extends Authenticatable
 
     public function students()
     {
-        return $this->belongsToMany(Student::class)->using(StudentsUser::class);
+        return $this->belongsToMany(Student::class)->using(StudentUser::class);
     }
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
 }
+

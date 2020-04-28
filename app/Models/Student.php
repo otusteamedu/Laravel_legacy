@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+
+use App\Models\StudentUser;
+
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -31,5 +34,12 @@ class Student extends Model
     {
         return $this->belongsToMany(User::class)->using(StudentUser::class);
     }
+
+
+    public function transaction()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
 
 }

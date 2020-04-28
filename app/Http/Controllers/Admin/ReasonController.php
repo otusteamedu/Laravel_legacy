@@ -95,7 +95,9 @@ class ReasonController extends Controller
      */
     public function update(Request $request, Reason $reason)
     {
-        //
+        $reason->update($request->all());
+        return redirect()->route('admin.reason.index');
+
     }
 
     /**
@@ -106,6 +108,7 @@ class ReasonController extends Controller
      */
     public function destroy(Reason $reason)
     {
-        //
+        $reason->delete();
+        return redirect()->route('admin.reason.index');
     }
 }

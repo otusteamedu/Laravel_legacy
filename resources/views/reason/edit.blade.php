@@ -34,10 +34,8 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                        <input type="text" id="description" name="amount" placeholder="Описание" class="form-control" value="{{$reason->description}}">
-                    </div>
+                    <label for="exampleFormControlTextarea1">Описание</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" placeholder="Описание" rows="3">{{$reason->description}}</textarea>
                 </div>
 
                 <div class="form-actions form-group">

@@ -13,6 +13,8 @@
 <body>
 @include('blocks.header.auth')
 
+@include('blocks.nav.main')
+
 
 @if(Request::path() != '/')
     @include('blocks.breadcrumps')

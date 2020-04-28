@@ -28,37 +28,11 @@
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="widgets-wrap float-md-right">
                         <div class="widget-header mr-3">
-                            <a href="#" class="widget-view">
+                            <a href="{{route('admin.main.index')}}" class="widget-view">
                                 <div class="icon-area">
                                     <i class="fa fa-user"></i>
-                                    <span class="notify">3</span>
                                 </div>
-                                <small class="text"> My profile </small>
-                            </a>
-                        </div>
-                        <div class="widget-header mr-3">
-                            <a href="#" class="widget-view">
-                                <div class="icon-area">
-                                    <i class="fa fa-comment-dots"></i>
-                                    <span class="notify">1</span>
-                                </div>
-                                <small class="text"> Message </small>
-                            </a>
-                        </div>
-                        <div class="widget-header mr-3">
-                            <a href="#" class="widget-view">
-                                <div class="icon-area">
-                                    <i class="fa fa-store"></i>
-                                </div>
-                                <small class="text"> Orders </small>
-                            </a>
-                        </div>
-                        <div class="widget-header">
-                            <a href="#" class="widget-view">
-                                <div class="icon-area">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </div>
-                                <small class="text"> Cart </small>
+                                <small class="text">Личный кабинет </small>
                             </a>
                         </div>
                     </div> <!-- widgets-wrap.// -->

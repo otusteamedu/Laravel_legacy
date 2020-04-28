@@ -33,18 +33,18 @@ class Transaction extends Model
 
     protected $guarded = [];
 
-//    public function user()
-//    {
-//        return $this->hasOne(User::class);
-//    }
-//
-//    public function reason()
-//    {
-//        return $this->hasOne(Reason::class);
-//    }
-//
-//    public function student()
-//    {
-//        return $this->hasOne(Student::class);
-//    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
+
+    public function reason()
+    {
+        return $this->belongsTo(Reason::class, 'reason_id', 'id');
+    }
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class, 'student_id', 'id');
+    }
 }

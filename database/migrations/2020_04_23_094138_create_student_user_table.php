@@ -17,8 +17,8 @@ class CreateStudentUserTable extends Migration
             $table->unsignedBigInteger('student_id');
             $table->unsignedBigInteger('user_id');
 
-            $table->foreign('student_id')->references('id')->on('students');
-            $table->foreign('user_id')->references('id')->on('users');
+//            $table->foreign('student_id')->references('id')->on('students');
+//            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

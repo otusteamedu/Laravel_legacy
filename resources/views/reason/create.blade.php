@@ -31,11 +31,10 @@
                 </div>
 
                 <div class="form-group">
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                        <input type="text" id="amount" name="description" placeholder="Описание" class="form-control">
-                    </div>
+                    <label for="exampleFormControlTextarea1">Описание</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="description" placeholder="Описание" rows="3"></textarea>
                 </div>
+
 
                 <div class="form-actions form-group">
                     <button type="submit" class="btn btn-success btn-sm">Создать</button>
