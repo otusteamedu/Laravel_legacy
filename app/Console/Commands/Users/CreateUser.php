@@ -49,19 +49,18 @@ class CreateUser extends Command
      */
     public function handle()
     {
-        $roleCollect = $this->rolesService->getRoles();
-        $roleResult = [];
-        foreach($roleCollect AS $role){
-            $roleResult[] = $role->type;
-        }
+
+        $roleResult = $this->rolesService->getRoleType();
+        
         $name = $this->ask('Enter username');
         $email = $this->ask('Enter email');
-        $this->validateEmail($email);
+        $email = $this->validateEmail($email);        
 
         $role = $this->choice('RoleUser', $roleResult);
         $password = $this->secret('Enter password');
 
-        $roleSelect = $roleCollect->where('type', $role)->first();
+        $roleSelect = $this->getRole('type', $role);
+        
         $createUser = [
             'name'=>$name,
             'email'=>$email,
@@ -75,19 +74,24 @@ class CreateUser extends Command
     }
 
     /**
-     * Проверка валидности ввода электронной почты
+     * Рекурсивно проверяет валидность электронной почты.
      *
      * @param string $email
-     * @return void
+     * @return string
      */
-    protected function validateEmail(string $email): void
+    protected function validateEmail(string $email): string
     {
         if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $this->error('The string is not email');exit();
+            $this->error('The string is not email');
+            $email = $this->ask('Enter email');
+            $this->validateEmail($email);
         }
         $checkUserEmail = $this->usersService->searchParamUsers('email', $email);
         if(!$checkUserEmail->isEmpty()){
-            $this->error('Email already registered');exit();
+            $this->error('User with this email is already registered');
+            $email = $this->ask('Enter email');
+            $this->validateEmail($email);
         }
+        return $email;
     }
 }

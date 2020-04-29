@@ -19,4 +19,16 @@ class RolesService
         $result = $this->rolesRepository->getRoles();
         return $result;
     }
+
+    public function getRole($field, $value){
+        $result = $this->rolesRepository->getRoles($field, $value);
+
+        return $result;
+    }
+
+    public function getRoleType(){
+        $result = $this->rolesRepository->getRoleType();
+
+        return $result;
+    }
 }
