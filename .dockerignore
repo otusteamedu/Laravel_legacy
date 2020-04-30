@@ -1,0 +1,11 @@
+.git
+.idea
+.dockerignore
+docker
+docker-compose.yml
+docker-compose.override.yml
+
+.phpstorm.meta.php
+_ide_helper.php
+_ide_helper_models.php
+vendor

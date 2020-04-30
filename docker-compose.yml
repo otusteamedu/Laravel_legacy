@@ -1,8 +1,6 @@
 version: "3.7"
 
 volumes:
-  www:
-  storage:
   pgdata:
 
 services:
@@ -11,15 +9,15 @@ services:
       context: ./docker/nginx
       dockerfile: Dockerfile
     volumes:
-      - www:/var/www:ro
+      - ./public:/var/www/public:ro
+
     ports:
       - 80:80
 
   app:
     build: .
     volumes:
-      - www:/var/www
-      - storage:/var/www/storage
+      - ./:/var/www
 
   db:
     build:
