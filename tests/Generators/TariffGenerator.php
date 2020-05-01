@@ -16,7 +16,7 @@ class TariffGenerator
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-    public function createTariff (array $data = [])
+    public static function createTariff (array $data = [])
     {
         return factory(Tariff::class)->create($data);
     }

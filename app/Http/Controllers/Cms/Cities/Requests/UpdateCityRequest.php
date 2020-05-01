@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Cms\Countries\Requests;
+namespace App\Http\Controllers\Cms\Cities\Requests;
 
 
 class UpdateCityRequest extends StoreCityRequest

@@ -8,7 +8,15 @@ use App\Models\Country;
 
 class CountryGenerator
 {
-    public function createCountry (array $data = [])
+    public static function createRussia(array $data = [])
+    {
+        return self::createCountry(array_merge($data, [
+            'name' => 'Russia',
+            'continent_name' => 'Europe',
+        ]));
+    }
+
+    public static function createCountry (array $data = [])
     {
         return factory(Country::class)->create($data);
     }
