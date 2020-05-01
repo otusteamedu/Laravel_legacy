@@ -16,7 +16,7 @@ class UserGenerator
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-    public function createAdminUser(array $data = [])
+    public static function createAdminUser(array $data = [])
     {
         return self::createUser(array_merge($data, [
             'role' => User::LEVEL_ADMIN,
@@ -27,7 +27,7 @@ class UserGenerator
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-    public function createMarketingUser(array $data = [])
+    public static function createMarketingUser(array $data = [])
     {
         return self::createUser(array_merge($data, [
             'role' => User::LEVEL_MARKETING,
@@ -38,7 +38,7 @@ class UserGenerator
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-    public function createUser (array $data = [])
+    public static function createUser (array $data = [])
     {
         return factory(User::class)->create($data);
     }

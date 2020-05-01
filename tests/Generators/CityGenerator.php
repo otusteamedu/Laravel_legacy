@@ -13,11 +13,19 @@ use App\Models\City;
 
 class CityGenerator
 {
+    public static function createMoscow(array $data = [])
+    {
+        return self::createCity(array_merge($data, [
+            'name' => 'Moscow',
+            'country_id' => '1',
+        ]));
+    }
+
     /**
      * @param array $data
      * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|mixed
      */
-        public function createCity (array $data = [])
+        public static function createCity (array $data = [])
     {
         return factory(City::class)->create($data);
     }
