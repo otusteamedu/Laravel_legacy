@@ -37,14 +37,13 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('is-owner', function ($user, $student) {
 
-            foreach ($user->roles as $role) {
-                if ($role->id == 1) {
+                if ($user->role_id == 1) {
                     return TRUE;
                 }
-                if ($role->id == 2) {
+                if ($user->role_id == 2) {
                     return $user->id == $student->created_by;
                 }
-            }
+
             return FALSE;
         });
 
