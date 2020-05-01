@@ -11,8 +11,10 @@
 |
 */
 
-Route::get('/', function () {
-    return view('plain.sale');
+Route::get('/', 'SaleOffers\SaleOffersController@index')->name('Главная');
+
+Route::get('/dummy', function () {
+    return view('plain.sale-dummy');
 });
 
 Route::get('/user', function () {

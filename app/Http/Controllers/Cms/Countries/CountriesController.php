@@ -91,7 +91,7 @@ class CountriesController extends Controller
      */
     public function show(Country $country)
     {
-        $this->authorize('view', Country::class);
+        $this->authorize(Abilities::VIEW, Country::class);
 
         return view(config('view.cms.countries.show'), [
             'country' => $country,
@@ -107,7 +107,7 @@ class CountriesController extends Controller
      */
     public function edit(Country $country)
     {
-        $this->authorize('update', Country::class);
+        $this->authorize(Abilities::UPDATE, Country::class);
 
         return view(config('view.cms.countries.edit'), [
             'country' => $country,
@@ -122,7 +122,7 @@ class CountriesController extends Controller
      */
     public function update(UpdateCountryRequest $request, Country $country)
     {
-        $this->authorize('update', Country::class);
+        $this->authorize(Abilities::UPDATE, Country::class);
 
         try {
             $this->countriesService->updateCountry($country, $request->all());

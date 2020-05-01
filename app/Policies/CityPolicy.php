@@ -25,7 +25,7 @@ class CityPolicy
      * Determine whether the user can view the city.
      *
      * @param User $user
-     * @param  \App\Models\City  $city
+     * @param City $city
      * @return mixed
      */
     public function view(User $user, City $city)
@@ -42,7 +42,6 @@ class CityPolicy
      */
     public function create(User $user, City $city)
     {
-        //dd(__FUNCTION__, $city->entityName);
         return $user->canDo(__FUNCTION__, $city->entityName);
     }
 
@@ -50,7 +49,7 @@ class CityPolicy
      * Determine whether the user can update the city.
      *
      * @param User $user
-     * @param  \App\Models\City  $city
+     * @param City $city
      * @return mixed
      */
     public function update(User $user, City $city)
@@ -62,7 +61,7 @@ class CityPolicy
      * Determine whether the user can delete the city.
      *
      * @param User $user
-     * @param  \App\Models\City  $city
+     * @param City $city
      * @return mixed
      */
     public function delete(User $user, City $city)
@@ -74,7 +73,7 @@ class CityPolicy
      * Determine whether the user can restore the city.
      *
      * @param User $user
-     * @param  \App\Models\City  $city
+     * @param City $city
      * @return mixed
      */
     public function restore(User $user, City $city)
@@ -86,7 +85,7 @@ class CityPolicy
      * Determine whether the user can permanently delete the city.
      *
      * @param User $user
-     * @param  \App\Models\City  $city
+     * @param City $city
      * @return mixed
      */
     public function forceDelete(User $user, City $city)

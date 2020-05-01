@@ -9,6 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class CountryPolicy
 {
     use HandlesAuthorization;
+    CONST ENTITY_NAME = 'country';
 
     /**
      * Determine whether the user can view any countries.
@@ -28,9 +29,9 @@ class CountryPolicy
      * @param Country $country
      * @return mixed
      */
-    public function view(User $user, Country $country)
+    public function view(User $user)
     {
-        return $user->canDo(__FUNCTION__, $country->entityName);
+        return $user->canDo(__FUNCTION__, self::ENTITY_NAME);
     }
 
     /**
@@ -39,9 +40,9 @@ class CountryPolicy
      * @param User $user
      * @return mixed
      */
-    public function create(User $user, Country $country)
+    public function create(User $user)
     {
-        return $user->canDo(__FUNCTION__, $country->entityName);
+        return $user->canDo(__FUNCTION__, self::ENTITY_NAME);
     }
 
     /**

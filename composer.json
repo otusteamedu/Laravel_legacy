@@ -14,9 +14,11 @@
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
         "laravel/framework": "^6.2",
+        "laravel/helpers": "^1.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
+        "phpunit/php-code-coverage": "^8.0",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.1"
     },
     "require-dev": {
@@ -27,7 +29,7 @@
         "laravel/ui": "^1.2",
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^3.0",
-        "phpunit/phpunit": "^8.0"
+        "phpunit/phpunit": "^9.1"
     },
     "config": {
         "optimize-autoloader": true,
