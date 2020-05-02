@@ -8,13 +8,13 @@
         <div class="collapse navbar-collapse" id="main_nav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('main')}}">Главная</a>
+                    <a class="nav-link" href="{{route('main', ['locale'=>$locale])}}">Главная</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/auth">Авторизация</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{route('admin.main.index')}}">Личный кабинет</a>
+                    <a class="nav-link" href="{{route('admin.main.index', ['locale'=>$locale])}}">Личный кабинет</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/blank">Пустая</a>

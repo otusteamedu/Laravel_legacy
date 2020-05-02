@@ -30,4 +30,8 @@
         <server name="QUEUE_CONNECTION" value="sync"/>
         <server name="SESSION_DRIVER" value="array"/>
     </php>
+    <!--<logging>-->
+        <!--<log type="coverage-html" target="./storage/logs/report"-->
+             <!--lowUpperBound="50" highLowerBound="80" />-->
+    <!--</logging>-->
 </phpunit>

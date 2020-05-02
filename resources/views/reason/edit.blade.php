@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-header">Редактирование причины</div>
         <div class="card-body card-block">
-            <form action="{{route('admin.reason.update', $reason)}}" method="post" class="">
+            <form action="{{route('admin.reason.update', , ['locale'=>$locale, 'reason'=>$reason])}}" method="post" class="">
                 <input type="hidden" name="_method" value="put">
                 {{csrf_field()}}
 

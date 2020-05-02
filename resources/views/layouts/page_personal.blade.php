@@ -26,7 +26,7 @@
             @include('blocks.menu_left.personal')
         </div>
         <div class="col-12 col-md-8">
-
+            <h1>{{ $locale }}</h1>
             @yield('content')
 
         </div>

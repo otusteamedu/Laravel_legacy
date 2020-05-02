@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-header">Редактирование транзакции</div>
         <div class="card-body card-block">
-            <form action="{{route('admin.transaction.update', $transaction)}}" method="post" class="">
+            <form action="{{route('admin.transaction.update', ['locale'=>$locale, 'transaction'=>$transaction])}}" method="post" class="">
                 <input type="hidden" name="_method" value="put">
                 {{csrf_field()}}
 

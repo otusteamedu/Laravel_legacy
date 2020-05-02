@@ -28,7 +28,7 @@
                 <div class="col-xl-4 col-lg-4 col-md-6">
                     <div class="widgets-wrap float-md-right">
                         <div class="widget-header mr-3">
-                            <a href="{{route('admin.main.index')}}" class="widget-view">
+                            <a href="{{route('admin.main.index', ['locale'=>$locale])}}" class="widget-view">
                                 <div class="icon-area">
                                     <i class="fa fa-user"></i>
                                 </div>

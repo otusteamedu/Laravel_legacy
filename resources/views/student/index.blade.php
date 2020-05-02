@@ -15,7 +15,7 @@
         <div class="card-header">
             <strong class="card-title">Ученики</strong>
 
-            <a href="{{route('admin.student.create')}}" class="btn btn-success btn-sm text-right">Создать</a>
+            <a href="{{route('admin.student.create', ['locale'=>$locale])}}" class="btn btn-success btn-sm text-right">Создать</a>
         </div>
         <div class="card-body">
             <table class="table table-striped">
@@ -32,17 +32,17 @@
                 @forelse ($students as $student)
                 <tr>
                     <th scope="row">{{$loop->iteration}}</th>
-                    <td><a href="{{route('admin.student.show', $student)}}">{{$student->name}}</a> [{{$student->id}}]</td>
+                    <td><a href="{{route('admin.student.show', ['locale'=>$locale, 'student'=>$student])}}">{{$student->name}}</a> [{{$student->id}}]</td>
                     <td>
                         {{$student->users()->pluck('name')->implode(', ')}}
                     </td>
                     <td>
-                        <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.student.destroy', $student)}}"
+                        <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.student.destroy', ['locale'=>$locale, 'student'=>$student])}}"
                               method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             {{ csrf_field() }}
 
-                            <a href="{{route('admin.student.edit', $student)}}" class="btn btn-default">
+                            <a href="{{route('admin.student.edit', ['locale'=>$locale, 'student'=>$student])}}" class="btn btn-default">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <button type="submit" class="btn"><i class="fa fa-trash-o"></i>X</button>

@@ -19,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'api_token'
+        'name', 'email', 'password', 'api_token', 'role_id'
     ];
 
     /**
@@ -40,9 +40,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsToMany(Role::class)->using(RoleUser::class);
+        return $this->belongsTo(Role::class, 'role_id', 'id');
     }
 
     public function students()
@@ -56,23 +56,18 @@ class User extends Authenticatable
     }
 
 
-
-
-    public function isAdmin(){
-
-        foreach ($this->roles as $role) {
-            if ($role->id == 1) {
-                return TRUE;
-            }
+    public function isAdmin()
+    {
+        if ($this->role_id == 1) {
+            return TRUE;
         }
         return false;
     }
 
-    public function isKaznachey(){
-        foreach ($this->roles as $role) {
-            if ($role->id == 3) {
-                return TRUE;
-            }
+    public function isKaznachey()
+    {
+        if ($this->role_id == 3) {
+            return TRUE;
         }
         return false;
     }

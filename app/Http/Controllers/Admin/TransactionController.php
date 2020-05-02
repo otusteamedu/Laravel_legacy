@@ -8,6 +8,8 @@ use App\Models\Student;
 use App\Models\Reason;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class TransactionController extends Controller
 {
@@ -18,10 +20,16 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $this->authorize('before', Transaction::class);
-        return view('transaction.index', [
-            'transactions' => Transaction::orderBy('id', 'desc')->paginate(10)
-        ]);
+        $user = Auth::user();
+
+        if ($user->can('viewAny', Transaction::class)) {
+            return view('transaction.index', [
+                'transactions' => Transaction::orderBy('id', 'desc')->paginate(10)
+            ]);
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -31,12 +39,18 @@ class TransactionController extends Controller
      */
     public function create()
     {
-        $this->authorize('before', Transaction::class);
-        return view('transaction.create', [
-            'students' => Student::all(),
-            'users' => User::all(),
-            'reasons' => Reason::all()
-        ]);
+        $user = Auth::user();
+
+        if ($user->can('create', Transaction::class)) {
+            return view('transaction.create', [
+                'students' => Student::all(),
+                'users' => User::all(),
+                'reasons' => Reason::all()
+            ]);
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -47,9 +61,17 @@ class TransactionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('before', Transaction::class);
-        Transaction::create($request->all());
-        return redirect()->route('admin.transaction.index');
+
+        $user = Auth::user();
+
+        if ($user->can('create', Transaction::class)) {
+            $this->authorize('before', Transaction::class);
+            Transaction::create($request->all());
+            return redirect()->route('admin.transaction.index');
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -60,10 +82,17 @@ class TransactionController extends Controller
      */
     public function show(Transaction $transaction)
     {
-        $this->authorize('before', Transaction::class);
-        return view('transaction.show', [
-            'transaction' => $transaction,
-        ]);
+        $user = Auth::user();
+
+        if ($user->can('view', Transaction::class)) {
+            $this->authorize('before', Transaction::class);
+            return view('transaction.show', [
+                'transaction' => $transaction,
+            ]);
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -74,13 +103,20 @@ class TransactionController extends Controller
      */
     public function edit(Transaction $transaction)
     {
-        $this->authorize('before', Transaction::class);
-        return view('transaction.edit', [
-            'transaction' => $transaction,
-            'students' => Student::all(),
-            'users' => User::all(),
-            'reasons' => Reason::all()
-        ]);
+        $user = Auth::user();
+
+        if ($user->can('update', $user, Transaction::class)) {
+            $this->authorize('before', Transaction::class);
+            return view('transaction.edit', [
+                'transaction' => $transaction,
+                'students' => Student::all(),
+                'users' => User::all(),
+                'reasons' => Reason::all()
+            ]);
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -92,9 +128,16 @@ class TransactionController extends Controller
      */
     public function update(Request $request, Transaction $transaction)
     {
-        $this->authorize('before', Transaction::class);
-        $transaction->update($request->all());
-        return redirect()->route('admin.transaction.index');
+        $user = Auth::user();
+
+        if ($user->can('update', $user, Transaction::class)) {
+            $this->authorize('before', Transaction::class);
+            $transaction->update($request->all());
+            return redirect()->route('admin.transaction.index');
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
 
     }
 
@@ -106,9 +149,16 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        $this->authorize('before', Transaction::class);
-        $transaction->delete();
-        return redirect()->route('admin.transaction.index');
+        $user = Auth::user();
+
+        if ($user->can('delete', Transaction::class)) {
+            $this->authorize('before', Transaction::class);
+            $transaction->delete();
+            return redirect()->route('admin.transaction.index');
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
 
     }
 }

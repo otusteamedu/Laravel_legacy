@@ -14,7 +14,7 @@
     <div class="card">
         <div class="card-header">Добавить ученика</div>
         <div class="card-body card-block">
-            <form action="{{route('admin.student.store')}}" method="post" class="">
+            <form action="{{route('admin.student.store', ['locale'=>$locale])}}" method="post" class="">
                 {{csrf_field()}}
 
                 <div class="form-group">

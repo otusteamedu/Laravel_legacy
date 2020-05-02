@@ -14,10 +14,8 @@
 
 Route::get('/', 'MainController@index')->name('main');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
+Route::group(['prefix' => '{locale}/admin', 'namespace' => 'Admin', 'middleware'=>['auth','localize']], function () {
     Route::get('/', 'MainController@index')->name('admin.main.index');
-
-    //Route::get('/reasons/create/{group?}','ReasonsController@create')->where('group', '[0-9]+')->name('admin.reasons.create.group');
     Route::resource('/reason', 'ReasonController', ['as' => 'admin']);
     Route::resource('/student', 'StudentController', ['as' => 'admin']);
     Route::resource('/transaction', 'TransactionController', ['as' => 'admin']);
@@ -26,8 +24,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth']
 
 
 Route::get('/blank', function () {
-    return view('layouts.page_blank');
+    \Illuminate\Support\Facades\Log::critical("message to slack FROm Laravel");
+    return view('errors.not-allowed');
 });
+
 
 
 Route::get('/clear', function () {
@@ -42,3 +42,4 @@ Route::get('/clear', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

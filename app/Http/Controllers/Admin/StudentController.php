@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Gate;
+use Illuminate\Support\Facades\Log;
 
 class StudentController extends Controller
 {
@@ -90,7 +91,8 @@ class StudentController extends Controller
     {
 
         if (Gate::denies('is-owner', $student)) {
-            return 'нет прав';
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
         }
 
         return view('student.edit', [
@@ -111,7 +113,8 @@ class StudentController extends Controller
     {
 
         if (Gate::denies('is-owner', $student)) {
-            return 'нет прав';
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
         }
 
 
@@ -133,7 +136,8 @@ class StudentController extends Controller
     public function destroy(Student $student)
     {
         if (Gate::denies('is-owner', $student)) {
-            return 'нет прав';
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
         }
 
         $student->users()->detach();

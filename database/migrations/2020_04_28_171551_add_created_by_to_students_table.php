@@ -14,7 +14,7 @@ class AddCreatedByToStudentsTable extends Migration
     public function up()
     {
         Schema::table('students', function (Blueprint $table) {
-            $table->integer('created_by');
+            $table->integer('created_by')->default(1);
         });
     }
 
