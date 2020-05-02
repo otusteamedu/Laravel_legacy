@@ -19,4 +19,26 @@ class RolesRepository extends CoreRepository
 
         return $result;
     }
+
+    public function getRoles(){
+        $result = $this->getModelClass()::all();
+
+        return $result;
+    }
+
+    public function getRole($field, $value){
+        $result = $this->getRoles()
+                    ->where($field, $value)
+                    ->first();
+
+        return $result;           
+    }
+
+    public function getRoleType(){
+        $roleResult = [];
+        foreach($this->getRoles() AS $role){
+            $roleResult[] = $role->type;
+        }
+        return $roleResult;
+    }
 }
