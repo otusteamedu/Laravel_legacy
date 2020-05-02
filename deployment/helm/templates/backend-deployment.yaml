@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  labels:
+  {{- range $key, $value := .Values.backend.labels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  selector:
+    matchLabels:
+    {{- range $key, $value := .Values.backend.labels }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+      {{- range $key, $value := .Values.backend.labels }}
+        {{ $key }}: {{ $value }}
+      {{- end }}
+    spec:
+      containers:
+        - name: web
+          imagePullPolicy: Always
+          image: {{ .Values.images.web.name }}:{{ .Values.images.web.tag }}
+          terminationMessagePolicy: FallbackToLogsOnError
+          ports:
+            - containerPort: 80
+          resources:
+            {{- toYaml .Values.backend.web.resources | nindent 12 }}
+        - name: app
+          imagePullPolicy: Always
+          image: {{ .Values.images.app.name }}:{{ .Values.images.app.tag }}
+          terminationMessagePolicy: FallbackToLogsOnError
+#          lifecycle:
+#            postStart:
+#              exec:
+#                command:
+#                  - 'artisan'
+#                  - 'optimize'
+          resources:
+            {{- toYaml .Values.backend.app.resources | nindent 12 }}
+          ports:
+            - containerPort: 9000
+              name: fastcgi
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-db-password
+                  key: DB_PASSWORD
+            - name: APP_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: app-app-key
+                  key: APP_KEY

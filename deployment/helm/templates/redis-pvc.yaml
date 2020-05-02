@@ -1,0 +1,16 @@
+{{- if .Values.redis.master.persistentVolume.enabled -}}
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  labels:
+  {{- range $key, $value := .Values.redis.master.labels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+  name: redis-data
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.redis.master.persistentVolume.size }}
+{{- end -}}

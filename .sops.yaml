@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: deployment/environments/.*./secrets.yaml
+    pgp: 4040E96EBA5617D33AACCB60F9D9B36AB69C7DED

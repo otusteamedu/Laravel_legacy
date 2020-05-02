@@ -1,0 +1,15 @@
+environment: test
+
+app:
+  env: develop
+
+database:
+  name: develop
+
+ingress:
+  hosts:
+    - test.otus.make-laravel-great-again.tk
+  tls:
+    - secretName: develop-tls
+      hosts:
+        - test.otus.make-laravel-great-again.tk

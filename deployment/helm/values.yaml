@@ -1,0 +1,72 @@
+environment: null
+release: null
+
+images:
+  app:
+    name: imageName
+    tag: tagName
+  nginx:
+    web: imageName
+    tag: tagName
+
+app:
+  env: develop
+  debug: false
+  forseHtts: true
+
+database:
+  name: develop
+  username: my_account
+  host: postgresql-postgresql-svc.postgresql.svc.cluster.local
+  password: postgres
+
+ingress:
+  hosts:
+    - test.otus.make-laravel-great-again.tk
+  tls:
+    - secretName: develop-tls
+      hosts:
+        - test.otus.make-laravel-great-again.tk
+
+backend:
+  replicas: 1
+  labels:
+    app: mlga
+    component: backend
+    environment: develop
+  app:
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 150m
+      limits:
+        memory: 256Mi
+        cpu: 250m
+  web:
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 100m
+      limits:
+        memory: 128Mi
+        cpu: 200m
+
+redis:
+  master:
+    replicas: 1
+    labels:
+      app: mlga
+      component: redis
+      environment: develop
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 100m
+      limits:
+        memory: 128Mi
+        cpu: 200m
+    persistentVolume:
+      enabled: false
+      size: 10Gi
+
+

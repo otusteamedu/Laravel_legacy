@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+  {{- range $key, $value := .Values.redis.master.labels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+spec:
+  ports:
+    - port: 6379
+      targetPort: 6379
+  selector:
+  {{- range $key, $value := .Values.redis.master.labels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}

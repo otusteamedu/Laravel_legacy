@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  APP_NAME: 'mlga'
+  APP_ENV: {{ .Values.app.env }}
+  APP_DEBUG: {{ .Values.app.debug | quote }}
+  FORCE_HTTPS: {{ .Values.app.forseHtts | quote }}
+  DB_CONNECTION: pgsql
+  DB_DATABASE: {{ .Values.database.name }}
+  DB_USERNAME: {{ .Values.database.username }}
+  DB_HOST: {{ .Values.database.host }}
+  LOG_CHANNEL: stderr
+  LOG_STDERR_FORMATTER: \Monolog\Formatter\JsonFormatter
+  QUEUE_CONNECTION: 'redis'
+  REDIS_HOST: redis
+  REDIS_PORT: '6379'
+  RELEASE: {{ .Values.release }}

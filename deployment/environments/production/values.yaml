@@ -1,0 +1,49 @@
+environment: production
+
+app:
+  env: production
+
+database:
+  name: production
+
+
+ingress:
+  hosts:
+    - otus.make-laravel-great-again.tk
+  tls:
+    - secretName: production-tls
+      hosts:
+        - otus.make-laravel-great-again.tk
+
+backend:
+  replicas: 1
+  labels:
+    app: mlga
+    component: backend
+    environment: production
+  app:
+    resources:
+      requests:
+        memory: 128Mi
+        cpu: 100m
+      limits:
+        memory: 256Mi
+        cpu: 200m
+
+redis:
+  master:
+    replicas: 1
+    labels:
+      app: mlga
+      component: redis
+      environment: production
+    resources:
+      requests:
+        memory: 64Mi
+        cpu: 100m
+      limits:
+        memory: 128Mi
+        cpu: 200m
+    persistentVolume:
+      enabled: true
+      size: 10Gi

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+  {{- range $key, $value := .Values.redis.master.labels }}
+    {{ $key }}: {{ $value }}
+  {{- end }}
+spec:
+  replicas: {{ .Values.redis.master.replicas }}
+  selector:
+    matchLabels:
+    {{- range $key, $value := .Values.redis.master.labels }}
+      {{ $key }}: {{ $value }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+      {{- range $key, $value := .Values.redis.master.labels }}
+        {{ $key }}: {{ $value }}
+      {{- end }}
+    spec:
+      containers:
+        - name: master
+          image: redis:5.0.4
+          imagePullPolicy: IfNotPresent
+          resources:
+            {{- toYaml .Values.redis.master.resources | nindent 12 }}
+          ports:
+            - containerPort: 6379
+          livenessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 30
+            timeoutSeconds: 5
+          readinessProbe:
+            exec:
+              command:
+                - redis-cli
+                - ping
+            initialDelaySeconds: 5
+            timeoutSeconds: 1
+          {{ if .Values.redis.master.persistentVolume.enabled }}
+          volumeMounts:
+            - mountPath: /data
+              name: redis-data
+          {{- end -}}
+      {{ if .Values.redis.master.persistentVolume.enabled }}
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-data
+        {{- end -}}
