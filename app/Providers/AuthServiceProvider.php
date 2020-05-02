@@ -40,8 +40,9 @@ class AuthServiceProvider extends ServiceProvider
                 if ($user->role_id == 1) {
                     return TRUE;
                 }
+
                 if ($user->role_id == 2) {
-                    return $user->id == $student->created_by;
+                    return $user->id === $student->created_by;
                 }
 
             return FALSE;

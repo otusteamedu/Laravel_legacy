@@ -9,6 +9,17 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class ReasonPolicy
 {
     use HandlesAuthorization;
+
+    public function checkRole(User $user)
+    {
+        if ($user->isAdmin()) {
+            return true;
+        } else if ($user->isKaznachey()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     
     /**
      * Determine whether the user can view any reasons.
@@ -41,13 +52,7 @@ class ReasonPolicy
      */
     public function create(User $user)
     {
-        if ($user->isAdmin()) {
-            return true;
-        } else if ($user->isKaznachey()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->checkRole($user);
     }
 
     /**
@@ -59,13 +64,7 @@ class ReasonPolicy
      */
     public function update(User $user, Reason $reason)
     {
-        if ($user->isAdmin()) {
-            return true;
-        } else if ($user->isKaznachey()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->checkRole($user);
     }
 
     /**
@@ -77,13 +76,7 @@ class ReasonPolicy
      */
     public function delete(User $user, Reason $reason)
     {
-        if ($user->isAdmin()) {
-            return true;
-        } else if ($user->isKaznachey()) {
-            return true;
-        } else {
-            return false;
-        }
+        return $this->checkRole($user);
     }
 
     /**

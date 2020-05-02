@@ -26,8 +26,10 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth']
 
 
 Route::get('/blank', function () {
-    return view('layouts.page_blank');
+    \Illuminate\Support\Facades\Log::critical("message to slack FROm Laravel");
+    return view('errors.not-allowed');
 });
+
 
 
 Route::get('/clear', function () {
@@ -42,3 +44,4 @@ Route::get('/clear', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

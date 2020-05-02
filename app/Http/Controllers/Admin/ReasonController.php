@@ -9,6 +9,8 @@ use App\Models\Transaction;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class ReasonController extends Controller
 {
@@ -31,10 +33,16 @@ class ReasonController extends Controller
      */
     public function create()
     {
-        $this->authorize('create', Transaction::class);
-        return view('reason.create', [
-            'reasons' => [],
-        ]);
+        $user = Auth::user();
+
+        if ($user->can('create', Reason::class)) {
+            return view('reason.create', [
+                'reasons' => [],
+            ]);
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -45,9 +53,15 @@ class ReasonController extends Controller
      */
     public function store(Request $request)
     {
-        $this->authorize('create', Transaction::class);
-        $reason = Reason::create($request->all());
-        return redirect()->route('admin.reason.index');
+        $user = Auth::user();
+
+        if ($user->can('create', Reason::class)) {
+            $reason = Reason::create($request->all());
+            return redirect()->route('admin.reason.index');
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -83,10 +97,16 @@ class ReasonController extends Controller
      */
     public function edit(Reason $reason)
     {
-        $this->authorize('update', Transaction::class);
-        return view('reason.edit', [
-            'reason' => $reason
-        ]);
+        $user = Auth::user();
+
+        if ($user->can('update',$user, Reason::class)) {
+            return view('reason.edit', [
+                'reason' => $reason
+            ]);
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 
     /**
@@ -98,9 +118,15 @@ class ReasonController extends Controller
      */
     public function update(Request $request, Reason $reason)
     {
-        $this->authorize('update', Transaction::class);
-        $reason->update($request->all());
-        return redirect()->route('admin.reason.index');
+        $user = Auth::user();
+
+        if ($user->can('update', $user, Reason::class)) {
+            $reason->update($request->all());
+            return redirect()->route('admin.reason.index');
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
 
     }
 
@@ -112,8 +138,14 @@ class ReasonController extends Controller
      */
     public function destroy(Reason $reason)
     {
-        $this->authorize('delete', Transaction::class);
+        $user = Auth::user();
+
+        if ($user->can('delete', Reason::class)) {
         $reason->delete();
         return redirect()->route('admin.reason.index');
+        } else {
+            Log::critical("сообщение в слак о попытке дотупа");
+            return view('errors.not-allowed');
+        }
     }
 }

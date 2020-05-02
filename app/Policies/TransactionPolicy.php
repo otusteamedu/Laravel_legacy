@@ -11,7 +11,7 @@ class TransactionPolicy
 {
     use HandlesAuthorization;
 
-    public function before(User $user)
+    public function checkRole(User $user)
     {
         if ($user->isAdmin()) {
             return true;
@@ -31,7 +31,7 @@ class TransactionPolicy
      */
     public function viewAny(User $user)
     {
-        return false;
+        return $this->checkRole($user);
     }
 
     /**
@@ -43,7 +43,7 @@ class TransactionPolicy
      */
     public function view(User $user, Transaction $transaction)
     {
-        //
+        return $this->checkRole($user);
     }
 
     /**
@@ -54,7 +54,7 @@ class TransactionPolicy
      */
     public function create(User $user)
     {
-        //
+        return $this->checkRole($user);
     }
 
     /**
@@ -66,7 +66,7 @@ class TransactionPolicy
      */
     public function update(User $user, Transaction $transaction)
     {
-        //
+        return $this->checkRole($user);
     }
 
     /**
@@ -78,7 +78,7 @@ class TransactionPolicy
      */
     public function delete(User $user, Transaction $transaction)
     {
-        //
+        return $this->checkRole($user);
     }
 
     /**
@@ -90,7 +90,7 @@ class TransactionPolicy
      */
     public function restore(User $user, Transaction $transaction)
     {
-        //
+        return $this->checkRole($user);
     }
 
     /**
@@ -102,6 +102,6 @@ class TransactionPolicy
      */
     public function forceDelete(User $user, Transaction $transaction)
     {
-        //
+        return $this->checkRole($user);
     }
 }
