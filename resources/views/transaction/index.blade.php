@@ -16,7 +16,7 @@
         <div class="card-header">
             <strong class="card-title">Транзакции</strong>
 
-            <a href="{{route('admin.transaction.create')}}" class="btn btn-success btn-sm text-right">Создать</a>
+            <a href="{{route('admin.transaction.create', ['locale'=>$locale])}}" class="btn btn-success btn-sm text-right">Создать</a>
         </div>
         <div class="card-body">
             <table class="table table-striped">
@@ -35,16 +35,16 @@
                 @forelse ($transactions as $transaction)
                 <tr>
                     <th scope="row">{{$loop->iteration}}</th>
-                    <td><a href="{{route('admin.transaction.show', $transaction)}}">{{$transaction->amount}}</a></td>
+                    <td><a href="{{route('admin.transaction.show', ['locale'=>$locale,'transaction'=>$transaction])}}">{{$transaction->amount}}</a></td>
                     <td>{{$transaction->user->name}}</td>
                     <td>{{$transaction->student->name}}</td>
                     <td>{{$transaction->reason->name}}</td>
                     <td>
-                        <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.transaction.destroy', $transaction)}}"
+                        <form onsubmit="if(confirm('удалить')){return true}else{return false}" action="{{route('admin.transaction.destroy', ['locale'=>$locale,'transaction'=>$transaction])}}"
                               method="post">
                             <input type="hidden" name="_method" value="DELETE">
                             {{ csrf_field() }}
-                            <a href="{{route('admin.transaction.edit', $transaction)}}" class="btn btn-default">
+                            <a href="{{route('admin.transaction.edit', ['locale'=>$locale,'transaction'=>$transaction])}}" class="btn btn-default">
                                 <i class="fa fa-edit"></i>
                             </a>
                             <button type="submit" class="btn"><i class="fa fa-trash-o"></i> Х</button>

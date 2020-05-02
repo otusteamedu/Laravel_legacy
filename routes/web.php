@@ -14,10 +14,8 @@
 
 Route::get('/', 'MainController@index')->name('main');
 
-Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware'=>'auth'], function () {
+Route::group(['prefix' => '{locale}/admin', 'namespace' => 'Admin', 'middleware'=>['auth','localize']], function () {
     Route::get('/', 'MainController@index')->name('admin.main.index');
-
-    //Route::get('/reasons/create/{group?}','ReasonsController@create')->where('group', '[0-9]+')->name('admin.reasons.create.group');
     Route::resource('/reason', 'ReasonController', ['as' => 'admin']);
     Route::resource('/student', 'StudentController', ['as' => 'admin']);
     Route::resource('/transaction', 'TransactionController', ['as' => 'admin']);

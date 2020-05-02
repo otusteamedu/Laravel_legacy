@@ -13,7 +13,7 @@
     <div class="card">
         <div class="card-header">Создание причины</div>
         <div class="card-body card-block">
-            <form action="{{route('admin.reason.store')}}" method="post" class="">
+            <form action="{{route('admin.reason.store', ['locale'=>$locale])}}" method="post" class="">
                 {{ csrf_field() }}
 
                 <div class="form-group">
