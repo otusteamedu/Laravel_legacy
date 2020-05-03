@@ -63,11 +63,13 @@ class TransactionController extends Controller
     {
 
         $user = Auth::user();
+        $locale = \App::getLocale();//TODO получить из контроллера
 
         if ($user->can('create', Transaction::class)) {
-            $this->authorize('before', Transaction::class);
+
             Transaction::create($request->all());
-            return redirect()->route('admin.transaction.index');
+            return redirect()->route('admin.transaction.index', ['locale'=>$locale]);
+
         } else {
             Log::critical("сообщение в слак о попытке дотупа");
             return view('errors.not-allowed');
@@ -85,7 +87,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->can('view', Transaction::class)) {
-            $this->authorize('before', Transaction::class);
+
             return view('transaction.show', [
                 'transaction' => $transaction,
             ]);
@@ -106,7 +108,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->can('update', $user, Transaction::class)) {
-            $this->authorize('before', Transaction::class);
+
             return view('transaction.edit', [
                 'transaction' => $transaction,
                 'students' => Student::all(),
@@ -131,7 +133,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->can('update', $user, Transaction::class)) {
-            $this->authorize('before', Transaction::class);
+
             $transaction->update($request->all());
             return redirect()->route('admin.transaction.index');
         } else {
@@ -152,7 +154,7 @@ class TransactionController extends Controller
         $user = Auth::user();
 
         if ($user->can('delete', Transaction::class)) {
-            $this->authorize('before', Transaction::class);
+
             $transaction->delete();
             return redirect()->route('admin.transaction.index');
         } else {

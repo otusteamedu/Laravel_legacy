@@ -19,9 +19,28 @@
     <!-- ========================= SECTION MAIN  ========================= -->
     <section class="section-main padding-y">
         <main class="card">
-            <div class="card-body">
+            <div class="card-body"> <div class="alert alert-warning">таблица составлена: тут время кэша</div>
 
-                вывод таблицы с причинами и транзакциями
+                <table class="table table-striped table-bordered">
+                    <tr>
+                    <th scope="col">студент/причина</th>
+                    @foreach($reasons as $reason)
+                    <th scope="col">{{$reason['name']}}</th>
+                    @endforeach
+                    </tr>
+
+                    @foreach($students as $student)
+
+                    <tr>
+                        <td>{{$student['name']}}</td>
+                        @for ($i = 0; $i < $reasonsCount; $i++)
+                        <td>{{$arTransactions[$student['id']][$reasons[$i]['id']] }}</td>
+                        @endfor
+                    </tr>
+
+                    @endforeach
+
+                </table>
 
             </div> <!-- card-body.// -->
         </main> <!-- card.// -->
