@@ -10,7 +10,8 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ./public:/var/www/public:ro
-
+    depends_on:
+      - app
     ports:
       - 80:80
 
