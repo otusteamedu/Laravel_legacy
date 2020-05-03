@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "03b21e293c30beb8b8062862f2160eb2",
+    "content-hash": "023b4bfe61d9631480e16b03b400feec",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -1486,6 +1486,35 @@
                 "uuid"
             ],
             "time": "2020-02-21T04:36:14+00:00"
+        },
+        {
+            "name": "rom/calc",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../lara_calc",
+                "reference": "1d0cb8b5d3d5bd7e2d47252b845a9302c3a521c5"
+            },
+            "require": {
+                "illuminate/support": "^5.8"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Rom\\Calc\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rom\\Calc\\": "src/"
+                }
+            },
+            "description": "my test packet",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -5849,7 +5878,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rom/calc": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
