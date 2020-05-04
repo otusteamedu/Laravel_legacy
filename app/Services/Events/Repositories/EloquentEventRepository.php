@@ -15,17 +15,7 @@ class EloquentEventRepository implements EventRepositoryInterface
 {
     public function find(int $eventId)
     {
-        $eventCacheKey = 'event_' . $eventId;
-
-        $event = \Cache::tags([Event::class])->remember(
-            $eventCacheKey,
-            Carbon::now()->addSeconds(\Config::get('cache.cache_time.event_detail')),
-            function () use ($eventId) {
-                $event = Event::with('getType', 'pictures', 'getCountry', 'getAuthor', 'participants')->find($eventId);
-
-                return $event;
-            }
-        );
+        $event = Event::with('getType', 'pictures', 'getCountry', 'getAuthor', 'participants')->find($eventId);
 
         return $event;
     }
