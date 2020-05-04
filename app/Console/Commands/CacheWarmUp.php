@@ -54,15 +54,13 @@ class CacheWarmUp extends Command
                 $availableTagList
             );
 
-            if (empty($tag)) {
+            if (empty($tag) || !in_array($tag, $availableTagList)) {
                 $this->info('All cache deleted' . PHP_EOL);
 
                 $warmUpCacheService->clearAll();
-            } elseif (in_array($tag, $availableTagList)) {
+            } else {
                 $this->info('Cache deleted by tag "' . $tag . '"' . PHP_EOL);
                 $warmUpCacheService->clearByTag($tag);
-            } else {
-                $this->info('Invalid tag. Сache is not cleared.' . PHP_EOL);
             }
         }
 
