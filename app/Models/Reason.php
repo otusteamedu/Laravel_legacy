@@ -35,4 +35,10 @@ class Reason extends Model
     {
         return $this->hasMany(Transaction::class);
     }
+
+    public function getTotalAmount()
+    {
+        $total = $this->all()->pluck('amount')->sum();
+        return $total;
+    }
 }
