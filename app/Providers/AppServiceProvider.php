@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Articles\Repositories\EloquentArticleRepository;
 use App\Services\Articles\Repositories\ArticleRepositoryInterface;
+use App\Services\Countries\Repositories\CountryRepositoryInterface;
+use App\Services\Countries\Repositories\EloquentCountryRepository;
 use App\Services\Events\Repositories\CacheEventRepository;
 use App\Services\Events\Repositories\CacheEventRepositoryInterface;
 use App\Services\Languages\Repositories\CacheLanguageRepository;
@@ -52,6 +54,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             ArticleRepositoryInterface::class,
             EloquentArticleRepository::class
+        );
+
+        $this->app->bind(
+            CountryRepositoryInterface::class,
+            EloquentCountryRepository::class
         );
 
         $this->app->bind(
