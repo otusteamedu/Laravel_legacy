@@ -8,6 +8,8 @@ use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use App\Services\Countries\Repositories\EloquentCountryRepository;
 use App\Services\Events\Repositories\CacheEventRepository;
 use App\Services\Events\Repositories\CacheEventRepositoryInterface;
+use App\Services\EventTypes\Repositories\EloquentEventTypeRepository;
+use App\Services\EventTypes\Repositories\EventTypeRepositoryInterface;
 use App\Services\Languages\Repositories\CacheLanguageRepository;
 use App\Services\Languages\Repositories\CacheLanguageRepositoryInterface;
 use App\Services\Events\Repositories\EloquentEventRepository;
@@ -64,6 +66,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             EventRepositoryInterface::class,
             EloquentEventRepository::class
+        );
+
+        $this->app->bind(
+            EventTypeRepositoryInterface::class,
+            EloquentEventTypeRepository::class
         );
 
         $this->app->bind(
