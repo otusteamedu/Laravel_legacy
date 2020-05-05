@@ -92,7 +92,7 @@ return [
             /*
              * Set to "horizon" if you wish to use Laravel Horizon.
              */
-            'worker' => env('RABBITMQ_WORKER', 'default'),
+            'worker' => env('RABBITMQ_WORKER', 'horizon'),
 
         ],
 

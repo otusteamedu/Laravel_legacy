@@ -85,6 +85,7 @@ return [
 
     'waits' => [
         'redis:default' => 60,
+        'rabbitmq:default' => 60,
     ],
 
     /*
@@ -167,7 +168,7 @@ return [
     'environments' => [
         'production' => [
             'supervisor-1' => [
-                'connection' => 'redis',
+                'connection' => 'rabbitmq',
                 'queue' => ['default'],
                 'balance' => 'simple',
                 'processes' => 10,
@@ -177,7 +178,7 @@ return [
 
         'local' => [
             'supervisor-1' => [
-                'connection' => 'redis',
+                'connection' => 'rabbitmq',
                 'queue' => ['default'],
                 'balance' => 'simple',
                 'processes' => 3,
