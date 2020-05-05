@@ -12,7 +12,7 @@ class ProjectsTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\User::all() as $user) {
-            factory(\App\Models\Project::class, 10)->create([
+            factory(\App\Models\Project::class, 1)->create([
                 'user_id' => $user->id,
             ]);
         }
