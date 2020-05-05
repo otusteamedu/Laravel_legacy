@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Cms\Offers;
 
 use App\Http\Controllers\Cms\Offers\Requests\StoreOfferRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Cms\Offers\Requests\StoreCityRequest;
 use App\Models\City;
 use App\Models\Offer;
 use App\Models\Project;
@@ -13,15 +12,11 @@ use App\Policies\Abilities;
 use App\Services\Offers\OffersService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Gate;
-use View;
+use Illuminate\Support\Facades\Cache;
 
 
 class OffersController extends Controller
 {
-    /**
-     * @var OffersService
-     */
     protected $offersService;
 
     public function __construct(
@@ -35,10 +30,33 @@ class OffersController extends Controller
      * Display a listing of the resource.
      *
      * @param Offer $offer
+     * @param Request $request
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index(Offer $offer)
+    public function index(Offer $offer, Request $request)
+    {
+        $this->authorize(Abilities::VIEW, $offer);
+
+        $key = $request->user()->id . '|' . $request->getUri();
+
+        return Cache::remember($key, 60, function () {
+            $offers = $this->offersService->searchCachedOffers();
+
+            return view(config('view.cms.offers.index'), [
+                'offers' => $offers
+            ])->render();
+        });
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @param Offer $offer
+     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function indexNoCache(Offer $offer)
     {
         $this->authorize(Abilities::VIEW, $offer);
 
@@ -46,6 +64,7 @@ class OffersController extends Controller
             'offers' => Offer::paginate()
         ]);
     }
+
 
     /**
      * Show the form for creating a new resource.

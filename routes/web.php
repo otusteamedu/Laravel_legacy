@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'SaleOffers\SaleOffersController@index')->name('Главная');
+Route::get('/nocache', 'SaleOffers\SaleOffersController@indexWithoutCacheForMetric')->name('Главная');
 
 Route::get('/dummy', function () {
     return view('plain.sale-dummy');

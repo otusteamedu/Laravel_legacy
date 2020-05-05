@@ -15,4 +15,6 @@ interface OfferRepositoryInterface
 
     public function updateFromArray(Offer $offer, array $data);
 
+    public function getList(int $limit, int $offset);
+
 }
