@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single', 'daily'],
+            'channels' => ['single', 'daily', 'codeblogslack'],
             'ignore_exceptions' => false,
         ],
 
