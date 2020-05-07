@@ -3,6 +3,7 @@
 namespace App\Services\Events\Handlers;
 
 use App\Models\Event;
+use App\Services\Events\Events\EventCreated;
 use App\Services\Events\Repositories\EventRepositoryInterface;
 use Carbon\Carbon;
 
@@ -60,6 +61,8 @@ class CreateEventHandler {
 
             $event->participants()->sync($participantList);
         }
+
+        EventCreated::dispatch($event);
 
         return $event;
     }
