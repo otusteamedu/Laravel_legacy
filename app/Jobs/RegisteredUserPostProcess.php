@@ -24,8 +24,6 @@ class RegisteredUserPostProcess implements ShouldQueue
 
     public function handle()
     {
-        // @ToDo и вот тут уже вызываем отправку уведомления автору события
-        // и пока что заглушка для рассылки уведомлений пользователям поблизости
         \Mail::send((new UserRegistered($this->user)));
 
         return true;
