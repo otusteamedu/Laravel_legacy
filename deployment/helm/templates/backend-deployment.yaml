@@ -20,6 +20,19 @@ spec:
         {{ $key }}: {{ $value }}
       {{- end }}
     spec:
+      initContainers:
+        - name: migrate
+          image: {{ .Values.images.app.name }}:{{ .Values.images.app.tag }}
+          command: ['./artisan', 'migrate', '--force']
+          envFrom:
+            - configMapRef:
+                name: app-config
+          env:
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: app-db-password
+                  key: DB_PASSWORD
       containers:
         - name: web
           imagePullPolicy: Always
@@ -33,12 +46,12 @@ spec:
           imagePullPolicy: Always
           image: {{ .Values.images.app.name }}:{{ .Values.images.app.tag }}
           terminationMessagePolicy: FallbackToLogsOnError
-#          lifecycle:
-#            postStart:
-#              exec:
-#                command:
-#                  - 'artisan'
-#                  - 'optimize'
+          lifecycle:
+            postStart:
+              exec:
+                command:
+                  - 'artisan'
+                  - 'optimize'
           resources:
             {{- toYaml .Values.backend.app.resources | nindent 12 }}
           ports:

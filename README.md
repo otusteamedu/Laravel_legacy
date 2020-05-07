@@ -1,8 +1,30 @@
-#MLGA
+# MLGA
 ## Kuber
-* Запилить kuber > 1.15
-* Впилить [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke)
-    * TODO он сам создает балансировщик и получает IP - это не дело, ибо IP при удалении пропадет
-* Впилить [cert-manager](https://cert-manager.io/docs/tutorials/acme/ingress/)
-    * Внимание на Issuer и ClusterIssuer
-## App
+* Kubernetes > 1.15
+* Helm 3+
+* [nginx-ingress](https://kubernetes.github.io/ingress-nginx/deploy/#gce-gke)
+* [cert-manager](https://cert-manager.io/docs/tutorials/acme/ingress/)
+
+## Local
+### Run
+```shell script
+docker-compose up -d --build
+```
+http://localhost:8149
+
+### Init
+```shell script
+docker-compose exec app composer install
+docker-compose exec app artisan migrate
+```
+### Test
+```shell script
+docker-compose exec app phpunit
+```
+## Environment
+* Develop: https://test.otus.make-laravel-great-again.tk/
+* Master: https://otus.make-laravel-great-again.tk/
+
+## CI
+Coming soon..
+
