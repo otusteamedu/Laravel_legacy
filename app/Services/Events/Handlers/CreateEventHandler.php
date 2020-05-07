@@ -24,13 +24,15 @@ class CreateEventHandler {
     public function handle(array $data): Event
     {
         $data['created_at'] = Carbon::create()->subDay();
-        $data['description'] = ucfirst(trim($data['description']));
-        $data['region'] = ucfirst(trim($data['region']));
-        $data['locality'] = ucfirst(trim($data['locality']));
+        $data['description'] = ucfirst(trim(htmlentities($data['description'])));
+        $data['region'] = ucfirst(trim(htmlentities($data['region'])));
+        $data['locality'] = ucfirst(trim(htmlentities($data['locality'])));
+        $data['country_id'] = (int)($data['country_id']);
         $data['lat'] = (float)($data['lat']);
         $data['long'] = (float)($data['long']);
         $data['type_id'] = (int)($data['type_id']);
         $data['author_id'] = (int)($data['author_id']);
+        $data['is_solved'] = (isset($data['is_solved'])) ? (int)($data['is_solved']) : 0;
 
         $event = $this->eventRepository->createFromArray($data);
 

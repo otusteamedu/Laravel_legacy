@@ -6,7 +6,7 @@
 с координатами {{ $event->lat }} {{ $event->long }}.
 
 @isset($event->description)
-Описание события: {{$event->description}}.
+Описание события: {{ $event->description }}.
 @endisset
 
 Вы можете перейти на страницу события на сайте по ссылке: <a href="{{config("app.url")}}/events/{{$event->id}}"></a>.
