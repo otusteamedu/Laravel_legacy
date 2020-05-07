@@ -7,7 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class EventCreated extends Mailable
+class AuthorNotificationOfTheEventCreated extends Mailable
 {
     use Queueable, SerializesModels;
 

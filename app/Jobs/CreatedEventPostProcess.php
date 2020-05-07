@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use App\Mail\EventCreated;
+use App\Mail\AuthorNotificationOfTheEventCreated;
 use App\Models\Event;
 use App\Notifications\SlackFailedJob;
 use Illuminate\Bus\Queueable;
@@ -24,7 +24,7 @@ class CreatedEventPostProcess implements ShouldQueue
 
     public function handle()
     {
-        \Mail::send((new EventCreated($this->event)));
+        \Mail::send((new AuthorNotificationOfTheEventCreated($this->event)));
 
         return true;
     }
