@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Events\Events\EventCreated;
+use App\Services\Events\Listeners\EventCreatedListener;
 use App\Services\Users\Events\UserRegistered;
 use App\Services\Users\Listeners\UserRegisteredListener;
 use Illuminate\Auth\Events\Registered;
@@ -57,6 +59,10 @@ class EventServiceProvider extends ServiceProvider
 
         UserRegistered::class => [
             UserRegisteredListener::class
+        ],
+
+        EventCreated::class => [
+            EventCreatedListener::class
         ],
     ];
 
