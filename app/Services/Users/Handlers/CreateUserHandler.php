@@ -3,6 +3,7 @@
 namespace App\Services\Users\Handlers;
 
 use App\Models\User;
+use App\Services\Users\Events\UserRegistered;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use Carbon\Carbon;
 use Str;
@@ -31,6 +32,10 @@ class CreateUserHandler {
         $data['password'] = trim($data['password']);
         $data['api_token'] = Str::random(60);
 
-        return $this->userRepository->createFromArray($data);
+        $user = $this->userRepository->createFromArray($data);
+
+        UserRegistered::dispatch($user);
+
+        return $user;
     }
 }
