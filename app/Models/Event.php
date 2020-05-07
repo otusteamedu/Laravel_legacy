@@ -128,6 +128,10 @@ class Event extends Model
         return $this->getAuthor->id;
     }
 
+    public function getAuthorEmail() {
+        return $this->getAuthor->email;
+    }
+
     public function getAuthorName() {
         return $this->getAuthor->name;
     }

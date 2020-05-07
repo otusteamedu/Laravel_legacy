@@ -30,9 +30,10 @@ class EventCreated extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.events.create')
+
+        return $this->view('emails.events.created')
             ->from(config('mail.from.address'))
-            ->to($this->event->getAuthor()->email)
+            ->to($this->event->getAuthorEmail())
             ->with(['event' => $this->event]);
     }
 }
