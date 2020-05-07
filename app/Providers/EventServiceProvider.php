@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Users\Events\UserRegistered;
+use App\Services\Users\Listeners\UserRegisteredListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -51,6 +53,10 @@ class EventServiceProvider extends ServiceProvider
 
         Lockout::class => [
             LogLockout::class
+        ],
+
+        UserRegistered::class => [
+            UserRegisteredListener::class
         ],
     ];
 
