@@ -61,14 +61,14 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
+            'queue' => env('REDIS_QUEUE', \App\Jobs\Queue::LOW_PRIORITY),
             'retry_after' => 90,
             'block_for' => null,
         ],
 
         'rabbitmq' => [
             'driver' => 'rabbitmq',
-            'queue' => env('RABBITMQ_QUEUE', 'default'),
+            'queue' => env('RABBITMQ_QUEUE', \App\Jobs\Queue::LOW_PRIORITY),
             'connection' => PhpAmqpLib\Connection\AMQPLazyConnection::class,
             'hosts' => [
                 [
