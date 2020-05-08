@@ -8,6 +8,8 @@ use App\Services\Cities\Repositories\EloquentCityRepository;
 use App\Services\Cities\Repositories\CityRepositoryInterface;
 use App\Services\Offers\Repositories\EloquentOfferRepository;
 use App\Services\Offers\Repositories\OfferRepositoryInterface;
+use App\Services\Offers\Repositories\CachedOfferRepositoryInterface;
+use App\Services\Offers\Repositories\CachedOfferRepository;
 use App\Services\Projects\Repositories\EloquentProjectRepository;
 use App\Services\Projects\Repositories\ProjectRepositoryInterface;
 use App\Services\Segments\Repositories\EloquentSegmentRepository;
@@ -79,6 +81,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             OfferRepositoryInterface::class,
             EloquentOfferRepository::class
+        );
+
+        $this->app->bind(
+            CachedOfferRepositoryInterface::class,
+            CachedOfferRepository::class
         );
     }
 }
