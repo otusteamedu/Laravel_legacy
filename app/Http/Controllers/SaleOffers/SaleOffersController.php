@@ -29,7 +29,7 @@ class SaleOffersController extends Controller
      * @param Request $request
      * @return Application|Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function indexWithCache(Request $request)
     {
         $key = $request->user()->id . '|' . $request->getUri();
 
@@ -46,7 +46,7 @@ class SaleOffersController extends Controller
     /**
      * @return Application|Factory|\Illuminate\View\View
      */
-    public function indexWithoutCacheForMetric()
+    public function index()
     {
         return view('plain.sale', [
             'offers' => Offer::paginate(),
