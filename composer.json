@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.1",
-        "watson/rememberable": "^3.2.1"
+        "watson/rememberable": "^3.2.1",
+        "ext-imagick": "*"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
