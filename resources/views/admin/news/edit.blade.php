@@ -1,4 +1,4 @@
-{{ Form::model($news, ['url' => route('admin.news.update', ['news' => $news]), 'method' => 'PUT']) }}
+{{ Form::model($news, ['url' => route('admin.news.update',['news' => $news]), 'files'=>'true', 'method' => 'PUT']) }}
 <div class="row">
 <div class="col-12 col-lg-8">
     @include('admin.blocks.errors.errors')
@@ -23,10 +23,17 @@
           {{ Form::label('url', 'Url') }}
           {{ Form::text('url', $news->url, array_merge(['class' => 'form-control'], ['placeholder'=>'Url'])) }}
       </div>
-{{--       <div class="col-12 mb-3">
-          {{ Form::label('file', 'Загрузка файла') }}
-          {{  Form::file('file', array_merge(['class' => 'form-control'])) }}
-      </div> --}}
+      <div class="card col-12 mb-3">
+          <div class="card-body">
+            {{ Form::label('file', 'Загрузка файла') }}
+            {{  Form::file('file', array_merge(['class' => 'form-control'])) }}
+          </div>
+          @if(Storage::disk('public')->exists($news->file_path))
+            <div class="card-img-bottom">
+              <img src="{{Storage::url($news->file_path)}}" class="img-fluid mb-1">
+            </div>
+          @endif
+      </div> 
       
     </div>
 </div>

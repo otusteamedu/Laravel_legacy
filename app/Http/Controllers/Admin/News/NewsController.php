@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\News;
 
+use App\Helpers\FilesWork;
 use App\Helpers\RouteBuilder;
 use App\Http\Controllers\Controller;
 use App\Http\Handlers\News\NewsHandlers;
@@ -9,7 +10,6 @@ use App\Http\Requests\News\StoreNewsRequest;
 use App\Http\Requests\News\UpdateNewsRequest;
 use App\Http\Services\News\NewsService;
 use App\Models\News;
-
 
 class NewsController extends Controller
 {
@@ -55,8 +55,11 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        $requestArray = $request->getFormArray();
-        $this->newsService->createNews($requestArray);
+        $requestArray = $request->getFormArray($request->file);
+        $news = $this->newsService->createNews($requestArray);
+
+        FilesWork::storeFile($request->file, News::FILE_PATH, $news->id);
+
         return redirect(route('admin.news.index'));
     }
 
@@ -91,8 +94,12 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        $requestArray = $request->getFormArray();
+        $requestArray = $request->getFormArray($request->file);
+        
         $this->newsService->updateNews($news, $requestArray);
+
+        FilesWork::storeFile($request->file, News::FILE_PATH, $news->id);
+
         return redirect(route('admin.news.index'));
     }
 
@@ -107,4 +114,6 @@ class NewsController extends Controller
         $this->newsService->deleteNews($news);
         return redirect(route('admin.news.index'));
     }
+
+
 }

@@ -14,6 +14,7 @@
         "fideloper/proxy": "^4.0",
         "laravel/central_bank_rate": "dev-master",
         "laravel/framework": "^7.0",
+        "laravel/slack-notification-channel": "^2.0",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "monolog/monolog": "^2.0"
