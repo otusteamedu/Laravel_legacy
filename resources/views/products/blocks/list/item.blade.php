@@ -6,4 +6,3 @@
     <td>@date($product['created_at'])</td>
 </tr>
 
-@date($product['created_at'])
