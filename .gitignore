@@ -24,4 +24,10 @@ public/js/**
 public/css/**
 !public/css/.gitkeep
 
+public/fonts/**
+!public/fonts/.gitkeep
+
+public/img/**
+!public/img/.gitkeep
+
 public/mix-manifest.json
