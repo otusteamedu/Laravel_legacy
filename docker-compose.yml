@@ -13,11 +13,11 @@ services:
     volumes:
       - ./deployment/local/web/default.conf:/etc/nginx/conf.d/default.conf
 #         For JS Frontend
-#      - ./public/css:/var/www/public/css
-#      - ./public/js:/var/www/public/js
-#      - ./public/favicon.ico:/var/www/public/favicon.ico
-#      - ./public/mix-manifest.json:/var/www/public/mix-manifest.json
-#      - ./public/robots.txt:/var/www/public/robots.txt
+      - ./public/css:/var/www/public/css
+      - ./public/js:/var/www/public/js
+      - ./public/favicon.ico:/var/www/public/favicon.ico
+      - ./public/mix-manifest.json:/var/www/public/mix-manifest.json
+      - ./public/robots.txt:/var/www/public/robots.txt
 
   app:
     build:
