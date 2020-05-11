@@ -1,0 +1,17 @@
+.sidebar {
+    position: relative;
+    display: block;
+    height: 100%;
+    min-height: 100vh;
+    background: #fff;
+    &.collapse:not(.show) {
+        display: block;
+    }
+    .nav-link {
+        border-radius: 0;
+    }
+    .close {
+        padding: 9px;
+        display: none;
+    }
+}
