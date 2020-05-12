@@ -34,8 +34,12 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search', '');
+        $ts1 = microtime(true);
         $incomes = $this->incomesService->search($search);
         $summ = $this->incomesService->sum($search);
+        $ts2 = microtime(true);
+        \Log::channel('info')->debug('Incomes/search_and_summ' . ($request->get('no_cache') ? ' (no cache)' : '') . ': '. ($ts2 - $ts1));
+
         return view('index', [
             'incomes' => $incomes,
             'search' => $search,
@@ -54,6 +58,7 @@ class DashboardController extends Controller
     {
         try {
             $country = $this->incomesService->store($request->all());
+
         } catch (\Exception $e) {
             \Log::channel('error')->error(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([

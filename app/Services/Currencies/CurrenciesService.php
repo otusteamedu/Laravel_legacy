@@ -9,6 +9,7 @@ use App\Models\Currency;
 use App\Services\Currencies\Handlers\CreateCurrencyHandler;
 use App\Services\Currencies\Handlers\UpdateCurrencyHandler;
 use App\Services\Currencies\Handlers\DeleteCurrencyHandler;
+use App\Services\Currencies\Repositories\CachedCurrencyRepositoryInterface;
 use App\Services\Currencies\Repositories\CurrencyRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -24,17 +25,22 @@ class CurrenciesService
     /** @var DeleteCurrencyHandler */
     private $deleteHandler;
 
+    /** @var CachedCurrencyRepositoryInterface */
+    private $cachedRepository;
+
     public function __construct(
         CreateCurrencyHandler $createCurrencyHandler,
         UpdateCurrencyHandler $updateCurrencyHandler,
         DeleteCurrencyHandler $deleteCurrencyHandler,
-        CurrencyRepositoryInterface $currencyRepository
+        CurrencyRepositoryInterface $currencyRepository,
+        CachedCurrencyRepositoryInterface $cachedCurrencyRepository
     )
     {
         $this->createHandler = $createCurrencyHandler;
         $this->updateHandler = $updateCurrencyHandler;
         $this->deleteHandler = $deleteCurrencyHandler;
         $this->repository = $currencyRepository;
+        $this->cachedRepository = $cachedCurrencyRepository;
     }
 
     /**
@@ -44,7 +50,7 @@ class CurrenciesService
      */
     public function searchByCode($code): LengthAwarePaginator
     {
-        return $this->repository->searchByCode($code);
+        return $this->cachedRepository->searchByCode($code);
     }
 
     /**
@@ -52,7 +58,7 @@ class CurrenciesService
      */
     public function all(): array
     {
-        return $this->repository->all();
+        return $this->cachedRepository->all();
     }
 
 
@@ -63,6 +69,7 @@ class CurrenciesService
      */
     public function store(array $data)
     {
+        $this->cachedRepository->clearSearchCache();
         return $this->createHandler->handle($data);
     }
 
@@ -74,6 +81,7 @@ class CurrenciesService
      */
     public function update(int $id, array $data)
     {
+        $this->cachedRepository->clearSearchCache();
         return $this->updateHandler->handle($id, $data);
     }
 
@@ -84,6 +92,7 @@ class CurrenciesService
      */
     public function delete(int $id)
     {
+        $this->cachedRepository->clearSearchCache();
         return $this->deleteHandler->handle($id);
     }
 
