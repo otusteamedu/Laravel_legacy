@@ -11,9 +11,9 @@ use App\Models\Income;
 interface CachedIncomeRepositoryInterface
 {
 
-    public function sum();
+    public function sum($search, $userId);
 
-    public function search();
+    public function search($search, $userId);
 
     public function clearSearchCache();
 

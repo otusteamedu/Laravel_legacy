@@ -35,8 +35,9 @@ class DashboardController extends Controller
     {
         $search = $request->get('search', '');
         $ts1 = microtime(true);
-        $incomes = $this->incomesService->search($search);
-        $summ = $this->incomesService->sum($search);
+        $userId = \Auth::user()->id ?? 0;
+        $incomes = $this->incomesService->search($search, $userId);
+        $summ = $this->incomesService->sum($search, $userId);
         $ts2 = microtime(true);
         \Log::channel('info')->debug('Incomes/search_and_summ' . ($request->get('no_cache') ? ' (no cache)' : '') . ': '. ($ts2 - $ts1));
 

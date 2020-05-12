@@ -31,31 +31,29 @@ class CachedIncomeRepository implements CachedIncomeRepositoryInterface
     }
 
 
-    public function search(string $search = '')
+    public function search($search, $userId)
     {
         if (!empty($search) || request()->get('no_cache')) {
             // для оптимизации кэшируем только без фильтров
-            return $this->incomeRepository->search($search);
+            return $this->incomeRepository->search($search, $userId);
         }
-        $userId = \Auth::user()->id ?? 0;
         $key = $this->cacheKeyManager->getSearchCountriesKey(['search' => $search, 'user_id' => $userId]);
         return Cache::tags([Tag::INCOMES])
-            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($search) {
-            return $this->incomeRepository->search($search);
+            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($search, $userId) {
+            return $this->incomeRepository->search($search, $userId);
         });
     }
 
-    public function sum(string $search = ''): int
+    public function sum($search, $userId): int
     {
         if (!empty($search) || request()->get('no_cache')) {
             // для оптимизации кэшируем только без фильтров
-            return $this->incomeRepository->sum($search);
+            return $this->incomeRepository->sum($search, $userId);
         }
-        $userId = \Auth::user()->id;
         $key = $this->cacheKeyManager->getSearchCountriesKey(['search' => $search, 'user_id' => $userId]);
         return Cache::tags([Tag::INCOMES_SUM])
-            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($search) {
-                return $this->incomeRepository->sum($search);
+            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($search, $userId) {
+                return $this->incomeRepository->sum($search, $userId);
             });
     }
 

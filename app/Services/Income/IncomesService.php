@@ -36,21 +36,23 @@ class IncomesService
     /**
      * Поиск и выдача результата
      * @param string $string поисковая строка
+     * @param string $userId ид пользователя
      * @return LengthAwarePaginator
      */
-    public function search($string): LengthAwarePaginator
+    public function search($string, $userId): LengthAwarePaginator
     {
-        return $this->cachedRepository->search($string);
+        return $this->cachedRepository->search($string, $userId);
     }
 
     /**
      * Сумма дохода
      * @param string $string поисковая строка
+     * @param string $userId ид пользователя
      * @return int
      */
-    public function sum($string): int
+    public function sum($string, $userId): int
     {
-        return $this->cachedRepository->sum($string);
+        return $this->cachedRepository->sum($string, $userId);
     }
 
 
