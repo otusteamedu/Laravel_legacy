@@ -19,17 +19,17 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <a href="/" class="navbar-brand mb-0 h1">Codre <small>CRM</small></a>
-        @if ($user ?? null)
+        @isset($user)
             @include('blocks.navbar.user')
-        @endunless
+        @endisset
     </nav>
 </header>
 <div class="row content">
-    @if ($user ?? null)
+    @isset($user)
         <div class="col-md-3 col-lg-2">
             @include('blocks.navbar.left')
         </div>
-    @endif
+    @endisset
 
     <div class="{{ empty($user) ? 'container' : 'col-md-9 col-lg-10 content-block' }}">
         @yield('content')

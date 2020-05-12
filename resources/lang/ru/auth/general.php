@@ -2,11 +2,17 @@
 
 return [
     'title' => 'Авторизация',
-    'form.email' => 'E-mail',
-    'form.email.placeholder' => 'Введите e-mail',
-    'form.password' => 'Пароль',
-    'form.password.placeholder' => 'Введите пароль',
-    'form.recover' => 'Восстановить пароль',
-    'form.remember_me' => 'Оставаться в системе',
-    'form.submit' => 'Войти',
+    'form' => [
+        'email' => [
+            'label' => 'E-mail',
+            'placeholder' => 'Введите e-mail',
+        ],
+        'password' => [
+            'label' => 'Пароль',
+            'placeholder' => 'Введите пароль',
+        ],
+        'recover' => 'Восстановить пароль',
+        'remember_me' =>  'Оставаться в системе',
+        'submit' => 'Войти',
+    ]
 ];

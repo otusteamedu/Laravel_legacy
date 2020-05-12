@@ -1,7 +1,9 @@
 <?php
 
 return [
-    'field.id' => 'ID',
-    'field.email' => 'E-mail',
-    'change' => 'Изменить'
+    'field'  => [
+        'id'    => 'ID',
+        'email' => 'E-mail',
+    ],
+    'change' => 'Изменить',
 ];

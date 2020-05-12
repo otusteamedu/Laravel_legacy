@@ -1,3 +1,5 @@
+@extends('layouts.general')
+
 @section('content')
     <h1>{{ $title }}</h1>
 
@@ -59,5 +61,3 @@
         </div>
     </div>
 @endsection
-
-@include('layouts.general')

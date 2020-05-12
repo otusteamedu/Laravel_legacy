@@ -22,13 +22,13 @@ $user = [
 
 Route::get('/', function () {
     return view('auth.index')->with([
-        'title' => trans('auth/general.title'),
+        'title' => __('auth/general.title'),
     ]);
 });
 
 Route::get('/auth/recover', function () {
     return view('auth.recover.index')->with([
-        'title' => trans('auth/recover.title'),
+        'title' => __('auth/recover.title'),
     ]);
 });
 
@@ -41,7 +41,7 @@ Route::get('/profile', function () use ($user) {
 
 Route::get('/profile/edit', function () use ($user) {
     return view('profile.edit')->with([
-        'title' => trans('profile/edit.title'),
+        'title' => __('profile/edit.title'),
         'user'  => $user,
     ]);
 });
@@ -49,7 +49,7 @@ Route::get('/profile/edit', function () use ($user) {
 Route::get('/overview', function () use ($user) {
     return view('overview.index')->with([
         'user'     => $user,
-        'title'    => trans('overview/general.title'),
+        'title'    => __('overview/general.title'),
         'balance'  => 350,
         'projects' => [
             [

@@ -1,3 +1,5 @@
+@extends('layouts.general')
+
 @section('content')
     <h1>{{ $title }}</h1>
 
@@ -15,34 +17,31 @@
                 </div>
                 <div class="col-8 col-sm-9 col-lg-10">
                     <div class="form-group">
-                        {!! Form::label('name', trans('profile/edit.form.name')) !!}
-                        {!! Form::text('name', $user['name'], ['class' => 'form-control', 'placeholder' => trans('profile/edit.form.name.placeholder')]) !!}
+                        {!! Form::label('name', __('profile/edit.form.name.label')) !!}
+                        {!! Form::text('name', $user['name'], ['class' => 'form-control', 'placeholder' => __('profile/edit.form.name.placeholder')]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('email', trans('profile/edit.form.email')) !!}
-                        {!! Form::email('email', $user['email'], ['class' => 'form-control', 'placeholder' => trans('profile/edit.form.email.placeholder')]) !!}
+                        {!! Form::label('email', __('profile/edit.form.email.label')) !!}
+                        {!! Form::email('email', $user['email'], ['class' => 'form-control', 'placeholder' => __('profile/edit.form.email.placeholder')]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('password_old', trans('profile/edit.form.password.old')) !!}
-                        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('profile/edit.form.password.old.placeholder')]) !!}
+                        {!! Form::label('password_old', __('profile/edit.form.password.old.label')) !!}
+                        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => __('profile/edit.form.password.old.placeholder')]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('password', trans('profile/edit.form.password')) !!}
-                        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => trans('profile/edit.form.password.placeholder')]) !!}
+                        {!! Form::label('password', __('profile/edit.form.password.label')) !!}
+                        {!! Form::password('password', ['class' => 'form-control', 'placeholder' => __('profile/edit.form.password.placeholder')]) !!}
                     </div>
                     <div class="form-group">
-                        {!! Form::label('password_check', trans('profile/edit.form.password.check')) !!}
-                        {!! Form::password('password_check', ['class' => 'form-control', 'placeholder' => trans('profile/edit.form.password.check.placeholder')]) !!}
+                        {!! Form::label('password_check', __('profile/edit.form.password.check.label')) !!}
+                        {!! Form::password('password_check', ['class' => 'form-control', 'placeholder' => __('profile/edit.form.password.check.placeholder')]) !!}
                     </div>
                 </div>
             </div>
         </div>
         <div class="card-footer">
-            {!! Form::submit(trans('profile/edit.form.submit'), ['class' => 'btn btn-primary']) !!}
+            {!! Form::submit(__('profile/edit.form.submit'), ['class' => 'btn btn-primary']) !!}
         </div>
-        @csrf
         {!! Form::close() !!}
     </div>
 @endsection
-
-@include('layouts.general')
