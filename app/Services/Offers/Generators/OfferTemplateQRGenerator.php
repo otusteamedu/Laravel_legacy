@@ -90,7 +90,7 @@ class OfferTemplateQRGenerator
     {
         $draw = new \ImagickDraw();
         $draw->setStrokeWidth(1);
-        $draw->setFontSize(36);
+        $draw->setFontSize(56);
 
         $text = $this->createOfferLink($offer_id);
 
@@ -109,7 +109,7 @@ class OfferTemplateQRGenerator
      */
     private function createOfferLink(int $offer_id): string
     {
-        return 'badum.ru/id='.$offer_id;
+        return 'badum.ru/offer/'.$offer_id;
 /*        return route('home', [
             'id' => $offer_id
         ]);*/
