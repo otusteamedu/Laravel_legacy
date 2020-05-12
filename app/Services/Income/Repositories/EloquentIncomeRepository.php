@@ -14,11 +14,11 @@ class EloquentIncomeRepository implements IncomeRepositoryInterface
 
     /**
      * @param string $search
+     * @param int $userId
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function search($search = '')
+    public function search($search = '', int $userId = 0)
     {
-        $userId = \Auth::user()->id;
         $Incomes = Income::where('user_id', $userId);
         if ($search) {
             $Incomes->where('name', 'like', '%' . $search . '%');
@@ -28,11 +28,11 @@ class EloquentIncomeRepository implements IncomeRepositoryInterface
 
     /**
      * @param string $search
+     * @param int $userId
      * @return integer
      */
-    public function sum($search = '')
+    public function sum($search = '', int $userId = 0)
     {
-        $userId = \Auth::user()->id;
         $Incomes = Income::where('user_id', $userId);
         if ($search) {
             $Incomes->where('name', 'like', '%' . $search . '%');

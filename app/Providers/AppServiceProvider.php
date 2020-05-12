@@ -11,7 +11,12 @@ use App\Services\Users\Repositories\UserRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Income\Repositories\IncomeRepositoryInterface;
 use App\Services\Income\Repositories\EloquentIncomeRepository;
-
+use App\Services\Countries\Repositories\CachedCountryRepository;
+use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
+use App\Services\Currencies\Repositories\CachedCurrencyRepository;
+use App\Services\Currencies\Repositories\CachedCurrencyRepositoryInterface;
+use App\Services\Income\Repositories\CachedIncomeRepository;
+use App\Services\Income\Repositories\CachedIncomeRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -27,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CountryRepositoryInterface::class, EloquentCountryRepository::class);
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
         $this->app->bind(IncomeRepositoryInterface::class, EloquentIncomeRepository::class);
+        $this->app->bind(CachedCountryRepositoryInterface::class, CachedCountryRepository::class);
+        $this->app->bind(CachedCurrencyRepositoryInterface::class, CachedCurrencyRepository::class);
+        $this->app->bind(CachedIncomeRepositoryInterface::class, CachedIncomeRepository::class);
     }
 
     /**

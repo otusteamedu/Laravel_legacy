@@ -35,7 +35,10 @@ class CurrenciesController extends Controller
     public function index(Request $request)
     {
         $code = $request->get('code', '');
+        $ts1 = microtime(true);
         $currencies = $this->currenciesService->searchByCode($code);
+        $ts2 = microtime(true);
+        \Log::channel('info')->debug('Currencies/searchByCode' . ($request->get('no_cache') ? ' (no cache)' : '') . ': '. ($ts2 - $ts1));
         return view('cms.currencies', ['currencies' => $currencies, 'code' => $code]);
     }
 

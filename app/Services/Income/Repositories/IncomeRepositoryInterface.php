@@ -8,9 +8,9 @@ namespace App\Services\Income\Repositories;
 
 interface IncomeRepositoryInterface
 {
-    public function search(string $search = '');
+    public function search(string $search = '', int $userId = 0);
 
-    public function sum(string $search = '');
+    public function sum(string $search = '', int $userId = 0);
 
     public function createFromArray(array $data);
     /*

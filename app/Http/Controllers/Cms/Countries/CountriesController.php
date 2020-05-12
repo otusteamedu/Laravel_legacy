@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Cms\Countries\Requests\StoreCountryRequest;
 use App\Http\Controllers\Cms\Countries\Requests\UpdateCountryRequest;
 use App\Http\Controllers\Cms\Countries\Requests\DeleteCountryRequest;
-
+use Log;
 use Illuminate\Http\Response;
 use Illuminate\Validation\ValidationException;
 
@@ -41,9 +41,12 @@ class CountriesController extends Controller
     public function index(Request $request)
     {
         $name = $request->get('name', '');
+        $ts1 = microtime(true);
         $data = $this->countriesService->searchByNames((string)$name);
         $currencies = $this->currenciesService->all();
         $currencies[''] = '';
+        $ts2 = microtime(true);
+        \Log::channel('info')->debug('Countries/searchByNames' . ($request->get('no_cache') ? ' (no cache)' : '') . ': '. ($ts2 - $ts1));
         return view('cms.countries', [
             'countries' => $data,
             'name' => $name,

@@ -6,6 +6,7 @@
 namespace App\Services\Countries;
 
 use App\Models\Country;
+use App\Services\Countries\Repositories\CachedCountryRepositoryInterface;
 use App\Services\Countries\Repositories\CountryRepositoryInterface;
 use App\Services\Countries\Handlers\CreateCountryHandler;
 use App\Services\Countries\Handlers\UpdateCountryHandler;
@@ -17,6 +18,10 @@ class CountriesService
 
     /** @var CountryRepositoryInterface */
     private $repository;
+
+    /** @var CachedCountryRepositoryInterface */
+    private $cachedRepository;
+
     /** @var CreateCountryHandler */
     private $createHandler;
     /** @var UpdateCountryHandler */
@@ -30,6 +35,7 @@ class CountriesService
         CreateCountryHandler $createCountryHandler,
         UpdateCountryHandler $updateCountryHandler,
         DeleteCountryHandler $deleteCountryHandler,
+        CachedCountryRepositoryInterface $cachedCountryRepository,
         CountryRepositoryInterface $countryRepository
     )
     {
@@ -37,6 +43,7 @@ class CountriesService
         $this->updateHandler = $updateCountryHandler;
         $this->deleteHandler = $deleteCountryHandler;
         $this->repository = $countryRepository;
+        $this->cachedRepository = $cachedCountryRepository;
     }
 
     /**
@@ -46,7 +53,7 @@ class CountriesService
      */
     public function searchByNames($name): LengthAwarePaginator
     {
-        return $this->repository->searchByNames($name);
+        return $this->cachedRepository->searchByNames($name);
     }
 
     /**
@@ -56,6 +63,7 @@ class CountriesService
      */
     public function store(array $data)
     {
+        $this->cachedRepository->clearSearchCache();
         return $this->createHandler->handle($data);
     }
 
@@ -67,6 +75,7 @@ class CountriesService
      */
     public function update(int $id, array $data)
     {
+        $this->cachedRepository->clearSearchCache();
         return $this->updateHandler->handle($id, $data);
     }
 
@@ -77,6 +86,7 @@ class CountriesService
      */
     public function delete(int $id)
     {
+        $this->cachedRepository->clearSearchCache();
         return $this->deleteHandler->handle($id);
     }
 
