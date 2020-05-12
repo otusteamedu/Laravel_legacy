@@ -28,6 +28,7 @@ public MpollsService $mpollsService;
     )
     {
         $this->mpollsService = $mpollsService;
+//        $this->middleware('auth');
     }
 
     /**
