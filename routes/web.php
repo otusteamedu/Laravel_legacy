@@ -24,3 +24,7 @@ Route::get('/home', function () {
 Route::get('/advert', function () {
     return view('/advert/advert');
 });
+
+Route::get('/auth', function () {
+    return view('/auth/register');
+});

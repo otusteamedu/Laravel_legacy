@@ -1,4 +1,5 @@
-<div class="container footer mt-3">
+<footer class="footer">
+<div class="container mt-3 text-muted">
     <div class="row alert alert-primary justify-content-center ">
         <div class="container">
             <ul class="nav justify-content-center">
@@ -21,3 +22,5 @@
         </div>
     </div>
 </div>
+</footer>
+

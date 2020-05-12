@@ -3,7 +3,7 @@
 
         @for ($i = 0; $i < 8; $i++)
             <div class="card m-4" style="width: 18rem;">
-                <img src="/img/default.jpg" class="card-img-top" alt="...">
+                <img src="{{ URL::asset('img/default.jpg') }}" class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">2-х комнатная квартира</h5>
                     <p class="card-text">Москва</p>

@@ -1,19 +1,10 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <style>
-                .img {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    width: 300px;
-                    height: 200px;
-                    background-color: #b8daff;
-                }
+            <style> .img {width: 200px;} </style>
 
-            </style>
             <h1>2-к квартира, 53 м², 14/17 эт.</h1>
-            <div class="img mt-3 mb-5"> Фото</div>
+            <img class="img mt-2 mb-4" src="{{ URL::asset('img/default.jpg') }}"  alt="...">
             <h3>Московская область, Подольск, Юбилейная улица</h3>
             <p>О КВАРТИРЕ: располагается на 14-ом этаже 17-ти этажного панельного дома. В квартире муниципальный ремонт.
                 Санузел раздельный. В квартире есть частично мебель.
