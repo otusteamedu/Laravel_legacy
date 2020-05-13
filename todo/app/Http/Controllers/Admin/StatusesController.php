@@ -38,8 +38,6 @@ class StatusesController extends BaseAdminController
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
         return view('admin.statuses.index', [
             'statuses' => $this->statusesService->searchStatuses(),
             'breadcrumbs' => $this->breadcrumbs

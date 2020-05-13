@@ -46,8 +46,6 @@ class RolesController extends BaseAdminController
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
 
         return view('admin.roles.index', [
             'roles' => $this->rolesService->searchRoles(),
