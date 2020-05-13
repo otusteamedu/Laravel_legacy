@@ -19,6 +19,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::middleware('auth:api')->group(function () {
     Route::apiResource('tasks', 'Api\TasksController');
+    Route::apiResource('styles', 'Api\StylesController');
+    Route::apiResource('prices', 'Api\PricesController');
+    Route::apiResource('instructors', 'Api\InstructorsController');
+    Route::apiResource('schedule', 'Api\ScheduleController');
 });
 
 //Route::apiResource('tasks', 'Api\TasksController');
