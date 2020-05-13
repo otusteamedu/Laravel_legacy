@@ -12,10 +12,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/lang-constructor/delete/{id}', 'LangConstructor\LangConstructorController@delete')->name('lang-constructor-delete');
 
 
-    Route::get('/lang-constructor-type/', 'LangConstructor\LangConstructorTypeController@index')->name('lang-constructor-type-index');
-    Route::get('/lang-constructor-type/edit/{id?}', 'LangConstructor\LangConstructorTypeController@edit')->name('lang-constructor-type-edit');
-    Route::post('/lang-constructor-type/save', 'LangConstructor\LangConstructorTypeController@save')->name('lang-constructor-type-save');
-    Route::get('/lang-constructor-type/delete/{id}', 'LangConstructor\LangConstructorTypeController@delete')->name('lang-constructor-type-delete');
+    Route::get('/lang-constructor-type/', 'LangConstructorType\LangConstructorTypeController@index')->name('lang-constructor-type-index');
+    Route::get('/lang-constructor-type/edit/{id?}', 'LangConstructorType\LangConstructorTypeController@edit')->name('lang-constructor-type-edit');
+    Route::post('/lang-constructor-type/save', 'LangConstructorType\LangConstructorTypeController@save')->name('lang-constructor-type-save');
+    Route::get('/lang-constructor-type/delete/{id}', 'LangConstructorType\LangConstructorTypeController@delete')->name('lang-constructor-type-delete');
 
 });
 
