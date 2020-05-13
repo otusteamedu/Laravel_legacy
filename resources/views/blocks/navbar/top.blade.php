@@ -25,7 +25,7 @@
 @endif
 <div class="top-nav">
     <ul class="row justify-content-end">
-        @each('blocks.navbar.navItem', $topNavGeneral, 'item')
-        @each('blocks.navbar.navItem', $topNavUser, 'item')
+        @each('blocks.navbar.nav-item', $topNavGeneral, 'item')
+        @each('blocks.navbar.nav-item', $topNavUser, 'item')
     </ul>
 </div>

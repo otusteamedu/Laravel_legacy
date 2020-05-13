@@ -36,9 +36,9 @@ Route::get('/user', function () {
 });
 
 Route::get('/signUp', function () {
-    return view('site/signUp');
+    return view('site/sign-up');
 });
 
 Route::post('/signUp', function () {
-    return view('site/pageInDevelopment');
+    return view('site/page-in-development');
 });
