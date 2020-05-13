@@ -7,10 +7,10 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Messages\SlackAttachment;
 use Illuminate\Notifications\Messages\SlackMessage;
-use Notification;
+use Illuminate\Notifications\Notification;
 use Illuminate\Queue\Events\JobFailed;
 
-class SlackFailedJob extends Notification
+class SlackFailedJob extends Notification implements ShouldQueue
 {
     use Queueable;
 

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 
 class FilesWork
 {
@@ -55,5 +56,9 @@ class FilesWork
     {
         $fullPath = $path.self::path($id).'/'.$name;
         return $fullPath;
+    }
+
+    public static function getFullDiscPath(string $disc){
+        return Storage::disk($disc)->getDriver()->getAdapter()->getPathPrefix();
     }
 }

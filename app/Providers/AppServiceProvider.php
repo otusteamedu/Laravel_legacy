@@ -41,13 +41,15 @@ class AppServiceProvider extends ServiceProvider
 
 
         $slackUrl = env('SLACK_WEBHOOK_URL'); 
-        Queue::failing(function (JobFailed $event) use ($slackUrl){
-             Notification::route('slack', $slackUrl)->notify(new SlackFailedJob($event)); 
-        });
+
         
         Queue::after(function (JobProcessed $event) use ($slackUrl) {
             Notification::route('slack', $slackUrl)->notify(new SlackAfterJob($event));   
         });  
+
+        Queue::failing(function (JobFailed $event) use ($slackUrl){
+            Notification::route('slack', $slackUrl)->notify(new SlackFailedJob($event)); 
+       });
     }
 
     private function registerBindings()

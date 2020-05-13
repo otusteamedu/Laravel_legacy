@@ -45,9 +45,7 @@ class SlackAfterJob extends Notification
         return (new SlackMessage)
             ->content('A job true at '.config('app.name'))
             ->attachment(function (SlackAttachment $attachment){
-                $attachment->fields([
-                    'test' => 'true'
-                ]);
+                $attachment->title('Image resize');
             });
     }
 }

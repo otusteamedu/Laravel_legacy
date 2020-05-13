@@ -33,7 +33,7 @@ class StoreNewsRequest extends FormRequest
             'text' => 'min:10',
             'meta_title'=>'present',
             'meta_description'=>'present',
-            //'file_id'=>'integer'
+            'file'=>'image|mimes:jpeg,png,jpg|max:1920'
         ];
     }
 
