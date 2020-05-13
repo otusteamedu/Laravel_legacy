@@ -2,8 +2,8 @@
 // @formatter:off
 
 /**
- * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 7.5.2 on 2020-04-27 06:19:46.
+ * A helper file for Laravel, to provide autocomplete information to your IDE
+ * Generated for Laravel 7.10.2 on 2020-05-13 12:15:53.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -2646,14 +2646,15 @@ namespace Illuminate\Support\Facades {
          * Compile a class component opening.
          *
          * @param string $component
+         * @param string $alias
          * @param string $data
          * @param string $hash
          * @return string 
          * @static 
          */ 
-        public static function compileClassComponentOpening($component, $data, $hash)
+        public static function compileClassComponentOpening($component, $alias, $data, $hash)
         {
-                        return \Illuminate\View\Compilers\BladeCompiler::compileClassComponentOpening($component, $data, $hash);
+                        return \Illuminate\View\Compilers\BladeCompiler::compileClassComponentOpening($component, $alias, $data, $hash);
         }
         
         /**
@@ -2678,6 +2679,19 @@ namespace Illuminate\Support\Facades {
         public static function sanitizeComponentAttribute($value)
         {
                         return \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($value);
+        }
+        
+        /**
+         * Compile Blade echos into valid PHP.
+         *
+         * @param string $value
+         * @return string 
+         * @static 
+         */ 
+        public static function compileEchos($value)
+        {
+                        /** @var \Illuminate\View\Compilers\BladeCompiler $instance */
+                        return $instance->compileEchos($value);
         }
          
     }
@@ -2926,7 +2940,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -2954,7 +2968,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -2968,7 +2982,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was dispatched after the response was sent based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -2996,7 +3010,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was dispatched based on a truth-test callback.
          *
-         * @param string $command
+         * @param string|\Closure $command
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -4010,7 +4024,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key
          * @param mixed $default
          * @param string|null $path
-         * @return \Symfony\Component\HttpFoundation\Cookie 
+         * @return \Symfony\Component\HttpFoundation\Cookie|null 
          * @static 
          */ 
         public static function queued($key, $default = null, $path = null)
@@ -5478,7 +5492,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if an event was dispatched based on a truth-test callback.
          *
-         * @param string $event
+         * @param string|\Closure $event
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -5506,7 +5520,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if an event was dispatched based on a truth-test callback.
          *
-         * @param string $event
+         * @param string|\Closure $event
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -7213,7 +7227,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a mailable was sent based on a truth-test callback.
          *
-         * @param string $mailable
+         * @param string|\Closure $mailable
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -7253,7 +7267,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a mailable was queued based on a truth-test callback.
          *
-         * @param string $mailable
+         * @param string|\Closure $mailable
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -7588,7 +7602,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a notification was sent based on a truth-test callback.
          *
          * @param mixed $notifiable
-         * @param string $notification
+         * @param string|\Closure $notification
          * @param callable|null $callback
          * @return void 
          * @throws \Exception
@@ -7619,7 +7633,7 @@ namespace Illuminate\Support\Facades {
          * Determine if a notification was sent based on a truth-test callback.
          *
          * @param mixed $notifiable
-         * @param string $notification
+         * @param string|\Closure $notification
          * @param callable|null $callback
          * @return void 
          * @throws \Exception
@@ -7957,7 +7971,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Assert if a job was pushed based on a truth-test callback.
          *
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|int|null $callback
          * @return void 
          * @static 
@@ -7972,7 +7986,7 @@ namespace Illuminate\Support\Facades {
          * Assert if a job was pushed based on a truth-test callback.
          *
          * @param string $queue
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -8015,7 +8029,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Determine if a job was pushed based on a truth-test callback.
          *
-         * @param string $job
+         * @param string|\Closure $job
          * @param callable|null $callback
          * @return void 
          * @static 
@@ -8221,6 +8235,240 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * 
+         *
+         * @param $delay
+         * @param $payload
+         * @param null $queue
+         * @param int $attempts
+         * @return mixed 
+         * @throws AMQPProtocolChannelException
+         * @static 
+         */ 
+        public static function laterRaw($delay, $payload, $queue = null, $attempts = 0)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->laterRaw($delay, $payload, $queue, $attempts);
+        }
+        
+        /**
+         * 
+         *
+         * @param string $payload
+         * @param null $queue
+         * @param array $options
+         * @return mixed 
+         * @throws AMQPProtocolChannelException
+         * @static 
+         */ 
+        public static function bulkRaw($payload, $queue = null, $options = [])
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->bulkRaw($payload, $queue, $options);
+        }
+        
+        /**
+         * 
+         *
+         * @return \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\AbstractConnection 
+         * @static 
+         */ 
+        public static function getConnection()
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->getConnection();
+        }
+        
+        /**
+         * 
+         *
+         * @return \AMQPChannel 
+         * @static 
+         */ 
+        public static function getChannel()
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->getChannel();
+        }
+        
+        /**
+         * Gets a queue/destination, by default the queue option set on the connection.
+         *
+         * @param null $queue
+         * @return string 
+         * @static 
+         */ 
+        public static function getQueue($queue = null)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->getQueue($queue);
+        }
+        
+        /**
+         * Checks if the given exchange already present/defined in RabbitMQ.
+         * 
+         * Returns false when when the exchange is missing.
+         *
+         * @param string $exchange
+         * @return bool 
+         * @throws AMQPProtocolChannelException
+         * @static 
+         */ 
+        public static function isExchangeExists($exchange)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->isExchangeExists($exchange);
+        }
+        
+        /**
+         * Declare a exchange in rabbitMQ, when not already declared.
+         *
+         * @param string $name
+         * @param string $type
+         * @param bool $durable
+         * @param bool $autoDelete
+         * @param array $arguments
+         * @return void 
+         * @static 
+         */ 
+        public static function declareExchange($name, $type = 'direct', $durable = true, $autoDelete = false, $arguments = [])
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->declareExchange($name, $type, $durable, $autoDelete, $arguments);
+        }
+        
+        /**
+         * Delete a exchange from rabbitMQ, only when present in RabbitMQ.
+         *
+         * @param string $name
+         * @param bool $unused
+         * @return void 
+         * @throws AMQPProtocolChannelException
+         * @static 
+         */ 
+        public static function deleteExchange($name, $unused = false)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->deleteExchange($name, $unused);
+        }
+        
+        /**
+         * Checks if the given queue already present/defined in RabbitMQ.
+         * 
+         * Returns false when when the queue is missing.
+         *
+         * @param string $name
+         * @return bool 
+         * @throws AMQPProtocolChannelException
+         * @static 
+         */ 
+        public static function isQueueExists($name = null)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        return $instance->isQueueExists($name);
+        }
+        
+        /**
+         * Declare a queue in rabbitMQ, when not already declared.
+         *
+         * @param string $name
+         * @param bool $durable
+         * @param bool $autoDelete
+         * @param array $arguments
+         * @return void 
+         * @static 
+         */ 
+        public static function declareQueue($name, $durable = true, $autoDelete = false, $arguments = [])
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->declareQueue($name, $durable, $autoDelete, $arguments);
+        }
+        
+        /**
+         * Delete a queue from rabbitMQ, only when present in RabbitMQ.
+         *
+         * @param string $name
+         * @param bool $if_unused
+         * @param bool $if_empty
+         * @return void 
+         * @throws AMQPProtocolChannelException
+         * @static 
+         */ 
+        public static function deleteQueue($name, $if_unused = false, $if_empty = false)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->deleteQueue($name, $if_unused, $if_empty);
+        }
+        
+        /**
+         * Bind a queue to an exchange.
+         *
+         * @param string $queue
+         * @param string $exchange
+         * @param string $routingKey
+         * @return void 
+         * @static 
+         */ 
+        public static function bindQueue($queue, $exchange, $routingKey = '')
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->bindQueue($queue, $exchange, $routingKey);
+        }
+        
+        /**
+         * Purge the queue of messages.
+         *
+         * @param string $queue
+         * @return void 
+         * @static 
+         */ 
+        public static function purge($queue = null)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->purge($queue);
+        }
+        
+        /**
+         * Acknowledge the message.
+         *
+         * @param \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQJob $job
+         * @return void 
+         * @static 
+         */ 
+        public static function ack($job)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->ack($job);
+        }
+        
+        /**
+         * Reject the message.
+         *
+         * @param \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQJob $job
+         * @param bool $requeue
+         * @return void 
+         * @static 
+         */ 
+        public static function reject($job, $requeue = false)
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->reject($job, $requeue);
+        }
+        
+        /**
+         * Close the connection to RabbitMQ.
+         *
+         * @return void 
+         * @throws Exception
+         * @static 
+         */ 
+        public static function close()
+        {
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
+                        $instance->close();
+        }
+        
+        /**
          * Get the retry delay for an object-based queue handler.
          *
          * @param mixed $job
@@ -8230,7 +8478,7 @@ namespace Illuminate\Support\Facades {
         public static function getJobRetryDelay($job)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
                         return $instance->getJobRetryDelay($job);
         }
         
@@ -8244,7 +8492,7 @@ namespace Illuminate\Support\Facades {
         public static function getJobExpiration($job)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
                         return $instance->getJobExpiration($job);
         }
         
@@ -8258,7 +8506,7 @@ namespace Illuminate\Support\Facades {
         public static function createPayloadUsing($callback)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-                        \Illuminate\Queue\SyncQueue::createPayloadUsing($callback);
+                        \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue::createPayloadUsing($callback);
         }
         
         /**
@@ -8271,7 +8519,7 @@ namespace Illuminate\Support\Facades {
         public static function setContainer($container)
         {
             //Method inherited from \Illuminate\Queue\Queue            
-                        /** @var \Illuminate\Queue\SyncQueue $instance */
+                        /** @var \VladimirYuldashev\LaravelQueueRabbitMQ\Queue\RabbitMQQueue $instance */
                         $instance->setContainer($container);
         }
          
@@ -8431,6 +8679,40 @@ namespace Illuminate\Support\Facades {
         {
                         /** @var \Illuminate\Routing\Redirector $instance */
                         return $instance->route($route, $parameters, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param mixed $parameters
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */ 
+        public static function signedRoute($route, $parameters = [], $expiration = null, $status = 302, $headers = [])
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->signedRoute($route, $parameters, $expiration, $status, $headers);
+        }
+        
+        /**
+         * Create a new redirect response to a signed named route.
+         *
+         * @param string $route
+         * @param \DateTimeInterface|\DateInterval|int|null $expiration
+         * @param mixed $parameters
+         * @param int $status
+         * @param array $headers
+         * @return \Illuminate\Http\RedirectResponse 
+         * @static 
+         */ 
+        public static function temporarySignedRoute($route, $expiration, $parameters = [], $status = 302, $headers = [])
+        {
+                        /** @var \Illuminate\Routing\Redirector $instance */
+                        return $instance->temporarySignedRoute($route, $expiration, $parameters, $status, $headers);
         }
         
         /**
@@ -8869,7 +9151,7 @@ namespace Illuminate\Support\Facades {
         /**
          * Get the client user agent.
          *
-         * @return string 
+         * @return string|null 
          * @static 
          */ 
         public static function userAgent()
@@ -11329,6 +11611,21 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Create a new Route object.
+         *
+         * @param array|string $methods
+         * @param string $uri
+         * @param mixed $action
+         * @return \Illuminate\Routing\Route 
+         * @static 
+         */ 
+        public static function newRoute($methods, $uri, $action)
+        {
+                        /** @var \Illuminate\Routing\Router $instance */
+                        return $instance->newRoute($methods, $uri, $action);
+        }
+        
+        /**
          * Return the response returned by the given route.
          *
          * @param string $name
@@ -12282,6 +12579,30 @@ namespace Illuminate\Support\Facades {
      * @see \Illuminate\Session\Store
      */ 
     class Session {
+        
+        /**
+         * Determine if requests for the same session should wait for each to finish before executing.
+         *
+         * @return bool 
+         * @static 
+         */ 
+        public static function shouldBlock()
+        {
+                        /** @var \Illuminate\Session\SessionManager $instance */
+                        return $instance->shouldBlock();
+        }
+        
+        /**
+         * Get the name of the cache store / driver that should be used to acquire session locks.
+         *
+         * @return string|null 
+         * @static 
+         */ 
+        public static function blockDriver()
+        {
+                        /** @var \Illuminate\Session\SessionManager $instance */
+                        return $instance->blockDriver();
+        }
         
         /**
          * Get the session configuration.
@@ -13260,7 +13581,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function prepend($path, $data, $separator = '')
+        public static function prepend($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->prepend($path, $data, $separator);
@@ -13275,7 +13597,8 @@ namespace Illuminate\Support\Facades {
          * @return bool 
          * @static 
          */ 
-        public static function append($path, $data, $separator = '')
+        public static function append($path, $data, $separator = '
+')
         {
                         /** @var \Illuminate\Filesystem\FilesystemAdapter $instance */
                         return $instance->append($path, $data, $separator);
@@ -19403,7 +19726,7 @@ namespace  {
             /**
              * Add an "order by" clause to the query.
              *
-             * @param \Closure|\Illuminate\Database\Query\Builder|string $column
+             * @param \Closure|\Illuminate\Database\Query\Builder|\Illuminate\Database\Query\Expression|string $column
              * @param string $direction
              * @return \Illuminate\Database\Query\Builder 
              * @throws \InvalidArgumentException

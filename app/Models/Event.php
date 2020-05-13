@@ -47,6 +47,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property-read int|null $participants_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Picture[] $pictures
  * @property-read int|null $pictures_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Event notSolved()
  */
 class Event extends Model
 {
