@@ -1,4 +1,4 @@
-{{ Form::open(['url' => route('admin.news.store')]) }}
+{{ Form::open(['url' => route('admin.news.store'), 'files'=>'true']) }}
 <div class="row">
 <div class="col-12 col-lg-8">
     @include('admin.blocks.errors.errors')
@@ -23,10 +23,12 @@
           {{ Form::label('url', 'Url') }}
           {{ Form::text('url', null, array_merge(['class' => 'form-control'], ['placeholder'=>'Url'])) }}
       </div>
-{{--       <div class="col-12 mb-3">
+      <div class="card col-12 mb-3">
+        <div class="card-body">
           {{ Form::label('file', 'Загрузка файла') }}
           {{  Form::file('file', array_merge(['class' => 'form-control'])) }}
-      </div> --}}
+        </div>
+      </div> 
       
     </div>
 </div>

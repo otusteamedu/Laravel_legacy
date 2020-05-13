@@ -3,10 +3,13 @@
 namespace App\Http\Requests\News;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Auth;
 
 class StoreNewsRequest extends FormRequest
 {
+
+    const NAME_FILE_FIELD = 'file';
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -30,12 +33,16 @@ class StoreNewsRequest extends FormRequest
             'text' => 'min:10',
             'meta_title'=>'present',
             'meta_description'=>'present',
-            //'file_id'=>'integer'
+            'file'=>'image|mimes:jpeg,png,jpg|max:1920'
         ];
     }
 
-    public function getFormArray(){
+    public function getFormArray(UploadedFile $requestFile = null){
         $result = $this->request->all();
+        if($requestFile){
+            $fileName = $requestFile->getClientOriginalName();
+            $result = array_merge($result, [self::NAME_FILE_FIELD=>$fileName]);
+        }
         return $result;
     }
 }
