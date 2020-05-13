@@ -65,7 +65,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereApiToken($value)
  * @property-read \App\Models\Picture|null $picture
  */
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, SoftDeletes;
 

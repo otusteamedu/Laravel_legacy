@@ -13,7 +13,7 @@
 
 Route::prefix(resolve('\App\Services\Locales\LocalesService')->getCurrentLocalePath())
     ->middleware(['localize'])->group(function () {
-    Auth::routes();
+    Auth::routes(['verify' => true]);
     Route::get('/set-locale/{locale}', 'HomeController@setLocale')->name('set.locale');
     Route::get('/', 'HomeController@index')->name('index');
     Route::get('/about/', 'HomeController@about')->name('about.index');
@@ -27,7 +27,7 @@ Route::prefix(resolve('\App\Services\Locales\LocalesService')->getCurrentLocaleP
 
     Route::get('/personal/', 'HomeController@personal')->middleware(['auth'])->name('personal.index');
     Route::get('/personal/{user}', 'Web\Users\UsersController@edit')->middleware(['auth'])->name('user.edit');
-    Route::put('/personal/{user}', 'Web\Users\UsersController@update')->middleware(['auth'])->name('user.update');
+    Route::put('/personal/{user}', 'Web\Users\UsersController@update')->middleware(['auth', 'verified'])->name('user.update');
     Route::post('/personal/{user}', 'Web\Users\UsersController@store')->middleware(['auth'])->name('user.store');
 
     Route::resources([
