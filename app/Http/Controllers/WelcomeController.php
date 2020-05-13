@@ -25,4 +25,9 @@ class WelcomeController extends Controller
     {
         return view('pages.home');
     }
+
+    public function registration()
+    {
+        return view('pages.registration');
+    }
 }

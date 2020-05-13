@@ -19,6 +19,13 @@ return [
             'report' => 'Сообщить',
         ]
     ],
+    'registration' => [
+        'form_header' => 'Регистрация',
+        'full_name' => 'Полное имя',
+        'user_name' => 'Имя пользователя',
+        'email' => 'E-mail',
+        'submit_button' => 'Зарегестрироваться',
+    ],
     'like' => 'Отметить',
     'comment' => 'Комментировать',
     'share' => 'Поделиться',
