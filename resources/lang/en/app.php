@@ -2,7 +2,7 @@
 
 return [
     'nav' => [
-        'messages' => 'Messages',
+        'users' => 'Users',
         'home' => 'Home',
         'search' => 'Search'
     ],
