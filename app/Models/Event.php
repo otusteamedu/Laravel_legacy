@@ -154,4 +154,9 @@ class Event extends Model
 
         return '';
     }
+
+    public function scopeNotSolved($query)
+    {
+        return $query->where('is_solved', '<>', 1);
+    }
 }
