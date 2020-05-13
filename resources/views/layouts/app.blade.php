@@ -17,7 +17,9 @@
 </head>
 <body>
 <div id="app">
-    @include('components.navigation.navbar')
+    @section('navbar')
+        @include('components.navigation.navbar')
+    @show
     <div class="container-fluid pt-3">
         @yield('main')
     </div>

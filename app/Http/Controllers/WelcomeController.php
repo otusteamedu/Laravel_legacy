@@ -21,7 +21,12 @@ class WelcomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function main()
+    {
+        return view('pages.main');
+    }
+
+    public function home()
     {
         return view('pages.home');
     }
