@@ -54,6 +54,7 @@ class Event extends Model
     use SoftDeletes;
     //@ToDo: добавить в миграцию флаг активности события и других сущностей
 
+    protected $touches = ['pictures'];
     protected $fillable = [
         'id',
         'is_solved',

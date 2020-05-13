@@ -29,6 +29,8 @@ class Role extends Model
         'moderators' => 'moderators',
     ];
 
+    protected $touches = ['users'];
+
     public function users()
     {
         return $this->belongsToMany('App\Models\User')
