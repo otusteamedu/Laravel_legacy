@@ -53,7 +53,7 @@ $books = [
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6">
             @foreach($books as $book)
                 <div class="col">
-                    <book-card :book='@json($book)'/>
+                    <book-card :book='@json($book)' link="/book"/>
                 </div>
             @endforeach
         </div>
