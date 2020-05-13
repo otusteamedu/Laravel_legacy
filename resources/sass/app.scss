@@ -1,1 +1,23 @@
-//
+// Fonts
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import '~bootstrap/scss/bootstrap';
+
+
+@media (min-width: 992px) {
+    .feed {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+    .post {
+        margin-bottom: 2.77rem;
+    }
+}
+.dropdown-toggle::after {
+    content: none;
+    display: none;
+}
