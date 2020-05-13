@@ -30,4 +30,9 @@ class WelcomeController extends Controller
     {
         return view('pages.registration');
     }
+
+    public function users()
+    {
+        return view('pages.users');
+    }
 }

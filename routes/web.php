@@ -15,3 +15,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'WelcomeController@index')->name('home');
 Route::get('/registration', 'WelcomeController@registration')->name('registration');
+Route::get('/users', 'WelcomeController@users')->name('users');

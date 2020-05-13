@@ -31,4 +31,6 @@ return [
     'share' => 'Share',
     'full_name' => 'Full name',
     'friends' => 'Friends',
+    'report_button' => 'Report',
+    'friendship_button' => 'Friend',
 ];
