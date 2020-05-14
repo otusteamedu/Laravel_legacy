@@ -159,8 +159,8 @@ export default {
             "select_category": "Select category"
         },
         "auth": {
-            "failed": "Неверное имя пользователя или пароль.",
-            "throttle": "Слишком много попыток входа. Пожалуйста, попробуйте еще раз через {seconds} секунд."
+            "failed": "These credentials do not match our records.",
+            "throttle": "Too many login attempts. Please try again in {seconds} seconds."
         }
     },
     "ru": {
@@ -353,8 +353,8 @@ export default {
             "select_category": "Выберите категорию"
         },
         "auth": {
-            "failed": "These credentials do not match our records.",
-            "throttle": "Too many login attempts. Please try again in {seconds} seconds."
+            "failed": "Неверное имя пользователя или пароль.",
+            "throttle": "Слишком много попыток входа. Пожалуйста, попробуйте еще раз через {seconds} секунд."
         }
     }
 }
