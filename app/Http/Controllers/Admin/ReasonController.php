@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Jobs\MyJob;
+use App\Jobs\Queue;
 use App\Models\Reason;
 use App\Models\Student;
 use App\Models\Transaction;
@@ -54,10 +56,15 @@ class ReasonController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+        $locale = \App::getLocale();//TODO получить из мидлвара
 
-        if ($user->can('create', Reason::class)) {
+        if ($user->can()) {
             $reason = Reason::create($request->all());
-            return redirect()->route('admin.reason.index');
+
+            //отправка писем всем пользователям
+            MyJob::dispatch($reason)->onQueue(Queue::MEDIUM_PRIORITY);
+
+            return redirect()->route('admin.reason.index', ['locale' => $locale]);
         } else {
             Log::critical("сообщение в слак о попытке дотупа");
             return view('errors.not-allowed');
@@ -99,7 +106,8 @@ class ReasonController extends Controller
     {
         $user = Auth::user();
 
-        if ($user->can('update',$user, Reason::class)) {
+
+        if ($user->can('update', $user, Reason::class)) {
             return view('reason.edit', [
                 'reason' => $reason
             ]);
@@ -119,10 +127,11 @@ class ReasonController extends Controller
     public function update(Request $request, Reason $reason)
     {
         $user = Auth::user();
+        $locale = \App::getLocale();//TODO получить из мидлвара
 
         if ($user->can('update', $user, Reason::class)) {
             $reason->update($request->all());
-            return redirect()->route('admin.reason.index');
+            return redirect()->route('admin.reason.index', ['locale' => $locale]);
         } else {
             Log::critical("сообщение в слак о попытке дотупа");
             return view('errors.not-allowed');
@@ -139,10 +148,11 @@ class ReasonController extends Controller
     public function destroy(Reason $reason)
     {
         $user = Auth::user();
+        $locale = \App::getLocale();//TODO получить из мидлвара
 
-        if ($user->can('delete', Reason::class)) {
-        $reason->delete();
-        return redirect()->route('admin.reason.index');
+        if ($user->can('delete', $user, Reason::class)) {
+            $reason->delete();
+            return redirect()->route('admin.reason.index', ['locale' => $locale]);
         } else {
             Log::critical("сообщение в слак о попытке дотупа");
             return view('errors.not-allowed');

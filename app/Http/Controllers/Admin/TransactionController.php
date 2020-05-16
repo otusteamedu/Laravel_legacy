@@ -63,7 +63,7 @@ class TransactionController extends Controller
     {
 
         $user = Auth::user();
-        $locale = \App::getLocale();//TODO получить из контроллера
+        $locale = \App::getLocale();//TODO получить из мидлвара
 
         if ($user->can('create', Transaction::class)) {
 

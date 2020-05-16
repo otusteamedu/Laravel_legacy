@@ -12,7 +12,6 @@ use App\Models\Reason;
 use App\Policies\ReasonPolicy;
 
 
-
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -21,8 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Transaction::class=>TransactionPolicy::class,
-        Reason::class=>ReasonPolicy::class,
+        Transaction::class => TransactionPolicy::class,
+        Reason::class => ReasonPolicy::class,
     ];
 
     /**
@@ -33,7 +32,6 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
 
         Gate::define('is-owner', function ($user, $student) {
 

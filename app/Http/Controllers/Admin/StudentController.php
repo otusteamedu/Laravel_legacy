@@ -18,7 +18,7 @@ class StudentController extends Controller
 {
 
     protected $userService;
-    protected $studentServicel;
+    protected $studentService;
 
     public function __construct(
         UserService $userService,
@@ -64,8 +64,9 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $locale = \App::getLocale();//TODO получить из мидлвара
         $this->studentService->create($request);
-        return redirect()->route('admin.student.index');
+        return redirect()->route('admin.student.index', ['locale'=>$locale]);
     }
 
     /**
@@ -111,6 +112,7 @@ class StudentController extends Controller
      */
     public function update(Request $request, Student $student)
     {
+        $locale = \App::getLocale();//TODO получить из мидлвара
 
         if (Gate::denies('is-owner', $student)) {
             Log::critical("сообщение в слак о попытке дотупа");
@@ -124,7 +126,7 @@ class StudentController extends Controller
             $student->users()->attach($request->input('user_id'));
         }
 
-        return redirect()->route('admin.student.index');
+        return redirect()->route('admin.student.index', ['locale'=>$locale]);
     }
 
     /**
@@ -140,8 +142,9 @@ class StudentController extends Controller
             return view('errors.not-allowed');
         }
 
+        $locale = \App::getLocale();//TODO получить из мидлвара
         $student->users()->detach();
         $student->delete();
-        return redirect()->route('admin.student.index');
+        return redirect()->route('admin.student.index', ['locale'=>$locale]);
     }
 }

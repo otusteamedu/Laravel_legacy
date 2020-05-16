@@ -15,7 +15,7 @@
     <div class="card">
         <div class="card-header">Редактирование ученика</div>
         <div class="card-body card-block">
-            <form action="{{route('admin.student.update', , ['locale'=>$locale, 'student'=>$student])}}" method="post" class="">
+            <form action="{{route('admin.student.update', ['locale'=>$locale, 'student'=>$student])}}" method="post" class="">
                 <input type="hidden" name="_method" value="put">
                 {{csrf_field()}}
 
