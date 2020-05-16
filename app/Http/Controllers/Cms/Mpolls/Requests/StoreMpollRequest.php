@@ -39,6 +39,7 @@ class StoreMpollRequest extends FormRequest
 
         return $data;*/
         return array_merge(parent::getFormData(), [
+            'locale' => App::getLocale(),
 //            'locale' => config('app.locale'),
 //            'author_id' => $this->user()->id,
         ]);

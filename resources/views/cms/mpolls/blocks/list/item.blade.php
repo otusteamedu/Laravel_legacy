@@ -13,17 +13,13 @@
     <td> {{ $mpoll->description }} </td>
     <td> @date( $mpoll->created_at )</td>
     <td> @date( $mpoll['updated_at'] )</td>
-    @if ($mpoll['deleted_at'])
-        <td></td>
-        <td>  @date( $mpoll['deleted_at'])  </td>
-    @else
-        <td>Exists</td>
-    @endif
-        <td>
-            {!! Form::open(['url' => route('cms.mpolls.destroy',  $mpoll->id), 'method' => 'delete', 'class' => '']) !!}
-            <button class='btn btn-danger table-buttons' type='submit' value='submit'>
-                <i class='fas fa-trash text-danger'></i></button>
-        </td>
+    <td>  @date( $mpoll['deleted_at'])  </td>
+    <td>  {{ $mpoll->users->name }}  </td>
+    <td>
+        {!! Form::open(['url' => route('cms.mpolls.destroy',  $mpoll->id), 'method' => 'delete', 'class' => '']) !!}
+        <button class='btn btn-danger table-buttons' type='submit' value='submit'>
+            <i class='fas fa-trash text-danger'></i></button>
+    </td>
 </tr>
 
 

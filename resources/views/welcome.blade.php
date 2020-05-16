@@ -64,8 +64,8 @@
         </style>
     </head>
     <body>
-    <h2><a href="{{ url('/cms/filters') }}">Filter</a></h2>
-    <h2><a href="{{ url('/cms/mpolls') }}">Surveys</a></h2>
+   {{-- <h2><a href="{{ url('/cms/filters') }}">Filter</a></h2>
+    <h2><a href="{{ url('/cms/mpolls') }}">Surveys</a></h2>--}}
     <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">

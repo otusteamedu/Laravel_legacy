@@ -1,4 +1,3 @@
-<h1>{{ Request::url() }}</h1>
 @extends('layouts.layout_cms')
 
 @section('title', __('messages.countries'))
@@ -25,7 +24,8 @@
 
 
 
-{{--        @include('cms.filters.blocks.header.list')--}}
+        @include('blocks.alerts.errors_success')
+        {{--        @include('cms.filters.blocks.header.list')--}}
         @include('cms.filters.blocks.list.index')
     </div>
 @endsection

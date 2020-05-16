@@ -37,4 +37,14 @@ class Filter extends BaseModel
         'name', 'description', 'value', 'filter_type_id',
         'quota_id'
     ];
+
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_user_id');
+    }
+
+    public function filterTypes()
+    {
+        return $this->belongsTo(FilterType::class, 'filter_type_id');
+    }
 }

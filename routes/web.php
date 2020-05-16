@@ -73,7 +73,7 @@ Route::group([
         $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('mpolls', 'MpollsController')
             ->only($methods)
-            ->names('cms.mpolls');
+            ->names('cms.mpolls')->middleware('auth');
     });
 
     //CmsMlinks
