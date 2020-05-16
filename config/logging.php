@@ -105,4 +105,7 @@ return [
         ],
     ],
 
+    'cron' => [
+        'path' => storage_path('logs/cron.log'),
+    ],
 ];

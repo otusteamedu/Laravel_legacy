@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->exec('yes | php artisan cache:warm-up -D')->dailyAt('05:00')
+            ->appendOutputTo(config('logging.cron.path'))->runInBackground()->onOneServer();
     }
 
     /**
