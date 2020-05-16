@@ -34,11 +34,11 @@ class StudentRepository
     public function createFromArray(array $data)
     {
 
-//        $student = Student::create($data->except('user_id'));
-//        if ($data->input('user_id')):
-//            $student->users()->attach($data->input('user_id'));
-//        endif;
-//        return $student;
+        $student = Student::create($data->except('user_id'));
+        if ($data->input('user_id')):
+            $student->users()->attach($data->input('user_id'));
+        endif;
+        return $student;
     }
 
 
@@ -49,6 +49,11 @@ class StudentRepository
         if ($data->input('user_id')):
             $student->users()->attach($data->input('user_id'));
         endif;
+        return $student;
+    }
+
+    public function updateFromArray($student, $data){
+        $student->update($data);
         return $student;
     }
 
