@@ -20,7 +20,7 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
 
-    Route::apiResource('students', '', [
+    Route::apiResource('students', 'Api\Admin\Student\StudentController', [
         'except' => [
             'destroy',
         ]
