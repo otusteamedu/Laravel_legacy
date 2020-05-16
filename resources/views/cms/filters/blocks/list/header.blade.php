@@ -8,6 +8,8 @@
         <th scope="col">@lang('messages.description')</th>
         <th scope="col">@lang('messages.created')</th>
         <th scope="col">@lang('messages.updated')</th>
+        <th scope="col">@lang('messages.deleted')</th>
+        <th scope="col">@lang('messages.createdBy')</th>
         <th scope="col">@lang('messages.actions')</th>
     </tr>
 </thead>

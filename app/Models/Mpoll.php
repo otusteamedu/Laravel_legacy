@@ -105,4 +105,9 @@ class Mpoll extends BaseModel
             ;
     }
 
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'created_user_id');
+    }
+
 }

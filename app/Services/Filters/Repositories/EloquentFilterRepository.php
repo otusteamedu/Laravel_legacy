@@ -19,7 +19,15 @@ class EloquentFilterRepository implements FilterRepositoryInterface
     public function search(array $filters = []) :LengthAwarePaginator
     {
 //        return Filter::paginate();
-        $query = Filter::query();
+        $query = Filter::query()->with(
+            [
+            /*'filterTypes' => function($query){
+                $query->select(['id', 'name']);
+            },*/
+                'filterTypes:id,name',
+                'users:id,name'
+        ]);
+//        $query = Filter::with('filterTypes')->query();
 //        var_dump($query);
 //        ddd( $query);
         $this->applyFilters($query, $filters);

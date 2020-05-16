@@ -53,7 +53,7 @@ class FiltersService
 
     public function update(Filter $model, array $data)
     {
-        $this->updateFilterHandler->handle($model, $data);
+        return $this->updateFilterHandler->handle($model, $data);
     }
 
 }

@@ -13,14 +13,23 @@ class UsersTableSeeder extends Seeder
     {
         $data = [
             [
-                'name' => 'Автор не известен',
-                'email' => 'author_unknown@g.g',
-                'password' => bcrypt(Str::random(16)),
+                'name' => 'user',
+                'email' => 'user@g.g',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+                'level' => \App\Models\User::LEVEL_USER,
+            ],
+             [
+                'name' => 'Moderator',
+                'email' => 'moderator@g.g',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+                'level' => \App\Models\User::LEVEL_MODERATOR,
             ],
             [
-                'name' => 'Автор',
-                'email' => 'author@g.g',
-                'password' => bcrypt(123123),
+                'name' => 'Admin',
+                'email' => 'admin@g.g',
+                'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',
+                'level' => \App\Models\User::LEVEL_ADMIN,
+//                'password' => bcrypt(123123),
             ],
         ];
         \DB::table('users')->insert($data);

@@ -23,6 +23,6 @@ class UpdateFilterHandler
 
     public function handle(Filter $filter, array $data)
     {
-        $this->filterRepository->updateFromArray($filter, $data);
+       return $this->filterRepository->updateFromArray($filter, $data);
     }
 }

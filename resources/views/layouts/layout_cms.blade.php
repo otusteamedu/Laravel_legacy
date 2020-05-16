@@ -13,7 +13,7 @@
 </head>
 <body>
 
-{{--@include('blocks.navbar.index')--}}
+@include('blocks.menu.index')
 
 <div class="container">
     @yield('content')

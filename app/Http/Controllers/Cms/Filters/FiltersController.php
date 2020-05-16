@@ -6,7 +6,9 @@ use App\Http\Controllers\Cms\Filters\Requests\StoreFilterRequest;
 use App\Http\Controllers\Cms\Filters\Requests\UpdateFilterRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Filter;
+use App\Policies\Abilities;
 use App\Services\FilterTypes\FilterTypesService;
+use Illuminate\Support\Facades\Session;
 use mysql_xdevapi\Exception;
 use View;
 use App\Services\Filters\FiltersService;
@@ -33,10 +35,15 @@ class FiltersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $filters = $this->filtersService->search([]) ;
-//        dd($filters, $filters[0], $filters[0]['value'], $filters[0]->value);
+//        $this->getCurrentUser()->can(Abilities::VIEW_ANY, Filter::class);
+        // Вариант использования
+        /*if ($this->getCurrentUser()->cant(Abilities::VIEW_ANY, Filter::class)){
+            abort(403, 'Action forbiden');
+        }*/
+        $this->authorize(Abilities::VIEW_ANY, Filter::class);
+        $filters = $this->filtersService->search([]);
         View::share([
             'filters' => $filters
         ]);
@@ -65,10 +72,10 @@ class FiltersController extends Controller
     public function store(StoreFilterRequest $request)
     {
         $filter = $this->filtersService->create($request->getFormData());
-      /*  try{
+        /*  try{
 
-        }catch (Exception $exception){
-        }*/
+          }catch (Exception $exception){
+          }*/
         return redirect()->route('cms.filters.edit', ['filter' => $filter->id]);
 
     }
@@ -92,7 +99,8 @@ class FiltersController extends Controller
      */
     public function edit(Filter $filter)
     {
-        if(isset($item)){
+
+        if (!isset($filter)) {
             abort(404);
         }
         View::share([
@@ -111,9 +119,19 @@ class FiltersController extends Controller
      */
     public function update(UpdateFilterRequest $request, Filter $filter)
     {
-//        dd($filter instanceof Filter);
-        $this->filtersService->update($filter, $request->getFormData());
-        return redirect()->route('cms.filters.index');
+        $this->authorize(Abilities::UPDATE, $filter);
+//        $this->authorize(Abilities::UPDATE, Filter::class);
+        $result = $this->filtersService->update($filter, $request->getFormData());
+//        return redirect()->route('cms.filters.index');
+        if ($result) {
+            return redirect()
+                ->route('cms.filters.index')
+                ->with(['success' => __('messages.rec_updated', ['id' => $filter->id])]);
+        } else {
+            return back()
+                ->withErrors(['msg' => __('messages.rec_update_false')])
+                ->withInput();
+        }
     }
 
     /**
@@ -122,24 +140,24 @@ class FiltersController extends Controller
      * @param \App\Models\Filter $filter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id)
+    public function destroy(Filter $filter)
     {
-//        dd(\request()->all());
-//        dd($id);
+        $this->authorize(Abilities::DELETE, $filter);
+
 //        $result = Filter::where('id', $id)->forceDelete();
-        $result = Filter::find($id)->delete();
+        $result = $filter->delete();
+//        $result = Filter::find($id)->delete();
 //        dd($result);
 //        $result->delete();
 //        dd($result);
 //        $result = Filter::destroy($id);
-
         if ($result) {
             return redirect()
                 ->route('cms.filters.index')
-                ->with(['success' => "Запись id[$id] удалена"]);
+                ->with(['success' => __('messages.rec_deleted', ['id' => $filter->id])]);
         } else {
             return back()
-                ->withErrors(['msg' => 'Ошибка удаления'])
+                ->withErrors(['msg' =>  __('messages.rec_delete_false')])
                 ->withInput();
         }
     }
