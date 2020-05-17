@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -9,8 +10,20 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
+
+    /**
+     * Выполнить команду composer dumpautoload
+     * Выполнять надо всегда при добавлении нового файла в папку database.
+     */
     public function run()
     {
-        // $this->call(UserSeeder::class);
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
+         $this->call(UsersTableSeeder::class);
+         $this->call(AdvertsTableSeeder::class);
+         $this->call(DivisionsTableSeeder::class);
+         $this->call(TownsTableSeeder::class);
+         //$this->call(MessagesTableSeeder::class);
     }
 }
