@@ -1,16 +1,16 @@
 <div class="login_box">
     <div class="box">
          <a id="c_loginbox"><i class="icon-close2"></i></a>
-         <h3>Login to your account</h3>
+         <h3>@lang('messages.Login') </h3>
          <form method="post" id="dooplay_login_user">
             <fieldset class="user">
-                 <input type="text" name="log" placeholder="Username">
+                 <input type="text" name="log" placeholder="@lang('messages.username')">
             </fieldset>
             <fieldset class="password">
-                <input type="password" name="pwd" placeholder="Password">
+                <input type="password" name="pwd" placeholder="@lang('messages.password')">
             </fieldset>
             <label>
-                <input name="rmb" type="checkbox" id="rememberme" value="forever" checked=""> Remember Me
+                <input name="rmb" type="checkbox" id="rememberme" value="forever" checked=""> @lang('messages.remember')
             </label>
             <fieldset class="submit">
                 <input id="dooplay_login_btn" data-btntext="Log in" type="submit" value="Log in">

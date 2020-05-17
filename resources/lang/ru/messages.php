@@ -1,5 +1,8 @@
 <?php
 
 return [
-    'Login'=>'логин'
+    'Login'=>'Вход в Ваш аккаунт',
+    'username'=>"Имя",
+    'password'=>"Пароль",
+    'remember'=>"Запомнить меня"
 ];

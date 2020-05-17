@@ -75,7 +75,7 @@ form.update_profile fieldset input[type=submit],
 }
 
 #dt_contenedor {
-    color: #f5f7fa;
+    color: #000;
 }
 
 .plyr input[type=range]::-ms-fill-lower {
@@ -184,4 +184,16 @@ a.liked,
 .form_post_lik .table table tbody tr td a.remove_row:hover,
 .form_post_lik .control .right input[type=submit] {
     background: #d33;
+}
+
+.content p {
+    color: #000;
+}
+
+.widgettitle {
+    color: #000;
+}
+
+.dt_mainmeta nav h2 {
+    color: #000;
 }
