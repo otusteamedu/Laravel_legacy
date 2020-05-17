@@ -19,6 +19,7 @@ class CreateAdvertsTable extends Migration
             $table->bigInteger('town_id')->unsigned();
             $table->bigInteger('division_id')->unsigned();
             $table->string('title', 255);
+            $table->integer('price');
             $table->string('img', 255);
             $table->text('content');
             $table->timestamps();
