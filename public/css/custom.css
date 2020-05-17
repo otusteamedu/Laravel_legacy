@@ -162,3 +162,26 @@ a.liked,
 .top-imdb-list h3 {
     border-color: #dd3333;
 }
+
+.dtuser a.clicklogin {
+    color: #dd3333;
+}
+
+.dtuser a.clicklogin:hover {
+    color: #000;
+}
+
+.login_box .box h3 {
+    color: #000;
+}
+
+.login_box .box label {
+    color: #000;
+}
+
+.login_box .box input[type=submit],
+.form_post_lik .control .left a.add_row:hover,
+.form_post_lik .table table tbody tr td a.remove_row:hover,
+.form_post_lik .control .right input[type=submit] {
+    background: #d33;
+}

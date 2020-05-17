@@ -3,5 +3,5 @@
     @include('blocks.header.header')
 @endsection
 @section('content')
-    @include('blocks.content.main')
+   sdfsdfsd
 @endsection
