@@ -12,4 +12,22 @@ const mix = require('laravel-mix');
  */
 
 mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+    .sass('resources/sass/app.scss', 'public/css')
+    .version();
+
+mix.browserSync({
+    host: '192.168.10.20',
+    proxy: 'http://otus.test',
+    open: false,
+    files: [
+        'app/**/*.php',
+        'resources/views/**/*.php',
+        'packages/mixdinternet/frontend/src/**/*.php',
+        'public/js/**/*.js',
+        'public/css/**/*.css'
+    ],
+    watchOptions: {
+        usePolling: true,
+        interval: 500
+    }
+});
