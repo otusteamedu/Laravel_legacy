@@ -66,8 +66,8 @@ class FiltersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param App\Http\Controllers\Cms\Filters\Requests\StoreFilterRequest $request
+     *
      */
     public function store(StoreFilterRequest $request)
     {
@@ -76,7 +76,16 @@ class FiltersController extends Controller
 
           }catch (Exception $exception){
           }*/
-        return redirect()->route('cms.filters.edit', ['filter' => $filter->id]);
+        if ($filter) {
+            return redirect()
+                ->route('cms.filters.index')
+                ->with(['success' => __('messages.rec_updated', ['id' => $filter->id])]);
+        } else {
+            return back()
+                ->withErrors(['msg' => __('messages.rec_update_false')])
+                ->withInput();
+        }
+//        return redirect()->route('cms.filters.edit', ['filter' => $filter->id]);
 
     }
 
