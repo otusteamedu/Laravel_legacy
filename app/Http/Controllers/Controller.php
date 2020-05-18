@@ -10,4 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+
+    /**
+     * @return \App\Models\User|null
+     */
+    protected function getCurrentUser()
+    {
+        return \Auth::user();
+    }
 }

@@ -47,6 +47,7 @@ class MpollsTableSeeder extends Seeder
                 'mail_id' => 32,
                 'check_geo' => 1,
                 'customer_id' => 8,
+                'created_user_id' => 1,
             ),
             1 =>
             array (
@@ -78,6 +79,7 @@ class MpollsTableSeeder extends Seeder
                 'mail_id' => 33,
                 'check_geo' => 1,
                 'customer_id' => 16,
+                'created_user_id' => rand(1,3),
             ),
             2 =>
             array (
@@ -109,6 +111,7 @@ class MpollsTableSeeder extends Seeder
                 'mail_id' => 33,
                 'check_geo' => 1,
                 'customer_id' => 3,
+                'created_user_id' => rand(1,3),
             ),
             3 =>
             array (
@@ -140,6 +143,7 @@ class MpollsTableSeeder extends Seeder
                 'mail_id' => 33,
                 'check_geo' => 1,
                 'customer_id' => 2,
+                'created_user_id' => rand(1,3),
             ),
             4 =>
             array (
@@ -171,6 +175,7 @@ class MpollsTableSeeder extends Seeder
                 'mail_id' => 32,
                 'check_geo' => 1,
                 'customer_id' => 11,
+                'created_user_id' => rand(1,3),
             ),
         ));
 

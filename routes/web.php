@@ -64,7 +64,7 @@ Route::group([
         $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('filters', 'FiltersController')
             ->only($methods)
-            ->names('cms.filters');
+            ->names('cms.filters')->middleware('auth');
     });
 
     //CmsMpolls
@@ -73,7 +73,7 @@ Route::group([
         $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('mpolls', 'MpollsController')
             ->only($methods)
-            ->names('cms.mpolls');
+            ->names('cms.mpolls')->middleware('auth');
     });
 
     //CmsMlinks
@@ -144,3 +144,8 @@ Route::get('/filters', 'Cms\Filters\FiltersController@index');
 });*/
 
 ////////////////////////
+
+//Auth::routes();
+Auth::routes(['verify' => true, 'register' => true, 'reset' => true]);
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -19,6 +19,7 @@ $factory->define(Filter::class, function (Faker $faker) {
         'description' => $faker->word(),
         'created_at' => $created,
         'updated_at' => $created,
+        'created_user_id' => rand(1,3),
     ];
     return $data;
 

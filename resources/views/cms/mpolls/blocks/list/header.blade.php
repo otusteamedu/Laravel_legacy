@@ -13,6 +13,7 @@
         <th>@lang('messages.created')</th>
         <th>@lang('messages.updated')</th>
         <th>@lang('messages.deleted')</th>
+{{--        <th>@lang('messages.createdBy')</th>--}}
         <th>@lang('messages.actions')</th>
     </tr>
 </thead>

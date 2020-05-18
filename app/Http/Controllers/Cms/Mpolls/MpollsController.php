@@ -7,6 +7,7 @@ use App\Http\Controllers\Cms\Mpolls\Requests\UpdateMpollRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Mpoll;
 use App\Models\Quota;
+use App\Policies\Abilities;
 use App\Services\Mpolls\MpollsService;
 use Illuminate\Http\Request;
 use View;
@@ -28,6 +29,7 @@ public MpollsService $mpollsService;
     )
     {
         $this->mpollsService = $mpollsService;
+//        $this->middleware('auth');
     }
 
     /**
@@ -37,9 +39,8 @@ public MpollsService $mpollsService;
      */
     public function index()
     {
-
+        $this->authorize(Abilities::VIEW_ANY, Mpoll::class);
         $mpolls = $this->mpollsService->search([]) ;
-//        dd($mpolls, $mpolls[0], $mpolls[0]['value'], $mpolls[0]->value);
         View::share([
             'mpolls' => $mpolls
         ]);
@@ -121,7 +122,6 @@ public MpollsService $mpollsService;
     public function update(UpdateMpollRequest $request, Mpoll $mpoll)
     {
         $data = $request->getFormData();
-dd($data);
         $this->mpollsService->update($mpoll, $request->getFormData());
         return redirect()->back();
 
