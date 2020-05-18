@@ -60,4 +60,14 @@ class StudentService
     {
         return $this->createStudentHandler->handle($request);
     }
+
+    public function store($data)
+    {
+        return $this->createStudentHandler->handle($data);
+    }
+
+    public function update($student, $data)
+    {
+        return $this->studentRepository->updateFromArray($student, $data);
+    }
 }

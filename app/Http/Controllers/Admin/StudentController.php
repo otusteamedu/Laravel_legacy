@@ -18,7 +18,7 @@ class StudentController extends Controller
 {
 
     protected $userService;
-    protected $studentServicel;
+    protected $studentService;
 
     public function __construct(
         UserService $userService,
