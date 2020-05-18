@@ -79,7 +79,7 @@
 <footer class="main">
     <div class="fbox">
         <div class="fcmpbox">
-            <div class="copy">&copy; 2019 by
+            <div class="copy">&copy; 2020 by
                 <strong>Sckatik-tv</strong>. Все права защищены.<br/><br/>
             </div>
             <span class="top-page">
@@ -183,7 +183,6 @@
         });
     });
 </script>
-<? //wp_footer(); // необходимо для работы плагинов и функционала  ?>
 
 <script type='text/javascript'>
     /* <![CDATA[ */
