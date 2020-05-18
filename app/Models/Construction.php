@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @mixin \Eloquent
  *
  */
+
 class Construction extends Model
 {
     protected $guarded = [];

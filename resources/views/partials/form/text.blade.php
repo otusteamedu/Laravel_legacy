@@ -8,6 +8,8 @@
             'readOnly'=> $readOnly ?? false,
             'disabled'=> $disabled ?? false,
             'maxLength'=> $maxLength ?? false,
+            'required'=> $required ?? false,
+            'autofocus'=> $autofocus ?? false,
 
     ];
 @endphp

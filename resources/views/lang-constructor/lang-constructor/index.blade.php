@@ -31,7 +31,7 @@
                                              aria-valuenow="{{$item->hard}}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </td>
-                                <td><a href="{{route('lang-constructor-type-edit',['id' =>$item->id])}}" class="btn btn-gradient-primary btn-fw">{{__('button.edit')}}</a> <a href="{{route('lang-constructor-type-delete',['id' =>$item->id])}}"  class="btn btn-gradient-danger btn-fw">{{__('button.delete')}}</a></td>
+                                <td><a href="{{route('lang-constructor-edit',['id' =>$item->id])}}" class="btn btn-gradient-primary btn-fw">{{__('button.edit')}}</a> <a href="{{route('lang-constructor-delete',['id' =>$item->id])}}"  class="btn btn-gradient-danger btn-fw">{{__('button.delete')}}</a></td>
                             </tr>
                         @endforeach
                         </tbody>

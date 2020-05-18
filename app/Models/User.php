@@ -6,9 +6,26 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use App\Models\Account;
+
+/**
+ * Class Construction
+ * @package App\Model
+ *
+ * @property int id
+ * @property string name
+ * @property string description
+ * @property string type_code
+ * @property Account account
+ *
+ *
+ */
 class User extends Authenticatable
 {
     use Notifiable;
+
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +33,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'email', 'password','account_id'
     ];
 
     /**
@@ -36,4 +53,11 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    function account()
+    {
+        return $this->hasOne(Account::class,'id','account_id');
+    }
+
+
 }

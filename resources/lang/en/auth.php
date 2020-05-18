@@ -16,5 +16,7 @@ return [
     'sign_in' => 'SIGN IN',
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'new_here' => 'New here?',
+    'sign_easy' => 'Signing up is easy. It only takes a few steps',
 
 ];

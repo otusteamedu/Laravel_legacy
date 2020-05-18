@@ -4,64 +4,62 @@ namespace App\Http\Controllers\LangConstructor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Construction;
-use App\Models\ConstructionType;
-use Illuminate\Http\Request;
+use App\Policies\Abilities;
+use App\Services\Constructions\ConstructionsService;
+use App\Services\ConstructionTypes\ConstructionTypesService;
+use App\Http\Controllers\LangConstructor\Requests\SaveLangConstructorRequest;
 
 class LangConstructorController extends Controller
 {
+    protected $constructionsService;
+    protected $constructionTypesService;
+
+    public function __construct(
+        ConstructionsService $constructionsService,
+        ConstructionTypesService $constructionTypesService
+    )
+    {
+        $this->constructionsService = $constructionsService;
+        $this->constructionTypesService = $constructionTypesService;
+    }
+
     public function index()
     {
-        /** @var Construction $langConstructor */
-        $langConstructor = Construction::All();
+        $this->authorize(Abilities::VIEW_ANY, Construction::class);
 
-        return view('lang-constructor.lang-constructor.index',['langConstructor' => $langConstructor]);
+        return view('lang-constructor.lang-constructor.index',
+            [
+                'langConstructor' => $this->constructionsService->getAllConstruction()
+            ]
+        );
     }
 
     public function edit($id = null)
     {
-
-        /** @var Construction $langConstructor */
-        $langConstructor = Construction::findOrNew($id);
-
-        /** @var ConstructionType  $langConstructorTypes */
-        $langConstructorTypes = ConstructionType::All();
-        $langConstructorTypes = $langConstructorTypes->mapWithKeys(function ($item){
-            return [$item->code => $item->name];
-        });
-
+        $this->authorize(Abilities::UPDATE, Construction::class);
 
         $parameters  = [
-            'langConstructor' => $langConstructor,
-            'langConstructorTypes' => $langConstructorTypes
+            'langConstructor' => $this->constructionsService->findOrNew($id),
+            'langConstructorTypes' => $this->constructionTypesService->getListTypes()
         ];
 
         return view('lang-constructor.lang-constructor.edit',$parameters);
     }
 
-    public function save(Request $request)
+    public function save(SaveLangConstructorRequest $request)
     {
+        $this->authorize(Abilities::UPDATE, Construction::class);
+        $data  =  $request->getFormData();
 
-        $request->validate([
-            'name' => 'required|string',
-            'code' => 'required|string|regex:/^[a-zA-Z0-9\-\_]+$/u|unique:constructions|max:255',
-            'hard' => 'required|integer|between:0,100',
-            'type_code' => 'required',
-            'description' => 'required|string'
-        ]);
-
-
-        $request->request->add(['created_account_id' => '1']);
-        $langConstructor  = Construction::create($request->except(['_token']));
-
+        $langConstructor  = $this->constructionsService->createConstruction($data);
         return redirect(route('lang-constructor-edit', ['id' => $langConstructor->id]))->with('status',__('system.saved'));
 
     }
 
     public function delete($id)
     {
-        /** @var Construction $langConstructor */
-        $langConstructor = Construction::find($id);
-        $langConstructor->delete();
+        $this->authorize(Abilities::DELETE, Construction::class);
+        $this->constructionsService->delete($id);
 
         return redirect(route('lang-constructor-index'))->with('status',__('system.deleted'));
     }
