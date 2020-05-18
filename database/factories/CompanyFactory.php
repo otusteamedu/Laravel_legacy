@@ -10,6 +10,6 @@ $factory->define(Company::class, function (Faker $faker) {
     return [
         'name' => $name,
         'url' => Str::slug($name),
-        'description' => $faker->text(500),
+        'description' => 'fdsfsd',
     ];
 });

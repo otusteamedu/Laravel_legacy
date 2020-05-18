@@ -12,7 +12,7 @@ class CompaniesTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\City::all() as $city) {
-            factory(\App\Models\Company::class, 10)->create([
+            factory(\App\Models\Company::class, 5)->create([
                 'city_id' => $city->id,
             ]);
         }

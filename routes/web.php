@@ -15,21 +15,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/plain/index', function () {
-    return view('plain.index');
-});
-
-Route::get('/plain/includes', function () {
-    return view('plain.includes');
-});
-Route::get('/plain/for', function () {
-    return view('plain.for');
-});
-
-Route::get('/plain/foreach', function () {
-    return view('plain.foreach');
-});
-
 Route::get('/products/create', function () {
     $company = [
         'id' => 1,
@@ -42,68 +27,33 @@ Route::get('/products/create', function () {
     return view('products.create', $data);
 });
 
-Route::get('/products', function () {
-    $company = [
-        'id' => 1,
-        'name' => 'Otus',
-        'url' => '/companies/1',
-    ];
-    $products = [
-        [
-            'id' => 1,
-            'title' => 'Pepsi',
-            'price' => 10,
-            'remainingCount' => 5,
-            'totalCount' => 50,
-            'created_at' => \Carbon\Carbon::now()->subDays(2),
-        ],
-        [
-            'id' => 2,
-            'title' => 'Sprite',
-            'price' => 10,
-            'remainingCount' => 7,
-            'totalCount' => 50,
-            'created_at' => \Carbon\Carbon::now()->subDays(5),
-        ],
-        [
-            'id' => 3,
-            'title' => 'Fanta orange',
-            'price' => 11,
-            'remainingCount' => 1,
-            'totalCount' => 50,
-            'created_at' => \Carbon\Carbon::now()->subDays(3),
-        ],
-        [
-            'id' => 4,
-            'title' => 'Aqua Minerale',
-            'price' => 8.5,
-            'remainingCount' => 77,
-            'totalCount' => 100,
-            'created_at' => \Carbon\Carbon::now()->subDays(4),
-        ],
-        [
-            'id' => 5,
-            'title' => 'Blue Ice',
-            'price' => 20,
-            'remainingCount' => 0,
-            'totalCount' => 50,
-            'created_at' => \Carbon\Carbon::now()->subDays(5),
-        ],
-        [
-            'id' => 6,
-            'title' => '7up',
-            'price' => 12,
-            'remainingCount' => 15,
-            'totalCount' => 50,
-            'created_at' => \Carbon\Carbon::now()->subDays(12),
-        ],
-    ];
+Route::get('/company/{company}/products', function (int $company_id) {
+
+    $company = \App\Models\Company::findOrFail($company_id);
+
+    $products = \App\Models\Product::get();
+
+    $product = \App\Models\Product::where(function(\Illuminate\Database\Eloquent\Builder $builder) {
+        $builder->where('price', '>', 10)
+            ->orWhere('price', '<', 5);
+    })->where('created_at', '>', '2020-05-18')->toSql();
+
+
+    $products->load([
+       'company',
+       'company.city',
+    ]);
+
+    $products->loadMissing([
+        'company',
+        'company.city.country',
+    ]);
+
+
     $data = [
         'company' => $company,
         'products' => $products,
     ];
-
-//    \App\Models\Product::join('companies', 'company_id', '=', 'product_id');
 
     return view('products.index', $data);
 });
@@ -125,3 +75,4 @@ Route::get('/companies', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+

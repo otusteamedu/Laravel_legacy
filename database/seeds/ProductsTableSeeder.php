@@ -12,7 +12,7 @@ class ProductsTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\Company::all() as $company) {
-            factory(\App\Models\Product::class, 20)->create([
+            factory(\App\Models\Product::class, 5)->create([
                 'company_id' => $company->id,
             ]);
         }
