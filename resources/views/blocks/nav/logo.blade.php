@@ -1,0 +1,1 @@
+<div class="nav-wrapper container"><a id="logo-container" href="/" class="brand-logo">@lang('cf.name')</a>
