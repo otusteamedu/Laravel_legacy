@@ -5,3 +5,6 @@
 @section('content')
     @include('blocks.content.main')
 @endsection
+@section('footer')
+    @include('blocks.footer.footer')
+@endsection
