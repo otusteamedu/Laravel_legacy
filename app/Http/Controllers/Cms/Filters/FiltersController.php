@@ -96,10 +96,9 @@ class FiltersController extends Controller
      */
     public function edit(Filter $filter)
     {
-
-        if (!isset($filter)) {
-            abort(404);
-        }
+      /*  if (!isset($filter)) {
+            abort(404); // Never catch it!!!
+        }*/
         View::share([
             'filter' => $filter,
             'filterTypeList' => $this->filtersTypeService->getForCombobox()
