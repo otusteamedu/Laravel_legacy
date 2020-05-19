@@ -32,23 +32,6 @@
     <!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
-    <script type='text/javascript'>
-        jQuery(document).ready(function(a) {
-            'false' == dtGonza.mobile && a(window).load(function() {
-                a('.scrolling').mCustomScrollbar({
-                    theme: 'minimal-dark',
-                    scrollButtons: {
-                        enable: !0
-                    },
-                    callbacks: {
-                        onTotalScrollOffset: 100,
-                        alwaysTriggerOffsets: !1
-                    }
-                })
-            })
-        });
-    </script>
-
 </head>
 
 <body class="home blog">
@@ -99,107 +82,7 @@
 </footer>
 </div>
 
-<script type='text/javascript'>
-    jQuery(document).ready(function($) {
-        $('#featured-titles').owlCarousel({
-            autoPlay: false,
-            items: 4,
-            stopOnHover: true,
-            pagination: false,
-            itemsDesktop: [1199, 4],
-            itemsDesktopSmall: [980, 4],
-            itemsTablet: [768, 3],
-            itemsTabletSmall: false,
-            itemsMobile: [479, 2]
-        });
-        $('.nextf').click(function() {
-            $('#featured-titles').trigger('owl.next')
-        });
-        $('.prevf').click(function() {
-            $('#featured-titles').trigger('owl.prev')
-        });
-        $('#slider-movies-tvshows').owlCarousel({
-            autoPlay: false,
-            items: 2,
-            stopOnHover: true,
-            pagination: true,
-            itemsDesktop: [1199, 2],
-            itemsDesktopSmall: [980, 2],
-            itemsTablet: [768, 2],
-            itemsTabletSmall: [600, 1],
-            itemsMobile: [479, 1]
-         });
-
-         $('#dt-boeviki').owlCarousel({
-            autoPlay: false,
-            items: 5,
-            stopOnHover: true,
-            pagination: false,
-            itemsDesktop: [1199, 5],
-            itemsDesktopSmall: [980, 5],
-            itemsTablet: [768, 4],
-            itemsTabletSmall: false,
-            itemsMobile: [479, 3]
-        });
-
-        $('.dt-boeviki .next3').click(function() {
-            $('#dt-boeviki').trigger('owl.next')
-        });
-        $('.dt-boeviki .prev3').click(function() {
-            $('#dt-boeviki').trigger('owl.prev')
-        });
-
-        $('#slider-movies').owlCarousel({
-            autoPlay: false,
-            items: 2,
-            stopOnHover: true,
-            pagination: true,
-            itemsDesktop: [1199, 2],
-            itemsDesktopSmall: [980, 2],
-            itemsTablet: [768, 2],
-            itemsTabletSmall: [600, 1],
-            itemsMobile: [479, 1]
-        });
-        $('#slider-tvshows').owlCarousel({
-            autoPlay: false,
-            items: 2,
-            stopOnHover: true,
-            pagination: true,
-            itemsDesktop: [1199, 2],
-            itemsDesktopSmall: [980, 2],
-            itemsTablet: [768, 2],
-            itemsTabletSmall: [600, 1],
-            itemsMobile: [479, 1]
-        });
-        $('.reset').click(function(event) {
-            if (!confirm(dtGonza.reset_all)) {
-                event.preventDefault()
-            }
-        });
-        $('.addcontent').click(function(event) {
-            if (!confirm(dtGonza.manually_content)) {
-                event.preventDefault()
-            }
-        });
-    });
-</script>
-
-<script type='text/javascript'>
-    /* <![CDATA[ */
-    var dtGonza = {
-        "api": 'https://'+window.location.host+'/wp-json/sckatik/search/',
-        "glossary": "/ajax/",
-        "nonce": "56b1b0c4c3",
-        "area": ".live-search",
-        "button": ".search-button",
-        "more": "View all results",
-        "mobile": "false",
-        "reset_all": "Really you want to restart all data?",
-        "manually_content": "They sure have added content manually?",
-        "loading": "Loading.."
-    };
-    /* ]]> */
-</script>
+<script src="{{ asset('js/dtGonza.js') }}"></script>
 </body>
 
 </html>
