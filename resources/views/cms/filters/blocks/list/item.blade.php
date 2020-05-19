@@ -1,7 +1,7 @@
 <?php /** @var \App\Models\Filter $filter */ ?>
 <tr class="align-middle">
     <td scope="row">{{ link_to(route('cms.filters.edit', ['filter' => $filter->id]), $filter->id) }}</td>
-    <td> {{ $filter->filterTypes->name }} </td>
+    <td> {{ $filter->filterTypes->name ?? ''}} </td>
     <td> {{ $filter->quota_id }} </td>
     <td  class="align-middle">{{ link_to(route('cms.filters.edit', ['filter' => $filter->id]), $filter->name) }}</td>
     <td> {{ $filter->value }} </td>

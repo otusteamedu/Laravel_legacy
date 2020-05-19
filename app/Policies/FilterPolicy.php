@@ -47,9 +47,9 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user) : bool
     {
-        return $user->isModerator();
+        return ($user->level);
     }
 
     /**
@@ -62,7 +62,7 @@ class FilterPolicy extends BasePolicy
     public function update(User $user, Filter $filter)
     {
 //        return $user->isModerator();
-        return $user->id === $filter->created_user_id;
+//        return $user->isAdmin() or ($user->id === $filter->created_user_id) ;
     }
 
     /**
