@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  web:
+     build: ./nginx
+     ports:
+       - "8000:80"
+     volumes:
+        - ./code:/var/www
+        - ./socket:/socket
+  php:
+    build: ./php
+    volumes:
+      - ./code:/var/www
+      - ./socket:/socket
+    environment:
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  memcached:
+    build: ./memcached
+    ports:
+      - "11211:11211"
+  mysql:
+    build: ./mysql
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    restart: always
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}

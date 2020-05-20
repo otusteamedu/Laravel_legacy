@@ -1,0 +1,9 @@
+{
+    "name": "pravdin/socket",
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Socket\\": "src"
+        }
+    }
+}
