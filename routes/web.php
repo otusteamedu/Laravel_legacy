@@ -71,3 +71,10 @@ Route::get('/overview', function () use ($user) {
         ],
     ]);
 });
+
+
+Route::get('/test', function() {
+
+    $project = \App\Models\Project::all()->random();
+    dump($project, $project->users->random()->id);
+});

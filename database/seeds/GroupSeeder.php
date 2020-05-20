@@ -5,6 +5,13 @@ use Illuminate\Support\Facades\DB;
 
 class GroupSeeder extends Seeder
 {
+    private $groups = [
+      ['name' => 'Администратор'],
+      ['name' => 'Менеджер'],
+      ['name' => 'Разработчик'],
+      ['name' => 'Клиент'],
+    ];
+
     /**
      * Run the database seeds.
      *
@@ -12,17 +19,8 @@ class GroupSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('groups')->insert([
-            'name' => 'Администратор'
-        ]);
-        DB::table('groups')->insert([
-            'name' => 'Менеджер'
-        ]);
-        DB::table('groups')->insert([
-            'name' => 'Разработчик'
-        ]);
-        DB::table('groups')->insert([
-            'name' => 'Клиент'
-        ]);
+        foreach ($this->groups as $group) {
+            (new \App\Models\Group($group))->save();
+        }
     }
 }
