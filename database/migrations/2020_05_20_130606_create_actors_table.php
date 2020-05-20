@@ -16,6 +16,8 @@ class CreateActorsTable extends Migration
         Schema::create('actors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->comment('Фио актера');
+            $table->string('slug')->comment('Фио актера транслитом для чпу');
+            $table->string('description')->comment('описание актера')->nullable();
             $table->string('image')->comment('Путь до фото актера на сервере');
             $table->timestamps();
         });
