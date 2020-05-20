@@ -1,0 +1,572 @@
+body {
+    line-height: 1;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 1em;
+    position: relative;
+    color: #515253
+}
+
+fieldset,
+label,
+form,
+h1,
+blockquote,
+body,
+canvas,
+caption,
+p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 39px;
+    vertical-align: baseline
+}
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box
+}
+
+input:focus,
+textarea:focus {
+    outline: 0
+}
+
+a {
+    text-decoration: none;
+    color: #408bea
+}
+
+.shake {
+    animation: Shake linear 1s;
+    animation-iteration-count: 1;
+    transform-origin: 50% 50%;
+    -webkit-animation: Shake linear 1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-transform-origin: 50% 50%;
+    -moz-animation: Shake linear 1s;
+    -moz-animation-iteration-count: 1;
+    -moz-transform-origin: 50% 50%;
+    -o-animation: Shake linear 1s;
+    -o-animation-iteration-count: 1;
+    -o-transform-origin: 50% 50%;
+    -ms-animation: Shake linear 1s;
+    -ms-animation-iteration-count: 1;
+    -ms-transform-origin: 50% 50%
+}
+
+@keyframes Shake {
+    0% {
+        transform: translate(0px, 0px)
+    }
+    10% {
+        transform: translate(-10px, 0px)
+    }
+    20% {
+        transform: translate(10px, 0px)
+    }
+    30% {
+        transform: translate(-10px, 0px)
+    }
+    40% {
+        transform: translate(10px, 0px)
+    }
+    50% {
+        transform: translate(-10px, 0px)
+    }
+    60% {
+        transform: translate(10px, 0px)
+    }
+    70% {
+        transform: translate(-10px, 0px)
+    }
+    80% {
+        transform: translate(10px, 0px)
+    }
+    90% {
+        transform: translate(-10px, 0px)
+    }
+    100% {
+        transform: translate(0px, 0px)
+    }
+}
+
+@-moz-keyframes Shake {
+    0% {
+        -moz-transform: translate(0px, 0px)
+    }
+    10% {
+        -moz-transform: translate(-10px, 0px)
+    }
+    20% {
+        -moz-transform: translate(10px, 0px)
+    }
+    30% {
+        -moz-transform: translate(-10px, 0px)
+    }
+    40% {
+        -moz-transform: translate(10px, 0px)
+    }
+    50% {
+        -moz-transform: translate(-10px, 0px)
+    }
+    60% {
+        -moz-transform: translate(10px, 0px)
+    }
+    70% {
+        -moz-transform: translate(-10px, 0px)
+    }
+    80% {
+        -moz-transform: translate(10px, 0px)
+    }
+    90% {
+        -moz-transform: translate(-10px, 0px)
+    }
+    100% {
+        -moz-transform: translate(0px, 0px)
+    }
+}
+
+@-webkit-keyframes Shake {
+    0% {
+        -webkit-transform: translate(0px, 0px)
+    }
+    10% {
+        -webkit-transform: translate(-10px, 0px)
+    }
+    20% {
+        -webkit-transform: translate(10px, 0px)
+    }
+    30% {
+        -webkit-transform: translate(-10px, 0px)
+    }
+    40% {
+        -webkit-transform: translate(10px, 0px)
+    }
+    50% {
+        -webkit-transform: translate(-10px, 0px)
+    }
+    60% {
+        -webkit-transform: translate(10px, 0px)
+    }
+    70% {
+        -webkit-transform: translate(-10px, 0px)
+    }
+    80% {
+        -webkit-transform: translate(10px, 0px)
+    }
+    90% {
+        -webkit-transform: translate(-10px, 0px)
+    }
+    100% {
+        -webkit-transform: translate(0px, 0px)
+    }
+}
+
+@-o-keyframes Shake {
+    0% {
+        -o-transform: translate(0px, 0px)
+    }
+    10% {
+        -o-transform: translate(-10px, 0px)
+    }
+    20% {
+        -o-transform: translate(10px, 0px)
+    }
+    30% {
+        -o-transform: translate(-10px, 0px)
+    }
+    40% {
+        -o-transform: translate(10px, 0px)
+    }
+    50% {
+        -o-transform: translate(-10px, 0px)
+    }
+    60% {
+        -o-transform: translate(10px, 0px)
+    }
+    70% {
+        -o-transform: translate(-10px, 0px)
+    }
+    80% {
+        -o-transform: translate(10px, 0px)
+    }
+    90% {
+        -o-transform: translate(-10px, 0px)
+    }
+    100% {
+        -o-transform: translate(0px, 0px)
+    }
+}
+
+@-ms-keyframes Shake {
+    0% {
+        -ms-transform: translate(0px, 0px)
+    }
+    10% {
+        -ms-transform: translate(-10px, 0px)
+    }
+    20% {
+        -ms-transform: translate(10px, 0px)
+    }
+    30% {
+        -ms-transform: translate(-10px, 0px)
+    }
+    40% {
+        -ms-transform: translate(10px, 0px)
+    }
+    50% {
+        -ms-transform: translate(-10px, 0px)
+    }
+    60% {
+        -ms-transform: translate(10px, 0px)
+    }
+    70% {
+        -ms-transform: translate(-10px, 0px)
+    }
+    80% {
+        -ms-transform: translate(10px, 0px)
+    }
+    90% {
+        -ms-transform: translate(-10px, 0px)
+    }
+    100% {
+        -ms-transform: translate(0px, 0px)
+    }
+}
+
+.container {
+    float: left;
+    width: 100%
+}
+
+.dt_box {
+    width: 380px;
+    margin: 0 auto
+}
+
+.form_dt_user {
+    background: #fff;
+    -webkit-box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+    -moz-box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+    box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+    width: 100%;
+    margin: 50px 0;
+    margin-top: 30px;
+    display: block;
+    float: left;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px
+}
+
+.form_dt_user form {
+    padding: 20px 40px;
+    width: 100%;
+    float: left
+}
+
+.form_dt_user header {
+    padding: 20px 40px;
+    padding-bottom: 5px;
+    float: left
+}
+
+.form_dt_user header h1 {
+    font-size: 25px;
+    font-weight: 400;
+    color: #aab4bb;
+    float: left;
+    line-height: 32px
+}
+
+.logo {
+    width: 100%;
+    float: left;
+    margin-top: 30px;
+    text-align: center
+}
+
+.logo img {
+    width: auto;
+    height: 32px
+}
+
+.login {
+    width: 380px
+}
+
+.form_dt_user fieldset {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px
+}
+
+.form_dt_user fieldset p {
+    width: 100%;
+    display: block;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #a7abb5
+}
+
+.form_dt_user fieldset.min {
+    width: 48%;
+    float: left
+}
+
+.fix {
+    margin-right: 4%
+}
+
+.form_dt_user fieldset:last-child {
+    margin-bottom: 0
+}
+
+.form_dt_user fieldset label {
+    width: 100%;
+    display: block;
+    font-weight: 400;
+    color: #222d34;
+    font-size: 15px;
+    cursor: pointer;
+    margin-bottom: 10px
+}
+
+.form_dt_user fieldset input[type=text],
+.form_dt_user fieldset input[type=email],
+.form_dt_user fieldset input[type=password] {
+    border: 0;
+    background: #fcfcfd;
+    border: 1px solid #c7d6db;
+    border-radius: 3px;
+    width: 100%;
+    height: 40px;
+    display: block;
+    padding: 0 10px;
+    font-size: 15px;
+    color: #222d34;
+    font-weight: 600
+}
+
+.form_dt_user fieldset input[type=text]:focus,
+.form_dt_user fieldset input[type=password]:focus {
+    border: solid 1px #408bea;
+    background: #fff
+}
+
+.submit.button {
+    display: block;
+    background: #d33;
+    border: 0;
+    color: rgba(255, 255, 255, .5);
+    padding: 11px 35px;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 3px;
+    float: left;
+    cursor: pointer
+}
+
+.submit.button:hover {
+    color: #fff
+}
+
+.form_dt_user fieldset span {
+    float: left;
+    font-size: 14px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: center
+}
+
+.form_dt_user .notice {
+    padding: 20px 40px;
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    float: left;
+    width: 100%
+}
+
+.form_dt_user .alert {
+    background: #33d46d
+}
+
+.form_dt_user .error {
+    background: #ff6983
+}
+
+.g-recaptcha {
+    display: block;
+    margin-top: 10px
+}
+
+.form_dt_user fieldset input::-webkit-input-placeholder {
+    color: #cdd4d9;
+    font-weight: 400
+}
+
+.form_dt_user fieldset input:-moz-placeholder {
+    color: #cdd4d9;
+    font-weight: 400
+}
+
+.form_dt_user fieldset input::-moz-placeholder {
+    color: #cdd4d9;
+    font-weight: 400
+}
+
+.form_dt_user fieldset input:-ms-input-placeholder {
+    color: #cdd4d9;
+    font-weight: 400
+}
+
+.form_dt_user fieldset input:disabled {
+    opacity: .6
+}
+
+.passwordbox {
+    float: left;
+    width: 100%;
+    height: 4px;
+    position: relative;
+    margin-top: 11px;
+    background: #f5f7fa
+}
+
+.passwordbox #passwordStrengthDiv {
+    height: 4px;
+    position: absolute;
+    top: 0
+}
+
+.is10 {
+    width: 10%;
+    background: #d52800
+}
+
+.is20 {
+    width: 20%;
+    background: #ee6002
+}
+
+.is30 {
+    width: 30%;
+    background: #ff8a00
+}
+
+.is40 {
+    width: 40%;
+    background: #ffb400
+}
+
+.is50 {
+    width: 50%;
+    background: #e4c100
+}
+
+.is60 {
+    width: 60%;
+    background: #b2e20c
+}
+
+.is70 {
+    width: 70%;
+    background: #93d200
+}
+
+.is80 {
+    width: 80%;
+    background: #7dc401
+}
+
+.is90 {
+    width: 90%;
+    background: #73b401
+}
+
+.is100 {
+    width: 100%;
+    background: #4db401
+}
+
+.text_ft {
+    width: 100%;
+    font-size: 13px;
+    float: left;
+    text-align: center;
+    margin-bottom: 25px
+}
+
+#jsonresponse p {
+    float: left;
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: solid 1px #e8ebee;
+    background: #f5f7fa;
+    border-radius: 3px;
+    font-size: 13px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 20px
+}
+
+#jsonresponse p.error {
+    color: #fc7979
+}
+
+#jsonresponse p.success {
+    color: #40ac50
+}
+
+@media only screen and (max-width: 500px) {
+    body {
+        background: #fff
+    }
+    .dt_box {
+        width: 100%
+    }
+    .form_dt_user {
+        margin: 0;
+        -webkit-box-shadow: none;
+        -moz-box-shadow: none;
+        box-shadow: none
+    }
+    .form_dt_user form {
+        padding: 20px 35px
+    }
+    .logo,
+    .text_ft {
+        display: none
+    }
+    .form_dt_user {
+        border-radius: 0;
+        -webkit-border-radius: 0;
+        -moz-border-radius: 0
+    }
+}
+
+@media only screen and (max-width: 320px) {
+    .form_dt_user form {
+        padding: 20px 10px
+    }
+}
+
+body {
+    background: #353756
+}
+
+a {
+    color: #d33
+}
+
+.form_dt_user fieldset input[type=submit] {
+    background: #d33
+}
+
+.text_ft {
+    color: #fff
+}
