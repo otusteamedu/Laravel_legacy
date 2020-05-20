@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Cms\Mpolls\Requests;
 
+use App;
 use App\Http\Requests\FormRequest;
 
 class StoreMpollRequest extends FormRequest
@@ -39,9 +40,9 @@ class StoreMpollRequest extends FormRequest
 
         return $data;*/
         return array_merge(parent::getFormData(), [
-            'locale' => App::getLocale(),
+//            'locale' => App::getLocale(),
 //            'locale' => config('app.locale'),
-//            'author_id' => $this->user()->id,
+//            'created_user_id' => $this->user()->id,
         ]);
 
     }

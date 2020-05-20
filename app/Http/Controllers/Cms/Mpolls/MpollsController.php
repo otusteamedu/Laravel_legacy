@@ -18,7 +18,7 @@ class MpollsController extends Controller
     /**
      * @var MpollsService
      */
-public MpollsService $mpollsService;
+    public MpollsService $mpollsService;
 
     /**
      * MpollsController constructor.
@@ -40,7 +40,8 @@ public MpollsService $mpollsService;
     public function index()
     {
         $this->authorize(Abilities::VIEW_ANY, Mpoll::class);
-        $mpolls = $this->mpollsService->search([]) ;
+        $mpolls = $this->mpollsService->search([]);
+//        dd($mpolls);
         View::share([
             'mpolls' => $mpolls
         ]);
@@ -54,6 +55,7 @@ public MpollsService $mpollsService;
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Mpoll::class);
         $columns = implode(', ', [
             'id',
             'CONCAT (id, ". ", name) AS id_name',
@@ -69,15 +71,19 @@ public MpollsService $mpollsService;
      * Store a newly created resource in storage.
      *
      * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     *
      */
     public function store(StoreMpollRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Mpoll::class);
         $mpoll = $this->mpollsService->create($request->getFormData());
 
         View::share([
 
         ]);
+        return redirect()
+            ->route('cms.mpolls.index')
+            ->with(['success' => __('messages.rec_created', ['id' => $mpoll->id])]);
         return redirect()->route('cms.mpolls.edit', ['mpoll' => $mpoll->id]);
 //        ddd($request->input(), $request->all());
     }
@@ -88,10 +94,10 @@ public MpollsService $mpollsService;
      * @param \App\Models\Mpoll $mpoll
      * @return \Illuminate\Http\Response
      */
-    public function show(Mpoll $mpoll)
-    {
-        //
-    }
+    /* public function show(Mpoll $mpoll)
+     {
+         //
+     }*/
 
     /**
      * Show the form for editing the specified resource.
@@ -101,6 +107,7 @@ public MpollsService $mpollsService;
      */
     public function edit(Mpoll $mpoll)
     {
+        $this->authorize(Abilities::VIEW_ANY, Mpoll::class);
         $columns = implode(', ', [
             'id',
             'CONCAT (id, ". ", name) AS id_name',
@@ -117,13 +124,14 @@ public MpollsService $mpollsService;
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Mpoll $mpoll
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateMpollRequest $request, Mpoll $mpoll)
     {
+        $this->authorize(Abilities::VIEW_ANY, Mpoll::class);
         $data = $request->getFormData();
         $this->mpollsService->update($mpoll, $request->getFormData());
-        return redirect()->back();
+        return redirect(route('cms.mpolls.edit', $mpoll))
+            ->with(['success' => __('messages.rec_updated', ['id' => $mpoll->id])]);
 
     }
 
@@ -131,10 +139,14 @@ public MpollsService $mpollsService;
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Mpoll $mpoll
-     * @return \Illuminate\Http\Response
+     *
      */
     public function destroy(Mpoll $mpoll)
     {
-        //
+        $this->authorize(Abilities::DELETE, Mpoll::class);
+        $this->mpollsService->destroy($mpoll);
+        return redirect()
+            ->route('cms.mpolls.index')
+            ->with(['success' => __('messages.rec_deleted', ['id' => $mpoll->id])]);
     }
 }

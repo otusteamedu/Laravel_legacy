@@ -93,9 +93,10 @@ class Mpoll extends BaseModel
         'name',
         'description',
         'country_id',
-        'price'
+        'price',
+        'created_user_id'
     ];
-
+//    protected $guarded = [];
 
     public function quotas()
     {

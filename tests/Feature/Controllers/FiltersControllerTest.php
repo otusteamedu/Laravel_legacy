@@ -29,7 +29,7 @@ class FiltersControllerTest extends TestCase
      * @group filter
      * @return void
      */
-    public function testExample()
+    public function testSiteRoot()
     {
         $response = $this->get('/');
 
@@ -53,8 +53,8 @@ class FiltersControllerTest extends TestCase
         $filter = FilterGenerator::createFilterAge();
         $this->actingAs($user)
             ->get(route('cms.filters.index'))
-            ->assertStatus(200);
-//        ->assertSeeText($filter->name);
+            ->assertStatus(200)
+            ->assertSeeText($filter->name);
     }
 
     public function testDeleteExistingFilter()
@@ -91,7 +91,6 @@ class FiltersControllerTest extends TestCase
         $filter = FilterGenerator::createFilterAge();
         $filter['name'] = 'Test_Value';
         unset($filter['description']);
-//        dd($data);
         $this->actingAs($user)
             ->post(route('cms.filters.store'), $filter->toArray())
             ->assertStatus(302)
@@ -161,7 +160,7 @@ class FiltersControllerTest extends TestCase
         $user = UserGenerator::createAdminUser();
         $this->actingAs($user)->get(route('cms.filters.edit', 20))
             ->assertStatus(404);
-}
+    }
 
     /**
      * @covers App\Http\Controllers\Cms\Filters\FiltersController::update
@@ -197,7 +196,7 @@ class FiltersControllerTest extends TestCase
                 $filter->toArray()
             )->assertStatus(302)
             ->assertRedirect(route('cms.filters.index'));
-$this->assertDatabaseHas('filters', [
+        $this->assertDatabaseHas('filters', [
             'name' => $name]);
     }
 

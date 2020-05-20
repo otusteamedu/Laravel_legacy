@@ -33,7 +33,7 @@ class FiltersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
 //        $this->getCurrentUser()->can(Abilities::VIEW_ANY, Filter::class);
         // Вариант использования

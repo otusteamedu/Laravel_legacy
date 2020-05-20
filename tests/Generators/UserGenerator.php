@@ -27,7 +27,7 @@ class UserGenerator
         ]));
     }
 
-    public static function createUser(array $data = [])
+    public static function createUser(array $data = []) : User
     {
         return factory(User::class)->create($data);
     }
