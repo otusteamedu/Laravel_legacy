@@ -30,17 +30,11 @@ class CreateAdvertsTable extends Migration
                  ->references('id')
                  ->on('users')
                  ->onDelete('cascade');
-        });
-
-        Schema::table('adverts', function (Blueprint $table){
-            $table->foreign('town_id')
+           $table->foreign('town_id')
                 ->references('id')
                 ->on('towns')
                 ->onDelete('cascade');
-        });
-
-        Schema::table('adverts', function (Blueprint $table){
-            $table->foreign('division_id')
+           $table->foreign('division_id')
                 ->references('id')
                 ->on('divisions')
                 ->onDelete('cascade');

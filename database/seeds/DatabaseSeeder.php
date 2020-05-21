@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;'); // error with foreign keys (artisan db:seed)
 
          $this->call(UsersTableSeeder::class);
-         $this->call(AdvertsTableSeeder::class);
          $this->call(DivisionsTableSeeder::class);
          $this->call(TownsTableSeeder::class);
+         $this->call(AdvertsTableSeeder::class);
          //$this->call(MessagesTableSeeder::class);
     }
 }

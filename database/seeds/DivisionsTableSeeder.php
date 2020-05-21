@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class DivisionsTableSeeder extends Seeder
@@ -10,22 +11,16 @@ class DivisionsTableSeeder extends Seeder
      *
      * @return void
      */
+
     public function run()
     {
-        DB::table('divisions')->truncate();
-
-        DB::table('divisions')->insert([
-            'name' => 'Авто',
-        ]);
-        DB::table('divisions')->insert([
-            'name' => 'Недвижимость',
-        ]);
-        DB::table('divisions')->insert([
-            'name' => 'Работа',
-        ]);
-        DB::table('divisions')->insert([
-            'name' => 'Услуги',
-        ]);
-
+        $divisions=['Авто','Недвижимость','Работа','Услуги'];
+        foreach ($divisions as $division){
+            DB::table('divisions')->insert([
+                'name' => $division,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ]);
+        }
     }
 }
