@@ -26,9 +26,7 @@ class CreateMessagesTable extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
-        });
 
-        Schema::table('messages', function (Blueprint $table){
             $table->foreign('advert_id')
                 ->references('id')
                 ->on('adverts')

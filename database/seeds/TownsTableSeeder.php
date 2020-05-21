@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use \App\Models\Town;
 use Illuminate\Support\Facades\DB;
 
 class TownsTableSeeder extends Seeder
@@ -12,18 +13,8 @@ class TownsTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('towns')->truncate();
 
-        DB::table('towns')->insert([
-            'name' => 'Москва',
-        ]);
+        factory(Town::class, 5)->create();
 
-        DB::table('towns')->insert([
-            'name' => 'Рязань',
-        ]);
-
-        DB::table('towns')->insert([
-            'name' => 'Подольск',
-        ]);
     }
 }
