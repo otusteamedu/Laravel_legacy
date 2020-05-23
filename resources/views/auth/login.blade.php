@@ -5,6 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
+                {{session('login_error')}}
+
+                <a href="{{route('oauth.redirect')}}" class="btn btn-warning">OAuth 2.0</a>
+
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
