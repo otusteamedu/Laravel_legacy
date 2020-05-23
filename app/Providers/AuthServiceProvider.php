@@ -50,7 +50,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('view-cms', function ($user) {
-            return config('user-actions.'.$user->role.'.view-cms', config('user-actions.default-value-if-null'));
+            return config('user-actions.'.$user->role.'.cms.view', config('user-actions.default-value-if-null'));
         });
     }
 }
