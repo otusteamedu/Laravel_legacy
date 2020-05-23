@@ -1,12 +1,4 @@
 {
     "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/bootstrap.css": "/css/bootstrap.css",
-    "/css/responsive.css": "/css/responsive.css",
-    "/css/ui.css": "/css/ui.css",
-    "/css/common.css": "/css/common.css",
-    "/js/bootstrap.bundle.min.js": "/js/bootstrap.bundle.min.js",
-    "/js/common.js": "/js/common.js",
-    "/js/jquery-2.0.0.min.js": "/js/jquery-2.0.0.min.js",
-    "/js/script.js": "/js/script.js"
+    "/css/app.css": "/css/app.css"
 }

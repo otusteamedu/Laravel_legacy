@@ -28,6 +28,9 @@ Route::get('/blank', function () {
     return view('errors.not-allowed');
 });
 
+Route::get('/redirect', array([OAuthController::class,'redirect']))->name('oauth.redirect');
+Route::get('/callback', array([OAuthController::class,'callback']))->name('oauth.callback');
+
 
 
 Route::get('/clear', function () {
@@ -43,3 +46,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

@@ -10,6 +10,7 @@ use App\Models\Transaction;
 use App\Policies\TransactionPolicy;
 use App\Models\Reason;
 use App\Policies\ReasonPolicy;
+use Laravel\Passport\Passport;
 
 
 class AuthServiceProvider extends ServiceProvider
@@ -45,6 +46,13 @@ class AuthServiceProvider extends ServiceProvider
 
             return FALSE;
         });
+
+
+        Passport::routes();
+
+        Passport::tokensCan([
+            'user.students'=>'see your students',
+        ]);
 
     }
 }

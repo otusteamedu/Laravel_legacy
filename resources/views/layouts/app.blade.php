@@ -71,17 +71,7 @@
                 </div>
             </div>
         </nav>
-        111
-        @if(count($errors) > 0)
-        <div style="color:red">
-            @foreach ($errors->all() as $message)
-            <ul>
-                <li>{{$message}}</li>
-            </ul>
-            @endforeach
-        </div>
-        @endif
-222
+
         <main class="py-4">
             @yield('content')
         </main>
