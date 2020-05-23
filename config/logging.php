@@ -17,7 +17,7 @@ return [
     |
     */
 
-    'default' => env('LOG_CHANNEL', 'daily'),
+    'default' => env('LOG_CHANNEL', 'stack'),
 
     /*
     |--------------------------------------------------------------------------
@@ -37,7 +37,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single', 'daily'],
+            'channels' => ['slack',  'single', 'mylog'],
             'ignore_exceptions' => false,
         ],
 
@@ -50,7 +50,8 @@ return [
          'mylog' => [
             'driver' => 'single',
             'path' => storage_path('logs/mylog.log'),
-            'level' => 'debug',
+            'level' => 'info',
+//            'bubble' => false
         ],
 
         'daily' => [
@@ -63,9 +64,10 @@ return [
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),
-            'username' => 'Laravel Log',
+            'username' => 'Ltest.loc Log',
             'emoji' => ':boom:',
-            'level' => 'critical',
+            'level' => 'emergency',
+            'bubble' => false
         ],
 
         'papertrail' => [

@@ -16,6 +16,7 @@ Route::get('/log', function (){
     $context = ['id' => 55,  'method' => request()->method()];
     Log::info('Log record Info');
     Log::debug('Log record Debug', $context);
+    Log::emergency('Log record Emergency');
     Log::channel('slack')->emergency('Fatal error Emrgency');
     return 'Check log';
 });
