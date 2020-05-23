@@ -17,10 +17,10 @@ class CreateTableWorkouts extends Migration
             $table->id();
             $table->integer('time');
             $table->tinyInteger('private');
-            $table->unsignedBigInteger('complexes_id');
-            $table->foreign('complexes_id')->references('id')->on('complexes')->onDelete('cascade');
-            $table->unsignedBigInteger('users_id');
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('complex_id');
+            $table->foreign('complex_id')->references('id')->on('complexes')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
             $table->timestamps();
         });

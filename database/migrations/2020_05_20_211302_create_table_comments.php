@@ -13,19 +13,16 @@ class CreateTableComments extends Migration
      */
     public function up()
     {
-        Schema::create('complexes_comments', function (Blueprint $table) {
+        Schema::create('complex_comments', function (Blueprint $table) {
             $table->id();
             $table->text('text');
-            $table->unsignedBigInteger('complexes_id');
-            $table->foreign('complexes_id')->references('id')->on('complexes')->onDelete('cascade');
-            $table->unsignedBigInteger('users_id');
-            $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('complex_id');
+            $table->foreign('complex_id')->references('id')->on('complexes')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
 
-        Schema::table('complexes_comments', function (Blueprint $table) {
-
-        });
     }
 
     /**
@@ -35,6 +32,6 @@ class CreateTableComments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complexes_comments');
+        Schema::dropIfExists('complex_comments');
     }
 }

@@ -13,12 +13,12 @@ class CreateTableComplexesExercises extends Migration
      */
     public function up()
     {
-        Schema::create('complexes_exercises', function (Blueprint $table) {
+        Schema::create('complex_exercise', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('complexes_id');
-            $table->foreign('complexes_id')->references('id')->on('complexes')->onDelete('cascade');
-            $table->unsignedBigInteger('exercises_id');
-            $table->foreign('exercises_id')->references('id')->on('exercises')->onDelete('cascade');
+            $table->unsignedBigInteger('complex_id');
+            $table->foreign('complex_id')->references('id')->on('complexes')->onDelete('cascade');
+            $table->unsignedBigInteger('exercise_id');
+            $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateTableComplexesExercises extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complexes_exercises');
+        Schema::dropIfExists('complex_exercise');
     }
 }

@@ -13,12 +13,12 @@ class CreateTableExerciseEqupiments extends Migration
      */
     public function up()
     {
-        Schema::create('exercise_equipments', function (Blueprint $table) {
+        Schema::create('exercise_equipment', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('equipments_id');
-            $table->foreign('equipments_id')->references('id')->on('equipments')->onDelete('cascade');
-            $table->unsignedBigInteger('exercises_id');
-            $table->foreign('exercises_id')->references('id')->on('exercises')->onDelete('cascade');
+            $table->unsignedBigInteger('equipment_id');
+            $table->foreign('equipment_id')->references('id')->on('equipments')->onDelete('cascade');
+            $table->unsignedBigInteger('exercise_id');
+            $table->foreign('exercise_id')->references('id')->on('exercises')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -30,6 +30,6 @@ class CreateTableExerciseEqupiments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exercise_equipments');
+        Schema::dropIfExists('exercise_equipment');
     }
 }
