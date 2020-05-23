@@ -61,6 +61,6 @@ class User extends Authenticatable
     }
 
     public function canDo($action, $entity){
-        return config('user-actions.'.$this->role.'.'.$action.'-'.$entity, config('user-actions.default-value-if-null'));
+        return config('user-actions.'.$this->role.'.cms.'.$entity.'.'.$action, config('user-actions.default-value-if-null'));
     }
 }
