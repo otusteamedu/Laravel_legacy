@@ -29,9 +29,7 @@ Route::get('/category/{id}', 'HomeController@category')->name('category');
 Route::get('/list/{type}', 'HomeController@list')->name('list');
 
 //страница с информацией о пользователе
-Route::get('/user/{id}', function () {
-    return view('userinfo');
-});
+Route::get('/user/{id}', 'UserController@userInfo')->name('userInfo');
 
 
 

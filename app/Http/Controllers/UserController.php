@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
@@ -25,11 +26,9 @@ class UserController extends Controller
      */
     public function userInfo($id)
     {
-        $user = DB::table('users')
-        ->select('name, email, created_at')
-        ->where('id', $id)
-        ->get();
-        return view('article', ['result'=> $user]);
+        $user = User::find($id);
+        $categories = Category::all();
+        return view('userinfo', ['user' => $user, 'categories' => $categories]);
     }
 
 }
