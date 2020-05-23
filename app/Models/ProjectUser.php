@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -15,9 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectUser withoutTrashed()
  * @mixin \Eloquent
  */
-class ProjectUser extends Model
+class ProjectUser extends Pivot
 {
     use SoftDeletes;
 
-    protected $table = 'project_user';
 }
