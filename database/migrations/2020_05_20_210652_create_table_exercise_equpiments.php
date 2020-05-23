@@ -13,7 +13,7 @@ class CreateTableExerciseEqupiments extends Migration
      */
     public function up()
     {
-        Schema::create('exercise_equipment', function (Blueprint $table) {
+        Schema::create('equipment_exercise', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('equipment_id');
             $table->foreign('equipment_id')->references('id')->on('equipments')->onDelete('cascade');
@@ -30,6 +30,6 @@ class CreateTableExerciseEqupiments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exercise_equipment');
+        Schema::dropIfExists('equipment_exercise');
     }
 }

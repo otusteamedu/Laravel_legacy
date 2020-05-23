@@ -13,7 +13,7 @@ class CreateTableComments extends Migration
      */
     public function up()
     {
-        Schema::create('complex_comments', function (Blueprint $table) {
+        Schema::create('comments', function (Blueprint $table) {
             $table->id();
             $table->text('text');
             $table->unsignedBigInteger('complex_id');
@@ -32,6 +32,6 @@ class CreateTableComments extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('complex_comments');
+        Schema::dropIfExists('comments');
     }
 }
