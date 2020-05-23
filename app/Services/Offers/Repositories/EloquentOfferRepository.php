@@ -35,6 +35,7 @@ class EloquentOfferRepository implements OfferRepositoryInterface
     {
         $offer = new Offer();
         $offer->create($data);
+
         return $offer;
     }
 

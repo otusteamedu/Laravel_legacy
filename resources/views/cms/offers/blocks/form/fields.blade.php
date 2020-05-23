@@ -21,6 +21,12 @@
 @endphp
 
 <div class="row">
+    <div class="col-sm-12 col-md-6">
+        <div class="form-group">
+            {{ Form::label('name', 'Наименование предложения') }}
+            {{ Form::text('name', $name ?? '', array('class'=>'form-control')) }}
+        </div>
+    </div>
     <div class="col-sm-4 col-md-4">
         <div class="form-group">
             {{ Form::label('city_id', 'Город действия предложения') }}
@@ -29,8 +35,8 @@
     </div>
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
-            {{ Form::label('name', 'Наименование предложения') }}
-            {{ Form::text('name', $name ?? '', array('class'=>'form-control')) }}
+            {{ Form::label('teaser_image', 'Путь до тизерного изображения') }}
+            {{ Form::file('teaser_image'), $teaser_image, array('class'=>'form-control') }}
         </div>
     </div>
     <div class="col-sm-4 col-md-4">
@@ -49,12 +55,6 @@
         <div class="form-group">
             {{ Form::label('project_id', 'Проект (магазин)') }}
             {{ Form::select('project_id', $projects->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
-        </div>
-    </div>
-    <div class="col-sm-12 col-md-6">
-        <div class="form-group">
-            {{ Form::label('teaser_image', 'Путь до тизерного изображения') }}
-            {{ Form::text('teaser_image', $teaser_image, array('class'=>'form-control')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">

@@ -40,7 +40,7 @@ class OffersController extends Controller
 
         $key = $request->user()->id . '|' . $request->getUri();
 
-        return Cache::remember($key, 60, function () {
+        return Cache::remember($key, env('DEFAULT_CACHE_TTL', 60), function () {
             $offers = $this->offersService->searchCachedOffers();
 
             return view(config('view.cms.offers.index'), [
@@ -65,7 +65,6 @@ class OffersController extends Controller
         ]);
     }
 
-
     /**
      * Show the form for creating a new resource.
      *
@@ -87,8 +86,6 @@ class OffersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param StoreOfferRequest $request
      * @param Offer $offer
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
@@ -97,7 +94,6 @@ class OffersController extends Controller
     public function store(StoreOfferRequest $request, Offer $offer)
     {
         $this->authorize(Abilities::CREATE, $offer);
-
         $data = $request->getFormData();
 
         try {

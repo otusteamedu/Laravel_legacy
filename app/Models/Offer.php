@@ -54,6 +54,7 @@ class Offer extends BaseModel
     protected $fillable = [
         'name',
         'description',
+        'teaser_image',
         'promo_code',
         'expiration_date',
         'project_id',
