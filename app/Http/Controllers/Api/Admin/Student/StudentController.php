@@ -38,6 +38,10 @@ class StudentController extends Controller
      * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
+FindByEmail()
+getAllByAge()
+updateEmail()
+updateFullName()
     public function store(Request $request)
     {
 
