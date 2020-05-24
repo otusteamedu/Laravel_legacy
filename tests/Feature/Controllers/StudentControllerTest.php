@@ -40,10 +40,6 @@ class StudentControllerTest extends TestCase
         return [
             'name' => $this->faker->name(),
             'created_by' => 1,
-//            'continent_name' => $this->faker->randomElement([
-//                'Europe',
-//                'Asia',
-//            ])
         ];
     }
 
