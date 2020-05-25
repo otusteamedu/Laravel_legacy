@@ -32,8 +32,8 @@ use App\Services\Prices\Repositories\EloquentPriceRepository;
 
 use App\Services\Instructors\Repositories\InstructorRepositoryInterface;
 use App\Services\Instructors\Repositories\EloquentInstructorRepository;
-use App\Services\Schedule\Repositories\ScheduleRepositoryInterface;
-use App\Services\Schedule\Repositories\EloquentScheduleRepository;
+use App\Services\Schedules\Repositories\ScheduleRepositoryInterface;
+use App\Services\Schedules\Repositories\EloquentScheduleRepository;
 
 
 class AppServiceProvider extends ServiceProvider

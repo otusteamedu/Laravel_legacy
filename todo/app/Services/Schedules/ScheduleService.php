@@ -8,7 +8,7 @@ namespace App\Services\Schedules;
 
 use App\Models\Schedule;
 
-use App\Services\Schedule\Repositories\ScheduleRepositoryInterface;
+use App\Services\Schedules\Repositories\ScheduleRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 class ScheduleService
@@ -33,7 +33,7 @@ class ScheduleService
      */
     public function findSchedule(int $id)
     {
-        // return $this->scheduleRepository->find($id);
+         return $this->scheduleRepository->find($id);
     }
 
     /**

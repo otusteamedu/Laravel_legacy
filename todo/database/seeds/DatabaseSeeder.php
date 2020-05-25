@@ -13,12 +13,12 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-       // $this->call(UserTableSeeder::class);
+        $this->call(UserTableSeeder::class);
 
-        //$status = factory(\App\Models\Status::class)->create();
-        //factory(\App\Models\Task::class, 20)->create(['status_id' => $status->id]);
+        $status = factory(\App\Models\Status::class)->create();
+        factory(\App\Models\Task::class, 20)->create(['status_id' => $status->id]);
 
-        //$this->call(StudioSeeder::class);
-        $this->call(TestSeeder::class);
+        $this->call(StudioSeeder::class);
+       // $this->call(TestSeeder::class);
     }
 }

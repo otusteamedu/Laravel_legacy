@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Schedule
+ * Class ___Schedule
  * @package App\Models
  * @property int style_id
  * @property int instructor_id
@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     protected $table = 'schedules';
+    public $timestamps = false;
     protected $fillable = [
         'style_id', 'instructor_id', 'days', 'time'
     ];

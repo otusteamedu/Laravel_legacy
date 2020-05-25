@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Instructor extends Model
 {
+    public $timestamps = false;
     protected $fillable = [
         'instructor_id', 'name',
     ];

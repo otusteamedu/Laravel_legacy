@@ -18,11 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::middleware('auth:api')->group(function () {
-    Route::apiResource('tasks', 'Api\TasksController');
+   // Route::apiResource('tasks', 'Api\TasksController');
     Route::apiResource('styles', 'Api\StylesController');
     Route::apiResource('prices', 'Api\PricesController');
     Route::apiResource('instructors', 'Api\InstructorsController');
-    Route::apiResource('schedule', 'Api\ScheduleController');
+   // Route::apiResource('schedule', 'Api\ScheduleController');
+    Route::get('schedule', 'Api\ScheduleController@index')->name('schedule.index');
+    Route::post('schedule', 'Api\ScheduleController@store')->name('schedule.store');
+    Route::put('schedule/{id}', 'Api\ScheduleController@update')->name('schedule.update');;
+    Route::delete('schedule/{id}', 'Api\ScheduleController@destroy')->name('schedule.destroy');
 });
 
-//Route::apiResource('tasks', 'Api\TasksController');
+

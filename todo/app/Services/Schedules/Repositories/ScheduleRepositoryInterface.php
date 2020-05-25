@@ -2,7 +2,7 @@
 /**
  */
 
-namespace App\Services\Schedule\Repositories;
+namespace App\Services\Schedules\Repositories;
 
 use App\Models\Schedule;
 

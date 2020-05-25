@@ -2,7 +2,7 @@
 /**
  */
 
-namespace App\Services\Schedule\Repositories;
+namespace App\Services\Schedules\Repositories;
 
 
 use App\Models\Schedule;
@@ -35,13 +35,8 @@ class EloquentScheduleRepository implements ScheduleRepositoryInterface
 
     public function updateFromArray(Schedule $schedule, array $data)
     {
-        $result = Schedule::where('name', $data['name'])->get();
-        if ((count($result) > 1) || (count($result) == 1 && $result[0]->id != $schedule->id)) {
-
-            return ['error' => 'Это имя уже успользуется'];
-        }
         $schedule->update($data);
-        return 1;
+        return $schedule;
     }
 
     public function create(array $data): Schedule

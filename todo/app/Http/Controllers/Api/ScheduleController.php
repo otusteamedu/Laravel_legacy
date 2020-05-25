@@ -22,8 +22,9 @@ class ScheduleController extends BaseAdminController
 
     )
     {
-      $this->scheduleService = $scheduleService;
+        $this->scheduleService = $scheduleService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -31,8 +32,7 @@ class ScheduleController extends BaseAdminController
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
+
         $schedules = $this->scheduleService->searchSchedules();
         return response()->json(ScheduleResource::collection($schedules));
 
@@ -41,18 +41,26 @@ class ScheduleController extends BaseAdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'days' => 'required|min:3|max:50',
+            'time' => 'required|max:20'
+        ]);
+        $data = $request->except(['api_token']);
+        $schedule = $this->scheduleService->storeSchedule($data);
+
+        return response()->json($schedule);
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -63,23 +71,33 @@ class ScheduleController extends BaseAdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'days' => 'required|min:3|max:50',
+            'time' => 'required|max:20'
+        ]);
+
+        $schedule = $this->scheduleService->findSchedule($id);
+        $data = $request->except(['api_token']);
+        $schedule = $this->scheduleService->updateSchedule($schedule, $data);
+
+        return response()->json($schedule);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        $res = $this->scheduleService->deleteSchedule($id);
+        return response()->json(['deleted' => 'true']);
     }
 }
