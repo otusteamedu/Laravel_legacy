@@ -14,17 +14,20 @@
 
 Route::name('admin.')->group(function () {
     App::setLocale('ru');
-    Route::prefix('admin')->group(function () {
-        Route::resources([
-            'users' => 'Admin\UsersController',
-            'roles' => 'Admin\RolesController',
-            'statuses' => 'Admin\StatusesController',
-            'permissions' => 'Admin\PermissionsController',
-            '/' => 'Admin\AdminController',
+    $locale = App::getLocale();
+    Route::prefix('admin')
+        ->middleware(\App\Http\Middleware\CheckAccess::class)
+        ->group(function () {
+            Route::resources([
+                'users' => 'Admin\UsersController',
+                'roles' => 'Admin\RolesController',
+                'statuses' => 'Admin\StatusesController',
+                'permissions' => 'Admin\PermissionsController',
+                '/' => 'Admin\AdminController',
 
-            // 'cities' => 'Cms\Cities\CitiesController',
-        ]);
-    });
+                // 'cities' => 'Cms\Cities\CitiesController',
+            ]);
+        });
 });
 
 Route::get('/', function () {
@@ -37,42 +40,8 @@ Route::get('/', function () {
     ];
     return view('index', $data);
 });
-/*
-Route::get('/tasks', function () {
 
-    $tasks = [
-        [
-            'id' => 1,
-            'title' => 'Собрать вещи',
-            'description' => 'Собрать три коробки вещей',
-
-        ],
-        [
-            'id' => 2,
-            'title' => 'Создание страниц',
-            'description' => 'Нарисовать струткру сущностей, создать три 4 страницы ',
-
-        ],
-        [
-            'id' => 3,
-            'title' => 'Тренировка',
-            'description' => 'Позаниматься йогой по схеме 22',
-
-        ],
-
-    ];
-    $data = [
-        'tasks' => $tasks,
-        'title' => 'TikTak - оптимальный сервис для управления своими задачами',
-        'description' => ' Вот что мы знаем о нем',
-
-    ];
-
-   // return view('tasks.index', $data);
-
-});
-*/
-Route::get('/tasks', 'Site\TasksController@index')->name('tasks');
+Route::get('/tasks', 'Site\TasksController@index')->name('tasks')->middleware(\App\Http\Middleware\CheckAccess::class);
 
 Route::get('/registration', function () {
 

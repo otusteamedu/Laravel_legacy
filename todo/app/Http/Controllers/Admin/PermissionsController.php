@@ -42,8 +42,7 @@ class PermissionsController extends BaseAdminController
      */
     public function index(Request $request)
     {
-        $user = Auth::user();
-        $this->checkCurrentUserRouteAccess($user, $request->route()->getName());
+
 
         return view('admin.permissions.index', [
             'permissions' => $this->permissionsService->searchPermissions(),

@@ -25,6 +25,16 @@ use App\Services\Tasks\Repositories\CachedTaskRepository;
 use App\Services\Users\Repositories\CachedUserRepositoryInterface;
 use App\Services\Users\Repositories\CachedUserRepository;
 
+use App\Services\Styles\Repositories\StyleRepositoryInterface;
+use App\Services\Styles\Repositories\EloquentStyleRepository;
+use App\Services\Prices\Repositories\PriceRepositoryInterface;
+use App\Services\Prices\Repositories\EloquentPriceRepository;
+
+use App\Services\Instructors\Repositories\InstructorRepositoryInterface;
+use App\Services\Instructors\Repositories\EloquentInstructorRepository;
+use App\Services\Schedules\Repositories\ScheduleRepositoryInterface;
+use App\Services\Schedules\Repositories\EloquentScheduleRepository;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -46,6 +56,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CachedTaskRepositoryInterface::class, CachedTaskRepository::class);
         $this->app->bind(TaskRepositoryInterface::class, EloquentTaskRepository::class);
 
+        $this->app->bind(StyleRepositoryInterface::class, EloquentStyleRepository::class);
+        $this->app->bind(PriceRepositoryInterface::class, EloquentPriceRepository::class);
+        $this->app->bind(InstructorRepositoryInterface::class, EloquentInstructorRepository::class);
+        $this->app->bind(ScheduleRepositoryInterface::class, EloquentScheduleRepository::class);
 
     }
 

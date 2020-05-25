@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Services\Events\Models\User\UserSaved;
 use App\Services\Events\Models\User\UserDeleted;
+
 
 
 /**
@@ -21,7 +23,7 @@ use App\Services\Events\Models\User\UserDeleted;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
 
     const USER_ROLE_ADMIN = 1;
     const USER_ROLE_USER = 2;
