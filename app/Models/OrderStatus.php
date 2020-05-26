@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Lang\Ru\OrderStatus as OrderStatusRu;
-
 /**
  * App\Models\OrderStatus
  *
@@ -22,6 +20,8 @@ use App\Models\Lang\Ru\OrderStatus as OrderStatusRu;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderStatus whereUpdatedAt($value)
  * @method \App\Models\OrderStatus nameRu($name)
  * @mixin \Eloquent
+ * @property string|null $name_ru
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderStatus whereNameRu($value)
  */
 class OrderStatus extends Model
 {
@@ -31,22 +31,8 @@ class OrderStatus extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'position'
+        'name',
+        'name_id',
+        'position'
     ];
-
-    public function nameRu($name)
-    {
-        $orderStatusRu = OrderStatusRu::where('order_status_id', $this->id)->first();
-
-        if (!$orderStatusRu) {
-            $orderStatusRu = new OrderStatusRu();
-            $orderStatusRu->order_status_id = $this->id;
-        }
-
-        $orderStatusRu->name = $name;
-
-        $orderStatusRu->save();
-
-        return $orderStatusRu;
-    }
 }

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Lang\Ru\CategoryGroup as CategoryGroupRu;
-
 /**
  * App\Models\CategoryGroup
  *
@@ -21,6 +19,8 @@ use App\Models\Lang\Ru\CategoryGroup as CategoryGroupRu;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryGroup wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryGroup whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $name_ru
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryGroup whereNameRu($value)
  */
 class CategoryGroup extends Model
 {
@@ -30,22 +30,8 @@ class CategoryGroup extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'position'
+        'name',
+        'name_ru',
+        'position'
     ];
-
-    public function nameRu($name)
-    {
-        $groupRu = CategoryGroupRu::where('category_group_id', $this->id)->first();
-
-        if (!$groupRu) {
-            $groupRu = new CategoryGroupRu();
-            $groupRu->category_group_id = $this->id;
-        }
-
-        $groupRu->name = $name;
-
-        $groupRu->save();
-
-        return $groupRu;
-    }
 }

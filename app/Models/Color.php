@@ -28,6 +28,7 @@ class Color extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'name_ru'
+        'name',
+        'name_ru'
     ];
 }

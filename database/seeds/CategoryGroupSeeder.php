@@ -14,13 +14,7 @@ class CategoryGroupSeeder extends Seeder
     public function run()
     {
         DB::table('category_groups')->truncate();
-        DB::table('category_groups_ru')->truncate();
 
         factory(CategoryGroup::class, rand(5, 15))->create();
-
-        $categoryGroups = CategoryGroup::all();
-        foreach ($categoryGroups as $group) {
-            $group->nameRu($group->name . 'Ru');
-        }
     }
 }

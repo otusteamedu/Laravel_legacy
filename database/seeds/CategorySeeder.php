@@ -14,13 +14,7 @@ class CategorySeeder extends Seeder
     public function run()
     {
         DB::table('categories')->truncate();
-        DB::table('categories_ru')->truncate();
 
         factory(Category::class, rand(50, 150))->create();
-
-        $categories = Category::all();
-        foreach($categories as $category) {
-            $category->nameRu($category->name . 'Ru');
-        }
     }
 }

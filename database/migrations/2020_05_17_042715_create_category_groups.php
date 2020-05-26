@@ -16,6 +16,7 @@ class CreateCategoryGroups extends Migration
         Schema::create('category_groups', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_ru');
             $table->unsignedInteger('position');
             $table->timestamps();
         });

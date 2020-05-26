@@ -14,36 +14,35 @@ class OrderStatusSeeder extends Seeder
     public function run()
     {
         DB::table('order_statuses')->truncate();
-        DB::table('order_statuses_ru')->truncate();
 
         $os = new OrderStatus();
         $os->name = 'In process';
         $os->position = 100000;
+        $os->name_ru = 'В процессе';
         $os->save();
-        $os->nameRu('В процессе');
 
         $os = new OrderStatus();
         $os->name = 'In assembly';
         $os->position = 200000;
+        $os->name_ru = 'Собирается';
         $os->save();
-        $os->nameRu('Собирается');
 
         $os = new OrderStatus();
         $os->name = 'Whaiting shipment';
         $os->position = 300000;
+        $os->name_ru = 'Ожидается отгрузки';
         $os->save();
-        $os->nameRu('Ожидает отгрузки');
 
         $os = new OrderStatus();
         $os->name = 'On the way';
         $os->position = 400000;
+        $os->name_ru = 'В пути';
         $os->save();
-        $os->nameRu('В пути');
 
         $os = new OrderStatus();
         $os->name = 'Delivered';
         $os->position = 500000;
+        $os->name_ru = 'Доставлен';
         $os->save();
-        $os->nameRu('Доставлен');
     }
 }

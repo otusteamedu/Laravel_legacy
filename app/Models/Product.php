@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Lang\Ru\Product as ProductRu;
+use App\Models\ProductTranslation;
 
 /**
  * App\Models\Product
@@ -54,19 +54,4 @@ class Product extends Model
         'guarantee_id',
         'image_path'
     ];
-
-    public function getProductRu() {
-        if (!$this->id) {
-            return null;
-        }
-
-        $productRu = ProductRu::where('product_id', $this->id)->first();
-
-        if (!$productRu) {
-            $productRu = new ProductRu();
-            $productRu->product_id = $this->id;
-        }
-
-        return $productRu;
-    }
 }

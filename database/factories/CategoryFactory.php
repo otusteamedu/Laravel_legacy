@@ -7,8 +7,10 @@ use Faker\Generator as Faker;
 use App\Models\CategoryGroup;
 
 $factory->define(Category::class, function (Faker $faker) {
+    $name = $faker->text(50);
     return [
-        'name' => $faker->text(50),
+        'name' => $name,
+        'name_ru' => $name . 'Ru',
         'group_id' => rand(1, CategoryGroup::count()),
         'position' => rand(0, 1000000)
     ];

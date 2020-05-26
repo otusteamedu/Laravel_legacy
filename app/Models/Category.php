@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Models\Lang\Ru\Category as CategoryRu;
-
 /**
  * App\Models\Category
  *
@@ -23,6 +21,8 @@ use App\Models\Lang\Ru\Category as CategoryRu;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category wherePosition($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $name_ru
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Category whereNameRu($value)
  */
 class Category extends Model
 {
@@ -32,22 +32,9 @@ class Category extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'group_id', 'position'
+        'name',
+        'name_ru',
+        'group_id',
+        'position'
     ];
-
-    public function nameRu($name)
-    {
-        $categoryRu = CategoryRu::where('category_id', $this->id)->first();
-
-        if (!$categoryRu) {
-            $categoryRu = new CategoryRu();
-            $categoryRu->category_id = $this->id;
-        }
-
-        $categoryRu->name = $name;
-
-        $categoryRu->save();
-
-        return $categoryRu;
-    }
 }
