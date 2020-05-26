@@ -12,8 +12,8 @@ class OfferTemplateQRGenerator
     const QR_X = 76;
     const QR_Y = 332;
 
-    const TEXT_X = 76;
-    const TEXT_Y = 1000;
+    const TEXT_X = 140;
+    const TEXT_Y = 1050;
 
     /**
      * @param int $offer_id
@@ -109,7 +109,7 @@ class OfferTemplateQRGenerator
      */
     private function createOfferLink(int $offer_id): string
     {
-        return 'badum.ru/offer/'.$offer_id;
+        return 'badum.ru/qr/'.$offer_id;
 /*        return route('home', [
             'id' => $offer_id
         ]);*/
