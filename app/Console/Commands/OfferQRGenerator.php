@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 
 class OfferQRGenerator extends Command
 {
-    const COMPANY_QR_TEMPLATE = 'offer-offer-qr-%d.png';
+    const COMPANY_QR_TEMPLATE = 'qr-offer-%d.png';
     /**
      * The name and signature of the console command.
      *

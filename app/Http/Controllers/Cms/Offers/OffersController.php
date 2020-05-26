@@ -7,12 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Offer;
 use App\Models\Project;
-use App\Models\User;
 use App\Policies\Abilities;
+use App\Services\Offers\Generators\OfferTemplateQRGenerator;
 use App\Services\Offers\OffersService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Imagick;
 
 
 class OffersController extends Controller
@@ -96,6 +97,7 @@ class OffersController extends Controller
      */
     public function store(StoreOfferRequest $request, Offer $offer)
     {
+
         $this->authorize(Abilities::CREATE, $offer);
 
         $data = $request->getFormData();
@@ -156,6 +158,10 @@ class OffersController extends Controller
 
         try {
             $offer->update($request->all());
+
+            $qr = new OfferTemplateQRGenerator;
+            $qr->generate($offer->id, 'qr-'.$offer->id);
+
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([
