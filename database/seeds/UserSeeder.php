@@ -16,7 +16,8 @@ class UserSeeder extends Seeder
     {
         $email = Str::random(10).'@gmail.com';
         $password = Str::random();
-        DB::table('users')->insert([
+
+        $user = new \App\Models\User([
             'group_id' => 1,
             'name' => 'admin',
             'email' => $email,
@@ -24,6 +25,12 @@ class UserSeeder extends Seeder
             'balance' => 0
         ]);
 
+        $user->save();
+
         echo "Admin Email: {$email}\nAdmin password: {$password}\n";
+
+        if (env('APP_DEBUG')) {
+            factory(\App\Models\User::class, 5)->create();
+        }
     }
 }

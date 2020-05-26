@@ -13,5 +13,14 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(GroupSeeder::class);
         $this->call(UserSeeder::class);
+
+        if (env('APP_DEBUG')) {
+            $this->call(FinanceSeeder::class);
+            $this->call(ProjectSeeder::class);
+            $this->call(ProjectUserSeeder::class);
+            $this->call(ProjectTaskSeeder::class);
+            $this->call(TaskCommentSeeder::class);
+            $this->call(TaskFileSeeder::class);
+        }
     }
 }
