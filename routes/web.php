@@ -63,3 +63,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+/* since there are few offers, we give out everything */
+Route::get('qr/{id}', 'SaleOffers\SaleOffersController@index');
