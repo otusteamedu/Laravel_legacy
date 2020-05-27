@@ -2,8 +2,8 @@
 
 return [
     'home' => 'Home',
-    'mpolls' => 'Surveys',
-    'filters' => 'Filters',
+    'mpolls' => 'Опросы',
+    'filters' => 'Фильтры',
     'country_id' => 'Country id',
     'value' => 'Value',
     'name' => 'name',

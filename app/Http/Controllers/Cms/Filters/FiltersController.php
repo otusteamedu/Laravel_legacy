@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Filter;
 use App\Policies\Abilities;
 use App\Services\FilterTypes\FilterTypesService;
+use Illuminate\Support\Facades\Route;
 use View;
 use App\Services\Filters\FiltersService;
 use Illuminate\Http\Request;
@@ -35,6 +36,13 @@ class FiltersController extends Controller
      */
     public function index()
     {
+
+        /*$route = Route::current()->uri();
+
+        $name = Route::currentRouteName();
+
+        $action = Route::currentRouteAction();
+        dd($route, $name, $action);*/
 //        $this->getCurrentUser()->can(Abilities::VIEW_ANY, Filter::class);
         // Вариант использования
         /*if ($this->getCurrentUser()->cant(Abilities::VIEW_ANY, Filter::class)){

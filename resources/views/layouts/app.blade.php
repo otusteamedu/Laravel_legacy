@@ -35,12 +35,12 @@
                     <ul class="navbar-nav mr-auto">
                         @can(\App\Policies\Abilities::VIEW_ANY, \App\Models\Mpoll::class)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cms.mpolls.index') }}">{{ __('Surveys') }}</a>
+                                <a class="nav-link" href="{{ route('cms.mpolls.index', ['locale' => \App::getLocale()]) }}">{{ __('messages.mpolls') }}</a>
                             </li>
                         @endcan
                         @can(\App\Policies\Abilities::VIEW_ANY, \App\Models\Filter::class)
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('cms.filters.index') }}">{{ __('Filter') }}</a>
+                                <a class="nav-link" href="{{ route('cms.filters.index') }}">{{ __('messages.filters') }}</a>
                             </li>
                         @endcan
 

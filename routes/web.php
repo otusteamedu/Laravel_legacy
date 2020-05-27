@@ -14,13 +14,30 @@
 
 use Illuminate\Support\Collection;
 
+
+Route::get('/{locale}/dashboard', function (){
+    return view('home');
+})->middleware('localize')->name('dashboard');
+
+Route::get('/dashboard', function (){
+    return redirect(App::getLocale().'/dashboard');
+});
+
+
+
 Route::get('/log', function (){
     $context = ['id' => 55,  'method' => request()->method()];
     Log::info('Log record Info');
     Log::debug('Log record Debug', $context);
-    Log::emergency('Log record Emergency');
-    Log::channel('slack')->emergency('Fatal error Emrgency');
-    return 'Check log';
+//    Log::emergency('Log record Emergency');
+//    Log::channel('slack')->emergency('Fatal error Emrgency');
+    $route = Route::current();
+
+    $name = Route::currentRouteName();
+
+    $action = Route::currentRouteAction();
+//    dd($route->uri, $name, $action);
+    return 'Check log ' ;
 
 });
 
@@ -67,6 +84,7 @@ Route::get('/news/{id}/{name}', function ($id, $name) {
 Route::group([
 //    'as' => 'cms.',
     'prefix' => 'cms',
+//    'prefix' => '{locale}/cms',
     'namespace' => 'Cms',
     /*'middleware' => [
         'auth',
@@ -78,7 +96,7 @@ Route::group([
         $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('filters', 'FiltersController')
             ->only($methods)
-            ->names('cms.filters')->middleware('auth');
+            ->names('cms.filters')->middleware(['auth', 'localize']);
     });
 
     //CmsMpolls
@@ -87,7 +105,7 @@ Route::group([
         $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
         Route::resource('mpolls', 'MpollsController')
             ->only($methods)
-            ->names('cms.mpolls')->middleware('auth');
+            ->names('cms.mpolls')->middleware(['auth', 'localize']);
     });
 
     //CmsMlinks
@@ -138,6 +156,7 @@ Route::group([
 });
 
 
+
 Route::get('/filters', 'Cms\Filters\FiltersController@index');
 
 
@@ -162,4 +181,4 @@ Route::get('/filters', 'Cms\Filters\FiltersController@index');
 //Auth::routes();
 Auth::routes(['verify' => true, 'register' => true, 'reset' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home')->middleware('localize');
