@@ -15,6 +15,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectUser withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\ProjectUser withoutTrashed()
  * @mixin \Eloquent
+ * @property int $id
+ * @property int $user_id
+ * @property int $project_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectUser whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectUser whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectUser whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectUser whereProjectId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectUser whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ProjectUser whereUserId($value)
  */
 class ProjectUser extends Pivot
 {

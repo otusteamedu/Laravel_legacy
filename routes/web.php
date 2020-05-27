@@ -20,6 +20,12 @@ $user = [
     'image' => 'images/profile.jpg',
 ];
 
+Route::resources([
+    'staffs' => 'Staffs\Staffs',
+    'clients' => 'Clients\Clients',
+    'projects' => 'Projects\Projects',
+]);
+
 Route::get('/', function () {
     return view('auth.index')->with([
         'title' => __('auth/general.title'),
