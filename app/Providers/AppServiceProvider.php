@@ -10,6 +10,7 @@ use App\Services\FilterTypes\Repositories\FilterTypeRepositoryInterface;
 use App\Services\Mpolls\Repositories\EloquentMpollRepository;
 use App\Services\Mpolls\Repositories\MpollRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Dusk\DuskServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -22,6 +23,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->registerBindings();
+
+        if($this->app->environment('local', 'testing')){
+            $this->app->register(DuskServiceProvider::class);
+        }
     }
 
     /**

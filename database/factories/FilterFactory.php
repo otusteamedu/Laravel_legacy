@@ -16,7 +16,7 @@ $factory->define(Filter::class, function (Faker $faker) {
         'quota_id' => rand(1, 2),
         'name' => $name,
         'value' => $value,
-        'description' => $faker->word(),
+        'description' => $faker->sentence(2),
         'created_at' => $created,
         'updated_at' => $created,
         'created_user_id' => rand(1,3),

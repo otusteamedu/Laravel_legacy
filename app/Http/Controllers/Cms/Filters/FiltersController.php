@@ -8,8 +8,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Filter;
 use App\Policies\Abilities;
 use App\Services\FilterTypes\FilterTypesService;
-use Illuminate\Support\Facades\Session;
-use mysql_xdevapi\Exception;
 use View;
 use App\Services\Filters\FiltersService;
 use Illuminate\Http\Request;
@@ -35,7 +33,7 @@ class FiltersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
 //        $this->getCurrentUser()->can(Abilities::VIEW_ANY, Filter::class);
         // Вариант использования
@@ -66,17 +64,16 @@ class FiltersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param App\Http\Controllers\Cms\Filters\Requests\StoreFilterRequest $request
+     *
      */
     public function store(StoreFilterRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Filter::class);
         $filter = $this->filtersService->create($request->getFormData());
-        /*  try{
-
-          }catch (Exception $exception){
-          }*/
-        return redirect()->route('cms.filters.edit', ['filter' => $filter->id]);
+            return redirect()
+                ->route('cms.filters.index')
+                ->with(['success' => __('messages.rec_created', ['id' => $filter->id])]);
 
     }
 
@@ -86,10 +83,10 @@ class FiltersController extends Controller
      * @param \App\Models\Filter $filter
      * @return \Illuminate\Http\Response
      */
-    public function show(Filter $filter)
+   /* public function show(Filter $filter)
     {
         //
-    }
+    }*/
 
     /**
      * Show the form for editing the specified resource.
@@ -99,10 +96,9 @@ class FiltersController extends Controller
      */
     public function edit(Filter $filter)
     {
-
-        if (!isset($filter)) {
-            abort(404);
-        }
+      /*  if (!isset($filter)) {
+            abort(404); // Never catch it!!!
+        }*/
         View::share([
             'filter' => $filter,
             'filterTypeList' => $this->filtersTypeService->getForCombobox()
@@ -115,30 +111,21 @@ class FiltersController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param \App\Models\Filter $filter
-     * @return \Illuminate\Http\Response
      */
     public function update(UpdateFilterRequest $request, Filter $filter)
     {
         $this->authorize(Abilities::UPDATE, $filter);
-//        $this->authorize(Abilities::UPDATE, Filter::class);
-        $result = $this->filtersService->update($filter, $request->getFormData());
-//        return redirect()->route('cms.filters.index');
-        if ($result) {
-            return redirect()
-                ->route('cms.filters.index')
-                ->with(['success' => __('messages.rec_updated', ['id' => $filter->id])]);
-        } else {
-            return back()
-                ->withErrors(['msg' => __('messages.rec_update_false')])
-                ->withInput();
-        }
+        $this->filtersService->update($filter, $request->getFormData());
+        return redirect()
+            ->route('cms.filters.index')
+            ->with(['success' => __('messages.rec_updated', ['id' => $filter->id])]);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param \App\Models\Filter $filter
-     * @return \Illuminate\Http\Response
+     *
      */
     public function destroy(Filter $filter)
     {
@@ -151,14 +138,9 @@ class FiltersController extends Controller
 //        $result->delete();
 //        dd($result);
 //        $result = Filter::destroy($id);
-        if ($result) {
             return redirect()
                 ->route('cms.filters.index')
                 ->with(['success' => __('messages.rec_deleted', ['id' => $filter->id])]);
-        } else {
-            return back()
-                ->withErrors(['msg' =>  __('messages.rec_delete_false')])
-                ->withInput();
-        }
+
     }
 }

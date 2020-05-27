@@ -17,7 +17,12 @@ class EloquentMpollRepository implements MpollRepositoryInterface
 
     public function search(array $filters = []): LengthAwarePaginator
     {
-        return Mpoll::paginate();
+        $query = Mpoll::query()->with([
+            'users:id,name'
+        ]);
+        $this->applyFilters($query, $filters);
+        return $query->paginate();
+//        return Mpoll::paginate();
     }
 
     public function createFromArray(array $data): Mpoll
@@ -25,16 +30,18 @@ class EloquentMpollRepository implements MpollRepositoryInterface
         try {
             DB::beginTransaction();
             $mpoll = Mpoll::create($data);
-            for ($i = 0; $i < count($data['quotas']); $i++) {
-                $quota_indx = $data['quotas'][$i];
-                $tmp[$quota_indx]['completes'] = $data['completes'][$i];
-                $tmp[$quota_indx]['sent'] = $data['sent'][$i];
-
+            if (isset($data['quotas'])) {
+                for ($i = 0; $i < count($data['quotas']); $i++) {
+                    $quota_indx = $data['quotas'][$i];
+                    $tmp[$quota_indx]['completes'] = $data['completes'][$i];
+                    $tmp[$quota_indx]['sent'] = $data['sent'][$i];
+                }
+                $mpoll->quotas()->attach($tmp);
             }
-            $mpoll->quotas()->attach($tmp);
             DB::commit();
         } catch (\Exception $e) {
             DB::rollback();
+            throw new \Exception($e->getMessage());
         }
 
         return $mpoll;
@@ -44,21 +51,38 @@ class EloquentMpollRepository implements MpollRepositoryInterface
     {
         $mpoll->update($data);
         $mpoll->quotas()->detach();
-        $quotas = $data['quotas'];
-        $completes = $data['completes'];
-        $sents = $data['sent'];
-        for ($quota = 0; $quota < count($quotas); $quota++) {
-            if ($quotas[$quota] != '') {
-                $mpoll->quotas()->attach($quotas[$quota], [
-                    'completes' => $completes[$quota],
-                    'sent' => $sents[$quota]
-                ]);
+        $quotas = $data['quotas'] ?? 0;
+        $completes = $data['completes'] ?? 0;
+        $sents = $data['sent'] ?? 0;
+        if ($quotas) {
+            for ($quota = 0; $quota < count($quotas); $quota++) {
+                if ($quotas[$quota] != '') {
+                    $mpoll->quotas()->attach($quotas[$quota], [
+                        'completes' => $completes[$quota],
+                        'sent' => $sents[$quota]
+                    ]);
+                }
             }
         }
     }
 
-    private function arrayForPivot()
+    public function destroy($mpoll)
     {
-
+        return $mpoll->delete();
     }
+
+    ### PRIVATE
+
+    private function applyFilters(Builder $builder, array $filters)
+    {
+        if (isset($filters['name'])) {
+            $builder->where('name', $filters['name']);
+        }
+    }
+
+
+
+
+
+
 }

@@ -25,7 +25,7 @@ class FilterPolicy extends BasePolicy
     {
 //        return $user->isModerator();
 //        dd(($user->level));
-        return ($user->level);
+        return isset($user->level);
     }
 
     /**
@@ -47,9 +47,9 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\User  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(User $user) : bool
     {
-        return $user->isModerator();
+        return isset($user->level);
     }
 
     /**
@@ -59,10 +59,10 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function update(User $user, Filter $filter)
+    public function update(User $user, Filter $filter) :bool
     {
 //        return $user->isModerator();
-        return $user->id === $filter->created_user_id;
+        return $user->isAdmin() or ($user->id === $filter->created_user_id) ;
     }
 
     /**
@@ -72,9 +72,9 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function delete(User $user, Filter $filter)
+    public function delete(User $user, Filter $filter) :bool
     {
-        return $user->id === $filter->created_user_id;
+        return $user->isAdmin() or ($user->id === $filter->created_user_id) ;
     }
 
     /**
@@ -84,7 +84,7 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function restore(User $user, Filter $filter)
+    public function restore(User $user, Filter $filter) :bool
     {
         return $user->isAdmin();
     }
@@ -96,7 +96,7 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function forceDelete(User $user, Filter $filter)
+    public function forceDelete(User $user, Filter $filter) :bool
     {
         return $user->isAdmin();
     }
