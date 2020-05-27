@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\DB;
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-       // $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     /**
@@ -27,7 +28,8 @@ class HomeController extends Controller
     public function index()
     {
         $articles = Article::all();
-        return view('home', ['news'=>$articles]);
+        $categories = Category::all();
+        return view('home', ['news' => $articles, 'categories' => $categories]);
     }
 
     /**
@@ -37,23 +39,27 @@ class HomeController extends Controller
     public function article($id)
     {
         $article = Article::find($id);
-        return view('article', ['article'=> $article]);
+        $categories = Category::all();
+        return view('article', ['article' => $article, 'categories' => $categories]);
     }
 
     /**
      * @param int $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category($id) {
-        $articles = Article::where('category', $id)->orderBy('published', 'desc')->get();
-        return view('category', ['news'=> $articles]);
+    public function category($id)
+    {
+        $articles = Article::where('category_id', $id)->orderBy('published_at', 'desc')->get();
+        $categories = Category::all();
+        return view('category', ['news' => $articles, 'categories' => $categories]);
     }
 
     /**
      * @param string $type
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function list($type) {
+    public function list($type)
+    {
         switch ($type) {
             case 'categories':
                 $result = DB::table('articles')
