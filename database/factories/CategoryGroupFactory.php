@@ -9,7 +9,6 @@ $factory->define(CategoryGroup::class, function (Faker $faker) {
     $name = $faker->text(50);
     return [
         'name' => $name,
-        'name_ru' => $name . 'Ru',
         'position' => rand(0, 1000000)
     ];
 });

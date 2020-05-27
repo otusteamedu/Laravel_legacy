@@ -16,7 +16,6 @@ class CreateGuarantees extends Migration
         Schema::create('guarantees', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('name_ru')->nullable();
             $table->timestamps();
         });
     }

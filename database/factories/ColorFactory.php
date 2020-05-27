@@ -9,6 +9,5 @@ $factory->define(Color::class, function (Faker $faker) {
     $color = $faker->colorName;
     return [
         'name' => $color,
-        'name_ru' => $color . 'Ru'
     ];
 });

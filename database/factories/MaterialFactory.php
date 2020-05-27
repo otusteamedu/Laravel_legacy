@@ -8,7 +8,6 @@ use Faker\Generator as Faker;
 $factory->define(Material::class, function (Faker $faker) {
     $material = $faker->word;
     return [
-        'name' => $material,
-        'name_ru' => $material . 'Ru'
+        'name' => $material
     ];
 });

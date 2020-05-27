@@ -17,12 +17,10 @@ class RoleSeeder extends Seeder
 
         $r = new Role();
         $r->name = 'admin';
-        $r->name_ru = 'администратор';
         $r->save();
 
         $r = new Role();
         $r->name = 'user';
-        $r->name_ru = 'пользователь';
         $r->save();
     }
 }

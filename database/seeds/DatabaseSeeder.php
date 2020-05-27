@@ -29,5 +29,12 @@ class DatabaseSeeder extends Seeder
         $this->call(CategorySeeder::class);
         $this->call(CategoryProductSeeder::class);
         $this->call(ProductTranslationSeeder::class);
+        $this->call(OrderStatusTranslationSeeder::class);
+        $this->call(ColorTranslationSeeder::class);
+        $this->call(MaterialTranslationSeeder::class);
+        $this->call(GuaranteeTranslationSeeder::class);
+        $this->call(RoleTranslationSeeder::class);
+        $this->call(CategoryGroupTranslationSeeder::class);
+        $this->call(CategoryTranslationSeeder::class);
     }
 }
