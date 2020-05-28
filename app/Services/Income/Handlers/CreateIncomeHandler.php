@@ -32,4 +32,11 @@ class CreateIncomeHandler
         return $this->incomeRepository->createFromArray($data);
     }
 
+    /**
+     * @return Array
+     */
+    public function getUsers(): Array
+    {
+        return $this->incomeRepository->getsUsers();
+    }
 }

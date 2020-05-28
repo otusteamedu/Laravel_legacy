@@ -51,4 +51,13 @@ class EloquentIncomeRepository implements IncomeRepositoryInterface
         return $income;
     }
 
+    /**
+     * @return Array
+     */
+    public function getUsersIds(): Array
+    {
+        $users = Income::groupBy('user_id')->pluck('user_id')->toArray();
+        return $users;
+    }
+
 }
