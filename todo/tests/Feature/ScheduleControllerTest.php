@@ -193,8 +193,6 @@ class ScheduleControllerTest extends TestCase
 
         $this->assertNull(Schedule::find($schedule_id));
         $response->assertOk()->assertJson(['deleted' => 'true']);
-
-
     }
 
 
