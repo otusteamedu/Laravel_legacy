@@ -17,4 +17,6 @@ interface CachedIncomeRepositoryInterface
 
     public function clearSearchCache();
 
+    public function getIncomeUsersIds();
+
 }

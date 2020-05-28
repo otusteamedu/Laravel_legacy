@@ -64,4 +64,12 @@ class CachedIncomeRepository implements CachedIncomeRepositoryInterface
         Cache::tags([Tag::INCOMES_SUM])->flush();
     }
 
+    /**
+     * Получение ид пользователей для которых есть данные
+     * @return Array
+     */
+    public function getIncomeUsersIds()
+    {
+        return $this->incomeRepository->getUsersIds();
+    }
 }
