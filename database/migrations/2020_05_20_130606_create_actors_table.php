@@ -18,14 +18,16 @@ class CreateActorsTable extends Migration
             $table->string('name')->comment('Фио актера');
             $table->string('slug')->comment('Фио актера транслитом для чпу');
             $table->string('description')->comment('описание актера')->nullable();
-            $table->string('image')->comment('Путь до фото актера на сервере');
-            $table->bigInteger('film_id')->unsigned()->nullable()->comment('id фильма');
+            $table->string('image')->comment('Путь до фото актера на сервере')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('actors', function (Blueprint $table) {
-            $table->foreign('film_id')->references('id')->on('films');
+
+        Schema::table('films', function (Blueprint $table) {
+            $table->foreign('actor_id')->references('id')->on('actors');
         });
+
+
 
     }
 
@@ -36,8 +38,9 @@ class CreateActorsTable extends Migration
      */
     public function down()
     {
-        Schema::table('actors', function (Blueprint $table) {
-            $table->dropForeign('film_id');
+
+        Schema::table('films', function (Blueprint $table) {
+            $table->dropForeign('actor_id');
         });
 
         Schema::dropIfExists('actors');

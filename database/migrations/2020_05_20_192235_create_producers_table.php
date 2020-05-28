@@ -18,13 +18,12 @@ class CreateProducersTable extends Migration
             $table->string('name')->comment('Фио режиссера');
             $table->string('slug')->comment('Фио режиссера транслитом для чпу');
             $table->string('description')->comment('описание режиссера')->nullable();
-            $table->string('image')->comment('Путь до фото режиссера на сервере');
-            $table->bigInteger('film_id')->unsigned()->nullable()->comment('id фильма');
+            $table->string('image')->comment('Путь до фото режиссера на сервере')->nullable();
             $table->timestamps();
         });
 
-        Schema::table('producers', function (Blueprint $table) {
-            $table->foreign('film_id')->references('id')->on('films');
+        Schema::table('films', function (Blueprint $table) {
+            $table->foreign('producer_id')->references('id')->on('producers');
         });
     }
 
@@ -35,8 +34,8 @@ class CreateProducersTable extends Migration
      */
     public function down()
     {
-        Schema::table('producers', function (Blueprint $table) {
-            $table->dropForeign('film_id');
+        Schema::table('films', function (Blueprint $table) {
+            $table->dropForeign('producer_id');
         });
 
         Schema::dropIfExists('producers');
