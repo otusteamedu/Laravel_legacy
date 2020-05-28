@@ -18,7 +18,8 @@ class ComplexSeeder extends Seeder
                 $number_of_exercises = rand(1, 10);
                 for ($i = 0; $i < $number_of_exercises; $i++) {
                     $exercise_id = rand(1, 50);
-                    $complex->exercise()->attach(Exercise::find($exercise_id));
+                    $reps = rand(1, 30);
+                    $complex->exercise()->attach(Exercise::find($exercise_id), ["reps" => $reps]);
                 }
             });
     }

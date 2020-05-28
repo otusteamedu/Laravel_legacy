@@ -9,10 +9,10 @@ class Comment extends Model
     protected $fillable = ["text"];
 
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(App\Models\User::class);
     }
 
     public function complex() {
-        return $this->belongsTo('App\Models\Complex');
+        return $this->belongsTo(App\Models\Complex::class);
     }
 }

@@ -10,6 +10,6 @@ $factory->define(Exercise::class, function (Faker $faker) {
         'name' => $faker->word,
         'description' => $faker->paragraphs(2,true),
         'image' => $faker->imageUrl(),
-        'user_id' => factory(App\User::class)
+        'user_id' => factory(App\Models\User::class)
     ];
 });

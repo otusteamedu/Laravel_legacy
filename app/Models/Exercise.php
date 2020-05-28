@@ -9,14 +9,14 @@ class Exercise extends Model
     protected $fillable = ["name", "image", "description"];
 
     public function equipment() {
-        return $this->belongsToMany('App\Models\Equipment');
+        return $this->belongsToMany(App\Models\Equipment::class);
     }
 
     public function user() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo(App\Models\User::class);
     }
 
     public function complex() {
-        return $this->belongsToMany('App\Models\Complex');
+        return $this->belongsToMany(App\Models\Complex::class);
     }
 }

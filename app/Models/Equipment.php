@@ -8,9 +8,9 @@ class Equipment extends Model
 {
     protected $table = 'equipments';
 
-    protected $fillable = ["name", "image"];
+    protected $fillable = ["name", "image", "weight"];
 
     public function exercise() {
-        return $this->belongsToMany('App\Models\Exercise');
+        return $this->belongsToMany(App\Models\Exercise::class);
     }
 }
