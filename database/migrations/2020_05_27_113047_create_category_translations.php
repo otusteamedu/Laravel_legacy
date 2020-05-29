@@ -16,6 +16,7 @@ class CreateCategoryTranslations extends Migration
         Schema::create('category_translations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('category_id');
+            $table->string('locale');
             $table->string('attribute');
             $table->string('value');
             $table->timestamps();

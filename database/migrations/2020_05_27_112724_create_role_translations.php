@@ -16,6 +16,7 @@ class CreateRoleTranslations extends Migration
         Schema::create('role_translations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('role_id');
+            $table->string('locale');
             $table->string('attribute');
             $table->string('value');
             $table->timestamps();

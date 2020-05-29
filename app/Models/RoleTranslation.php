@@ -21,11 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleTranslation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleTranslation whereValue($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\RoleTranslation whereLocale($value)
  */
 class RoleTranslation extends Model
 {
     protected $fillable = [
         'role_id',
+        'locale',
         'attribute',
         'value'
     ];

@@ -21,6 +21,7 @@ class CategoryTranslationSeeder extends Seeder
         foreach ($categories as $category) {
             $categoryTranslation = new CategoryTranslation();
             $categoryTranslation->category_id = $category->id;
+            $categoryTranslation->locale = 'ru';
             $categoryTranslation->attribute = 'name';
             $categoryTranslation->value = $category->name . 'Ru';
             $categoryTranslation->save();

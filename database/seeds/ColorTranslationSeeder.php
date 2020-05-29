@@ -21,6 +21,7 @@ class ColorTranslationSeeder extends Seeder
         foreach ($colors as $color) {
             $colorTranslation = new ColorTranslation();
             $colorTranslation->color_id = $color->id;
+            $colorTranslation->locale = 'ru';
             $colorTranslation->attribute = 'name';
             $colorTranslation->value = $color->name . 'Ru';
             $colorTranslation->save();

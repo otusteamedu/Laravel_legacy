@@ -16,6 +16,7 @@ class CreateGuaranteeTranslations extends Migration
         Schema::create('guarantee_translations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('guarantee_id');
+            $table->string('locale');
             $table->string('attribute');
             $table->string('value');
             $table->timestamps();

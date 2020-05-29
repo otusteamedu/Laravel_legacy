@@ -21,11 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GuaranteeTranslation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GuaranteeTranslation whereValue($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\GuaranteeTranslation whereLocale($value)
  */
 class GuaranteeTranslation extends Model
 {
     protected $fillable = [
         'guarantee_id',
+        'locale',
         'attribute',
         'value'
     ];

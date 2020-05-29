@@ -21,11 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryTranslation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryTranslation whereValue($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\CategoryTranslation whereLocale($value)
  */
 class CategoryTranslation extends Model
 {
     protected $fillable = [
         'category_id',
+        'locale',
         'attribute',
         'value'
     ];

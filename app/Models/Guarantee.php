@@ -29,6 +29,5 @@ class Guarantee extends Model
      */
     protected $fillable = [
         'name',
-        'name_ru'
     ];
 }

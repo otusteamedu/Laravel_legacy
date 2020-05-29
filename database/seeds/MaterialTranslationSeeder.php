@@ -21,6 +21,7 @@ class MaterialTranslationSeeder extends Seeder
         foreach ($materials as $material) {
             $materialTranslation = new MaterialTranslation();
             $materialTranslation->material_id = $material->id;
+            $materialTranslation->locale = 'ru';
             $materialTranslation->attribute = 'name';
             $materialTranslation->value = $material->name . 'Ru';
             $materialTranslation->save();

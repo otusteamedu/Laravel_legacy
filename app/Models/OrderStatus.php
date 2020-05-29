@@ -32,7 +32,6 @@ class OrderStatus extends Model
      */
     protected $fillable = [
         'name',
-        'name_id',
         'position'
     ];
 }

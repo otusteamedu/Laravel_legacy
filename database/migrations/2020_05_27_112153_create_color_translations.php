@@ -16,6 +16,7 @@ class CreateColorTranslations extends Migration
         Schema::create('color_translations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('color_id');
+            $table->string('locale');
             $table->string('attribute');
             $table->string('value');
             $table->timestamps();

@@ -16,6 +16,7 @@ class CreateMaterialTranslations extends Migration
         Schema::create('material_translations', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('material_id');
+            $table->string('locale');
             $table->string('attribute');
             $table->string('value');
             $table->timestamps();

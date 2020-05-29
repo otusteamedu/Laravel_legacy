@@ -21,11 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ColorTranslation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ColorTranslation whereValue($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ColorTranslation whereLocale($value)
  */
 class ColorTranslation extends Model
 {
     protected $fillable = [
         'color_id',
+        'locale',
         'attribute',
         'value'
     ];

@@ -31,7 +31,6 @@ class CategoryGroup extends Model
      */
     protected $fillable = [
         'name',
-        'name_ru',
         'position'
     ];
 }

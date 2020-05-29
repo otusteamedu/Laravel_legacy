@@ -29,6 +29,5 @@ class Color extends Model
      */
     protected $fillable = [
         'name',
-        'name_ru'
     ];
 }

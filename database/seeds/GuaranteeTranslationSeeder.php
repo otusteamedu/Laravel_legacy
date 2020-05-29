@@ -21,6 +21,7 @@ class GuaranteeTranslationSeeder extends Seeder
         foreach ($guarantees as $guarantee) {
             $guaranteeTranslation = new GuaranteeTranslation();
             $guaranteeTranslation->guarantee_id = $guarantee->id;
+            $guaranteeTranslation->locale = 'ru';
             $guaranteeTranslation->attribute = 'name';
             $guaranteeTranslation->value = $guarantee->name . 'Ru';
             $guaranteeTranslation->save();

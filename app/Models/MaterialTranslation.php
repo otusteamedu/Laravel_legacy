@@ -21,11 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MaterialTranslation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MaterialTranslation whereValue($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\MaterialTranslation whereLocale($value)
  */
 class MaterialTranslation extends Model
 {
     protected $fillable = [
         'material_id',
+        'locale',
         'attribute',
         'value'
     ];

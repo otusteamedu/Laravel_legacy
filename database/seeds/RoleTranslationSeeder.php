@@ -17,12 +17,14 @@ class RoleTranslationSeeder extends Seeder
 
         $r = new RoleTranslation();
         $r->role_id = 1;
+        $r->locale = 'ru';
         $r->attribute = 'name';
         $r->value = 'администратор';
         $r->save();
 
         $r = new RoleTranslation();
         $r->role_id = 2;
+        $r->locale = 'ru';
         $r->attribute = 'name';
         $r->value = 'пользователь';
         $r->save();

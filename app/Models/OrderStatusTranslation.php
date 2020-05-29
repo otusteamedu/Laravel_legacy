@@ -21,11 +21,14 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderStatusTranslation whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderStatusTranslation whereValue($value)
  * @mixin \Eloquent
+ * @property string $locale
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\OrderStatusTranslation whereLocale($value)
  */
 class OrderStatusTranslation extends Model
 {
     protected $fillable = [
         'order_status_id',
+        'locale',
         'attribute',
         'value'
     ];
