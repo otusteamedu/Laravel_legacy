@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\Models\Product;
-use App\Models\ProductTranslation;
+use App\Models\Translations\ProductTranslation;
 use Illuminate\Support\Facades\DB;
 
 class ProductTranslationSeeder extends Seeder

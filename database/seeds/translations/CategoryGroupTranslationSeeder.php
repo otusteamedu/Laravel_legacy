@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\CategoryGroup;
-use App\Models\CategoryGroupTranslation;
+use App\Models\Translations\CategoryGroupTranslation;
 
 class CategoryGroupTranslationSeeder extends Seeder
 {

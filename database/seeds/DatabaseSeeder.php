@@ -17,6 +17,11 @@ class DatabaseSeeder extends Seeder
 
         $this->call(OrderStatusSeeder::class);
         $this->call(RoleSeeder::class);
+
+        if (config('app.env') == 'production') {
+            return;
+        }
+
         $this->call(UserSeeder::class);
         $this->call(OrderSeeder::class);
         $this->call(ColorSeeder::class);

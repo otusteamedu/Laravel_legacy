@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Guarantee;
-use App\Models\GuaranteeTranslation;
+use App\Models\Translations\GuaranteeTranslation;
 
 class GuaranteeTranslationSeeder extends Seeder
 {

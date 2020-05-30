@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\RoleTranslation;
+use App\Models\Translations\RoleTranslation;
 
 class RoleTranslationSeeder extends Seeder
 {

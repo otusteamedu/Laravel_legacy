@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use App\Models\OrderStatusTranslation;
+use App\Models\Translations\OrderStatusTranslation;
 
 class OrderStatusTranslationSeeder extends Seeder
 {

@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Material;
-use App\Models\MaterialTranslation;
+use App\Models\Translations\MaterialTranslation;
 
 class MaterialTranslationSeeder extends Seeder
 {

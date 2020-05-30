@@ -3,7 +3,7 @@
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use App\Models\Color;
-use App\Models\ColorTranslation;
+use App\Models\Translations\ColorTranslation;
 
 class ColorTranslationSeeder extends Seeder
 {
