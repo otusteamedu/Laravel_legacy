@@ -7,9 +7,19 @@ use App\Models\Reason;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use App\Services\Transaction\TransactionService;
 
 class MainController extends Controller
 {
+
+    private $transactionService;
+
+    public function __construct(
+        TransactionService $transactionService
+    )
+    {
+        $this->transactionService = $transactionService;
+    }
 
     /**
      * Display a listing of the resource.
@@ -23,21 +33,7 @@ class MainController extends Controller
 
         $reasonsCount = count($reasons);
 
-
-        $key = 'array_transaction';
-
-        //было 110 запросов(778ms), стало 2 (264ms)
-        $arTransactions = Cache::remember($key, 60, function () use ($students, $reasons) {
-            foreach ($students as $student) {
-                foreach ($reasons as $reason) {
-                    $arTransactions[$student['id']][$reason['id']] = Transaction::where('student_id', $student['id'])->where('reason_id', $reason['id'])->pluck('amount')->first();
-                }
-            }
-            return $arTransactions;
-        });
-
-
-//        dd($reasons);
+        $arTransactions = $this->transactionService->GetMainTable($students, $reasons);
 
         return view('layouts.page_main', [
             'students' => $students,
