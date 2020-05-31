@@ -41,6 +41,11 @@ use phpDocumentor\Reflection\DocBlock\Tags\Method;
 
 class Advert extends Model
 {
+
+    protected $fillable = [
+        'title', 'price', 'content'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::Class);
