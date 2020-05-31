@@ -11,5 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-    .sass('resources/sass/app.scss', 'public/css');
+mix.js(['resources/js/app.js'], 'public/js')
+    .extract(['bootstrap','popper.js'])
+    .sass('resources/sass/app.scss', 'public/css')
+    .sourceMaps();
+
+mix.copy('resources/css/signin.css', 'public/css/signin.css')
+    .copy('resources/css/dashboard.css', 'public/css/dashboard.css');
