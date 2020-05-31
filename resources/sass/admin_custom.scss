@@ -1,0 +1,12 @@
+.file-uploader {
+    width: 100%;
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+.file-uploader__img {
+    max-width: 200px;
+    max-height: 200px;
+    height: auto;
+    display: block;
+}

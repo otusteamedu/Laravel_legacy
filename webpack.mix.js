@@ -17,4 +17,7 @@ mix
 
     .js('resources/js/main/script.js', 'public/js/main')
     .sass('resources/sass/main/style.scss', 'public/css/main')
-    .version();;
+
+    .sass('resources/sass/admin_custom.scss', 'public/css')
+
+    .version();

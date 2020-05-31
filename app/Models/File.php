@@ -31,6 +31,12 @@ namespace App\Models;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File whereSourceId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File whereUsage($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File whereWidth($value)
+ * @property string $original_name
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File whereOriginalName($value)
+ * @property string $file_name
+ * @property string $subdir
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File whereFileName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\File whereSubdir($value)
  */
 class File extends BaseModel
 {
@@ -47,14 +53,15 @@ class File extends BaseModel
     const FILE_TYPE_VIDEO = 2;
 
     protected $fillable = [
-        'path',
+        'file_name',
         'mime_type',
         'size',
         'source',
         'width',
         'height',
         'file_type',
-        'usage'
+        'usage',
+        'subdir'
     ];
 
     public function source() {

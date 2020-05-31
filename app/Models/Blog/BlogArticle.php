@@ -32,6 +32,10 @@ use App\Models\File;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogArticle whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogArticle whereUpdatedById($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Blog\BlogAuthor|null $author
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Blog\BlogCategory[] $categories
+ * @property-read int|null $categories_count
+ * @property-read \App\Models\File|null $detailPucture
  */
 class BlogArticle extends BaseModel
 {
@@ -48,14 +52,14 @@ class BlogArticle extends BaseModel
     }
 
     public function detailPucture(){
-        $this->hasOne(File::class);
+        return $this->hasOne(File::class);
     }
 
     public function author(){
-        $this->hasOne(BlogAuthor::class);
+        return $this->belongsTo(BlogAuthor::class, 'blog_author_id');
     }
 
     public function categories(){
-        $this->belongsToMany(BlogCategory::class);
+        return $this->belongsToMany(BlogCategory::class);
     }
 }

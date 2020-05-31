@@ -26,6 +26,7 @@ use App\Models\File;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogAuthor whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Blog\BlogAuthor whereUpdatedById($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\File|null $photo
  */
 class BlogAuthor extends BaseModel
 {
@@ -34,8 +35,8 @@ class BlogAuthor extends BaseModel
         'photo_id'
     ];
 
-    public function previewPucture(){
-        $this->hasOne(File::class);
+    public function photo(){
+        return $this->belongsTo(File::class);
     }
 
     public function articles(){

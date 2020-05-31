@@ -13,10 +13,10 @@
                 </div>
             @endif
             <div class="col-md-8 offset-md-2">
-                <h1>Регистрация</h1>
+                <h1>@lang('auth.sign_up')</h1>
                 {!! Form::open(array('route' => 'register', 'method' => 'post')) !!}
                 <div class="form-group">
-                    {!! Form::label('Your name'); !!}
+                    {!! Form::label(__('auth.user_name')); !!}
                     {!! Form::text('name', '', ['class' => 'form-control', 'aria-describedby' => '']); !!}
                 </div>
                 <div class="form-group">
@@ -24,15 +24,15 @@
                     {!! Form::text('email', '', ['class' => 'form-control', 'aria-describedby' => '']); !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('Пароль'); !!}
+                    {!! Form::label(__('auth.password')); !!}
                     {!! Form::password('password', ['class' => 'form-control', 'aria-describedby' => '']); !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('Подтверждение пароля'); !!}
+                    {!! Form::label(__('auth.password_confirmation')); !!}
                     {!! Form::password('password_confirmation', ['class' => 'form-control', 'aria-describedby' => '']); !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::submit('Зарегистрироваться', ['class' => 'btn btn-primary', 'aria-describedby' => '']); !!}
+                    {!! Form::submit(__('auth.to_register'), ['class' => 'btn btn-primary', 'aria-describedby' => '']); !!}
                 </div>
 
                 {!! Form::close() !!}
