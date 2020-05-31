@@ -28,6 +28,11 @@ namespace App\Models;
 
 class Message extends Model
 {
+
+    protected $fillable = [
+        'content',
+    ];
+
     public function advert()
     {
         return $this->belongsTo(Advert::class);

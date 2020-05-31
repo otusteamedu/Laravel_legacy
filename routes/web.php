@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Cms\Divisions\DivisionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,18 +14,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/cms', 'Cms\CmsController@index');
 
-Route::get('/home', function () {
-    return view('/home/home');
-});
+Route::resources([
+    'towns' => 'Cms\Towns\TownsController',
+    'divisions' => 'Cms\Divisions\DivisionsController',
+]);
 
-Route::get('/advert', function () {
-    return view('/advert/advert');
-});
+//Route::get('/home', function () {
+//    return view('/home/home');
+//});
+//
+//Route::get('/advert', function () {
+//    return view('/advert/advert');
+//});
+//
+//Route::get('/auth', function () {
+//    return view('/auth/register');
+//});
 
-Route::get('/auth', function () {
-    return view('/auth/register');
-});
+//Route::get('/cms', function () {
+//    return view('/cms/admin');
+//});
+
+
+

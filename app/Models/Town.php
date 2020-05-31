@@ -24,6 +24,11 @@ namespace App\Models;
  */
 class Town extends Model
 {
+
+    protected $fillable = [
+        'name',
+    ];
+
     public function adverts()
     {
         return $this->hasMany(Advert::class);

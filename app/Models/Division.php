@@ -24,6 +24,11 @@ namespace App\Models;
  */
 class Division extends Model
 {
+
+    protected $fillable = [
+        'name',
+    ];
+
     public function adverts()
     {
         return $this->hasMany(Advert::class);
