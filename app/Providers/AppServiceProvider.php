@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Providers\Views\BladeStatements;
+use App\Services\Filters\Repositories\CachedFilterRepository;
+use App\Services\Filters\Repositories\CachedFilterRepositoryInterface;
 use App\Services\Filters\Repositories\EloquentFilterRepository;
 use App\Services\Filters\Repositories\FilterRepositoryInterface;
 use App\Services\FilterTypes\Repositories\EloquentFilterTypeRepository;
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
     private function registerBindings()
     {
         $this->app->bind(FilterRepositoryInterface::class, EloquentFilterRepository::class);
+        $this->app->bind(CachedFilterRepositoryInterface::class, CachedFilterRepository::class);
         $this->app->bind(FilterTypeRepositoryInterface::class, EloquentFilterTypeRepository::class);
         $this->app->bind(MpollRepositoryInterface::class, EloquentMpollRepository::class);
     }

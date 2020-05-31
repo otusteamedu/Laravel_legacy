@@ -7,8 +7,10 @@ namespace App\Services\Filters;
 use App\Models\Filter;
 use App\Services\Filters\Handlers\CreateFilterHandler;
 use App\Services\Filters\Handlers\UpdateFilterHandler;
+use App\Services\Filters\Repositories\CachedFilterRepositoryInterface;
 use App\Services\Filters\Repositories\FilterRepositoryInterface;
 use App\Services\FilterTypes\Repositories\FilterTypeRepositoryInterface;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class FiltersService
 {
@@ -27,18 +29,34 @@ class FiltersService
     private CreateFilterHandler $createFilterHandler;
 
     private UpdateFilterHandler $updateFilterHandler;
+    /**
+     * @var CachedFilterRepositoryInterface
+     */
+    private CachedFilterRepositoryInterface $cashedFilterRepository;
 
     public function __construct(
         FilterRepositoryInterface $filterRepository,
         FilterTypeRepositoryInterface $filterTypeRepository,
         CreateFilterHandler $createFilterHandler,
-        UpdateFilterHandler $updateFilterHandler
+        UpdateFilterHandler $updateFilterHandler,
+        CachedFilterRepositoryInterface $cashedFilterRepository
     )
     {
         $this->filterRepository = $filterRepository;
 //        $this->filterTypeRepository = $filterTypeRepository;
         $this->createFilterHandler = $createFilterHandler;
         $this->updateFilterHandler = $updateFilterHandler;
+        $this->cashedFilterRepository = $cashedFilterRepository;
+    }
+
+    public function searchCachedFiltersWithFilterTypes($filters): LengthAwarePaginator
+    {
+        return $this->cashedFilterRepository->search($filters);
+    }
+
+    public function searchFiltersWithFilterTypes($filters): LengthAwarePaginator
+    {
+        return $this->filterRepository->search($filters);
     }
 
     public function search(array $filters)

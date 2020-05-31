@@ -7,29 +7,66 @@ namespace App\Services\Filters\Repositories;
 use App\Models\Filter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 
 class EloquentFilterRepository implements FilterRepositoryInterface
 {
+
+    const DEFAULT_CACHE_TTL = 100;
 
     public function find(int $id)
     {
         return Filter::find($id);
     }
 
-    public function search(array $filters = []) :LengthAwarePaginator
+    public function search(array $filters = []): LengthAwarePaginator
     {
 //        return Filter::paginate();
         $query = Filter::query()->with(
             [
-            /*'filterTypes' => function($query){
-                $query->select(['id', 'name']);
-            },*/
-                'filterTypes:id,name',
-                'users:id,name'
-        ]);
-//        $query = Filter::with('filterTypes')->query();
-//        var_dump($query);
-//        ddd( $query);
+                'filterTypes' => function ($query) {
+                    $query ->select(['id', 'name'])
+//->remember(self::DEFAULT_CACHE_TTL)
+//                        ->cacheTags('filterTypes')
+                       ;
+                },
+                'users' => function ($query) {
+                    $query->select(['id', 'name'])
+//->remember(self::DEFAULT_CACHE_TTL)
+//                        ->cacheTags('owners')
+                        ;
+                },
+//                'filterTypes:id,name',
+//                'users:id,name'
+            ]);
+
+        $query->remember(self::DEFAULT_CACHE_TTL);
+        $query->cacheTags('filters');
+        $this->applyFilters($query, $filters);
+        return $query->paginate();
+    }
+
+    public function searchRemember(array $filters = []): LengthAwarePaginator
+    {
+//        return Filter::paginate();
+        $query = Filter::query()->with(
+            [
+                'filterTypes' => function ($query) {
+                    $query->remember(self::DEFAULT_CACHE_TTL)
+                        ->cacheTags('filterTypes')
+                        ->select(['id', 'name']);
+                },
+                'users' => function ($query) {
+                    $query->remember(self::DEFAULT_CACHE_TTL)
+                        ->cacheTags('owners')
+                        ->select(['id', 'name']);
+                },
+//                'filterTypes:id,name',
+//                'users:id,name'
+            ]);
+
+        $query->remember(self::DEFAULT_CACHE_TTL);
+        $query->cacheTags('filters');
         $this->applyFilters($query, $filters);
         return $query->paginate();
     }

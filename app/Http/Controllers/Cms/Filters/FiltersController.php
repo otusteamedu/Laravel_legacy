@@ -8,7 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Models\Filter;
 use App\Policies\Abilities;
 use App\Services\FilterTypes\FilterTypesService;
+use Auth;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Symfony\Component\Console\Input\Input;
 use View;
 use App\Services\Filters\FiltersService;
 use Illuminate\Http\Request;
@@ -34,13 +38,10 @@ class FiltersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-
         /*$route = Route::current()->uri();
-
         $name = Route::currentRouteName();
-
         $action = Route::currentRouteAction();
         dd($route, $name, $action);*/
 //        $this->getCurrentUser()->can(Abilities::VIEW_ANY, Filter::class);
@@ -49,7 +50,23 @@ class FiltersController extends Controller
             abort(403, 'Action forbiden');
         }*/
         $this->authorize(Abilities::VIEW_ANY, Filter::class);
-        $filters = $this->filtersService->search([]);
+
+//// Cache whole page view ////////////////
+       /* $key = $request->user()->id . '|' . $request->getUri();
+        return Cache::remember($key, 60, function (){
+
+            $filters = $this->filtersService->searchCachedFiltersWithFilterTypes([]);
+            return view('cms.filters.index', [
+                'filters' => $filters
+            ])->render();
+        });*/
+///// END Cache whole page //////////
+
+///  Cache with cache manager
+        $filters = $this->filtersService->searchCachedFiltersWithFilterTypes([]);
+
+        /// without cache
+//        $filters = $this->filtersService->search([]);
         View::share([
             'filters' => $filters
         ]);
