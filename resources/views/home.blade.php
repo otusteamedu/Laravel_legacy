@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Dashboard locale is {{ App::getLocale() }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,8 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    You are logged in! <h3>{{ __('messages.mpolls')}}</h3> <br>
+                    You are logged in!  @lang('messages.mpolls')
                 </div>
             </div>
         </div>
