@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Filter;
 use App\Models\User;
+use Illuminate\Auth\Access\Response;
 
 class FilterPolicy extends BasePolicy
 {
@@ -12,7 +13,7 @@ class FilterPolicy extends BasePolicy
     {
         // Not allowed to use Filter with level lower Admin
         /*parent::before($user);*/
-        return $user->isAdmin() ;
+        return $user->isAdmin() ?: null ;
     }
 
     /**
@@ -24,7 +25,7 @@ class FilterPolicy extends BasePolicy
     public function viewAny(User $user): bool
     {
 //        return $user->isModerator();
-//        dd(($user->level));
+//        ddd(isset($user->level));
         return isset($user->level);
     }
 
@@ -59,10 +60,13 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function update(User $user, Filter $filter) :bool
+    public function update(User $user, Filter $filter)
     {
 //        return $user->isModerator();
-        return $user->isAdmin() or ($user->id === $filter->created_user_id) ;
+        if ($user->isAdmin()) return true;
+        return $user->id === $filter->created_user_id
+                ? Response::allow()
+                : Response::deny('You do not own this post.');
     }
 
     /**
@@ -72,9 +76,12 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function delete(User $user, Filter $filter) :bool
+    public function delete(User $user, Filter $filter)
     {
-        return $user->isAdmin() or ($user->id === $filter->created_user_id) ;
+        if ($user->isAdmin()) return true;
+        return $user->id === $filter->created_user_id
+            ? Response::allow()
+            : Response::deny('You do not own this post.');
     }
 
     /**
@@ -84,9 +91,10 @@ class FilterPolicy extends BasePolicy
      * @param  \App\Models\Filter  $filter
      * @return mixed
      */
-    public function restore(User $user, Filter $filter) :bool
+    public function restore(User $user, Filter $filter)
     {
-        return $user->isAdmin();
+        return $user->isAdmin()? Response::allow()
+            : Response::deny('You are not Admin.');
     }
 
     /**

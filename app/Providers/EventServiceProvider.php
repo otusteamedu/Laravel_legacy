@@ -2,7 +2,10 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\CacheHitEventListener;
+use App\Listeners\Cache\Filter\ClearFilterCache;
 use App\Listeners\LogAuthenticationAttempt;
+use App\Services\Events\Models\Filter\FilterSaved;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -22,7 +25,13 @@ class EventServiceProvider extends ServiceProvider
         ],
         Attempting::class => [
             LogAuthenticationAttempt::class
-        ]
+        ],
+        FilterSaved::class => [
+            ClearFilterCache::class
+        ],
+        CacheHit::class => [
+            CacheHitEventListener::class,
+        ],
     ];
 
     /**

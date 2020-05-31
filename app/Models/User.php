@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\User
@@ -44,6 +45,7 @@ class User extends Authenticatable
 {
     use Notifiable ;
     use SoftDeletes;
+    use Rememberable;
 
     const LEVEL_USER = 1;
     const LEVEL_MODERATOR = 2;

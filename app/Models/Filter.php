@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\BaseModel;
+use App\Services\Events\Models\Filter\FilterSaved;
 
 /**
  * App\Models\Filter
@@ -41,6 +42,10 @@ class Filter extends BaseModel
         'value',
         'filter_type_id',
         'quota_id'
+    ];
+
+    protected $dispatchesEvents = [
+        'saved' => FilterSaved::class,
     ];
 
     public function users()
