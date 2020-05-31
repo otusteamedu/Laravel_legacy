@@ -22,6 +22,11 @@ class Category extends Model
 {
     public $timestamps = false;
 
+    protected $fillable = [
+        'title',
+        'name',
+    ];
+
     public function articles() {
         return $this->hasMany(Article::class);
     }

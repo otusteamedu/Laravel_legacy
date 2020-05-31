@@ -38,13 +38,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
-    /**
-     * Table name.
-     *
-     * @var string
-     */
-    protected $table = 'articles';
 
+    protected $fillable = [
+        'title',
+        'intro_text',
+        'full_text',
+        'state',
+        'category_id',
+        'user_id'
+    ];
 
     public function comments() {
         return $this->hasMany(ArticleComment::class);
