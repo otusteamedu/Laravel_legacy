@@ -9,11 +9,21 @@ class PlannerController extends Controller
 {
     public function index(Request $request)
     {
-        return 'asd';
+        return view('planner.index');
     }
 
     public function gallery(Request $request)
     {
-        return 'gallery';
+        return view('planner.gallery');
+    }
+
+    public function myProxy(Request $request)
+    {
+        return view('planner.my-proxy');
+    }
+
+    public function myAccounts(Request $request)
+    {
+        return view('planner.my-accounts');
     }
 }

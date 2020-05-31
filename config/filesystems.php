@@ -48,10 +48,10 @@ return [
             'root' => storage_path('app'),
         ],
 
-        'public' => [
+        'upload' => [
             'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => env('APP_URL').'/storage',
+            'root' => storage_path('app/public/upload'),
+            'url' => env('APP_URL') . '/',
             'visibility' => 'public',
         ],
 
@@ -66,6 +66,6 @@ return [
 
     ],
 
-    'storage_path' => "app/public/upload"
+    'storage_path' => "/upload"
 
 ];

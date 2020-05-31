@@ -1,12 +1,12 @@
 <?php
 
 
-namespace App\Services\Files;
+namespace App\Services\File;
 
 
 use Illuminate\Http\Request;
 
-class FilesResolver
+class FileResolver
 {
     public function __construct(Request $request)
     {

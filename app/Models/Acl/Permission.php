@@ -27,6 +27,8 @@ use App\Models\BaseModel;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\Permission whereScope($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Acl\Permission whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Acl\Role[] $rols
+ * @property-read int|null $rols_count
  */
 class Permission extends BaseModel
 {

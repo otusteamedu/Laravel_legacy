@@ -13,18 +13,18 @@
                 </div>
             @endif
             <div class="col-md-8 offset-md-2">
-                <h1>Регистрация</h1>
+                <h1>@lang('auth.signing_in')</h1>
                 {!! Form::open(array('route' => 'login', 'method' => 'post')) !!}
                 <div class="form-group">
                     {!! Form::label('Email'); !!}
                     {!! Form::text('email', '', ['class' => 'form-control', 'aria-describedby' => '']); !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::label('Пароль'); !!}
+                    {!! Form::label(__('auth.password')); !!}
                     {!! Form::password('password', ['class' => 'form-control', 'aria-describedby' => '']); !!}
                 </div>
                 <div class="form-group">
-                    {!! Form::submit('Войти', ['class' => 'btn btn-primary', 'aria-describedby' => '']); !!}
+                    {!! Form::submit(__('auth.sign_in'), ['class' => 'btn btn-primary', 'aria-describedby' => '']); !!}
                 </div>
 
                 {!! Form::close() !!}
