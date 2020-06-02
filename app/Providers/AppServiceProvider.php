@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Services\Projects\Repositories\EloquentProjectsRepository;
+use App\Services\Projects\Repositories\ProjectsRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUsersRepository;
 use App\Services\Users\Repositories\UsersRepositoryInterface;
 use Illuminate\Support\Facades\Blade;
@@ -17,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(UsersRepositoryInterface::class, EloquentUsersRepository::class);
+        $this->app->bind(ProjectsRepositoryInterface::class, EloquentProjectsRepository::class);
     }
 
     /**

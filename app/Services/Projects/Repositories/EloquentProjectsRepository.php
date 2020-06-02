@@ -28,10 +28,6 @@ class EloquentProjectsRepository implements ProjectsRepositoryInterface
 
     public function updateFromArray(Project $project, array $data)
     {
-        if (is_null($data['password'])) {
-            unset($data['password']);
-        }
-
         $project->update($data);
 
         return $project;

@@ -55,7 +55,7 @@ class ProjectsService
      * @param int   $limit
      * @return LengthAwarePaginator
      */
-    public function searchProject($limit = 20): LengthAwarePaginator
+    public function searchProjects($limit = 20): LengthAwarePaginator
     {
         return $this->projectsRepository->search($limit);
     }
