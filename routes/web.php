@@ -38,20 +38,6 @@ Route::get('/auth/recover', function () {
     ]);
 });
 
-Route::get('/profile', function () use ($user) {
-    return view('profile.index')->with([
-        'title' => $user['name'],
-        'user'  => $user,
-    ]);
-});
-
-Route::get('/profile/edit', function () use ($user) {
-    return view('profile.edit')->with([
-        'title' => __('profile/edit.title'),
-        'user'  => $user,
-    ]);
-});
-
 Route::get('/overview', function () use ($user) {
     return view('overview.index')->with([
         'user'     => $user,

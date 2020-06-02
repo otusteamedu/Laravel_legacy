@@ -9,9 +9,13 @@ use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Repositories\UsersRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+/**
+ * Class UsersService
+ * Сервис для работы с пользователями
+ * @package App\Services\Users
+ */
 class UsersService
 {
-
 
     /**
      * @var CreateUserHandler
@@ -22,6 +26,11 @@ class UsersService
      */
     private $usersRepository;
 
+    /**
+     * UsersService constructor.
+     * @param CreateUserHandler        $createUserHandler
+     * @param UsersRepositoryInterface $usersRepository
+     */
     public function __construct(
         CreateUserHandler $createUserHandler,
         UsersRepositoryInterface $usersRepository
@@ -32,6 +41,7 @@ class UsersService
     }
 
     /**
+     * Получить сущность пользователя
      * @param int $id
      * @return User|null
      */
@@ -41,14 +51,18 @@ class UsersService
     }
 
     /**
+     * Получить список пользователей
+     * @param array $groups
+     * @param int   $limit
      * @return LengthAwarePaginator
      */
-    public function searchUsers(): LengthAwarePaginator
+    public function searchUsers(array $groups, $limit = 20): LengthAwarePaginator
     {
-        return $this->usersRepository->search();
+        return $this->usersRepository->search($groups, $limit);
     }
 
     /**
+     * Создать пользователя
      * @param array $data
      * @return User
      */
@@ -62,12 +76,26 @@ class UsersService
     }
 
     /**
+     * Обновить данные пользователя
      * @param User $user
      * @param array $data
      * @return User
      */
-    public function updateCountry(User $user, array $data): User
+    public function updateUser(User $user, array $data): User
     {
+        // @todo checkPassword
+
         return $this->usersRepository->updateFromArray($user, $data);
+    }
+
+    /**
+     * Удалить пользователя
+     * @param User $user
+     * @return mixed
+     */
+    public function deleteUser(User $user)
+    {
+        // @todo check current
+        return $this->usersRepository->delete($user);
     }
 }

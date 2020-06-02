@@ -28,6 +28,7 @@ class CreateUserHandler
     {
         $data['created_at'] = Carbon::create()->subDay();
         $data['name'] = ucfirst($data['name']);
+        $data['balance'] = 0;
 
         return $this->usersRepository->createFromArray($data);
     }

@@ -14,9 +14,9 @@ class EloquentUsersRepository implements UsersRepositoryInterface
         return User::whereId($id)->first();
     }
 
-    public function search(array $filters = [], int $limit = 20)
+    public function search(array $groups, int $limit = 20)
     {
-        return User::paginate();
+        return User::whereIn('group_id', $groups)->paginate($limit);
     }
 
     public function createFromArray(array $data): User
@@ -28,7 +28,17 @@ class EloquentUsersRepository implements UsersRepositoryInterface
 
     public function updateFromArray(User $user, array $data)
     {
+        if (is_null($data['password'])) {
+            unset($data['password']);
+        }
+
         $user->update($data);
+
         return $user;
+    }
+
+    public function delete(User $user)
+    {
+        return $user->delete();
     }
 }
