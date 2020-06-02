@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Services\Users\Repositories\EloquentUsersRepository;
 use App\Services\Users\Repositories\UsersRepositoryInterface;
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +26,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Blade::directive('moneyFormat', function ($money) {
+            return "<?php echo number_format($money, 2, ',', ' ') . 'р.'; ?>";
+        });
     }
 }
