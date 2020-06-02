@@ -69,9 +69,6 @@ class UsersService
     public function storeUser(array $data): User
     {
         $user = $this->createUserHandler->handle($data);
-
-        // do some logic
-
         return $user;
     }
 
