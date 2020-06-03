@@ -43,7 +43,7 @@ class Actor extends Model
     public function films()
     {
       //один ко многим
-       return $this->belongsTo(Film::class);
+       return $this->hasMany(Film::class);
     }
 
 }

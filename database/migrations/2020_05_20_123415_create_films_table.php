@@ -22,9 +22,7 @@ class CreateFilmsTable extends Migration
             $table->string('slug')->comment('Название фильма транслитом для ЧПУ');
             $table->string('status')->comment('Опубликовано или нет');
             $table->text('content')->comment('Описание фильма')->nullable();
-            $table->bigInteger('actor_id')->unsigned()->nullable()->comment('id актера');
-            $table->bigInteger('producer_id')->unsigned()->nullable()->comment('id режиссера');
-            $table->string('role')->nullable()->comment('Роль актера в данном фильме');
+            $table->string('year')->comment('Год фильма');
             $table->timestamps();
         });
 

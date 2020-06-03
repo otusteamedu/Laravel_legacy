@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
-class ActorsTableSeeder extends Seeder
+
+class CommentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -12,7 +12,7 @@ class ActorsTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\Film::all() as $film) {
-            factory(\App\Models\Actor::class, 5)->create([
+            factory(\App\Models\Comment::class, 2)->create([
                 'film_id' => $film->id,
             ]);
         }

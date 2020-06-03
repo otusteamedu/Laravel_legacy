@@ -17,13 +17,14 @@ class CreateYearsTable extends Migration
             $table->id();
             $table->string('name')->comment('наименование года')->nullable();
             $table->string('slug')->comment('название года транслитом для ЧПУ')->nullable();
-            $table->bigInteger('film_id')->unsigned()->nullable()->comment('id фильма');
+            //$table->bigInteger('film_id')->unsigned()->nullable()->comment('id фильма');
             $table->timestamps();
         });
 
-        Schema::table('years', function (Blueprint $table) {
+       /* Schema::table('years', function (Blueprint $table) {
             $table->foreign('film_id')->references('id')->on('films');
         });
+        */
     }
 
     /**
@@ -33,9 +34,10 @@ class CreateYearsTable extends Migration
      */
     public function down()
     {
-        Schema::table('years', function (Blueprint $table) {
+        /* Schema::table('years', function (Blueprint $table) {
             $table->dropForeign('film_id');
         });
+        */
         
         Schema::dropIfExists('years');
     }

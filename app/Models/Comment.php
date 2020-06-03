@@ -27,4 +27,14 @@ use Illuminate\Database\Eloquent\Model;
 class Comment extends Model
 {
     //
+
+    protected $table = 'comments';
+
+
+    public function films()
+    {
+      //один ко многим
+       return $this->hasMany(Film::class);
+    }
+
 }

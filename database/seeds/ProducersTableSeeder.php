@@ -12,6 +12,10 @@ class ProducersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Producer::class, 10)->create();
+        foreach (\App\Models\Film::all() as $film) {
+            factory(\App\Models\Producer::class, 5)->create([
+                'film_id' => $film->id,
+            ]);
+        }
     }
 }
