@@ -48,6 +48,8 @@ class LangConstructorController extends Controller
 
     public function save(SaveLangConstructorRequest $request)
     {
+
+
         $this->authorize(Abilities::UPDATE, Construction::class);
         $data  =  $request->getFormData();
 

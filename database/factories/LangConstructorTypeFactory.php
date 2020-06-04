@@ -1,7 +1,7 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Models\User;
+use App\Models\ConstructionType;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -16,11 +16,16 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(ConstructionType::class, function (Faker $faker) {
+
+    $name = $faker->unique()->word;
+    $hard = $faker->numberBetween($min = 0, $max = 100);
+
     return [
-        'email' => $faker->unique()->safeEmail,
-        'email_verified_at' => now(),
-        'password' => bcrypt('oh_i_pass'), // password
-        'remember_token' => Str::random(10)
+        'name' => $name,
+        'description' => $faker->unique()->paragraph,
+        'code' => "{$name}_{$hard}",
+        'created_account_id' => 1
     ];
 });
+
