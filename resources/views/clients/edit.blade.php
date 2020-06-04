@@ -23,11 +23,12 @@
                 {!! Form::password('password', ['class' => 'form-control', 'placeholder' => __('clients/edit.form.password.placeholder')]) !!}
             </div>
             <div class="form-group">
-                {!! Form::label('password_check', __('clients/edit.form.password.check.label')) !!}
-                {!! Form::password('password_check', ['class' => 'form-control', 'placeholder' => __('clients/edit.form.password.check.placeholder')]) !!}
+                {!! Form::label('password_confirmation', __('clients/edit.form.password.check.label')) !!}
+                {!! Form::password('password_confirmation', ['class' => 'form-control', 'placeholder' => __('clients/edit.form.password.check.placeholder')]) !!}
             </div>
         </div>
         <div class="card-footer">
+            {!! Form::hidden('id', $client->id) !!}
             {!! Form::submit(__('clients/edit.form.submit'), ['class' => 'btn btn-primary']) !!}
         </div>
         {!! Form::close() !!}

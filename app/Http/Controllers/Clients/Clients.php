@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Clients;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Group;
-use App\Models\User;
 use App\Services\Users\UsersService;
-use Illuminate\Http\Request;
 
 class Clients extends Controller
 {
@@ -55,15 +55,16 @@ class Clients extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreUserRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $data = array_merge(
-            $request->all(),
+            $request->getFormData(),
             ['group_id' => Group::CLIENTS[0]]
         );
+
         $this->usersService->storeUser($data);
 
         return redirect(route('clients.index'));
@@ -106,15 +107,19 @@ class Clients extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateUserRequest $request
+     * @param int               $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $client = User::findOrFail($id);
+        $client = $this->usersService->findUser($id);
 
-        $this->usersService->updateUser($client, $request->all());
+        if (!$client) {
+            abort(404);
+        }
+
+        $this->usersService->updateUser($client, $request->getFormData());
 
         return redirect(route('clients.index'));
     }
@@ -127,9 +132,13 @@ class Clients extends Controller
      */
     public function destroy($id)
     {
-        $staff = User::findOrFail($id);
+        $client = $this->usersService->findUser($id);
 
-        $this->usersService->deleteUser($staff);
+        if (!$client) {
+            abort(404);
+        }
+
+        $this->usersService->deleteUser($client);
 
         return redirect(route('clients.index'));
     }

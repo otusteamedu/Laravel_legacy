@@ -6,7 +6,6 @@ namespace App\Services\Users\Handlers;
 
 use App\Models\User;
 use App\Services\Users\Repositories\UsersRepositoryInterface;
-use Carbon\Carbon;
 
 class CreateUserHandler
 {
@@ -26,10 +25,6 @@ class CreateUserHandler
 
     public function handle(array $data): User
     {
-        $data['created_at'] = Carbon::create()->subDay();
-        $data['name'] = ucfirst($data['name']);
-        $data['balance'] = 0;
-
         return $this->usersRepository->createFromArray($data);
     }
 }

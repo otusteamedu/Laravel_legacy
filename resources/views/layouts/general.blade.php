@@ -32,6 +32,15 @@
     @endisset
 
     <div class="{{ empty($user) ? 'container' : 'col-md-9 col-lg-10 content-block' }}">
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         @yield('content')
     </div>
 </div>

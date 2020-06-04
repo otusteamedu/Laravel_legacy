@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Projects;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Projects\Requests\StoreProjectRequest;
+use App\Http\Controllers\Projects\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Http\Request;
@@ -54,12 +56,12 @@ class Projects extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param StoreProjectRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $this->projectsService->storeProject($request->all());
+        $this->projectsService->storeProject($request->getFormData());
 
         return redirect(route('projects.index'));
     }
@@ -104,16 +106,20 @@ class Projects extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param int                      $id
+     * @param UpdateProjectRequest $request
+     * @param int                  $id
      *
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(UpdateProjectRequest $request, $id)
     {
-        $project = Project::findOrFail($id);
+        $project = $this->projectsService->findProject($id);
 
-        $this->projectsService->updateProject($project, $request->all());
+        if (!$project) {
+            abort(404);
+        }
+
+        $this->projectsService->updateProject($project, $request->getFormData());
 
         return redirect(route('projects.show', ['project' => $project->id]));
     }
@@ -125,9 +131,13 @@ class Projects extends Controller
      */
     public function destroy($id)
     {
-        $staff = Project::findOrFail($id);
+        $project = $this->projectsService->findProject($id);
 
-        $this->projectsService->deleteUser($staff);
+        if (!$project) {
+            abort(404);
+        }
+
+        $this->projectsService->deleteProject($project);
 
         return redirect(route('projects.index'));
     }

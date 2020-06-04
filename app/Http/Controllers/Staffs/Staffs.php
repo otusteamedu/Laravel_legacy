@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Staffs;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreUserRequest;
+use App\Http\Requests\UpdateUserRequest;
 use App\Models\Group;
-use App\Models\User;
 use App\Services\Users\UsersService;
-use Illuminate\Http\Request;
 
 class Staffs extends Controller
 {
@@ -56,13 +56,13 @@ class Staffs extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreUserRequest $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
         $data = array_merge(
-            $request->all(),
+            $request->getFormData(),
            ['group_id' => Group::STAFFS[rand(0,2)]] // @todo
         );
         $this->usersService->storeUser($data);
@@ -107,15 +107,19 @@ class Staffs extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param UpdateUserRequest $request
+     * @param int               $id
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, $id)
+    public function update(UpdateUserRequest $request, $id)
     {
-        $staff = User::findOrFail($id);
+        $staff = $this->usersService->findUser($id);
 
-        $this->usersService->updateUser($staff, $request->all());
+        if (!$staff) {
+            abort(404);;
+        }
+
+        $this->usersService->updateUser($staff, $request->getFormData());
 
         return redirect(route('staffs.index'));
     }
@@ -128,7 +132,11 @@ class Staffs extends Controller
      */
     public function destroy($id)
     {
-        $staff = User::findOrFail($id);
+        $staff = $this->usersService->findUser($id);
+
+        if (!$staff) {
+            abort(404);;
+        }
 
         $this->usersService->deleteUser($staff);
 

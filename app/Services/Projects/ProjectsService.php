@@ -88,7 +88,7 @@ class ProjectsService
      * @param Project $project
      * @return mixed
      */
-    public function deleteUser(Project $project)
+    public function deleteProject(Project $project)
     {
         return $this->projectsRepository->delete($project);
     }
