@@ -17,3 +17,17 @@ docker-compose.override.yml
 /_ide_helper.php
 /_ide_helper_models.php
 /.idea
+
+public/js/**
+!public/js/.gitkeep
+
+public/css/**
+!public/css/.gitkeep
+
+public/fonts/**
+!public/fonts/.gitkeep
+
+public/img/**
+!public/img/.gitkeep
+
+public/mix-manifest.json

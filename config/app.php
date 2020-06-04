@@ -175,6 +175,10 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Localization generator
+         */
+        MartinLindhe\VueInternationalizationGenerator\GeneratorProvider::class,
     ],
 
     /*
