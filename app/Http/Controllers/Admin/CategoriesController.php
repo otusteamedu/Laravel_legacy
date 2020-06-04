@@ -9,6 +9,11 @@ use Illuminate\Contracts\Support\Renderable;
 
 class CategoriesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Category::class);
+    }
     /**
      * Display a listing of the resource.
      *

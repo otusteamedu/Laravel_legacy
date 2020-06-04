@@ -9,6 +9,12 @@ use Illuminate\Contracts\Support\Renderable;
 
 class UserGroupsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(UserGroup::class);
+    }
+
     /**
      * Display a listing of the resource.
      *

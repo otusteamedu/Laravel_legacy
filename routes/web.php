@@ -32,7 +32,7 @@ Route::get('/list/{type}', 'HomeController@list')->name('list');
 Route::get('/user/{id}', 'UserController@userInfo')->name('userInfo');
 
 //админка
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'isAdmin'], 'prefix' => '/admin'], function () {
+Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'AdminAccess'], 'prefix' => '/admin'], function () {
     Route::get('/', 'IndexController@index')->name('admin.index');
     Route::resource('articles', 'ArticlesController')->except(['create', 'update']);
     Route::resource('categories', 'CategoriesController')->except(['create', 'update']);

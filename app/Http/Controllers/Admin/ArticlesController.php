@@ -10,6 +10,12 @@ use Illuminate\Contracts\Support\Renderable;
 
 class ArticlesController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->authorizeResource(Article::class);
+    }
+
     /**
      * Display a listing of the resource.
      *
