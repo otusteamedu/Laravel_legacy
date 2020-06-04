@@ -42,5 +42,28 @@ return [
         ],
     ],
 
+    'products' => [
+        'title' => 'Page products',
+        'add' => 'Add product',
+        'edit' => 'Edit product',
+        'name' => 'Name',
+        'descr' => 'Description',
+        'quantity' => 'Qty',
+        'price' => 'Price',
+        'status' => 'Status',
+        'url' => 'Url',
+    ],
 
+    'categories' => [
+        'title' => 'Page categories',
+        'add' => 'Add category',
+        'edit' => 'Edit category',
+        'name' => 'Name',
+        'products' => 'Category products',
+        'status' => 'Status',
+        'url' => 'Url',
+    ],
+
+    'created' => 'Created',
+    'edit' => 'Edit',
 ];

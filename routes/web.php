@@ -14,22 +14,25 @@ use App\Models\Product;
 use App\Models\ProductImage;
 use App\Models\Category;
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     //$product = Product::find(3);
     //$productImage = new ProductImage;
     //$productImage->product_image = 'p12222.jpg';
     //$product->productImages()->save($productImage);
     //return $product->productImages;
     //return $product;
-    return view('site/index');
-});
 
-Route::get('/about', function () {
     //$category = Category::first();
     //return $category->products;
     //return $category->productImages;
-    return view('site/about');
-});
+
+    return view('site/index');
+});*/
+
+Route::get('/', 'IndexController@index')->name('index.index');
+
+Route::get('/about', 'IndexController@about')->name('index.about');
+
 
 Route::get('/user', function () {
     return view('site/user');
@@ -41,4 +44,17 @@ Route::get('/signUp', function () {
 
 Route::post('/signUp', function () {
     return view('site/pageInDevelopment');
+});
+
+Route::name('cms.')->group(function () {
+    Route::prefix('cms')->group(function () {
+        Route::resources([
+            'categories' => 'Cms\Categories\CategoriesController',
+            'products' => 'Cms\Products\ProductsController',
+        ], [
+            'except' => [
+                'destroy',
+            ],
+        ]);
+    });
 });
