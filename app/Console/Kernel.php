@@ -36,6 +36,10 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
+        // Load commands for testing only
+        if(config('app.env') == 'testing'){
+            $this->load(__DIR__ . '/Tests');
+        }
 
         require base_path('routes/console.php');
     }

@@ -15,4 +15,6 @@ interface CachedFilterRepositoryInterface
     public function find(int $id);
 
     public function clearFilterCache(Filter $country);
+
+    public function warmup();
 }
