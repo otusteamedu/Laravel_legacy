@@ -61,5 +61,13 @@ class CachedFilterRepository implements CachedFilterRepositoryInterface
         $this->clearSearchCache();
     }
 
+    /**\
+     *  Warmup Cache
+     */
+    public function warmup()
+    {
+        // list methods for warmup
+        $this->search([], []);
+    }
 
 }
