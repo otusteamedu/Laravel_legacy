@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
         if($this->app->environment('local', 'testing')){
             $this->app->register(DuskServiceProvider::class);
         }
+
+
     }
 
     /**
@@ -48,5 +50,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(CachedFilterRepositoryInterface::class, CachedFilterRepository::class);
         $this->app->bind(FilterTypeRepositoryInterface::class, EloquentFilterTypeRepository::class);
         $this->app->bind(MpollRepositoryInterface::class, EloquentMpollRepository::class);
+//        $this->app->bind(CachesService::class);
     }
 }
