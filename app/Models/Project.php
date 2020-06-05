@@ -34,6 +34,8 @@ class Project extends Model
 
     use SoftDeletes;
 
+    protected $fillable = ['name'];
+
     /**
      * Получить список задач проекта
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

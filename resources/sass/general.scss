@@ -10,3 +10,9 @@ header {
 .content {
     margin-right: 0;
 }
+
+.icon {
+    &.white {
+        fill: #fff;
+    }
+}

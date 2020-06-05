@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Group extends Model
 {
 
+    /** @var int[] Группы сотрудников */
+    const STAFFS = [1, 2, 3];
+    /** @var int[] Группы клиентов */
+    const CLIENTS = [4];
+
+
     use SoftDeletes;
 
     public $timestamps = false;

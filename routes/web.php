@@ -20,6 +20,12 @@ $user = [
     'image' => 'images/profile.jpg',
 ];
 
+Route::resources([
+    'staffs' => 'Staffs\Staffs',
+    'clients' => 'Clients\Clients',
+    'projects' => 'Projects\Projects',
+]);
+
 Route::get('/', function () {
     return view('auth.index')->with([
         'title' => __('auth/general.title'),
@@ -29,20 +35,6 @@ Route::get('/', function () {
 Route::get('/auth/recover', function () {
     return view('auth.recover.index')->with([
         'title' => __('auth/recover.title'),
-    ]);
-});
-
-Route::get('/profile', function () use ($user) {
-    return view('profile.index')->with([
-        'title' => $user['name'],
-        'user'  => $user,
-    ]);
-});
-
-Route::get('/profile/edit', function () use ($user) {
-    return view('profile.edit')->with([
-        'title' => __('profile/edit.title'),
-        'user'  => $user,
     ]);
 });
 
