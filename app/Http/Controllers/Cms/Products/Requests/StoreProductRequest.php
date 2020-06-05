@@ -12,7 +12,6 @@ class StoreProductRequest extends CmsFormRequest
         return [
             'price' => 'required',
             'quantity' => 'required',
-            'name' => 'required|unique:products,name|max:254',
         ];
     }
 

@@ -13,6 +13,14 @@ class Product extends Model
         'data' => 'array',
     ];
 
+    protected $fillable = [
+        'status',
+        'url',
+        'price',
+        'quantity',
+        'data'
+    ];
+
     public function productImages()
     {
         return $this->hasMany(ProductImage::class);

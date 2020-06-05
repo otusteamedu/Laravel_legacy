@@ -22,8 +22,6 @@ class CreateProductHandler
     public function handle(array $data): Product
     {
         $data['created_at'] = Carbon::create()->subDay();
-        $data['data'][app()->getLocale()] = ucfirst($data['name']);
-        unset($data['name']);
 
         return $this->productRepository->createFromArray($data);
     }

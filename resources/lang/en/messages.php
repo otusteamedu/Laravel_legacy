@@ -59,9 +59,15 @@ return [
         'add' => 'Add category',
         'edit' => 'Edit category',
         'name' => 'Name',
+        'descr' => 'Description',
         'products' => 'Category products',
         'status' => 'Status',
         'url' => 'Url',
+    ],
+
+    'langs' => [
+        'ru' => 'Russian',
+        'en' => 'English',
     ],
 
     'created' => 'Created',

@@ -14,6 +14,15 @@ class Category extends Model
         'data' => 'array',
     ];
 
+    protected $fillable = [
+        'status',
+        'image',
+        'url',
+        'group',
+        'sort_order',
+        'data'
+    ];
+
     public function products()
     {
         return $this->belongsToMany(Product::class);
