@@ -75,6 +75,7 @@ class Warmup extends Command
             return $this->info('Models list is empty, try again');
         }
         $this->cachesService->warmup($models);
+        $this->info('Finished');
     }
 
     /**
