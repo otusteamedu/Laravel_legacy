@@ -6,8 +6,15 @@
     @include('blocks.navbar.blocks.left_item', ['page' => 'overview'])
     @include('blocks.navbar.blocks.left_item', ['page' => 'tasks'])
     @include('blocks.navbar.blocks.left_item', ['page' => 'projects'])
+
+    @can('client.viewAny')
     @include('blocks.navbar.blocks.left_item', ['page' => 'clients'])
+    @endcan
+
+    @can('staff.viewAny')
     @include('blocks.navbar.blocks.left_item', ['page' => 'staffs'])
+    @endcan
+
     @include('blocks.navbar.blocks.left_item', ['page' => 'stat'])
     @include('blocks.navbar.blocks.left_item', ['page' => 'support'])
 </div>

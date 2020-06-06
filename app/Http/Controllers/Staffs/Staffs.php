@@ -28,11 +28,12 @@ class Staffs extends Controller
      */
     public function index()
     {
+        $this->authorize('staff.viewAny');
+
         $list = $this->usersService->searchUsers(Group::STAFFS);
         $list->load('group');
 
         return view('staffs.index')->with([
-            'user' => ['id' => 1], // @todo
             'list' => $list,
             'currentPage' => 'staffs',
             'title' => __("staffs/general.title")
@@ -46,8 +47,9 @@ class Staffs extends Controller
      */
     public function create()
     {
+        $this->authorize('staff.create');
+
         return view('staffs.create')->with([
-            'user' => ['id' => 1], // @todo
             'currentPage' => 'staffs',
             'title' => __("staffs/create.title")
         ]);
@@ -61,6 +63,8 @@ class Staffs extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('staff.create');
+
         $data = array_merge(
             $request->getFormData(),
            ['group_id' => Group::STAFFS[rand(0,2)]] // @todo
@@ -79,8 +83,10 @@ class Staffs extends Controller
     public function show($id)
     {
         $staff = $this->usersService->findUser($id);
+
+        $this->authorize('staff.view', [$staff]);
+
         return view('staffs.show')->with([
-            'user' => ['id' => 1], // @todo
             'staff' => $staff,
             'currentPage' => 'staffs',
             'title' => $staff->name
@@ -96,8 +102,10 @@ class Staffs extends Controller
     public function edit(int $id)
     {
         $staff = $this->usersService->findUser($id);
+
+        $this->authorize('staff.update', [$staff]);
+
         return view('staffs.edit')->with([
-            'user' => ['id' => 1], // @todo
             'staff' => $staff,
             'currentPage' => 'staffs',
             'title' => __("staffs/edit.title")
@@ -114,6 +122,8 @@ class Staffs extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $staff = $this->usersService->findUser($id);
+
+        $this->authorize('staff.update', [$staff]);
 
         if (!$staff) {
             abort(404);;
@@ -134,8 +144,10 @@ class Staffs extends Controller
     {
         $staff = $this->usersService->findUser($id);
 
+        $this->authorize('staff.delete', [$staff]);
+
         if (!$staff) {
-            abort(404);;
+            abort(404);
         }
 
         $this->usersService->deleteUser($staff);

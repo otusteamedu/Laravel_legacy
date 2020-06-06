@@ -32,7 +32,6 @@ class Projects extends Controller
         $list = $this->projectsService->searchProjects();
 
         return view('projects.index')->with([
-            'user'        => ['id' => 1], // @todo
             'list'        => $list,
             'currentPage' => 'projects',
             'title'       => __("projects/general.title"),
@@ -47,7 +46,6 @@ class Projects extends Controller
     public function create()
     {
         return view('projects.create')->with([
-            'user'        => ['id' => 1], // @todo
             'currentPage' => 'projects',
             'title'       => __("projects/create.title"),
         ]);
@@ -79,7 +77,6 @@ class Projects extends Controller
         // @todo передать список тикетов
 
         return view('projects.show')->with([
-            'user'        => ['id' => 1], // @todo
             'currentPage' => 'projects',
             'project'     => $project,
             'title'       => $project->name,
@@ -96,7 +93,6 @@ class Projects extends Controller
     {
         $project = $this->projectsService->findProject($id);
         return view('projects.edit')->with([
-            'user' => ['id' => 1], // @todo
             'project' => $project,
             'currentPage' => 'projects',
             'title' => __("projects/edit.title")

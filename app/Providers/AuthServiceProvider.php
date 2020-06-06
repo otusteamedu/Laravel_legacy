@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Policies\ClientPolicy;
+use App\Policies\StaffPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -25,6 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::resource('staff', StaffPolicy::class);
+        Gate::resource('client', ClientPolicy::class);
     }
 }

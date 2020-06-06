@@ -27,11 +27,12 @@ class Clients extends Controller
      */
     public function index()
     {
+        $this->authorize('client.viewAny');
+
         $list = $this->usersService->searchUsers(Group::CLIENTS);
         $list->load('group');
 
         return view('clients.index')->with([
-            'user' => ['id' => 1], // @todo
             'currentPage' => 'clients',
             'list' => $list,
             'title' => __("clients/general.title")
@@ -45,8 +46,9 @@ class Clients extends Controller
      */
     public function create()
     {
+        $this->authorize('client.create');
+
         return view('clients.create')->with([
-            'user' => ['id' => 1], // @todo
             'currentPage' => 'clients',
             'title' => __("clients/create.title")
         ]);
@@ -60,6 +62,8 @@ class Clients extends Controller
      */
     public function store(StoreUserRequest $request)
     {
+        $this->authorize('client.create');
+
         $data = array_merge(
             $request->getFormData(),
             ['group_id' => Group::CLIENTS[0]]
@@ -79,8 +83,10 @@ class Clients extends Controller
     public function show($id)
     {
         $client = $this->usersService->findUser($id);
+
+        $this->authorize('client.view', [$client]);
+
         return view('clients.show')->with([
-            'user' => ['id' => 1], // @todo
             'client' => $client,
             'currentPage' => 'clients',
             'title' => $client->name
@@ -96,8 +102,10 @@ class Clients extends Controller
     public function edit(int $id)
     {
         $client = $this->usersService->findUser($id);
+
+        $this->authorize('client.update', [$client]);
+
         return view('clients.edit')->with([
-            'user' => ['id' => 1], // @todo
             'client' => $client,
             'currentPage' => 'clients',
             'title' => __("clients/edit.title")
@@ -114,6 +122,8 @@ class Clients extends Controller
     public function update(UpdateUserRequest $request, $id)
     {
         $client = $this->usersService->findUser($id);
+
+        $this->authorize('client.update', [$client]);
 
         if (!$client) {
             abort(404);
@@ -133,6 +143,8 @@ class Clients extends Controller
     public function destroy($id)
     {
         $client = $this->usersService->findUser($id);
+
+        $this->authorize('client.delete', [$client]);
 
         if (!$client) {
             abort(404);

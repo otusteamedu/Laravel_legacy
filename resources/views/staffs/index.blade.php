@@ -1,9 +1,11 @@
 @extends('layouts.general')
 
 @section('content')
-    <div class="float-right">
-        <a href="{{ route('staffs.create') }}" class="btn btn-primary m-1">{{ __('staffs/general.index.create') }}</a>
-    </div>
+    @can('staff.create')
+        <div class="float-right">
+            <a href="{{ route('staffs.create') }}" class="btn btn-primary m-1">{{ __('staffs/general.index.create') }}</a>
+        </div>
+    @endcan
     <h1>{{ $title }}</h1>
     <div class="card">
         <div class="card-body">

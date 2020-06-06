@@ -25,9 +25,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class Group extends Model
 {
+    /** @var int Группа администраторов */
+    const STAFF_ADMIN = 1;
+    /** @var int Группа менеджеров */
+    const STAFF_MANAGER = 2;
+    /** @var int Группа разработчиков */
+    const STAFF_DEVELOPER = 3;
 
     /** @var int[] Группы сотрудников */
-    const STAFFS = [1, 2, 3];
+    const STAFFS = [self::STAFF_ADMIN, self::STAFF_MANAGER, self::STAFF_DEVELOPER];
+
     /** @var int[] Группы клиентов */
     const CLIENTS = [4];
 
