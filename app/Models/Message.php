@@ -30,7 +30,7 @@ class Message extends Model
 {
 
     protected $fillable = [
-        'content',
+        'user_id','advert_id','content',
     ];
 
     public function advert()

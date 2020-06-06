@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Advert;
+use App\Models\Division;
+use App\Models\User;
+use App\Policies\DivisionPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,7 +17,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Division::class => DivisionPolicy::class,   //регистрация политики
     ];
 
     /**
@@ -25,6 +29,36 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+//        Gate::before(function (User $user){
+//            return $user->id ==1;
+//        });
+
+        Gate::define('show', function (User $user){
+            return $user->id ==1;
+        });
+
+        Gate::define('update', function (User $user){
+            return $user->id ==1;
+        });
+
+        Gate::define('advert-update', function ($user, $advert){
+
+            if($user->id ==1){
+                return true;
+            } elseif($user->id == $advert->user_id)  {
+                return true;
+            }
+            return false;
+        });
+
+        Gate::define('message-update', function ($user, $user_id){
+
+            if($user->id ==1){
+                return true;
+            } elseif($user->id == $user_id)  {
+                return true;
+            }
+            return false;
+        });
     }
 }

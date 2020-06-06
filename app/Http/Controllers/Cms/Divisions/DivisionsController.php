@@ -7,6 +7,7 @@ use App\Http\Controllers\Cms\Divisions\Request\StoreDivisionRequest;
 use App\Models\Division;
 use App\Services\Divisions\DivisionsService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DivisionsController extends Controller
 {
@@ -15,6 +16,7 @@ class DivisionsController extends Controller
     public function __construct(DivisionsService $divisionService)
     {
         $this->divisionService = $divisionService;
+        $this->authorizeResource(Division::class, 'divisions');
     }
 
     /**
@@ -60,7 +62,11 @@ class DivisionsController extends Controller
      */
     public function show(Division $division)
     {
-        return view('cms.divisions.show',compact('division',$division));
+        return view('cms.divisions.show', compact('division', $division));
+//        if(Gate::allows('show')) {
+//            return view('cms.divisions.show', compact('division', $division));
+//        }
+//        abort(403, 'Запрет просмотра');
     }
 
     /**
@@ -83,9 +89,15 @@ class DivisionsController extends Controller
      */
     public function update(StoreDivisionRequest $request, Division $division)
     {
-        $this->divisionService->updateDivision($division, $request->all());
 
+        $this->divisionService->updateDivision($division, $request->all());
         return redirect(route('divisions.index'));
+//        if(Gate::allows('update')) {  //а можно Gate::authorize('update');
+//
+//            $this->divisionService->updateDivision($division, $request->all());
+//            return redirect(route('divisions.index'));
+//        }
+//        abort(403, 'Запрет редактирования');
     }
 
     /**
