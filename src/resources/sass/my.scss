@@ -1,0 +1,51 @@
+html, body {
+    height: 100% !important;
+}
+
+footer {
+    margin-top: 3rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+footer p {
+    margin-bottom: .25rem;
+}
+
+.messages {
+    border: 1px solid #4dc0b5;
+    padding: 20px;
+    border-radius: 0.25rem;
+}
+
+.message {
+    max-width: 350px;
+    overflow: hidden;
+    font-size: 0.875rem;
+}
+
+.message.answer {
+    margin-left: auto;
+}
+.message.answer .message-body {
+    background-color: rgba(255, 255, 255, 0.35);
+}
+
+.message-header, .message-footer {
+    display: flex;
+    align-items: center;
+    padding: 0.1rem 0.75rem;
+    color: #6c757d;
+}
+
+.message-body {
+    padding: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.85);
+
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 0.25rem;
+}
