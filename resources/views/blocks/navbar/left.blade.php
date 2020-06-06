@@ -5,7 +5,10 @@
     </button>
     @include('blocks.navbar.blocks.left_item', ['page' => 'overview'])
     @include('blocks.navbar.blocks.left_item', ['page' => 'tasks'])
+
+    @can('project.viewAny')
     @include('blocks.navbar.blocks.left_item', ['page' => 'projects'])
+    @endcan
 
     @can('client.viewAny')
     @include('blocks.navbar.blocks.left_item', ['page' => 'clients'])
