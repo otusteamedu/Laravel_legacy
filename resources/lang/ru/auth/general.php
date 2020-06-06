@@ -9,7 +9,7 @@ return [
         ],
         'password' => [
             'label' => 'Пароль',
-            'placeholder' => 'Введите пароль',
+            'placeholder' => 'Введите новый пароль',
         ],
         'recover' => 'Восстановить пароль',
         'remember_me' =>  'Оставаться в системе',
