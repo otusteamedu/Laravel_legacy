@@ -12,5 +12,33 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home.landing');
 });
+
+
+Route::get('/home', function () {
+    return view('home.index');
+});
+Route::get('/records', function () {
+    return view('records.history');
+});
+Route::get('/staff', function () {
+    return view('staff.index');
+});
+Route::get('/procedures', function () {
+    return view('procedures.index');
+});
+Route::get('/statistic', function () {
+    return view('statistic.index');
+});
+Route::get('/business', function () {
+    return view('business.index');
+});
+Route::get('/feedback', function () {
+    return view('feedback.index');
+});
+Route::get('/message', function () {
+    return view('message.index');
+});
+
+Auth::routes();
