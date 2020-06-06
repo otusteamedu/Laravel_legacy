@@ -13,6 +13,7 @@ use Illuminate\Notifications\Notifiable;
  *
  * @property int $id
  * @property string $name
+ * @property string $role
  * @property string $email
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
@@ -48,7 +49,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','role'
     ];
 
     /**
@@ -69,6 +70,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function isAdmin()
+    {
+        return $this->id == 1;
+    }
     public function adverts()
     {
         return $this->hasMany(Advert::class);

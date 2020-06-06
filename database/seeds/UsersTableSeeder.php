@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
@@ -15,16 +16,20 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->truncate();
 
         DB::table('users')->insert([
-            'name' => 'admin',
+            'name' => 'JonDow',
+            'role'=>'admin',
             'email' => 'admin@gmail.com',
             'password' => bcrypt('123'),
         ]);
 
         DB::table('users')->insert([
             'name' => 'user',
+            'role'=>'user',
             'email' => 'user@gmail.com',
             'password' => bcrypt('123'),
         ]);
+
+        factory(User::class, 3)->create();
 
 
     }

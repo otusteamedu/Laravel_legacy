@@ -43,7 +43,7 @@ class Advert extends Model
 {
 
     protected $fillable = [
-        'title', 'price', 'content'
+        'user_id', 'town_id', 'division_id','title', 'price', 'img', 'content'
     ];
 
     public function user()
