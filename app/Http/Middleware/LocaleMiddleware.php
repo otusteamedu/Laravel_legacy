@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use App;
 use Illuminate\Cookie\Middleware\EncryptCookies as Middleware;
-use Request;
+
 use App\Services\LanguageService;
 
 class LocaleMiddleware extends Middleware
@@ -27,11 +27,19 @@ class LocaleMiddleware extends Middleware
      */
     public function handle($request, Closure $next)
     {
-        $language = new LanguageService(new App\Services\LanguageResolver());
-        $locale = $language->getLanguageFromRequst();
+        $locale = $this->languageService->getLanguage();
 
         if ($locale) {
             App::setLocale($locale);
+        } else {
+
+            $local = $this->languageService->getLanguageFromRefferer();
+            dd($local);
+
+            if($local)
+                return redirect('/' .$local);
+            else
+                return redirect('/ru');
         }
 
         return $next($request);

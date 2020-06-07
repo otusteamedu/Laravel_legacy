@@ -33,7 +33,6 @@ Route::group([
         /**
          * Sections
          */
-
         Route::get('sections', function () {
             return view('cms.blog.sections');
         })->name('cms.blog.sections');
@@ -51,43 +50,15 @@ Route::group([
         Route::get('author/{author}/delete', 'Cms\BlogAuthorController@delete')->name('cms.blog.author.delete');
         Route::post('author/{author}/delete', 'Cms\BlogAuthorController@delete')->name('cms.blog.author.delete');
     });
-
-    Route::group([
-        'prefix' => 'config'
-    ], function() {
-        Route::get('users', function() {
-            return view('cms.config.users');
-        })->name('config.users');
-    });
-
-    Route::group([
-        'prefix' => 'files'
-    ], function() {
-        Route::get('/', function() {
-            return view('cms.files');
-        })->name('files');
-    });
 });
 
 Route::group([
-    'prefix' => \App\Services\LanguageResolver::getLanguageFromRequst(),
+    'prefix' => \App\Services\LanguageResolver::getLanguage(),
     'middleware' => \App\Http\Middleware\LocaleMiddleware::class
 ], function(){
     Route::get('/', function () {
         return view('main.home.index');
     })->name('home');
-
-    Route::get('/about/', function () {
-        return view('main.about.index');
-    })->name('about');
-
-    Route::get('/prices/', function () {
-        return view('main.prices.index');
-    })->name('prices');
-
-    Route::get('/contacts/', function () {
-        return view('main.contacts.index');
-    })->name('contacts');
 
     Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
     Route::post('/login', 'Auth\LoginController@login');
@@ -103,58 +74,6 @@ Route::group([
             return view('main.personal.index');
         })->name('personal');
 
-        Route::get('/logout', function () {
-            return view('main.personal.index');
-        })->name('logout');
+        Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
     });
 });
-
-//Route::get('/personal', function () {
-//    return view('main.personal.index');
-//});
-//
-//Route::group(Array(
-//    'middleware' => Array(
-//        'auth',
-//    )
-//), function () {
-//    // Админка
-//    Route::group(Array(
-//        'prefix' => 'cp',
-//        'middleware' => Array(
-//            'isAdmin',
-//        )
-//    ), function () {
-//        Route::get('', 'ControlPanelController@index');
-//    });
-//
-//    // Планнер
-//    Route::group(Array(
-//        'prefix' => 'planner',
-//    ), function () {
-//        Route::get('', 'PlannerController@index');
-//        Route::get('gallery', 'PlannerController@gallery');
-//        Route::get('my-proxy', 'PlannerController@myProxy');
-//        Route::get('my-accounts', 'PlannerController@myAccounts');
-//    });
-//
-//    // Блог
-//    Route::group(Array(
-//        'prefix' => 'blog',
-//    ), function () {
-//        Route::get('', 'BlogController@index');
-//    });
-//});
-//
-//Route::Auth();
-//
-//Route::get('/login', 'Auth\LoginController@showLoginForm')->name('login');
-//Route::post('/login', 'Auth\LoginController@login');
-//
-//Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
-//Route::post('/register', 'Auth\RegisterController@showRegistrationForm')->name('register');
-//
-////Route::post('logout', 'Auth\LoginController@logout')->name('logout');
-//
-//Route::get('/logout', '\App\Http\Controllers\Auth\LoginController@logout');
-
