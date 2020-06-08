@@ -22,8 +22,15 @@ $factory->define(Project::class, function (Faker $faker) {
             return factory(App\Models\User::class)->create()->id;
         },
         'name' => 'Магазин "' . $faker->text(10) . '"',
-        'description' => 'О компании' . $faker->text,
+        'description' => 'О компании: ' . $faker->text,
         'created_at' => now(),
         'contact_data' => $faker->address .', '. $faker->phoneNumber,
+        'logo_path' => $faker->imageUrl(),
+        'instagram' => $faker->url(),
+        'vk' => $faker->url(),
+        'website' => $faker->url(),
+        'address1' => $faker->address(),
+        'address2' => $faker->address(),
+        'address3' => $faker->address(),
     ];
 });

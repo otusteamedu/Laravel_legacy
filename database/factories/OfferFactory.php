@@ -20,6 +20,8 @@ $factory->define(Offer::class, function (Faker $faker) {
     return [
         'name' => 'Скидка ' . $faker->numberBetween(5,50) . '%',
         'description' => 'Условия акции: '. $faker->text,
+        'promo_code' => $faker->text(10),
+        'teaser_image' => $faker->imageUrl(),
         'expiration_date' => $faker->dateTime,
         'project_id' => function(){
             return factory(App\Models\Project::class)->create()->id;
