@@ -5,7 +5,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2020-06-03 14:36:50.
+    * Generated on 2020-06-08 10:12:48.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -40,6 +40,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -197,6 +198,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -354,6 +356,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -511,6 +514,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -668,6 +672,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -825,6 +830,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -982,6 +988,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,
@@ -1139,6 +1146,7 @@ namespace PHPSTORM_META {
         'Illuminate\Notifications\ChannelManager' => \Illuminate\Notifications\ChannelManager::class,
         'Illuminate\Routing\Contracts\ControllerDispatcher' => \Illuminate\Routing\ControllerDispatcher::class,
         'Illuminate\Session\Middleware\StartSession' => \Illuminate\Session\Middleware\StartSession::class,
+        'JeroenNoten\LaravelAdminLte\AdminLte' => \JeroenNoten\LaravelAdminLte\AdminLte::class,
         'NunoMaduro\Collision\Contracts\Provider' => \NunoMaduro\Collision\Provider::class,
         'Whoops\Handler\HandlerInterface' => \Facade\Ignition\ErrorPage\IgnitionWhoopsHandler::class,
         'auth' => \Illuminate\Auth\AuthManager::class,

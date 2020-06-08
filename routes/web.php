@@ -25,7 +25,17 @@ Route::get('/register', function () {
     return view('register');
 });
 
+Route::get('/admin/pages', function () {
+    return view('admin/pages/page');
+});
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', function() {
+    return view('home');
+})->name('home')->middleware('auth');
