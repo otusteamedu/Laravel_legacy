@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 $factory->define(Advert::class, function (Faker $faker) {
     $faker = \Faker\Factory::create('ru_Ru');
     return [
-        'user_id' => $faker->numberBetween(1, 2),
+        'user_id' => $faker->numberBetween(1, 2), // factory(User::class),
         'town_id' => $faker->numberBetween(1, 3),
         'division_id' => $faker->numberBetween(1, 4),
         'title' => $faker->sentence(3),
