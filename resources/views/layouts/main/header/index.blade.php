@@ -12,7 +12,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">Главная</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">@lang('pages.main')</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('planner') }}">@lang('pages.planner')</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('proxy') }}">@lang('pages.proxy')</a></li>
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item"><a class="nav-link" href="{{ \App\Services\LanguageResolver::getLanguageUrl('ru')  }}">ru</a></li>

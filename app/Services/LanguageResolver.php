@@ -50,7 +50,7 @@ class LanguageResolver
         return $languageService->getLanguage();
     }
 
-    public static function getLanguageUrl($local)
+    public static function getLanguageUrl($local = 'ru')
     {
         $url = Request::path();
 
@@ -58,8 +58,10 @@ class LanguageResolver
 
         if (!empty($segmentsURI[0]) && in_array($segmentsURI[0], self::$languages)) {
             $segmentsURI[0] = $local;
+        } else {
+            $segmentsURI[0] = $local;
         }
 
-        return implode($segmentsURI);
+        return "/" . implode("/", $segmentsURI);
     }
 }

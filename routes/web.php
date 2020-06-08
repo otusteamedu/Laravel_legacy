@@ -13,14 +13,19 @@
 
 Route::group([
     'prefix' => 'cms',
-    'middleware' => \App\Http\Middleware\Authenticate::class
+    'middleware' => Array(
+        \App\Http\Middleware\Authenticate::class
+    )
 ], function () {
     Route::get('/', function () {
         return view('cms.index');
     });
 
     Route::group([
-        'prefix' => 'blog'
+        'prefix' => 'blog',
+        'middleware' => Array(
+            \App\Http\Middleware\IsAdmin::class
+        )
     ], function() {
         /**
          * Articles
@@ -74,6 +79,21 @@ Route::group([
             return view('main.personal.index');
         })->name('personal');
 
-        Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
+        /**
+         * Proxy
+         */
+        Route::get('/proxy', 'ProxyController@index')->name('proxy');
+        Route::get('/proxy/create', 'ProxyController@create')->name('proxy.create');
+        Route::post('/proxy/create', 'ProxyController@store')->name('proxy.store');
+        Route::get('/proxy/{proxy}/edit', 'ProxyController@edit')->name('proxy.edit');
+        Route::get('/proxy/{proxy}/delete', 'ProxyController@delete')->name('proxy.delete');
+
+        Route::get('/planner', 'PlannerController@index')->name('planner');
+
+        Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
     });
+});
+
+Route::any("/", function(){
+    return Redirect::to(\App\Services\LanguageResolver::getLanguageUrl());
 });

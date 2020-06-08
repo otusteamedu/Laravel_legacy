@@ -8,7 +8,7 @@ use App\Models\Blog\BlogAuthor;
 use App\Models\File;
 use Illuminate\Database\Eloquent\Builder;
 
-class EloquentAuthorRepository
+class EloquentAuthorRepository implements AuthorRepositoryInterface
 {
     public function find(int $id)
     {
