@@ -2,7 +2,7 @@
     <div class="box-modal box-modal--promo" id="modal-promo">
         <div class="box-modal-close arcticmodal-close"><img src="img/close-icon.svg" alt="Закрыть"></div>
         <div class="modal-header">
-            <div class="modal-header__img" id="projectLogo"><img src="img/img-1.jpg" alt=""></div>
+            <div class="modal-header__img" id="projectLogo"></div>
             <div class="modal-header__sale-info">
                 <h2><span class="modal-header__caption" id="offerName"></span></h2>
                 <div class="promocode">

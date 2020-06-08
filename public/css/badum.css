@@ -1057,7 +1057,6 @@ fieldset {
   }
 
   .modal-header__img img {
-    position: absolute;
     height: 100%;
     width: auto;
   }

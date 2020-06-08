@@ -42,7 +42,7 @@ $(function() {
             let offerName = document.getElementById('offerName');
             let offerCondition = document.getElementById('conditions');
 
-            let projectLogo = document.getElementsByClassName('projectLogo');
+            let projectLogo = document.getElementById('projectLogo');
             let projectDescription = document.getElementById('description');
             let projectAddresses = document.getElementById('projectAddresses');
             let projectSocialLinks = document.getElementById('social-links');
