@@ -25,9 +25,18 @@ Route::get('/register', function () {
     return view('register');
 });
 
+Route::get('/admin', function () {
+    return view('admin/home');
+});
+
 Route::get('/admin/pages', function () {
     return view('admin/pages/page');
 });
+
+
+Route::get('/admin/films/edit/{id}', 'Admin\FilmController@edit')->name('home');
+
+Route::get('/admin/films', 'Admin\FilmController@index')->name('home');
 
 
 Auth::routes();
