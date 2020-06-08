@@ -35,7 +35,44 @@ $(function() {
 	}
 
 	$('.js-modal').on('click', function () {
-		$('#modal-promo').arcticmodal();
+	    $('#modal-promo').arcticmodal();
+        document.getElementsByClassName('modal-header__caption').innerHTML = 'skdjflskdf';
+
+        $.get('api/offers/' + this.dataset.id, function (data) {
+            let offerName = document.getElementById('offerName');
+            let offerCondition = document.getElementById('conditions');
+
+            let projectLogo = document.getElementsByClassName('projectLogo');
+            let projectDescription = document.getElementById('description');
+            let projectAddresses = document.getElementById('projectAddresses');
+            let projectSocialLinks = document.getElementById('social-links');
+
+            offerName.innerHTML = data.attributes.offer.name;
+            offerCondition.textContent = data.attributes.offer.description;
+
+            projectLogo.innerHTML = '<img src="' + data.attributes.project.logo_path + '" alt="">';
+            console.log(projectLogo.innerHTML);
+            projectDescription.textContent = data.attributes.project.description;
+
+            let socialLinks = '';
+            if (data.attributes.project.instagram !== undefined) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.instagram + '"><img src="img/ic-insta.svg" alt=""> ' + data.attributes.project.instagram + '</a>'
+            if (data.attributes.project.vk !== undefined) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.vk + '" target="_blank"><img src="img/vk-icon-2.svg" alt="">' + data.attributes.project.vk + '</a>';
+            if (data.attributes.project.website !== undefined) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.website + '" target="_blank"><img src="img/globe-icon.svg" alt="">' + data.attributes.project.website + '</a>';
+            projectSocialLinks.innerHTML = socialLinks;
+
+            let addresses = "<p><strong>Адреса:</strong></p>";
+            addresses = addresses + "<ul>";
+            if (data.attributes.project.address1 !== undefined) addresses = addresses + "<li>" + data.attributes.project.address1 + "</li>";
+            if (data.attributes.project.address2 !== undefined) addresses = addresses + "<li>" + data.attributes.project.address2 + "</li>";
+            if (data.attributes.project.address3 !== undefined) addresses = addresses + "<li>" + data.attributes.project.address3 + "</li>";
+            addresses = addresses + "</ul>"
+
+            projectAddresses.innerHTML = addresses;
+        });
+
+        // TODO разложи красиво все данные на форме попапа
+        //console.log(captionOffer.childNodes);
+        //captionOffer.textContent = data.attributes.name;
 	});
 
 	$('.js-question').on('click', function () {

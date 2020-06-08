@@ -5,7 +5,7 @@
     </div>
     <div class="sale-item__size"><span>{{$offer->name}}</div>
     <div class="sale-item__btn">
-        <button class="bs-btn js-modal">Получить&nbsp;<span class="mobile-hidden">скидку</span></button>
+        <button class="bs-btn js-modal" data-id="{{$offer->id}}">Получить&nbsp;<span class="mobile-hidden">скидку</span></button>
     </div>
     <div class="sale-item__favorite js-favorite">
         <div class="no"><span class="mobile-visible">В избранное</span><span

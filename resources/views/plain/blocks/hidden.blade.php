@@ -2,9 +2,9 @@
     <div class="box-modal box-modal--promo" id="modal-promo">
         <div class="box-modal-close arcticmodal-close"><img src="img/close-icon.svg" alt="Закрыть"></div>
         <div class="modal-header">
-            <div class="modal-header__img"><img src="img/img-1.jpg" alt=""></div>
+            <div class="modal-header__img" id="projectLogo"><img src="img/img-1.jpg" alt=""></div>
             <div class="modal-header__sale-info">
-                <h2><span>{{$offer->name}}</h2>
+                <h2><span class="modal-header__caption" id="offerName"></span></h2>
                 <div class="promocode">
                     <div class="promocode__text">
                         <input class="js-code hidden" type="text" value="bigsale03346667">
@@ -19,7 +19,7 @@
                     <div class="promocode-info__date"><span class="mobile-hidden">Действует до</span><span class="mobile-visible">До</span> <span class="date">{{ \Carbon\Carbon::parse($offer->expiration_date)->format('d.m.Y')}}</span>
                     </div>
                 </div>
-                <div class="social-links"><a class="social-links__item" href="{{\App\Models\Project::find($offer->project_id)->instagram}}" target="_blank"><img src="img/ic-insta.svg" alt=""> {{\App\Models\Project::find($offer->project_id)->instagram}}</a><a class="social-links__item" href="{{\App\Models\Project::find($offer->project_id)->vk}}" target="_blank"><img src="img/vk-icon-2.svg" alt="">{{\App\Models\Project::find($offer->project_id)->vk}}</a><a class="social-links__item" href="https://{{\App\Models\Project::find($offer->project_id)->website}}" target="_blank"><img src="img/globe-icon.svg" alt="">{{\App\Models\Project::find($offer->project_id)->website}}</a></div>
+                <div class="social-links" id="social-links"></div>
             </div>
         </div>
         <div class="modal-tabs">
@@ -31,22 +31,22 @@
             </ul>
             <div class="modal-tabs__content">
                 <div class="active" id="description">
-                    <p><strong>{{\App\Models\Project::find($offer->project_id)->name}}&nbsp;</strong>- {{\App\Models\Project::find($offer->project_id)->description}}</p>
+
                 </div>
                 <div class="conditions" id="conditions">
-                    {{$offer->description}}
+
                 </div>
                 <div class="places" id="places">
                     <div class="places__map">
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2001.9351069861582!2d30.42118931620956!3d59.88342667351328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46962fc7f3968075%3A0x89692e87338f00ae!2z0YPQuy4g0KHQtdC00L7QstCwLCA0OSwg0KHQsNC90LrRgi3Qn9C10YLQtdGA0LHRg9GA0LMsIDE5MjE0OA!5e0!3m2!1sru!2sru!4v1578928902338!5m2!1sru!2sru" width="100%" height="350" allowfullscreen=""></iframe>
                     </div>
                     <div class="places__info">
-                        <div class="places__content">
+                        <div class="places__content" id="projectAddresses">
                             <p><strong>Адреса:</strong></p>
                             <ul>
-                                <li>{{\App\Models\Project::find($offer->project_id)->address1}}</li>
-                                <li>{{\App\Models\Project::find($offer->project_id)->address2}}</li>
-                                <li>{{\App\Models\Project::find($offer->project_id)->address3}}</li>
+                                <li></li>
+                                <li></li>
+                                <li></li>
                             </ul>
                         </div>
                         <div class="places__social">
