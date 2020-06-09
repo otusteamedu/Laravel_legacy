@@ -11,9 +11,11 @@
                 <div>{{ __('clients/show.field.email') }}: <b>{{ $client['email'] }}</b></div>
                 <div>{{ __('clients/show.field.balance') }}: <b>@moneyFormat($client->balance)</b></div>
 
-                <p class="mt-2">
-                    <a href="{{ route('clients.edit', ['client' => $client['id']]) }}" class="btn btn-primary">{{ __('clients/show.change') }}</a>
-                </p>
+                @can('client.update', $client)
+                    <p class="mt-2">
+                        <a href="{{ route('clients.edit', ['client' => $client['id']]) }}" class="btn btn-primary">{{ __('clients/show.change') }}</a>
+                    </p>
+                @endcan
             </div>
         </div>
     </div>

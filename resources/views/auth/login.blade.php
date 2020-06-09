@@ -3,7 +3,7 @@
 @section('content')
     <div class="auth-block">
         <h1>{{ $title }}</h1>
-        {!! Form::open() !!}
+        {!! Form::open(['route' => ['login'], 'method' => 'POST']) !!}
         <div class="form-group">
             {!! Form::label('email', __('auth/general.form.email.label')) !!}
             {!! Form::email('email', null, ['class' => 'form-control', 'placeholder' => __('auth/general.form.email.placeholder')]) !!}
@@ -11,7 +11,11 @@
         <div class="form-group">
             {!! Form::label('password', __('auth/general.form.password.label')) !!}
             {!! Form::password('password', ['class' => 'form-control', 'placeholder' => __('auth/general.form.password.placeholder')]) !!}
-            <small class="form-text"><a href="/auth/recover/">{{ __('auth/general.form.recover') }}</a></small>
+            @if (Route::has('password.request'))
+                <small class="form-text">
+                    <a href="{{ route('password.request') }}">{{ __('auth/general.form.recover') }}</a>
+                </small>
+            @endif
         </div>
         <div class="form-group form-check">
             <label for="remember">

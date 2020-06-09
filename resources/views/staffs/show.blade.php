@@ -10,9 +10,11 @@
                 <div>{{ __('staffs/show.field.name') }}: <b>{{ $staff['name'] }}</b></div>
                 <div>{{ __('staffs/show.field.email') }}: <b>{{ $staff['email'] }}</b></div>
 
-                <p class="mt-2">
-                    <a href="{{ route('staffs.edit', ['staff' => $staff['id']]) }}" class="btn btn-primary">{{ __('staffs/show.change') }}</a>
-                </p>
+                @can('staff.update', $staff)
+                    <p class="mt-2">
+                        <a href="{{ route('staffs.edit', ['staff' => $staff['id']]) }}" class="btn btn-primary">{{ __('staffs/show.change') }}</a>
+                    </p>
+                @endcan
             </div>
         </div>
     </div>

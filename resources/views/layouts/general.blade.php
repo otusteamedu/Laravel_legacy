@@ -12,36 +12,37 @@
     @yield('styles')
 </head>
 <body>
-
-<header>
-    <nav class="navbar navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLeft">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <a href="/" class="navbar-brand mb-0 h1">Codre <small>CRM</small></a>
-        @isset($user)
-            @include('blocks.navbar.user')
-        @endisset
-    </nav>
-</header>
-<div class="row content">
-    @isset($user)
-        <div class="col-md-3 col-lg-2">
-            @include('blocks.navbar.left')
-        </div>
-    @endisset
-
-    <div class="{{ empty($user) ? 'container' : 'col-md-9 col-lg-10 content-block' }}">
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
+<div id="app">
+    <header>
+        <nav class="navbar navbar-dark bg-dark">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarLeft">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="/" class="navbar-brand mb-0 h1">Codre <small>CRM</small></a>
+            @auth
+                @include('blocks.navbar.user')
+            @endauth
+        </nav>
+    </header>
+    <div class="row content">
+        @auth
+            <div class="col-md-3 col-lg-2">
+                @include('blocks.navbar.left')
             </div>
-        @endif
-        @yield('content')
+        @endauth
+
+        <div class="@auth col-md-9 col-lg-10 content-block @endauth @guest container @endguest">
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            @yield('content')
+        </div>
     </div>
 </div>
 <script src="{{ mix('/js/app.js') }}"></script>

@@ -10,8 +10,8 @@
                     <h3>{{ __('overview/general.balance.title') }}</h3>
                 </div>
                 <div class="card-body">
-                    <h4 class="{{ $balance > 0 ? 'text-success' : 'text-danger' }} text-center">
-                        {{ $balance }}&#8381;
+                    <h4 class="{{ $balance >= 0 ? 'text-success' : 'text-danger' }} text-center">
+                        @moneyFormat($balance)
                     </h4>
                 </div>
                 <div class="card-footer">

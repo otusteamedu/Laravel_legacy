@@ -7,7 +7,6 @@ use App\Http\Controllers\Projects\Requests\StoreProjectRequest;
 use App\Http\Controllers\Projects\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Services\Projects\ProjectsService;
-use Illuminate\Http\Request;
 
 class Projects extends Controller
 {
@@ -29,10 +28,11 @@ class Projects extends Controller
      */
     public function index()
     {
+        $this->authorize('project.viewAny');
+
         $list = $this->projectsService->searchProjects();
 
         return view('projects.index')->with([
-            'user'        => ['id' => 1], // @todo
             'list'        => $list,
             'currentPage' => 'projects',
             'title'       => __("projects/general.title"),
@@ -46,8 +46,9 @@ class Projects extends Controller
      */
     public function create()
     {
+        $this->authorize('project.create');
+
         return view('projects.create')->with([
-            'user'        => ['id' => 1], // @todo
             'currentPage' => 'projects',
             'title'       => __("projects/create.title"),
         ]);
@@ -61,6 +62,8 @@ class Projects extends Controller
      */
     public function store(StoreProjectRequest $request)
     {
+        $this->authorize('project.create');
+
         $this->projectsService->storeProject($request->getFormData());
 
         return redirect(route('projects.index'));
@@ -72,14 +75,15 @@ class Projects extends Controller
      * @param int $id
      * @return \Illuminate\View\View
      */
-    public function show($id)
+    public function show(int $id)
     {
         $project = $this->projectsService->findProject($id);
+
+        $this->authorize('project.view', $project);
 
         // @todo передать список тикетов
 
         return view('projects.show')->with([
-            'user'        => ['id' => 1], // @todo
             'currentPage' => 'projects',
             'project'     => $project,
             'title'       => $project->name,
@@ -95,8 +99,10 @@ class Projects extends Controller
     public function edit(int $id)
     {
         $project = $this->projectsService->findProject($id);
+
+        $this->authorize('project.update', $project);
+
         return view('projects.edit')->with([
-            'user' => ['id' => 1], // @todo
             'project' => $project,
             'currentPage' => 'projects',
             'title' => __("projects/edit.title")
@@ -115,6 +121,8 @@ class Projects extends Controller
     {
         $project = $this->projectsService->findProject($id);
 
+        $this->authorize('project.update', $project);
+
         if (!$project) {
             abort(404);
         }
@@ -132,6 +140,8 @@ class Projects extends Controller
     public function destroy($id)
     {
         $project = $this->projectsService->findProject($id);
+
+        $this->authorize('project.delete', $project);
 
         if (!$project) {
             abort(404);

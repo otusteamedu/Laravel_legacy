@@ -1,10 +1,14 @@
 @extends('layouts.general')
 
 @section('content')
+    @can('project.create')
     <div class="float-right">
         <a href="{{ route('projects.create') }}" class="btn btn-primary m-1">{{ __('projects/general.index.create') }}</a>
     </div>
+    @endcan
+
     <h1>{{ $title }}</h1>
+
     <div class="card">
         <div class="card-body">
             <div class="d-flex justify-content-center">{{ $list->links() }}</div>

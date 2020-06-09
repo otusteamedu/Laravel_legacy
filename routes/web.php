@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,53 +21,40 @@ $user = [
     'image' => 'images/profile.jpg',
 ];
 
-Route::resources([
-    'staffs' => 'Staffs\Staffs',
-    'clients' => 'Clients\Clients',
-    'projects' => 'Projects\Projects',
-]);
-
-Route::get('/', function () {
-    return view('auth.index')->with([
-        'title' => __('auth/general.title'),
-    ]);
-});
-
-Route::get('/auth/recover', function () {
-    return view('auth.recover.index')->with([
-        'title' => __('auth/recover.title'),
-    ]);
-});
-
-Route::get('/overview', function () use ($user) {
-    return view('overview.index')->with([
-        'user'     => $user,
-        'title'    => __('overview/general.title'),
-        'balance'  => 350,
-        'projects' => [
-            [
-                'name'    => 'OTUS',
-                'new'     => 3,
-                'ended'   => 1,
-                'process' => 2,
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('overview.index')->with([
+            'title'    => __('overview/general.title'),
+            'balance'  => Auth::user()->balance,
+            'projects' => [
+                [
+                    'name'    => 'OTUS',
+                    'new'     => 3,
+                    'ended'   => 1,
+                    'process' => 2,
+                ],
+                [
+                    'name'    => 'Code',
+                    'new'     => 2,
+                    'ended'   => 3,
+                    'process' => 5,
+                ],
             ],
-            [
-                'name'    => 'Code',
-                'new'     => 2,
-                'ended'   => 3,
-                'process' => 5,
+            'tasks'    => [
+                'today'    => 10,
+                'tomorrow' => 17,
             ],
-        ],
-        'tasks'    => [
-            'today'    => 10,
-            'tomorrow' => 17,
-        ],
+        ]);
+    });
+
+    Route::resources([
+        'staffs' => 'Staffs\Staffs',
+        'clients' => 'Clients\Clients',
+        'projects' => 'Projects\Projects',
     ]);
 });
 
+Auth::routes(['register' => false]);
 
-Route::get('/test', function() {
 
-    $project = \App\Models\Project::all()->random();
-    dump($project, $project->users->random()->id);
-});
+

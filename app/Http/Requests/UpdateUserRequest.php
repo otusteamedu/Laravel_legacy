@@ -2,6 +2,8 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
+
 class UpdateUserRequest extends FormRequest
 {
     /**
@@ -11,7 +13,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true; // @todo
+        return Auth::check();
     }
 
     /**

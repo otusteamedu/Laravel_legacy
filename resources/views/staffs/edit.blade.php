@@ -28,7 +28,7 @@
             </div>
         </div>
         <div class="card-footer">
-            {!! Form::hidden('id', $client->id) !!}
+            {!! Form::hidden('id', $staff->id) !!}
             {!! Form::submit(__('staffs/edit.form.submit'), ['class' => 'btn btn-primary']) !!}
         </div>
         {!! Form::close() !!}
