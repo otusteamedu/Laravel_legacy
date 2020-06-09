@@ -7,7 +7,9 @@
 @stop
 
 @section('content')
-
+<form role="form" action="{{ route($updateRoute, ['id' => $fields->id]) }}" method="post" enctype="multipart/form-data">
+    {{ csrf_field() }}
+    {{ method_field('PATCH') }}
 <div class="row">
     <div class="col-md-12">
       <div class="card card-primary">
@@ -47,11 +49,16 @@
     </div>
 </div>
 
+
 <div class="row">
     <div class="col-12">
-      <a href="#" class="btn btn-secondary">Cancel</a>
-      <input type="submit" value="Save Changes" class="btn btn-success float-right">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <a type="button" href="{{ route($backRoute) }}" class="btn btn-warning">Back</a>
+    </form>
+
     </div>
 </div>
-  
+
+
+
 @stop

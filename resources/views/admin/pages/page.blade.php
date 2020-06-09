@@ -110,5 +110,6 @@
       </table>
     </div>
     <!-- /.card-body -->
+    {{ $list->links() }}
   </div>
 @stop

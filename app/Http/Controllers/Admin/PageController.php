@@ -16,8 +16,8 @@ class PageController extends Controller
     public function index()
     {
         //
-        $collectionPage = Page::all();
-        return view('admin/pages/page', ['list' =>$collectionPage,'editRoute'=>'pages.edit']);
+        $pages = Page::orderBy('id')->paginate(10); //
+        return view('admin/pages/page', ['list' =>$pages,'editRoute'=>'pages.edit']);
     }
 
     /**
@@ -63,7 +63,8 @@ class PageController extends Controller
         //
         $pageFields = Page::findOrFail($id);
 
-        return view('admin/pages/edit',['fields'=>$pageFields]);
+        return view('admin/pages/edit',[
+            'fields'=>$pageFields, 'updateRoute'=>'pages.update','backRoute'=>'pages']);
 
     }
 
@@ -76,7 +77,16 @@ class PageController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $page = Page::find($id);
+        $page->title = $request->title;
+        $page->meta_keywords = $request->meta_keywords;
+        $page->meta_title = $request->meta_title;
+        $page->slug = $request->slug;
+        $page->content = $request->content;
+        $page->save();
+
+        return redirect(route('pages.edit',['id' => $id]));
     }
 
     /**

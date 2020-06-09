@@ -15,7 +15,7 @@ $factory->define(\App\Models\Page::class, function (Faker $faker) {
         "title"=>$title,
         "meta_title"=>$title,
         "meta_keywords"=>$faker->word,
-        "meta_description"=>$faker->paragraph($nbSentences = 3, $variableNbSentences = true),
+        "meta_description"=>$faker->text($maxNbChars = 10),
         "slug"=>Str::slug($title),
         "content"=>$faker->text($maxNbChars = 200),
         'created_at' => $createdAt,
