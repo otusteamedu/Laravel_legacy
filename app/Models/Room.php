@@ -28,11 +28,6 @@ class Room extends ModelBase
     protected $fillable = ['number', 'square', 'floor'];
 
 
-    public function isFree()
-    {
-        return $this->companies()->where('stoped_at', null)->count() == 0;
-    }
-
     public function companies()
     {
         return $this->belongsToMany(Company::class, Contract::class)->withTimestamps();

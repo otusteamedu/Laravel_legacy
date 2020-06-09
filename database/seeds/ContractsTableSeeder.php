@@ -20,8 +20,7 @@ class ContractsTableSeeder extends Seeder
             if (!($company = $this->nextCompany()))
                 break;
 
-            if ($room->isFree())
-                $room->companies()->attach($company);
+            $room->companies()->attach($company);
         }
     }
 

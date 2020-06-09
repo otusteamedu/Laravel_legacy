@@ -29,7 +29,6 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  */
 class Contract extends Pivot
 {
-    protected $table = 'contracts';
 
     public function prices()
     {
