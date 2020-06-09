@@ -4,6 +4,8 @@
 namespace App\Services\Filters;
 
 
+use App\Jobs\FilterProcess;
+use App\Jobs\Queue;
 use App\Models\Filter;
 use App\Services\Filters\Handlers\CreateFilterHandler;
 use App\Services\Filters\Handlers\UpdateFilterHandler;
@@ -72,6 +74,14 @@ class FiltersService
     public function update(Filter $model, array $data)
     {
         return $this->updateFilterHandler->handle($model, $data);
+    }
+
+    public function createInQueue(array $data)
+    {
+        FilterProcess::dispatch($data)
+            ->delay(now()->addSecond(5))
+            ->onQueue(Queue::HIGH);
+        return new Filter();  // Just for test
     }
 
 }

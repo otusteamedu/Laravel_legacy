@@ -5,6 +5,7 @@ namespace App\Services\Filters\Handlers;
 
 
 use App\Models\Filter;
+use App\Services\Filters\Events\FilterCreated;
 use App\Services\Filters\Repositories\FilterRepositoryInterface;
 use App\Services\Filters\Resolvers\FilterAdditionalDataResolver;
 
@@ -26,6 +27,8 @@ class CreateFilterHandler
     {
         //Just for practise
         $data = $this->resolver->resolve($data);
+//        FilterCreated::dispatch(); //Dispatch Event ????
+        event(new FilterCreated('test@test.loc'));
         return $this->filterRepository->createFromArray($data);
     }
 

@@ -6,9 +6,12 @@ use App\Listeners\Cache\CacheHitEventListener;
 use App\Listeners\Cache\Filter\ClearFilterCache;
 use App\Listeners\LogAuthenticationAttempt;
 use App\Services\Events\Models\Filter\FilterSaved;
+use App\Services\Filters\Events\FilterCreated;
+use App\Services\Filters\Listeners\FilterCreatedListener;
 use Illuminate\Auth\Events\Attempting;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
+use Illuminate\Cache\Events\CacheHit;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -31,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CacheHit::class => [
             CacheHitEventListener::class,
+        ],
+        FilterCreated::class => [
+            FilterCreatedListener::class
         ],
     ];
 

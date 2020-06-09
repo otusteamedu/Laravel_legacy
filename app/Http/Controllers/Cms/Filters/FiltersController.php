@@ -95,7 +95,11 @@ class FiltersController extends Controller
     public function store(StoreFilterRequest $request)
     {
         $this->authorize(Abilities::CREATE, Filter::class);
-        $filter = $this->filtersService->create($request->getFormData());
+        //Create now
+//        $filter = $this->filtersService->create($request->getFormData());
+        //Create with delay for Job test
+        $filter =  $this->filtersService->createInQueue($request->getFormData());
+        $filter->id = 'In Queue';
             return redirect()
                 ->route('cms.filters.index')
                 ->with(['success' => __('messages.rec_created', ['id' => $filter->id])]);
