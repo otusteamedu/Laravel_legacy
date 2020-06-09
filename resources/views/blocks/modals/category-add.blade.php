@@ -8,13 +8,14 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{ Form::open(['url'=> route('categories.store')]) }}
+                {{ Form::open(['url'=> route('categories.store'), 'id' => 'modal-add-form']) }}
+                    <div id="flash-message" class="flash-message alert alert-danger" style="display: none;"></div>
                     <div class="form-group">
-                        {{ Form::label('title', 'Название', null, ['class'=> 'col-form-label']) }}
+                        {{ Form::label('title', 'Название', ['class'=> 'col-form-label']) }}
                         {{ Form::text('title', null, ['class'=> 'form-control']) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('name', 'Алиас', null, ['class'=> 'col-form-label']) }}
+                        {{ Form::label('name', 'Алиас', ['class'=> 'col-form-label']) }}
                         {{ Form::text('name', null, ['class'=> 'form-control']) }}
                     </div>
                     <div class="modal-footer border-top-0 d-flex">
