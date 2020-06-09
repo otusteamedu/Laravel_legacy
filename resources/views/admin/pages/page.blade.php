@@ -44,7 +44,7 @@
               </tr>
           </thead>
           <tbody>
-            @foreach($films as $item)
+            @foreach($list as $item)
              <tr>
                 <td>
                     {{ $item->id }}
@@ -92,7 +92,7 @@
                         </i>
                         View
                     </a>
-                    <a class="btn btn-info btn-sm" href="/admin/films/edit/{{ $item->id }}">
+                    <a class="btn btn-info btn-sm" href="{{ route($editRoute, ['id' => $item->id]) }}">
                         <i class="fas fa-pencil-alt">
                         </i>
                         Edit

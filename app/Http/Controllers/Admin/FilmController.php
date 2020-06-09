@@ -15,9 +15,7 @@ class FilmController extends Controller
     public function index()
     {
         $collectionFilm = Film::all();
-        //dd($collectionFilm);
-        return view('admin/pages/page',array('films' =>$collectionFilm));
-       // return response()->json(Film::all());
+        return view('admin/pages/page',array('list' =>$collectionFilm));
     }
 
     /**

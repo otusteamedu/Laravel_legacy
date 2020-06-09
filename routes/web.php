@@ -29,14 +29,15 @@ Route::get('/admin', function () {
     return view('admin/home');
 });
 
-Route::get('/admin/pages', function () {
-    return view('admin/pages/page');
-});
+
+Route::get('/admin/pages', 'Admin\PageController@index')->name('pages');
+
+Route::get('/admin/pages/edit/{id}', 'Admin\PageController@edit')->name('pages.edit');
 
 
-Route::get('/admin/films/edit/{id}', 'Admin\FilmController@edit')->name('home');
+Route::get('/admin/films/edit/{id}', 'Admin\FilmController@edit')->name('films.edit');
 
-Route::get('/admin/films', 'Admin\FilmController@index')->name('home');
+Route::get('/admin/films', 'Admin\FilmController@index')->name('films');
 
 
 Auth::routes();

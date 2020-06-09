@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -15,6 +16,8 @@ class PageController extends Controller
     public function index()
     {
         //
+        $collectionPage = Page::all();
+        return view('admin/pages/page', ['list' =>$collectionPage,'editRoute'=>'pages.edit']);
     }
 
     /**
@@ -58,6 +61,10 @@ class PageController extends Controller
     public function edit($id)
     {
         //
+        $pageFields = Page::findOrFail($id);
+
+        return view('admin/pages/edit',['fields'=>$pageFields]);
+
     }
 
     /**
