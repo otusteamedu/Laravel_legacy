@@ -4,6 +4,7 @@ namespace App\Http\Controllers\LangConstructorType;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\LangConstructorType\Requests\SaveLangConstructorTypeRequest;
+use App\Models\Construction;
 use App\Models\ConstructionType;
 use App\Services\ConstructionTypes\ConstructionTypesService;
 use App\Policies\Abilities;
@@ -26,12 +27,13 @@ class LangConstructorTypeController extends Controller
 
     public function edit($id = null)
     {
-
+        $this->authorize(Abilities::UPDATE, Construction::class);
         return view('lang-constructor.lang-constructor-type.edit',['langConstructorType' => $this->constructionTypesService->findOrNew($id)]);
     }
 
     public function save(SaveLangConstructorTypeRequest $request)
     {
+
         $this->authorize(Abilities::UPDATE, ConstructionType::class);
         $data  =  $request->getFormData();
 

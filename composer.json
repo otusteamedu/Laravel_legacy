@@ -13,7 +13,8 @@
         "laravel/framework": "^6.2",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^1.2",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "phpunit/php-code-coverage": "^7"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",

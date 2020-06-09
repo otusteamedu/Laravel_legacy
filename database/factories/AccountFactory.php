@@ -1,7 +1,8 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
-use App\Models\User;
+
+use App\Models\Account;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -16,13 +17,11 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(\App\Models\Account::class, function (Faker $faker) {
-
-    $status = \App\Models\Account::STATUS_NOT_ACTIVE;
-    if (rand(0, 1)) { $status = \App\Models\Account::STATUS_ACTIVE; }
-
+$factory->define(Account::class, function (Faker $faker) {
     return [
-        'name' => $faker->name,
-        'status' => $status
+        'name' => $faker->firstName,
+        'family' => $faker->lastName,
+        'level_access' => Account::LEVEL_ACCOUNT,
+        'status' => Account::STATUS_ACTIVE,
     ];
 });
