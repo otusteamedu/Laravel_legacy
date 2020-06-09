@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Notifications\SlackFailedJob;
 use App\Providers\Views\BladeStatements;
 use App\Services\Filters\Repositories\CachedFilterRepository;
 use App\Services\Filters\Repositories\CachedFilterRepositoryInterface;
@@ -11,8 +12,11 @@ use App\Services\FilterTypes\Repositories\EloquentFilterTypeRepository;
 use App\Services\FilterTypes\Repositories\FilterTypeRepositoryInterface;
 use App\Services\Mpolls\Repositories\EloquentMpollRepository;
 use App\Services\Mpolls\Repositories\MpollRepositoryInterface;
+use Illuminate\Queue\Events\JobFailed;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
+use Queue;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -41,6 +45,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootBladeStatements();
+
+        $slackUrl = env('LOG_SLACK_WEBHOOK_URL');
+        Queue::failing(function (JobFailed $event) use ($slackUrl) {
+            Notification::route('slack', $slackUrl)->notify(new SlackFailedJob($event));
+        });
     }
 
 
