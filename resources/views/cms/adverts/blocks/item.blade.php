@@ -17,7 +17,8 @@
                 <p class="mt-3 border-bottom"><mark>#{{$item->id ?? ''}} - {{$item->user->name ?? ''}}</mark></p>
                 <p class="blockquote text-right">{{$item->content ?? ''}} </p>
                 <div class="row">
-                    @can('message-update', $item->user_id)
+
+                    @can('messageUpdate', $item)
                         <a class="btn ml-auto" href="/messages/{{$item->id ?? ''}}/edit">&#9998;</a>
                         @include('cms.messages.blocks.form.delete', ['id'=>$item->id ?? ''])
                     @endcan
@@ -37,20 +38,11 @@
 
     </div>
 
-    @can('advert-update', $advert)
+    @can('advertUpdate', $advert)
     <div class="row mt-3">
         <a class="btn btn-warning mr-1" href="/adverts/{{$advert->id}}/edit">Update</a>
         @include('cms.adverts.blocks.form.delete', ['id'=>$advert->id])
     </div>
     @endcan
-
-
-    <div class="row mt-4 ">
-
-    </div>
-
-    <div class="row mt-4 ">
-
-    </div>
 
 </div>

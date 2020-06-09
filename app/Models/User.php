@@ -7,6 +7,7 @@ use App\Models\Message;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * App\Models\User
@@ -42,6 +43,7 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    const ROLE_ADMIN = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -70,10 +72,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin()
-    {
-        return $this->id == 1;
+    public function isAdmin(){
+        return Auth::user()->role == self::ROLE_ADMIN;
     }
+
     public function adverts()
     {
         return $this->hasMany(Advert::class);
