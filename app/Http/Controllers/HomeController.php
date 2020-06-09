@@ -29,7 +29,6 @@ class HomeController extends Controller
     public function index()
     {
        $pages = $this->advertService->page(8);
-       //$pages->withPath('custom/url');
        return view('home.home', ['pages' => $pages]);
     }
 

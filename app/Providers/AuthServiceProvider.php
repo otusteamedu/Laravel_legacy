@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Advert;
 use App\Models\Division;
+use App\Models\Message;
 use App\Models\User;
 use App\Policies\DivisionPolicy;
+use App\Policies\HomePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -18,6 +20,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Division::class => DivisionPolicy::class,   //регистрация политики
+        Advert::class => HomePolicy::class,
+        Message::class => HomePolicy::class,
+
     ];
 
     /**
@@ -33,32 +38,32 @@ class AuthServiceProvider extends ServiceProvider
 //            return $user->id ==1;
 //        });
 
-        Gate::define('show', function (User $user){
-            return $user->id ==1;
-        });
+//        Gate::define('show', function (User $user){
+//            return $user->id ==1;
+//        });
+//
+//        Gate::define('update', function (User $user){
+//            return $user->id ==1;
+//        });
 
-        Gate::define('update', function (User $user){
-            return $user->id ==1;
-        });
-
-        Gate::define('advert-update', function ($user, $advert){
-
-            if($user->id ==1){
-                return true;
-            } elseif($user->id == $advert->user_id)  {
-                return true;
-            }
-            return false;
-        });
-
-        Gate::define('message-update', function ($user, $user_id){
-
-            if($user->id ==1){
-                return true;
-            } elseif($user->id == $user_id)  {
-                return true;
-            }
-            return false;
-        });
+//        Gate::define('advert-update', function ($user, $advert){
+//
+//            if($user->id ==1){
+//                return true;
+//            } elseif($user->id == $advert->user_id)  {
+//                return true;
+//            }
+//            return false;
+//        });
+//
+//        Gate::define('message-update', function ($user, $item){
+//
+//            if($user->id ==1){
+//                return true;
+//            } elseif($user->id == $item->user_id)  {
+//                return true;
+//            }
+//            return false;
+//        });
     }
 }
