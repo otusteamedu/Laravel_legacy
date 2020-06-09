@@ -17,9 +17,8 @@ class CreateContractsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('company_id');
             $table->unsignedBigInteger('room_id');
-            $table->unsignedFloat('price');
             $table->timestamps();
-            $table->softDeletes();
+            $table->time('stoped_at')->nullable();
         });
 
         Schema::table('contracts', function (Blueprint $table) {

@@ -4,9 +4,9 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUserRoleTable extends Migration
+class CreatePricesTable extends Migration
 {
-    const TABLE = 'user_role';
+    const TABLE = 'prices';
     /**
      * Run the migrations.
      *
@@ -16,15 +16,15 @@ class CreateUserRoleTable extends Migration
     {
         Schema::create(self::TABLE, function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('contract_id');
+            $table->unsignedFloat('price')->default(0);
+            $table->unsignedFloat('price_fix')->default(0);
             $table->timestamps();
-            $table->softDeletes();
+            $table->time('stoped_at')->nullable();
         });
 
         Schema::table(self::TABLE, function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-            $table->foreign('role_id')->references('id')->on('roles')->cascadeOnDelete();
+            $table->foreign('contract_id')->references('id')->on('contracts')->cascadeOnDelete();
         });
     }
 
