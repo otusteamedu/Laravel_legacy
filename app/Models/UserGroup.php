@@ -20,7 +20,17 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserGroup extends Model
 {
+    const ADMIN_GROUP = 'Admin';
+    const GUEST_GROUP = 'Guest';
+
+    public $timestamps = false;
+    
+    protected $fillable = [
+        'title',
+        'name',
+    ];
+
     public function users() {
-        return $this->hasMany(User::class);
+        return $this->hasMany(User::class, 'group_id');
     }
 }

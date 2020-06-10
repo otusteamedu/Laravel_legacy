@@ -1,4 +1,4 @@
-<!-- Основной шаблон приложения -->
+<!-- Шаблон админки приложения -->
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -17,17 +17,11 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-light">
-    <div id="app">
-        @include('blocks.navbars.login')
-        <div class="container bg-light pt-5">
-            @yield('header')
-            <main class="py-4">
-                @yield('content')
-            </main>
-
-            @yield('footer')
-        </div>
+<body class="bg-white">
+    @include('blocks.navbars.login')
+    <div class="container-fluid pt-5">
+        @yield('content')
+        @yield('footer')
     </div>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>

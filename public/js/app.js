@@ -49765,6 +49765,82 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/js/admin/admin.js":
+/*!*************************************!*\
+  !*** ./resources/js/admin/admin.js ***!
+  \*************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(document).ready(function () {
+  console.log('admin.js added'); // Заполнение формы модального окна значениями
+
+  var dataTable = $('#data-list');
+  $('button[class$="edit"]', dataTable).on('click', function (e) {
+    var id = $(this).data('id');
+    var data_target = $(this).data('target');
+    var modalWindow = $('#modal-edit');
+    $.ajax({
+      dataType: "json",
+      type: 'GET',
+      url: "/admin/".concat(data_target, "/").concat(id, "/edit"),
+      async: true,
+      success: function success(data, textStatus, jqXHR) {
+        $.each(data, function (i, v) {
+          var field = $("#modalField-".concat(i));
+
+          if (field.length) {
+            field.val(v);
+          }
+        });
+        modalWindow.modal('show');
+        $("#modal-edit-form", modalWindow).data('id', id);
+      },
+      error: function error(jqXHR, textStatus, errorThrown) {
+        modalWindow.modal('show');
+        $('.modal-body', modalWindow).html('Ошибка: ' + errorThrown);
+      }
+    });
+  });
+  $("#modal-add-form").add("#modal-edit-form").submit(function (e) {
+    e.preventDefault();
+    var id = $(this).data('id') ? $(this).data('id') : null;
+    var flashMessageElement = $('#flash-message', this);
+    var formURL = $(this).attr("action");
+    var formMethod = $(this).attr("method");
+    var postData = $(this).serialize();
+    formURL = id ? formURL.replace(/#id/gi, id) : formURL;
+    $.ajax({
+      type: formMethod,
+      url: formURL,
+      data: postData,
+      cache: false,
+      success: function success(jqXHR, textStatus, errorThrown) {
+        $(flashMessageElement).fadeOut();
+
+        if (jqXHR.status === 'ok') {
+          window.location.href = jqXHR.redirect;
+        }
+      },
+      error: function error(jqXHR, textStatus, errorThrown) {
+        if (jqXHR.status === 422) {
+          // when status code is 422, it's a validation issue
+          $(flashMessageElement).fadeIn().html(jqXHR.responseJSON.message);
+          $.each(jqXHR.responseJSON.errors, function (i, error) {
+            flashMessageElement.append('<li style="color: red;">' + error[0] + '</li>');
+          });
+        }
+      }
+    });
+    return false;
+  });
+  $('#modal-add').add('#modal-edit').on('hidden.bs.modal', function () {
+    $('#flash-message', this).hide();
+  });
+});
+
+/***/ }),
+
 /***/ "./resources/js/app.js":
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
@@ -49929,13 +50005,14 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!*******************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/js/admin/admin.js ./resources/sass/app.scss ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! /home/vagrant/projects/project2/resources/js/app.js */"./resources/js/app.js");
+__webpack_require__(/*! /home/vagrant/projects/project2/resources/js/admin/admin.js */"./resources/js/admin/admin.js");
 module.exports = __webpack_require__(/*! /home/vagrant/projects/project2/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
