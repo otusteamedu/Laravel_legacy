@@ -137,10 +137,6 @@ class Clients extends Controller
 
         $this->authorize('client.update', [$client]);
 
-        if (!$client) {
-            abort(404);
-        }
-
         $this->usersService->updateUser($client, $request->getFormData());
 
         return redirect(route('clients.index'));
