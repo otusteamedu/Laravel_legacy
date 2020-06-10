@@ -7,7 +7,7 @@ use App\Models\UserGroup;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class CheckIsAdmin
+class AdminAccess
 {
     /**
      * Handle an incoming request.
@@ -18,9 +18,10 @@ class CheckIsAdmin
      */
     public function handle($request, Closure $next)
     {
+        $allowedUserGroups = [UserGroup::ADMIN_GROUP, UserGroup::EDITOR_GROUP, UserGroup::AUTHOR_GROUP, UserGroup::MODERATOR_GROUP];
         /** @var User $user */
         $user = Auth::user();
-        if ($user &&  $user->group->name === UserGroup::ADMIN_GROUP ) {
+        if ($user &&  in_array($user->group->name, $allowedUserGroups)) {
             return $next($request);
         }
 

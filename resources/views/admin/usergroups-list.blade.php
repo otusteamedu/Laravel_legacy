@@ -12,9 +12,11 @@
                         <h2>Управление <b>Группами пользователей</b></h2>
                     </div>
                     <div class="col-sm-6">
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add">
-                            Добавить
-                        </button>
+                        @can('create', \App\Models\UserGroup::class)
+                            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add">
+                                Добавить
+                            </button>
+                        @endcan
                     </div>
                 </div>
             </div>
@@ -47,6 +49,7 @@
                             <td>{{ $group->users()->count()}}</td>
                             <td>
                                 {{ Form::open(['method' => 'DELETE', 'url'=> route('usergroups.destroy', $group->id)]) }}
+                                @can('update', $group)
                                     <button type="button" class="btn btn-outline-info btn-sm edit"
                                             data-id="{{ $group->id }}" data-target="usergroups">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"
@@ -55,8 +58,11 @@
                                                   d="M0 12v3h3l8-8-3-3-8 8zm3 2H1v-2h1v1h1v1zm10.3-9.3L12 6 9 3l1.3-1.3a.996.996 0 011.41 0l1.59 1.59c.39.39.39 1.02 0 1.41z"></path>
                                         </svg>
                                     </button>
+                                @endcan
+                                @can('delete', $group)
                                     {!! Form::button('<svg width="14" height="16" viewBox="0 0 14 16" fill="currentColor"><path fill-rule="evenodd" d="M11 2H9c0-.55-.45-1-1-1H5c-.55 0-1 .45-1 1H2c-.55 0-1 .45-1 1v1c0 .55.45 1 1 1v9c0 .55.45 1 1 1h7c.55 0 1-.45 1-1V5c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1zm-1 12H3V5h1v8h1V5h1v8h1V5h1v8h1V5h1v9zm1-10H2V3h9v1z"></path></svg>
         ', ['type' => 'submit', 'class' => 'btn btn-outline-danger btn-sm usergroup-delete']) !!}
+                                @endcan
                                 {{ Form::close() }}
                             </td>
                         </tr>

@@ -15,11 +15,13 @@ use App\Services\ArticlesService;
 
 class ArticlesController extends Controller
 {
+
     private $articlesService;
     private $categoriesService;
 
     public function __construct(ArticlesService $articlesService, CategoriesService $categoriesService)
     {
+        $this->authorizeResource(Article::class);
         $this->articlesService = $articlesService;
         $this->categoriesService = $categoriesService;
     }
