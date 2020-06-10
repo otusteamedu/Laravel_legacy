@@ -13,10 +13,9 @@ use Illuminate\Contracts\Support\Renderable;
 class CategoriesController extends Controller
 {
 
-    private $categoriesService;
-
     public function __construct(CategoriesService $categoriesService)
     {
+        $this->authorizeResource(Category::class);
         $this->categoriesService = $categoriesService;
     }
 

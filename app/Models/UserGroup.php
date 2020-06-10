@@ -20,11 +20,22 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserGroup extends Model
 {
+    //Администратор
     const ADMIN_GROUP = 'Admin';
-    const GUEST_GROUP = 'Guest';
+    //Автор
+    const AUTHOR_GROUP = 'Author';
+    //Редактор
+    const EDITOR_GROUP = 'Editor';
+    //Модератор
+    const MODERATOR_GROUP = 'Moderator';
+    //Зарегистрированный
+    const REGISTERED_GROUP = 'Registered';
+    //Заблокированный
+    const BLOCKED_GROUP = 'Blocked';
+
 
     public $timestamps = false;
-    
+
     protected $fillable = [
         'title',
         'name',
