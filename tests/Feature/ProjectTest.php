@@ -19,7 +19,7 @@ use Tests\TestCase;
 class ProjectTest extends TestCase
 {
 
-    use RefreshDatabase, WithFaker;
+    use WithFaker;
 
     /**
      * Тест просмотра списка проектов
@@ -28,7 +28,7 @@ class ProjectTest extends TestCase
      */
     public function testList()
     {
-        $response = $this->actingAs($this->getUser())->get('/projects');
+        $response = $this->actingAs($this->getUser())->get(route('projects.index'));
         $response->assertStatus(200);
     }
 
@@ -45,7 +45,12 @@ class ProjectTest extends TestCase
             return $user;
         }
 
-        (new GroupSeeder())->run();
+        if (!Group::find(1)) {
+            (new GroupSeeder())->run();
+        }
+
+        $this->clearUsers();
+
         $users = factory(User::class, 1)->create([
             'group_id' => Group::STAFF_ADMIN,
         ]);
@@ -56,13 +61,33 @@ class ProjectTest extends TestCase
     }
 
     /**
+     * Удалить пользователей
+     */
+    protected function clearUsers()
+    {
+        User::withTrashed()->each(function (User $user) {
+            $user->forceDelete();
+        });
+    }
+
+    /**
+     * Удалить пользователей
+     */
+    protected function clearProjects()
+    {
+        Project::withTrashed()->each(function (Project $project) {
+            $project->forceDelete();
+        });
+    }
+
+    /**
      * Тест просмотра страницы создания проекта
      *
      * @return void
      */
     public function testCreate()
     {
-        $response = $this->actingAs($this->getUser())->get('/projects/create');
+        $response = $this->actingAs($this->getUser())->get(route('projects.create'));
         $response->assertStatus(200);
     }
 
@@ -75,10 +100,12 @@ class ProjectTest extends TestCase
     {
         $name = $this->faker->name;
 
-        $response = $this->actingAs($this->getUser())->post('/projects', ['name' => $name]);
+        $this->actingAs($this->getUser());
+
+        $response = $this->post(route('projects.store'), ['name' => $name]);
         $response->assertStatus(302);
 
-        $response = $this->actingAs($this->getUser())->get('/projects');
+        $response = $this->get(route('projects.index'));
         $response->assertSeeText($name);
     }
 
@@ -91,10 +118,13 @@ class ProjectTest extends TestCase
     {
         $projectId = $this->getProject()->id;
 
-        $response = $this->actingAs($this->getUser())->get('/projects/' . $this->faker->numberBetween(100, 1000));
+        $this->actingAs($this->getUser());
+
+        $response = $this->get(route('projects.show', ['project' => $this->faker->numberBetween(100, 1000)]));
         $response->assertStatus(404);
 
-        $response = $this->actingAs($this->getUser())->get('/projects/' . $projectId);
+
+        $response = $this->get(route('projects.show', ['project' => $projectId]));
         $response->assertStatus(200);
     }
 
@@ -119,10 +149,12 @@ class ProjectTest extends TestCase
     {
         $projectId = $this->getProject()->id;
 
-        $response = $this->actingAs($this->getUser())->get('/projects/' . $this->faker->numberBetween(100, 1000). '/edit');
+        $this->actingAs($this->getUser());
+
+        $response = $this->get(route('projects.edit', ['project' => $this->faker->numberBetween(100, 1000)]));
         $response->assertStatus(404);
 
-        $response = $this->actingAs($this->getUser())->get('/projects/' . $projectId . '/edit');
+        $response = $this->get(route('projects.edit', ['project' => $projectId]));
         $response->assertStatus(200);
 
     }
@@ -134,17 +166,21 @@ class ProjectTest extends TestCase
      */
     public function testUpdate()
     {
-        $name = $this->faker->name;
+        $data = [
+            'name' => $this->faker->name
+        ];
         $projectId = $this->getProject()->id;
 
-        $response = $this->actingAs($this->getUser())->patch('/projects/' . $this->faker->numberBetween(100, 1000), ['name' => $name]);
+        $this->actingAs($this->getUser());
+
+        $response = $this->put(route('projects.update', ['project' => $this->faker->numberBetween(100, 1000)]), $data);
         $response->assertStatus(404);
 
-        $response = $this->actingAs($this->getUser())->patch('/projects/' . $projectId, ['name' => $name]);
+        $response = $this->put(route('projects.update', ['project' => $projectId]), $data);
         $response->assertStatus(302);
 
-        $response = $this->actingAs($this->getUser())->get('/projects');
-        $response->assertSeeText($name);
+        $response = $this->get(route('projects.index'));
+        $response->assertSeeText($data['name']);
     }
 
     /**
@@ -157,17 +193,21 @@ class ProjectTest extends TestCase
         $project = $this->getProject();
         $projectId = $project->id;
 
-        $response = $this->actingAs($this->getUser())->get('/projects');
+        $this->actingAs($this->getUser());
+
+        $response = $this->get(route('projects.index'));
         $response->assertSee($project->name);
 
-        $response = $this->actingAs($this->getUser())->delete('/projects/' . $this->faker->numberBetween(100, 1000));
+        $response = $this->delete(route('projects.destroy', ['project' => $this->faker->numberBetween(100, 1000)]));
         $response->assertStatus(404);
 
-        $response = $this->actingAs($this->getUser())->delete('/projects/' . $projectId);
+        $response = $this->delete(route('projects.destroy', ['project' => $projectId]));
         $response->assertStatus(302);
 
-        $response = $this->actingAs($this->getUser())->get('/projects');
+        $response = $this->get(route('projects.index'));
         $response->assertDontSee($project->name);
+
+        $this->clearProjects();
     }
 
 

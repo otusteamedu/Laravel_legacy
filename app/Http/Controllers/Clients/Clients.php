@@ -84,6 +84,10 @@ class Clients extends Controller
     {
         $client = $this->usersService->findUser($id);
 
+        if (!$client) {
+            abort(404);
+        }
+
         $this->authorize('client.view', [$client]);
 
         return view('clients.show')->with([
@@ -102,6 +106,10 @@ class Clients extends Controller
     public function edit(int $id)
     {
         $client = $this->usersService->findUser($id);
+
+        if (!$client) {
+            abort(404);
+        }
 
         $this->authorize('client.update', [$client]);
 
@@ -123,6 +131,10 @@ class Clients extends Controller
     {
         $client = $this->usersService->findUser($id);
 
+        if (!$client) {
+            abort(404);
+        }
+
         $this->authorize('client.update', [$client]);
 
         if (!$client) {
@@ -143,6 +155,10 @@ class Clients extends Controller
     public function destroy($id)
     {
         $client = $this->usersService->findUser($id);
+
+        if (!$client) {
+            abort(404);
+        }
 
         $this->authorize('client.delete', [$client]);
 
