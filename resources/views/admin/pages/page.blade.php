@@ -8,10 +8,30 @@
 
 @section('content')
 
+<div class="row">
+    <div class="col-md-12">
+      <div class="card card-primary card-outline">
+        <div class="card-header">
+          <h3 class="card-title">
+            <i class="fas fa-edit"></i>
+            Buttons
+          </h3>
+        </div>
+        <div class="card-body pad table-responsive">
+          <a style="width:30%;" href="/admin/pages/add" class="btn btn-block btn-primary">Добавить страницу</a>
+        </div>
+        <!-- /.card -->
+      </div>
+    </div>
+    <!-- /.col -->
+  </div>
 
 <div class="card">
+
     <div class="card-header">
-      <h3 class="card-title">Projects</h3>
+
+
+      <h3 class="card-title">Список страниц</h3>
 
       <div class="card-tools">
         <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -28,16 +48,16 @@
                       #
                   </th>
                   <th style="width: 20%">
-                      Project Name
+                      Название страницы
                   </th>
                   <th style="width: 30%">
-                      Team Members
+                      Meta title
                   </th>
                   <th>
-                      Project Progress
+                     Meta keywords
                   </th>
-                  <th style="width: 8%" class="text-center">
-                      Status
+                  <th style="width: 18%" class="text-center">
+                        ЧПУ
                   </th>
                   <th style="width: 20%">
                   </th>
@@ -59,32 +79,15 @@
                     </small>
                 </td>
                 <td>
-                    <ul class="list-inline">
-                        <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="/dist/img/avatar.png">
-                        </li>
-                        <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar2.png">
-                        </li>
-                        <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar3.png">
-                        </li>
-                        <li class="list-inline-item">
-                            <img alt="Avatar" class="table-avatar" src="../../dist/img/avatar04.png">
-                        </li>
-                    </ul>
+                    {{ $item->meta_title }}
                 </td>
                 <td class="project_progress">
-                    <div class="progress progress-sm">
-                        <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: 57%">
-                        </div>
-                    </div>
-                    <small>
-                        57% Complete
-                    </small>
+                    {{ $item->meta_keywords }}
+
                 </td>
                 <td class="project-state">
-                    <span class="badge badge-success">Success</span>
+                    {{ $item->slug }}
+
                 </td>
                 <td class="project-actions text-right">
                     <a class="btn btn-primary btn-sm" href="#">

@@ -36,6 +36,9 @@ Route::get('/admin/pages/edit/{id}', 'Admin\PageController@edit')->name('pages.e
 
 Route::patch('/admin/pages/update/{id}', 'Admin\PageController@update')->name('pages.update');
 
+Route::get('/admin/pages/add', 'Admin\PageController@create')->name('pages.create');
+
+Route::patch('/admin/pages/add', 'Admin\PageController@store')->name('pages.store');
 
 Route::get('/admin/films/edit/{id}', 'Admin\FilmController@edit')->name('films.edit');
 

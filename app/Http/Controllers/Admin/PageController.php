@@ -27,7 +27,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin/pages/add', ['addRoute'=>'pages.create','backRoute'=>'pages']);
     }
 
     /**
@@ -39,6 +39,14 @@ class PageController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'name' => 'required',
+            'slug' => 'required'
+           ]);
+
+        Page::create($request->all());
+        return redirect()->back()->with('success','Create Successfully');
+
     }
 
     /**
@@ -97,6 +105,7 @@ class PageController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Page::where('id',$id)->delete();
+        return redirect()->back()->with('success','Delete Successfully');
     }
 }
