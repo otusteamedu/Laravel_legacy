@@ -44,30 +44,32 @@ $(function() {
 
             let projectLogo = document.getElementById('projectLogo');
             let projectDescription = document.getElementById('description');
-            let projectAddresses = document.getElementById('projectAddresses');
+            let projectAddresses = document.getElementById('project-addresses');
             let projectSocialLinks = document.getElementById('social-links');
+            let offerPromoCode = document.getElementById('offer-promo-code');
 
             offerName.innerHTML = data.attributes.offer.name;
             offerCondition.textContent = data.attributes.offer.description;
 
             projectLogo.innerHTML = '<img src="' + data.attributes.project.logo_path + '" alt="">';
-            console.log(projectLogo.innerHTML);
             projectDescription.textContent = data.attributes.project.description;
 
             let socialLinks = '';
-            if (data.attributes.project.instagram !== undefined) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.instagram + '"><img src="img/ic-insta.svg" alt=""> ' + data.attributes.project.instagram + '</a>'
-            if (data.attributes.project.vk !== undefined) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.vk + '" target="_blank"><img src="img/vk-icon-2.svg" alt="">' + data.attributes.project.vk + '</a>';
-            if (data.attributes.project.website !== undefined) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.website + '" target="_blank"><img src="img/globe-icon.svg" alt="">' + data.attributes.project.website + '</a>';
+            if (data.attributes.project.instagram !== null) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.instagram + '" target="_blank"><img src="img/ic-insta.svg" alt=""> ' + data.attributes.project.instagram + '</a>'
+            if (data.attributes.project.vk !== null) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.vk + '" target="_blank"><img src="img/vk-icon-2.svg" alt="">' + data.attributes.project.vk + '</a>';
+            if (data.attributes.project.website !== null) socialLinks = socialLinks + '<a class="social-links__item" href="' + data.attributes.project.website + '" target="_blank"><img src="img/globe-icon.svg" alt="">' + data.attributes.project.website + '</a>';
             projectSocialLinks.innerHTML = socialLinks;
 
             let addresses = "<p><strong>Адреса:</strong></p>";
             addresses = addresses + "<ul>";
-            if (data.attributes.project.address1 !== undefined) addresses = addresses + "<li>" + data.attributes.project.address1 + "</li>";
-            if (data.attributes.project.address2 !== undefined) addresses = addresses + "<li>" + data.attributes.project.address2 + "</li>";
-            if (data.attributes.project.address3 !== undefined) addresses = addresses + "<li>" + data.attributes.project.address3 + "</li>";
+            if (data.attributes.project.address1 !== null) addresses = addresses + "<li>" + data.attributes.project.address1 + "</li>";
+            if (data.attributes.project.address2 !== null) addresses = addresses + "<li>" + data.attributes.project.address2 + "</li>";
+            if (data.attributes.project.address3 !== null) addresses = addresses + "<li>" + data.attributes.project.address3 + "</li>";
             addresses = addresses + "</ul>"
-
+            addresses = addresses + '<div>' + data.attributes.project.contact_data + '</div>';
             projectAddresses.innerHTML = addresses;
+
+            offerPromoCode.value = data.attributes.offer.promo_code;
         });
 
         // TODO разложи красиво все данные на форме попапа
