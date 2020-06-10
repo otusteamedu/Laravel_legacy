@@ -34,10 +34,10 @@ Route::get('/user/{id}', 'UserController@userInfo')->name('userInfo');
 //админка
 Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'AdminAccess'], 'prefix' => '/admin'], function () {
     Route::get('/', 'IndexController@index')->name('admin.index');
-    Route::resource('articles', 'ArticlesController')->except(['create', 'update']);
-    Route::resource('categories', 'CategoriesController')->except(['create', 'update']);
-    Route::resource('users', 'UsersController')->except(['create', 'update']);
-    Route::resource('usergroups', 'UserGroupsController')->except(['create', 'update']);
+    Route::resource('articles', 'ArticlesController')->except(['create']);
+    Route::resource('categories', 'CategoriesController')->except(['create']);
+    Route::resource('users', 'UsersController')->except(['create']);
+    Route::resource('usergroups', 'UserGroupsController')->except(['create']);
 });
 
 

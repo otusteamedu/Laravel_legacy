@@ -4,16 +4,21 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Services\CategoriesService;
+use App\Http\Controllers\Admin\Requests\StoreCategoryRequest;
+use App\Http\Controllers\Admin\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 
 class CategoriesController extends Controller
 {
 
-    public function __construct()
+    public function __construct(CategoriesService $categoriesService)
     {
         $this->authorizeResource(Category::class);
+        $this->categoriesService = $categoriesService;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +26,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(20);
+        $categories = $this->categoriesService->allPaginated();
         return  view('admin.categories-list', compact('categories'));
     }
 
@@ -36,22 +41,21 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Создание/редактирования категории
+     * Создание категории
      *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param StoreCategoryRequest $request
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $data = $request->all();
-        $categoryId = $request->id;
+        $data = $request->getFormData();
         try {
-            $category = Category::updateOrCreate(['id' => $categoryId], $data);
-            \Session::flash('alert-success', sprintf('Категория #%d успешно %s', $category->id, $request->id ? 'отредактирована' : 'создана'));
+            $category = $this->categoriesService->createCategory($data);
+            \Session::flash('alert-success', sprintf('Категория #%d успешно создана', $category->id));
         } catch (\Exception $e) {
-            \Session::flash('alert-danger', sprintf('Возникла ошибка при %s категории: %s', $request->id ? 'редактировании': 'создании', $e->getMessage()));
+            \Session::flash('alert-danger', sprintf('Возникла ошибка при создании категории: %s', $e->getMessage()));
         }
-        return redirect()->route('categories.index');
+        return response()->json(['status'=> 'ok', 'redirect'=> route('categories.index')]);
     }
 
     /**
@@ -77,16 +81,24 @@ class CategoriesController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Редактирование категории
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param UpdateCategoryRequest $request
+     * @param \App\Models\Category $category
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request, Category $category)
+    public function update(UpdateCategoryRequest $request, Category $category)
     {
-        //
+        $data = $request->getFormData();
+        try {
+            $category = $this->categoriesService->updateCategory($category, $data);
+            \Session::flash('alert-success', sprintf('Статья #%d успешно отредактирована', $category->id));
+        } catch (\Exception $e) {
+            \Session::flash('alert-danger', sprintf('Возникла ошибка при редактировании статьи #%d: %s', $category->id, $e->getMessage()));
+        }
+        return response()->json(['status'=> 'ok', 'redirect'=> route('categories.index')]);
     }
+
 
     /**
      * Remove the specified resource from storage.
@@ -98,7 +110,7 @@ class CategoriesController extends Controller
     {
         try {
             $id = $category->id;
-            $category->delete();
+            $this->categoriesService->deleteCategory($category);
             \Session::flash('alert-success', sprintf('Категория #%d успешно удалена', $id));
         } catch (\Exception $e) {
             \Session::flash('alert-danger', sprintf('Возникла ошибка при удалении категории #%d: %s', $id, $e->getMessage()));

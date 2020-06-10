@@ -1,5 +1,3 @@
-@php
-@endphp
 <div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
@@ -10,24 +8,25 @@
                 </button>
             </div>
             <div class="modal-body">
-                {{ Form::open(['url'=> route('articles.store')]) }}
+                {{ Form::open(['url'=> route('articles.update', '#id'), 'method' => 'put', 'id' => 'modal-edit-form']) }}
+                    <div id="flash-message" class="flash-message alert alert-danger" style="display: none;"></div>
                     <div class="form-group">
                         {{ Form::hidden('id', null, ['class'=> 'form-control', 'id' => 'modalField-id']) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('title', 'Заголовок', null, ['class'=> 'col-form-label']) }}
+                        {{ Form::label('title', 'Заголовок', ['class'=> 'col-form-label']) }}
                         {{ Form::text('title', null, ['class'=> 'form-control', 'id' => 'modalField-title']) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('category_id', 'Категория', null, ['class'=> 'col-form-label']) }}
-                        {{ Form::select('category_id', $categoryList, null, ['class'=> 'form-control', 'id' => 'modalField-category_id']) }}
+                        {{ Form::label('category_id', 'Категория', ['class'=> 'col-form-label']) }}
+                        {{ Form::select('category_id', $categoriesList, null, ['placeholder' => 'Не выбрано', 'class'=> 'form-control', 'id' => 'modalField-category_id']) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('intro_text', 'Вступительный текст', null, ['class'=> 'col-form-label']) }}
+                        {{ Form::label('intro_text', 'Вступительный текст', ['class'=> 'col-form-label']) }}
                         {{ Form::textarea('intro_text', null, ['class'=> 'form-control', 'id' => 'modalField-intro_text', 'rows' => 3]) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label('full_text', 'Полный текст', null, ['class'=> 'col-form-label']) }}
+                        {{ Form::label('full_text', 'Полный текст', ['class'=> 'col-form-label']) }}
                         {{ Form::textarea('full_text', null, ['class'=> 'form-control', 'id' => 'modalField-full_text']) }}
                     </div>
                     <div class="modal-footer border-top-0 d-flex">
