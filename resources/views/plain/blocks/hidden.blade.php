@@ -7,7 +7,7 @@
                 <h2><span class="modal-header__caption" id="offerName"></span></h2>
                 <div class="promocode">
                     <div class="promocode__text">
-                        <input class="js-code hidden" type="text" value="bigsale03346667">
+                        <input class="js-code hidden" id="offer-promo-code" type="text" value="bigsale03346667">
                         <div class="promocode__buttons">
                             <div class="promocode-btn js-show-code">Показать&nbsp;<span class="mobile-hidden">код</span></div>
                             <div class="promocode-btn js-copy-code hidden">Скопировать</div>
@@ -41,7 +41,7 @@
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2001.9351069861582!2d30.42118931620956!3d59.88342667351328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46962fc7f3968075%3A0x89692e87338f00ae!2z0YPQuy4g0KHQtdC00L7QstCwLCA0OSwg0KHQsNC90LrRgi3Qn9C10YLQtdGA0LHRg9GA0LMsIDE5MjE0OA!5e0!3m2!1sru!2sru!4v1578928902338!5m2!1sru!2sru" width="100%" height="350" allowfullscreen=""></iframe>
                     </div>
                     <div class="places__info">
-                        <div class="places__content" id="projectAddresses">
+                        <div class="places__content" id="project-addresses">
                             <p><strong>Адреса:</strong></p>
                             <ul>
                                 <li></li>
