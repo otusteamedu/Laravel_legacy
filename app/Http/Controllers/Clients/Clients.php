@@ -158,10 +158,6 @@ class Clients extends Controller
 
         $this->authorize('client.delete', [$client]);
 
-        if (!$client) {
-            abort(404);
-        }
-
         $this->usersService->deleteUser($client);
 
         return redirect(route('clients.index'));
