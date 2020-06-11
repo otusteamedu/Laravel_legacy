@@ -17,7 +17,7 @@ class CreateBusinessTable extends Migration
             $table->id();
             $table->unsignedbigInteger('user_id')->unsigned()->nullable();
             $table->unsignedSmallInteger('type_id')->nullable();
-            $table->boolean("is_block")->default(0);
+            $table->unsignedSmallInteger("status")->default(0);
             $table->timestamps();
         });
 
