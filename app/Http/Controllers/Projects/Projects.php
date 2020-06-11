@@ -79,6 +79,10 @@ class Projects extends Controller
     {
         $project = $this->projectsService->findProject($id);
 
+        if (!$project) {
+            abort(404);
+        }
+
         $this->authorize('project.view', $project);
 
         // @todo передать список тикетов
@@ -99,6 +103,10 @@ class Projects extends Controller
     public function edit(int $id)
     {
         $project = $this->projectsService->findProject($id);
+
+        if (!$project) {
+            abort(404);
+        }
 
         $this->authorize('project.update', $project);
 
@@ -121,11 +129,11 @@ class Projects extends Controller
     {
         $project = $this->projectsService->findProject($id);
 
-        $this->authorize('project.update', $project);
-
         if (!$project) {
             abort(404);
         }
+
+        $this->authorize('project.update', $project);
 
         $this->projectsService->updateProject($project, $request->getFormData());
 
@@ -141,11 +149,11 @@ class Projects extends Controller
     {
         $project = $this->projectsService->findProject($id);
 
-        $this->authorize('project.delete', $project);
-
         if (!$project) {
             abort(404);
         }
+
+        $this->authorize('project.delete', $project);
 
         $this->projectsService->deleteProject($project);
 

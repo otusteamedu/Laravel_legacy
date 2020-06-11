@@ -38,6 +38,7 @@ class Group extends Model
     /** @var int[] Группы клиентов */
     const CLIENTS = [4];
 
+    protected $fillable = ['name'];
 
     use SoftDeletes;
 

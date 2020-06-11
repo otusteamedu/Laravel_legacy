@@ -84,6 +84,10 @@ class Staffs extends Controller
     {
         $staff = $this->usersService->findUser($id);
 
+        if (!$staff) {
+            abort(404);
+        }
+
         $this->authorize('staff.view', [$staff]);
 
         return view('staffs.show')->with([
@@ -102,6 +106,10 @@ class Staffs extends Controller
     public function edit(int $id)
     {
         $staff = $this->usersService->findUser($id);
+
+        if (!$staff) {
+            abort(404);
+        }
 
         $this->authorize('staff.update', [$staff]);
 
@@ -123,11 +131,11 @@ class Staffs extends Controller
     {
         $staff = $this->usersService->findUser($id);
 
-        $this->authorize('staff.update', [$staff]);
-
         if (!$staff) {
-            abort(404);;
+            abort(404);
         }
+
+        $this->authorize('staff.update', [$staff]);
 
         $this->usersService->updateUser($staff, $request->getFormData());
 
@@ -144,11 +152,11 @@ class Staffs extends Controller
     {
         $staff = $this->usersService->findUser($id);
 
-        $this->authorize('staff.delete', [$staff]);
-
         if (!$staff) {
             abort(404);
         }
+
+        $this->authorize('staff.delete', [$staff]);
 
         $this->usersService->deleteUser($staff);
 
