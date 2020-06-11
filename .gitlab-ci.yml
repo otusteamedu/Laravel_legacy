@@ -22,5 +22,3 @@ npm i && \
 npm audit fix && \
 composer install && \
 php artisan migrate\""
-  only:
-    - master
