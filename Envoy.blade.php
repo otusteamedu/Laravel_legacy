@@ -2,7 +2,7 @@
 
 @task('git', ['on' => 'production'])
     cd /home/laradock/htdocs/instagraphia.kz
-    git checkout master
+    git checkout -b master
     git pull origin master
 @endtask
 
