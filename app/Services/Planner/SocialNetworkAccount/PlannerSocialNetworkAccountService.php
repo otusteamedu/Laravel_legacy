@@ -1,42 +1,39 @@
 <?php
 
 
-namespace App\Services\Planner\Proxy;
+namespace App\Services\Planner\SocialNetworkAccount;
 
 
-use App\Http\Controllers\Requests\StoreProxyRequest;
-use App\Models\Planner\PlannerProxy;
 use App\Services\Planner\Proxy\Handlers\CreateSocialNetworkAccountHandler;
 use App\Services\Planner\Proxy\Handlers\DeleteSocialNetworkAccountHandler;
 use App\Services\Planner\Proxy\Handlers\UpdateSocialNetworkAccountHandler;
 
-class ProxyService
+class PlannerSocialNetworkAccountService
 {
-
     /**
      * @var DeleteSocialNetworkAccountHandler
      */
-    public $deleteProxyHandler;
+    public $deleteSocialNetworkAccountHandler;
 
     /**
      * @var UpdateSocialNetworkAccountHandler
      */
-    public $updateProxyHandler;
+    public $updateSocialNetworkAccountHandler;
 
     /**
-     * @var CreateProПрокси _ Instagraphia.kzxyHandler
+     * @var CreateSocialNetworkAccountHandler
      */
-    public $createProxyHandler;
+    public $createSocialNetworkAccountHandler;
 
     public function __construct(
-        DeleteSocialNetworkAccountHandler $deleteProxyHandler,
-        UpdateSocialNetworkAccountHandler $updateProxyHandler,
-        CreateSocialNetworkAccountHandler $createProxyHandler
+        DeleteSocialNetworkAccountHandler $deleteSocialNetworkAccountHandler,
+        UpdateSocialNetworkAccountHandler $updateSocialNetworkAccountHandler,
+        CreateSocialNetworkAccountHandler $createSocialNetworkAccountHandler
     )
     {
-        $this->deleteProxyHandler = $deleteProxyHandler;
-        $this->updateProxyHandler = $updateProxyHandler;
-        $this->createProxyHandler = $createProxyHandler;
+        $this->deleteSocialNetworkAccountHandler = $deleteSocialNetworkAccountHandler;
+        $this->updateSocialNetworkAccountHandler = $updateSocialNetworkAccountHandler;
+        $this->createSocialNetworkAccountHandler = $createSocialNetworkAccountHandler;
     }
 
     public function storeProxy(StoreProxyRequest $request)

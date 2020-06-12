@@ -11,5 +11,6 @@ deploy_production:
     - ssh-add <(echo "$SSH_PRIVATE_KEY")
     - mkdir -p ~/.ssh
     - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-
-    - ~/.composer/vendor/bin/envoy run foo --commit="$CI_COMMIT_SHA"
+    - ~/.composer/vendor/bin/envoy run deploy:production --commit="$CI_COMMIT_SHA"
+  only:
+    - master

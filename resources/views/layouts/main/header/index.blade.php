@@ -13,7 +13,7 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">@lang('pages.main')</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('planner') }}">@lang('pages.planner')</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('accounts') }}">@lang('pages.planner')</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('proxy') }}">@lang('pages.proxy')</a></li>
             </ul>
             <ul class="navbar-nav">
