@@ -27,12 +27,19 @@ use App\Models\BaseModel;
 class PlannerSocialNetworkAccount extends BaseModel
 {
     protected $fillable = [
-        'login', 'password', 'user_id',
+        'login',
+        'password',
+        'user_id',
+        'planner_proxy_id'
     ];
 
     protected $hidden = [];
 
     public function user(){
         $this->hasOne(\App\Models\User::class);
+    }
+
+    public function plannerProxy(){
+        $this->belongsTo(\App\Models\Planner\PlannerProxy::class);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Planner\PlannerProxy;
+use App\Models\Planner\PlannerSocialNetworkAccount;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -74,5 +75,10 @@ class User extends Authenticatable
     public function proxies()
     {
         return $this->hasMany(PlannerProxy::class);
+    }
+
+    public function plannerSocialNetworkAccounts()
+    {
+        return $this->hasMany(PlannerSocialNetworkAccount::class);
     }
 }

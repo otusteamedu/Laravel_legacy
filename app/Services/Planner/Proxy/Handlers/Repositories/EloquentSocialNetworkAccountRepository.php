@@ -8,7 +8,7 @@ use App\Models\Planner\PlannerProxy;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
-class EloquentProxyRepository implements ProxyRepositoryInterface
+class EloquentSocialNetworkAccountRepository implements SocialNetworkAccountRepositoryInterface
 {
     public function find(int $id)
     {

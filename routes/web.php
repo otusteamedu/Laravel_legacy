@@ -84,11 +84,18 @@ Route::group([
          */
         Route::get('/proxy', 'ProxyController@index')->name('proxy');
         Route::get('/proxy/create', 'ProxyController@create')->name('proxy.create');
-        Route::post('/proxy/create', 'ProxyController@store')->name('proxy.store');
         Route::get('/proxy/{proxy}/edit', 'ProxyController@edit')->name('proxy.edit');
         Route::get('/proxy/{proxy}/delete', 'ProxyController@delete')->name('proxy.delete');
+        Route::post('/proxy/create', 'ProxyController@store')->name('proxy.store');
 
-        Route::get('/planner', 'PlannerController@index')->name('planner');
+        /**
+         * Accounts
+         */
+        Route::get('/planner', 'PlannerSocialNetworkAccountController@index')->name('accounts');
+        Route::get('/planner/create', 'PlannerSocialNetworkAccountController@create')->name('account.create');
+        Route::get('/planner/{account}/edit', 'PlannerSocialNetworkAccountController@edit')->name('account.edit');
+        Route::get('/planner/{account}/delete', 'PlannerSocialNetworkAccountController@delete')->name('account.delete');
+        Route::get('/planner/{account}/store', 'PlannerSocialNetworkAccountController@store')->name('account.store');
 
         Route::any('/logout', 'Auth\LoginController@logout')->name('logout');
     });

@@ -5,17 +5,17 @@ namespace App\Services\Planner\Proxy\Handlers;
 
 
 use App\Models\Planner\PlannerProxy;
-use App\Services\Planner\Proxy\Handlers\Repositories\EloquentProxyRepository;
+use App\Services\Planner\Proxy\Handlers\Repositories\EloquentSocialNetworkAccountRepository;
 
 class CreateProxyHandler
 {
     /**
-     * @var EloquentProxyRepository
+     * @var EloquentSocialNetworkAccountRepository
      */
     private $proxyRepository;
 
     public function __construct(
-        EloquentProxyRepository $proxyRepository
+        EloquentSocialNetworkAccountRepository $proxyRepository
     )
     {
         $this->proxyRepository = $proxyRepository;
