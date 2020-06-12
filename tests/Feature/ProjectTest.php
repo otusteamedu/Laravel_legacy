@@ -2,12 +2,11 @@
 
 namespace Tests\Feature;
 
-use App\Models\Group;
 use App\Models\Project;
-use App\Models\User;
-use GroupSeeder;
+use Tests\Generators\ProjectGenerator;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
 /**
@@ -28,56 +27,8 @@ class ProjectTest extends TestCase
      */
     public function testList()
     {
-        $response = $this->actingAs($this->getUser())->get(route('projects.index'));
+        $response = $this->actingAs(UserGenerator::generateAdmin())->get(route('projects.index'));
         $response->assertStatus(200);
-    }
-
-    /**
-     * Получить пользователя
-     *
-     * @return User
-     */
-    protected function getUser(): User
-    {
-        static $user = null;
-
-        if ($user) {
-            return $user;
-        }
-
-        if (!Group::find(1)) {
-            (new GroupSeeder())->run();
-        }
-
-        $this->clearUsers();
-
-        $users = factory(User::class, 1)->create([
-            'group_id' => Group::STAFF_ADMIN,
-        ]);
-
-        $user = $users->first();
-
-        return $user;
-    }
-
-    /**
-     * Удалить пользователей
-     */
-    protected function clearUsers()
-    {
-        User::withTrashed()->each(function (User $user) {
-            $user->forceDelete();
-        });
-    }
-
-    /**
-     * Удалить пользователей
-     */
-    protected function clearProjects()
-    {
-        Project::withTrashed()->each(function (Project $project) {
-            $project->forceDelete();
-        });
     }
 
     /**
@@ -87,7 +38,7 @@ class ProjectTest extends TestCase
      */
     public function testCreate()
     {
-        $response = $this->actingAs($this->getUser())->get(route('projects.create'));
+        $response = $this->actingAs(UserGenerator::generateAdmin())->get(route('projects.create'));
         $response->assertStatus(200);
     }
 
@@ -98,15 +49,36 @@ class ProjectTest extends TestCase
      */
     public function testStore()
     {
-        $name = $this->faker->name;
+        $data = [
+            'name' => $this->faker->name,
+        ];
 
-        $this->actingAs($this->getUser());
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $response = $this->post(route('projects.store'), ['name' => $name]);
+        $response = $this->post(route('projects.store'), $data);
         $response->assertStatus(302);
 
         $response = $this->get(route('projects.index'));
-        $response->assertSeeText($name);
+        $response->assertSeeText($data['name']);
+    }
+
+    /**
+     * Тест создания проекта в БД
+     *
+     * @return void
+     */
+    public function testStoreInDb()
+    {
+        $data = [
+            'name' => $this->faker->name,
+        ];
+
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->post(route('projects.store'), $data);
+        $response->assertStatus(302);
+
+        $this->assertDatabaseHas(Project::getTableName(), $data);
     }
 
     /**
@@ -116,28 +88,25 @@ class ProjectTest extends TestCase
      */
     public function testShow()
     {
-        $projectId = $this->getProject()->id;
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($this->getUser());
+        $project = ProjectGenerator::generateProject();
 
-        $response = $this->get(route('projects.show', ['project' => $this->faker->numberBetween(100, 1000)]));
-        $response->assertStatus(404);
-
-
-        $response = $this->get(route('projects.show', ['project' => $projectId]));
+        $response = $this->get(route('projects.show', ['project' => $project->id]));
         $response->assertStatus(200);
     }
 
     /**
-     * Получить проект
+     * Тест просмотра страницы не существуещего проекта
      *
-     * @return Project
+     * @return void
      */
-    protected function getProject(): Project
+    public function testShow404()
     {
-        $projects = factory(Project::class, 1)->create();
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        return $projects->first();
+        $response = $this->get(route('projects.show', ['project' => $this->faker->numberBetween(100, 1000)]));
+        $response->assertStatus(404);
     }
 
     /**
@@ -147,16 +116,25 @@ class ProjectTest extends TestCase
      */
     public function testEdit()
     {
-        $projectId = $this->getProject()->id;
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($this->getUser());
+        $project = ProjectGenerator::generateProject();
+
+        $response = $this->get(route('projects.edit', ['project' => $project->id]));
+        $response->assertStatus(200);
+    }
+
+    /**
+     * Тест просмотра страницы редактирования не существующего проекта
+     *
+     * @return void
+     */
+    public function testEdit404()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
 
         $response = $this->get(route('projects.edit', ['project' => $this->faker->numberBetween(100, 1000)]));
         $response->assertStatus(404);
-
-        $response = $this->get(route('projects.edit', ['project' => $projectId]));
-        $response->assertStatus(200);
-
     }
 
     /**
@@ -167,20 +145,56 @@ class ProjectTest extends TestCase
     public function testUpdate()
     {
         $data = [
-            'name' => $this->faker->name
+            'name' => $this->faker->name,
         ];
-        $projectId = $this->getProject()->id;
 
-        $this->actingAs($this->getUser());
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $response = $this->put(route('projects.update', ['project' => $this->faker->numberBetween(100, 1000)]), $data);
-        $response->assertStatus(404);
+        $project = ProjectGenerator::generateProject();
 
-        $response = $this->put(route('projects.update', ['project' => $projectId]), $data);
+        $response = $this->put(route('projects.update', ['project' => $project->id]), $data);
         $response->assertStatus(302);
 
         $response = $this->get(route('projects.index'));
         $response->assertSeeText($data['name']);
+    }
+
+    /**
+     * Тест обновления проекта в БД
+     *
+     * @return void
+     */
+    public function testUpdateInDb()
+    {
+        $data = [
+            'name' => $this->faker->name,
+        ];
+
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $project = ProjectGenerator::generateProject();
+
+        $response = $this->put(route('projects.update', ['project' => $project->id]), $data);
+        $response->assertStatus(302);
+
+        $this->assertDatabaseHas(Project::getTableName(), $data);
+    }
+
+    /**
+     * Тест обновления не существующего проекта
+     *
+     * @return void
+     */
+    public function testUpdate404()
+    {
+        $data = [
+            'name' => $this->faker->name,
+        ];
+
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->put(route('projects.update', ['project' => $this->faker->numberBetween(100, 1000)]), $data);
+        $response->assertStatus(404);
     }
 
     /**
@@ -190,25 +204,50 @@ class ProjectTest extends TestCase
      */
     public function testDelete()
     {
-        $project = $this->getProject();
-        $projectId = $project->id;
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($this->getUser());
+        $project = ProjectGenerator::generateProject();
 
         $response = $this->get(route('projects.index'));
         $response->assertSee($project->name);
 
-        $response = $this->delete(route('projects.destroy', ['project' => $this->faker->numberBetween(100, 1000)]));
-        $response->assertStatus(404);
-
-        $response = $this->delete(route('projects.destroy', ['project' => $projectId]));
+        $response = $this->delete(route('projects.destroy', ['project' => $project->id]));
         $response->assertStatus(302);
 
         $response = $this->get(route('projects.index'));
         $response->assertDontSee($project->name);
-
-        $this->clearProjects();
     }
 
+    /**
+     * Тест удаления проекта в БД
+     *
+     * @return void
+     */
+    public function testDeleteInDb()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $project = ProjectGenerator::generateProject();
+
+        $this->assertDatabaseHas(Project::getTableName(), ['id' => $project->id]);
+
+        $response = $this->delete(route('projects.destroy', ['project' => $project->id]));
+        $response->assertStatus(302);
+
+        $this->assertSoftDeleted(Project::getTableName(), ['id' => $project->id]);
+    }
+
+    /**
+     * Тест удаления не существующего проекта
+     *
+     * @return void
+     */
+    public function testDelete404()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->delete(route('projects.destroy', ['project' => $this->faker->numberBetween(100, 1000)]));
+        $response->assertStatus(404);
+    }
 
 }

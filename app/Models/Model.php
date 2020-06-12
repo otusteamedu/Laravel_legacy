@@ -15,4 +15,9 @@ namespace App\Models;
 class Model extends \Illuminate\Database\Eloquent\Model
 {
 
+    public static function getTableName()
+    {
+        return with(new static)->getTable();
+    }
+
 }

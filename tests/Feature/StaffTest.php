@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\Group;
-use App\Models\User;
-use GroupSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
 
 /**
@@ -26,48 +24,10 @@ class StaffTest extends TestCase
      */
     public function testList()
     {
-        $this->actingAs($this->getUser());
+        $this->actingAs(UserGenerator::generateAdmin());
 
         $response = $this->get(route('staffs.index'));
         $response->assertStatus(200);
-    }
-
-    /**
-     * Получить пользователя
-     *
-     * @return User
-     */
-    protected function getUser(): User
-    {
-        static $user = null;
-
-        if ($user) {
-            return $user;
-        }
-
-        if (!Group::find(1)) {
-            (new GroupSeeder())->run();
-        }
-
-        $this->clearUsers();
-
-        $users = factory(User::class, 1)->create([
-            'group_id' => Group::STAFF_ADMIN,
-        ]);
-
-        $user = $users->first();
-
-        return $user;
-    }
-
-    /**
-     * Удалить пользователей
-     */
-    protected function clearUsers()
-    {
-        User::withTrashed()->each(function (User $user) {
-            $user->forceDelete();
-        });
     }
 
     /**
@@ -77,7 +37,7 @@ class StaffTest extends TestCase
      */
     public function testCreate()
     {
-        $response = $this->actingAs($this->getUser())->get(route('staffs.create'));
+        $response = $this->actingAs(UserGenerator::generateAdmin())->get(route('staffs.create'));
         $response->assertStatus(200);
     }
 
@@ -95,7 +55,7 @@ class StaffTest extends TestCase
         ];
         $data['password_confirmation'] = $data['password'];
 
-        $this->actingAs($this->getUser());
+        $this->actingAs(UserGenerator::generateAdmin());
 
         $response = $this->post(route('staffs.store'), $data);
         $response->assertStatus(302);
@@ -105,21 +65,56 @@ class StaffTest extends TestCase
     }
 
     /**
+     * Тест создания клиента в БД
+     *
+     * @return void
+     */
+    public function testStoreInDb()
+    {
+        $data = [
+            'name'     => $this->faker->name,
+            'email'    => $this->faker->email,
+            'password' => $this->faker->password,
+        ];
+        $data['password_confirmation'] = $data['password'];
+
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->post(route('staffs.store'), $data);
+        $response->assertStatus(302);
+
+        unset($data['password']);
+        unset($data['password_confirmation']);
+
+        $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
      * Тест просмотра карточки сотрудника
      *
      * @return void
      */
     public function testShow()
     {
-        $staff = $this->getUser();
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($staff);
-
-        $response = $this->get(route('staffs.show', ['staff' => $this->faker->numberBetween(100, 1000)]));
-        $response->assertStatus(404);
+        $staff = UserGenerator::generateStaff();
 
         $response = $this->get(route('staffs.show', ['staff' => $staff->id]));
         $response->assertStatus(200);
+    }
+
+    /**
+     * Тест просмотра карточки не существующего сотрудника
+     *
+     * @return void
+     */
+    public function testShow404()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->get(route('staffs.show', ['staff' => $this->faker->numberBetween(100, 1000)]));
+        $response->assertStatus(404);
     }
 
     /**
@@ -129,19 +124,29 @@ class StaffTest extends TestCase
      */
     public function testEdit()
     {
-        $staff = $this->getUser();
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($staff);
-
-        $response = $this->get(route('staffs.edit', ['staff' => $this->faker->numberBetween(100, 1000)]));
-        $response->assertStatus(404);
+        $staff = UserGenerator::generateStaff();
 
         $response = $this->get(route('staffs.edit', ['staff' => $staff->id]));
         $response->assertStatus(200);
     }
 
     /**
-     * Тест обновления обновления сотрудника
+     * Тест просмотра страницы редактирования данных не существующего сотрудника
+     *
+     * @return void
+     */
+    public function testEdit404()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->get(route('staffs.edit', ['staff' => $this->faker->numberBetween(100, 1000)]));
+        $response->assertStatus(404);
+    }
+
+    /**
+     * Тест обновления сотрудника
      *
      * @return void
      */
@@ -153,12 +158,9 @@ class StaffTest extends TestCase
             'password' => null,
         ];
 
-        $staff = $this->getUser();
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($staff);
-
-        $response = $this->put(route('staffs.update', ['staff' => $this->faker->numberBetween(100, 1000)]), $data);
-        $response->assertStatus(404);
+        $staff = UserGenerator::generateStaff();
 
         $response = $this->put(route('staffs.update', ['staff' => $staff->id]), $data);
         $response->assertStatus(302);
@@ -170,31 +172,98 @@ class StaffTest extends TestCase
     }
 
     /**
+     * Тест обновления обновления сотрудника в БЛ
+     *
+     * @return void
+     */
+    public function testUpdateInDb()
+    {
+        $data = [
+            'name'     => $this->faker->name,
+            'email'    => $this->faker->email,
+            'password' => null,
+        ];
+
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $staff = UserGenerator::generateStaff();
+
+        $response = $this->put(route('staffs.update', ['staff' => $staff->id]), $data);
+        $response->assertStatus(302);
+
+        unset($data['password']);
+        $this->assertDatabaseHas('users', $data);
+    }
+
+    /**
+     * Тест обновления не существуюшего сотрудника
+     *
+     * @return void
+     */
+    public function testUpdate404()
+    {
+        $data = [
+            'name'     => $this->faker->name,
+            'email'    => $this->faker->email,
+            'password' => null,
+        ];
+
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->put(route('staffs.update', ['staff' => $this->faker->numberBetween(100, 1000)]), $data);
+        $response->assertStatus(404);
+    }
+
+    /**
      * Тест удаления сотрудника
      *
      * @return void
      */
     public function testDelete()
     {
-        $user = $this->getUser();
-        $staff = factory(User::class, 1)->create([
-            'group_id' => Group::STAFFS[rand(0, 2)],
-        ])->first();
+        $this->actingAs(UserGenerator::generateAdmin());
 
-        $this->actingAs($user);
+        $staff = UserGenerator::generateStaff();
 
         $response = $this->get(route('staffs.index'));
         $response->assertSeeText($staff->name);
-
-        $response = $this->delete(route('staffs.destroy', ['staff' => $this->faker->numberBetween(100, 1000)]));
-        $response->assertStatus(404);
 
         $response = $this->delete(route('staffs.destroy', ['staff' => $staff->id]));
         $response->assertStatus(302);
 
         $response = $this->get(route('staffs.index'));
         $response->assertDontSee($staff->name);
+    }
 
-        $this->clearUsers();
+    /**
+     * Тест удаления клиента в БД
+     *
+     * @return void
+     */
+    public function testDeleteInDb()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $staff = UserGenerator::generateStaff();
+
+        $this->assertDatabaseHas('users', ['id' => $staff->id]);
+
+        $response = $this->delete(route('staffs.destroy', ['staff' => $staff->id]));
+        $response->assertStatus(302);
+
+        $this->assertSoftDeleted('users', ['id' => $staff->id]);
+    }
+
+    /**
+     * Тест удаления не существующего сотрудника
+     *
+     * @return void
+     */
+    public function testDelete404()
+    {
+        $this->actingAs(UserGenerator::generateAdmin());
+
+        $response = $this->delete(route('staffs.destroy', ['staff' => $this->faker->numberBetween(100, 1000)]));
+        $response->assertStatus(404);
     }
 }
