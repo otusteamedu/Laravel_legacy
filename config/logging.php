@@ -37,8 +37,14 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['single','daily'],
             'ignore_exceptions' => false,
+        ],
+
+        'my-log' => [
+            'driver' => 'single',
+            'path' => storage_path('logs/my-log.log'),
+            'level' => 'debug',
         ],
 
         'single' => [

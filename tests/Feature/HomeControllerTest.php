@@ -20,11 +20,10 @@ class HomeControllerTest extends TestCase
     public function testIndex()
     {
         $user = factory(User::class)->make();
-        $this->actingAs($user)
+        $response = $this->actingAs($user)
             ->get(route('home.index'))
             ->assertStatus(200);
 
-        $response = $this->call('GET', 'home');
         $response->assertViewHas('pages');
 
     }
@@ -33,12 +32,12 @@ class HomeControllerTest extends TestCase
     {
 
         $user = factory(User::class)->make();
-        $this->actingAs($user)
+        $response = $this->actingAs($user)
             ->get(route('home.create'))
             ->assertStatus(200);
 
-        $this->actingAs($user)->get('home/create')->original->getData()['divisionList'];
-        $this->actingAs($user)->get('home/create')->original->getData()['townList'];
+        $response->original->getData()['divisionList'];
+        $response->original->getData()['townList'];
 
     }
 
@@ -50,13 +49,15 @@ class HomeControllerTest extends TestCase
 
     }
 
-    public function  testStoreNewAdvert(){
+    public function  testStoreNewAdvert()
+    {
+        $this->withoutMiddleware();
 
-        $user = factory(User::class)->make(); //созд. юзера чз фабрику, можно через сидер
+        $user = factory(User::class)->create(); //созд. юзера чз фабрику, можно через сидер
         $this->actingAs($user); //создать объявление от имени этого юзера
 
         //$this->assertDatabaseMissing('adverts', $data);  // есть ли в базе
-        $data = $this->getData();
+        $data = $this->getExampleData();
         $response = $this->post(route('home.store'), $data);  //
         $this->assertDatabaseHas('adverts', $data);  // добавилось ли в базу
 
@@ -65,14 +66,15 @@ class HomeControllerTest extends TestCase
 
     public function testShow()
     {
+        $user = factory(User::class)->make();
 
-        $this->get(route('home.show'))
+        $this->actingAs($user)->get(route('adverts.show', ['advert'=>'1']))
             ->assertStatus(200)
             ->original->getData()['advert'];
 
     }
 
-    public function getData()
+    public function getExampleData()
     {
        return $data = [
             'division_id'=>2,

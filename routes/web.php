@@ -25,6 +25,11 @@ Route::group(['middleware' => 'auth'], function()
 
 Route::resource('home','HomeController')->parameters(['home'=>'advert']);
 
+Route::get('/log', function () {
+    Log::critical('Critical message Sent from Laravel to Slack');
+    return redirect(route('home.index'));
+});
+
 
 
 
