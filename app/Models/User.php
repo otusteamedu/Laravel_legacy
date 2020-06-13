@@ -6,6 +6,7 @@ use App\Pivots\SubjectTeacher;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -99,7 +100,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function posts(): HasMany
+    public function sendPosts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
@@ -133,5 +134,10 @@ class User extends Authenticatable
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, (new EducationPlan)->getTable());
+    }
+
+    public function receivePosts(): MorphToMany
+    {
+        return $this->morphToMany(Post::class, 'postable');
     }
 }
