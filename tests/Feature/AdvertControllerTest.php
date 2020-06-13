@@ -6,6 +6,7 @@ use App\Models\Advert;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Session;
 use Tests\TestCase;
 
 class AdvertControllerTest extends TestCase
@@ -18,24 +19,22 @@ class AdvertControllerTest extends TestCase
     public function testIndex()
     {
         $user = factory(User::class)->make();
-        $this->actingAs($user)
+        $response = $this->actingAs($user)
             ->get(route('adverts.index'))
             ->assertStatus(200);
 
-        $response = $this->call('GET', 'adverts');
         $response->assertViewHas('advertList');
     }
 
     public function  testCreate()
     {
-
         $user = factory(User::class)->make();
-        $this->actingAs($user)
+        $response = $this->actingAs($user)
             ->get(route('adverts.create'))
             ->assertStatus(200);
 
-        $this->actingAs($user)->get('adverts/create')->original->getData()['divisionList'];
-        $this->actingAs($user)->get('adverts/create')->original->getData()['townList'];
+        $response->original->getData()['divisionList'];
+        $response->original->getData()['townList'];
 
     }
 
@@ -44,16 +43,15 @@ class AdvertControllerTest extends TestCase
         $this->get(route('adverts.create'))
             ->assertStatus(302)
             ->assertRedirect(route('login'));
-
     }
 
     public function  testStoreNewAdvert()
     {
-        $user = factory(User::class)->make();
+        $this->withoutMiddleware();
+        $user = factory(User::class)->create();
         $this->actingAs($user);
 
-        //$this->assertDatabaseMissing('adverts', $data);
-        $data = $this->getData();
+        $data = $this->getExampleData();
         $response = $this->post(route('adverts.store'), $data);
         $this->assertDatabaseHas('adverts', $data);
 
@@ -62,46 +60,62 @@ class AdvertControllerTest extends TestCase
 
     public function testShow()
     {
-        $this->get(route('adverts.show'))
+        $user = factory(User::class)->create();
+
+        $this->actingAs($user)->get(route('adverts.show', ['advert'=>$user->id]))
             ->assertStatus(200)
             ->original->getData()['advert'];
     }
 
     public function testEdit()
     {
-        $user = factory(User::class)->make();
+        $user = factory(User::class)->create();
+
         $this->actingAs($user)
-            ->get(route('adverts.edit', ['advert'=>'1']))
-            ->assertStatus(200);
-
-        $this->actingAs($user)->get(route('adverts.edit', ['advert'=>'1']))->original->getData()['advert'];
-
+            ->get(route('adverts.edit', $user->id))
+            ->assertStatus(200)
+            ->original->getData()['advert'];
     }
 
     public function testUpdate()
     {
-        $user = factory(User::class)->make();
-        $this->actingAs($user);
+        Session::start();
+        $user = factory(User::class)->create();
+        $this->actingAs($user)
+              ->get(route('adverts.update', ['advert'=>'none']))
+              ->assertStatus(404);
 
         $advert = factory(Advert::class)->create(); //(['user_id'=>$user->id]);
         $advert->title = 'update title';
 
-       $this->put(route('adverts.update',['advert'=>$advert->id]), $advert->toArray());
-       $this->assertDatabaseHas('adverts',['id'=>$advert->id, 'title'=>'update title']);
+       $this->put(route('adverts.update',
+           [
+               'advert'=>$advert->id,
+               '_token' => Session::token()
+           ]
+       ), $advert->toArray());
 
+       $this->assertDatabaseHas('adverts',['id'=>$advert->id, 'title'=>'update title']);
     }
 
     public function testDestroy()
     {
-        $user = factory(User::class)->make();
+        Session::start();
+        $user = factory(User::class)->create();
         $this->actingAs($user);
 
         $advert = factory(Advert::class)->create();
-        $this->delete(route('adverts.update',['advert'=>$advert->id]));
+        $this->actingAs($user)->delete(route('adverts.destroy',
+            [
+                'advert'=>$advert->id,
+                '_token' => Session::token()
+            ]
+        ));
+
         $this->assertDatabaseMissing('adverts', ['id'=>$advert->id]);
     }
 
-    public function getData()
+    public function getExampleData()
     {
         return $data = [
             'division_id'=>2,

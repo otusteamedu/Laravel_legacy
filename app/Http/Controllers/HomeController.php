@@ -41,14 +41,23 @@ class HomeController extends Controller
     {
         if (!Auth::user())  return redirect('/login');
 
-        $divisionList = $this->advertService->showDivisionList();
-        $townList = $this->advertService->showTownList();
+        try {
+            $divisionList = $this->advertService->showDivisionList();
+            $townList = $this->advertService->showTownList();
 
-        return view('home.adverts.create',
-            [
-                'divisionList'=>$divisionList,
-                'townList'=>$townList
-            ]);
+            $context =['USER' =>'#'.Auth::user()->id.'->'.Auth::user()->name];
+            \Log::channel('daily')->info(__METHOD__ . ': User ('.Auth::user()->name.') tried to create advert ', $context);
+
+            return view('home.adverts.create',
+                [
+                    'divisionList'=>$divisionList,
+                    'townList'=>$townList
+                ]);
+
+        } catch (\Exception $e) {
+            \Log::channel('slack')->critical(__METHOD__ . ': Create Advert Error ');
+        }
+
     }
 
     /**
@@ -59,10 +68,20 @@ class HomeController extends Controller
      */
     public function store(StoreAdvertRequest $request)
     {
-        $data = $request->getFormData();
-        $this->advertService->storeAdvert($data);
+        try {
+            $data = $request->getFormData();
+            $this->advertService->storeAdvert($data);
+
+            $context =['method'=> $request->method(), 'USER' =>'#'.Auth::user()->id.'->'.Auth::user()->name];
+            \Log::channel('daily')->info(__METHOD__ . ': Store Advert successful ', $context);
+
+        } catch (\Exception $e) {
+            \Log::channel('slack')->critical(__METHOD__ . ': Store Advert Error ');
+        }
+
         return redirect(route('home.index'));
     }
+
 
     /**
      * Display the specified resource.

@@ -32,7 +32,7 @@ class StoreAdvertRequest extends FormRequest
         $data = $this->request->all();
 
         $data = Arr::except($data, ['_token',]);
-        $data['user_id'] = Auth::id() ?? 1;
+        $data['user_id'] = Auth::id();
         $data['img'] = 'img/default.jpg';
 
         return $data;
