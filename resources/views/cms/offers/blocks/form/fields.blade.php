@@ -53,8 +53,8 @@
     </div>
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
-            {{ Form::label('teaser_image', 'Путь до тизерного изображения') }}
-            {{ Form::text('teaser_image', $teaser_image, array('class'=>'form-control')) }}
+            {{ Form::label('teaser_image', 'Логотип акции') }}
+            {{ Form::file('teaser_image', null, array('class'=>'form-control-file')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">

@@ -42,16 +42,6 @@ class OffersService
 
 
     /**
-     * @param Offer $offer
-     * @param array $data
-     * @return Offer
-     */
-    public function updateCountry(Offer $offer, array $data): Offer
-    {
-        return $this->offerRepository->updateFromArray($offer, $data);
-    }
-
-    /**
      * @param int $id
      * @return Offer|null
      */
