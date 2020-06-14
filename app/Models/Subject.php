@@ -33,30 +33,47 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $programs_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subject[] $teacher
  * @property-read int|null $teacher_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $teachers
+ * @property-read int|null $teachers_count
  */
 class Subject extends BaseModel
 {
-    public function teacher(): BelongsToMany
+    /**
+     * @return BelongsToMany
+     */
+    public function teachers(): BelongsToMany
     {
-        return $this->belongsToMany(Subject::class, 'subject_teacher')
+        return $this->belongsToMany(User::class, 'subject_teacher')
             ->using(SubjectTeacher::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function programs(): HasMany
     {
         return $this->hasMany(SubjectProgram::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function educationPlans(): HasMany
     {
         return $this->hasMany(EducationPlan::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function consultations(): HasMany
     {
         return $this->hasMany(Consultation::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, (new EducationPlan)->getTable());

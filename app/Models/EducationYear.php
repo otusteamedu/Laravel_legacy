@@ -27,11 +27,15 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class EducationYear extends BaseModel
 {
+    /** @var array  */
     protected $casts = [
         'start_at' => 'date',
         'end_at' => 'date',
     ];
 
+    /**
+     * @return HasOne
+     */
     public function course(): HasOne
     {
         return $this->hasOne(Course::class);

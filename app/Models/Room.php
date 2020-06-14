@@ -25,16 +25,32 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $consultations_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Lesson[] $lessons
  * @property-read int|null $lessons_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\RoomOccupation[] $occupations
+ * @property-read int|null $occupations_count
  */
 class Room extends BaseModel
 {
+    /**
+     * @return HasMany
+     */
     public function consultations(): HasMany
     {
         return $this->hasMany(Consultation::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function occupations(): HasMany
+    {
+        return $this->hasMany(RoomOccupation::class);
     }
 }

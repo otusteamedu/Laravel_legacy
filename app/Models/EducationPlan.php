@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\EducationPlan
@@ -37,29 +36,45 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read int|null $lessons_count
  * @property-read \App\Models\Subject $subject
  * @property-read \App\Models\User $teacher
+ * @property-read \App\Models\Group $group
  */
 class EducationPlan extends BaseModel
 {
+    /**
+     * @return BelongsTo
+     */
     public function teacher(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function lessonType(): BelongsTo
     {
         return $this->belongsTo(LessonType::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
     }
 
-    public function groups(): BelongsTo
+    /**
+     * @return BelongsTo
+     */
+    public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function lessons(): HasMany
     {
         return $this->hasMany(Lesson::class);

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Pivots\SubjectTeacher;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -62,6 +63,13 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User onlyTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $receivePosts
+ * @property-read int|null $receive_posts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $sendPosts
+ * @property-read int|null $send_posts_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subject[] $subjects
+ * @property-read int|null $subjects_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User byRole($roleId)
  */
 class User extends Authenticatable
 {
@@ -74,7 +82,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'last_name',
+        'second_name',
+        'email',
+        'password',
     ];
 
     /**
@@ -95,47 +107,94 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /**
+     *
+     */
+    protected static function booted(): void
+    {
+        static::addGlobalScope('last_name', function (Builder $builder) {
+            $builder->orderBy('last_name');
+        });
+    }
+
+    /**
+     * @param Builder $builder
+     * @param int $roleId
+     * @return Builder
+     */
+    public function scopeByRole(Builder $builder, int $roleId): Builder
+    {
+        return $builder->where('role_id', $roleId);
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function role(): BelongsTo
     {
         return $this->belongsTo(Role::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function sendPosts(): HasMany
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function students(): HasMany
     {
         return $this->hasMany(Student::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function programs(): HasMany
     {
         return $this->hasMany(SubjectProgram::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function educationPlans(): HasMany
     {
         return $this->hasMany(EducationPlan::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function consultations(): HasMany
     {
         return $this->hasMany(Consultation::class);
     }
 
-    public function user(): BelongsToMany
+    /**
+     * @return BelongsToMany
+     */
+    public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class, 'subject_teacher')
             ->using(SubjectTeacher::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class, (new EducationPlan)->getTable());
     }
 
+    /**
+     * @return MorphToMany
+     */
     public function receivePosts(): MorphToMany
     {
         return $this->morphToMany(Post::class, 'postable');

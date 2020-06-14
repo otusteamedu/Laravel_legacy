@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+
 /**
  * App\Models\Chat
  *
@@ -23,7 +25,10 @@ namespace App\Models;
  */
 class Chat extends BaseModel
 {
-    public function student()
+    /**
+     * @return BelongsTo
+     */
+    public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }

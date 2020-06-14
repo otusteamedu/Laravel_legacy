@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Student
@@ -36,21 +35,33 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Student extends BaseModel
 {
+    /**
+     * @return BelongsTo
+     */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function group(): BelongsToMany
+    /**
+     * @return BelongsToMany
+     */
+    public function groups(): BelongsToMany
     {
         return $this->belongsToMany(Group::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function chat(): HasMany
     {
         return $this->hasMany(Chat::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function consultations(): BelongsToMany
     {
         return $this->belongsToMany(Consultation::class);

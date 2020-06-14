@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
@@ -30,18 +29,28 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post whereUserId($value)
  * @mixin \Eloquent
  * @property-read \App\Models\User $user
+ * @property-read \App\Models\User $producer
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  */
 class Post extends BaseModel
 {
+    /** @var array  */
     protected $casts = [
         'published_at' => 'datetime',
     ];
 
-    public function user(): BelongsTo
+    /**
+     * @return BelongsTo
+     */
+    public function producer(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
+    /**
+     * @return MorphToMany
+     */
     public function users(): MorphToMany
     {
         return $this->morphedByMany(User::class, 'postable');

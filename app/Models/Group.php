@@ -5,7 +5,6 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Group
@@ -43,36 +42,57 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  */
 class Group extends BaseModel
 {
+    /**
+     * @return BelongsTo
+     */
     public function course(): BelongsTo
     {
         return $this->belongsTo(Course::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function year(): BelongsTo
     {
-        return $this->belongsTo(EducationYear::class);
+        return $this->belongsTo(EducationYear::class, 'education_year_id', 'id');
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function teachers(): BelongsToMany
     {
         return $this->belongsToMany(User::class, (new EducationPlan)->getTable());
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class, (new EducationPlan)->getTable());
     }
 
+    /**
+     * @return HasMany
+     */
     public function educationPlans(): HasMany
     {
         return $this->hasMany(EducationPlan::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function consultations(): HasMany
     {
         return $this->hasMany(Consultation::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class);

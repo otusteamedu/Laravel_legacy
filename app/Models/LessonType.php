@@ -28,11 +28,28 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class LessonType extends BaseModel
 {
+    /** @var int  */
+    const LECTURE = 1;
+    /** @var int  */
+    const PRACTICE = 2;
+
+    /** @var array  */
+    protected $fillable = [
+        'id',
+        'type',
+    ];
+
+    /**
+     * @return HasMany
+     */
     public function programs(): HasMany
     {
         return $this->hasMany(SubjectProgram::class);
     }
 
+    /**
+     * @return HasMany
+     */
     public function educationPlans(): HasMany
     {
         return $this->hasMany(EducationPlan::class);

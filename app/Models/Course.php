@@ -26,6 +26,12 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Course extends BaseModel
 {
+    /** @var array  */
+    protected $fillable = ['number'];
+
+    /**
+     * @return HasMany
+     */
     public function groups(): HasMany
     {
         return $this->hasMany(Group::class);

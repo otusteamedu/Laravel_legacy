@@ -26,6 +26,20 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class ScheduleType extends BaseModel
 {
+    /** @var int  */
+    const LESSON = 1;
+    /** @var int  */
+    const REST = 2;
+
+    /** @var array  */
+    protected $fillable = [
+        'id',
+        'number',
+    ];
+
+    /**
+     * @return HasMany
+     */
     public function schedules(): HasMany
     {
         return $this->hasMany(Schedule::class);

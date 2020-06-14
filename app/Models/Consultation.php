@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * App\Models\Consultation
@@ -43,36 +45,72 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property-read int|null $students_count
  * @property-read \App\Models\Subject $subject
  * @property-read \App\Models\User $teacher
+ * @property-read \App\Models\RoomOccupation|null $occupation
  */
 class Consultation extends BaseModel
 {
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeApproved(Builder $builder): Builder
+    {
+        return $builder->where('approved', true);
+    }
+
+    /**
+     * @return BelongsTo
+     */
     public function teacher(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function subject(): BelongsTo
     {
         return $this->belongsTo(Subject::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(Schedule::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
     }
 
+    /**
+     * @return BelongsToMany
+     */
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class);
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function occupation(): MorphOne
+    {
+        return $this->morphOne(RoomOccupation::class, 'occupationable');
     }
 }

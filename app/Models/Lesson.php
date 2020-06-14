@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * App\Models\Lesson
@@ -31,21 +31,39 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property-read \App\Models\EducationPlan $educationPlan
  * @property-read \App\Models\Room $room
  * @property-read \App\Models\Schedule $schedule
+ * @property-read \App\Models\RoomOccupation|null $occupation
  */
 class Lesson extends BaseModel
 {
+    /**
+     * @return BelongsTo
+     */
     public function schedule(): BelongsTo
     {
         return $this->belongsTo(Schedule::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function room(): BelongsTo
     {
         return $this->belongsTo(Room::class);
     }
 
+    /**
+     * @return BelongsTo
+     */
     public function educationPlan(): BelongsTo
     {
         return $this->belongsTo(EducationPlan::class);
+    }
+
+    /**
+     * @return MorphOne
+     */
+    public function occupation(): MorphOne
+    {
+        return $this->morphOne(RoomOccupation::class, 'occupationable');
     }
 }

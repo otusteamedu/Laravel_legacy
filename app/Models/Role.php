@@ -26,6 +26,24 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Role extends BaseModel
 {
+    /** @var int  */
+    const STUDENT = 1;
+    /** @var int  */
+    const TEACHER = 2;
+    /** @var int  */
+    const ADMIN = 3;
+    /** @var int  */
+    const METHODIST = 4;
+
+    /** @var array  */
+    protected $fillable = [
+        'id',
+        'name',
+    ];
+
+    /**
+     * @return HasMany
+     */
     public function users(): HasMany
     {
         return $this->hasMany(User::class);
