@@ -61,6 +61,7 @@ class Offer extends BaseModel
         'city_id',
         'lat',
         'lon',
+        'teaser_image',
     ];
 
 }

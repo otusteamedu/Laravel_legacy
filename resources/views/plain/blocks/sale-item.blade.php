@@ -1,5 +1,5 @@
 <div class="sale-item" data-tag-value="{{ Str::slug( App\Models\Category::find($offer->category_id)->name, '-') }}">
-    <img src="{{ 'storage/' . App\Models\Project::find($offer->project_id)->logo_path }}" alt=""/>
+    <img src="{{ 'storage/' . $offer->teaser_image }}" alt=""/>
     <div class="sale-item__text">
         <p>{{ App\Models\Project::find($offer->project_id)->name }}</p>
     </div>

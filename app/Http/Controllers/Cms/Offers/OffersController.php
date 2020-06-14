@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Cms\Offers;
 
 use App\Http\Controllers\Cms\Offers\Requests\StoreOfferRequest;
+use App\Http\Controllers\Cms\Offers\Requests\UpdateOfferRequest;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\Offer;
@@ -97,7 +98,6 @@ class OffersController extends Controller
      */
     public function store(StoreOfferRequest $request, Offer $offer)
     {
-
         $this->authorize(Abilities::CREATE, $offer);
 
         $data = $request->getFormData();
@@ -152,16 +152,14 @@ class OffersController extends Controller
      * @param  \App\Models\Offer  $offer
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, Offer $offer)
+    public function update(UpdateOfferRequest $request, Offer $offer)
     {
         $this->authorize(Abilities::UPDATE, $offer);
 
+        $data = $request->getFormData();
+
         try {
-            $offer->update($request->all());
-
-            $qr = new OfferTemplateQRGenerator;
-            $qr->generate($offer->id, 'qr-'.$offer->id);
-
+            $offer->update($data);
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([

@@ -51,7 +51,7 @@ $(function() {
             offerName.innerHTML = data.attributes.offer.name;
             offerCondition.textContent = data.attributes.offer.description;
 
-            projectLogo.innerHTML = '<img src="' + 'storage/' + data.attributes.project.logo_path + '" alt="">';
+            projectLogo.innerHTML = '<img src="' + 'storage/' + data.attributes.offer.teaser_image + '" alt="">';
             projectDescription.textContent = data.attributes.project.description;
 
             let socialLinks = '';

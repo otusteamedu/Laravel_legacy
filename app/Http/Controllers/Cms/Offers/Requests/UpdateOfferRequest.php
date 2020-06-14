@@ -27,4 +27,5 @@ class UpdateOfferRequest extends StoreOfferRequest
             'lon' => '',
         ];
     }
+
 }
