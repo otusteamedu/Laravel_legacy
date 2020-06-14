@@ -51,7 +51,7 @@ $(function() {
             offerName.innerHTML = data.attributes.offer.name;
             offerCondition.textContent = data.attributes.offer.description;
 
-            projectLogo.innerHTML = '<img src="' + data.attributes.project.logo_path + '" alt="">';
+            projectLogo.innerHTML = '<img src="' + 'storage/' + data.attributes.project.logo_path + '" alt="">';
             projectDescription.textContent = data.attributes.project.description;
 
             let socialLinks = '';
@@ -71,10 +71,6 @@ $(function() {
 
             offerPromoCode.value = data.attributes.offer.promo_code;
         });
-
-        // TODO разложи красиво все данные на форме попапа
-        //console.log(captionOffer.childNodes);
-        //captionOffer.textContent = data.attributes.name;
 	});
 
 	$('.js-question').on('click', function () {
