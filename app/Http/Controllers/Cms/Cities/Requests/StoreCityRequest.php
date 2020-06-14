@@ -33,8 +33,6 @@ class StoreCityRequest extends FormRequest
     {
         $data = $this->request->all();
 
-        //dd($data);
-
         $data = Arr::except($data, [
             '_token',
         ]);

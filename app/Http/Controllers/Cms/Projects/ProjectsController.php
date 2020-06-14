@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Cms\Projects;
 
 use App\Http\Controllers\Cms\Projects\Requests\StoreProjectRequest;
+use App\Http\Controllers\Cms\Projects\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Cms\Projects\Requests\StoreCityRequest;
 use App\Models\Segment;
 use App\Models\Tariff;
 use App\Models\Project;
@@ -13,6 +13,7 @@ use App\Policies\Abilities;
 use App\Services\Projects\ProjectsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use View;
 
@@ -68,7 +69,7 @@ class ProjectsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param StoreProjectRequest $request
+     * @param Request $request
      * @param Project $project
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws \Illuminate\Auth\Access\AuthorizationException
@@ -125,17 +126,19 @@ class ProjectsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Project  $project
+     * @param UpdateProjectRequest $request
+     * @param \App\Models\Project $project
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function update(Request $request, Project $project)
+    public function update(UpdateProjectRequest $request, Project $project)
     {
         $this->authorize(Abilities::UPDATE, $project);
 
+        $data = $request->getFormData();
+
         try {
-            //$this->projectsService->updateProject($project, $request->all());
-            $project->update($request->all());
+            $project->update($data);
         } catch (\Exception $e) {
             \Log::channel('slack-critical')->critical(__METHOD__ . ': ' . $e->getMessage());
             return response()->json([

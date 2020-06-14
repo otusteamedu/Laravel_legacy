@@ -73,4 +73,8 @@
             {{ Form::textarea('contact_data', null, array('class'=>'form-control')) }}
         </div>
     </div>
+    <div class="form-group">
+        {{ Form::label('logo_path', 'Логотип компании') }}
+        {{ Form::file('logo_path', null, array('class'=>'form-control-file')) }}
+    </div>
 </div>
