@@ -23,12 +23,18 @@ Route::group(['middleware' => 'auth'], function()
     ]);
 });
 
-Route::resource('home','HomeController')->parameters(['home'=>'advert']);
+Route::prefix('{locale}/')
+    ->middleware('home')
+    ->group(function () {
+        Route::resource('home', 'HomeController')->parameters(['home' => 'advert']);
+    });
+
+//Route::resource('home', 'HomeController')->parameters(['home' => 'advert'])->middleware('home');
 
 Route::get('/log', function () {
     Log::critical('Critical message Sent from Laravel to Slack');
     return redirect(route('home.index'));
-});
+})->middleware('cms');
 
 
 
