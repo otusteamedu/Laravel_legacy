@@ -1,5 +1,5 @@
 
-@php(App::setLocale('ru'))
+{{--@php(App::setLocale('ru'))--}}
 <footer class="footer">
 <div class="container mt-3 text-muted">
     <div class="row alert alert-primary justify-content-center ">
