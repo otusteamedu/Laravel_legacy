@@ -43,6 +43,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Film whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Film whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $year Год фильма
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ActorAndRole[] $actorsAndRoles
+ * @property-read int|null $actors_and_roles_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Comment[] $comments
+ * @property-read int|null $comments_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Film whereYear($value)
  */
 class Film extends Model
 {

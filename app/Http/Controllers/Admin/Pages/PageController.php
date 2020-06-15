@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\Pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Page;
+use View;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -16,8 +17,12 @@ class PageController extends Controller
     public function index()
     {
         //
-        $pages = Page::orderBy('id')->paginate(10); //
-        return view('admin/pages/page', ['list' =>$pages,'editRoute'=>'pages.edit']);
+        //$pages = Page::orderBy('id')->paginate(10); //
+        View::share([
+            'pages' => Page::paginate(),
+        ]);
+        return view('admin.pages.index');
+       // return view('admin/pages/page', ['list' =>$pages,'editRoute'=>'pages.edit']);
     }
 
     /**
@@ -27,7 +32,7 @@ class PageController extends Controller
      */
     public function create()
     {
-        return view('admin/pages/add', ['addRoute'=>'pages.create','backRoute'=>'pages']);
+        return view('admin.pages.create');
     }
 
     /**
@@ -40,12 +45,15 @@ class PageController extends Controller
     {
         //
         $request->validate([
-            'name' => 'required',
+            'title' => 'required',
             'slug' => 'required'
            ]);
 
         Page::create($request->all());
-        return redirect()->back()->with('success','Create Successfully');
+
+        return redirect(route('cms.pages.index'));
+
+        //return redirect()->back()->with('success','Create Successfully');
 
     }
 
@@ -63,16 +71,15 @@ class PageController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Page $page)
     {
         //
-        $pageFields = Page::findOrFail($id);
-
-        return view('admin/pages/edit',[
-            'fields'=>$pageFields, 'updateRoute'=>'pages.update','backRoute'=>'pages']);
+        return view('admin.pages.edit', [
+            'page' => $page,
+        ]);
 
     }
 
@@ -80,32 +87,26 @@ class PageController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Page $page)
     {
 
-        $page = Page::find($id);
-        $page->title = $request->title;
-        $page->meta_keywords = $request->meta_keywords;
-        $page->meta_title = $request->meta_title;
-        $page->slug = $request->slug;
-        $page->content = $request->content;
-        $page->save();
+        $page->update($request->all());
 
-        return redirect(route('pages.edit',['id' => $id]));
+        return redirect(route('cms.pages.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Page  $page
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Page $page)
     {
-        Page::where('id',$id)->delete();
+        $page->delete();
         return redirect()->back()->with('success','Delete Successfully');
     }
 }

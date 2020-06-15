@@ -8,6 +8,9 @@
 
 @section('content')
 
-@include('admin.pages.blocks.form.edit')
+@include('admin.pages.blocks.header.list')
+<div class="card">
+    @include('admin.pages.blocks.list.index')
+</div>
 
 @stop

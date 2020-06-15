@@ -8,6 +8,7 @@
 
 @section('content')
 
-@include('admin.pages.blocks.form.edit')
+@include('admin.pages.blocks.header.create')
+@include('admin.pages.blocks.form.create')
 
 @stop
