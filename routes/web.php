@@ -14,13 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-$user = [
-    'id'    => 1,
-    'name'  => 'Александр',
-    'email' => 'drek@inbox.ru',
-    'image' => 'images/profile.jpg',
-];
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('overview.index')->with([
@@ -48,13 +41,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::resources([
-        'staffs' => 'Staffs\Staffs',
-        'clients' => 'Clients\Clients',
+        'staffs'   => 'Staffs\Staffs',
+        'clients'  => 'Clients\Clients',
         'projects' => 'Projects\Projects',
     ]);
 });
 
 Auth::routes(['register' => false]);
-
-
 

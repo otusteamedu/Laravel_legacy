@@ -33,7 +33,6 @@ class Clients extends Controller
         $list->load('group');
 
         return view('clients.index')->with([
-            'currentPage' => 'clients',
             'list' => $list,
             'title' => __("clients/general.title")
         ]);
@@ -49,7 +48,6 @@ class Clients extends Controller
         $this->authorize('client.create');
 
         return view('clients.create')->with([
-            'currentPage' => 'clients',
             'title' => __("clients/create.title")
         ]);
     }
@@ -92,7 +90,6 @@ class Clients extends Controller
 
         return view('clients.show')->with([
             'client' => $client,
-            'currentPage' => 'clients',
             'title' => $client->name
         ]);
     }
@@ -115,7 +112,6 @@ class Clients extends Controller
 
         return view('clients.edit')->with([
             'client' => $client,
-            'currentPage' => 'clients',
             'title' => __("clients/edit.title")
         ]);
     }
