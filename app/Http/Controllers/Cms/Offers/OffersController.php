@@ -36,7 +36,7 @@ class OffersController extends Controller
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index(Offer $offer, Request $request)
+    public function indexCached(Offer $offer, Request $request)
     {
         $this->authorize(Abilities::VIEW, $offer);
 
@@ -58,7 +58,7 @@ class OffersController extends Controller
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function indexNoCache(Offer $offer)
+    public function index(Offer $offer)
     {
         $this->authorize(Abilities::VIEW, $offer);
 
