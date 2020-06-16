@@ -37,6 +37,8 @@ class ProjectTask extends Model
 {
     use SoftDeletes;
 
+    protected $rememberCacheTag = 'ProjectTask';
+
     /**
      * Получить проект задачи
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

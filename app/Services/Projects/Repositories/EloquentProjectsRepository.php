@@ -11,18 +11,21 @@ class EloquentProjectsRepository implements ProjectsRepositoryInterface
 
     public function find(int $id)
     {
-        return Project::whereId($id)->first();
+        return Project::remember(Project::CACHE_TTL)->whereId($id)->first();
     }
 
     public function search(int $limit = 20)
     {
-        return Project::paginate($limit);
+        return Project::remember(Project::CACHE_TTL)->paginate($limit);
     }
 
     public function createFromArray(array $data): Project
     {
         $project = new Project();
         $project->create($data);
+
+        Project::flushCache();
+
         return $project;
     }
 
@@ -30,11 +33,17 @@ class EloquentProjectsRepository implements ProjectsRepositoryInterface
     {
         $project->update($data);
 
+        Project::flushCache();
+
         return $project;
     }
 
     public function delete(Project $project)
     {
-        return $project->delete();
+        $res = $project->delete();
+
+        Project::flushCache();
+
+        return $res;
     }
 }

@@ -15,31 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/', function () {
-        return view('overview.index')->with([
-            'title'    => __('overview/general.title'),
-            'balance'  => Auth::user()->balance,
-            'projects' => [
-                [
-                    'name'    => 'OTUS',
-                    'new'     => 3,
-                    'ended'   => 1,
-                    'process' => 2,
-                ],
-                [
-                    'name'    => 'Code',
-                    'new'     => 2,
-                    'ended'   => 3,
-                    'process' => 5,
-                ],
-            ],
-            'tasks'    => [
-                'today'    => 10,
-                'tomorrow' => 17,
-            ],
-        ]);
-    });
-
+    Route::get('/', 'Overview@index')->name('overview');
     Route::resources([
         'staffs'   => 'Staffs\Staffs',
         'clients'  => 'Clients\Clients',

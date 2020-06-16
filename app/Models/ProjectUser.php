@@ -32,4 +32,6 @@ class ProjectUser extends Pivot
 {
     use SoftDeletes;
 
+    protected $rememberCacheTag = 'ProjectUser';
+
 }
