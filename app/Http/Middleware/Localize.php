@@ -16,7 +16,7 @@ class Localize
      */
     public function handle($request, Closure $next)
     {
-        $locale = $_COOKIE['locale'] ?? App::getLocale();
+        $locale = $request->cookie('locale') ?? App::getLocale();
         App::setLocale($locale);
 
         return $next($request);

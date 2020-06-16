@@ -22,7 +22,7 @@ class RequestLocaleHandler
         $locale = $this->getRequestLocale($request);
         if ($locale) {
             $back = str_replace($locale . '/', '', $request->getRequestUri());
-            return redirect($back)->withCookie(cookie('locale', $locale, 365 * 24 * 60));
+            return redirect($back)->cookie('locale', $locale, 365 * 24 * 60, '/');
         }
         return null;
     }
