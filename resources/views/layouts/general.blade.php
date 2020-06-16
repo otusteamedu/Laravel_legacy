@@ -42,6 +42,7 @@
                 </div>
             @endif
             @yield('content')
+            @include('blocks.footer')
         </div>
     </div>
 </div>

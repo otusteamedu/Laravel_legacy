@@ -10950,6 +10950,14 @@ header .icon {
   fill: #fff;
 }
 
+.footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  border-top: 1px solid #e3e3e3;
+}
+
 .sidebar {
   position: relative;
   display: block;

@@ -35,7 +35,6 @@ class Staffs extends Controller
 
         return view('staffs.index')->with([
             'list' => $list,
-            'currentPage' => 'staffs',
             'title' => __("staffs/general.title")
         ]);
     }
@@ -50,7 +49,6 @@ class Staffs extends Controller
         $this->authorize('staff.create');
 
         return view('staffs.create')->with([
-            'currentPage' => 'staffs',
             'title' => __("staffs/create.title")
         ]);
     }
@@ -92,7 +90,6 @@ class Staffs extends Controller
 
         return view('staffs.show')->with([
             'staff' => $staff,
-            'currentPage' => 'staffs',
             'title' => $staff->name
         ]);
     }
@@ -115,7 +112,6 @@ class Staffs extends Controller
 
         return view('staffs.edit')->with([
             'staff' => $staff,
-            'currentPage' => 'staffs',
             'title' => __("staffs/edit.title")
         ]);
     }

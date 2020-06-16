@@ -2,11 +2,26 @@
 
 namespace App\Exceptions;
 
+use App\Services\Locale\LocaleService;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+
+    /**
+     * @var LocaleService
+     */
+    private $localeService;
+
+    public function __construct(Container $container, LocaleService $localeService)
+    {
+        parent::__construct($container);
+        $this->localeService = $localeService;
+    }
+
     /**
      * A list of the exception types that are not reported.
      *
@@ -50,6 +65,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
+        if ($exception instanceof NotFoundHttpException) {
+            $response = $this->localeService->localizeRequest($request);
+            if ($response) {
+                return $response;
+            }
+        }
         return parent::render($request, $exception);
     }
 }

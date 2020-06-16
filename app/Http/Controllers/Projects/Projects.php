@@ -34,7 +34,6 @@ class Projects extends Controller
 
         return view('projects.index')->with([
             'list'        => $list,
-            'currentPage' => 'projects',
             'title'       => __("projects/general.title"),
         ]);
     }
@@ -49,7 +48,6 @@ class Projects extends Controller
         $this->authorize('project.create');
 
         return view('projects.create')->with([
-            'currentPage' => 'projects',
             'title'       => __("projects/create.title"),
         ]);
     }
@@ -88,7 +86,6 @@ class Projects extends Controller
         // @todo передать список тикетов
 
         return view('projects.show')->with([
-            'currentPage' => 'projects',
             'project'     => $project,
             'title'       => $project->name,
         ]);
@@ -112,7 +109,6 @@ class Projects extends Controller
 
         return view('projects.edit')->with([
             'project' => $project,
-            'currentPage' => 'projects',
             'title' => __("projects/edit.title")
         ]);
     }
