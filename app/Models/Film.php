@@ -59,6 +59,17 @@ class Film extends Model
    */
    protected $table = 'films';
 
+    protected $fillable = [
+        'title',
+        'meta_title',
+        'meta_description',
+        'keywords',
+        'slug',
+        'status',
+        'content',
+        'year'
+    ];
+
    public function actors()
    {
       return $this->hasMany(Actor::class);

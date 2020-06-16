@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\Films;
 use App\Models\Film;
+use View;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,8 +15,10 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $collectionFilm = Film::all();
-        return view('admin/pages/page',array('list' =>$collectionFilm));
+        View::share([
+            'films' => Film::paginate(),
+        ]);
+        return view('admin.films.index');
     }
 
     /**
@@ -25,7 +28,7 @@ class FilmController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.films.create');
     }
 
     /**
@@ -37,15 +40,23 @@ class FilmController extends Controller
     public function store(Request $request)
     {
         //
+        $request->validate([
+            'title' => 'required',
+            'slug' => 'required'
+           ]);
+
+        Film::create($request->all());
+
+        return redirect(route('cms.films.index'));
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Film  $film
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($film)
     {
         //
     }
@@ -53,35 +64,40 @@ class FilmController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Film  $film
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Film $film)
     {
-        //
-        return '123';
+        return view('admin.films.edit', [
+            'film' => $film,
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Film  $film
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Film $film)
     {
-        //
+
+        $film->update($request->all());
+
+        return redirect(route('cms.films.index'));
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Film  $film
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Film $film)
     {
-        //
+        $film->delete();
+        return redirect()->back()->with('success','Delete Successfully');
     }
 }

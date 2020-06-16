@@ -20,45 +20,20 @@ Route::get('/', function () {
 Route::get('/contacts', function () {
     return view('contacts');
 });
-
-Route::get('/register', function () {
-    return view('register');
-});
-
-Route::get('/admin', function () {
-    return view('admin/home');
-});
 */
 Route::name('cms.')->group(function () {
     Route::prefix('admin')->group(function () {
+        Route::get('/', 'Admin\DashboardController')->name('dashboard');
         Route::resources([
-            'films' => 'Admin\FilmController',
+            'films' => 'Admin\Films\FilmController',
             'pages' => 'Admin\Pages\PageController',
         ], []);
     });
 });
 
-/*
-Route::get('/admin/pages', 'Admin\PageController@index')->name('pages');
-
-Route::get('/admin/pages/edit/{id}', 'Admin\PageController@edit')->name('pages.edit');
-
-Route::patch('/admin/pages/update/{id}', 'Admin\PageController@update')->name('pages.update');
-
-Route::get('/admin/pages/add', 'Admin\PageController@create')->name('pages.create');
-
-Route::patch('/admin/pages/add', 'Admin\PageController@store')->name('pages.store');
-
-Route::get('/admin/films/edit/{id}', 'Admin\FilmController@edit')->name('films.edit');
-
-Route::get('/admin/films', 'Admin\FilmController@index')->name('films');
-*/
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
+Route::get('/', 'HomeController@index')->name('home');
 
 /*Route::get('/home', function() {
     return view('home');

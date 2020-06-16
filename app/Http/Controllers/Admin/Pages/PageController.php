@@ -16,13 +16,10 @@ class PageController extends Controller
      */
     public function index()
     {
-        //
-        //$pages = Page::orderBy('id')->paginate(10); //
         View::share([
             'pages' => Page::paginate(),
         ]);
         return view('admin.pages.index');
-       // return view('admin/pages/page', ['list' =>$pages,'editRoute'=>'pages.edit']);
     }
 
     /**
@@ -52,8 +49,6 @@ class PageController extends Controller
         Page::create($request->all());
 
         return redirect(route('cms.pages.index'));
-
-        //return redirect()->back()->with('success','Create Successfully');
 
     }
 

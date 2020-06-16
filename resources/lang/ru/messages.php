@@ -15,6 +15,19 @@ return [
     "pageMetaKeyword"=>"Ключевые слова",
     "pageMetaTitle"=>"Meta title",
     "pageSlug"=>"ЧПУ",
-    "pageContent"=>"Содержимое страницы"
+    "pageContent"=>"Содержимое страницы",
+
+    "addFilm"=>"Добавить фильм",
+
+    "filmEdit"=>"Редактировать",
+    "filmDelete"=>"Удалить",
+    "filmTitle"=>"Название фильма",
+    "filmMetaDescription"=>"Краткое описание фильма",
+    "filmKeyword"=>"Ключевые слова",
+    "filmMetaTitle"=>"Meta title",
+    "filmSlug"=>"ЧПУ",
+    "filmContent"=>"Содержимое фильма",
+    "filmYear"=>"Год фильма",
+    "filmStatus"=>"Статус"
 
 ];
