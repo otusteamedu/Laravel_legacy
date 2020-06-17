@@ -6,6 +6,7 @@ use App\Models\Event;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class EloquentEventRepository
@@ -45,6 +46,11 @@ class EloquentEventRepository implements EventRepositoryInterface
         }
 
         return $event;
+    }
+
+    public function getBy(array $filters = [], array $with = [])
+    {
+        return Event::with($with)->get();
     }
 
     public function updateFromArray(Event $event, array $data)

@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -13,6 +11,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource(
+        'events',
+        '\App\Http\Controllers\Api\Events\EventsController',
+        []
+    );
 });
+
+Route::get('personal/get-token', '\App\Http\Controllers\Api\HomeController@getToken')
+    ->name('personal.token');

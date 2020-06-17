@@ -64,7 +64,7 @@ class EventPolicy extends BasePolicy
      */
     public function delete(User $user, Event $event)
     {
-        return $user->isAdmin() || $user->isModerator();
+        return $user->isAdmin() || $user->isModerator() || $user->id === $event->id;;
     }
 
     /**

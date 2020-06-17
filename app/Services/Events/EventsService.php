@@ -53,6 +53,15 @@ class EventsService
     }
 
     /**
+     * @param array $with
+     * @return mixed
+     */
+    public function getAll($with = [])
+    {
+        return $this->cacheEventRepository->getBy([], $with);
+    }
+
+    /**
      * @param array $data
      * @return Event
      */
@@ -74,7 +83,8 @@ class EventsService
     /**
      * @param Event $event
      */
-    public function deleteEvent(Event $event) {
+    public function deleteEvent(Event $event)
+    {
         return $this->deleteEventHandler->handle($event);
     }
 }

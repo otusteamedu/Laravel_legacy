@@ -2,10 +2,10 @@
 
 namespace App\Services\Events\Repositories;
 
-use App\Models\Event;
 use App\Services\Cache\Tag;
 use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class CacheEventRepository
@@ -49,5 +49,18 @@ class CacheEventRepository implements CacheEventRepositoryInterface
 
     public function clear() {
         \Cache::tags([Tag::PUBLIC, Tag::EVENTS])->flush();
+    }
+
+    public function getBy(array $filters = [], array $with = []): Collection
+    {
+        $eventCollectionCacheKey = 'eventCollection_' . md5(serialize($filters)) . md5(serialize($with));
+
+        return \Cache::tags([Tag::PUBLIC, Tag::EVENTS])->remember(
+            $eventCollectionCacheKey,
+            Carbon::now()->addSeconds(\Config::get('cache.cache_time.event_list')),
+            function () use ($filters, $with) {
+                return $this->eventRepository->getBy($filters, $with);
+            }
+        );
     }
 }
