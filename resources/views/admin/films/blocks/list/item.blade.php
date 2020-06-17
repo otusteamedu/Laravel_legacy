@@ -9,7 +9,6 @@
         </a>
         <br>
         <small>
-            Created 01.01.2019
         </small>
     </td>
     <td>
