@@ -34,8 +34,6 @@ class Project extends Model
 
     use SoftDeletes;
 
-    protected $rememberCacheTag = 'Project';
-
     protected $fillable = ['name'];
 
     /**

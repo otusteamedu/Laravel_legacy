@@ -57,10 +57,6 @@ class User extends Authenticatable
 {
     use Notifiable, SoftDeletes, Rememberable;
 
-    protected $rememberCacheTag = 'User';
-
-    const CACHE_TTL = 60 * 60;
-
     /**
      * The attributes that are mass assignable.
      *

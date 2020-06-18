@@ -16,8 +16,6 @@ class Model extends \Illuminate\Database\Eloquent\Model
 {
     use Rememberable;
 
-    const CACHE_TTL = 60 * 60;
-
     public static function getTableName()
     {
         return with(new static)->getTable();

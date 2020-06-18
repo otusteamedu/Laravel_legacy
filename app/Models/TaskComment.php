@@ -35,8 +35,6 @@ class TaskComment extends Model
 {
     use SoftDeletes;
 
-    protected $rememberCacheTag = 'TaskComment';
-
     /**
      * Получить задачу комментария
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

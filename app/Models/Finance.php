@@ -39,8 +39,6 @@ class Finance extends Model
     /** @var int Операция списания */
     const OPERATION_MINUS = 0;
 
-    protected $rememberCacheTag = 'Finance';
-
     /**
      * Получить пользователя финансовой операции
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

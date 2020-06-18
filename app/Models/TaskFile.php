@@ -36,8 +36,6 @@ class TaskFile extends Model
 {
     use SoftDeletes;
 
-    protected $rememberCacheTag = 'TaskFile';
-
     /**
      * Получить задачу к которой прикреплён файл
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

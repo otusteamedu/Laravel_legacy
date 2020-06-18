@@ -12,6 +12,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 /**
  * Class UsersService
  * Сервис для работы с пользователями
+ *
  * @package App\Services\Users
  */
 class UsersService
@@ -28,6 +29,7 @@ class UsersService
 
     /**
      * UsersService constructor.
+     *
      * @param CreateUserHandler        $createUserHandler
      * @param UsersRepositoryInterface $usersRepository
      */
@@ -42,7 +44,9 @@ class UsersService
 
     /**
      * Получить сущность пользователя
+     *
      * @param int $id
+     *
      * @return User|null
      */
     public function findUser(int $id)
@@ -52,8 +56,10 @@ class UsersService
 
     /**
      * Получить список пользователей
+     *
      * @param array $groups
      * @param int   $limit
+     *
      * @return LengthAwarePaginator
      */
     public function searchUsers(array $groups, $limit = 20): LengthAwarePaginator
@@ -63,7 +69,9 @@ class UsersService
 
     /**
      * Создать пользователя
+     *
      * @param array $data
+     *
      * @return User
      */
     public function storeUser(array $data): User
@@ -74,8 +82,10 @@ class UsersService
 
     /**
      * Обновить данные пользователя
-     * @param User $user
+     *
+     * @param User  $user
      * @param array $data
+     *
      * @return User
      */
     public function updateUser(User $user, array $data): User
@@ -87,7 +97,9 @@ class UsersService
 
     /**
      * Удалить пользователя
+     *
      * @param User $user
+     *
      * @return mixed
      */
     public function deleteUser(User $user)

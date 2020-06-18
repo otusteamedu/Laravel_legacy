@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\ProjectUser
@@ -30,8 +31,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  */
 class ProjectUser extends Pivot
 {
-    use SoftDeletes;
-
-    protected $rememberCacheTag = 'ProjectUser';
-
+    use SoftDeletes, Rememberable;
 }
