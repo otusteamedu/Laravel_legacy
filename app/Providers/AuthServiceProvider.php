@@ -48,6 +48,12 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerGates();
 
         Passport::routes();
+        Passport::tokensCan([
+            'user.email' => 'See your email',
+            'user.name' => 'See your name',
+            'event.read' => 'Read events',
+            'event.write' => 'Write and delete events',
+        ]);
     }
 
     public function registerGates() {

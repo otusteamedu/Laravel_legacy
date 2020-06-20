@@ -25,6 +25,9 @@ class EventsController extends Controller
      */
     public function __construct(EventsService $eventsService)
     {
+        $this->middleware('scope:event.read', ['only' => ['index', 'show']]);
+        $this->middleware('scope:event.write', ['only' => ['store', 'update', 'destroy']]);
+
         $this->eventsService = $eventsService;
     }
 
@@ -69,7 +72,7 @@ class EventsController extends Controller
      */
     public function show(Event $event)
     {
-        $this->authorize(Abilities::VIEW, Event::class);
+        $this->authorize(Abilities::VIEW, [\Auth::user(), Event::class]);
 
         return response()->json(new EventResource($event));
     }
