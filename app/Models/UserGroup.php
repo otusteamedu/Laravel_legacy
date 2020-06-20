@@ -17,6 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserGroup whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\UserGroup whereTitle($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
+ * @property-read int|null $users_count
  */
 class UserGroup extends Model
 {

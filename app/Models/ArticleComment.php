@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ArticleComment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\ArticleComment whereUserId($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Article $article
+ * @property-read \App\Models\User $user
  */
 class ArticleComment extends Model
 {
