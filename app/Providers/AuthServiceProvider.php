@@ -18,6 +18,7 @@ use App\Policies\RolePolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
         $this->registerGates();
+
+        Passport::routes();
     }
 
     public function registerGates() {
