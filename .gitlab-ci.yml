@@ -1,0 +1,24 @@
+stages:
+  - compile
+  - deploy
+
+before_script:
+  - apt-get update -qq
+  - apt-get install -qq git
+  # Setup SSH deploy keys
+  - 'which ssh-agent || ( apt-get install -qq openssh-client )'
+  - eval $(ssh-agent -s)
+  - ssh-add <(echo "$SSH_PRIVATE_KEY")
+  - mkdir -p ~/.ssh
+  - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+
+# Deploy to master
+deploy_master_staging:
+  type: deploy
+  script:
+    - ssh laradock@95.214.9.235 "cd /home/laradock/laradock && \
+docker-compose exec workspace bash -c \"cd /var/www/instagraphia.kz && \
+npm i && \
+npm audit fix && \
+composer install && \
+php artisan migrate\""

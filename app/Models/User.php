@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Planner\PlannerProxy;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -68,5 +69,10 @@ class User extends Authenticatable
     public function roles()
     {
         return $this->hasMany(Acl\Role::class);
+    }
+
+    public function proxies()
+    {
+        return $this->hasMany(PlannerProxy::class);
     }
 }

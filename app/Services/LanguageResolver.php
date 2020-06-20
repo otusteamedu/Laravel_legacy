@@ -4,37 +4,64 @@
 namespace App\Services;
 
 use \Illuminate\Support\Facades\Request;
+use phpDocumentor\Reflection\Types\Void_;
 
 class LanguageResolver
 {
     public static $languages = ['en', 'ru'];
 
+    /**
+     * @return string|null
+     */
     public static function getLanguageFromRequst() {
-        $uri = Request::path();
+        $url = Request::path();
 
-        $segmentsURI = explode('/', $uri);
+        $segmentsURI = explode('/', $url);
 
         if (!empty($segmentsURI[0]) && in_array($segmentsURI[0], self::$languages)) {
             return $segmentsURI[0];
+        } else {
+            return false;
         }
     }
 
     /**
-     * @return array
+     * @return bool|mixed
      */
-    public static function getLanguages(string $lang): string
+    public static function getLanguageFromSession()
+    {
+        if(\Session::has('locale')) {
+            return \Session::get('locale');
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public static function getLanguage()
+    {
+        $languageService = new \App\Services\LanguageService(
+            new \App\Services\LanguageResolver(),
+            new \App\Services\LanguageHelper()
+        );
+
+        return $languageService->getLanguage();
+    }
+
+    public static function getLanguageUrl($local = 'ru')
     {
         $url = Request::path();
 
         $segmentsURI = explode('/', $url);
 
-        if(in_array($lang, self::$languages)){
-            $segmentsURI[0] = $lang;
-            $url = "/" . implode("/", $segmentsURI);
+        if (!empty($segmentsURI[0]) && in_array($segmentsURI[0], self::$languages)) {
+            $segmentsURI[0] = $local;
         } else {
-            throw new LanguageExepction("Language '" . $lang . "' not founded");
+            $segmentsURI[0] = $local;
         }
 
-        return $url;
+        return "/" . implode("/", $segmentsURI);
     }
 }

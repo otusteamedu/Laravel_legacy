@@ -58,15 +58,7 @@ class BlogAuthorController extends Controller
 
     public function store(StoreAuthorRequest $request)
     {
-        $validated = $request->validated();
-
-        $id = $request->get('id');
-
-        if(intval($id) > 0) {
-            $this->blogAuthorService->updateAuthor(BlogAuthor::find($id), $request->toArray());
-        } else {
-            $this->blogAuthorService->createAuthor($request->toArray());
-        }
+        $this->blogAuthorService->storeAuthor($request);
 
         return redirect(route('cms.blog.authors'));
     }

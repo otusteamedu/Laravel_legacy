@@ -232,22 +232,6 @@ return [
                     'route'  => 'cms.blog.authors',
                 ],
             ]
-        ],
-        [
-            'text'    => 'Настройки',
-            'icon' => 'fas fa-cogs',
-            'submenu' => [
-                [
-                    'text' => 'Пользователи',
-                    'icon' => 'fas fa-users',
-                    'route'  => 'config.users',
-                ],
-            ]
-        ],
-        [
-            'text'    => 'Файлы',
-            'icon' => 'fas fa-file',
-            'route'  => 'files',
         ]
     ],
 

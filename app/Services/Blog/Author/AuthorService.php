@@ -4,6 +4,7 @@
 namespace App\Services\Blog\Author;
 
 
+use App\Http\Controllers\Proxy\Requests\StoreProxyRequest;
 use App\Models\Blog\BlogAuthor;
 use App\Services\Blog\Author\Handlers\CreateAuthorHandler;
 use App\Services\Blog\Author\Handlers\UpdateAuthorHandler;
@@ -50,5 +51,18 @@ class AuthorService
     public function deleteAuthor(BlogAuthor $blogAuthor)
     {
         return $this->deleteAuthorHandler->handle($blogAuthor);
+    }
+
+    public function storeAuthor(StoreProxyRequest $request)
+    {
+        $validated = $request->validated();
+
+        $id = $request->get('id');
+
+        if(intval($id) > 0) {
+            $this->updateAuthor(BlogAuthor::find($id), $request->toArray());
+        } else {
+            $this->createAuthor($request->toArray());
+        }
     }
 }

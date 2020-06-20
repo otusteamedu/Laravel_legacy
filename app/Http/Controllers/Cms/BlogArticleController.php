@@ -7,7 +7,7 @@ use App\Models\Blog\BlogArticle;
 use App\Models\Blog\BlogAuthor;
 use View;
 use Illuminate\Http\Request;
-use App\Services\Blog\Articles\AuthorService;
+use App\Services\Blog\Author\AuthorService;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BlogArticleController extends Controller
@@ -65,10 +65,5 @@ class BlogArticleController extends Controller
     public function delete(BlogAuthor $article)
     {
         dd($article);
-    }
-
-    public function show(int $id)
-    {
-
     }
 }
