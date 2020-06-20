@@ -17,6 +17,7 @@ class CreateOrders extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');
+            $table->boolean('deleted')->default(false);
             $table->timestamps();
         });
 

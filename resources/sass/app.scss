@@ -21,6 +21,10 @@
     border-bottom-style: solid;
     border-bottom-width: 1px;
     border-bottom-color: black;
+    &__logo-container {
+        display: flex;
+        align-items: center;
+    }
     &__logo {
         color: black;
         text-decoration: none;
@@ -29,6 +33,11 @@
             color: black;
             text-decoration: none;
         }
+    }
+    &__admin-button {
+        color: black;
+        margin-left: 2px;
+        display: block;
     }
     &__language-container {
         display: flex;
@@ -46,7 +55,7 @@
     &__language-button {
         margin-left: 5px;
     }
-    @media only screen and (min-width: 460px) {
+    @media only screen and (min-width: 470px) {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -54,6 +63,7 @@
     }
 }
 .button {
+    white-space: nowrap;
     border-style: solid;
     border-width: 1px;
     border-radius: 1px;
@@ -177,10 +187,8 @@ select {
         text-decoration: none;
         color: black;
     }
-    &__image-container {
-        width: 100px;
-    }
     &__image {
+        width: 100px;
         margin: 1px;
         border-style: solid;
         border-color: black;
@@ -226,4 +234,116 @@ select {
 .product-characteristic {
     display: flex;
     justify-content: space-between;
+}
+.admin-menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 10px;
+    &__button {
+        margin-bottom: 10px;
+    }
+}
+.list-item {
+    display: flex;
+    min-width: fit-content;
+    &__id {
+        min-width: 40px;
+        margin-left: 10px;
+    }
+    &__link {
+        display: flex;
+        color: black;
+        &:hover {
+            color: black;
+            text-decoration: none;
+        }
+    }
+    &__cell {
+        &::-webkit-scrollbar {
+            height: 3px;
+            background-color: #F5F5F5;
+            @media only screen and (min-width: 1280px) {
+                height: 6px;
+            }
+            &-thumb {
+                background-color: black;
+            }
+        }
+        width: 300px;
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
+    &__price {
+        text-align: right;
+    }
+}
+.paginate {
+    display: flex;
+    align-self: center;
+    width: fit-content;
+}
+.userlist-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.list{
+    max-width: fit-content;
+    overflow-x: scroll;
+    margin: auto;
+    margin-bottom: 5px;
+}
+.input-container {
+    display: flex;
+    margin-top: 5px;
+    &__label {
+        white-space: nowrap;
+        margin-right: 5px;
+    }
+}
+.end-of-page {
+    display: flex;
+    flex-direction: column;
+}
+.show-field {
+    display: flex;
+    &__name {
+        margin-right: 5px;
+    }
+}
+.table {
+    &__headlines {
+        display: flex
+    }
+}
+.quantity {
+    display: flex;
+    &__value {
+        width: 30px;
+        text-align: right;
+        padding-right: 3px;
+    }
+}
+.remove-list-item-button {
+    margin-top: 5px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.link {
+    color: black;
+    &:hover {
+        color: black;
+        text-decoration: none;
+    }
+}
+.productlist-container {
+    margin-top: 5px;
+}
+.double-button-container {
+    display: flex;
+    &__button {
+        margin: 5px;
+    }
 }

@@ -5,11 +5,11 @@ import router    from './routes.js';
 import VueInternationalization from 'vue-i18n';
 import Locale from './vue-i18n-locales.generated';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faShoppingBasket, faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faShoppingBasket, faSearch, faCog, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import store  	 from './store.js'
 
-library.add(faShoppingBasket,faSearch);
-
+library.add(faShoppingBasket, faSearch, faCog, faTrashAlt);
 
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 
@@ -25,7 +25,8 @@ const i18n = new VueInternationalization({
 const app = new Vue({
     el: '#app',
     i18n,
-	router,
+    router,
+    store
 });
 
 Vue.config.productionTip = false; // TODO remove

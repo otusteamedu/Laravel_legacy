@@ -1,6 +1,11 @@
 <template>
     <div class='header'>
-        <router-link to='/' class='header__logo'>Medieval trade</router-link>
+        <div class='header__logo-container'>
+            <router-link to='/' class='header__logo'>Medieval trade</router-link>
+            <router-link to='/admin' class='header__admin-button'>
+                <font-awesome-icon icon='cog' />
+            </router-link>
+        </div>
         <div class='header__settings'>
             <div class='header__login-container'>
                 <router-link to='/login' class='header__login-button button'>{{ $t('main.login' )}}</router-link>

@@ -29,6 +29,22 @@ class Order extends Model
      */
     protected $fillable = [
         'user_id',
-        'status_id'
+        'status_id',
+        'deleted'
     ];
+
+    public function orderStatus()
+    {
+        return $this->belongsTo('App\Models\OrderStatus', 'status_id');
+    }
+
+    public function products()
+    {
+        return $this->belongsToMany('App\Models\Product')->withPivot('quantity');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
 }
