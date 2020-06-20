@@ -19,7 +19,7 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
 
     public function list()
     {
-        return Advert::all();
+        return Advert::with('town', 'user', 'division')->get();
     }
 
     public function divisionList()
@@ -34,7 +34,7 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
 
     public function paginateList($qty)
     {
-        return Advert::paginate($qty);
+        return Advert::with('town', 'user', 'division')->paginate($qty);
     }
 
     public function createFromArray(array $data): Advert

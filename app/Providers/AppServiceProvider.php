@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Advert;
+use App\Observers\AdvertObserver;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Dusk\DuskServiceProvider;
 
@@ -26,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Advert::observe(AdvertObserver::class);
     }
 }

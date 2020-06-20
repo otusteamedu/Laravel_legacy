@@ -25,8 +25,9 @@ class AdvertsController extends Controller
      */
     public function index()
     {
+        $start = microtime(true);
         $advertList = $this->advertService->showAdvertList();
-        return view('cms.adverts.index', ['advertList'=>$advertList]);
+        return view('cms.adverts.index', ['advertList'=>$advertList, 'start'=>$start]);
     }
 
     /**

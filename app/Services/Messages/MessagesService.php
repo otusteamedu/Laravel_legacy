@@ -24,7 +24,11 @@ class MessagesService
 
     public function showMessageList()
     {
-        return $this->messageRepository->list();
+        $messageCacheKey = 'messageList';
+        return \Cache::remember($messageCacheKey, 60*20, function() {
+            return $this->messageRepository->list();
+        });
+
     }
 
         public function storeMessage($data)

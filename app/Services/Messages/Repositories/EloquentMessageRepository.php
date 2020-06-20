@@ -16,7 +16,7 @@ class EloquentMessageRepository implements MessageRepositoryInterface
 
     public function list()
     {
-        return Message::all();
+        return Message::with( 'advert', 'user')->get();
     }
 
         public function search(array $filters = [])
