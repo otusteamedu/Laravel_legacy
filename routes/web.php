@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -10,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/cms', 'Cms\CmsController@index')->middleware('auth');
-Route::redirect('/', '/home');
+Route::redirect('/', '/ru/home');
 
 Auth::routes();
 Route::group(['middleware' => 'auth'], function()
@@ -29,15 +30,35 @@ Route::prefix('{locale}/')
         Route::resource('home', 'HomeController')->parameters(['home' => 'advert']);
     });
 
-//Route::resource('home', 'HomeController')->parameters(['home' => 'advert'])->middleware('home');
 
 Route::get('/log', function () {
     Log::critical('Critical message Sent from Laravel to Slack');
     return redirect(route('home.index'));
 })->middleware('cms');
 
+Route::get('/user/{user}', function ($userId) {
+
+    $user = User::remember(120)->find($userId);
+
+    dd($user);
+
+//    $userCacheKey = User::getCacheKey($userId);
+//    $userFromCache = Cache::get($userCacheKey);
+//    if(!empty($userFromCache)) {
+//        $user = $userFromCache;
+//    } else {
+//        $user = User::find($userId);
+//        $userJson = $user;
+//        Cache::put($userCacheKey, $userJson, 120);
+//    }
 
 
+//    $userCacheKey = User::getCacheKey($userId);
+//    $user = Cache::remember($userCacheKey, 120, function() use($userId){
+//        return User::find($userId);
+//    });
+
+});
 
 
 //Route::get('/home', 'HomeController@index')->name('home');

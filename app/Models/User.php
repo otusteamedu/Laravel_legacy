@@ -8,6 +8,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Auth;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\User
@@ -42,6 +43,7 @@ use Illuminate\Support\Facades\Auth;
  */
 class User extends Authenticatable
 {
+    use Rememberable;
     use Notifiable;
     const ROLE_ADMIN = 'admin';
 
@@ -51,7 +53,10 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','role'
+        'name',
+        'email',
+        'password',
+        'role'
     ];
 
     /**
@@ -60,7 +65,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password',
+        'remember_token',
+        '$email_verified_at',
     ];
 
     /**
@@ -85,4 +92,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Message::class);
     }
+
+//    protected $rememberCachePrefix = 'my-user';
+
+//    public static function getCacheKey($userId)
+//    {
+//        return 'user_'.$userId;
+//    }
 }

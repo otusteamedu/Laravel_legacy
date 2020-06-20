@@ -15,7 +15,9 @@
         "laravel/browser-kit-testing": "^6.0",
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
-        "laravel/ui": "^2.0"
+        "laravel/ui": "^2.0",
+        "predis/predis": "^1.1",
+        "watson/rememberable": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

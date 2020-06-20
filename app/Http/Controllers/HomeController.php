@@ -28,8 +28,9 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $start = microtime(true);
        $pages = $this->advertService->page(8);
-       return view('home.home', ['pages' => $pages]);
+       return view('home.home', ['pages' => $pages, 'start'=>$start]);
     }
 
     /**
@@ -41,22 +42,16 @@ class HomeController extends Controller
     {
         if (!Auth::user())  return redirect('/login');
 
-        try {
-            $divisionList = $this->advertService->showDivisionList();
-            $townList = $this->advertService->showTownList();
+        $divisionList = $this->advertService->showDivisionList();
+        $townList = $this->advertService->showTownList();
 
-            $context =['USER' =>'#'.Auth::user()->id.'->'.Auth::user()->name];
-            \Log::channel('daily')->info(__METHOD__ . ': User ('.Auth::user()->name.') tried to create advert ', $context);
 
-            return view('home.adverts.create',
+        return view('home.adverts.create',
                 [
                     'divisionList'=>$divisionList,
                     'townList'=>$townList
                 ]);
 
-        } catch (\Exception $e) {
-            \Log::channel('slack')->critical(__METHOD__ . ': Create Advert Error ');
-        }
 
     }
 

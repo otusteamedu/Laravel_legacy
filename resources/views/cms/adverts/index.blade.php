@@ -13,4 +13,6 @@
 
     @include('cms.adverts.blocks.list')
 
+    <?php echo 'Время генерации: ' . ( microtime(true) - $start ) . ' сек.'; ?>
+
 @endsection
