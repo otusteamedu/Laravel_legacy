@@ -31,20 +31,20 @@ class StoreArticleRequest extends FormRequest
         ];
     }
 
-    /**
-     * Получить сообщения об ошибках для определённых правил проверки.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'title.required' => 'Необходимо указать заголовок',
-            'title.max' => 'Максимальное количество символов для поля "Заголовок" :max',
-            'category_id.required' => 'Необходимо выбрать категорию',
-            'intro_text.required' => 'Необходимо указать вступительный текст'
-        ];
-    }
+//    /**
+//     * Получить сообщения об ошибках для определённых правил проверки.
+//     *
+//     * @return array
+//     */
+//    public function messages()
+//    {
+//        return [
+//            'title.required' => 'Необходимо указать заголовок',
+//            'title.max' => 'Максимальное количество символов для поля "Заголовок" :max',
+//            'category_id.required' => 'Необходимо выбрать категорию',
+//            'intro_text.required' => 'Необходимо указать вступительный текст'
+//        ];
+//    }
 
     public function getFormData()
     {

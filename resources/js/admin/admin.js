@@ -4,12 +4,13 @@ $(document).ready(function () {
     let dataTable = $('#data-list');
     $('button[class$="edit"]', dataTable).on('click', function (e) {
         let id = $(this).data('id');
+        let href = location.href;
         let data_target = $(this).data('target');
         let modalWindow = $('#modal-edit');
         $.ajax({
             dataType: "json",
             type: 'GET',
-            url: `/admin/${data_target}/${id}/edit`,
+            url: `${href}/${id}/edit`,
             async: true,
             success: function (data, textStatus, jqXHR) {
                 $.each(data, function (i, v) {
