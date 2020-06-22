@@ -47,7 +47,7 @@ return [
 
     'date' => 'Date',
     'lesson_time' => 'Lesson time',
-
+    'rest' => 'Rest',
     'lesson' => 'Lesson',
     'lesson_type' => 'Lesson type',
 

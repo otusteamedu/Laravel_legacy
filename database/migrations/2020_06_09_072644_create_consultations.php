@@ -15,12 +15,9 @@ class CreateConsultations extends Migration
     {
         Schema::create('consultations', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
             $table->integer('limit')->nullable();
             $table->boolean('approved')->default(false);
-            $table->foreignId('room_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('schedule_id')->constrained();
             $table->foreignId('subject_id')->constrained();
             $table->foreignId('group_id')->constrained();
             $table->timestamps();
