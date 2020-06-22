@@ -26,6 +26,8 @@
             <div class="row">
                 @include('blocks.sidebar.index')
                 <div class="col-md-8 col-lg-9 content-container">
+                    @include('blocks.errors.validate')
+                    @include('blocks.success.index')
                     @yield('app_content')
                 </div>
             </div>

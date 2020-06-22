@@ -1,52 +1,42 @@
 @extends('layouts.filter')
 
 @section('filter_content')
-    {!! Form::open(['url' => '/']) !!}
+    {!! Form::open(['url' => route('groups.index'), 'method' => 'get']) !!}
 
     <div class="form-group">
         {{ Form::label('group', __('scheduler.group'), ['class' => 'control-label']) }}
-        {{ Form::select(
+        {{ Form::number(
             'group',
-            ['1' => '111', '2' => '222'],
-            null,
+            $filter['group'],
             [
-            'class' => 'selectpicker form-control',
-            'multiple',
-            'data-max-options' => '20',
-            'data-live-search' => 'true',
+            'class' => 'form-control',
+            'min' => 1,
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('term', __('scheduler.term'), ['class' => 'control-label']) }}
-        {{ Form::select(
-            'term',
-            ['1' => '1', '2' => '1'],
-            null,
+        {{ Form::label('course', __('scheduler.course'), ['class' => 'control-label']) }}
+        {{ Form::number(
+            'course',
+            $filter['course'],
             [
             'class' => 'selectpicker form-control',
-            'multiple',
-            'data-max-options' => '20',
-            'data-live-search' => 'true',
+            'min' => 1,
             ]
            ) }}
     </div>
     <div class="form-group">
         {{ Form::label('teacher', __('scheduler.teacher'), ['class' => 'control-label']) }}
-        {{ Form::select(
+        {{ Form::text(
             'teacher',
-            ['1' => '1', '2' => '1'],
-            null,
+            $filter['teacher'],
             [
             'class' => 'selectpicker form-control',
-            'multiple',
-            'data-max-options' => '20',
-            'data-live-search' => 'true',
             ]
            ) }}
     </div>
 
-    {{Form::submit(__('scheduler.submit'), ['class' => 'btn btn-primary'])}}
+    {{Form::submit(__('buttons.submit'), ['class' => 'btn btn-primary'])}}
 
     {!! Form::close() !!}
 @endsection

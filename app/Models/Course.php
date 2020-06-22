@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
@@ -28,6 +29,16 @@ class Course extends BaseModel
 {
     /** @var array  */
     protected $fillable = ['number'];
+
+    /**
+     * @param Builder $builder
+     * @param int $number
+     * @return Builder
+     */
+    public function scopeNumber(Builder $builder, int $number): Builder
+    {
+        return $builder->where('number', $number);
+    }
 
     /**
      * @return HasMany

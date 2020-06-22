@@ -148,4 +148,8 @@ return [
 
     'attributes' => [],
 
+    'group_integer' => 'Group number must be a positive number',
+    'group_required' => 'Номер группы обязателен',
+    'course_integer' => 'Group number required',
+    'year_integer' => 'The school year period must be a string',
 ];

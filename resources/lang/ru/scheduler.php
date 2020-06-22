@@ -22,7 +22,7 @@ return [
     'create' => 'Создать',
     'filters' => 'Фильтры',
 
-    'term' => 'Курс',
+    'course' => 'Курс',
     'group' => 'Группа',
     'teacher' => 'Преподаватель',
 
@@ -77,4 +77,6 @@ return [
     'contacts' => 'Контакты',
     'about' => 'О нас',
     'feedback' => 'Напишите нам',
+
+    'education_year' => 'Учебный год',
 ];

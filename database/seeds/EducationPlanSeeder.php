@@ -4,6 +4,7 @@ use App\Models\EducationPlan;
 use App\Models\Group;
 use App\Models\LessonType;
 use App\Models\Subject;
+use App\Scopes\EducationYearScope;
 use Illuminate\Database\Seeder;
 
 class EducationPlanSeeder extends Seeder
@@ -15,7 +16,7 @@ class EducationPlanSeeder extends Seeder
      */
     public function run()
     {
-        $groups = Group::all();
+        $groups = Group::withoutGlobalScope(EducationYearScope::class)->get();
         $lessonTypes = LessonType::all();
         $subjects = Subject::with('teachers')->get();
 

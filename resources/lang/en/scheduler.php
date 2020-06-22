@@ -22,7 +22,7 @@ return [
     'create' => 'Create',
     'filters' => 'Filters',
 
-    'term' => 'Term',
+    'course' => 'Course',
     'group' => 'Group',
     'teacher' => 'Teacher',
 
@@ -77,4 +77,6 @@ return [
     'contacts' => 'Contacts',
     'about' => 'About',
     'feedback' => 'Write to us',
+
+    'education_year' => 'Education year',
 ];

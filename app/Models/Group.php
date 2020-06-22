@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Scopes\EducationYearScope;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -42,6 +44,51 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Group extends BaseModel
 {
+    protected $fillable = [
+        'number',
+        'course_id',
+        'education_year_id',
+    ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope(new EducationYearScope());
+    }
+
+    /**
+     * @param Builder $builder
+     * @param int $number
+     * @return Builder
+     */
+    public function scopeNumber(Builder $builder, int $number): Builder
+    {
+        return $builder->where('number', $number);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param string $name
+     * @return Builder
+     */
+    public function scopeTeacherName(Builder $builder, string $name): Builder
+    {
+        return $builder->whereHas('teachers', function (Builder $builder) use ($name): Builder {
+            return $builder->lastName($name);
+        });
+    }
+
+    /**
+     * @param Builder $builder
+     * @param int $courseId
+     * @return Builder
+     */
+    public function scopeCourseNumber(Builder $builder, int $courseId): Builder
+    {
+        return $builder->whereHas('course', function (Builder $builder) use ($courseId): Builder {
+            return $builder->number($courseId);
+        });
+    }
+
     /**
      * @return BelongsTo
      */

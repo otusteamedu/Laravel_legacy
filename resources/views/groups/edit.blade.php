@@ -3,14 +3,25 @@
 @section('app_content')
     <h4>@lang('scheduler.edit'):</h4>
 
-    {!! Form::open(['url' => '/']) !!}
+    {!! Form::open(['url' => route('groups.update', $group->id), 'method' => 'PUT']) !!}
 
     <div class="form-group">
         {{ Form::label('group', __('scheduler.group'), ['class' => 'control-label']) }}
-        {{ Form::select(
+        {{ Form::number(
             'group',
-            ['1' => '111', '2' => '222'],
-            null,
+            old('group') ?? $group->number,
+            [
+            'class' => 'form-control',
+            'min' => 1,
+            ]
+           ) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('course', __('scheduler.course'), ['class' => 'control-label']) }}
+        {{ Form::select(
+            'course',
+            $courses,
+            old('course') ?? $group->course->id,
             [
             'class' => 'selectpicker form-control',
             'data-max-options' => '20',
@@ -19,11 +30,11 @@
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('term', __('scheduler.term'), ['class' => 'control-label']) }}
+        {{ Form::label('year', __('scheduler.education_year'), ['class' => 'control-label']) }}
         {{ Form::select(
-            'term',
-            ['1' => '1', '2' => '1'],
-            null,
+            'year',
+            $years,
+            old('year') ?? $group->year->id,
             [
             'class' => 'selectpicker form-control',
             'data-max-options' => '20',
@@ -32,7 +43,7 @@
            ) }}
     </div>
 
-    {{Form::submit(__('buttons.submit'), ['class' => 'btn btn-primary'])}}
+    {{Form::submit(__('buttons.update'), ['class' => 'btn btn-primary'])}}
 
     {!! Form::close() !!}
 @endsection
