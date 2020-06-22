@@ -1,8 +1,4 @@
 @php
-    $cities = \App\Models\City::all();
-    $projects = \App\Models\Project::all();
-    $categories = \App\Models\Category::all();
-
     if (isset($offer)){
         $name = $offer->name;
         $description = $offer->description;
@@ -48,7 +44,7 @@
     <div class="col-sm-4 col-md-4">
         <div class="form-group">
             {{ Form::label('project_id', 'Проект (магазин)') }}
-            {{ Form::select('project_id', $projects->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
+            {{ Form::select('project_id', $projects, null, array('class'=>'form-control form-control')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">

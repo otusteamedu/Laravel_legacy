@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Cms\Offers;
 use App\Http\Controllers\Cms\Offers\Requests\StoreOfferRequest;
 use App\Http\Controllers\Cms\Offers\Requests\UpdateOfferRequest;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Offer;
 use App\Models\Project;
+use App\Models\User;
 use App\Policies\Abilities;
 use App\Services\Offers\Generators\OfferTemplateQRGenerator;
 use App\Services\Offers\OffersService;
@@ -32,38 +34,26 @@ class OffersController extends Controller
      * Display a listing of the resource.
      *
      * @param Offer $offer
-     * @param Request $request
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function indexCached(Offer $offer, Request $request)
+    public function index(Offer $offer, User $user)
     {
         $this->authorize(Abilities::VIEW, $offer);
+        $projects = Project::where('user_id', '=', $user->getId())->pluck('id')->toArray();
+        //dd($projects);
 
-        $key = $request->user()->id . '|' . $request->getUri();
+        if ($user->isAdmin()){
+            $offers = Offer::paginate();
+        }else{
+            $offers = Offer::whereIn('project_id', $projects)->paginate();
+        }
 
-        return Cache::remember($key, 60, function () {
-            $offers = $this->offersService->searchCachedOffers();
-
-            return view(config('view.cms.offers.index'), [
-                'offers' => $offers
-            ])->render();
-        });
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Offer $offer
-     * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Auth\Access\AuthorizationException
-     */
-    public function index(Offer $offer)
-    {
-        $this->authorize(Abilities::VIEW, $offer);
+        //dd($offers);
 
         return view(config('view.cms.offers.index'), [
-            'offers' => Offer::paginate()
+            'offers' => $offers
         ]);
     }
 
@@ -72,19 +62,26 @@ class OffersController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Offer $offer
+     * @param Uesr $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create(Offer $offer)
+    public function create(Offer $offer, User $user)
     {
         $this->authorize(Abilities::CREATE, $offer);
 
-        $projects = Project::all();
         $cities = City::all();
+        $categories = Category::all();
+
+        if ($user->isAdmin())
+            $projects = Project::all()->pluck('name', 'id')->toArray();
+        else
+            $projects = Project::where('user_id', '=', $user->getId())->pluck('name', 'id')->toArray();
 
         return view(config('view.cms.offers.create'), [
             'projects' => $projects,
             'cities' => $cities,
+            'categories' => $categories,
         ]);
     }
 
@@ -118,15 +115,28 @@ class OffersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Offer  $offer
+     * @param \App\Models\Offer $offer
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Offer $offer)
+    public function show(Offer $offer, User $user)
     {
         $this->authorize(Abilities::VIEW, $offer);
 
+        $cities = City::all();
+        $categories = Category::all();
+
+        if ($user->isAdmin())
+            $projects = Project::all()->pluck('name', 'id')->toArray();
+        else
+            $projects = Project::where('user_id', '=', $user->getId())->pluck('name', 'id')->toArray();
+
         return view(config('view.cms.offers.edit'), [
             'offer' => $offer,
+            'cities' => $cities,
+            'categories' => $categories,
+            'projects' => $projects,
         ]);
     }
 

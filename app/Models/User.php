@@ -63,4 +63,21 @@ class User extends Authenticatable
     public function canDo($action, $entity){
         return config('user-actions.'.$this->role.'.cms.'.$entity.'.'.$action, config('user-actions.default-value-if-null'));
     }
+
+    public function getId(){
+        return Auth::user()->id;
+    }
+
+    public function getName(){
+        return Auth::user()->name;
+    }
+
+    public function getRole(){
+        return Auth::user()->role;
+    }
+
+    public function getCurrentUserDataArray()
+    {
+        return [$this->getId() => $this->getName()];
+    }
 }

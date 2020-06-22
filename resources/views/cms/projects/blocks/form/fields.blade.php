@@ -1,6 +1,4 @@
 @php
-    $users = \App\Models\User::all();
-
     if (isset($project)){
         $name = $project->name;
         $description = $project->description;
@@ -15,8 +13,8 @@
 <div class="row">
     <div class="col-sm-12 col-md-6">
         <div class="form-group">
-            {{ Form::label('user_id', 'Владелец проекта (магазина)') }}
-            {{ Form::select('user_id', $users->pluck('name', 'id')->toArray(), null, array('class'=>'form-control form-control')) }}
+            {{ Form::label('user_id_label', 'Владелец проекта (магазина)') }}
+            {{ Form::select('user_id', $users, null, array('class'=>'form-control form-control')) }}
         </div>
     </div>
     <div class="col-sm-12 col-md-6">
