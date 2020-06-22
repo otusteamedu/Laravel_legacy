@@ -1,13 +1,30 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Films;
+
+use App\Http\Controllers\Admin\Films\Requests\StoreFilmRequest;
+use App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest;
 use App\Models\Film;
-use View;
-use App\Http\Controllers\Controller;
+use App\Services\Films\FilmsService;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\ValidationException;
+
+use View;
+
 
 class FilmController extends Controller
 {
+
+    protected $filmsService;
+
+    public function __construct(
+        FilmsService $filmsService
+    )
+    {
+       $this->filmsService = $filmsService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -37,16 +54,10 @@ class FilmController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreFilmRequest $request)
     {
-        //
-        $request->validate([
-            'title' => 'required',
-            'slug' => 'required'
-           ]);
-
-        Film::create($request->all());
-
+        $data = $request->getFormData();
+        $this->filmsService->createFilm($data);
         return redirect(route('cms.films.index'));
     }
 
@@ -74,15 +85,17 @@ class FilmController extends Controller
         ]);
     }
 
+
     /**
-     * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Film  $film
-     * @return \Illuminate\Http\Response
+     * @param UpdateFilmRequest $request
+     * @param Film $film
+     * @return void
      */
-    public function update(Request $request, Film $film)
+    public function update(UpdateFilmRequest $request, Film $film)
     {
+
+        $this->filmsService->updateFilm($film, $request->all());
 
         $film->update($request->all());
 
