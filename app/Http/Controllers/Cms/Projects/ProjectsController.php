@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Cms\Projects;
 use App\Http\Controllers\Cms\Projects\Requests\StoreProjectRequest;
 use App\Http\Controllers\Cms\Projects\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
-use App\Models\Segment;
-use App\Models\Tariff;
 use App\Models\Project;
 use App\Models\User;
 use App\Policies\Abilities;
@@ -14,9 +12,6 @@ use App\Services\Projects\ProjectsService;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use View;
-
 
 class ProjectsController extends Controller
 {
@@ -24,6 +19,7 @@ class ProjectsController extends Controller
      * @var ProjectsService
      */
     protected $projectsService;
+    protected $currentUser;
 
     public function __construct(
         ProjectsService $projectsService
@@ -36,15 +32,22 @@ class ProjectsController extends Controller
      * Display a listing of the resource.
      *
      * @param Project $project
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function index(Project $project)
+    public function index(Project $project, User $user)
     {
         $this->authorize(Abilities::VIEW, $project);
 
+        if ($user->isAdmin()){
+            $projects = Project::paginate();
+        }else{
+            $projects = Project::where('user_id', '=', $user->getId())->paginate();
+        }
+
         return view('cms.projects.index', [
-            'projects' => Project::paginate()
+            'projects' => $projects
         ]);
     }
 
@@ -52,14 +55,18 @@ class ProjectsController extends Controller
      * Show the form for creating a new resource.
      *
      * @param Project $project
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create(Project $project)
+    public function create(Project $project, User $user)
     {
         $this->authorize(Abilities::CREATE, $project);
 
-        $users = User::all();
+        if ($user->isAdmin())
+            $users = User::all()->pluck('name', 'id')->toArray();
+        else
+            $users = $user->getCurrentUserDataArray();
 
         return view(config('view.cms.projects.create'), [
             'users' => $users,
@@ -96,30 +103,46 @@ class ProjectsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param \App\Models\Project $project
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function show(Project $project)
+    public function show(Project $project, User $user)
     {
         $this->authorize(Abilities::VIEW, $project);
 
+        if ($user->isAdmin())
+            $users = User::all()->pluck('name', 'id')->toArray();
+        else
+            $users = $user->getCurrentUserDataArray();
+
         return view(config('view.cms.projects.edit'), [
             'project' => $project,
+            'users' => $users,
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Project  $project
+     * @param \App\Models\Project $project
+     * @param User $user
      * @return Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(Project $project)
+    public function edit(Project $project, User $user)
     {
         $this->authorize(Abilities::UPDATE, $project);
 
+        if ($user->isAdmin())
+            $users = User::all()->pluck('name', 'id')->toArray();
+        else
+            $users = $user->getCurrentUserDataArray();
+
         return view(config('view.cms.projects.edit'), [
             'project' => $project,
+            'users' => $users,
         ]);
     }
 
