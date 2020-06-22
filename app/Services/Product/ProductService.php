@@ -2,14 +2,14 @@
 
 namespace App\Services\Product;
 
-use App\Services\Product\Repositories\EloquentProductRepository;
+use App\Services\Product\Repositories\ProductRepositoryInterface;
 
 class ProductService
 {
     protected $productRepository;
 
     public function __construct(
-        EloquentProductRepository $productRepository
+        ProductRepositoryInterface $productRepository
     ) {
         $this->productRepository = $productRepository;
     }

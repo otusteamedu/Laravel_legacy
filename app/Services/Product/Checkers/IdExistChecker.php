@@ -3,14 +3,14 @@
 namespace App\Services\Product\Checkers;
 
 use App\Services\Product\Exceptions\IdDoesntExistException;
-use App\Services\Product\Repositories\EloquentProductRepository;
+use App\Services\Product\Repositories\ProductRepositoryInterface;
 
 class IdExistChecker
 {
     protected $productRepository;
 
     public function __construct(
-        EloquentProductRepository $productRepository
+        ProductRepositoryInterface $productRepository
     ) {
         $this->productRepository = $productRepository;
     }

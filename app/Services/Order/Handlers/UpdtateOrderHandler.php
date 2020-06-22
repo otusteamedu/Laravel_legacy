@@ -2,11 +2,11 @@
 
 namespace App\Services\Order\Handlers;
 
-use App\Services\Order\Repositories\EloquentOrderRepository;
 use App\Models\Order;
 use App\Services\OrderStatus\Checkers\IdExistChecker as OrderIdExistChecker;
 use App\Services\Product\Checkers\IdExistChecker as ProductIdExistChecker;
 use App\Services\Order\Checkers\ProductsChecker;
+use App\Services\Order\Repositories\OrderRepositoryInterface;
 
 class UpdateOrderHandler
 {
@@ -16,7 +16,7 @@ class UpdateOrderHandler
     protected $productsChecker;
 
     public function __construct(
-        EloquentOrderRepository $orderRepository,
+        OrderRepositoryInterface $orderRepository,
         OrderIdExistChecker $orderStatusIdExistChecker,
         ProductIdExistChecker $productIdExistChecker,
         ProductsChecker $productsChecker

@@ -4,7 +4,7 @@ namespace App\Services\Order;
 
 use App\Models\Order;
 use App\Services\Order\Handlers\UpdateOrderHandler;
-use App\Services\Order\Repositories\EloquentOrderRepository;
+use App\Services\Order\Repositories\OrderRepositoryInterface;
 
 class OrderService
 {
@@ -12,14 +12,14 @@ class OrderService
     protected $updateOrderHandler;
 
     public function __construct(
-        EloquentOrderRepository $orderRepository,
+        OrderRepositoryInterface $orderRepository,
         UpdateOrderHandler $updateOrderHandler
     ) {
         $this->orderRepository = $orderRepository;
         $this->updateOrderHandler = $updateOrderHandler;
     }
 
-    public function patch($request)
+    public function patch($request) :bool
     {
         $ordersToPutch = $request;
 

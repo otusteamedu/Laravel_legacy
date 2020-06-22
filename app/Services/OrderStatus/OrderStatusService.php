@@ -2,15 +2,14 @@
 
 namespace App\Services\OrderStatus;
 
-use App\Models\OrderStatus;
-use App\Services\OrderStatus\Repositories\EloquentOrderStatusRepository;
+use App\Services\OrderStatus\Repositories\OrderStatusRepositoryInterface;
 
 class OrderStatusService
 {
     protected $orderStatusRepository;
 
     public function __construct(
-        EloquentOrderStatusRepository $orderStatusRepository
+        OrderStatusRepositoryInterface $orderStatusRepository
     ) {
         $this->orderStatusRepository = $orderStatusRepository;
     }

@@ -3,15 +3,14 @@
 namespace App\Services\User;
 
 use App\Models\User;
-use App\Services\Order\Repositories\EloquentOrderRepository;
-use App\Services\User\Repositories\EloquentUserRepository;
+use App\Services\User\Repositories\UserRepositoryInterface;
 
 class UserService
 {
     protected $userRepository;
 
     public function __construct(
-        EloquentUserRepository $userRepository
+        UserRepositoryInterface $userRepository
     ) {
         $this->userRepository = $userRepository;
     }

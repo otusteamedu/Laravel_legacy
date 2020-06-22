@@ -3,14 +3,14 @@
 namespace App\Services\OrderStatus\Checkers;
 
 use App\Services\OrderStatus\Exceptions\IdDoesntExsistException;
-use App\Services\OrderStatus\Repositories\EloquentOrderStatusRepository;
+use App\Services\OrderStatus\Repositories\OrderStatusRepositoryInterface;
 
 class IdExistChecker
 {
     protected $orderStatusRepository;
 
     public function __construct(
-        EloquentOrderStatusRepository $orderStatusRepository
+        OrderStatusRepositoryInterface $orderStatusRepository
     ) {
         $this->orderStatusRepository = $orderStatusRepository;
     }
