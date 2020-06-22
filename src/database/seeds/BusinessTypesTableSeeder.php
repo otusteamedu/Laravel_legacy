@@ -12,25 +12,11 @@ class BusinessTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $types = [
-            [
-                'name' => "Салон красоты",
-                'description' => '',
-            ],
-            [
-                'name' => "Парикмахерская",
-                'description' => '',
-            ],
-            [
-                'name' => "Барбершоп",
-                'description' => '',
-            ],
-        ];
+        $types = ["Салон красоты", "Парикмахерская", "Барбершоп"];
 
         foreach ($types as $type) {
-            DB::insert('insert into business_types (name, description) values (:name, :description)', [
-                ':name' => $type['name'],
-                ':description' => $type['description'],
+            factory(\App\Models\BusinessType::class, 1)->create([
+                'name' => $type
             ]);
         }
     }

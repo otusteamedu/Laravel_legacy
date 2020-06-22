@@ -25,7 +25,7 @@ class CreateMessagesTable extends Migration
             $table->index('business_id');
             $table->foreign('business_id')
                 ->references('id')
-                ->on('business')
+                ->on('businesses')
                 ->onDelete('cascade');
 
             $table->index('user_id');

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateBusinessTable extends Migration
+class CreateBusinessContactsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,25 +13,25 @@ class CreateBusinessTable extends Migration
      */
     public function up()
     {
-        Schema::create('business', function (Blueprint $table) {
+        Schema::create('business_contacts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedbigInteger('user_id')->unsigned()->nullable();
+            $table->unsignedbigInteger('business_id');
             $table->unsignedSmallInteger('type_id')->nullable();
-            $table->unsignedSmallInteger("status")->default(0);
+            $table->string('contact');
             $table->timestamps();
         });
 
-        Schema::table('business', function (Blueprint $table) {
-//            $table->index('user_id');
-            $table->foreign('user_id')
+        Schema::table('business_contacts', function (Blueprint $table) {
+            $table->index('business_id');
+            $table->foreign('business_id')
                 ->references('id')
-                ->on('users')
-                ->onDelete('SET NULL');
+                ->on('businesses')
+                ->onDelete('cascade');
 
             $table->index('type_id');
             $table->foreign('type_id')
                 ->references('id')
-                ->on('business_types')
+                ->on('business_contact_types')
                 ->onDelete('SET NULL');
         });
     }
@@ -43,6 +43,6 @@ class CreateBusinessTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('business');
+        Schema::dropIfExists('business_contacts');
     }
 }

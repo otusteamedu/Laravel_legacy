@@ -12,29 +12,11 @@ class BusinessContactTypesTableSeeder extends Seeder
      */
     public function run()
     {
-        $types = [
-            [
-                'name' => "Телефон",
-                'description' => '',
-            ],
-            [
-                'name' => "WhatsApp",
-                'description' => '',
-            ],
-            [
-                'name' => "Email",
-                'description' => '',
-            ],
-            [
-                'name' => "Skype",
-                'description' => '',
-            ],
-        ];
+        $types = ["Телефон", "WhatsApp", "Email", "Skype"];
 
         foreach ($types as $type) {
-            DB::insert('insert into business_contact_types (name, description) values (:name, :description)', [
-                ':name' => $type['name'],
-                ':description' => $type['description'],
+            factory(\App\Models\BusinessContactType::class, 1)->create([
+                'name' => $type
             ]);
         }
     }
