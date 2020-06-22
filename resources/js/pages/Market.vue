@@ -13,13 +13,10 @@
             <option value='1' disabled hidden>{{ $t('market.select_category') }}</option>
         </select>
         <router-link to='/product/1' class='market-product-container'>
-            <div class='market-product-container__image-container'>
-                <div
-                    class='market-product-container__image'
-                    style='background-image: url(/images/products/1/1.jpeg'
-                >
-                </div>
-            </div>
+            <div
+                class='market-product-container__image'
+                style='background-image: url(/images/products/1/1.jpeg'
+            ></div>
             <div class='market-product-container__information-container'>
                 <div class='market-product-container__name'>
                     Socks 1
@@ -30,13 +27,10 @@
             </div>
         </router-link>
         <div class='market-product-container'>
-            <div class='market-product-container__image-container'>
-                <div
-                    class='market-product-container__image'
-                    style='background-image: url(/images/products/2/1.jpeg'
-                >
-                </div>
-            </div>
+            <div
+                class='market-product-container__image'
+                style='background-image: url(/images/products/2/1.jpeg'
+            ></div>
             <div class='market-product-container__information-container'>
                 <div class='market-product-container__name'>
                     Socks 2
@@ -47,13 +41,10 @@
             </div>
         </div>
         <div class='market-product-container'>
-            <div class='market-product-container__image-container'>
-                <div
-                    class='market-product-container__image'
-                    style='background-image: url(/images/products/3/1.jpeg'
-                >
-                </div>
-            </div>
+            <div
+                class='market-product-container__image'
+                style='background-image: url(/images/products/3/1.jpeg'
+            ></div>
             <div class='market-product-container__information-container'>
                 <div class='market-product-container__name'>
                     Strawberry

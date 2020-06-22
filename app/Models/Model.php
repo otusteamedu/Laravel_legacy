@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as ModelBase;
+use App\Models\Traits\GetPage;
 
 /**
  * App\Models\Model
@@ -14,5 +15,5 @@ use Illuminate\Database\Eloquent\Model as ModelBase;
  */
 class Model extends ModelBase
 {
-    
+    use GetPage;
 }

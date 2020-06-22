@@ -1,5 +1,16 @@
 export default {
     "en": {
+        "userlist": {
+            "users_per_page": "Users per page",
+            "page_to_go": "Page to go",
+            "search": "Search"
+        },
+        "add_product_to_order": {
+            "add_product_to_order": "Add product to order",
+            "search": "Search",
+            "products_per_page": "Products per page",
+            "page_to_go": "Page to go"
+        },
         "validation": {
             "accepted": "The {attribute} must be accepted.",
             "active_url": "The {attribute} is not a valid URL.",
@@ -132,6 +143,16 @@ export default {
             "wrong_login_or_password": "Wrong login or password",
             "enter": "Login"
         },
+        "admin_menu": {
+            "users": "Users",
+            "products": "Products",
+            "categories": "Categories",
+            "category_groups": "Category groups",
+            "order_statuses": "Order statuses",
+            "colors": "Colors",
+            "materials": "Materials",
+            "guarantees": "Guarantees"
+        },
         "registration": {
             "login": "Login",
             "email": "Email",
@@ -146,6 +167,12 @@ export default {
             "material": "Material",
             "buy": "Buy"
         },
+        "user": {
+            "name": "Name",
+            "email": "Email",
+            "address": "Address",
+            "orders": "Orders"
+        },
         "passwords": {
             "reset": "Your password has been reset!",
             "sent": "We have emailed your password reset link!",
@@ -158,12 +185,34 @@ export default {
             "select_group_of_categories": "Select group of categories",
             "select_category": "Select category"
         },
+        "order": {
+            "user": "User",
+            "products": "Products",
+            "add_product": "Add product",
+            "total_price": "Total price",
+            "status": "Status",
+            "save": "Save",
+            "reestablish": "Reestablish",
+            "order_is_deleted": "Order is deleted",
+            "remove": "Remove"
+        },
         "auth": {
             "failed": "These credentials do not match our records.",
             "throttle": "Too many login attempts. Please try again in {seconds} seconds."
         }
     },
     "ru": {
+        "userlist": {
+            "users_per_page": "Пользователей на странице",
+            "page_to_go": "Перейти на страницу",
+            "search": "Поиск"
+        },
+        "add_product_to_order": {
+            "add_product_to_order": "Добавить товар в заказ",
+            "search": "Поиск",
+            "products_per_page": "Товаров на странице",
+            "page_to_go": "Перейти на страницу"
+        },
         "validation": {
             "accepted": "Вы должны принять {attribute}.",
             "active_url": "Поле {attribute} содержит недействительный URL.",
@@ -326,6 +375,16 @@ export default {
             "wrong_login_or_password": "Неверное имя пользователя или пароль",
             "enter": "Вход"
         },
+        "admin_menu": {
+            "users": "Пользователи",
+            "products": "Товары",
+            "categories": "Категории",
+            "category_groups": "Группа категорий",
+            "order_statuses": "Статусы заказа",
+            "colors": "Цвета",
+            "materials": "Материалы",
+            "guarantees": "Гарантии"
+        },
         "registration": {
             "login": "Имя пользователя",
             "email": "Почта",
@@ -340,6 +399,12 @@ export default {
             "material": "Материал",
             "buy": "Купить"
         },
+        "user": {
+            "name": "Имя",
+            "email": "Почта",
+            "address": "Адрес",
+            "orders": "Заказы"
+        },
         "passwords": {
             "reset": "Ваш пароль был сброшен!",
             "sent": "Ссылка на сброс пароля была отправлена!",
@@ -351,6 +416,17 @@ export default {
             "search": "Поиск",
             "select_group_of_categories": "Выберите группу категорий",
             "select_category": "Выберите категорию"
+        },
+        "order": {
+            "user": "Пользователь",
+            "products": "Товары",
+            "add_product": "Добавить товар",
+            "total_price": "Общая цена",
+            "status": "Статус",
+            "save": "Сохранить",
+            "reestablish": "Восстановить",
+            "order_is_deleted": "Заказ удален",
+            "remove": "Удалить"
         },
         "auth": {
             "failed": "Неверное имя пользователя или пароль.",

@@ -14,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::get('/users/{page?}/{perPage?}/{search?}', 'API\Users\UserController@getList');
+Route::get('/user/{id}/{lang?}', 'API\Users\UserController@get');
+Route::get('/order/{id}', 'API\Orders\OrderController@get');
+Route::get('/products/{page?}/{perPage?}/{search?}', 'API\Products\ProductController@getList');
+Route::get('/order_statuses', 'API\OrderStatuses\OrderStatusController@getAll');
+Route::patch('/order', 'API\Orders\OrderController@patch');
