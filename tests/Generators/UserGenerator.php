@@ -59,6 +59,7 @@ class UserGenerator
 
         if (empty($data['password'])) {
             $data['password'] = time();
+            $data['password_confirmation'] = $data['password'];
         }
 
         return $data;

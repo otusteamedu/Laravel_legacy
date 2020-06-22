@@ -29,3 +29,13 @@ Route::get('/me/email', function() {
 Route::get('/me/name', function() {
     return ['name' => auth()->user()->name];
 })->middleware(['auth:api', 'scope:user.name'])->name('me.name');
+
+
+Route::get('personal/get-user-token', 'Api\Users\UsersController@getPassportToken')->name('api.personal.user.token');
+Route::post('/personal/register', 'Api\Users\UsersController@register')->name('api.user.register');
+Route::post('/personal/logout', 'Api\Users\UsersController@logout')->middleware('auth:api')->name('api.user.logout');
+Route::get('/personal', 'Api\Users\UsersController@show')->middleware('auth:api')->name('api.user.index');
+Route::put('/personal/update', 'Api\Users\UsersController@update')->middleware('auth:api')->name('api.user.update');
+Route::get('/personal/email', 'Api\Users\UsersController@getEmail')->middleware('auth:api')->name('api.user.email');
+Route::get('/personal/phone', 'Api\Users\UsersController@getPhone')->middleware('auth:api')->name('api.user.phone');
+
