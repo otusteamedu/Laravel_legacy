@@ -21,3 +21,11 @@ Route::middleware('auth:api')->group(function () {
 
 Route::get('personal/get-token', '\App\Http\Controllers\Api\HomeController@getToken')
     ->name('personal.token');
+
+Route::get('/me/email', function() {
+    return ['email' => auth()->user()->email];
+})->middleware(['auth:api', 'scope:user.email'])->name('me.email');
+
+Route::get('/me/name', function() {
+    return ['name' => auth()->user()->name];
+})->middleware(['auth:api', 'scope:user.name'])->name('me.name');
