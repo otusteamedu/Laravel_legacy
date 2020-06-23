@@ -58,7 +58,7 @@ class FilmsService
      */
     public function updateFilm(Film $film, array $data): Film
     {
-        return '123';// $this->filmRepository->updateFromArray($film, $data);
+        return $this->filmRepository->updateFromArray($film, $data);
     }
 
 }

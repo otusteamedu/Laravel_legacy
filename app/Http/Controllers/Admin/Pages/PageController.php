@@ -2,13 +2,31 @@
 
 namespace App\Http\Controllers\Admin\Pages;
 
-use App\Http\Controllers\Controller;
+namespace App\Http\Controllers\Admin\Pages;
+
+use App\Http\Controllers\Admin\Pages\Requests\StorePageRequest;
+use App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest;
 use App\Models\Page;
-use View;
+use App\Services\Pages\PagesService;
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\ValidationException;
+
+use View;
 
 class PageController extends Controller
 {
+
+
+    protected $pagesService;
+
+    public function __construct(
+        PagesService $pagesService
+    )
+    {
+       $this->pagesService = $pagesService;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,23 +51,15 @@ class PageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StorePageRequest $request
+     * @return void
      */
-    public function store(Request $request)
+    public function store(StorePageRequest $request)
     {
-        //
-        $request->validate([
-            'title' => 'required',
-            'slug' => 'required'
-           ]);
-
-        Page::create($request->all());
-
+        $data = $request->getFormData();
+        $this->pagesService->createPage($data);
         return redirect(route('cms.pages.index'));
-
     }
 
     /**
@@ -64,10 +74,9 @@ class PageController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
      *
-     * @param  Page  $page
-     * @return \Illuminate\Http\Response
+     * @param Page $page
+     * @return void
      */
     public function edit(Page $page)
     {
@@ -79,18 +88,19 @@ class PageController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  Page  $page
-     * @return \Illuminate\Http\Response
+     * @param UpdatePageRequest $request
+     * @param Page $page
+     * @return void
      */
-    public function update(Request $request, Page $page)
+    public function update(UpdatePageRequest $request, Page $page)
     {
+
+        $this->filmsService->updatePage($page, $request->all());
 
         $page->update($request->all());
 
-        return redirect(route('cms.pages.index'));
+        return redirect(route('cms.films.index'));
     }
 
     /**

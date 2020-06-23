@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Films\Requests;
+namespace App\Http\Controllers\Admin\Pages\Requests;
 
 
 use App\Http\Requests\FormRequest;
 
-class UpdateFilmRequest extends FormRequest
+class StorePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -20,11 +20,9 @@ class UpdateFilmRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
-            'slug' => 'required',
+            'title' => 'required|unique:films,title|max:100',
+            'slug' => 'required|unique:films,slug|max:100',
         ];
     }
-
-
 
 }

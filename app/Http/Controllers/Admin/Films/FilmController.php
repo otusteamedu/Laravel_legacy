@@ -49,10 +49,9 @@ class FilmController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreFilmRequest $request
+     * @return void
      */
     public function store(StoreFilmRequest $request)
     {
