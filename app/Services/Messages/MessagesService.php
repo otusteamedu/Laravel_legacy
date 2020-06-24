@@ -5,16 +5,21 @@ namespace App\Services\Messages;
 
 
 use App\Models\Message;
+use App\Services\Messages\Repositories\MessageCacheRepository;
 use App\Services\Messages\Repositories\MessageRepositoryInterface;
 
 class MessagesService
 {
 
     private $messageRepository;
+    private $messageCacheRepository;
 
-    public function __construct(MessageRepositoryInterface $messageRepository)
+    public function __construct(
+                MessageRepositoryInterface $messageRepository,
+                MessageCacheRepository $messageCacheRepository )
     {
         $this->messageRepository = $messageRepository;
+        $this->messageCacheRepository = $messageCacheRepository;
     }
 
     public function showItem($id)
@@ -24,10 +29,12 @@ class MessagesService
 
     public function showMessageList()
     {
-        $messageCacheKey = 'messageList';
-        return \Cache::remember($messageCacheKey, 60*20, function() {
-            return $this->messageRepository->list();
-        });
+//        $messageCacheKey = 'messageList';
+//        return \Cache::remember($messageCacheKey, 60*20, function() {
+//            return $this->messageRepository->list();
+//        });
+
+        return $this->messageCacheRepository->cachingMessageList();
 
     }
 
