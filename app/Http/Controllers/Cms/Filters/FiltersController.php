@@ -112,10 +112,10 @@ class FiltersController extends Controller
      * @param \App\Models\Filter $filter
      * @return \Illuminate\Http\Response
      */
-   /* public function show(Filter $filter)
+    public function show(Filter $filter)
     {
-        //
-    }*/
+        dd($filter);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -125,6 +125,7 @@ class FiltersController extends Controller
      */
     public function edit(Filter $filter)
     {
+        $this->authorize(Abilities::VIEW_ANY, Filter::class);
       /*  if (!isset($filter)) {
             abort(404); // Never catch it!!!
         }*/

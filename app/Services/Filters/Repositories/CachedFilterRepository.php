@@ -7,6 +7,7 @@ namespace App\Services\Filters\Repositories;
 use App\Models\Filter;
 use App\Services\Cache\CacheKeyManager;
 use App\Services\Cache\Tag;
+use Illuminate\Database\Eloquent\Collection;
 use Cache;
 
 class CachedFilterRepository implements CachedFilterRepositoryInterface
@@ -68,6 +69,20 @@ class CachedFilterRepository implements CachedFilterRepositoryInterface
     {
         // list methods for warmup
         $this->search([], []);
+    }
+
+
+    public function getBy(array $filters = [], array $with = []): Collection
+    {
+
+        $key = $this->cacheKeyManager->getSearchFiltersKey($filters);
+
+        return Cache::tags([Tag::CMS, Tag::FILTERS])
+            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use($filters, $with){
+                return $this->filterRepository->getBy();
+            });
+
+
     }
 
 }

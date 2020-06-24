@@ -11,3 +11,7 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
+
+config/debugbar.php
+config/ide-helper.php
+public/js/app.js.LICENSE.txt

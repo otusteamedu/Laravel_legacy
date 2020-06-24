@@ -81,7 +81,8 @@ class FilterPolicy extends BasePolicy
         if ($user->isAdmin()) return true;
         return $user->id === $filter->created_user_id
             ? Response::allow()
-            : Response::deny('You do not own this post.');
+            : Response::deny('You do not own this post.')
+            ;
     }
 
     /**

@@ -6,6 +6,7 @@ namespace App\Services\Filters\Repositories;
 
 use App\Models\Filter;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Cache;
 
@@ -95,6 +96,16 @@ class EloquentFilterRepository implements FilterRepositoryInterface
         if (isset($filters['name'])) {
             $builder->where('name', $filters['name']);
         }
+    }
+
+    /**
+     * @param array $filters
+     * @param array $with
+     * @return Filter[]|Collection
+     */
+    public function getBy(array $filters = [], array $with = []) :Collection
+    {
+        return Filter::with($with)->get();
     }
 
 }

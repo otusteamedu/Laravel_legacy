@@ -57,4 +57,16 @@ class Filter extends BaseModel
     {
         return $this->belongsTo(FilterType::class, 'filter_type_id');
     }
+
+
+    // Можно переопределить метод toArray() и возвращать
+    // только нужное, лучше это делать в Resources
+   /* public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+            'description' => $this->description,
+        ];
+    }*/
 }

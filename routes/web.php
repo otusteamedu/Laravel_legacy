@@ -93,7 +93,7 @@ Route::group([
 
     //CmsFilters
     Route::namespace('Filters')->group(function () {
-        $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy'];
+        $methods = ['index', 'edit', 'update', 'create', 'store', 'destroy', 'show'];
         Route::resource('filters', 'FiltersController')
             ->only($methods)
             ->names('cms.filters')->middleware(['auth', 'localize']);
