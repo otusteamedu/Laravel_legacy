@@ -5,18 +5,23 @@ namespace App\Services\Adverts;
 
 
 use App\Models\Advert;
+use App\Services\Adverts\Repositories\AdvertCacheRepository;
 use App\Services\Adverts\Repositories\AdvertRepositoryInterface;
-use App\Services\Cache\CacheService;
+
 
 
 class AdvertsService
 {
 
     private $advertRepository;
+    private $advertCacheRepository;
 
-    public function __construct(AdvertRepositoryInterface $advertRepository)
+    public function __construct(
+                    AdvertRepositoryInterface $advertRepository,
+                    AdvertCacheRepository $advertCacheRepository )
     {
         $this->advertRepository = $advertRepository;
+        $this->advertCacheRepository = $advertCacheRepository;
     }
 
     public function showItem($id)
@@ -26,11 +31,7 @@ class AdvertsService
 
     public function showAdvertList()
     {
-        $advertCacheKey = 'advertList';
-        return \Cache::remember($advertCacheKey, 60*20, function() {
-            return $this->advertRepository->list();
-        });
-
+        return $this->advertCacheRepository->cachingAdvertList();
     }
 
     public function showDivisionList()
@@ -40,11 +41,7 @@ class AdvertsService
 
     public function page($qty)
     {
-        $advertCacheKey = 'homeList';
-        return \Cache::remember($advertCacheKey, 60*20, function() use($qty){
-            return $this->advertRepository->paginateList($qty);
-        });
-
+        return $this->advertCacheRepository->cachingPage($qty);
     }
 
     public function showTownList()
