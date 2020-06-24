@@ -13,6 +13,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+/*Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+});*/
+
+/*Route::get('/', 'Api\Cms\Filters\FiltersController@index');
+Route::get('/filters', 'Api\Cms\Filters\FiltersController@index');
+Route::get('/filters/{filter}', 'Api\Cms\Filters\FiltersController@show');*/
+
+
+/*Route::get('/', function (){
+    return response()->json(['OK']);
+});*/
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::apiResource('filters', 'Api\Cms\Filters\FiltersController', [
+        'expect' => [
+            'destroy',
+        ],
+    ]);
+    Route::get('/user', function (){
+       return response()->json(Auth::user());
+    });
 });

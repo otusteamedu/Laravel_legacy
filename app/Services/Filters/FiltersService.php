@@ -84,4 +84,9 @@ class FiltersService
         return new Filter();  // Just for test
     }
 
+    public function getAll()
+    {
+       return $this->cashedFilterRepository->getBy();
+    }
+
 }
