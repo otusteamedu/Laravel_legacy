@@ -22,7 +22,9 @@ Route::get('/contacts', function () {
 });
 */
 Route::name('cms.')->group(function () {
-    Route::prefix('admin')->group(function () {
+    Route::prefix('admin')->middleware([
+        'auth',
+    ])->group(function () {
         Route::get('/', 'Admin\DashboardController')->name('dashboard');
         Route::resources([
             'films' => 'Admin\Films\FilmController',
