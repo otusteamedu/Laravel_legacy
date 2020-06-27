@@ -27,6 +27,7 @@ return [
     'teacher' => 'Преподаватель',
 
     'full_name' => 'ФИО',
+    'last_name' => 'Фамилия',
     'student_id' => '№ студенческого билета',
 
     'email' => 'Email',

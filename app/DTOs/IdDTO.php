@@ -4,6 +4,8 @@ namespace App\DTOs;
 
 class IdDTO implements DTOInterface
 {
+    const ID = 'id';
+
     /** @var int  */
     private $id;
 
@@ -22,7 +24,7 @@ class IdDTO implements DTOInterface
      */
     public static function fromArray(array $data): DTOInterface
     {
-        return new static($data['id']);
+        return new static($data[static::ID]);
     }
 
     /**
@@ -31,7 +33,7 @@ class IdDTO implements DTOInterface
     public function toArray(): array
     {
         return [
-            'id' => $this->id,
+            static::ID => $this->id,
         ];
     }
 }

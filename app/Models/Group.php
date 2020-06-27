@@ -94,7 +94,7 @@ class Group extends BaseModel
      */
     public function course(): BelongsTo
     {
-        return $this->belongsTo(Course::class);
+        return $this->belongsTo(Course::class)->withDefault();
     }
 
     /**
@@ -143,5 +143,13 @@ class Group extends BaseModel
     public function students(): BelongsToMany
     {
         return $this->belongsToMany(Student::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getGroupCourseAttribute(): string
+    {
+        return $this->number . ' | ' . $this->course->number ?? ' - ';
     }
 }

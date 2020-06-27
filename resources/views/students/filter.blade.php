@@ -1,30 +1,29 @@
 @extends('layouts.filter')
 
 @section('filter_content')
-    {!! Form::open(['url' => '/']) !!}
+    {!! Form::open(['url' => route('students.index'), 'method' => 'get']) !!}
 
     <div class="form-group">
-        {{ Form::label('full_name', __('scheduler.full_name'), ['class' => 'control-label']) }}
+        {{ Form::label('last_name', __('users.last_name'), ['class' => 'control-label']) }}
         {{ Form::text(
-            'full_name',
-            null,
+            'last_name',
+            $filter['last_name'],
             [
             'class' => 'form-control',
-            'data-max-options' => '20',
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('term', __('scheduler.term'), ['class' => 'control-label']) }}
+        {{ Form::label('course', __('scheduler.course'), ['class' => 'control-label']) }}
         {{ Form::select(
-            'term',
-            ['1' => '1', '2' => '1'],
-            null,
+            'course',
+            $courseList,
+            $filter['course'],
             [
             'class' => 'selectpicker form-control',
-            'multiple',
             'data-max-options' => '20',
             'data-live-search' => 'true',
+            'placeholder' => ''
             ]
            ) }}
     </div>
@@ -32,21 +31,21 @@
         {{ Form::label('group', __('scheduler.group'), ['class' => 'control-label']) }}
         {{ Form::select(
             'group',
-            ['1' => '1', '2' => '1'],
-            null,
+            $groupList,
+            $filter['group'],
             [
             'class' => 'selectpicker form-control',
-            'multiple',
             'data-max-options' => '20',
             'data-live-search' => 'true',
+            'placeholder' => ''
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('student_id', __('scheduler.student_id'), ['class' => 'control-label']) }}
+        {{ Form::label('id_number', __('scheduler.student_id'), ['class' => 'control-label']) }}
         {{ Form::text(
-            'student_id',
-            null,
+            'id_number',
+            $filter['id_number'],
             [
             'class' => 'form-control',
             ]

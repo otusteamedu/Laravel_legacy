@@ -6,6 +6,7 @@ use App\DTOs\GroupDTO;
 use App\DTOs\GroupFilterDTO;
 use App\Models\Group;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 interface GroupRepositoryInterface
 {
@@ -34,4 +35,14 @@ interface GroupRepositoryInterface
      * @return LengthAwarePaginator
      */
     public function getGroupsListPaginate(int $perPage, GroupFilterDTO $DTO): LengthAwarePaginator;
+
+    /**
+     * @return Collection
+     */
+    public function selectList(): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function selectListWithCourse(): Collection;
 }

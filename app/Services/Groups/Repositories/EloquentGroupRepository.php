@@ -7,6 +7,7 @@ use App\DTOs\GroupFilterDTO;
 use App\Models\Group;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class EloquentGroupRepository implements GroupRepositoryInterface
 {
@@ -41,25 +42,19 @@ class EloquentGroupRepository implements GroupRepositoryInterface
     }
 
     /**
+     * Список групп с пагинацией
      * @param int $perPage
      * @param GroupFilterDTO $DTO
      * @return LengthAwarePaginator
      */
     public function getGroupsListPaginate(int $perPage, GroupFilterDTO $DTO): LengthAwarePaginator
     {
-        $columns = [
-            'id',
-            'number',
-            'course_id',
-        ];
-
-        $builder = Group::select($columns);
-        $builder = $this->filter($builder, $DTO);
-
-        $builder->with([
+        $builder = $this->selectRequiredColumns(Group::query())
+            ->with([
                 'course:id,number',
-            ])
-            ->orderBy('number', 'ASC');
+            ]);
+            $builder = $this->filter($builder, $DTO);
+            $builder->orderBy('number', 'ASC');
 
         $paginator = $this->paginate($builder, $perPage);
 
@@ -67,6 +62,7 @@ class EloquentGroupRepository implements GroupRepositoryInterface
     }
 
     /**
+     * Фильтрует список групп
      * @param Builder $builder
      * @param GroupFilterDTO $DTO
      * @return Builder
@@ -74,21 +70,68 @@ class EloquentGroupRepository implements GroupRepositoryInterface
     private function filter(Builder $builder, GroupFilterDTO $DTO): Builder
     {
         $filters = $DTO->toArray();
-        if ($groupNumber = $filters['group']) {
+        if ($groupNumber = $filters[GroupFilterDTO::GROUP]) {
             $builder->number($groupNumber);
         }
-        if ($teacher = $filters['teacher']) {
+        if ($teacher = $filters[GroupFilterDTO::TEACHER]) {
             $builder->teacherName($teacher);
         }
-        if ($courseNumber = $filters['course']) {
+        if ($courseNumber = $filters[GroupFilterDTO::COURSE]) {
             $builder->courseNumber($courseNumber);
         }
 
         return $builder;
     }
 
+    /**
+     * @param Builder $builder
+     * @param int $perPage
+     * @return LengthAwarePaginator
+     */
     private function paginate(Builder $builder, int $perPage): LengthAwarePaginator
     {
         return $builder->paginate($perPage);
+    }
+
+    /**
+     * @param Builder $builder
+     * @param array|null $columns
+     * @return Builder
+     */
+    private function selectRequiredColumns(Builder $builder, array $columns = null): Builder
+    {
+        if (!$columns) {
+            $columns = [
+                'id',
+                'number',
+                'course_id',
+            ];
+        }
+
+        return $builder->select($columns);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function selectList(): Collection
+    {
+        return Group::pluck('number', 'id');
+    }
+
+    /**
+     * Возвращает коллекцию групп с курсами
+     * @return Collection
+     */
+    public function selectListWithCourse(): Collection
+    {
+        $groups = $this->selectRequiredColumns(Group::query())
+            ->with([
+                'course:id,number',
+            ])
+            ->orderBy('number', 'ASC')
+            ->get();
+
+        return $groups->pluck('groupCourse', 'id');
     }
 }

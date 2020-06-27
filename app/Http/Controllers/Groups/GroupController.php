@@ -109,7 +109,7 @@ class GroupController extends Controller
     {
         $this->service->update(GroupDTO::fromArray($request->getFormData()), $group);
 
-        return redirect()->route('groups.edit', $group->id)
+        return redirect()->route('groups.show', $group->id)
             ->with(['success' => __('messages.success_update')]);
     }
 

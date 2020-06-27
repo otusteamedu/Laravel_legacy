@@ -4,24 +4,28 @@ namespace App\DTOs;
 
 class GroupDTO implements DTOInterface
 {
+    const NUMBER = 'number';
+    const COURSE_ID = 'course_id';
+    const EDUCATION_YEAR_ID = 'education_year_id';
+
     /** @var int  */
-    private $group;
+    private $number;
     /** @var int  */
-    private $course;
-    /** @var string  */
-    private $period;
+    private $course_id;
+    /** @var int  */
+    private $education_year_id;
 
     /**
      * GroupDTO constructor.
-     * @param int $group
-     * @param int $course
-     * @param string $period
+     * @param int $number
+     * @param int $courseId
+     * @param int $educationYearId
      */
-    private function __construct(int $group, int $course, string $period)
+    private function __construct(int $number, int $courseId, int $educationYearId)
     {
-        $this->group = $group;
-        $this->course = $course;
-        $this->period = $period;
+        $this->number = $number;
+        $this->course_id = $courseId;
+        $this->education_year_id = $educationYearId;
     }
 
     /**
@@ -30,7 +34,7 @@ class GroupDTO implements DTOInterface
      */
     public static function fromArray(array $data): DTOInterface
     {
-        return new static($data['group'], $data['course'], $data['year']);
+        return new static($data[static::NUMBER], $data[static::COURSE_ID], $data[static::EDUCATION_YEAR_ID]);
     }
 
     /**
@@ -39,9 +43,9 @@ class GroupDTO implements DTOInterface
     public function toArray(): array
     {
         return [
-            'number' => $this->group,
-            'course_id' => $this->course,
-            'education_year_id' => $this->period,
+            static::NUMBER => $this->number,
+            static::COURSE_ID => $this->course_id,
+            static::EDUCATION_YEAR_ID => $this->education_year_id,
         ];
     }
 }

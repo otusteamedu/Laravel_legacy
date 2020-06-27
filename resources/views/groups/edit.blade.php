@@ -6,10 +6,10 @@
     {!! Form::open(['url' => route('groups.update', $group->id), 'method' => 'PUT']) !!}
 
     <div class="form-group">
-        {{ Form::label('group', __('scheduler.group'), ['class' => 'control-label']) }}
+        {{ Form::label('number', __('scheduler.group'), ['class' => 'control-label']) }}
         {{ Form::number(
-            'group',
-            old('group') ?? $group->number,
+            'number',
+            old('number') ?? $group->number,
             [
             'class' => 'form-control',
             'min' => 1,
@@ -17,11 +17,11 @@
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('course', __('scheduler.course'), ['class' => 'control-label']) }}
+        {{ Form::label('course_id', __('scheduler.course'), ['class' => 'control-label']) }}
         {{ Form::select(
-            'course',
+            'course_id',
             $courses,
-            old('course') ?? $group->course->id,
+            old('course_id') ?? $group->course->id,
             [
             'class' => 'selectpicker form-control',
             'data-max-options' => '20',
@@ -30,11 +30,11 @@
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('year', __('scheduler.education_year'), ['class' => 'control-label']) }}
+        {{ Form::label('education_year_id', __('scheduler.education_year'), ['class' => 'control-label']) }}
         {{ Form::select(
-            'year',
+            'education_year_id',
             $years,
-            old('year') ?? $group->year->id,
+            old('education_year_id') ?? $group->year->id,
             [
             'class' => 'selectpicker form-control',
             'data-max-options' => '20',

@@ -30,8 +30,7 @@
 
     @include('blocks.buttons.primary', [
         'buttonName' => __('scheduler.students'),
-        /** TODO ссылка на список студентов с фильтрацией */
-        'src' => '#',
+        'src' => route('students.index', ['group' => $group->id]),
     ])
 
     @include('blocks.buttons.primary', [
@@ -39,7 +38,6 @@
         /** TODO ссылка на расписание */
         'src' => '#',
     ])
-
 
     @include('blocks.buttons.delete', [
         'src' => route('groups.destroy', $group->id),

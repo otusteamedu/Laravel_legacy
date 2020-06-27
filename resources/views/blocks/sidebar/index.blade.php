@@ -10,10 +10,10 @@
                     <a class="nav-link" href="#">@lang('scheduler.home')</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">@lang('scheduler.groups')</a>
+                    <a class="nav-link" href="{{ route('groups.index') }}">@lang('scheduler.groups')</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">@lang('scheduler.students')</a>
+                    <a class="nav-link" href="{{ route('students.index') }}">@lang('scheduler.students')</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">@lang('scheduler.teachers')</a>

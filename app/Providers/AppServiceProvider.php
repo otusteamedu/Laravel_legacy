@@ -4,6 +4,10 @@ namespace App\Providers;
 
 use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Repositories\EloquentCourseRepository;
+use App\Services\Students\Repositories\EloquentStudentRepository;
+use App\Services\Students\Repositories\StudentRepositoryInterface;
+use App\Services\Users\Repositories\EloquentUserRepository;
+use App\Services\Users\Repositories\UserRepositoryInterface;
 use App\Services\Years\Repositories\EloquentYearRepository;
 use App\Services\Years\Repositories\YearRepositoryInterface;
 use App\Services\Groups\Repositories\EloquentGroupRepository;
@@ -17,6 +21,8 @@ class AppServiceProvider extends ServiceProvider
         GroupRepositoryInterface::class => EloquentGroupRepository::class,
         YearRepositoryInterface::class => EloquentYearRepository::class,
         CourseRepositoryInterface::class => EloquentCourseRepository::class,
+        StudentRepositoryInterface::class => EloquentStudentRepository::class,
+        UserRepositoryInterface::class => EloquentUserRepository::class,
     ];
 
     /**

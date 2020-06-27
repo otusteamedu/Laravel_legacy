@@ -23,6 +23,8 @@ class EducationYearScope implements Scope
         }
 
         $builder->whereHas('year', function (Builder $builder) use ($educationYear): Builder {
+            $builder->select('id');
+
             return $builder->where('id', $educationYear);
         });
     }

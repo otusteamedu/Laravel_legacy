@@ -19,5 +19,8 @@ Route::get('/', [HomeController::class, 'index']);
 Route::group([
     'prefix' => 'dashboard'
 ], function () {
-    Route::resource('/groups', 'Groups\GroupController');
+    Route::resources([
+        '/groups' => 'Groups\GroupController',
+        '/students' => 'Students\StudentController',
+    ]);
 });

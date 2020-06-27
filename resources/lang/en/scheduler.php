@@ -27,6 +27,7 @@ return [
     'teacher' => 'Teacher',
 
     'full_name' => 'Full Name',
+    'last_name' => 'Last name',
     'student_id' => 'Student id',
 
     'email' => 'Email',

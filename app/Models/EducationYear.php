@@ -47,6 +47,15 @@ class EducationYear extends BaseModel
     }
 
     /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeCurrent(Builder $builder): Builder
+    {
+        return $builder->date(Carbon::now());
+    }
+
+    /**
      * @return HasOne
      */
     public function course(): HasOne

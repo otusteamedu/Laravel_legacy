@@ -9,7 +9,9 @@
                         data-dismiss="alert" aria-label="Close">
                     <span aria-hidden="true"></span>
                 </button>
-                {{ $errors->first() }}
+                @foreach($errors->all() as $error)
+                    <p>{{ $error }}</p>
+                @endforeach
             </div>
         </div>
     </div>

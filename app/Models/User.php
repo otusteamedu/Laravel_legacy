@@ -88,6 +88,7 @@ class User extends Authenticatable
         'name',
         'last_name',
         'second_name',
+        'role_id',
         'email',
         'password',
     ];
@@ -118,6 +119,16 @@ class User extends Authenticatable
         static::addGlobalScope('last_name', function (Builder $builder) {
             $builder->orderBy('last_name');
         });
+    }
+
+    /**
+     * @param Builder $builder
+     * @param string $email
+     * @return Builder
+     */
+    public function email(Builder $builder, string $email): Builder
+    {
+        return $builder->where('email', $email);
     }
 
     /**
@@ -211,5 +222,10 @@ class User extends Authenticatable
     public function receivePosts(): MorphToMany
     {
         return $this->morphToMany(Post::class, 'postable');
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->last_name . ' ' . $this->name . ' ' . $this->second_name;
     }
 }

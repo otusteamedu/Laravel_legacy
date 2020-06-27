@@ -4,6 +4,10 @@ namespace App\DTOs;
 
 class GroupFilterDTO implements DTOInterface
 {
+    const GROUP = 'group';
+    const COURSE = 'teacher';
+    const TEACHER = 'course';
+
     /** @var int|null $group*/
     private $group;
     /** @var string|null $teacher*/
@@ -26,9 +30,9 @@ class GroupFilterDTO implements DTOInterface
     public static function fromArray(array $data): DTOInterface
     {
         $DTO = new static();
-        $DTO->addCourse($data['course'] ?? null);
-        $DTO->addTeacher($data['teacher'] ?? null);
-        $DTO->addGroup($data['group'] ?? null);
+        $DTO->addCourse($data[static::COURSE] ?? null);
+        $DTO->addTeacher($data[static::TEACHER] ?? null);
+        $DTO->addGroup($data[static::GROUP] ?? null);
 
         return $DTO;
     }
@@ -39,9 +43,9 @@ class GroupFilterDTO implements DTOInterface
     public function toArray(): array
     {
         return [
-            'group' => $this->group,
-            'teacher' => $this->teacher,
-            'course' => $this->course,
+            static::GROUP => $this->group,
+            static::TEACHER => $this->teacher,
+            static::COURSE => $this->course,
         ];
     }
 
