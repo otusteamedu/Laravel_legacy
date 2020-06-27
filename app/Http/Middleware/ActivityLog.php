@@ -21,7 +21,7 @@ class ActivityLog
         return $next($request);
     }
 
-    public function terminate(Request $request,Response $response)
+    public function terminate(Request $request, $response)
     {
         $endTime = microtime(true);
         $log = new Log();

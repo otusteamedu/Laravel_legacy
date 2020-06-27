@@ -2,18 +2,37 @@
 
 namespace App\Services;
 
+use App\Services\Repositories\CategoryCacheRepository;
 use App\Services\Repositories\CategoryRepository;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+/**
+ * Class CategoriesService
+ * @package App\Services
+ */
 class CategoriesService
 {
+    /**
+     * @var CategoryRepository
+     */
     private $categoryRepository;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    /**
+     * @var CategoryCacheRepository
+     */
+    private $categoryCacheRepository;
+
+    /**
+     * CategoriesService constructor.
+     * @param CategoryRepository $categoryRepository
+     * @param CategoryCacheRepository $categoryCacheRepository
+     */
+    public function __construct(CategoryRepository $categoryRepository, CategoryCacheRepository $categoryCacheRepository)
     {
         $this->categoryRepository = $categoryRepository;
+        $this->categoryCacheRepository = $categoryCacheRepository;
     }
 
 
@@ -32,12 +51,12 @@ class CategoriesService
      */
     public function allPaginated(array $options = null)
     {
-        return $this->categoryRepository->paginated($options);
+        return $this->categoryCacheRepository->paginated($options);
     }
 
     public function getCategoriesList(array $options = null)
     {
-        return $this->categoryRepository->getList($options);
+        return $this->categoryCacheRepository->getList($options);
     }
 
     /**
@@ -70,4 +89,11 @@ class CategoriesService
         return $this->categoryRepository->delete($category);
     }
 
+    /**
+     * Очистка кэша
+     */
+    public function clearCache()
+    {
+        $this->categoryCacheRepository->clear();
+    }
 }

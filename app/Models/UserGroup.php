@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\UserGroup
@@ -22,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class UserGroup extends Model
 {
+    use Rememberable;
+
     //Администратор
     const ADMIN_GROUP = 'Admin';
     //Автор
@@ -35,6 +38,8 @@ class UserGroup extends Model
     //Заблокированный
     const BLOCKED_GROUP = 'Blocked';
 
+    protected $rememberCacheTag = 'USER_GROUPS';
+    protected $rememberFor = 60 * 60;
 
     public $timestamps = false;
 
