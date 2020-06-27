@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Cache;
 
 use App\Services\Adverts\AdvertsService;
 use App\Services\Messages\MessagesService;
@@ -49,9 +49,9 @@ class CacheWarmingUp extends Command
      */
     public function handle()
     {
-        \Cache::forget('homeList');
-        \Cache::forget('advertList');
-        \Cache::forget('messageList');
+        \Cache::forget(CacheKeyGenerator::HOME_LIST);
+        \Cache::forget(CacheKeyGenerator::ADVERT_LIST);
+        \Cache::forget(CacheKeyGenerator::MESSAGE_LIST);
         $this->advertService->showAdvertList();
         $this->advertService->page(8);
         $this->messagesService->showMessageList();
