@@ -1,0 +1,21 @@
+{
+    "name": "vagrant/calendar",
+    "description": "Calendar package",
+    "type": "library",
+    "require": {
+        "illuminate/support": "^7.17",
+        "illuminate/routing": "^7.17"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lara\\Calendar\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\Lara\\Calendar\\ServiceProvider"
+            ]
+        }
+    }
+}

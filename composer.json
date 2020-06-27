@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "predis/predis": "^1.1",
+        "vagrant/calendar": "dev-VMeshavkin/hw13",
         "watson/rememberable": "^4.0"
     },
     "require-dev": {
@@ -66,5 +67,11 @@
         "post-create-project-cmd": [
             "@php artisan key:generate --ansi"
         ]
-    }
+    },
+    "repositories": [
+        {
+        "type": "path",
+        "url": "packages/vagrant/calendar"
+        }
+    ]
 }

@@ -36,29 +36,29 @@ Route::get('/log', function () {
     return redirect(route('home.index'));
 })->middleware('cms');
 
-Route::get('/user/{user}', function ($userId) {
-
-    $user = User::remember(120)->find($userId);
-
-    dd($user);
-
-//    $userCacheKey = User::getCacheKey($userId);
-//    $userFromCache = Cache::get($userCacheKey);
-//    if(!empty($userFromCache)) {
-//        $user = $userFromCache;
-//    } else {
-//        $user = User::find($userId);
-//        $userJson = $user;
-//        Cache::put($userCacheKey, $userJson, 120);
-//    }
-
-
-//    $userCacheKey = User::getCacheKey($userId);
-//    $user = Cache::remember($userCacheKey, 120, function() use($userId){
-//        return User::find($userId);
-//    });
-
-});
+//Route::get('/user/{user}', function ($userId) {
+//
+//    $user = User::remember(120)->find($userId);
+//
+//    dd($user);
+//
+////    $userCacheKey = User::getCacheKey($userId);
+////    $userFromCache = Cache::get($userCacheKey);
+////    if(!empty($userFromCache)) {
+////        $user = $userFromCache;
+////    } else {
+////        $user = User::find($userId);
+////        $userJson = $user;
+////        Cache::put($userCacheKey, $userJson, 120);
+////    }
+//
+//
+////    $userCacheKey = User::getCacheKey($userId);
+////    $user = Cache::remember($userCacheKey, 120, function() use($userId){
+////        return User::find($userId);
+////    });
+//
+//});
 
 
 //Route::get('/home', 'HomeController@index')->name('home');
