@@ -31,6 +31,11 @@
         </li>
     </ul>
 
+{{--    @foreach($day as $item)--}}
+{{--        {{$item['date']}}--}}
+{{--    @Endforeach--}}
+
+
     @include('home.blocks.auth')
 
 </div>
