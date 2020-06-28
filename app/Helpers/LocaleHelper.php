@@ -3,6 +3,7 @@
 
 namespace App\Helpers;
 
+use App\Services\LocaleService;
 use Request;
 
 /**
@@ -21,9 +22,9 @@ class LocaleHelper
     {
         $uri = Request::path();
         $uriParams = explode('/', $uri);
-        $locale =  array_shift($uriParams);
+        $locale = array_shift($uriParams);
 
-        if (empty($locale) || !in_array($locale, config('app.locale_languages'))) {
+        if (!LocaleService::isSupported($locale)) {
             $locale = config('app.locale');
         }
 
@@ -38,7 +39,7 @@ class LocaleHelper
      */
     public static function setLocale(string $locale)
     {
-        if (empty($locale) || !in_array($locale, config('app.locale_languages'))) {
+        if (!LocaleService::isSupported($locale)) {
             $locale = config('app.locale');
         }
 
@@ -46,7 +47,7 @@ class LocaleHelper
 
         $uriParams = explode('/', $uri);
         $uriParams[0] = $locale;
-        $url = Request::root().'/'.implode("/", $uriParams);
+        $url = Request::root() . '/' . implode("/", $uriParams);
 
         return $url;
     }
