@@ -3,15 +3,6 @@
 @section('app_content')
     <h4>@lang('scheduler.view'):</h4>
 
-    @include('blocks.pages.view', [
-        'items' => [
-            __('scheduler.full_name') => 'Test',
-            __('scheduler.student_id') => 'xxx',
-            __('scheduler.term') => 2,
-            __('scheduler.group') => 211,
-        ],
-    ])
-
     <table class="table table-hover">
         <tr>
             <td>@lang('scheduler.full_name')</td>

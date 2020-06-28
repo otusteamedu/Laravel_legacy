@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Students;
 use App\DTOs\IdDTO;
 use App\DTOs\StudentDTO;
 use App\DTOs\StudentFilterDTO;
-use App\DTOs\UserDTO;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Students\Requests\IndexStudentRequest;
 use App\Http\Controllers\Students\Requests\StoreStudentRequest;
@@ -16,6 +15,7 @@ use App\Services\Courses\CourseService;
 use App\Services\Groups\GroupService;
 use App\Services\Students\StudentService;
 use App\Services\Users\UserService;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -60,24 +60,16 @@ class StudentController extends Controller
     public function index(IndexStudentRequest $request): View
     {
         $DTO = StudentFilterDTO::fromArray($request->getFormData());
-        $students = $this->service->paginate($DTO);
-        $titles = $this->service->getTableTitles();
-        $filter = $DTO->toArray();
-        $courseList = $this->courseService->courseSelectList();
-        $groupList = $this->groupService->groupSelectList();
 
-        $groupService = $this->groupService;
-        $courseService = $this->courseService;
-
-        return view('students.index', compact(
-            'students',
-            'titles',
-            'filter',
-            'groupService',
-            'courseService',
-            'courseList',
-            'groupList'
-        ));
+        return view('students.index', [
+            'students' => $this->service->paginate($DTO),
+            'titles' => $this->service->getTableTitles(),
+            'filter' => $DTO->toArray(),
+            'groupService' => $this->groupService,
+            'courseService' => $this->courseService,
+            'courseList' => $this->courseService->courseSelectList(),
+            'groupList' => $this->groupService->groupSelectList(),
+        ]);
     }
 
     /**
@@ -101,7 +93,7 @@ class StudentController extends Controller
      */
     public function store(StoreStudentRequest $request): RedirectResponse
     {
-        $userDTO = $this->userService->prepareUserDTOForStudent($request->getFormData());
+        $userDTO = $this->userService->prepareUserDTOForRole($request->getFormData(), Role::STUDENT);
         $groupIdDTOCollection = $this->groupService->getIdsFromArray($request->group_id);
 
         $user = $this->userService->store($userDTO);
@@ -137,11 +129,12 @@ class StudentController extends Controller
      */
     public function edit(Student $student): View
     {
-        $courseList = $this->courseService->courseSelectList();
-        $groupList = $this->groupService->selectListWithCourse();
-        $studentGroupsId = $this->service->getStudentGroupsId($student);
-
-        return view('students.edit', compact('student', 'courseList', 'groupList', 'studentGroupsId'));
+        return view('students.edit', [
+            'student' => $student,
+            'courseList' => $this->courseService->courseSelectList(),
+            'groupList' => $this->groupService->selectListWithCourse(),
+            'studentGroupsId' => $this->service->getStudentGroupsId($student),
+        ]);
     }
 
     /**
@@ -153,7 +146,7 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student): RedirectResponse
     {
-        $userDTO = $this->userService->prepareUserDTOForStudent($request->getFormData());
+        $userDTO = $this->userService->prepareUserDTOForRole($request->getFormData(), Role::STUDENT);
         $groupIdDTOCollection = $this->groupService->getIdsFromArray($request->group_id);
 
         $user = $this->userService->update($userDTO, $student->user);
@@ -172,9 +165,11 @@ class StudentController extends Controller
      *
      * @param Student $student
      * @return RedirectResponse
+     * @throws Exception
      */
     public function destroy(Student $student): RedirectResponse
     {
+        $this->userService->delete($student->user);
         $this->service->delete($student);
 
         return redirect()->route('students.index')

@@ -47,6 +47,7 @@ class GroupController extends Controller
      * Show the form for creating a new resource.
      *
      * @param YearService $yearService
+     * @param CourseService $courseService
      * @return View
      */
     public function create(YearService $yearService, CourseService $courseService): View

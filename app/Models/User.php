@@ -126,9 +126,9 @@ class User extends Authenticatable
      * @param string $email
      * @return Builder
      */
-    public function email(Builder $builder, string $email): Builder
+    public function scopeEmail(Builder $builder, string $email): Builder
     {
-        return $builder->where('email', $email);
+        return $builder->where('email', 'ilike', ('%' . $email . '%'));
     }
 
     /**

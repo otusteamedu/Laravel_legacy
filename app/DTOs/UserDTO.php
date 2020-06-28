@@ -17,7 +17,7 @@ class UserDTO implements DTOInterface
     private $name;
     /** @var string|null  */
     private $second_name;
-    /** @var int|null  */
+    /** @var string|null  */
     private $email;
     /** @var int|null  */
     private $password;
@@ -38,7 +38,7 @@ class UserDTO implements DTOInterface
         string $name,
         int $roleId,
         string $secondName = null,
-        int $email = null,
+        string $email = null,
         int $password = null
     ) {
         $this->last_name = $lastName;

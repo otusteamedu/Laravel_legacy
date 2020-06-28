@@ -163,4 +163,8 @@ return [
     'id_number_required' => 'Student ID number required',
 
     'course_required' => 'Course number required',
+
+    'email_max' => 'Email too long',
+    'email' => 'Invalid email',
+    'email_unique' => 'Email busy',
 ];

@@ -3,7 +3,6 @@
 namespace App\Services\Users;
 
 use App\DTOs\UserDTO;
-use App\Models\Role;
 use App\Models\User;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Handlers\DeleteUserHandler;
@@ -72,13 +71,14 @@ class UserService
 
     /**
      * @param array $data
+     * @param int $roleId
      * @return UserDTO
      */
-    public function prepareUserDTOForStudent(array $data): UserDTO
+    public function prepareUserDTOForRole(array $data, int $roleId): UserDTO
     {
         return UserDTO::fromArray(array_merge(
             $data,
-            [UserDTO::ROLE_ID => Role::STUDENT]
+            [UserDTO::ROLE_ID => $roleId]
         ));
     }
 }

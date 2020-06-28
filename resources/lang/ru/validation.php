@@ -163,4 +163,8 @@ return [
     'id_number_required' => 'Номер студенческого билета обязателен',
 
     'course_required' => 'Номер курса обязателен',
+
+    'email_max' => 'Email слишком длинный',
+    'email' => 'Не валидный email',
+    'email_unique' => 'Email занят',
 ];

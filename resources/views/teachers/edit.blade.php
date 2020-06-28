@@ -3,49 +3,60 @@
 @section('app_content')
     <h4>@lang('scheduler.edit'):</h4>
 
-    {!! Form::open(['url' => '/']) !!}
+    {!! Form::open(['url' => route('teachers.update', $teacher), 'method' => 'put']) !!}
 
     <div class="form-group">
-        {{ Form::label('full_name', __('scheduler.full_name'), ['class' => 'control-label']) }}
+        {{ Form::label('last_name', __('users.last_name'), ['class' => 'control-label']) }}
         {{ Form::text(
-            'full_name',
-            null,
+            'last_name',
+            old('last_name') ?? $teacher->last_name,
             [
             'class' => 'form-control',
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('login', __('scheduler.login'), ['class' => 'control-label']) }}
+        {{ Form::label('name', __('users.name'), ['class' => 'control-label']) }}
         {{ Form::text(
-            'login',
-            null,
+            'name',
+            old('name') ?? $teacher->name,
             [
             'class' => 'form-control',
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('subjects', __('scheduler.subjects'), ['class' => 'control-label']) }}
+        {{ Form::label('second_name', __('users.second_name'), ['class' => 'control-label']) }}
+        {{ Form::text(
+            'second_name',
+            old('second_name') ?? $teacher->second_name,
+            [
+            'class' => 'form-control',
+            ]
+           ) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('email', __('scheduler.email'), ['class' => 'control-label']) }}
+        {{ Form::email(
+            'email',
+            old('email') ?? $teacher->email,
+            [
+            'class' => 'form-control',
+            ]
+           ) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('subject_id', __('scheduler.subjects'), ['class' => 'control-label']) }}
         {{ Form::select(
-            'subjects',
-            ['1' => '1', '2' => '1'],
-            null,
+            'subject_id',
+            $subjects,
+            old('subject_id') ?? $teacherSubjectsId,
             [
             'class' => 'selectpicker form-control',
             'multiple',
             'data-max-options' => '20',
             'data-live-search' => 'true',
-            ]
-           ) }}
-    </div>
-    <div class="form-group">
-        {{ Form::label('teaching_load', __('scheduler.teaching_load'), ['class' => 'control-label']) }}
-        {{ Form::text(
-            'teaching_load',
-            null,
-            [
-            'class' => 'form-control',
+            'name' => 'subject_id[]',
             ]
            ) }}
     </div>

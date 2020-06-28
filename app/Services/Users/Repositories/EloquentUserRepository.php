@@ -3,7 +3,6 @@
 namespace App\Services\Users\Repositories;
 
 use App\DTOs\UserDTO;
-use App\Models\Group;
 use App\Models\User;
 
 class EloquentUserRepository implements UserRepositoryInterface
@@ -48,7 +47,7 @@ class EloquentUserRepository implements UserRepositoryInterface
     public function getByEmail(UserDTO $DTO): ?User
     {
         if ($email = $DTO->toArray()['email']) {
-            return Group::email($email)->first();
+            return User::email($email)->first();
         }
 
         return null;

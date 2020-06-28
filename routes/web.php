@@ -22,5 +22,6 @@ Route::group([
     Route::resources([
         '/groups' => 'Groups\GroupController',
         '/students' => 'Students\StudentController',
+        '/teachers' => 'Teachers\TeacherController',
     ]);
 });

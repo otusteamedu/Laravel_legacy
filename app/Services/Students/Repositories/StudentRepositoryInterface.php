@@ -36,7 +36,7 @@ interface StudentRepositoryInterface
      * @param StudentFilterDTO $DTO
      * @return LengthAwarePaginator
      */
-    public function getGroupsListPaginate(int $perPage, StudentFilterDTO $DTO): LengthAwarePaginator;
+    public function getListPaginate(int $perPage, StudentFilterDTO $DTO): LengthAwarePaginator;
 
     /**
      * @param Student $student

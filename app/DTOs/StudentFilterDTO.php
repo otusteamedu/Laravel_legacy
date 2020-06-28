@@ -9,13 +9,13 @@ class StudentFilterDTO implements DTOInterface
     const GROUP = 'group';
     const COURSE = 'course';
 
-    /** @var int|null $idNumber*/
+    /** @var int|null $idNumber */
     private $idNumber;
-    /** @var int|null $user*/
+    /** @var string|null $user */
     private $lastName;
-    /** @var */
+    /** @var  int|null */
     private $group;
-    /** @var */
+    /** @var  int|null */
     private $course;
 
     /**

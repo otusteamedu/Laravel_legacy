@@ -19,6 +19,7 @@ class StoreStudentRequest extends StudentRequest
             'name' => ['required', 'string', 'max:255'],
             'second_name' => ['nullable', 'string', 'max:255'],
             'group_id.*' => ['required', 'integer', 'min:1'],
+            'group_id' => ['required', 'array'],
             'id_number' => [
                 'required',
                 'integer',
@@ -31,23 +32,5 @@ class StoreStudentRequest extends StudentRequest
                 },
             ],
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public function messages(): array
-    {
-        return array_merge(
-            [
-                'last_name.required' => __('validation.last_name_required'),
-                'name.required' => __('validation.name_required'),
-                'name.max' => __('validation.name_max'),
-                'second_name.max' => __('validation.second_name_max'),
-                'group_id.required' => __('validation.group_required'),
-                'id_number.required' => __('validation.id_number_required'),
-            ],
-            parent::messages()
-        );
     }
 }

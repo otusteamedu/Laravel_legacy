@@ -18,7 +18,8 @@ class UpdateStudentRequest extends StudentRequest
             'last_name' => ['string', 'max:255'],
             'name' => ['string', 'max:255'],
             'second_name' => ['nullable', 'string', 'max:255'],
-            'group_id.*' => ['integer', 'min:1'],
+            'group_id.*' => ['required', 'integer', 'min:1'],
+            'group_id' => ['required', 'array'],
             'id_number' => [
                 'integer',
                 'min:0',

@@ -4,8 +4,14 @@ namespace App\Providers;
 
 use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Repositories\EloquentCourseRepository;
+use App\Services\EducationPlans\Repositories\EducationPlanRepositoryInterface;
+use App\Services\EducationPlans\Repositories\EloquentEducationPlanRepository;
 use App\Services\Students\Repositories\EloquentStudentRepository;
 use App\Services\Students\Repositories\StudentRepositoryInterface;
+use App\Services\Subjects\Repositories\EloquentSubjectRepository;
+use App\Services\Subjects\Repositories\SubjectRepositoryInterface;
+use App\Services\Teachers\Repositories\EloquentTeacherRepository;
+use App\Services\Teachers\Repositories\TeacherRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use App\Services\Years\Repositories\EloquentYearRepository;
@@ -23,6 +29,9 @@ class AppServiceProvider extends ServiceProvider
         CourseRepositoryInterface::class => EloquentCourseRepository::class,
         StudentRepositoryInterface::class => EloquentStudentRepository::class,
         UserRepositoryInterface::class => EloquentUserRepository::class,
+        TeacherRepositoryInterface::class => EloquentTeacherRepository::class,
+        SubjectRepositoryInterface::class => EloquentSubjectRepository::class,
+        EducationPlanRepositoryInterface::class => EloquentEducationPlanRepository::class,
     ];
 
     /**

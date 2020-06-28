@@ -53,7 +53,7 @@ class StudentService
      */
     public function paginate(StudentFilterDTO $DTO): LengthAwarePaginator
     {
-        return $this->repository->getGroupsListPaginate(Settings::PER_PAGE, $DTO);
+        return $this->repository->getListPaginate(Settings::PER_PAGE, $DTO);
     }
 
     /**

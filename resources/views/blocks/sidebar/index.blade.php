@@ -16,7 +16,7 @@
                     <a class="nav-link" href="{{ route('students.index') }}">@lang('scheduler.students')</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">@lang('scheduler.teachers')</a>
+                    <a class="nav-link" href="{{ route('teachers.index') }}">@lang('scheduler.teachers')</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">@lang('scheduler.subjects')</a>

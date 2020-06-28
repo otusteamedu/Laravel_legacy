@@ -113,13 +113,13 @@ class GroupService
 
     /**
      * Оборачивает группы в тег a
-     * Возвращает коллекцию {id => <a href="http://otus-laravel.test/dashboard/groups/id">id</a>}
-     * @param Collection $courses
+     * Возвращает коллекцию {id => <a href="http://otus-laravel.test/dashboard/groups/id">number</a>}
+     * @param Collection $groups
      * @return Collection
      */
-    public function wrapGroupsByHref(Collection $courses): Collection
+    public function wrapGroupsByHref(Collection $groups): Collection
     {
-        return $this->wrapGroupsByHrefHandler->handle($courses);
+        return $this->wrapGroupsByHrefHandler->handle($groups);
     }
 
     /**
