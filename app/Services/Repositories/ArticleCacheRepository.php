@@ -16,9 +16,9 @@ use Illuminate\Support\Carbon;
  */
 class ArticleCacheRepository
 {
-    const CASH_KEY = 'ARTICLE';
-    const CASH_TAG_NAME = 'ARTICLES';
-    const CASH_TTL = 60;
+    const CACHE_KEY = 'ARTICLE';
+    const CACHE_TAG_NAME = 'ARTICLES';
+    const CACHE_TTL = 60;
 
     /**
      * @var ArticleRepository
@@ -40,7 +40,7 @@ class ArticleCacheRepository
      */
     public function paginated(array $options = null)
     {
-        $articles = \Cache::tags(self::CASH_TAG_NAME)->remember(self::getCacheKey('LIST'), Carbon::now()->addMinutes(self::CASH_TTL), function () use ($options) {
+        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST'), Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
             return $this->articleRepository->paginated($options);
         });
         return $articles;
@@ -50,9 +50,9 @@ class ArticleCacheRepository
      * @param $prefix
      * @return string
      */
-    public static function getCacheKey($prefix)
+    public function getCacheKey($prefix)
     {
-        return $prefix . '_' . self::CASH_KEY;
+        return $prefix . '_' . self::CACHE_KEY;
     }
 
     /**
@@ -60,6 +60,6 @@ class ArticleCacheRepository
      */
     public function clear()
     {
-        \Cache::tags(self::CASH_TAG_NAME)->flush();
+        \Cache::tags(self::CACHE_TAG_NAME)->flush();
     }
 }

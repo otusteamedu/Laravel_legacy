@@ -16,9 +16,9 @@ use Illuminate\Support\Carbon;
  */
 class CategoryCacheRepository
 {
-    const CASH_KEY = 'CATEGORY';
-    const CASH_TAG_NAME = 'CATEGORIES';
-    const CASH_TTL = 60;
+    const CACHE_KEY = 'CATEGORY';
+    const CACHE_TAG_NAME = 'CATEGORIES';
+    const CACHE_TTL = 60;
 
     /**
      * @var CategoryRepository
@@ -40,7 +40,7 @@ class CategoryCacheRepository
      */
     public function paginated(array $options = null)
     {
-        $categories = \Cache::tags(self::CASH_TAG_NAME)->remember(self::getCacheKey('LIST'), Carbon::now()->addMinutes(self::CASH_TTL), function () use ($options) {
+        $categories = \Cache::tags(self::CACHE_TAG_NAME)->remember(self::getCacheKey('LIST'), Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
             return $this->categoryRepository->paginated($options);
         });
         return $categories;
@@ -52,7 +52,7 @@ class CategoryCacheRepository
      */
     public function getList(array $options = null)
     {
-        $categories = \Cache::tags(self::CASH_TAG_NAME)->remember(self::getCacheKey('LIST'), Carbon::now()->addMinutes(self::CASH_TTL), function () use ($options) {
+        $categories = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST'), Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
             return $this->categoryRepository->getAll(['id', 'title']);
         });
         $categoryList = [];
@@ -66,9 +66,9 @@ class CategoryCacheRepository
      * @param $prefix
      * @return string
      */
-    public static function getCacheKey($prefix)
+    public function getCacheKey($prefix)
     {
-        return $prefix . '_' . self::CASH_KEY;
+        return $prefix . '_' . self::CACHE_KEY;
     }
 
     /**
@@ -76,6 +76,6 @@ class CategoryCacheRepository
      */
     public function clear()
     {
-        \Cache::tags(self::CASH_TAG_NAME)->flush();
+        \Cache::tags(self::CACHE_TAG_NAME)->flush();
     }
 }
