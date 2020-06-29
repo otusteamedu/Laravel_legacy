@@ -37,7 +37,6 @@ class FilmController extends Controller
      */
     public function index()
     {
-        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Film::class);
 
         $this->authorize(Abilities::VIEW_ANY, Film::class);
 
