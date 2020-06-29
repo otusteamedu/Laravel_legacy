@@ -37,7 +37,7 @@ return [
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
-            'queue' => 'default',
+            'queue' => \App\Jobs\Queue::DEFAULT,  /*'default',*/
             'retry_after' => 90,
         ],
 
@@ -62,7 +62,7 @@ return [
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
+            'queue' => env('REDIS_QUEUE', \App\Jobs\Queue::DEFAULT), /*'default'*/
             'retry_after' => 90,
             'block_for' => null,
         ],

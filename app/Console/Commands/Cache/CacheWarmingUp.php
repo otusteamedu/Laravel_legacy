@@ -2,8 +2,7 @@
 
 namespace App\Console\Commands\Cache;
 
-use App\Services\Adverts\AdvertsService;
-use App\Services\Messages\MessagesService;
+use App\Services\Cache\Handler\CacheWarmingHandler;
 use Illuminate\Console\Command;
 
 class CacheWarmingUp extends Command
@@ -23,22 +22,15 @@ class CacheWarmingUp extends Command
     protected $description = 'Warming Cache';
 
     /**
-     * Create a new command instance.
-     *
-     * @return void
+     * @var CacheWarmingHandler
      */
-//    public function __construct()
-//    {
-//        parent::__construct();
-//    }
+    private $cacheWarmingHandler;
 
-    protected $advertService;
-    protected $messagesService;
-
-    public function __construct(AdvertsService $advertService, MessagesService $messagesService)
+    public function __construct(
+        CacheWarmingHandler $cacheWarmingHandler)
     {
-        $this->advertService = $advertService;
-        $this->messagesService = $messagesService;
+
+        $this->cacheWarmingHandler = $cacheWarmingHandler;
         parent::__construct();
     }
 
@@ -49,12 +41,18 @@ class CacheWarmingUp extends Command
      */
     public function handle()
     {
-        \Cache::forget(CacheKeyGenerator::HOME_LIST);
-        \Cache::forget(CacheKeyGenerator::ADVERT_LIST);
-        \Cache::forget(CacheKeyGenerator::MESSAGE_LIST);
-        $this->advertService->showAdvertList();
-        $this->advertService->page(8);
-        $this->messagesService->showMessageList();
-        echo 'Cache warmed';
+
+        $this->cacheWarmingHandler->forgetCacheKeys(
+            [
+                CacheKeyGenerator::HOME_LIST,
+                CacheKeyGenerator::ADVERT_LIST,
+                CacheKeyGenerator::MESSAGE_LIST
+            ]
+        );
+
+        $this->cacheWarmingHandler->warmCache();
+
+        echo 'Cache warmed'.PHP_EOL;
+
     }
 }
