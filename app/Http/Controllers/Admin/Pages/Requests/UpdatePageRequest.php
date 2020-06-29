@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Films\Requests;
+namespace App\Http\Controllers\Admin\Pages\Requests;
 
 
 use App\Http\Requests\FormRequest;
 
-class UpdateFilmRequest extends FormRequest
+class UpdatePageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

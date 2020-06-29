@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Admin\Pages;
 
-namespace App\Http\Controllers\Admin\Pages;
-
+use App\Policies\Abilities;
+use Gate;
+use Auth;
+use Log;
 use App\Http\Controllers\Admin\Pages\Requests\StorePageRequest;
 use App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest;
 use App\Models\Page;
@@ -34,9 +36,14 @@ class PageController extends Controller
      */
     public function index()
     {
+        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Page::class);
+
+        $this->authorize(Abilities::VIEW_ANY, Page::class);
+
         View::share([
             'pages' => Page::paginate(),
         ]);
+
         return view('admin.pages.index');
     }
 
@@ -47,6 +54,7 @@ class PageController extends Controller
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Page::class);
         return view('admin.pages.create');
     }
 
@@ -57,6 +65,7 @@ class PageController extends Controller
      */
     public function store(StorePageRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Page::class);
         $data = $request->getFormData();
         $this->pagesService->createPage($data);
         return redirect(route('cms.pages.index'));
@@ -80,7 +89,8 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        //
+        $this->authorize(Abilities::UPDATE, $page);
+
         return view('admin.pages.edit', [
             'page' => $page,
         ]);
@@ -96,11 +106,13 @@ class PageController extends Controller
     public function update(UpdatePageRequest $request, Page $page)
     {
 
-        $this->filmsService->updatePage($page, $request->all());
+        $this->authorize(Abilities::UPDATE, $page);
+
+        $this->pagesService->updatePage($page, $request->all());
 
         $page->update($request->all());
 
-        return redirect(route('cms.films.index'));
+        return redirect(route('cms.pages.index'));
     }
 
     /**
@@ -111,7 +123,16 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
+        $this->authorize(Abilities::DELETE, $page);
         $page->delete();
         return redirect()->back()->with('success','Delete Successfully');
+    }
+
+    /**
+     * @return \App\Models\User|null
+    */
+    private function getCurrentUser()
+    {
+        return \Auth::user();
     }
 }

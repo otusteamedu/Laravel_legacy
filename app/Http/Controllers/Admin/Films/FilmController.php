@@ -2,6 +2,11 @@
 
 namespace App\Http\Controllers\Admin\Films;
 
+use App\Policies\Abilities;
+use Gate;
+use Auth;
+use Log;
+
 use App\Http\Controllers\Admin\Films\Requests\StoreFilmRequest;
 use App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest;
 use App\Models\Film;
@@ -32,6 +37,9 @@ class FilmController extends Controller
      */
     public function index()
     {
+
+        $this->authorize(Abilities::VIEW_ANY, Film::class);
+
         View::share([
             'films' => Film::paginate(),
         ]);
@@ -45,6 +53,7 @@ class FilmController extends Controller
      */
     public function create()
     {
+        $this->authorize(Abilities::CREATE, Film::class);
         return view('admin.films.create');
     }
 
@@ -55,6 +64,7 @@ class FilmController extends Controller
      */
     public function store(StoreFilmRequest $request)
     {
+        $this->authorize(Abilities::CREATE, Film::class);
         $data = $request->getFormData();
         $this->filmsService->createFilm($data);
         return redirect(route('cms.films.index'));
@@ -79,6 +89,7 @@ class FilmController extends Controller
      */
     public function edit(Film $film)
     {
+        $this->authorize(Abilities::UPDATE, $film);
         return view('admin.films.edit', [
             'film' => $film,
         ]);
@@ -93,6 +104,7 @@ class FilmController extends Controller
      */
     public function update(UpdateFilmRequest $request, Film $film)
     {
+        $this->authorize(Abilities::UPDATE, $film);
 
         $this->filmsService->updateFilm($film, $request->all());
 
@@ -109,7 +121,16 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
+        $this->authorize(Abilities::DELETE, $film);
         $film->delete();
         return redirect()->back()->with('success','Delete Successfully');
+    }
+
+    /**
+     * @return \App\Models\User|null
+    */
+    private function getCurrentUser()
+    {
+        return \Auth::user();
     }
 }
