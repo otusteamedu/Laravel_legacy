@@ -40,6 +40,9 @@ class Group extends Model
 
     protected $fillable = ['name'];
 
+    protected $rememberCacheTag = 'Group';
+    protected $rememberFor = 60 * 60 * 24;
+
     use SoftDeletes;
 
     public $timestamps = false;

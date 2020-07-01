@@ -1,8 +1,8 @@
 <?php
 
-
 namespace App\Models;
 
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\Model
@@ -14,6 +14,7 @@ namespace App\Models;
  */
 class Model extends \Illuminate\Database\Eloquent\Model
 {
+    use Rememberable;
 
     public static function getTableName()
     {

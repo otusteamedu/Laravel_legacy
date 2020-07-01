@@ -43,16 +43,16 @@
                             <a class="nav-link" href="#">
                                 <span class="float-right">
                                     <span class="badge badge-info" data-toggle="tooltip" title="{{ __('overview/general.projects.hint.new') }}">
-                                        {{ $project['new'] }}
+                                        {{ count($project->tasks) }}
                                     </span>
                                     <span class="badge badge-success" data-toggle="tooltip" title="{{ __('overview/general.projects.hint.process') }}">
-                                        {{ $project['process'] }}
+                                        0
                                     </span>
                                     <span class="badge badge-secondary" data-toggle="tooltip" title="{{ __('overview/general.projects.hint.ended') }}">
-                                        {{ $project['ended'] }}
+                                        0
                                     </span>
                                 </span>
-                                {{ $project['name'] }}
+                                {{ $project->name }}
                             </a>
                         @endforeach
                     </div>

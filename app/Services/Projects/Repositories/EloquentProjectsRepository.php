@@ -23,6 +23,7 @@ class EloquentProjectsRepository implements ProjectsRepositoryInterface
     {
         $project = new Project();
         $project->create($data);
+
         return $project;
     }
 
