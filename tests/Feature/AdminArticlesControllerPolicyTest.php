@@ -4,41 +4,25 @@ namespace Tests\Feature;
 
 use App\Models\Article;
 use App\Models\UserGroup;
-use App\Services\Repositories\UserGroupRepository;
-use App\Services\UserGroupsService;
-use Faker\Factory;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\Response;
-use Illuminate\Support\Str;
-use Tests\Generators\ArticleDataGenerator;
 use Tests\Generators\UserGenerator;
-use App\Http\Controllers\Admin\Requests\UpdateArticleRequest;
-use App\Http\Controllers\Admin\Requests\StoreArticleRequest;
 use Tests\TestCase;
 use App\Models\User;
-use Mockery;
 
 /**
- * Проверка прав доступа к действиям Admin\ArticlesController
+ * Проверка политик доступа к действиям Admin\ArticlesController
  *
- * Class AdminArticlesControllerAccessTest
+ * Class AdminArticlesControllerPolicyTest
  * @package Tests\Feature
  */
-class AdminArticlesControllerAccessTest extends TestCase
+class AdminArticlesControllerPolicyTest extends TestCase
 {
     //use WithoutMiddleware;
 
     use DatabaseTransactions;
     use WithFaker;
-
-    /**
-     * @var UserGroupsService|mixed
-     */
-    private $userGroupsService;
 
     /**
      * @var UserGenerator|mixed
@@ -55,7 +39,6 @@ class AdminArticlesControllerAccessTest extends TestCase
     {
         parent::__construct($name, $data, $dataName);
         $this->createApplication();
-        $this->userGroupsService = \App::make(UserGroupsService::class);
         $this->userGenerator = \App::make(UserGenerator::class);
     }
 
@@ -66,8 +49,9 @@ class AdminArticlesControllerAccessTest extends TestCase
 
     /**
      * Проверка доступа к просмотру всех статей
+     * для пользователей с доступом к админке
      *
-     * @dataProvider userDataProvider
+     * @dataProvider usersWithAdminAccessDataProvider
      * @param User $user
      * @return void
      */
@@ -75,20 +59,15 @@ class AdminArticlesControllerAccessTest extends TestCase
     {
         $this->actingAs($user);
         $response = $this->get(route('articles.index'));
-        if ($user->can('hasAdminAccess')) {
-            $response->assertStatus(Response::HTTP_OK);
-            $response->assertViewHas('articles');
-        } else {
-            $response->assertStatus(Response::HTTP_FOUND);
-            $response->assertRedirect('/');
-        }
+        $response->assertStatus(Response::HTTP_OK);
+        $response->assertViewHas('articles');
     }
 
     /**
      * Проверка доступа на получение данных
      * для формы редактирования статьи
      *
-     * @dataProvider userDataProvider
+     * @dataProvider usersWithAdminAccessDataProvider
      * @param User $user
      * @return void
      */
@@ -97,24 +76,18 @@ class AdminArticlesControllerAccessTest extends TestCase
         $article = factory(Article::class)->create();
         $this->actingAs($user);
         $response = $this->get(route('articles.edit', $article));
-
-        if ($user->can('hasAdminAccess')) {
-            if ($user->can('update', $article)) {
-                $response->assertStatus(Response::HTTP_OK);
-                $response->assertJson(['id' => true, 'title' => true, 'intro_text' => true, 'full_text' => true, 'category_id' => true]);
-            } else {
-                $response->assertStatus(Response::HTTP_FORBIDDEN);
-            }
+        if ($user->can('update', $article)) {
+            $response->assertStatus(Response::HTTP_OK);
+            $response->assertJson(['id' => true, 'title' => true, 'intro_text' => true, 'full_text' => true, 'category_id' => true]);
         } else {
-            $response->assertStatus(Response::HTTP_FOUND);
-            $response->assertRedirect('/');
+            $response->assertStatus(Response::HTTP_FORBIDDEN);
         }
     }
 
     /**
      * Проверка доступа на изменение статьи
      *
-     * @dataProvider userDataProvider
+     * @dataProvider usersWithAdminAccessDataProvider
      * @param User $user
      * @return void
      */
@@ -125,24 +98,18 @@ class AdminArticlesControllerAccessTest extends TestCase
         $response = $this->json('PUT', route('articles.update', $article),
             ['title' => $article->title, 'intro_text' => $article->intro_text, 'category_id' => $article->category_id]
         );
-
-        if ($user->can('hasAdminAccess')) {
-            if ($user->can('update', $article)) {
-                $response->assertStatus(Response::HTTP_OK);
-                $response->assertJson(['status' => 'ok', 'redirect' => route('articles.index')]);
-            } else {
-                $response->assertStatus(Response::HTTP_FORBIDDEN);
-            }
+        if ($user->can('update', $article)) {
+            $response->assertStatus(Response::HTTP_OK);
+            $response->assertJson(['status' => 'ok', 'redirect' => route('articles.index')]);
         } else {
-            $response->assertStatus(Response::HTTP_FOUND);
-            $response->assertRedirect('/');
+            $response->assertStatus(Response::HTTP_FORBIDDEN);
         }
     }
 
     /**
      * Проверка доступа на удаление статьи
      *
-     * @dataProvider userDataProvider
+     * @dataProvider usersWithAdminAccessDataProvider
      * @param User $user
      * @return void
      */
@@ -151,25 +118,20 @@ class AdminArticlesControllerAccessTest extends TestCase
         $article = factory(Article::class)->create();
         $this->actingAs($user);
         $response = $this->delete(route('articles.destroy', $article));
-
-        if ($user->can('hasAdminAccess')) {
-            if ($user->can('delete', $article)) {
-                $response->assertStatus(Response::HTTP_FOUND);
-                $response->assertRedirect(route('articles.index'));
-            } else {
-                $response->assertStatus(Response::HTTP_FORBIDDEN);
-            }
-        } else {
+        if ($user->can('delete', $article)) {
             $response->assertStatus(Response::HTTP_FOUND);
-            $response->assertRedirect('/');
+            $response->assertRedirect(route('articles.index'));
+        } else {
+            $response->assertStatus(Response::HTTP_FORBIDDEN);
         }
     }
 
+
     /**
-     * Формирование тестовых пользователей
+     * Формирование тестовых пользователей c правами доступа к админке
      * @return array
      */
-    public function userDataProvider()
+    public function usersWithAdminAccessDataProvider()
     {
         return [
             UserGroup::ADMIN_GROUP => [
@@ -183,12 +145,6 @@ class AdminArticlesControllerAccessTest extends TestCase
             ],
             UserGroup::MODERATOR_GROUP => [
                 $this->userGenerator->createUser(UserGroup::MODERATOR_GROUP)
-            ],
-            UserGroup::REGISTERED_GROUP => [
-                $this->userGenerator->createUser(UserGroup::REGISTERED_GROUP)
-            ],
-            UserGroup::BLOCKED_GROUP => [
-                $this->userGenerator->createUser(UserGroup::BLOCKED_GROUP)
             ],
         ];
     }
