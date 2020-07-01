@@ -2,28 +2,28 @@
 
 namespace App\Services\Courses;
 
-use App\Services\Courses\Handlers\WrapCoursesByHrefHandler;
 use App\Services\Courses\Repositories\CourseRepositoryInterface;
+use App\Services\Courses\Wrappers\CoursesByHrefWrapper;
 use Illuminate\Support\Collection;
 
 class CourseService
 {
     /** @var  CourseRepositoryInterface*/
     protected $repository;
-    /** @var WrapCoursesByHrefHandler  */
-    protected $wrapCoursesByHrefHandler;
+    /** @var CoursesByHrefWrapper  */
+    protected $coursesByHrefWrapper;
 
     /**
      * CourseService constructor.
      * @param CourseRepositoryInterface $repository
-     * @param WrapCoursesByHrefHandler $wrapCoursesByHrefHandler
+     * @param CoursesByHrefWrapper $coursesByHrefWrapper
      */
     public function __construct(
         CourseRepositoryInterface $repository,
-        WrapCoursesByHrefHandler $wrapCoursesByHrefHandler
+        CoursesByHrefWrapper $coursesByHrefWrapper
     ) {
         $this->repository = $repository;
-        $this->wrapCoursesByHrefHandler = $wrapCoursesByHrefHandler;
+        $this->coursesByHrefWrapper = $coursesByHrefWrapper;
     }
 
     /**
@@ -43,6 +43,6 @@ class CourseService
      */
     public function wrapCoursesByHref(Collection $courses): Collection
     {
-        return $this->wrapCoursesByHrefHandler->handle($courses);
+        return $this->coursesByHrefWrapper->wrap($courses);
     }
 }

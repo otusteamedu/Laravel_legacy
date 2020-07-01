@@ -3,7 +3,7 @@
 namespace App\Services\Subjects;
 
 use App\Services\Helpers\DTOHelper;
-use App\Services\Subjects\Handlers\WrapSubjectsByHrefHandler;
+use App\Services\Subjects\Wrappers\SubjectsByHrefWrapper;
 use App\Services\Subjects\Repositories\SubjectRepositoryInterface;
 use Illuminate\Support\Collection;
 
@@ -11,19 +11,19 @@ class SubjectService
 {
     /** @var  SubjectRepositoryInterface */
     protected $repository;
-    protected $wrapSubjectsByHrefHandler;
+    protected $subjectsByHrefwrapper;
 
     /**
      * SubjectService constructor.
      * @param SubjectRepositoryInterface $repository
-     * @param WrapSubjectsByHrefHandler $wrapSubjectsByHrefHandler
+     * @param SubjectsByHrefWrapper $subjectsByHrefwrapper
      */
     public function __construct(
         SubjectRepositoryInterface $repository,
-        WrapSubjectsByHrefHandler $wrapSubjectsByHrefHandler
+        SubjectsByHrefWrapper $subjectsByHrefwrapper
     ) {
         $this->repository = $repository;
-        $this->wrapSubjectsByHrefHandler = $wrapSubjectsByHrefHandler;
+        $this->subjectsByHrefwrapper = $subjectsByHrefwrapper;
     }
 
     /**
@@ -34,7 +34,7 @@ class SubjectService
      */
     public function wrapGroupsByHref(Collection $subjects): Collection
     {
-        return $this->wrapSubjectsByHrefHandler->handle($subjects);
+        return $this->subjectsByHrefwrapper->wrap($subjects);
     }
 
     /**

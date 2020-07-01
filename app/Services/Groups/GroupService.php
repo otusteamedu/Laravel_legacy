@@ -8,9 +8,8 @@ use App\Models\Course;
 use App\Models\Group;
 use App\Services\Groups\Handlers\CreateGroupHandler;
 use App\Services\Groups\Handlers\DeleteGroupHandler;
-use App\Services\Groups\Handlers\IdsFromIdDTOCollectionHandler;
 use App\Services\Groups\Handlers\UpdateGroupHandler;
-use App\Services\Groups\Handlers\WrapGroupsByHrefHandler;
+use App\Services\Groups\Wrappers\GroupsByHrefWrapper;
 use App\Services\Groups\Repositories\GroupRepositoryInterface;
 use App\Services\Helpers\DTOHelper;
 use App\Services\Helpers\Settings;
@@ -27,8 +26,8 @@ class GroupService
     protected $updateGroupHandler;
     /** @var DeleteGroupHandler */
     protected $deleteGroupHandler;
-    /** @var WrapGroupsByHrefHandler */
-    protected $wrapGroupsByHrefHandler;
+    /** @var GroupsByHrefWrapper */
+    protected $groupsByHrefWrapper;
 
     /**
      * GroupService constructor.
@@ -36,20 +35,20 @@ class GroupService
      * @param CreateGroupHandler $createGroupHandler
      * @param UpdateGroupHandler $updateGroupHandler
      * @param DeleteGroupHandler $deleteGroupHandler
-     * @param WrapGroupsByHrefHandler $wrapGroupsByHrefHandler
+     * @param GroupsByHrefWrapper $groupsByHrefWrapper
      */
     public function __construct(
         GroupRepositoryInterface $repository,
         CreateGroupHandler $createGroupHandler,
         UpdateGroupHandler $updateGroupHandler,
         DeleteGroupHandler $deleteGroupHandler,
-        WrapGroupsByHrefHandler $wrapGroupsByHrefHandler
+        GroupsByHrefWrapper $groupsByHrefWrapper
     ) {
         $this->repository = $repository;
         $this->createGroupHandler = $createGroupHandler;
         $this->updateGroupHandler = $updateGroupHandler;
         $this->deleteGroupHandler = $deleteGroupHandler;
-        $this->wrapGroupsByHrefHandler = $wrapGroupsByHrefHandler;
+        $this->groupsByHrefWrapper = $groupsByHrefWrapper;
     }
 
     /**
@@ -119,7 +118,7 @@ class GroupService
      */
     public function wrapGroupsByHref(Collection $groups): Collection
     {
-        return $this->wrapGroupsByHrefHandler->handle($groups);
+        return $this->groupsByHrefWrapper->wrap($groups);
     }
 
     /**

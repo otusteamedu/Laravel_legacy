@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Groups\Handlers;
+namespace App\Services\Groups\Wrappers;
 
 use App\DTOs\WrapperDTO;
 use App\Services\Helpers\TagWrapper;
@@ -12,13 +12,13 @@ use Illuminate\Support\Collection;
  *
  * Оборачивает эл-ты коллекция в тег <a></a>
  */
-class WrapGroupsByHrefHandler extends BaseHandler
+class GroupsByHrefWrapper
 {
     /**
-     * @param Collection $courses
+     * @param Collection $groups
      * @return Collection
      */
-    public function handle(Collection $groups): Collection
+    public function wrap(Collection $groups): Collection
     {
         $groups = $groups->pluck('number', 'id');
         $DTO = WrapperDTO::fromArray([WrapperDTO::HREF => route('groups.index')]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Courses\Handlers;
+namespace App\Services\Courses\Wrappers;
 
 use App\DTOs\WrapperDTO;
 use App\Services\Helpers\TagWrapper;
@@ -12,13 +12,13 @@ use Illuminate\Support\Collection;
  *
  * Оборачивает эл-ты коллекция в тег <a></a>
  */
-class WrapCoursesByHrefHandler extends BaseHandler
+class CoursesByHrefWrapper
 {
     /**
      * @param Collection $courses
      * @return Collection
      */
-    public function handle(Collection $courses): Collection
+    public function wrap(Collection $courses): Collection
     {
         $courses = $courses->pluck('number', 'id');
         /**

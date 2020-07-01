@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Subjects\Handlers;
+namespace App\Services\Subjects\Wrappers;
 
 use App\DTOs\WrapperDTO;
 use App\Services\Helpers\TagWrapper;
@@ -12,13 +12,13 @@ use Illuminate\Support\Collection;
  *
  * Оборачивает эл-ты коллекция в тег <a></a>
  */
-class WrapSubjectsByHrefHandler extends BaseHandler
+class SubjectsByHrefWrapper
 {
     /**
      * @param Collection $subjects
      * @return Collection
      */
-    public function handle(Collection $subjects): Collection
+    public function wrap(Collection $subjects): Collection
     {
         $groups = $subjects->pluck('name', 'id');
         /**
