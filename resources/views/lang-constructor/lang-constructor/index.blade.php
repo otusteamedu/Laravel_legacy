@@ -31,7 +31,7 @@
                                              aria-valuenow="{{$item->hard}}" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </td>
-                                <td><a href="{{route('lang-constructor-edit',['id' =>$item->id])}}" class="btn btn-gradient-primary btn-fw">{{__('button.edit')}}</a> <a href="{{route('lang-constructor-delete',['id' =>$item->id])}}"  class="btn btn-gradient-danger btn-fw">{{__('button.delete')}}</a></td>
+                                <td><a href="{{route('lang-constructor-edit',['id' =>$item->id])}}" class="btn btn-gradient-primary btn-fw">{{__('button.edit')}}</a> <a href="{{route('lang-constructor-delete',['locale' => $locale,'id' =>$item->id])}}"  class="btn btn-gradient-danger btn-fw">{{__('button.delete')}}</a></td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -39,7 +39,7 @@
                 </div>
                 <div class="row justify-content-end" style="margin-bottom: 20px">
                     <div class="col-2">
-                        <a href="{{route('lang-constructor-edit')}}" class="btn btn-gradient-info btn-fw">{{__('button.create')}}</a>
+                        <a href="{{route('lang-constructor-edit',['locale' => $locale])}}" class="btn btn-gradient-info btn-fw">{{__('button.create')}}</a>
                     </div>
                 </div>
             </div>

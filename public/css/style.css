@@ -4212,7 +4212,7 @@ fieldset:disabled a.btn {
     pointer-events: none; }
 
 .btn-lg, .btn-group-lg > .btn {
-  padding: 1rem 3rem;
+  padding: 1rem 1rem;
   font-size: 0.875rem;
   line-height: 1.5;
   border-radius: 0.1875rem; }
@@ -4523,8 +4523,8 @@ input[type="button"].btn-block {
   padding-left: 0.6075rem; }
 
 .btn-lg + .dropdown-toggle-split, .btn-group-lg > .btn + .dropdown-toggle-split {
-  padding-right: 2.25rem;
-  padding-left: 2.25rem; }
+  padding-right: 0.75rem;
+  padding-left: 0.75rem; }
 
 .btn-group-vertical {
   -webkit-box-orient: vertical;

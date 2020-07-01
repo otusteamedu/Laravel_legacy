@@ -12,9 +12,10 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'home' => 'Домой',
-    'lang-constructor' => 'Языковые конструкции',
+    'home' => 'Главная',
+    'lang-constructor' => 'Конструктор PHP',
+    'lang-constructor-type' => 'Типы конструкций PHP',
     'bot-settings' => 'Настройки бота',
-    'add-constr' => 'Add construction',
+    'add-constr' => 'Добавить конструкцию',
 
 ];

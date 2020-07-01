@@ -34,7 +34,7 @@ class LangConstructorTypeTest extends TestCase
             ->assertStatus(200);
     }
 
-    public function testEditUserWontConstructor()
+    public function testEditUserWonConstructor()
     {
 
         $account = AccountGenerator::createAccountAdminUser();
@@ -61,7 +61,7 @@ class LangConstructorTypeTest extends TestCase
 
     }
 
-    public function testCreateUserWontConstructor()
+    public function testCreateUserWonConstructor()
     {
 
         $account = AccountGenerator::createAccountAdminUser();
@@ -83,7 +83,7 @@ class LangConstructorTypeTest extends TestCase
      * @group cms
      */
 
-    public function testUpdateConstructorWontUpdateWithTheSameName()
+    public function testUpdateConstructorWonUpdateWithTheSameName()
     {
 
 
