@@ -23,6 +23,7 @@ class EloquentUsersRepository implements UsersRepositoryInterface
     {
         $user = new User();
         $user->create($data);
+
         return $user;
     }
 

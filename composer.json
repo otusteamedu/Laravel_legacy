@@ -19,7 +19,9 @@
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
         "phpunit/php-code-coverage": "^8.0",
-        "phpunit/phpunit": "^9.2"
+        "phpunit/phpunit": "^9.2",
+        "predis/predis": "^1.1",
+        "watson/rememberable": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",
