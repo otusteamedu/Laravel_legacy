@@ -36,6 +36,7 @@ Route::get('/log', function () {
     return redirect(route('home.index'));
 })->middleware('cms');
 
+
 //Route::get('/user/{user}', function ($userId) {
 //
 //    $user = User::remember(120)->find($userId);

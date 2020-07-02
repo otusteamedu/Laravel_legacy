@@ -31,7 +31,7 @@ class HomeController extends Controller
     {
         $start = microtime(true);
        $pages = $this->advertService->page(8);
-       return view('home.home', ['pages' => $pages, 'start'=>$start, 'day'=>$this->calendar()]);
+       return view('home.home', ['pages' => $pages, 'start'=>$start]);
     }
 
     /**
@@ -75,7 +75,7 @@ class HomeController extends Controller
             \Log::channel('slack')->critical(__METHOD__ . ': Store Advert Error ');
         }
 
-        return redirect(route('home.index'));
+        return redirect(route('home.index', ['locale'=>'ru']));
     }
 
 
@@ -126,37 +126,5 @@ class HomeController extends Controller
         //
     }
 
-    public function calendar()
-    {
-        //$today = strtotime(date('Y-n-d', time()));
-        $today = Carbon::createFromFormat('Y-m-d', '2020-11-10');
-        $month = $today->month;
 
-        $date2 = Carbon::create($today->year, $today->month, 1);
-        $date2->dayOfWeek == 0 ? $weekDayFirstDayMonth = 7 : $weekDayFirstDayMonth = $date2->dayOfWeek;
-        $date2->subDays($weekDayFirstDayMonth);
-
-        $calendar = collect([]);
-
-        for ($i = 0; $i < 42; $i++)
-        {
-            $date2->addDay();
-            $weekDay = $date2->dayOfWeek;
-            ($weekDay == 0 || $weekDay == 6)?   $workDay = 'red': $workDay = '';
-            $date2->month != $month ? $anotherMonth = 'another-month' : $anotherMonth = '';
-
-           // $property =
-            $calendar->push([
-                'date' => $date2->format('Y-m-d'),
-                'dayNum' => $date2->day,
-                'anotherMonth' => $anotherMonth,
-                'workDay' => $workDay,
-            ]);
-            //array_push($calendar, $property);
-
-        }
-
-        return  $calendar;
-
-    }
 }

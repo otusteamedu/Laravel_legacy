@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "86fcf8a383698e88943400ced7cab545",
+    "content-hash": "60344d209283858bfe8c86c2f46a2c96",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -5966,6 +5966,47 @@
             }
         },
         {
+            "name": "vetalm1/calendar",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vetalm1/calendar.git",
+                "reference": "7c2e90ab0f0f0db45f24587882a9ede7010b6d0c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vetalm1/calendar/zipball/7c2e90ab0f0f0db45f24587882a9ede7010b6d0c",
+                "reference": "7c2e90ab0f0f0db45f24587882a9ede7010b6d0c",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/routing": "^7.17",
+                "illuminate/support": "^7.17"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "\\Lara\\Calendar\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Lara\\Calendar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "authors": [
+                {
+                    "name": "Vitaly Meshavkin",
+                    "email": "vetalf.m3000@gmail.com"
+                }
+            ],
+            "description": "Calendar package",
+            "time": "2020-06-27T01:36:23+00:00"
+        },
+        {
             "name": "vlucas/phpdotenv",
             "version": "v4.1.7",
             "source": {
@@ -7967,7 +8008,8 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "vagrant/calendar": 20
+        "vagrant/calendar": 20,
+        "vetalm1/calendar": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,

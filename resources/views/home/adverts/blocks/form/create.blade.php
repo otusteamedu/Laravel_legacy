@@ -1,5 +1,5 @@
 
-<form method="post" action="/home">
+<form method="post" action="{{route('home.store', ['locale'=>$locale])}}">
     {{ csrf_field() }}
     <div class="form-group">
 
