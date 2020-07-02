@@ -17,7 +17,10 @@
             <div class="form-group ml-1">
                 <button type="submit" class=" btn btn-primary ml-2">@lang('home.search.button')</button>
             </div>
-            <a href="/home/create" class="btn btn-info ml-5">Добавить объявление</a>
+            <a href="{{route('home.create', ['locale'=>$locale])}}" class="btn btn-info ml-5">Добавить объявление</a>
         </form>
     </div>
 </div>
+
+
+

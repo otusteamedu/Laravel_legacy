@@ -5,6 +5,7 @@ namespace App\Services\Adverts;
 
 
 use App\Models\Advert;
+use App\Services\Adverts\Handler\StoreAdvertHandler;
 use App\Services\Adverts\Repositories\AdvertCacheRepository;
 use App\Services\Adverts\Repositories\AdvertRepositoryInterface;
 
@@ -15,13 +16,17 @@ class AdvertsService
 
     private $advertRepository;
     private $advertCacheRepository;
+    private $advertHandler;
 
     public function __construct(
                     AdvertRepositoryInterface $advertRepository,
-                    AdvertCacheRepository $advertCacheRepository )
+                    AdvertCacheRepository $advertCacheRepository,
+                    StoreAdvertHandler $advertHandler
+    )
     {
         $this->advertRepository = $advertRepository;
         $this->advertCacheRepository = $advertCacheRepository;
+        $this->advertHandler = $advertHandler;
     }
 
     public function showItem($id)
@@ -51,7 +56,8 @@ class AdvertsService
 
     public function storeAdvert($data)
     {
-        return $this->advertRepository->createFromArray($data);
+        return $this->advertHandler->handle($data);
+        //return $this->advertRepository->createFromArray($data);
     }
 
     public function updateAdvert(Advert $advert, array $data)

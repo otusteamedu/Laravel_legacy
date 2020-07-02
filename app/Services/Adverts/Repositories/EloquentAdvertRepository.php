@@ -39,9 +39,10 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
 
     public function createFromArray(array $data): Advert
     {
-        $advert = new Advert();
-        $advert->create($data);
-        return $advert;
+//        $advert = new Advert();
+////        $advert->create($data);   $advert->save($data);  // если create то id в модели не проставится
+////        return $advert;
+            return Advert::create($data);
     }
 
     public function updateFromArray(Advert $advert, array $data)
