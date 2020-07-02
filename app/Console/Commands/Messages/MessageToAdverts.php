@@ -2,11 +2,14 @@
 
 namespace App\Console\Commands\Messages;
 
-use App\Services\Messages\Handler\AddMessageHandler;
+use App\Services\Messages\Handler\AddMessageToAnyAdvertsHandler;
+use Exception;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Validator;
 
 class MessageToAdverts extends Command
 {
+    const USER = 2;
     /**
      * The name and signature of the console command.
      *
@@ -23,28 +26,30 @@ class MessageToAdverts extends Command
      */
     protected $description = 'Add message to any adverts';
     /**
-     * @var AddMessageHandler
+     * @var AddMessageToAnyAdvertsHandler
      */
-    private $addMessageHandler;
+    private $addMessageToAnyAdvertsHandler;
 
     /**
      * Create a new command instance.
      *
-     * @param AddMessageHandler $addMessageHandler
+     * @param AddMessageToAnyAdvertsHandler $addMessageToAnyAdvertsHandler
      */
 
 
-    public function __construct(AddMessageHandler $addMessageHandler)
+    public function __construct(AddMessageToAnyAdvertsHandler $addMessageToAnyAdvertsHandler)
     {
 
         parent::__construct();
-        $this->addMessageHandler = $addMessageHandler;
+
+        $this->addMessageToAnyAdvertsHandler = $addMessageToAnyAdvertsHandler;
     }
 
     /**
      * Execute the console command.
      *
-     * @return int
+     * @return void
+     * @throws Exception
      */
 
     public function handle()
@@ -53,8 +58,35 @@ class MessageToAdverts extends Command
         $adverts = $this->argument('adverts');
         $isAdmin = $this->option('admin');
 
-        $this->addMessageHandler->addMessageToAnyAdverts($message, $adverts, $isAdmin);
+        if ($isAdmin==0)  $isAdmin = self::USER ;
 
+        $this->validate($message, $adverts, $isAdmin );
+
+        $this->addMessageToAnyAdvertsHandler->handle($message, $adverts, $isAdmin);
+
+    }
+
+    private function validate($message, $adverts, $isAdmin )
+    {
+        $input = [
+            'message'  => $message,
+            'adverts' => $adverts,
+            'isAdmin' => $isAdmin,
+        ];
+
+        $rules = [
+            'message'  => 'required|max:200',
+            'adverts' => 'array|required',
+            'adverts.*'=>'integer',
+            'isAdmin' => 'in:0,1',
+        ];
+
+        $validation = Validator::make($input, $rules);
+
+        if ($validation->fails())
+        {
+            throw new Exception('Not valid command params'.PHP_EOL);
+        }
     }
 
 }
