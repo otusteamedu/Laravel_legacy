@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Models\Group;
+use App\Scopes\EducationYearScope;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Route;
 
@@ -30,7 +32,16 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        /**
+         * Паттерн, чтобы получать 404 вместо 500 при запросе на group/{text}
+         */
+        Route::pattern('group', '[0-9]+');
+        /** Можно посмотреть группу без глобального скоупа */
+        Route::bind('group', function ($value) {
+            return Group::withoutGlobalScope(EducationYearScope::class)->findOrFail($value);
+        });
+
+        Route::pattern('student', '[0-9]+');
 
         parent::boot();
     }

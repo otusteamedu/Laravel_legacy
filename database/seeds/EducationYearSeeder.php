@@ -16,7 +16,7 @@ class EducationYearSeeder extends Seeder
     {
         Collection::times(5, function (int $years): EducationYear {
             return EducationYear::firstOrCreate([
-                'start_at' => Carbon::now()->addYears(2)->subYears($years)->format('Y-m-d'),
+                'start_at' => Carbon::now()->addYears(2)->subYears($years)->addDay()->format('Y-m-d'),
                 'end_at' => Carbon::now()->addYears(3)->subYears($years)->format('Y-m-d'),
             ]);
         });

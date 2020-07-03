@@ -148,4 +148,23 @@ return [
 
     'attributes' => [],
 
+    'group_integer' => 'Group number must be a number',
+    'group_min' => 'Group number must be positive',
+    'group_number_required' => 'Group number required',
+    'course_integer' => 'Course number must be a positive number',
+    'id_number_integer' => 'Student ID must not be a negative number',
+    'id_number_unique' => 'Student ID used',
+
+    'last_name_required' => 'Last name required',
+    'last_name_max' => 'Last Name too long',
+    'name_required' => 'Name required',
+    'name_max' => 'Name too long',
+    'second_name_max' => 'Second name too long',
+    'id_number_required' => 'Student ID number required',
+
+    'course_required' => 'Course number required',
+
+    'email_max' => 'Email too long',
+    'email' => 'Invalid email',
+    'email_unique' => 'Email busy',
 ];

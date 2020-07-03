@@ -22,11 +22,12 @@ return [
     'create' => 'Create',
     'filters' => 'Filters',
 
-    'term' => 'Term',
+    'course' => 'Course',
     'group' => 'Group',
     'teacher' => 'Teacher',
 
     'full_name' => 'Full Name',
+    'last_name' => 'Last name',
     'student_id' => 'Student id',
 
     'email' => 'Email',
@@ -77,4 +78,6 @@ return [
     'contacts' => 'Contacts',
     'about' => 'About',
     'feedback' => 'Write to us',
+
+    'education_year' => 'Education year',
 ];

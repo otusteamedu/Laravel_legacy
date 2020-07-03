@@ -11,6 +11,7 @@ use App\Models\Schedule;
 use App\Models\ScheduleType;
 use App\Models\Subject;
 use App\Models\User;
+use App\Scopes\EducationYearScope;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Collection;
@@ -36,7 +37,7 @@ class RoomOcupationSeeder extends Seeder
         $this->schedules = Schedule::byType(ScheduleType::LESSON)->get();
         $this->users = User::byRole(Role::TEACHER)->get();
         $this->subjects = Subject::all();
-        $this->groups = Group::all();
+        $this->groups = Group::withoutGlobalScope(EducationYearScope::class)->get();
 
         Collection::times(300, function (int $i): RoomOccupation {
             $occupationModel = $this->prepareOccupationModel();

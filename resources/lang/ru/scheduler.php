@@ -22,11 +22,12 @@ return [
     'create' => 'Создать',
     'filters' => 'Фильтры',
 
-    'term' => 'Курс',
+    'course' => 'Курс',
     'group' => 'Группа',
     'teacher' => 'Преподаватель',
 
     'full_name' => 'ФИО',
+    'last_name' => 'Фамилия',
     'student_id' => '№ студенческого билета',
 
     'email' => 'Email',
@@ -77,4 +78,6 @@ return [
     'contacts' => 'Контакты',
     'about' => 'О нас',
     'feedback' => 'Напишите нам',
+
+    'education_year' => 'Учебный год',
 ];

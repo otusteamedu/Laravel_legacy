@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('main.index');
+Route::get('/', [HomeController::class, 'index']);
+
+Route::group([
+    'prefix' => 'dashboard'
+], function () {
+    Route::resources([
+        '/groups' => 'Groups\GroupController',
+        '/students' => 'Students\StudentController',
+        '/teachers' => 'Teachers\TeacherController',
+    ]);
 });

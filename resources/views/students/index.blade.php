@@ -3,13 +3,13 @@
 @section('app_content')
     @include('students.filter')
     @include('blocks.pages.list', [
-        'items' => [
-            [
-                'name' => 'Test',
-                'student id' => 'xxx',
-                'group' => '111',
-                'term' => '1',
-            ],
+        'tableContent' => 'students.table_content',
+        'content' => [
+            'titles' => $titles,
+            'items' => $students,
+            'groupService' => $groupService,
+            'courseService' => $courseService,
         ],
+        'addRoute' => 'students.create',
     ])
 @endsection

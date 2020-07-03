@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -35,6 +36,22 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  */
 class Student extends BaseModel
 {
+    /** @var array  */
+    protected $fillable = [
+        'id_number',
+        'user_id'
+    ];
+
+    /**
+     * @param Builder $builder
+     * @param int $idNumber
+     * @return Builder
+     */
+    public function scopeIdNumber(Builder $builder, int $idNumber): Builder
+    {
+        return $builder->where('id_number', $idNumber);
+    }
+
     /**
      * @return BelongsTo
      */

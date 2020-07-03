@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -34,10 +36,38 @@ class EducationYear extends BaseModel
     ];
 
     /**
+     * @param Builder $builder
+     * @param Carbon $date
+     * @return Builder
+     */
+    public function scopeDate(Builder $builder, Carbon $date): Builder
+    {
+        return $builder->where('start_at', '<=', $date)
+            ->where('end_at', '>=', $date);
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeCurrent(Builder $builder): Builder
+    {
+        return $builder->date(Carbon::now());
+    }
+
+    /**
      * @return HasOne
      */
     public function course(): HasOne
     {
         return $this->hasOne(Course::class);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPeriodAttribute(): string
+    {
+        return $this->start_at->format('Y-m-d') . ' - ' . $this->end_at->format('Y-m-d');
     }
 }

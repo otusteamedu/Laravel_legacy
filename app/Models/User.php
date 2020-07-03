@@ -10,7 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\DatabaseNotification;
+use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\User
@@ -27,7 +30,7 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
+ * @property-read DatabaseNotificationCollection|DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newQuery()
@@ -85,6 +88,7 @@ class User extends Authenticatable
         'name',
         'last_name',
         'second_name',
+        'role_id',
         'email',
         'password',
     ];
@@ -115,6 +119,26 @@ class User extends Authenticatable
         static::addGlobalScope('last_name', function (Builder $builder) {
             $builder->orderBy('last_name');
         });
+    }
+
+    /**
+     * @param Builder $builder
+     * @param string $email
+     * @return Builder
+     */
+    public function scopeEmail(Builder $builder, string $email): Builder
+    {
+        return $builder->where('email', 'ilike', ('%' . $email . '%'));
+    }
+
+    /**
+     * @param Builder $builder
+     * @param string $lastName
+     * @return Builder
+     */
+    public function scopeLastName(Builder $builder, string $lastName): Builder
+    {
+        return $builder->where('last_name', 'ilike', ('%' . $lastName . '%'));
     }
 
     /**
@@ -198,5 +222,10 @@ class User extends Authenticatable
     public function receivePosts(): MorphToMany
     {
         return $this->morphToMany(Post::class, 'postable');
+    }
+
+    public function getFullNameAttribute(): string
+    {
+        return $this->last_name . ' ' . $this->name . ' ' . $this->second_name;
     }
 }

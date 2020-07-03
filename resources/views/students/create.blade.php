@@ -3,60 +3,65 @@
 @section('app_content')
     <h4>@lang('scheduler.create'):</h4>
 
-    {!! Form::open(['url' => '/']) !!}
+    {!! Form::open(['url' => route('students.store')]) !!}
 
     <div class="form-group">
-        {{ Form::label('full_name', __('scheduler.full_name'), ['class' => 'control-label']) }}
+        {{ Form::label('last_name', __('users.last_name'), ['class' => 'control-label']) }}
         {{ Form::text(
-            'full_name',
-            null,
+            'last_name',
+            old('last_name'),
             [
             'class' => 'form-control',
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('term', __('scheduler.term'), ['class' => 'control-label']) }}
-        {{ Form::select(
-            'term',
-            ['1' => '1', '2' => '2'],
-            null,
+        {{ Form::label('name', __('users.name'), ['class' => 'control-label']) }}
+        {{ Form::text(
+            'name',
+            old('name'),
             [
-            'class' => 'selectpicker form-control',
-            'data-max-options' => '20',
-            'data-live-search' => 'true',
+            'class' => 'form-control',
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('group', __('scheduler.group'), ['class' => 'control-label']) }}
-        {{ Form::select(
-            'group',
-            ['1' => '1', '2' => '1'],
-            null,
+        {{ Form::label('second_name', __('users.second_name'), ['class' => 'control-label']) }}
+        {{ Form::text(
+            'second_name',
+            old('second_name'),
             [
-            'class' => 'selectpicker form-control',
-            'data-max-options' => '20',
-            'data-live-search' => 'true',
+            'class' => 'form-control',
             ]
            ) }}
     </div>
     <div class="form-group">
-        {{ Form::label('group', __('scheduler.student_id'), ['class' => 'control-label']) }}
+        {{ Form::label('group_id', __('scheduler.group') . ' | ' . __('scheduler.course'), ['class' => 'control-label']) }}
         {{ Form::select(
-            'group',
-            ['1' => '1', '2' => '1'],
-            null,
+            'group_id',
+            $groupList,
+            old('group_id'),
             [
             'class' => 'selectpicker form-control',
+            'data-max-options' => '20',
+            'data-live-search' => 'true',
             'multiple',
-            'data-max-options' => '20',
-            'data-live-search' => 'true',
+            'name' => 'group_id[]',
+            ]
+           ) }}
+    </div>
+    <div class="form-group">
+        {{ Form::label('id_number', __('scheduler.student_id'), ['class' => 'control-label']) }}
+        {{ Form::text(
+            'id_number',
+            old('id_number'),
+            [
+            'class' => 'form-control',
             ]
            ) }}
     </div>
 
-    {{Form::submit(__('buttons.submit'), ['class' => 'btn btn-primary'])}}
+    {{Form::submit(__('buttons.save'), ['class' => 'btn btn-primary'])}}
 
     {!! Form::close() !!}
 @endsection

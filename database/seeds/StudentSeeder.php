@@ -4,6 +4,7 @@ use App\Models\Group;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
+use App\Scopes\EducationYearScope;
 use Illuminate\Database\Seeder;
 
 class StudentSeeder extends Seeder
@@ -16,7 +17,7 @@ class StudentSeeder extends Seeder
     public function run()
     {
         $users = User::byRole(Role::STUDENT)->get();
-        $groups = Group::all();
+        $groups = Group::withoutGlobalScope(EducationYearScope::class)->get();
 
         $users->each(function (User $user) use ($groups): void {
             $student = factory(Student::class)->make();
