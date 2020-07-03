@@ -26,9 +26,11 @@
         </tr>
     </table>
 
-    @include('blocks.buttons.update', [
-        'src' => route('students.edit', $student->id),
-    ])
+    @can('update', $student)
+        @include('blocks.buttons.update', [
+            'src' => route('students.edit', $student->id),
+        ])
+    @endcan
 
     {{--TODO добавить ссылки на учебные план для групп--}}
     @foreach($student->groups as $group)
@@ -39,7 +41,9 @@
     ])
     @endforeach
 
-    @include('blocks.buttons.delete', [
-        'src' => route('students.destroy', $student->id),
-    ])
+    @can('delete', $student)
+        @include('blocks.buttons.delete', [
+            'src' => route('students.destroy', $student->id),
+        ])
+    @endcan
 @endsection

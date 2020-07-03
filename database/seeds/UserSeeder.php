@@ -22,5 +22,21 @@ class UserSeeder extends Seeder
         factory(User::class, 200)->create([
             'role_id' => Role::STUDENT,
         ]);
+
+        factory(User::class, 1)->create([
+            'email' => 'meth@meth.ru',
+            'role_id' => Role::METHODIST,
+        ]);
+
+        factory(User::class, 1)->create([
+            'email' => 'admin@admin.ru',
+            'role_id' => Role::ADMIN,
+        ]);
+
+        $teacherForTest = User::byRole(Role::TEACHER)->inRandomOrder()->first();
+        $teacherForTest->update(['email' => 'teach@teach.ru']);
+
+        $studentForTest = User::byRole(Role::STUDENT)->inRandomOrder()->first();
+        $studentForTest->update(['email' => 'st@st.ru']);
     }
 }

@@ -25,6 +25,7 @@ class GroupController extends Controller
         parent::__construct();
 
         $this->service = $service;
+        $this->authorizeResource(Group::class, 'group');
     }
 
     /**

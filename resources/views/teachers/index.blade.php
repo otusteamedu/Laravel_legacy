@@ -11,6 +11,10 @@
             'subjectService' => $subjectService,
             'educationPlanService' => $educationPlanService,
         ],
-        'addRoute' => 'teachers.create',
     ])
+
+    @can('create-teacher')
+        <hr>
+        @include('blocks.buttons.add', ['src' => route('teachers.create')])
+    @endcan
 @endsection

@@ -21,4 +21,10 @@ return [
     'Password' => 'Пароль',
     'Email' => 'Email',
     'We will contact you' => 'Мы свяжемся с Вами',
+
+    'Send Password Reset Link' => 'Отправить ссылку для сброса пароля',
+    'Reset Password' => 'Сброс пароля',
+    'Remember Me' => 'Запомни меня',
+    'Forgot Your Password?' => 'Забыли Ваш пароль?',
+    'can not reset by button' => 'Если у вас возникли проблемы при нажатии кнопки, скопируйте и вставьте URL-адрес ниже в ваш веб-браузер:',
 ];

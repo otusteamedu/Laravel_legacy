@@ -20,8 +20,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
-    <div id="app">
-        @include('blocks.headers.index')
+<div id="app">
+    @include('blocks.headers.index')
+    @auth
         <div class="container-fluid">
             <div class="row">
                 @include('blocks.sidebar.index')
@@ -32,7 +33,15 @@
                 </div>
             </div>
         </div>
-        @include('blocks.footers.app')
-    </div>
+    @endauth
+
+    @guest
+        <main class="py-4">
+            @yield('content')
+        </main>
+    @endguest
+    @include('blocks.footers.app')
+
+</div>
 </body>
 </html>

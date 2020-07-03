@@ -8,6 +8,10 @@
             'titles' => $titles,
             'items' => $groups,
         ],
-        'addRoute' => 'groups.create',
     ])
+
+    @can('create', \App\Models\Group::class)
+        <hr>
+        @include('blocks.buttons.add', ['src' => route('groups.create')])
+    @endcan
 @endsection

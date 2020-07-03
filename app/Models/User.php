@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Notifications\ResetPasswordNotification;
 use App\Pivots\SubjectTeacher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -13,7 +14,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 
 /**
  * App\Models\User
@@ -224,8 +224,48 @@ class User extends Authenticatable
         return $this->morphToMany(Post::class, 'postable');
     }
 
+    /**
+     * @return string
+     */
     public function getFullNameAttribute(): string
     {
         return $this->last_name . ' ' . $this->name . ' ' . $this->second_name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function admin(): bool
+    {
+        return $this->role_id === Role::ADMIN;
+    }
+
+    /**
+     * @return bool
+     */
+    public function student(): bool
+    {
+        return $this->role_id === Role::STUDENT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function teacher(): bool
+    {
+        return $this->role_id === Role::TEACHER;
+    }
+
+    /**
+     * @return bool
+     */
+    public function methodist(): bool
+    {
+        return $this->role_id === Role::METHODIST;
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
     }
 }
