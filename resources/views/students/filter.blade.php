@@ -43,7 +43,7 @@
     </div>
     <div class="form-group">
         {{ Form::label('id_number', __('scheduler.student_id'), ['class' => 'control-label']) }}
-        {{ Form::text(
+        {{ Form::number(
             'id_number',
             $filter['id_number'],
             [
