@@ -235,7 +235,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function admin(): bool
+    public function isAdmin(): bool
     {
         return $this->role_id === Role::ADMIN;
     }
@@ -243,7 +243,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function student(): bool
+    public function isStudent(): bool
     {
         return $this->role_id === Role::STUDENT;
     }
@@ -251,7 +251,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function teacher(): bool
+    public function isTeacher(): bool
     {
         return $this->role_id === Role::TEACHER;
     }
@@ -259,7 +259,7 @@ class User extends Authenticatable
     /**
      * @return bool
      */
-    public function methodist(): bool
+    public function isMethodist(): bool
     {
         return $this->role_id === Role::METHODIST;
     }

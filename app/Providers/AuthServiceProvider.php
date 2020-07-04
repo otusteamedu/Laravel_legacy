@@ -7,6 +7,7 @@ use App\Models\Student;
 use App\Models\User;
 use App\Policies\GroupPolicy;
 use App\Policies\StudentPolicy;
+use App\Services\Helpers\Ability;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -32,23 +33,23 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::before(function (User $user, string $ability): ?bool {
-            if ($user->admin()) {
+            if ($user->isAdmin()) {
                 return true;
             }
 
             return null;
         });
 
-        Gate::define('create-teacher', function (User $user): bool {
-            return $user->methodist();
+        Gate::define(Ability::CREATE_TEACHER, function (User $user): bool {
+            return $user->isMethodist();
         });
 
-        Gate::define('update-teacher', function (User $user): bool {
-            return $user->methodist();
+        Gate::define(Ability::UPDATE_TEACHER, function (User $user): bool {
+            return $user->isMethodist();
         });
 
-        Gate::define('delete-teacher', function (User $user): bool {
-            return $user->methodist();
+        Gate::define(Ability::DELETE_TEACHER, function (User $user): bool {
+            return $user->isMethodist();
         });
     }
 }

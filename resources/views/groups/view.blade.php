@@ -24,7 +24,7 @@
         </tr>
     </table>
 
-    @can('update', $group)
+    @can(\App\Services\Helpers\Ability::UPDATE, $group)
         @include('blocks.buttons.update', [
             'src' => route('groups.edit', $group->id),
         ])
@@ -41,7 +41,7 @@
         'src' => '#',
     ])
 
-    @can('update', $group)
+    @can(\App\Services\Helpers\Ability::DELETE, $group)
         @include('blocks.buttons.delete', [
             'src' => route('groups.destroy', $group->id),
         ])

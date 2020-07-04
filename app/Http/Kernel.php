@@ -2,7 +2,7 @@
 
 namespace App\Http;
 
-use App\Http\Middleware\UserRole;
+use App\Http\Middleware\ForbidStudents;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -66,6 +66,6 @@ class Kernel extends HttpKernel
         /**
          * Для студентов веб интерфейс скрыт
          */
-        'user_role' => UserRole::class,
+        'forbid_students' => ForbidStudents::class,
     ];
 }

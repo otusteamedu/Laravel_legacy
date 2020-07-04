@@ -17,7 +17,7 @@ class StudentPolicy
      */
     public function before(User $user, string $ability): ?bool
     {
-        if ($user->admin()) {
+        if ($user->isAdmin()) {
             return true;
         }
 
@@ -55,7 +55,7 @@ class StudentPolicy
      */
     public function create(User $user)
     {
-        return $user->methodist();
+        return $user->isMethodist();
     }
 
     /**
@@ -67,7 +67,7 @@ class StudentPolicy
      */
     public function update(User $user, Student $student)
     {
-        return $user->methodist();
+        return $user->isMethodist();
     }
 
     /**
@@ -79,7 +79,7 @@ class StudentPolicy
      */
     public function delete(User $user, Student $student)
     {
-        return $user->methodist();
+        return $user->isMethodist();
     }
 
     /**

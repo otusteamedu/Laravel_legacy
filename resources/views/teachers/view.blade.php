@@ -30,7 +30,7 @@
         </tr>
     </table>
 
-    @can('update-teacher')
+    @can(\App\Services\Helpers\Ability::UPDATE_TEACHER)
     @include('blocks.buttons.update', [
         'src' => route('teachers.edit', $teacher),
     ])
@@ -42,7 +42,7 @@
         'src' => 'education_plans',
     ])
 
-    @can('delete-teacher')
+    @can(\App\Services\Helpers\Ability::DELETE_TEACHER)
     @include('blocks.buttons.delete', [
         'src' => route('teachers.destroy', $teacher),
     ])

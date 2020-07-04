@@ -12,7 +12,7 @@
         ],
     ])
 
-    @can('create', \App\Models\Student::class)
+    @can(\App\Services\Helpers\Ability::CREATE, \App\Models\Student::class)
         <hr>
         @include('blocks.buttons.add', ['src' => route('students.create')])
     @endcan

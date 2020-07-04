@@ -10,7 +10,7 @@
         ],
     ])
 
-    @can('create', \App\Models\Group::class)
+    @can(\App\Services\Helpers\Ability::CREATE, \App\Models\Group::class)
         <hr>
         @include('blocks.buttons.add', ['src' => route('groups.create')])
     @endcan

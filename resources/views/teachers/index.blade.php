@@ -13,7 +13,7 @@
         ],
     ])
 
-    @can('create-teacher')
+    @can(\App\Services\Helpers\Ability::CREATE_TEACHER)
         <hr>
         @include('blocks.buttons.add', ['src' => route('teachers.create')])
     @endcan

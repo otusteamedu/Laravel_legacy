@@ -26,7 +26,7 @@
         </tr>
     </table>
 
-    @can('update', $student)
+    @can(\App\Services\Helpers\Ability::UPDATE, $student)
         @include('blocks.buttons.update', [
             'src' => route('students.edit', $student->id),
         ])
@@ -41,7 +41,7 @@
     ])
     @endforeach
 
-    @can('delete', $student)
+    @can(\App\Services\Helpers\Ability::DELETE, $student)
         @include('blocks.buttons.delete', [
             'src' => route('students.destroy', $student->id),
         ])
