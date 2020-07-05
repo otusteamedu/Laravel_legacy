@@ -14,10 +14,11 @@ class UserGroupsTableSeeder extends Seeder
     {
         $values = [
             'Admin' => 'Администратор',
-            'Guest' => 'Гость',
+            'Moderator' => 'Модератор',
             'Registered' => 'Зарегистрированый',
             'Author' => 'Автор',
-            'Blocked' => 'Заблокированный'
+            'Blocked' => 'Заблокированный',
+            'Editor' => 'Редактор'
         ];
 
         foreach ($values as $name => $title) {
