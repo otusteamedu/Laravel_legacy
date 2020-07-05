@@ -8,12 +8,12 @@
             <div class="table-title">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Управление <b>Статьями</b></h2>
+                        <h2>@lang('messages.article-list.title')</h2>
                     </div>
                     <div class="col-sm-6">
                         @can('create', \App\Models\Article::class)
                             <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modal-add">
-                                Добавить
+                               @lang('messages.add')
                             </button>
                         @endcan
                     </div>
@@ -31,13 +31,13 @@
                 <table class="table table-striped table-hover">
                     <thead>
                     <tr>
-                        <th>id</th>
-                        <th>Название</th>
-                        <th>Категория</th>
-                        <th>Автор</th>
-                        <th>Дата публикации</th>
-                        <th>Состояние</th>
-                        <th>Действия</th>
+                        <th>@lang('messages.id')</th>
+                        <th>@lang('messages.title')</th>
+                        <th>@lang('messages.category')</th>
+                        <th>@lang('messages.author')</th>
+                        <th>@lang('messages.published_date')</th>
+                        <th>@lang('messages.state')</th>
+                        <th>@lang('messages.actions')</th>
                     </tr>
                     </thead>
                     <tbody>

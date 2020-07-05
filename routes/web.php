@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Helpers\LocaleHelper;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,31 +14,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Route::get('/', function () {
+    return redirect('/'. config('app.locale'));
+});
 
-//главная страница
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(['prefix' => LocaleHelper::getLocale(), 'middleware' => 'LocaleMiddleware'], function () {
 
-//страница новости
-Route::get('/article/{id}', 'HomeController@article')->name('article');
+    Auth::routes();
 
-//страница новостей категории
-Route::get('/category/{id}', 'HomeController@category')->name('category');
+    //главная страница
+    Route::get('/', 'HomeController@index')->name('home');
 
-//страница со списком(не доделано)
-Route::get('/list/{type}', 'HomeController@list')->name('list');
+    //страница новости
+    Route::get('/article/{id}', 'HomeController@article')->name('article');
 
-//страница с информацией о пользователе
-Route::get('/user/{id}', 'UserController@userInfo')->name('userInfo');
+    //страница новостей категории
+    Route::get('/category/{id}', 'HomeController@category')->name('category');
 
-//админка
-Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'AdminAccess'], 'prefix' => '/admin'], function () {
-    Route::get('/', 'IndexController@index')->name('admin.index');
-    Route::resource('articles', 'ArticlesController')->except(['create']);
-    Route::resource('categories', 'CategoriesController')->except(['create']);
-    Route::resource('users', 'UsersController')->except(['create']);
-    Route::resource('usergroups', 'UserGroupsController')->except(['create']);
+    //страница со списком(не доделано)
+    Route::get('/list/{type}', 'HomeController@list')->name('list');
+
+    //страница с информацией о пользователе
+    Route::get('/user/{id}', 'UserController@userInfo')->name('userInfo');
+
+    //админка
+    Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'AdminAccess'], 'prefix' => '/admin'], function () {
+        Route::get('/', 'IndexController@index')->name('admin.index');
+        Route::resource('articles', 'ArticlesController')->except(['create']);
+        Route::resource('categories', 'CategoriesController')->except(['create']);
+        Route::resource('users', 'UsersController')->except(['create']);
+        Route::resource('usergroups', 'UserGroupsController')->except(['create']);
+    });
 });
 
 

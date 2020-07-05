@@ -49773,17 +49773,17 @@ module.exports = function(module) {
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  console.log('admin.js added'); // Заполнение формы модального окна значениями
-
+  // Заполнение формы модального окна значениями
   var dataTable = $('#data-list');
   $('button[class$="edit"]', dataTable).on('click', function (e) {
     var id = $(this).data('id');
+    var href = location.href;
     var data_target = $(this).data('target');
     var modalWindow = $('#modal-edit');
     $.ajax({
       dataType: "json",
       type: 'GET',
-      url: "/admin/".concat(data_target, "/").concat(id, "/edit"),
+      url: "".concat(href, "/").concat(id, "/edit"),
       async: true,
       success: function success(data, textStatus, jqXHR) {
         $.each(data, function (i, v) {
@@ -49801,7 +49801,8 @@ $(document).ready(function () {
         $('.modal-body', modalWindow).html('Ошибка: ' + errorThrown);
       }
     });
-  });
+  }); // Отправка данных формы
+
   $("#modal-add-form").add("#modal-edit-form").submit(function (e) {
     e.preventDefault();
     var id = $(this).data('id') ? $(this).data('id') : null;
