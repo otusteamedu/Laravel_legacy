@@ -14,7 +14,7 @@
                     <h6 class="font-weight-light">{{__('auth.sign_easy')}}</h6>
 
 
-                    {!! Form::open(['url' => route('register'),'class'=>'pt-3']) !!}
+                    {!! Form::open(['url' => route('register',['locale' => $locale]),'class'=>'pt-3']) !!}
 
                     @include('partials.form.email', [
                          "label"=> __('form.email'),
@@ -42,10 +42,10 @@
                         </div>
                     </div>
                     <div class="mt-3">
-                        {!! Form::submit(__('Register') ,['class'=>'btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn']) !!}
+                        {!! Form::submit(__('Register',['locale' => $locale]) ,['class'=>'btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn']) !!}
                     </div>
                     <div class="text-center mt-4 font-weight-light"> Already have an account? <a
-                            href="{{ route('login') }}" class="text-primary">Login</a>
+                            href="{{ route('login',['locale' => $locale]) }}" class="text-primary">Login</a>
                     </div>
                     {!! Form::close() !!}
                 </div>

@@ -12,5 +12,10 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    'home' => 'Home',
+    'title' => 'Тип языковых конструкций',
+    'description' => 'Создать тип ...',
+    'list-title' => 'Список типов языковых конструкций',
+    'table-title' => 'Тип языковой конструкции',
+    'table-col-id' => 'Ид',
+    'table-col-title' => 'Тип конструкции'
 ];

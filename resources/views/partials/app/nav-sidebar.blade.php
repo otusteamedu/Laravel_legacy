@@ -15,9 +15,10 @@
             </a>
         </li>
 
+
         @foreach($menu as $item)
             <li class="nav-item">
-                <a class="nav-link" href="{{$item->url}}">
+                <a class="nav-link" href="\{{$locale}}\{{$item->url}}">
                     <span class="menu-title">{{$item->title}}</span>
                     <i class="mdi {{$item->cssClass}} menu-icon"></i>
                 </a>
@@ -26,7 +27,7 @@
 
         <li class="nav-item sidebar-actions">
               <span class="nav-link">
-                <a href="{{route('lang-constructor-type-edit')}}" class="btn btn-block btn-lg btn-gradient-primary mt-4">+ {{trans('menu.add-constr')}}</a>
+                <a href="{{route('lang-constructor-type-edit',['locale' => $locale])}}" class="btn btn-block btn-lg btn-gradient-primary mt-4">+ {{trans('menu.add-constr')}}</a>
               </span>
         </li>
     </ul>

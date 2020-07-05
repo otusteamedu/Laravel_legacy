@@ -12,11 +12,12 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
-    'sign_in' => 'Войти',
-    'failed' => 'Нет данных по пользователю',
-    'throttle' => 'Много попыток входа в систему. Пожалуйста попробуйте через  :seconds секунд.',
-    'new_here' => 'Новенький?',
-    'sign_easy' => 'Легкий вход в несколько шагов',
-
+    'name' => 'Имя',
+    'name-placeholder' => 'Введите имя',
+    'code' => 'Код',
+    'code-placeholder' => 'Введите код ( не больше  256 знаков,латиница)',
+    'description' => 'Описание',
+    'description-placeholder' => 'Описание',
+    'send' => 'Отправить',
+    'create' => 'Создать',
 ];

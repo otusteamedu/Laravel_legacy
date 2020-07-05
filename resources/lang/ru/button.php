@@ -12,11 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-
-    'sign_in' => 'Войти',
-    'failed' => 'Нет данных по пользователю',
-    'throttle' => 'Много попыток входа в систему. Пожалуйста попробуйте через  :seconds секунд.',
-    'new_here' => 'Новенький?',
-    'sign_easy' => 'Легкий вход в несколько шагов',
-
+    'create' => 'Создать',
+    'edit' => 'Редактировать',
+    'delete' => 'Удалить'
 ];
