@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Page;
+use App\Models\Film;
 use App\Models\User;
 use App\Policies\PagePolicy;
 use App\Policies\FilmPolicy;

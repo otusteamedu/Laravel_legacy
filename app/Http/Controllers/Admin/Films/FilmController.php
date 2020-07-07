@@ -6,7 +6,6 @@ use App\Policies\Abilities;
 use Gate;
 use Auth;
 use Log;
-
 use App\Http\Controllers\Admin\Films\Requests\StoreFilmRequest;
 use App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest;
 use App\Models\Film;
@@ -17,7 +16,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 
 use View;
-
 
 class FilmController extends Controller
 {
@@ -37,6 +35,7 @@ class FilmController extends Controller
      */
     public function index()
     {
+        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Film::class);
 
         $this->authorize(Abilities::VIEW_ANY, Film::class);
 

@@ -45,7 +45,7 @@ class PagesControllerTest extends TestCase
         //то указал здесь 302 редирект
         //dd($data);
         $this->createPage($data)->assertStatus(302);
-        $this->assertDatabaseHas('films', [
+        $this->assertDatabaseHas('pages', [
             'title' => $data['title'],
         ]);
         $this->assertNotNull(Page::where('title', $data['title'])->first());
