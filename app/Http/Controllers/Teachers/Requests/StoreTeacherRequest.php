@@ -18,7 +18,7 @@ class StoreTeacherRequest extends TeacherRequest
             'name' => ['required', 'string', 'max:255'],
             'second_name' => ['nullable', 'string', 'max:255'],
             'subject_id.*' => ['integer', 'min:1'],
-            'subject_id' => ['array'],
+            'subject_id' => ['array', 'min:1'],
             'email' => [
                 'required',
                 'email',

@@ -24,10 +24,12 @@ class GroupRequest extends BaseFormRequest
         return [
             'group.integer' => __('validation.group_integer'),
             'number.min' => __('validation.group_min'),
+            'number.max' => __('validation.group_max'),
             'course.integer' => __('validation.course_integer'),
             'year.integer' => __('validation.year_integer'),
             'number.required' => __('validation.group_number_required'),
             'number.integer' => __('validation.group_integer'),
+            'teacher.max' => __('validation.last_name_max'),
         ];
     }
 }

@@ -14,7 +14,7 @@ class IndexGroupRequest extends GroupRequest
         return [
             'group' => ['nullable', 'integer', 'min:1'],
             'course' => ['nullable', 'integer', 'min:1'],
-            'year' => ['nullable', 'string', 'max:255'],
+            'teacher' => ['nullable', 'string', 'max:255'],
         ];
     }
 }

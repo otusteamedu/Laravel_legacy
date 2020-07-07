@@ -12,9 +12,9 @@ class StoreGroupRequest extends GroupRequest
     public function rules(): array
     {
         return [
-            'number' => ['required', 'integer', 'min:1'],
+            'number' => ['required', 'integer', 'min:1', 'max:99999'],
             'course_id' => ['required', 'integer', 'min:1'],
-            'education_year_id' => ['required', 'string', 'max:255'],
+            'education_year_id' => ['required', 'integer', 'min:1'],
         ];
     }
 }
