@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /Users/dmitry/projects/laradock-example/app</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="_css/style.css" rel="stylesheet" type="text/css">
+  <link href="_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="index.html">/Users/dmitry/projects/laradock-example/app</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#9">App\Services\Pages\Repositories\EloquentPageRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/DashboardController.php.html#8">App\Http\Controllers\Admin\DashboardController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/PagesService.php.html#11">App\Services\Pages\PagesService</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Handlers/CreatePageHandler.php.html#9">App\Services\Pages\Handlers\CreatePageHandler</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#9">App\Services\Films\Repositories\EloquentFilmRepository</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#8">App\Providers\BroadcastServiceProvider</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#9">App\Policies\PagePolicy</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#9">App\Policies\FilmPolicy</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#34">App\Models\User</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#53">App\Models\Film</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Comment.php.html#29">App\Models\Comment</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ActorAndRole.php.html#31">App\Models\ActorAndRole</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Actor.php.html#33">App\Models\Actor</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Middleware/Authenticate.php.html#7">App\Http\Middleware\Authenticate</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerificationController.php.html#9">App\Http\Controllers\Auth\VerificationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#12">App\Http\Controllers\Auth\RegisterController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmPasswordController.php.html#9">App\Http\Controllers\Auth\ConfirmPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/Requests/UpdatePageRequest.php.html#8">App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/Requests/StorePageRequest.php.html#8">App\Http\Controllers\Admin\Pages\Requests\StorePageRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#20">App\Http\Controllers\Admin\Pages\PageController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/Requests/UpdateFilmRequest.php.html#8">App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/FormRequest.php.html#6">App\Http\Requests\FormRequest</a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#15">App\Http\Controllers\Admin\Films\FilmController</a></td><td class="text-right">26%</td></tr>
+       <tr><td><a href="Services/Films/FilmsService.php.html#11">App\Services\Films\FilmsService</a></td><td class="text-right">42%</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#9">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Services/Films/Handlers/CreateFilmHandler.php.html#9">App\Services\Films\Handlers\CreateFilmHandler</a></td><td class="text-right">66%</td></tr>
+       <tr><td><a href="Console/Kernel.php.html#8">App\Console\Kernel</a></td><td class="text-right">75%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Policies/PagePolicy.php.html#9">App\Policies\PagePolicy</a></td><td class="text-right">132</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#9">App\Policies\FilmPolicy</a></td><td class="text-right">110</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#9">App\Services\Films\Repositories\EloquentFilmRepository</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#9">App\Services\Pages\Repositories\EloquentPageRepository</a></td><td class="text-right">42</td></tr>
+       <tr><td><a href="Http/Middleware/Authenticate.php.html#7">App\Http\Middleware\Authenticate</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#9">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Console/Kernel.php.html#25"><abbr title="App\Console\Kernel::schedule">schedule</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#19"><abbr title="App\Policies\PagePolicy::viewAny">viewAny</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Providers/BroadcastServiceProvider.php.html#15"><abbr title="App\Providers\BroadcastServiceProvider::boot">boot</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#91"><abbr title="App\Policies\PagePolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#79"><abbr title="App\Policies\PagePolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#66"><abbr title="App\Policies\PagePolicy::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#54"><abbr title="App\Policies\PagePolicy::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#42"><abbr title="App\Policies\PagePolicy::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#31"><abbr title="App\Policies\PagePolicy::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#91"><abbr title="App\Policies\FilmPolicy::forceDelete">forceDelete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/FilmsService.php.html#40"><abbr title="App\Services\Films\FilmsService::searchFilms">searchFilms</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#79"><abbr title="App\Policies\FilmPolicy::restore">restore</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#66"><abbr title="App\Policies\FilmPolicy::delete">delete</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#54"><abbr title="App\Policies\FilmPolicy::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#42"><abbr title="App\Policies\FilmPolicy::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#31"><abbr title="App\Policies\FilmPolicy::view">view</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#19"><abbr title="App\Policies\FilmPolicy::viewAny">viewAny</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#77"><abbr title="App\Models\User::isModerator">isModerator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/FilmsService.php.html#32"><abbr title="App\Services\Films\FilmsService::findFilm">findFilm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/FilmsService.php.html#49"><abbr title="App\Services\Films\FilmsService::createFilm">createFilm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#99"><abbr title="App\Models\Film::actorsAndRoles">actorsAndRoles</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/PagesService.php.html#32"><abbr title="App\Services\Pages\PagesService::findPage">findPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#30"><abbr title="App\Services\Pages\Repositories\EloquentPageRepository::updateFromArray">updateFromArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#23"><abbr title="App\Services\Pages\Repositories\EloquentPageRepository::createFromArray">createFromArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#16"><abbr title="App\Services\Pages\Repositories\EloquentPageRepository::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#11"><abbr title="App\Services\Pages\Repositories\EloquentPageRepository::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/PagesService.php.html#59"><abbr title="App\Services\Pages\PagesService::updatePage">updatePage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/PagesService.php.html#49"><abbr title="App\Services\Pages\PagesService::createPage">createPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/PagesService.php.html#40"><abbr title="App\Services\Pages\PagesService::searchPage">searchPage</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/PagesService.php.html#19"><abbr title="App\Services\Pages\PagesService::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/FilmsService.php.html#59"><abbr title="App\Services\Films\FilmsService::updateFilm">updateFilm</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Handlers/CreatePageHandler.php.html#25"><abbr title="App\Services\Pages\Handlers\CreatePageHandler::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Handlers/CreatePageHandler.php.html#14"><abbr title="App\Services\Pages\Handlers\CreatePageHandler::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#36"><abbr title="App\Services\Films\Repositories\EloquentFilmRepository::applyFilters">applyFilters</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#30"><abbr title="App\Services\Films\Repositories\EloquentFilmRepository::updateFromArray">updateFromArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#23"><abbr title="App\Services\Films\Repositories\EloquentFilmRepository::createFromArray">createFromArray</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#16"><abbr title="App\Services\Films\Repositories\EloquentFilmRepository::search">search</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#11"><abbr title="App\Services\Films\Repositories\EloquentFilmRepository::find">find</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Films/Handlers/CreateFilmHandler.php.html#25"><abbr title="App\Services\Films\Handlers\CreateFilmHandler::handle">handle</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/User.php.html#72"><abbr title="App\Models\User::isAdmin">isAdmin</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#94"><abbr title="App\Models\Film::comments">comments</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/DashboardController.php.html#16"><abbr title="App\Http\Controllers\Admin\DashboardController::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#26"><abbr title="App\Http\Controllers\Admin\Pages\PageController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#124"><abbr title="App\Http\Controllers\Admin\Pages\PageController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#106"><abbr title="App\Http\Controllers\Admin\Pages\PageController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#90"><abbr title="App\Http\Controllers\Admin\Pages\PageController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#80"><abbr title="App\Http\Controllers\Admin\Pages\PageController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#66"><abbr title="App\Http\Controllers\Admin\Pages\PageController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#55"><abbr title="App\Http\Controllers\Admin\Pages\PageController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#37"><abbr title="App\Http\Controllers\Admin\Pages\PageController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/Requests/UpdateFilmRequest.php.html#20"><abbr title="App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#89"><abbr title="App\Models\Film::years">years</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/Requests/UpdateFilmRequest.php.html#15"><abbr title="App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#123"><abbr title="App\Http\Controllers\Admin\Films\FilmController::getCurrentUser">getCurrentUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#113"><abbr title="App\Http\Controllers\Admin\Films\FilmController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#96"><abbr title="App\Http\Controllers\Admin\Films\FilmController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#82"><abbr title="App\Http\Controllers\Admin\Films\FilmController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#71"><abbr title="App\Http\Controllers\Admin\Films\FilmController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#46"><abbr title="App\Http\Controllers\Admin\Films\FilmController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/PageController.php.html#134"><abbr title="App\Http\Controllers\Admin\Pages\PageController::getCurrentUser">getCurrentUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/Requests/StorePageRequest.php.html#15"><abbr title="App\Http\Controllers\Admin\Pages\Requests\StorePageRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/Requests/StorePageRequest.php.html#20"><abbr title="App\Http\Controllers\Admin\Pages\Requests\StorePageRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/Requests/UpdatePageRequest.php.html#15"><abbr title="App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#84"><abbr title="App\Models\Film::producers">producers</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#78"><abbr title="App\Models\Film::genres">genres</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Film.php.html#73"><abbr title="App\Models\Film::actors">actors</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Comment.php.html#36"><abbr title="App\Models\Comment::films">films</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ActorAndRole.php.html#44"><abbr title="App\Models\ActorAndRole::actors">actors</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/ActorAndRole.php.html#38"><abbr title="App\Models\ActorAndRole::films">films</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Models/Actor.php.html#43"><abbr title="App\Models\Actor::films">films</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Requests/FormRequest.php.html#9"><abbr title="App\Http\Requests\FormRequest::getFormData">getFormData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Middleware/Authenticate.php.html#15"><abbr title="App\Http\Middleware\Authenticate::redirectTo">redirectTo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/VerificationController.php.html#36"><abbr title="App\Http\Controllers\Auth\VerificationController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#65"><abbr title="App\Http\Controllers\Auth\RegisterController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#50"><abbr title="App\Http\Controllers\Auth\RegisterController::validator">validator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/RegisterController.php.html#39"><abbr title="App\Http\Controllers\Auth\RegisterController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Auth/ConfirmPasswordController.php.html#36"><abbr title="App\Http\Controllers\Auth\ConfirmPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Pages/Requests/UpdatePageRequest.php.html#20"><abbr title="App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#36"><abbr title="App\Services\Pages\Repositories\EloquentPageRepository::applyFilters">applyFilters</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Http/Controllers/Admin/Films/FilmController.php.html#57"><abbr title="App\Http\Controllers\Admin\Films\FilmController::store">store</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#19"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Http/Middleware/Authenticate.php.html#15"><abbr title="App\Http\Middleware\Authenticate::redirectTo">redirectTo</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#19"><abbr title="App\Policies\FilmPolicy::viewAny">viewAny</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#31"><abbr title="App\Policies\FilmPolicy::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/FilmPolicy.php.html#54"><abbr title="App\Policies\FilmPolicy::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#19"><abbr title="App\Policies\PagePolicy::viewAny">viewAny</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#31"><abbr title="App\Policies\PagePolicy::view">view</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#42"><abbr title="App\Policies\PagePolicy::create">create</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Policies/PagePolicy.php.html#54"><abbr title="App\Policies\PagePolicy::update">update</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/Films/Repositories/EloquentFilmRepository.php.html#36"><abbr title="App\Services\Films\Repositories\EloquentFilmRepository::applyFilters">applyFilters</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Services/Pages/Repositories/EloquentPageRepository.php.html#36"><abbr title="App\Services\Pages\Repositories\EloquentPageRepository::applyFilters">applyFilters</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Http/Middleware/RedirectIfAuthenticated.php.html#19"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 8.0.2</a> using <a href="https://secure.php.net/" target="_top">PHP 7.4.6</a> with <a href="https://xdebug.org/">Xdebug 2.9.6</a> and <a href="https://phpunit.de/">PHPUnit 9.2.5</a> at Tue Jul 7 14:47:12 UTC 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="_js/jquery.min.js" type="text/javascript"></script>
+  <script src="_js/d3.min.js" type="text/javascript"></script>
+  <script src="_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([21,0,0,2,0,1,0,2,1,0,0,22], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([79,0,0,1,0,0,0,1,0,0,0,22], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[75,2,"<a href=\"Console\/Kernel.php.html#8\">App\\Console\\Kernel<\/a>"],[100,2,"<a href=\"Exceptions\/Handler.php.html#8\">App\\Exceptions\\Handler<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/DashboardController.php.html#8\">App\\Http\\Controllers\\Admin\\DashboardController<\/a>"],[26.08695652173913,9,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#15\">App\\Http\\Controllers\\Admin\\Films\\FilmController<\/a>"],[100,2,"<a href=\"Http\/Controllers\/Admin\/Films\/Requests\/StoreFilmRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Films\\Requests\\StoreFilmRequest<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Admin\/Films\/Requests\/UpdateFilmRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Films\\Requests\\UpdateFilmRequest<\/a>"],[0,9,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#20\">App\\Http\\Controllers\\Admin\\Pages\\PageController<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Admin\/Pages\/Requests\/StorePageRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\StorePageRequest<\/a>"],[0,2,"<a href=\"Http\/Controllers\/Admin\/Pages\/Requests\/UpdatePageRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\UpdatePageRequest<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ConfirmPasswordController.php.html#9\">App\\Http\\Controllers\\Auth\\ConfirmPasswordController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Auth\/ForgotPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ForgotPasswordController<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#9\">App\\Http\\Controllers\\Auth\\LoginController<\/a>"],[0,3,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#12\">App\\Http\\Controllers\\Auth\\RegisterController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Auth\/ResetPasswordController.php.html#9\">App\\Http\\Controllers\\Auth\\ResetPasswordController<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/VerificationController.php.html#9\">App\\Http\\Controllers\\Auth\\VerificationController<\/a>"],[100,0,"<a href=\"Http\/Controllers\/Controller.php.html#10\">App\\Http\\Controllers\\Controller<\/a>"],[100,2,"<a href=\"Http\/Controllers\/HomeController.php.html#7\">App\\Http\\Controllers\\HomeController<\/a>"],[100,0,"<a href=\"Http\/Kernel.php.html#7\">App\\Http\\Kernel<\/a>"],[0,2,"<a href=\"Http\/Middleware\/Authenticate.php.html#7\">App\\Http\\Middleware\\Authenticate<\/a>"],[100,0,"<a href=\"Http\/Middleware\/CheckForMaintenanceMode.php.html#7\">App\\Http\\Middleware\\CheckForMaintenanceMode<\/a>"],[100,0,"<a href=\"Http\/Middleware\/EncryptCookies.php.html#7\">App\\Http\\Middleware\\EncryptCookies<\/a>"],[66.66666666666666,2,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#9\">App\\Http\\Middleware\\RedirectIfAuthenticated<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrimStrings.php.html#7\">App\\Http\\Middleware\\TrimStrings<\/a>"],[100,0,"<a href=\"Http\/Middleware\/TrustProxies.php.html#8\">App\\Http\\Middleware\\TrustProxies<\/a>"],[100,0,"<a href=\"Http\/Middleware\/VerifyCsrfToken.php.html#7\">App\\Http\\Middleware\\VerifyCsrfToken<\/a>"],[20,2,"<a href=\"Http\/Requests\/FormRequest.php.html#6\">App\\Http\\Requests\\FormRequest<\/a>"],[0,1,"<a href=\"Models\/Actor.php.html#33\">App\\Models\\Actor<\/a>"],[0,2,"<a href=\"Models\/ActorAndRole.php.html#31\">App\\Models\\ActorAndRole<\/a>"],[0,1,"<a href=\"Models\/Comment.php.html#29\">App\\Models\\Comment<\/a>"],[0,6,"<a href=\"Models\/Film.php.html#53\">App\\Models\\Film<\/a>"],[100,0,"<a href=\"Models\/Genre.php.html#25\">App\\Models\\Genre<\/a>"],[100,0,"<a href=\"Models\/Page.php.html#33\">App\\Models\\Page<\/a>"],[100,0,"<a href=\"Models\/Producer.php.html#31\">App\\Models\\Producer<\/a>"],[0,2,"<a href=\"Models\/User.php.html#34\">App\\Models\\User<\/a>"],[100,0,"<a href=\"Models\/Year.php.html#25\">App\\Models\\Year<\/a>"],[100,0,"<a href=\"Policies\/Abilities.php.html#6\">App\\Policies\\Abilities<\/a>"],[0,10,"<a href=\"Policies\/FilmPolicy.php.html#9\">App\\Policies\\FilmPolicy<\/a>"],[0,11,"<a href=\"Policies\/PagePolicy.php.html#9\">App\\Policies\\PagePolicy<\/a>"],[100,3,"<a href=\"Providers\/AppServiceProvider.php.html#13\">App\\Providers\\AppServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#12\">App\\Providers\\AuthServiceProvider<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#8\">App\\Providers\\BroadcastServiceProvider<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#10\">App\\Providers\\EventServiceProvider<\/a>"],[100,4,"<a href=\"Providers\/RouteServiceProvider.php.html#8\">App\\Providers\\RouteServiceProvider<\/a>"],[42.857142857142854,5,"<a href=\"Services\/Films\/FilmsService.php.html#11\">App\\Services\\Films\\FilmsService<\/a>"],[66.66666666666666,2,"<a href=\"Services\/Films\/Handlers\/CreateFilmHandler.php.html#9\">App\\Services\\Films\\Handlers\\CreateFilmHandler<\/a>"],[0,6,"<a href=\"Services\/Films\/Repositories\/EloquentFilmRepository.php.html#9\">App\\Services\\Films\\Repositories\\EloquentFilmRepository<\/a>"],[0,2,"<a href=\"Services\/Pages\/Handlers\/CreatePageHandler.php.html#9\">App\\Services\\Pages\\Handlers\\CreatePageHandler<\/a>"],[0,5,"<a href=\"Services\/Pages\/PagesService.php.html#11\">App\\Services\\Pages\\PagesService<\/a>"],[0,6,"<a href=\"Services\/Pages\/Repositories\/EloquentPageRepository.php.html#9\">App\\Services\\Pages\\Repositories\\EloquentPageRepository<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Console\/Kernel.php.html#25\">App\\Console\\Kernel::schedule<\/a>"],[100,1,"<a href=\"Console\/Kernel.php.html#35\">App\\Console\\Kernel::commands<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#37\">App\\Exceptions\\Handler::report<\/a>"],[100,1,"<a href=\"Exceptions\/Handler.php.html#51\">App\\Exceptions\\Handler::render<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/DashboardController.php.html#16\">App\\Http\\Controllers\\Admin\\DashboardController::__invoke<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#20\">App\\Http\\Controllers\\Admin\\Films\\FilmController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#30\">App\\Http\\Controllers\\Admin\\Films\\FilmController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#46\">App\\Http\\Controllers\\Admin\\Films\\FilmController::create<\/a>"],[25,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#57\">App\\Http\\Controllers\\Admin\\Films\\FilmController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#71\">App\\Http\\Controllers\\Admin\\Films\\FilmController::show<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#82\">App\\Http\\Controllers\\Admin\\Films\\FilmController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#96\">App\\Http\\Controllers\\Admin\\Films\\FilmController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#113\">App\\Http\\Controllers\\Admin\\Films\\FilmController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/FilmController.php.html#123\">App\\Http\\Controllers\\Admin\\Films\\FilmController::getCurrentUser<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/Films\/Requests\/StoreFilmRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Films\\Requests\\StoreFilmRequest::authorize<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Admin\/Films\/Requests\/StoreFilmRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Films\\Requests\\StoreFilmRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/Requests\/UpdateFilmRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Films\\Requests\\UpdateFilmRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Films\/Requests\/UpdateFilmRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Films\\Requests\\UpdateFilmRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#26\">App\\Http\\Controllers\\Admin\\Pages\\PageController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#37\">App\\Http\\Controllers\\Admin\\Pages\\PageController::index<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#55\">App\\Http\\Controllers\\Admin\\Pages\\PageController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#66\">App\\Http\\Controllers\\Admin\\Pages\\PageController::store<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#80\">App\\Http\\Controllers\\Admin\\Pages\\PageController::show<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#90\">App\\Http\\Controllers\\Admin\\Pages\\PageController::edit<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#106\">App\\Http\\Controllers\\Admin\\Pages\\PageController::update<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#124\">App\\Http\\Controllers\\Admin\\Pages\\PageController::destroy<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/PageController.php.html#134\">App\\Http\\Controllers\\Admin\\Pages\\PageController::getCurrentUser<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/Requests\/StorePageRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\StorePageRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/Requests\/StorePageRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\StorePageRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/Requests\/UpdatePageRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\UpdatePageRequest::authorize<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Admin\/Pages\/Requests\/UpdatePageRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\UpdatePageRequest::rules<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/ConfirmPasswordController.php.html#36\">App\\Http\\Controllers\\Auth\\ConfirmPasswordController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/Auth\/LoginController.php.html#36\">App\\Http\\Controllers\\Auth\\LoginController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#39\">App\\Http\\Controllers\\Auth\\RegisterController::__construct<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#50\">App\\Http\\Controllers\\Auth\\RegisterController::validator<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/RegisterController.php.html#65\">App\\Http\\Controllers\\Auth\\RegisterController::create<\/a>"],[0,1,"<a href=\"Http\/Controllers\/Auth\/VerificationController.php.html#36\">App\\Http\\Controllers\\Auth\\VerificationController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/HomeController.php.html#14\">App\\Http\\Controllers\\HomeController::__construct<\/a>"],[100,1,"<a href=\"Http\/Controllers\/HomeController.php.html#24\">App\\Http\\Controllers\\HomeController::index<\/a>"],[0,2,"<a href=\"Http\/Middleware\/Authenticate.php.html#15\">App\\Http\\Middleware\\Authenticate::redirectTo<\/a>"],[66.66666666666666,2,"<a href=\"Http\/Middleware\/RedirectIfAuthenticated.php.html#19\">App\\Http\\Middleware\\RedirectIfAuthenticated::handle<\/a>"],[0,1,"<a href=\"Http\/Requests\/FormRequest.php.html#9\">App\\Http\\Requests\\FormRequest::getFormData<\/a>"],[100,1,"<a href=\"Http\/Requests\/FormRequest.php.html#19\">App\\Http\\Requests\\FormRequest::messages<\/a>"],[0,1,"<a href=\"Models\/Actor.php.html#43\">App\\Models\\Actor::films<\/a>"],[0,1,"<a href=\"Models\/ActorAndRole.php.html#38\">App\\Models\\ActorAndRole::films<\/a>"],[0,1,"<a href=\"Models\/ActorAndRole.php.html#44\">App\\Models\\ActorAndRole::actors<\/a>"],[0,1,"<a href=\"Models\/Comment.php.html#36\">App\\Models\\Comment::films<\/a>"],[0,1,"<a href=\"Models\/Film.php.html#73\">App\\Models\\Film::actors<\/a>"],[0,1,"<a href=\"Models\/Film.php.html#78\">App\\Models\\Film::genres<\/a>"],[0,1,"<a href=\"Models\/Film.php.html#84\">App\\Models\\Film::producers<\/a>"],[0,1,"<a href=\"Models\/Film.php.html#89\">App\\Models\\Film::years<\/a>"],[0,1,"<a href=\"Models\/Film.php.html#94\">App\\Models\\Film::comments<\/a>"],[0,1,"<a href=\"Models\/Film.php.html#99\">App\\Models\\Film::actorsAndRoles<\/a>"],[0,1,"<a href=\"Models\/User.php.html#72\">App\\Models\\User::isAdmin<\/a>"],[0,1,"<a href=\"Models\/User.php.html#77\">App\\Models\\User::isModerator<\/a>"],[0,2,"<a href=\"Policies\/FilmPolicy.php.html#19\">App\\Policies\\FilmPolicy::viewAny<\/a>"],[0,2,"<a href=\"Policies\/FilmPolicy.php.html#31\">App\\Policies\\FilmPolicy::view<\/a>"],[0,1,"<a href=\"Policies\/FilmPolicy.php.html#42\">App\\Policies\\FilmPolicy::create<\/a>"],[0,2,"<a href=\"Policies\/FilmPolicy.php.html#54\">App\\Policies\\FilmPolicy::update<\/a>"],[0,1,"<a href=\"Policies\/FilmPolicy.php.html#66\">App\\Policies\\FilmPolicy::delete<\/a>"],[0,1,"<a href=\"Policies\/FilmPolicy.php.html#79\">App\\Policies\\FilmPolicy::restore<\/a>"],[0,1,"<a href=\"Policies\/FilmPolicy.php.html#91\">App\\Policies\\FilmPolicy::forceDelete<\/a>"],[0,2,"<a href=\"Policies\/PagePolicy.php.html#19\">App\\Policies\\PagePolicy::viewAny<\/a>"],[0,2,"<a href=\"Policies\/PagePolicy.php.html#31\">App\\Policies\\PagePolicy::view<\/a>"],[0,2,"<a href=\"Policies\/PagePolicy.php.html#42\">App\\Policies\\PagePolicy::create<\/a>"],[0,2,"<a href=\"Policies\/PagePolicy.php.html#54\">App\\Policies\\PagePolicy::update<\/a>"],[0,1,"<a href=\"Policies\/PagePolicy.php.html#66\">App\\Policies\\PagePolicy::delete<\/a>"],[0,1,"<a href=\"Policies\/PagePolicy.php.html#79\">App\\Policies\\PagePolicy::restore<\/a>"],[0,1,"<a href=\"Policies\/PagePolicy.php.html#91\">App\\Policies\\PagePolicy::forceDelete<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#20\">App\\Providers\\AppServiceProvider::register<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#31\">App\\Providers\\AppServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/AppServiceProvider.php.html#36\">App\\Providers\\AppServiceProvider::registerBindings<\/a>"],[100,1,"<a href=\"Providers\/AuthServiceProvider.php.html#29\">App\\Providers\\AuthServiceProvider::boot<\/a>"],[0,1,"<a href=\"Providers\/BroadcastServiceProvider.php.html#15\">App\\Providers\\BroadcastServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/EventServiceProvider.php.html#28\">App\\Providers\\EventServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#31\">App\\Providers\\RouteServiceProvider::boot<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#43\">App\\Providers\\RouteServiceProvider::map<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#59\">App\\Providers\\RouteServiceProvider::mapWebRoutes<\/a>"],[100,1,"<a href=\"Providers\/RouteServiceProvider.php.html#73\">App\\Providers\\RouteServiceProvider::mapApiRoutes<\/a>"],[100,1,"<a href=\"Services\/Films\/FilmsService.php.html#19\">App\\Services\\Films\\FilmsService::__construct<\/a>"],[0,1,"<a href=\"Services\/Films\/FilmsService.php.html#32\">App\\Services\\Films\\FilmsService::findFilm<\/a>"],[0,1,"<a href=\"Services\/Films\/FilmsService.php.html#40\">App\\Services\\Films\\FilmsService::searchFilms<\/a>"],[0,1,"<a href=\"Services\/Films\/FilmsService.php.html#49\">App\\Services\\Films\\FilmsService::createFilm<\/a>"],[0,1,"<a href=\"Services\/Films\/FilmsService.php.html#59\">App\\Services\\Films\\FilmsService::updateFilm<\/a>"],[100,1,"<a href=\"Services\/Films\/Handlers\/CreateFilmHandler.php.html#14\">App\\Services\\Films\\Handlers\\CreateFilmHandler::__construct<\/a>"],[0,1,"<a href=\"Services\/Films\/Handlers\/CreateFilmHandler.php.html#25\">App\\Services\\Films\\Handlers\\CreateFilmHandler::handle<\/a>"],[0,1,"<a href=\"Services\/Films\/Repositories\/EloquentFilmRepository.php.html#11\">App\\Services\\Films\\Repositories\\EloquentFilmRepository::find<\/a>"],[0,1,"<a href=\"Services\/Films\/Repositories\/EloquentFilmRepository.php.html#16\">App\\Services\\Films\\Repositories\\EloquentFilmRepository::search<\/a>"],[0,1,"<a href=\"Services\/Films\/Repositories\/EloquentFilmRepository.php.html#23\">App\\Services\\Films\\Repositories\\EloquentFilmRepository::createFromArray<\/a>"],[0,1,"<a href=\"Services\/Films\/Repositories\/EloquentFilmRepository.php.html#30\">App\\Services\\Films\\Repositories\\EloquentFilmRepository::updateFromArray<\/a>"],[0,2,"<a href=\"Services\/Films\/Repositories\/EloquentFilmRepository.php.html#36\">App\\Services\\Films\\Repositories\\EloquentFilmRepository::applyFilters<\/a>"],[0,1,"<a href=\"Services\/Pages\/Handlers\/CreatePageHandler.php.html#14\">App\\Services\\Pages\\Handlers\\CreatePageHandler::__construct<\/a>"],[0,1,"<a href=\"Services\/Pages\/Handlers\/CreatePageHandler.php.html#25\">App\\Services\\Pages\\Handlers\\CreatePageHandler::handle<\/a>"],[0,1,"<a href=\"Services\/Pages\/PagesService.php.html#19\">App\\Services\\Pages\\PagesService::__construct<\/a>"],[0,1,"<a href=\"Services\/Pages\/PagesService.php.html#32\">App\\Services\\Pages\\PagesService::findPage<\/a>"],[0,1,"<a href=\"Services\/Pages\/PagesService.php.html#40\">App\\Services\\Pages\\PagesService::searchPage<\/a>"],[0,1,"<a href=\"Services\/Pages\/PagesService.php.html#49\">App\\Services\\Pages\\PagesService::createPage<\/a>"],[0,1,"<a href=\"Services\/Pages\/PagesService.php.html#59\">App\\Services\\Pages\\PagesService::updatePage<\/a>"],[0,1,"<a href=\"Services\/Pages\/Repositories\/EloquentPageRepository.php.html#11\">App\\Services\\Pages\\Repositories\\EloquentPageRepository::find<\/a>"],[0,1,"<a href=\"Services\/Pages\/Repositories\/EloquentPageRepository.php.html#16\">App\\Services\\Pages\\Repositories\\EloquentPageRepository::search<\/a>"],[0,1,"<a href=\"Services\/Pages\/Repositories\/EloquentPageRepository.php.html#23\">App\\Services\\Pages\\Repositories\\EloquentPageRepository::createFromArray<\/a>"],[0,1,"<a href=\"Services\/Pages\/Repositories\/EloquentPageRepository.php.html#30\">App\\Services\\Pages\\Repositories\\EloquentPageRepository::updateFromArray<\/a>"],[0,2,"<a href=\"Services\/Pages\/Repositories\/EloquentPageRepository.php.html#36\">App\\Services\\Pages\\Repositories\\EloquentPageRepository::applyFilters<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>

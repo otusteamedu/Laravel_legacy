@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <title>Dashboard for /Users/dmitry/projects/laradock-example/app/Http</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="../_css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/nv.d3.min.css" rel="stylesheet" type="text/css">
+  <link href="../_css/style.css" rel="stylesheet" type="text/css">
+  <link href="../_css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body>
+  <header>
+   <div class="container-fluid">
+    <div class="row">
+     <div class="col-md-12">
+      <nav aria-label="breadcrumb">
+       <ol class="breadcrumb">
+         <li class="breadcrumb-item"><a href="../index.html">/Users/dmitry/projects/laradock-example/app</a></li>
+         <li class="breadcrumb-item"><a href="index.html">Http</a></li>
+         <li class="breadcrumb-item active">(Dashboard)</li>
+
+       </ol>
+      </nav>
+     </div>
+    </div>
+   </div>
+  </header>
+  <div class="container-fluid">
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Classes</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="classCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="classComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/Admin/DashboardController.php.html#8">App\Http\Controllers\Admin\DashboardController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/Requests/UpdateFilmRequest.php.html#8">App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#20">App\Http\Controllers\Admin\Pages\PageController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/Requests/StorePageRequest.php.html#8">App\Http\Controllers\Admin\Pages\Requests\StorePageRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/Requests/UpdatePageRequest.php.html#8">App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/ConfirmPasswordController.php.html#9">App\Http\Controllers\Auth\ConfirmPasswordController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/RegisterController.php.html#12">App\Http\Controllers\Auth\RegisterController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/VerificationController.php.html#9">App\Http\Controllers\Auth\VerificationController</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/Authenticate.php.html#7">App\Http\Middleware\Authenticate</a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/FormRequest.php.html#6">App\Http\Requests\FormRequest</a></td><td class="text-right">20%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#15">App\Http\Controllers\Admin\Films\FilmController</a></td><td class="text-right">26%</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#9">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Class</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Middleware/Authenticate.php.html#7">App\Http\Middleware\Authenticate</a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#9">App\Http\Middleware\RedirectIfAuthenticated</a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-12">
+     <h2>Methods</h2>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Coverage Distribution</h3>
+     <div id="methodCoverageDistribution" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Complexity</h3>
+     <div id="methodComplexity" style="height: 300px;">
+       <svg></svg>
+     </div>
+    </div>
+   </div>
+   <div class="row">
+    <div class="col-md-6">
+     <h3>Insufficient Coverage</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right">Coverage</th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Controllers/Admin/DashboardController.php.html#16"><abbr title="App\Http\Controllers\Admin\DashboardController::__invoke">__invoke</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#106"><abbr title="App\Http\Controllers\Admin\Pages\PageController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Middleware/Authenticate.php.html#15"><abbr title="App\Http\Middleware\Authenticate::redirectTo">redirectTo</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/VerificationController.php.html#36"><abbr title="App\Http\Controllers\Auth\VerificationController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/RegisterController.php.html#65"><abbr title="App\Http\Controllers\Auth\RegisterController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/RegisterController.php.html#50"><abbr title="App\Http\Controllers\Auth\RegisterController::validator">validator</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/RegisterController.php.html#39"><abbr title="App\Http\Controllers\Auth\RegisterController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Auth/ConfirmPasswordController.php.html#36"><abbr title="App\Http\Controllers\Auth\ConfirmPasswordController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/Requests/UpdatePageRequest.php.html#20"><abbr title="App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/Requests/UpdatePageRequest.php.html#15"><abbr title="App\Http\Controllers\Admin\Pages\Requests\UpdatePageRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/Requests/StorePageRequest.php.html#20"><abbr title="App\Http\Controllers\Admin\Pages\Requests\StorePageRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/Requests/StorePageRequest.php.html#15"><abbr title="App\Http\Controllers\Admin\Pages\Requests\StorePageRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#134"><abbr title="App\Http\Controllers\Admin\Pages\PageController::getCurrentUser">getCurrentUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#124"><abbr title="App\Http\Controllers\Admin\Pages\PageController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#90"><abbr title="App\Http\Controllers\Admin\Pages\PageController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#46"><abbr title="App\Http\Controllers\Admin\Films\FilmController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#80"><abbr title="App\Http\Controllers\Admin\Pages\PageController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#66"><abbr title="App\Http\Controllers\Admin\Pages\PageController::store">store</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#55"><abbr title="App\Http\Controllers\Admin\Pages\PageController::create">create</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#37"><abbr title="App\Http\Controllers\Admin\Pages\PageController::index">index</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Pages/PageController.php.html#26"><abbr title="App\Http\Controllers\Admin\Pages\PageController::__construct">__construct</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/Requests/UpdateFilmRequest.php.html#20"><abbr title="App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest::rules">rules</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/Requests/UpdateFilmRequest.php.html#15"><abbr title="App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest::authorize">authorize</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#123"><abbr title="App\Http\Controllers\Admin\Films\FilmController::getCurrentUser">getCurrentUser</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#113"><abbr title="App\Http\Controllers\Admin\Films\FilmController::destroy">destroy</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#96"><abbr title="App\Http\Controllers\Admin\Films\FilmController::update">update</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#82"><abbr title="App\Http\Controllers\Admin\Films\FilmController::edit">edit</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#71"><abbr title="App\Http\Controllers\Admin\Films\FilmController::show">show</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Requests/FormRequest.php.html#9"><abbr title="App\Http\Requests\FormRequest::getFormData">getFormData</abbr></a></td><td class="text-right">0%</td></tr>
+       <tr><td><a href="Controllers/Admin/Films/FilmController.php.html#57"><abbr title="App\Http\Controllers\Admin\Films\FilmController::store">store</abbr></a></td><td class="text-right">25%</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#19"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">66%</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+    <div class="col-md-6">
+     <h3>Project Risks</h3>
+     <div class="scrollbox">
+      <table class="table">
+       <thead>
+        <tr>
+         <th>Method</th>
+         <th class="text-right"><abbr title="Change Risk Anti-Patterns (CRAP) Index">CRAP</abbr></th>
+        </tr>
+       </thead>
+       <tbody>
+       <tr><td><a href="Middleware/Authenticate.php.html#15"><abbr title="App\Http\Middleware\Authenticate::redirectTo">redirectTo</abbr></a></td><td class="text-right">6</td></tr>
+       <tr><td><a href="Middleware/RedirectIfAuthenticated.php.html#19"><abbr title="App\Http\Middleware\RedirectIfAuthenticated::handle">handle</abbr></a></td><td class="text-right">2</td></tr>
+
+       </tbody>
+      </table>
+     </div>
+    </div>
+   </div>
+   <footer>
+    <hr/>
+    <p>
+     <small>Generated by <a href="https://github.com/sebastianbergmann/php-code-coverage" target="_top">php-code-coverage 8.0.2</a> using <a href="https://secure.php.net/" target="_top">PHP 7.4.6</a> with <a href="https://xdebug.org/">Xdebug 2.9.6</a> and <a href="https://phpunit.de/">PHPUnit 9.2.5</a> at Tue Jul 7 14:47:12 UTC 2020.</small>
+    </p>
+   </footer>
+  </div>
+  <script src="../_js/jquery.min.js" type="text/javascript"></script>
+  <script src="../_js/d3.min.js" type="text/javascript"></script>
+  <script src="../_js/nv.d3.min.js" type="text/javascript"></script>
+  <script type="text/javascript">
+$(document).ready(function() {
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#classCoverageDistribution svg')
+      .datum(getCoverageDistributionData([9,0,0,2,0,0,0,1,0,0,0,12], "Class Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.multiBarChart();
+    chart.tooltips(false)
+      .showControls(false)
+      .showLegend(false)
+      .reduceXTicks(false)
+      .staggerLabels(true)
+      .yAxis.tickFormat(d3.format('d'));
+
+    d3.select('#methodCoverageDistribution svg')
+      .datum(getCoverageDistributionData([29,0,0,1,0,0,0,1,0,0,0,8], "Method Coverage"))
+      .transition().duration(500).call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getCoverageDistributionData(data, label) {
+    var labels = [
+      '0%',
+      '0-10%',
+      '10-20%',
+      '20-30%',
+      '30-40%',
+      '40-50%',
+      '50-60%',
+      '60-70%',
+      '70-80%',
+      '80-90%',
+      '90-100%',
+      '100%'
+    ];
+    var values = [];
+    $.each(labels, function(key) {
+      values.push({x: labels[key], y: data[key]});
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Cyclomatic Complexity');
+
+    d3.select('#classComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controllers\/Admin\/DashboardController.php.html#8\">App\\Http\\Controllers\\Admin\\DashboardController<\/a>"],[26.08695652173913,9,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#15\">App\\Http\\Controllers\\Admin\\Films\\FilmController<\/a>"],[100,2,"<a href=\"Controllers\/Admin\/Films\/Requests\/StoreFilmRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Films\\Requests\\StoreFilmRequest<\/a>"],[0,2,"<a href=\"Controllers\/Admin\/Films\/Requests\/UpdateFilmRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Films\\Requests\\UpdateFilmRequest<\/a>"],[0,9,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#20\">App\\Http\\Controllers\\Admin\\Pages\\PageController<\/a>"],[0,2,"<a href=\"Controllers\/Admin\/Pages\/Requests\/StorePageRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\StorePageRequest<\/a>"],[0,2,"<a href=\"Controllers\/Admin\/Pages\/Requests\/UpdatePageRequest.php.html#8\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\UpdatePageRequest<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/ConfirmPasswordController.php.html#9\">App\\Http\\Controllers\\Auth\\ConfirmPasswordController<\/a>"],[100,0,"<a href=\"Controllers\/Auth\/ForgotPasswordController.php.html#8\">App\\Http\\Controllers\\Auth\\ForgotPasswordController<\/a>"],[100,1,"<a href=\"Controllers\/Auth\/LoginController.php.html#9\">App\\Http\\Controllers\\Auth\\LoginController<\/a>"],[0,3,"<a href=\"Controllers\/Auth\/RegisterController.php.html#12\">App\\Http\\Controllers\\Auth\\RegisterController<\/a>"],[100,0,"<a href=\"Controllers\/Auth\/ResetPasswordController.php.html#9\">App\\Http\\Controllers\\Auth\\ResetPasswordController<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/VerificationController.php.html#9\">App\\Http\\Controllers\\Auth\\VerificationController<\/a>"],[100,0,"<a href=\"Controllers\/Controller.php.html#10\">App\\Http\\Controllers\\Controller<\/a>"],[100,2,"<a href=\"Controllers\/HomeController.php.html#7\">App\\Http\\Controllers\\HomeController<\/a>"],[100,0,"<a href=\"Kernel.php.html#7\">App\\Http\\Kernel<\/a>"],[0,2,"<a href=\"Middleware\/Authenticate.php.html#7\">App\\Http\\Middleware\\Authenticate<\/a>"],[100,0,"<a href=\"Middleware\/CheckForMaintenanceMode.php.html#7\">App\\Http\\Middleware\\CheckForMaintenanceMode<\/a>"],[100,0,"<a href=\"Middleware\/EncryptCookies.php.html#7\">App\\Http\\Middleware\\EncryptCookies<\/a>"],[66.66666666666666,2,"<a href=\"Middleware\/RedirectIfAuthenticated.php.html#9\">App\\Http\\Middleware\\RedirectIfAuthenticated<\/a>"],[100,0,"<a href=\"Middleware\/TrimStrings.php.html#7\">App\\Http\\Middleware\\TrimStrings<\/a>"],[100,0,"<a href=\"Middleware\/TrustProxies.php.html#8\">App\\Http\\Middleware\\TrustProxies<\/a>"],[100,0,"<a href=\"Middleware\/VerifyCsrfToken.php.html#7\">App\\Http\\Middleware\\VerifyCsrfToken<\/a>"],[20,2,"<a href=\"Requests\/FormRequest.php.html#6\">App\\Http\\Requests\\FormRequest<\/a>"]], 'Class Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  nv.addGraph(function() {
+    var chart = nv.models.scatterChart()
+      .showDistX(true)
+      .showDistY(true)
+      .showLegend(false)
+      .forceX([0, 100]);
+    chart.tooltipContent(function(graph) {
+      return '<p>' + graph.point.class + '</p>';
+    });
+
+    chart.xAxis.axisLabel('Code Coverage (in percent)');
+    chart.yAxis.axisLabel('Method Complexity');
+
+    d3.select('#methodComplexity svg')
+      .datum(getComplexityData([[0,1,"<a href=\"Controllers\/Admin\/DashboardController.php.html#16\">App\\Http\\Controllers\\Admin\\DashboardController::__invoke<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#20\">App\\Http\\Controllers\\Admin\\Films\\FilmController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#30\">App\\Http\\Controllers\\Admin\\Films\\FilmController::index<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#46\">App\\Http\\Controllers\\Admin\\Films\\FilmController::create<\/a>"],[25,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#57\">App\\Http\\Controllers\\Admin\\Films\\FilmController::store<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#71\">App\\Http\\Controllers\\Admin\\Films\\FilmController::show<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#82\">App\\Http\\Controllers\\Admin\\Films\\FilmController::edit<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#96\">App\\Http\\Controllers\\Admin\\Films\\FilmController::update<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#113\">App\\Http\\Controllers\\Admin\\Films\\FilmController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/FilmController.php.html#123\">App\\Http\\Controllers\\Admin\\Films\\FilmController::getCurrentUser<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/Films\/Requests\/StoreFilmRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Films\\Requests\\StoreFilmRequest::authorize<\/a>"],[100,1,"<a href=\"Controllers\/Admin\/Films\/Requests\/StoreFilmRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Films\\Requests\\StoreFilmRequest::rules<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/Requests\/UpdateFilmRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Films\\Requests\\UpdateFilmRequest::authorize<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Films\/Requests\/UpdateFilmRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Films\\Requests\\UpdateFilmRequest::rules<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#26\">App\\Http\\Controllers\\Admin\\Pages\\PageController::__construct<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#37\">App\\Http\\Controllers\\Admin\\Pages\\PageController::index<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#55\">App\\Http\\Controllers\\Admin\\Pages\\PageController::create<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#66\">App\\Http\\Controllers\\Admin\\Pages\\PageController::store<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#80\">App\\Http\\Controllers\\Admin\\Pages\\PageController::show<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#90\">App\\Http\\Controllers\\Admin\\Pages\\PageController::edit<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#106\">App\\Http\\Controllers\\Admin\\Pages\\PageController::update<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#124\">App\\Http\\Controllers\\Admin\\Pages\\PageController::destroy<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/PageController.php.html#134\">App\\Http\\Controllers\\Admin\\Pages\\PageController::getCurrentUser<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/Requests\/StorePageRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\StorePageRequest::authorize<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/Requests\/StorePageRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\StorePageRequest::rules<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/Requests\/UpdatePageRequest.php.html#15\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\UpdatePageRequest::authorize<\/a>"],[0,1,"<a href=\"Controllers\/Admin\/Pages\/Requests\/UpdatePageRequest.php.html#20\">App\\Http\\Controllers\\Admin\\Pages\\Requests\\UpdatePageRequest::rules<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/ConfirmPasswordController.php.html#36\">App\\Http\\Controllers\\Auth\\ConfirmPasswordController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/Auth\/LoginController.php.html#36\">App\\Http\\Controllers\\Auth\\LoginController::__construct<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/RegisterController.php.html#39\">App\\Http\\Controllers\\Auth\\RegisterController::__construct<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/RegisterController.php.html#50\">App\\Http\\Controllers\\Auth\\RegisterController::validator<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/RegisterController.php.html#65\">App\\Http\\Controllers\\Auth\\RegisterController::create<\/a>"],[0,1,"<a href=\"Controllers\/Auth\/VerificationController.php.html#36\">App\\Http\\Controllers\\Auth\\VerificationController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/HomeController.php.html#14\">App\\Http\\Controllers\\HomeController::__construct<\/a>"],[100,1,"<a href=\"Controllers\/HomeController.php.html#24\">App\\Http\\Controllers\\HomeController::index<\/a>"],[0,2,"<a href=\"Middleware\/Authenticate.php.html#15\">App\\Http\\Middleware\\Authenticate::redirectTo<\/a>"],[66.66666666666666,2,"<a href=\"Middleware\/RedirectIfAuthenticated.php.html#19\">App\\Http\\Middleware\\RedirectIfAuthenticated::handle<\/a>"],[0,1,"<a href=\"Requests\/FormRequest.php.html#9\">App\\Http\\Requests\\FormRequest::getFormData<\/a>"],[100,1,"<a href=\"Requests\/FormRequest.php.html#19\">App\\Http\\Requests\\FormRequest::messages<\/a>"]], 'Method Complexity'))
+      .transition()
+      .duration(500)
+      .call(chart);
+
+    nv.utils.windowResize(chart.update);
+
+    return chart;
+  });
+
+  function getComplexityData(data, label) {
+    var values = [];
+    $.each(data, function(key) {
+      var value = Math.round(data[key][0]*100) / 100;
+      values.push({
+        x: value,
+        y: data[key][1],
+        class: data[key][2],
+        size: 0.05,
+        shape: 'diamond'
+      });
+    });
+
+    return [
+      {
+        key: label,
+        values: values,
+        color: "#4572A7"
+      }
+    ];
+  }
+});
+  </script>
+ </body>
+</html>
