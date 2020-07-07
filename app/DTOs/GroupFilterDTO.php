@@ -5,8 +5,8 @@ namespace App\DTOs;
 class GroupFilterDTO implements DTOInterface
 {
     const GROUP = 'group';
-    const COURSE = 'teacher';
-    const TEACHER = 'course';
+    const COURSE = 'course';
+    const TEACHER = 'teacher';
 
     /** @var int|null $group*/
     private $group;

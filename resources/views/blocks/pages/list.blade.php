@@ -15,6 +15,3 @@
         </div>
     </div>
 </div>
-<hr>
-<a href="{{ route($addRoute) }}" type="button" class="btn btn-primary">@lang('buttons.add')</a>
-<hr>

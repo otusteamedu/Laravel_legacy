@@ -21,4 +21,11 @@ return [
     'Password' => 'Password',
     'Email' => 'Email',
     'We will contact you' => 'We will contact you',
+
+
+    'Send Password Reset Link' => 'Send Password Reset Link',
+    'Reset Password' => 'Reset Password',
+    'Remember Me' => 'Remember Me',
+    'Forgot Your Password?' => 'Forgot Your Password?',
+    'can not reset by button' => 'If you’re having trouble clicking the button, copy and paste the URL below into your web browser:',
 ];

@@ -14,6 +14,7 @@ use App\Services\Subjects\SubjectService;
 use App\Services\Teachers\TeacherService;
 use App\Services\Users\UserService;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class TeacherController extends Controller
@@ -75,6 +76,7 @@ class TeacherController extends Controller
      */
     public function create(): View
     {
+        Gate::authorize('create-teacher');
         $subjects = $this->subjectService->subjectSelectList();
 
         return view('teachers.create', compact('subjects'));
@@ -88,6 +90,7 @@ class TeacherController extends Controller
      */
     public function store(StoreTeacherRequest $request): RedirectResponse
     {
+        Gate::authorize('create-teacher');
         $userDTO = $this->userService->prepareUserDTOForRole($request->getFormData(), Role::TEACHER);
 
         $teacher = $this->userService->store($userDTO);
@@ -127,6 +130,8 @@ class TeacherController extends Controller
      */
     public function edit(User $teacher): View
     {
+        Gate::authorize('update-teacher');
+
         return view('teachers.edit', [
             'teacher' => $teacher,
             'subjects' => $this->subjectService->subjectSelectList(),
@@ -143,6 +148,8 @@ class TeacherController extends Controller
      */
     public function update(UpdateTeacherRequest $request, User $teacher): RedirectResponse
     {
+        Gate::authorize('update-teacher');
+
         $userDTO = $this->userService->prepareUserDTOForRole($request->getFormData(), Role::STUDENT);
         $teacherUpdated = $this->userService->update($userDTO, $teacher);
 
@@ -162,6 +169,7 @@ class TeacherController extends Controller
      */
     public function destroy(User $teacher): RedirectResponse
     {
+        Gate::authorize('delete-teacher');
         $this->userService->delete($teacher);
 
         return redirect()->route('teachers.index')

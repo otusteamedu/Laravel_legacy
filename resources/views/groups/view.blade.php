@@ -24,9 +24,11 @@
         </tr>
     </table>
 
-    @include('blocks.buttons.update', [
-        'src' => route('groups.edit', $group->id),
-    ])
+    @can(\App\Services\Helpers\Ability::UPDATE, $group)
+        @include('blocks.buttons.update', [
+            'src' => route('groups.edit', $group->id),
+        ])
+    @endcan
 
     @include('blocks.buttons.primary', [
         'buttonName' => __('scheduler.students'),
@@ -39,7 +41,9 @@
         'src' => '#',
     ])
 
-    @include('blocks.buttons.delete', [
-        'src' => route('groups.destroy', $group->id),
-    ])
+    @can(\App\Services\Helpers\Ability::DELETE, $group)
+        @include('blocks.buttons.delete', [
+            'src' => route('groups.destroy', $group->id),
+        ])
+    @endcan
 @endsection

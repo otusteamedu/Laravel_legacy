@@ -80,4 +80,6 @@ return [
     'feedback' => 'Напишите нам',
 
     'education_year' => 'Учебный год',
+
+    'dashboard' => 'Рабочая панель',
 ];

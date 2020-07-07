@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Models\Group;
+use App\Models\Student;
+use App\Models\User;
+use App\Policies\GroupPolicy;
+use App\Policies\StudentPolicy;
+use App\Services\Helpers\Ability;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
@@ -13,7 +19,8 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        // 'App\Model' => 'App\Policies\ModelPolicy',
+        Group::class => GroupPolicy::class,
+        Student::class => StudentPolicy::class,
     ];
 
     /**
@@ -25,6 +32,24 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::before(function (User $user, string $ability): ?bool {
+            if ($user->isAdmin()) {
+                return true;
+            }
+
+            return null;
+        });
+
+        Gate::define(Ability::CREATE_TEACHER, function (User $user): bool {
+            return $user->isMethodist();
+        });
+
+        Gate::define(Ability::UPDATE_TEACHER, function (User $user): bool {
+            return $user->isMethodist();
+        });
+
+        Gate::define(Ability::DELETE_TEACHER, function (User $user): bool {
+            return $user->isMethodist();
+        });
     }
 }

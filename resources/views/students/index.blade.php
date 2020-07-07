@@ -10,6 +10,10 @@
             'groupService' => $groupService,
             'courseService' => $courseService,
         ],
-        'addRoute' => 'students.create',
     ])
+
+    @can(\App\Services\Helpers\Ability::CREATE, \App\Models\Student::class)
+        <hr>
+        @include('blocks.buttons.add', ['src' => route('students.create')])
+    @endcan
 @endsection

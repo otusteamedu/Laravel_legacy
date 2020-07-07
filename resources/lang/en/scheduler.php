@@ -80,4 +80,6 @@ return [
     'feedback' => 'Write to us',
 
     'education_year' => 'Education year',
+
+    'dashboard' => 'Dashboard',
 ];
