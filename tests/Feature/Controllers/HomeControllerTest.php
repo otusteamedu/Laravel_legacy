@@ -4,6 +4,7 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Role;
 use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -14,6 +15,8 @@ use Tests\TestCase;
  */
 class HomeControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @var User
      */

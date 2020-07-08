@@ -6,6 +6,8 @@ use App\Http\Controllers\Students\Requests\UpdateStudentRequest;
 use App\Models\Role;
 use App\Models\Student;
 use App\Models\User;
+use App\Services\Students\StudentService;
+use App\Services\Users\UserService;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Validation\Validator;
@@ -21,8 +23,6 @@ class UpdateStudentRequestTest extends TestCase
 {
     use RefreshDatabase;
     use RequestTrait;
-
-    const URL_PUT = 'dashboard/students/';
 
     /** @var UpdateStudentRequest */
     private $rules;
@@ -64,7 +64,7 @@ class UpdateStudentRequestTest extends TestCase
             'request_should_fail_when_last_name_is_to_long' => [
                 'passed' => false,
                 'data' => [
-                    'last_name' => $faker->paragraph(10),
+                    'last_name' => $faker->paragraph(30),
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
@@ -95,7 +95,7 @@ class UpdateStudentRequestTest extends TestCase
                 'passed' => false,
                 'data' => [
                     'last_name' => $faker->lastName,
-                    'name' => $faker->paragraph(10),
+                    'name' => $faker->paragraph(30),
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
                     'id_number' => rand(1,99999999999999999),
@@ -126,7 +126,7 @@ class UpdateStudentRequestTest extends TestCase
                 'data' => [
                     'last_name' => $faker->lastName,
                     'name' => $faker->firstName,
-                    'second_name' => $faker->paragraph(10),
+                    'second_name' => $faker->paragraph(30),
                     'group_id' => [rand(),rand()],
                     'id_number' => rand(1,99999999999999999),
                 ],
@@ -225,6 +225,9 @@ class UpdateStudentRequestTest extends TestCase
         ];
     }
 
+    /**
+     * @group 1
+     */
     public function testUniqueIdNumber(): void
     {
         $this->seed(\RoleSeeder::class);
@@ -234,7 +237,7 @@ class UpdateStudentRequestTest extends TestCase
          * Номер студенческого билета совпадает с номером обновляемого пользователя
          */
         $selfIdNumber = 12;
-        factory(Student::class)->create(
+        $student = factory(Student::class)->create(
             [
                 'id_number' => $selfIdNumber,
                 'user_id' => ($user = factory(User::class)->create([
@@ -242,13 +245,22 @@ class UpdateStudentRequestTest extends TestCase
                 ])),
             ]
         );
-        $this->actingAs($user)->post(static::URL_PUT . $user->id, [
+        $this->partialMock(UserService::class, function ($mock) use ($user) {
+            $mock->shouldReceive('update')->once()
+            ->andReturn($user);
+        });
+        $this->mock(StudentService::class, function ($mock) {
+            $mock->shouldReceive('update')->once();
+        });
+
+        $this->actingAs($user)->put(route('students.update', $student), [
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,
             'group_id' => [rand(),rand()],
             'id_number' => $selfIdNumber,
         ])->assertSessionHasNoErrors();
+        \Mockery::close();
 
         /**
          * Номер студенческого билета совпадает с номером другого студента
@@ -262,7 +274,7 @@ class UpdateStudentRequestTest extends TestCase
                 ])),
             ]
         );
-        $this->actingAs($user)->put(static::URL_PUT . $user->id, [
+        $this->actingAs($user)->put(route('students.update', $student->id), [
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,

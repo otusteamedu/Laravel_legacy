@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Role;
-use App\Models\User;
 use Tests\TestCase;
 
 /**
@@ -14,30 +12,13 @@ use Tests\TestCase;
  */
 class SiteControllerTest extends TestCase
 {
-    /**
-     * @var User
-     */
-    protected $user;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-
-        $this->seed(\RoleSeeder::class);
-        $this->seed(\EducationYearSeeder::class);
-
-        $this->user = factory(User::class)->create([
-            'role_id' => Role::METHODIST,
-        ]);
-    }
 
     /**
      * GET /dashboard/teachers
      */
     public function testIndex(): void
     {
-        $this->actingAs($this->user)
-            ->get(route('main'))
+        $this->get(route('main'))
             ->assertOk();
     }
 }

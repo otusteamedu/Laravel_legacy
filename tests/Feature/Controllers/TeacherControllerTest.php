@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Services\Teachers\TeacherService;
 use App\Services\Users\UserService;
 use Faker\Factory;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -17,6 +18,8 @@ use Tests\TestCase;
  */
 class TeacherControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @var User
      */

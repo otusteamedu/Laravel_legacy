@@ -25,7 +25,7 @@ class ForbidStudentsTest extends TestCase
          */
         $request = new Request();
         $request->setUserResolver(function () {
-            return factory(User::class)->create([
+            return factory(User::class)->make([
                 'role_id' => Role::TEACHER,
             ]);
         });
@@ -40,7 +40,7 @@ class ForbidStudentsTest extends TestCase
          */
         $request = new Request();
         $request->setUserResolver(function () {
-            return factory(User::class)->create([
+            return factory(User::class)->make([
                 'role_id' => Role::STUDENT,
             ]);
         });

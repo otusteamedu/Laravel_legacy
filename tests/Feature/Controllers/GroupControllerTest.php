@@ -8,6 +8,7 @@ use App\Models\Group;
 use App\Models\Role;
 use App\Models\User;
 use App\Services\Groups\GroupService;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 /**
@@ -17,6 +18,8 @@ use Tests\TestCase;
  */
 class GroupControllerTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * @var User
      */

@@ -30,8 +30,8 @@ class UserDTO implements DTOInterface
      * @param string $name
      * @param int $roleId
      * @param string|null $secondName
-     * @param int|null $email
-     * @param int|null $password
+     * @param string $email
+     * @param string $password
      */
     private function __construct(
         string $lastName,
@@ -39,7 +39,7 @@ class UserDTO implements DTOInterface
         int $roleId,
         string $secondName = null,
         string $email = null,
-        int $password = null
+        string $password = null
     ) {
         $this->last_name = $lastName;
         $this->name = $name;

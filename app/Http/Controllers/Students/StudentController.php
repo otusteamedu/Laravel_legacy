@@ -97,8 +97,14 @@ class StudentController extends Controller
         $groupIdDTOCollection = $this->groupService->getIdsFromArray($request->group_id);
 
         $user = $this->userService->store($userDTO);
+
         $userIdDTO = IdDTO::fromArray([IdDTO::ID => $user->id]);
-        $student = $this->service->store($request, $userIdDTO, $groupIdDTOCollection);
+        $studentDTO = StudentDTO::fromArray(array_merge(
+            $request->getFormData(),
+            [StudentDTO::USER_ID => $userIdDTO->toArray()[IdDTO::ID]]
+        ));
+
+        $student = $this->service->store($studentDTO, $groupIdDTOCollection);
 
         return redirect()->route('students.show', $student)
             ->with(['success' => __('messages.success_save')]);

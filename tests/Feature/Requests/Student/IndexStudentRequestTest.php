@@ -87,7 +87,7 @@ class IndexStudentRequestTest extends TestCase
                 'data' => [
                     'group' => rand(),
                     'course' => rand(),
-                    'last_name' => $faker->paragraph(10),
+                    'last_name' => $faker->paragraph(30),
                     'id_number' => rand(),
                 ],
             ],

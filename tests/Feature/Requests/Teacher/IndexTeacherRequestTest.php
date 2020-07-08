@@ -49,7 +49,7 @@ class IndexTeacherRequestTest extends TestCase
             'request_should_fail_when_last_name_is_to_long' => [
                 'passed' => false,
                 'data' => [
-                    'last_name' => $faker->paragraph(10),
+                    'last_name' => $faker->paragraph(30),
                     'email' => $faker->email,
                     'subject_id' => rand(),
                 ],
@@ -66,7 +66,7 @@ class IndexTeacherRequestTest extends TestCase
                 'passed' => false,
                 'data' => [
                     'last_name' => $faker->lastName,
-                    'email' => $faker->paragraph(10),
+                    'email' => $faker->paragraph(30),
                     'subject_id' => rand(),
                 ],
             ],

@@ -24,7 +24,7 @@ class SubjectsByHrefWrapper
         /**
          * TODO изменить ссылку текстом на роут route('subjects.index')
          */
-        $DTO = WrapperDTO::fromArray([WrapperDTO::HREF => 'subjects']);
+        $DTO = WrapperDTO::fromArray([WrapperDTO::HREF => '/dashboard/subjects']);
 
         return TagWrapper::wrap($groups, TagWrapper::TAG_A, $DTO);
     }

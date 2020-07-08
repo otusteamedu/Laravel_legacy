@@ -64,7 +64,7 @@ class StoreStudentRequestTest extends TestCase
             'request_should_fail_when_last_name_is_to_long' => [
                 'passed' => false,
                 'data' => [
-                    'last_name' => $faker->paragraph(10),
+                    'last_name' => $faker->paragraph(30),
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
@@ -95,7 +95,7 @@ class StoreStudentRequestTest extends TestCase
                 'passed' => false,
                 'data' => [
                     'last_name' => $faker->lastName,
-                    'name' => $faker->paragraph(10),
+                    'name' => $faker->paragraph(30),
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
                     'id_number' => rand(1,99999999999999999),
@@ -126,7 +126,7 @@ class StoreStudentRequestTest extends TestCase
                 'data' => [
                     'last_name' => $faker->lastName,
                     'name' => $faker->firstName,
-                    'second_name' => $faker->paragraph(10),
+                    'second_name' => $faker->paragraph(30),
                     'group_id' => [rand(),rand()],
                     'id_number' => rand(1,99999999999999999),
                 ],
@@ -240,7 +240,7 @@ class StoreStudentRequestTest extends TestCase
             ]
         );
 
-        $this->actingAs($user)->post(static::URL_POST, [
+        $this->actingAs($user)->post(route('students.store'), [
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,
