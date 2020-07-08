@@ -100,7 +100,7 @@ class StudentController extends Controller
         $userIdDTO = IdDTO::fromArray([IdDTO::ID => $user->id]);
         $student = $this->service->store($request, $userIdDTO, $groupIdDTOCollection);
 
-        return redirect()->route('students.show', $student->id)
+        return redirect()->route('students.show', $student)
             ->with(['success' => __('messages.success_save')]);
     }
 

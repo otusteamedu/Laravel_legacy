@@ -7,6 +7,6 @@ use Faker\Generator as Faker;
 
 $factory->define(Course::class, function (Faker $faker) {
     return [
-        'number' => $faker->integer,
+        'number' => $faker->biasedNumberBetween(1,9999),
     ];
 });
