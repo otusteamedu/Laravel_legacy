@@ -7,9 +7,9 @@ use App\Models\Page;
 use App\Services\Pages\Repositories\PageRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-//use Tests\Generators\FilmGenerator;
 use Illuminate\Support\Str;
 use Tests\Generators\UserGenerator;
+use Tests\Generators\PageGenerator;
 use Tests\TestCase;
 
 class PagesControllerTest extends TestCase
@@ -25,30 +25,126 @@ class PagesControllerTest extends TestCase
     public function testIndex()
     {
         $user = UserGenerator::createAdminUser();
-        //dd($user);
         $this->actingAs($user)
-            ->get(route('cms.films.index'))
+            ->get(route('cms.pages.index'))
             ->assertStatus(200);
     }
 
     /**
      * A Dusk test example.
      *
-     * @group films
+     * @group pages
      * @group cms
      * @return void
      */
-    public function testCreatePage()
+    public function testCreate()
+    {
+        $user = UserGenerator::createAdminUser();
+
+        $this->actingAs($user)->get(route('cms.pages.create'))->assertStatus(200);
+    }
+
+    /**
+     * A Dusk test example.
+     *
+     * @group pages
+     * @return void
+     */
+    public function testCreatePageFailsIfNameIsEmpty()
+    {
+        $user = UserGenerator::createAdminUser();
+
+        $this->actingAs($user)
+            ->post(route('cms.pages.store'), [
+                'name' => 'Test',
+            ])
+            ->assertSessionHasErrors();
+
+        $this->assertEquals(0, Page::all()->count());
+    }
+
+    /**
+     * A Dusk test example.
+     *
+     * @group pages
+     * @return void
+     */
+    public function testCreatePageFailsIfParamsAreEmpty()
+    {
+        $this->createPage([])
+            ->assertSessionHasErrors();
+
+        $this->assertEquals(0, Page::all()->count());
+    }
+
+
+
+    /**
+     * A Dusk test example.
+     *
+     * @group pages
+     * @return void
+     */
+    public function testCreatePageWontCreatePageWithTheSameName()
     {
         $data = $this->generatePageCreateData();
-        //тк после создания фильма редирект на список фильмов
-        //то указал здесь 302 редирект
-        //dd($data);
-        $this->createPage($data)->assertStatus(302);
-        $this->assertDatabaseHas('pages', [
-            'title' => $data['title'],
-        ]);
-        $this->assertNotNull(Page::where('title', $data['title'])->first());
+
+        $this->createPage($data);
+        $this->createPage($data);
+
+        $this->assertEquals(2, Page::all()->count());
+    }
+
+    public function testUpdate()
+    {
+        $user = UserGenerator::createAdminUser();
+        $title = $this->faker->sentence($nbWords = 6, $variableNbWords = true);
+        $data = [
+            'title' => $title,
+            'meta_title'=> $title,
+            'slug'=>Str::slug($title)
+        ];
+        $page = PageGenerator::createPage();
+
+
+
+        //$title = $this->faker->sentence($nbWords = 6, $variableNbWords = true). microtime(true);
+        //$title = $this->faker->country . microtime(true);
+        //$response = $this->put(route('clients.update', ['client' => $client->id]), $data);
+        $this->actingAs($user)->put(route('cms.pages.update', [
+                'page' => $page->id,
+            ]), $data)->assertStatus(302);
+            
+        //->assertStatus(302);
+
+        //$page->refresh();
+    }
+
+
+    public function testEdit()
+    {
+        $user = UserGenerator::createAdminUser();
+        $page = PageGenerator::createPage();
+
+        
+        $this->actingAs($user)->get(
+            route('cms.pages.edit', [
+                'page' => $page,
+            ])
+        )->assertStatus(200);
+    }
+
+    /**
+     * Тест удаления страницы
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $user = UserGenerator::createAdminUser();
+        $page = PageGenerator::createPage();
+
+        $this->actingAs($user)->delete(route('cms.pages.destroy', ['page' => $page]))->assertStatus(302);
     }
 
     /**
@@ -63,7 +159,7 @@ class PagesControllerTest extends TestCase
             'title' => $title,
             'meta_title' => $title,
             'meta_description' => $title,
-            'keywords' => $title,
+            'meta_keywords' => $title,
             'slug' => Str::slug($title),
             'status' => "Опубликовано",
             'content' => $this->faker->sentence(20),
@@ -80,8 +176,6 @@ class PagesControllerTest extends TestCase
     private function createPage(array $data)
     {
         $user = UserGenerator::createAdminUser();
-        //dd($user);
-        //
         return $this->actingAs($user)->post(route('cms.pages.store'), $data);
     }
 }

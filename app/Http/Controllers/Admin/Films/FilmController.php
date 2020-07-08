@@ -19,14 +19,12 @@ use View;
 
 class FilmController extends Controller
 {
-
     protected $filmsService;
 
     public function __construct(
         FilmsService $filmsService
-    )
-    {
-       $this->filmsService = $filmsService;
+    ) {
+        $this->filmsService = $filmsService;
     }
     /**
      * Display a listing of the resource.
@@ -67,17 +65,6 @@ class FilmController extends Controller
         $data = $request->getFormData();
         $this->filmsService->createFilm($data);
         return redirect(route('cms.films.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Film  $film
-     * @return \Illuminate\Http\Response
-     */
-    public function show($film)
-    {
-        //
     }
 
     /**
@@ -122,7 +109,7 @@ class FilmController extends Controller
     {
         $this->authorize(Abilities::DELETE, $film);
         $film->delete();
-        return redirect()->back()->with('success','Delete Successfully');
+        return redirect()->back()->with('success', 'Delete Successfully');
     }
 
     /**

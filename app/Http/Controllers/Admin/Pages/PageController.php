@@ -19,15 +19,12 @@ use View;
 
 class PageController extends Controller
 {
-
-
     protected $pagesService;
 
     public function __construct(
         PagesService $pagesService
-    )
-    {
-       $this->pagesService = $pagesService;
+    ) {
+        $this->pagesService = $pagesService;
     }
     /**
      * Display a listing of the resource.
@@ -71,16 +68,6 @@ class PageController extends Controller
         return redirect(route('cms.pages.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      *
@@ -90,11 +77,10 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         $this->authorize(Abilities::UPDATE, $page);
-
+        
         return view('admin.pages.edit', [
             'page' => $page,
         ]);
-
     }
 
     /**
@@ -105,7 +91,6 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
-
         $this->authorize(Abilities::UPDATE, $page);
 
         $this->pagesService->updatePage($page, $request->all());
@@ -125,7 +110,7 @@ class PageController extends Controller
     {
         $this->authorize(Abilities::DELETE, $page);
         $page->delete();
-        return redirect()->back()->with('success','Delete Successfully');
+        return redirect()->back()->with('success', 'Delete Successfully');
     }
 
     /**

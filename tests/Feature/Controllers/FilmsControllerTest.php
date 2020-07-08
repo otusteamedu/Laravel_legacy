@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 //use Tests\Generators\FilmGenerator;
 use Illuminate\Support\Str;
 use Tests\Generators\UserGenerator;
+use Tests\Generators\FilmGenerator;
 use Tests\TestCase;
 
 class FilmsControllerTest extends TestCase
@@ -25,7 +26,6 @@ class FilmsControllerTest extends TestCase
     public function testIndex()
     {
         $user = UserGenerator::createAdminUser();
-        //dd($user);
         $this->actingAs($user)
             ->get(route('cms.films.index'))
             ->assertStatus(200);
@@ -34,21 +34,109 @@ class FilmsControllerTest extends TestCase
     /**
      * A Dusk test example.
      *
-     * @group films
+     * @group pages
      * @group cms
      * @return void
      */
-    public function testCreateFilm()
+    public function testCreate()
+    {
+        $user = UserGenerator::createAdminUser();
+
+        $this->actingAs($user)->get(route('cms.films.create'))->assertStatus(200);
+    }
+
+    /**
+     * A Dusk test example.
+     *
+     * @group pages
+     * @return void
+     */
+    public function testCreateFilmFailsIfNameIsEmpty()
+    {
+        $user = UserGenerator::createAdminUser();
+
+        $this->actingAs($user)
+            ->post(route('cms.films.store'), [
+                'name' => 'Test',
+            ])
+            ->assertSessionHasErrors();
+
+        $this->assertEquals(0, Film::all()->count());
+    }
+
+    /**
+     * A Dusk test example.
+     *
+     * @group pages
+     * @return void
+     */
+    public function testCreateFilmFailsIfParamsAreEmpty()
+    {
+        $this->createFilm([])
+            ->assertSessionHasErrors();
+
+        $this->assertEquals(0, Film::all()->count());
+    }
+
+
+
+    /**
+     * A Dusk test example.
+     *
+     * @group pages
+     * @return void
+     */
+    public function testCreateFilmWontCreateFilmWithTheSameName()
     {
         $data = $this->generateFilmCreateData();
-        //тк после создания фильма редирект на список фильмов
-        //то указал здесь 302 редирект
-        //dd($data);
-        $this->createFilm($data)->assertStatus(302);
-        $this->assertDatabaseHas('films', [
-            'title' => $data['title'],
-        ]);
-        $this->assertNotNull(Film::where('title', $data['title'])->first());
+
+        $this->createFilm($data);
+        $this->createFilm($data);
+
+        $this->assertEquals(1, Film::all()->count());
+    }
+
+    public function testUpdate()
+    {
+        $user = UserGenerator::createAdminUser();
+        $title = $this->faker->sentence($nbWords = 6, $variableNbWords = true);
+        $data = [
+            'title' => $title,
+            'meta_title'=> $title,
+            'slug'=>Str::slug($title)
+        ];
+        $film = FilmGenerator::createFilm();
+
+        $this->actingAs($user)->put(route('cms.films.update', [
+                'film' => $film->id,
+            ]), $data)->assertStatus(302);
+    }
+
+
+    public function testEdit()
+    {
+        $user = UserGenerator::createAdminUser();
+        $film = FilmGenerator::createFilm();
+
+        
+        $this->actingAs($user)->get(
+            route('cms.films.edit', [
+                'film' => $film,
+            ])
+        )->assertStatus(200);
+    }
+
+    /**
+     * Тест удаления страницы
+     *
+     * @return void
+     */
+    public function testDelete()
+    {
+        $user = UserGenerator::createAdminUser();
+        $film = FilmGenerator::createFilm();
+
+        $this->actingAs($user)->delete(route('cms.films.destroy', ['film' => $film]))->assertStatus(302);
     }
 
     /**
@@ -80,8 +168,6 @@ class FilmsControllerTest extends TestCase
     private function createFilm(array $data)
     {
         $user = UserGenerator::createAdminUser();
-        //dd($user);
-        //
         return $this->actingAs($user)->post(route('cms.films.store'), $data);
     }
 }
