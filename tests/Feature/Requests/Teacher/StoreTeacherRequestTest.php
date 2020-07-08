@@ -63,7 +63,7 @@ class StoreTeacherRequestTest extends TestCase
             'request_should_fail_when_last_name_is_to_long' => [
                 'passed' => false,
                 'data' => [
-                    'last_name' => $faker->paragraph(10),
+                    'last_name' => $faker->paragraph(30),
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'subject_id' => [rand(),rand()],
@@ -94,7 +94,7 @@ class StoreTeacherRequestTest extends TestCase
                 'passed' => false,
                 'data' => [
                     'last_name' => $faker->lastName,
-                    'name' => $faker->paragraph(10),
+                    'name' => $faker->paragraph(30),
                     'second_name' => $faker->firstName,
                     'subject_id' => [rand(),rand()],
                     'email' => $faker->email,
@@ -125,7 +125,7 @@ class StoreTeacherRequestTest extends TestCase
                 'data' => [
                     'last_name' => $faker->lastName,
                     'name' => $faker->firstName,
-                    'second_name' => $faker->paragraph(10),
+                    'second_name' => $faker->paragraph(30),
                     'subject_id' => [rand(),rand()],
                     'email' => $faker->email,
                 ],
@@ -197,7 +197,7 @@ class StoreTeacherRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'subject_id' => [rand(),rand()],
-                    'email' => $faker->paragraph(10) . '@email.email',
+                    'email' => $faker->paragraph(30) . '@email.email',
                 ],
             ],
 
