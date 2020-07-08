@@ -72,7 +72,7 @@ class GroupControllerTest extends TestCase
     public function testStore(): void
     {
         $body = [
-            'number' => rand(1,99999),
+            'number' => rand(1, 99999),
             'course_id' => factory(Course::class)->create()->id,
             'education_year_id' => EducationYear::inRandomOrder()->first()->id,
         ];
@@ -133,7 +133,7 @@ class GroupControllerTest extends TestCase
     public function testUpdate(): void
     {
         $body = [
-            'number' => rand(1,99999),
+            'number' => rand(1, 99999),
             'course_id' => factory(Course::class)->create()->id,
             'education_year_id' => EducationYear::inRandomOrder()->first()->id,
         ];

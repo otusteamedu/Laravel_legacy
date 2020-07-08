@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Requests;
 
-use App\Http\Controllers\Groups\Requests\IndexGroupRequest;
-
 trait RequestTrait
 {
     /**

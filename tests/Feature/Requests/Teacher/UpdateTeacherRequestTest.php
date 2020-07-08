@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Requests\Teacher;
 
-use App\Http\Controllers\Teachers\Requests\StoreTeacherRequest;
 use App\Http\Controllers\Teachers\Requests\UpdateTeacherRequest;
 use App\Models\Role;
 use App\Models\User;

@@ -2,13 +2,7 @@
 
 namespace Tests\Unit\Services;
 
-use App\DTOs\DTOInterface;
-use App\DTOs\GroupDTO;
-use App\Models\Course;
-use App\Models\EducationYear;
-use App\Models\Group;
 use App\Models\Subject;
-use App\Services\Groups\GroupService;
 use App\Services\Subjects\SubjectService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;

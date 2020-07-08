@@ -23,6 +23,9 @@ class TeacherServiceTest extends TestCase
      * @var TeacherService
      */
     protected $service;
+    /**
+     * @var User
+     */
     protected $user;
 
     public function setUp(): void
@@ -49,8 +52,7 @@ class TeacherServiceTest extends TestCase
             __('scheduler.email'),
             __('scheduler.subjects'),
             __('scheduler.teaching_load'),
-            ], $this->service->getTableTitles()
-        );
+            ], $this->service->getTableTitles());
     }
 
     /**
@@ -68,6 +70,5 @@ class TeacherServiceTest extends TestCase
             $this->service->syncWithSubjects($this->user, $subjectsDTOs)
                 ->subjects->pluck('id')->toArray()
         );
-
     }
 }

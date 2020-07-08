@@ -2,7 +2,6 @@
 
 namespace Tests\Unit\Services;
 
-use App\Models\Course;
 use App\Models\EducationPlan;
 use App\Models\Group;
 use App\Models\LessonType;
@@ -51,13 +50,13 @@ class EducationPlanServiceTest extends TestCase
     {
         $plans = factory(EducationPlan::class, 2)->make()
             ->each(function (EducationPlan $plan): void {
-            $plan->hours = rand();
-            $plan->subject_id = Subject::inRandomOrder()->first()->id;
-            $plan->group_id = Group::inRandomOrder()->first()->id;
-            $plan->user_id = User::inRandomOrder()->first()->id;
-            $plan->lesson_type_id = LessonType::inRandomOrder()->first()->id;
-            $plan->save();
-        });
+                $plan->hours = rand();
+                $plan->subject_id = Subject::inRandomOrder()->first()->id;
+                $plan->group_id = Group::inRandomOrder()->first()->id;
+                $plan->user_id = User::inRandomOrder()->first()->id;
+                $plan->lesson_type_id = LessonType::inRandomOrder()->first()->id;
+                $plan->save();
+            });
 
         $this->assertEquals($plans->sum('hours'), $this->service->getHoursForEducationPlans($plans));
     }

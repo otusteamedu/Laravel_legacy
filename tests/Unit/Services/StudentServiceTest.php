@@ -2,6 +2,7 @@
 
 namespace Tests\Unit\Services;
 
+use App\DTOs\DTOInterface;
 use App\DTOs\IdDTO;
 use App\DTOs\StudentDTO;
 use App\Models\Group;
@@ -25,7 +26,13 @@ class StudentServiceTest extends TestCase
      * @var StudentService
      */
     protected $service;
+    /**
+     * @var User
+     */
     protected $user;
+    /**
+     * @var DTOInterface
+     */
     protected $DTO;
 
     public function setUp(): void
@@ -44,7 +51,7 @@ class StudentServiceTest extends TestCase
         ]);
 
         $this->DTO = StudentDTO::fromArray([
-            StudentDTO::ID_NUMBER => rand(1,99999999999999999),
+            StudentDTO::ID_NUMBER => rand(1, 99999999999999999),
             StudentDTO::USER_ID => $this->user->id,
         ]);
     }
@@ -59,8 +66,7 @@ class StudentServiceTest extends TestCase
             __('scheduler.student_id'),
             __('scheduler.group'),
             __('scheduler.course'),
-            ], $this->service->getTableTitles()
-        );
+            ], $this->service->getTableTitles());
     }
 
     public function testStore(): void

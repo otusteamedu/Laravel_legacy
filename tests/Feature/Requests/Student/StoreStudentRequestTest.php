@@ -48,7 +48,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_last_name_is_not_sting' => [
@@ -58,7 +58,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_last_name_is_to_long' => [
@@ -68,7 +68,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
 
@@ -78,7 +78,7 @@ class StoreStudentRequestTest extends TestCase
                     'last_name' => $faker->lastName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_name_is_not_sting' => [
@@ -88,7 +88,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => rand(),
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_name_is_to_long' => [
@@ -98,7 +98,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->paragraph(30),
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
 
@@ -108,7 +108,7 @@ class StoreStudentRequestTest extends TestCase
                     'last_name' => $faker->lastName,
                     'name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_second_name_is_not_sting' => [
@@ -118,7 +118,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => rand(),
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_second_name_is_to_long' => [
@@ -128,7 +128,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->paragraph(30),
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
 
@@ -138,7 +138,7 @@ class StoreStudentRequestTest extends TestCase
                     'last_name' => $faker->lastName,
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_group_id_is_not_an_array' => [
@@ -148,7 +148,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => 'test',
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_group_id_is_empty' => [
@@ -158,7 +158,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
             'request_should_fail_when_group_id_has_not_integer' => [
@@ -168,7 +168,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => ['test'],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
 
@@ -219,7 +219,7 @@ class StoreStudentRequestTest extends TestCase
                     'name' => $faker->firstName,
                     'second_name' => $faker->firstName,
                     'group_id' => [rand(),rand()],
-                    'id_number' => rand(1,99999999999999999),
+                    'id_number' => rand(1, 99999999999999999),
                 ],
             ],
         ];

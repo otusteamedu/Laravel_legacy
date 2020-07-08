@@ -88,7 +88,7 @@ class StudentControllerTest extends TestCase
                 'course_id' => factory(Course::class)->create(),
                 'education_year_id' => EducationYear::inRandomOrder()->first()->id,
             ])->id],
-            'id_number' => rand(1,99999999999999999),
+            'id_number' => rand(1, 99999999999999999),
         ];
 
         $user = factory(User::class)->create([
@@ -170,7 +170,7 @@ class StudentControllerTest extends TestCase
                 'course_id' => factory(Course::class)->create(),
                 'education_year_id' => EducationYear::inRandomOrder()->first()->id,
             ])->id],
-            'id_number' => rand(1,99999999999999999),
+            'id_number' => rand(1, 99999999999999999),
         ];
 
         $user = factory(User::class)->create([

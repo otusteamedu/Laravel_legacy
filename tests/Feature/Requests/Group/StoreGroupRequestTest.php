@@ -60,14 +60,14 @@ class StoreGroupRequestTest extends TestCase
             'request_should_fail_when_no_course_id_is_provided' => [
                 'passed' => false,
                 'data' => [
-                    'number' => rand(1,99999),
+                    'number' => rand(1, 99999),
                     'education_year_id' => rand(),
                 ],
             ],
             'request_should_fail_when_course_id_is_0' => [
                 'passed' => false,
                 'data' => [
-                    'number' => rand(1,99999),
+                    'number' => rand(1, 99999),
                     'course_id' => 0,
                     'education_year_id' => rand(),
                 ],
@@ -75,14 +75,14 @@ class StoreGroupRequestTest extends TestCase
             'request_should_fail_when_no_education_year_id_is_provided' => [
                 'passed' => false,
                 'data' => [
-                    'number' => rand(1,99999),
+                    'number' => rand(1, 99999),
                     'course_id' => rand(),
                 ],
             ],
             'request_should_fail_when_education_year_id_is_0' => [
                 'passed' => false,
                 'data' => [
-                    'number' => rand(1,99999),
+                    'number' => rand(1, 99999),
                     'course_id' => rand(),
                     'education_year_id' => 0,
                 ],
@@ -90,7 +90,7 @@ class StoreGroupRequestTest extends TestCase
             'request_should_pass_when_data_is_provided' => [
                 'passed' => true,
                 'data' => [
-                    'number' => rand(1,99999),
+                    'number' => rand(1, 99999),
                     'course_id' => rand(),
                     'education_year_id' => rand(),
                 ],
