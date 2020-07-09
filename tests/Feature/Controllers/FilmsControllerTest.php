@@ -2,12 +2,10 @@
 
 namespace Tests\Feature\Controllers;
 
-//use App\Services\Films\Repositories\FilmRepositoryInterface;
 use App\Models\Film;
 use App\Services\Films\Repositories\FilmRepositoryInterface;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-//use Tests\Generators\FilmGenerator;
 use Illuminate\Support\Str;
 use Tests\Generators\UserGenerator;
 use Tests\Generators\FilmGenerator;
@@ -32,13 +30,13 @@ class FilmsControllerTest extends TestCase
     }
 
     /**
-     * A Dusk test example.
+     * Тест по созданию фильма
      *
      * @group pages
      * @group cms
      * @return void
      */
-    public function testCreate()
+    public function testCreatePage()
     {
         $user = UserGenerator::createAdminUser();
 
@@ -46,7 +44,7 @@ class FilmsControllerTest extends TestCase
     }
 
     /**
-     * A Dusk test example.
+     * Тест по созданию фильма с пустым name
      *
      * @group pages
      * @return void
@@ -57,7 +55,7 @@ class FilmsControllerTest extends TestCase
 
         $this->actingAs($user)
             ->post(route('cms.films.store'), [
-                'name' => 'Test',
+                'name' => '',
             ])
             ->assertSessionHasErrors();
 
@@ -65,7 +63,7 @@ class FilmsControllerTest extends TestCase
     }
 
     /**
-     * A Dusk test example.
+     * Тест по созданию фильма с пустыми параметрами
      *
      * @group pages
      * @return void
@@ -81,9 +79,9 @@ class FilmsControllerTest extends TestCase
 
 
     /**
-     * A Dusk test example.
+     * Тест по созданию фильма с случайным именем
      *
-     * @group pages
+     * @group films
      * @return void
      */
     public function testCreateFilmWontCreateFilmWithTheSameName()
@@ -95,7 +93,12 @@ class FilmsControllerTest extends TestCase
 
         $this->assertEquals(1, Film::all()->count());
     }
-
+    /**
+     * Тест по обновлению фильма
+     *
+     * @group films
+     * @return void
+     */
     public function testUpdate()
     {
         $user = UserGenerator::createAdminUser();
@@ -111,8 +114,12 @@ class FilmsControllerTest extends TestCase
                 'film' => $film->id,
             ]), $data)->assertStatus(302);
     }
-
-
+    /**
+     * Тест по редактированию фильма
+     *
+     * @group films
+     * @return void
+     */
     public function testEdit()
     {
         $user = UserGenerator::createAdminUser();
@@ -129,6 +136,7 @@ class FilmsControllerTest extends TestCase
     /**
      * Тест удаления страницы
      *
+     * @group films
      * @return void
      */
     public function testDelete()

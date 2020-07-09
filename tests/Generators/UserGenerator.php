@@ -6,7 +6,6 @@ use App\Models\User;
 
 class UserGenerator
 {
-
     public static function createAdminUser(array $data = [])
     {
         return self::createUser(array_merge($data, [
@@ -25,5 +24,4 @@ class UserGenerator
     {
         return factory(User::class)->create($data);
     }
-
 }

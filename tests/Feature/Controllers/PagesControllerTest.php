@@ -31,7 +31,7 @@ class PagesControllerTest extends TestCase
     }
 
     /**
-     * A Dusk test example.
+     * Тест по созданию страницы.
      *
      * @group pages
      * @group cms
@@ -45,7 +45,7 @@ class PagesControllerTest extends TestCase
     }
 
     /**
-     * A Dusk test example.
+     * Тест по созданию страницы с пустым name
      *
      * @group pages
      * @return void
@@ -64,7 +64,7 @@ class PagesControllerTest extends TestCase
     }
 
     /**
-     * A Dusk test example.
+     * Тест по созданию страницы с пустыми параметрами
      *
      * @group pages
      * @return void
@@ -80,7 +80,7 @@ class PagesControllerTest extends TestCase
 
 
     /**
-     * A Dusk test example.
+     * Тест по созданию страницы с случайным именем
      *
      * @group pages
      * @return void
@@ -94,7 +94,12 @@ class PagesControllerTest extends TestCase
 
         $this->assertEquals(2, Page::all()->count());
     }
-
+    /**
+     * Тест по обновлению страницы
+     *
+     * @group films
+     * @return void
+     */
     public function testUpdate()
     {
         $user = UserGenerator::createAdminUser();
@@ -106,21 +111,16 @@ class PagesControllerTest extends TestCase
         ];
         $page = PageGenerator::createPage();
 
-
-
-        //$title = $this->faker->sentence($nbWords = 6, $variableNbWords = true). microtime(true);
-        //$title = $this->faker->country . microtime(true);
-        //$response = $this->put(route('clients.update', ['client' => $client->id]), $data);
         $this->actingAs($user)->put(route('cms.pages.update', [
                 'page' => $page->id,
             ]), $data)->assertStatus(302);
-            
-        //->assertStatus(302);
-
-        //$page->refresh();
     }
-
-
+    /**
+     * Тест по редактированию страницы
+     *
+     * @group films
+     * @return void
+     */
     public function testEdit()
     {
         $user = UserGenerator::createAdminUser();
