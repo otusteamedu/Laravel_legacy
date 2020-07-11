@@ -15,14 +15,14 @@ class CreateLogActivityTable extends Migration
     {
         Schema::create('activity_log', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('url');
-            $table->string('method');
-            $table->string('params')->nullable();
-            $table->integer('status');
-            $table->float('duration');
-            $table->string('ip');
-            $table->string('agent')->nullable();
-            $table->integer('user_id')->nullable()->index();
+            $table->string('url')->comment('Url запроса');;
+            $table->string('method')->comment('Метод отправки запроса');
+            $table->string('params')->nullable()->comment('Параметры запроса');
+            $table->integer('status')->comment('Статус ответа');
+            $table->float('duration')->comment('Время выполения запроса в сек.');
+            $table->string('ip')->comment('IP с которого был отправлен запрос');
+            $table->string('agent')->nullable()->comment('Информация о браузере');
+            $table->integer('user_id')->nullable()->index()->comment('Пользователь');
 
             $table->timestamps();
         });

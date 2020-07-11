@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\Article
@@ -43,9 +44,14 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
+    use Rememberable;
+  
     const STATE_DRAFT = 1;
     const STATE_WAITING_PUBLICATION = 2;
     const STATE_PUBLISHED = 3;
+
+    protected $rememberCacheTag = 'ARTICLES';
+    protected $rememberFor = 60 * 60;
 
     protected $fillable = [
         'title',
@@ -57,15 +63,18 @@ class Article extends Model
         'is_pending'
     ];
 
-    public function comments() {
+    public function comments()
+    {
         return $this->hasMany(ArticleComment::class);
     }
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsTo(Category::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 

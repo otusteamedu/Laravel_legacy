@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\User
@@ -44,6 +45,10 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use Notifiable;
+    use Rememberable;
+
+    protected $rememberCacheTag = 'USERS';
+    protected $rememberFor = 60 * 60;
 
     /**
      * The attributes that are mass assignable.

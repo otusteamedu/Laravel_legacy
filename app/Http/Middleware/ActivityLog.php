@@ -7,13 +7,19 @@ use Illuminate\Http\Request;
 use App\Models\ActivityLog as Log;
 use Illuminate\Http\Response;
 
+/**
+ * Посредник записывающий действия пользователя в базу(table activity_log)
+ *
+ * Class ActivityLog
+ * @package App\Http\Middleware
+ */
 class ActivityLog
 {
     /**
      * Handle an incoming request.
      *
-     * @param  Request  $request
-     * @param  Closure  $next
+     * @param Request $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -21,7 +27,7 @@ class ActivityLog
         return $next($request);
     }
 
-    public function terminate(Request $request,Response $response)
+    public function terminate(Request $request, $response)
     {
         $endTime = microtime(true);
         $log = new Log();

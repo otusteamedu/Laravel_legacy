@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
+        <a class="navbar-brand" href="{{ route('home') }}">
             {{ config('app.name', 'News Site') }}
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -34,7 +34,6 @@
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{route('userInfo', ['id'=>Auth::user()->id])}}">Профиль</a>
                             @can('hasAdminAccess')
                                 <a class="dropdown-item" href="{{route('admin.index')}}">Панель управления</a>
                             @endcan
@@ -48,6 +47,12 @@
                                 @csrf
                             </form>
                         </div>
+                    </li>
+                    <li>
+                        <a href="{{ App\Helpers\LocaleHelper::setLocale('en') }}" class="nav-link {{ App\Helpers\LocaleHelper::getLocale()==='en' ? 'active' : '' }}">EN</a>
+                    </li>
+                    <li>
+                        <a href="{{ App\Helpers\LocaleHelper::setLocale('ru') }}" class="nav-link {{ App\Helpers\LocaleHelper::getLocale()==='ru' ? 'active' : '' }}">RU</a>
                     </li>
                 @endguest
             </ul>

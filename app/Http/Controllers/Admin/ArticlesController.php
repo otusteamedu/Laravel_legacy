@@ -13,12 +13,28 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use App\Services\ArticlesService;
 
+/**
+ * Class ArticlesController
+ * @package App\Http\Controllers\Admin
+ */
 class ArticlesController extends Controller
 {
 
+    /**
+     * @var ArticlesService
+     */
     private $articlesService;
+
+    /**
+     * @var CategoriesService
+     */
     private $categoriesService;
 
+    /**
+     * ArticlesController constructor.
+     * @param ArticlesService $articlesService
+     * @param CategoriesService $categoriesService
+     */
     public function __construct(ArticlesService $articlesService, CategoriesService $categoriesService)
     {
         $this->authorizeResource(Article::class);

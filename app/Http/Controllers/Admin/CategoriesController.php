@@ -10,9 +10,21 @@ use App\Http\Controllers\Admin\Requests\UpdateCategoryRequest;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 
+/**
+ * Class CategoriesController
+ * @package App\Http\Controllers\Admin
+ */
 class CategoriesController extends Controller
 {
+    /**
+     * @var CategoriesService
+     */
+    private $categoriesService;
 
+    /**
+     * CategoriesController constructor.
+     * @param CategoriesService $categoriesService
+     */
     public function __construct(CategoriesService $categoriesService)
     {
         $this->authorizeResource(Category::class);

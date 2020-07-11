@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\Category
@@ -22,6 +23,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Category extends Model
 {
+    use Rememberable;
+
+    protected $rememberCacheTag = 'CATEGORIES';
+    protected $rememberFor = 60 * 60;
+
     public $timestamps = false;
 
     protected $fillable = [

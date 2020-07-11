@@ -2,17 +2,36 @@
 
 namespace App\Services;
 
+use App\Services\Repositories\ArticleCacheRepository;
 use App\Services\Repositories\ArticleRepository;
 use App\Models\Article;
 use Illuminate\Database\Eloquent\Collection;
 
+/**
+ * Class ArticlesService
+ * @package App\Services
+ */
 class ArticlesService
 {
+    /**
+     * @var ArticleRepository
+     */
     private $articleRepository;
 
-    public function __construct(ArticleRepository $articleRepository)
+    /**
+     * @var ArticleCacheRepository
+     */
+    private $articleCacheRepository;
+
+    /**
+     * ArticlesService constructor.
+     * @param ArticleRepository $articleRepository
+     * @param ArticleCacheRepository $articleCacheRepository
+     */
+    public function __construct(ArticleRepository $articleRepository, ArticleCacheRepository $articleCacheRepository)
     {
         $this->articleRepository = $articleRepository;
+        $this->articleCacheRepository = $articleCacheRepository;
     }
 
     /**
@@ -30,7 +49,7 @@ class ArticlesService
      */
     public function allPaginated(array $options = null)
     {
-        return $this->articleRepository->paginated($options);
+        return $this->articleCacheRepository->paginated($options);
     }
 
     /**
@@ -65,6 +84,7 @@ class ArticlesService
         return $this->articleRepository->delete($article);
     }
 
+
     /*
      * Получение статей ожидающих публикации
      *
@@ -84,6 +104,14 @@ class ArticlesService
         $article->state = Article::STATE_PUBLISHED;
 
         return $article->save();
+
+    /**
+     * Очистка кэша
+     */
+    public function clearCache()
+    {
+        $this->articleCacheRepository->clear();
+
     }
 
 }

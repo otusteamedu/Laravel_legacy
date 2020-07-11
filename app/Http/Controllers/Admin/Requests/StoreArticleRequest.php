@@ -25,26 +25,26 @@ class StoreArticleRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|max:250',
+            'title' => 'required|max:255',
             'category_id' => 'required',
             'intro_text' => 'required'
         ];
     }
 
-    /**
-     * Получить сообщения об ошибках для определённых правил проверки.
-     *
-     * @return array
-     */
-    public function messages()
-    {
-        return [
-            'title.required' => 'Необходимо указать заголовок',
-            'title.max' => 'Максимальное количество символов для поля "Заголовок" :max',
-            'category_id.required' => 'Необходимо выбрать категорию',
-            'intro_text.required' => 'Необходимо указать вступительный текст'
-        ];
-    }
+//    /**
+//     * Получить сообщения об ошибках для определённых правил проверки.
+//     *
+//     * @return array
+//     */
+//    public function messages()
+//    {
+//        return [
+//            'title.required' => 'Необходимо указать заголовок',
+//            'title.max' => 'Максимальное количество символов для поля "Заголовок" :max',
+//            'category_id.required' => 'Необходимо выбрать категорию',
+//            'intro_text.required' => 'Необходимо указать вступительный текст'
+//        ];
+//    }
 
     public function getFormData()
     {
