@@ -46,7 +46,7 @@ class ArticleRepository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        //
+        return Article::where($criteria)->get();
     }
 
     /**

@@ -24,7 +24,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('articles:publish-pending-items')
+            ->withoutOverlapping()
+            ->everyMinute()->runInBackground()
+            ->appendOutputTo(storage_path('logs/schedule/publishPendingItems.log'));
     }
 
     /**

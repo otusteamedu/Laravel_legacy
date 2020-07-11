@@ -65,4 +65,25 @@ class ArticlesService
         return $this->articleRepository->delete($article);
     }
 
+    /*
+     * Получение статей ожидающих публикации
+     *
+     * @return Article[]|Collection|null
+     */
+    public function getPendingItems()
+    {
+        return $this->articleRepository->findBy(['is_pending' => true, 'state' => Article::STATE_WAITING_PUBLICATION]);
+    }
+
+    /**
+     * @param Article $article
+     * @return boolean
+     */
+    public function publishArticle(Article $article)
+    {
+        $article->state = Article::STATE_PUBLISHED;
+
+        return $article->save();
+    }
+
 }

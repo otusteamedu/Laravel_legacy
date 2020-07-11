@@ -27,6 +27,7 @@ class CreateArticlesTable extends Migration
             $table->text('image_intro')->comment('Изображение')->nullable();
             $table->text('intro_text')->comment('Вступительный текст')->nullable();
             $table->text('full_text')->comment('Полный текст')->nullable();
+            $table->boolean('is_pending')->comment('Отложенная публикация')->nullable();
         });
 
         Schema::table('articles', function (Blueprint $table) {
