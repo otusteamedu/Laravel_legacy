@@ -1,9 +1,15 @@
 ## Build Setup
 
 ``` bash
+# create .env
+cp .env.example .env
+
 # install dependencies
 composer install
 npm install
+
+# run migrations
+php artisan migrate
 
 # build for development
 npm run dev
