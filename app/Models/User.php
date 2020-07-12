@@ -72,6 +72,7 @@ use Illuminate\Notifications\Notifiable;
  * @property-read int|null $send_posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Subject[] $subjects
  * @property-read int|null $subjects_count
+ * @property string|null $locale
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User byRole($roleId)
  */
 class User extends Authenticatable
