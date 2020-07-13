@@ -6,7 +6,6 @@ use App\Policies\Abilities;
 use Gate;
 use Auth;
 use Log;
-
 use App\Http\Controllers\Admin\Films\Requests\StoreFilmRequest;
 use App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest;
 use App\Models\Film;
@@ -18,17 +17,14 @@ use Illuminate\Validation\ValidationException;
 
 use View;
 
-
 class FilmController extends Controller
 {
-
     protected $filmsService;
 
     public function __construct(
         FilmsService $filmsService
-    )
-    {
-       $this->filmsService = $filmsService;
+    ) {
+        $this->filmsService = $filmsService;
     }
     /**
      * Display a listing of the resource.
@@ -37,6 +33,7 @@ class FilmController extends Controller
      */
     public function index()
     {
+        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Film::class);
 
         $this->authorize(Abilities::VIEW_ANY, Film::class);
 
@@ -68,17 +65,6 @@ class FilmController extends Controller
         $data = $request->getFormData();
         $this->filmsService->createFilm($data);
         return redirect(route('cms.films.index'));
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  Film  $film
-     * @return \Illuminate\Http\Response
-     */
-    public function show($film)
-    {
-        //
     }
 
     /**
@@ -123,7 +109,7 @@ class FilmController extends Controller
     {
         $this->authorize(Abilities::DELETE, $film);
         $film->delete();
-        return redirect()->back()->with('success','Delete Successfully');
+        return redirect()->back()->with('success', 'Delete Successfully');
     }
 
     /**

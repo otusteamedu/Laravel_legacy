@@ -60,7 +60,7 @@ class FilmPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Film  $film
+     * @param  \App\Models\Film  $film
      * @return mixed
      */
     public function delete(User $user, Film $film)
