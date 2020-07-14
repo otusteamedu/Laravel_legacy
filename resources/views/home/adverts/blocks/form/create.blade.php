@@ -5,14 +5,14 @@
 
         <select class="custom-select " required name="division_id">
             <option value="selected">Подразделение</option>
-            @foreach ($divisionList as $item)
+            @foreach ($divisionList->items as $item)
             <option value="{{$item->id ?? ''}}">{{$item->name ?? ''}}</option>
             @endforeach
         </select>
         <br><br>
         <select class="custom-select " required name="town_id">
             <option value="selected">Город</option>
-            @foreach ($townList as $item)
+            @foreach ($townList->items as $item)
                 <option value="{{$item->id ?? ''}}">{{$item->name ?? ''}}</option>
             @endforeach
         </select>

@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use phpDocumentor\Reflection\DocBlock\Tags\Method;
+
 
 /**
  * Class Advert

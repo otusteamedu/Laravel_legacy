@@ -10,7 +10,6 @@ use App\Services\Adverts\Repositories\AdvertCacheRepository;
 use App\Services\Adverts\Repositories\AdvertRepositoryInterface;
 
 
-
 class AdvertsService
 {
 
@@ -31,7 +30,8 @@ class AdvertsService
 
     public function showItem($id)
     {
-        return $this->advertRepository->find($id);
+        $item = $this->advertRepository->find($id);
+        return ItemDto::make($item);
     }
 
     public function showAdvertList()
@@ -41,18 +41,23 @@ class AdvertsService
 
     public function showDivisionList()
     {
-        return $this->advertRepository->divisionList();
-    }
-
-    public function page($qty)
-    {
-        return $this->advertCacheRepository->cachingPage($qty);
+        $division =$this->advertRepository->divisionList();
+        return ItemsDto::make($division);
     }
 
     public function showTownList()
     {
-        return $this->advertRepository->townList();
+        $town = $this->advertRepository->townList();
+        return ItemsDto::make($town);
     }
+
+    public function page($qty)
+    {
+//        return $this->advertCacheRepository->cachingPage($qty);
+        $pages = $this->advertRepository->paginateList($qty);
+        return PaginateDto::make($pages);
+    }
+
 
     public function storeAdvert($data)
     {
