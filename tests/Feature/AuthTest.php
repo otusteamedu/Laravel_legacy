@@ -26,26 +26,16 @@ class AuthTest extends TestCase
         parent::setUp();
 
         $this->seed(\RoleSeeder::class);
-
-        $this->user = factory(User::class)->create([
-            'role_id' => Role::METHODIST,
-        ]);
     }
 
     /**
      * POST /login
      */
-    public function testLogin(): void
+    public function testLoginSuccess(): void
     {
-        /**
-         * FAIL
-         */
-        $body = [
-            'email' => $this->user->email,
-            'password' => 'fail',
-        ];
-        $this->post(route('login'), $body)
-            ->assertRedirect('/');
+        $this->user = factory(User::class)->create([
+            'role_id' => Role::METHODIST,
+        ]);
 
         /**
          * Success
@@ -59,10 +49,54 @@ class AuthTest extends TestCase
     }
 
     /**
+     * POST /login
+     */
+    public function testLoginWrongPassword(): void
+    {
+        $this->user = factory(User::class)->create([
+            'role_id' => Role::METHODIST,
+        ]);
+
+        /**
+         * FAIL
+         */
+        $body = [
+            'email' => $this->user->email,
+            'password' => 'fail',
+        ];
+        $this->post(route('login'), $body)
+            ->assertRedirect('/');
+    }
+
+    /**
+     * POST /login
+     */
+    public function testLoginNotExistEmail(): void
+    {
+        $this->user = factory(User::class)->create([
+            'role_id' => Role::METHODIST,
+        ]);
+
+        /**
+         * FAIL
+         */
+        $body = [
+            'email' => 'test',
+            'password' => 'password',
+        ];
+        $this->post(route('login'), $body)
+            ->assertRedirect('/');
+    }
+
+    /**
      * POST /logout
      */
     public function testLogout():void
     {
+        $this->user = factory(User::class)->create([
+            'role_id' => Role::METHODIST,
+        ]);
+
         $this->post(route('logout'))
             ->assertRedirect('/');
     }

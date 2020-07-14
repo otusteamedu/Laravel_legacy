@@ -9,7 +9,9 @@ use App\Services\Teachers\TeacherService;
 use App\Services\Users\UserService;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
+use Tests\Traits\Generator;
 
 /**
  * Class TeacherControllerTest
@@ -18,6 +20,7 @@ use Tests\TestCase;
  */
 class TeacherControllerTest extends TestCase
 {
+    use Generator;
     use RefreshDatabase;
 
     /**
@@ -32,9 +35,7 @@ class TeacherControllerTest extends TestCase
         $this->seed(\RoleSeeder::class);
         $this->seed(\EducationYearSeeder::class);
 
-        $this->user = factory(User::class)->create([
-            'role_id' => Role::METHODIST,
-        ]);
+        $this->user = $this->generateMethodist();
     }
 
     /**
@@ -83,9 +84,7 @@ class TeacherControllerTest extends TestCase
             'email' => $faker->email,
         ];
 
-        $teacher = $user = factory(User::class)->create([
-            'role_id' => Role::TEACHER,
-        ]);
+        $teacher = $user = $this->generateTeacher();
 
         $this->partialMock(UserService::class, function ($mock) use ($user) {
             $mock->shouldReceive('store')->once()
@@ -100,6 +99,23 @@ class TeacherControllerTest extends TestCase
             ->post(route('teachers.store'), $body)
             ->assertRedirect(route('teachers.show', $teacher))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->post(route('teachers.store'), [])
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
+
+        $notValidBody = [
+            'last_name' => [],
+            'name' => [],
+            'second_name' => [],
+            'subject_id' => 'test',
+            'email' => 'test',
+        ];
+        $this->actingAs($this->user)
+            ->post(route('teachers.store'), $notValidBody)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
     }
 
     /**
@@ -107,9 +123,7 @@ class TeacherControllerTest extends TestCase
      */
     public function testShow(): void
     {
-        $teacher = factory(User::class)->create([
-            'role_id' => Role::TEACHER,
-        ]);
+        $teacher = $this->generateTeacher();
 
         $this->actingAs($this->user)
             ->get(route('teachers.show', $teacher))
@@ -125,9 +139,7 @@ class TeacherControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $teacher = factory(User::class)->create([
-            'role_id' => Role::TEACHER,
-        ]);
+        $teacher = $this->generateTeacher();
 
         $this->actingAs($this->user)
             ->get(route('teachers.edit', $teacher))
@@ -156,14 +168,15 @@ class TeacherControllerTest extends TestCase
 
         $teacher = $user = factory(User::class)->create([
             'role_id' => Role::TEACHER,
+            'email' => $body['email'],
         ]);
 
         $this->partialMock(UserService::class, function ($mock) use ($user) {
-            $mock->shouldReceive('update')->once()
+            $mock->shouldReceive('update')->twice()
                 ->andReturn($user);
         });
         $this->partialMock(TeacherService::class, function ($mock) use ($teacher) {
-            $mock->shouldReceive('syncWithSubjects')->once()
+            $mock->shouldReceive('syncWithSubjects')->twice()
                 ->andReturn($teacher);
         });
 
@@ -171,6 +184,32 @@ class TeacherControllerTest extends TestCase
             ->put(route('teachers.update', $teacher), $body)
             ->assertRedirect(route('teachers.show', $teacher))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->put(route('teachers.update', $teacher), [])
+            ->assertRedirect(route('teachers.show', $teacher))
+            ->assertSessionHas('success');
+
+        $notValidBody = [
+            'last_name' => [],
+            'name' => [],
+            'second_name' => [],
+            'subject_id' => 'test',
+            'email' => 'test',
+        ];
+        $this->actingAs($this->user)
+            ->put(route('teachers.update', $teacher), $notValidBody)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
+
+        /**
+         * Email already exist
+         */
+        $newTeacher = $user = $this->generateTeacher();
+        $this->actingAs($this->user)
+            ->put(route('teachers.update', $newTeacher), $body)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
     }
 
     /**
@@ -178,9 +217,7 @@ class TeacherControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $teacher = factory(User::class)->create([
-            'role_id' => Role::TEACHER,
-        ]);
+        $teacher = $this->generateTeacher();
 
         $this->partialMock(UserService::class, function ($mock) {
             $mock->shouldReceive('delete')->once()
@@ -191,5 +228,9 @@ class TeacherControllerTest extends TestCase
             ->delete(route('teachers.destroy', $teacher))
             ->assertRedirect(route('teachers.index'))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->delete(route('teachers.destroy', rand()))
+            ->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

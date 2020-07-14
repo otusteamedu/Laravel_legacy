@@ -150,7 +150,7 @@ class TeacherController extends Controller
     {
         Gate::authorize('update-teacher');
 
-        $userDTO = $this->userService->prepareUserDTOForRole($request->getFormData(), Role::STUDENT);
+        $userDTO = $this->userService->prepareUserDTOFromTeacher($request->getFormData(), $teacher);
         $teacherUpdated = $this->userService->update($userDTO, $teacher);
 
         $subjectIdDTOCollection = $this->subjectService->getIdsFromArray($request->subject_id ?? []);

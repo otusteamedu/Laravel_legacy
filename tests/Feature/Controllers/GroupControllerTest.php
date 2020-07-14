@@ -4,12 +4,12 @@ namespace Tests\Feature\Controllers;
 
 use App\Models\Course;
 use App\Models\EducationYear;
-use App\Models\Group;
-use App\Models\Role;
 use App\Models\User;
 use App\Services\Groups\GroupService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
+use Tests\Traits\Generator;
 
 /**
  * Class GroupControllerTest
@@ -18,6 +18,7 @@ use Tests\TestCase;
  */
 class GroupControllerTest extends TestCase
 {
+    use Generator;
     use RefreshDatabase;
 
     /**
@@ -32,9 +33,7 @@ class GroupControllerTest extends TestCase
         $this->seed(\RoleSeeder::class);
         $this->seed(\EducationYearSeeder::class);
 
-        $this->user = factory(User::class)->create([
-            'role_id' => Role::METHODIST,
-        ]);
+        $this->user = $this->generateMethodist();
     }
 
     /**
@@ -76,10 +75,7 @@ class GroupControllerTest extends TestCase
             'course_id' => factory(Course::class)->create()->id,
             'education_year_id' => EducationYear::inRandomOrder()->first()->id,
         ];
-        $group = factory(Group::class)->create([
-            'course_id' => factory(Course::class)->create(),
-            'education_year_id' => $body['education_year_id'],
-        ]);
+        $group = $this->generateGroup(['education_year_id' => $body['education_year_id']]);
 
         $this->mock(GroupService::class, function ($mock) use ($group) {
             $mock->shouldReceive('store')->once()
@@ -90,6 +86,21 @@ class GroupControllerTest extends TestCase
             ->post(route('groups.store'), $body)
             ->assertRedirect(route('groups.show', $group))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->post(route('groups.store'), [])
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
+
+        $notValidBody = [
+            'number' => 'test',
+            'course_id' => 'test',
+            'education_year_id' => 'test',
+        ];
+        $this->actingAs($this->user)
+            ->post(route('groups.store'), $notValidBody)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
     }
 
     /**
@@ -97,10 +108,7 @@ class GroupControllerTest extends TestCase
      */
     public function testShow(): void
     {
-        $group = factory(Group::class)->create([
-            'course_id' => factory(Course::class)->create(),
-            'education_year_id' => EducationYear::inRandomOrder()->first()->id,
-        ]);
+        $group = $this->generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
 
         $this->actingAs($this->user)
             ->get(route('groups.show', $group))
@@ -113,10 +121,7 @@ class GroupControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $group = factory(Group::class)->create([
-            'course_id' => factory(Course::class)->create(),
-            'education_year_id' => EducationYear::inRandomOrder()->first()->id,
-        ]);
+        $group = $this->generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
 
         $this->actingAs($this->user)
             ->get(route('groups.edit', $group))
@@ -137,13 +142,10 @@ class GroupControllerTest extends TestCase
             'course_id' => factory(Course::class)->create()->id,
             'education_year_id' => EducationYear::inRandomOrder()->first()->id,
         ];
-        $group = factory(Group::class)->create([
-            'course_id' => factory(Course::class)->create(),
-            'education_year_id' => $body['education_year_id'],
-        ]);
+        $group = $this->generateGroup(['education_year_id' => $body['education_year_id']]);
 
         $this->mock(GroupService::class, function ($mock) use ($group) {
-            $mock->shouldReceive('update')->once()
+            $mock->shouldReceive('update')->twice()
                 ->andReturn($group);
         });
 
@@ -151,6 +153,21 @@ class GroupControllerTest extends TestCase
             ->put(route('groups.update', $group), $body)
             ->assertRedirect(route('groups.show', $group))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->put(route('groups.update', $group), [])
+            ->assertRedirect(route('groups.show', $group))
+            ->assertSessionHas('success');
+
+        $notValidBody = [
+            'number' => 'test',
+            'course_id' => 'test',
+            'education_year_id' => 'test',
+        ];
+        $this->actingAs($this->user)
+            ->put(route('groups.update', $group), $notValidBody)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
     }
 
     /**
@@ -158,10 +175,7 @@ class GroupControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $group = factory(Group::class)->create([
-            'course_id' => factory(Course::class)->create(),
-            'education_year_id' => EducationYear::inRandomOrder()->first()->id,
-        ]);
+        $group = $this->generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
 
         $this->mock(GroupService::class, function ($mock) use ($group) {
             $mock->shouldReceive('delete')->once()
@@ -172,5 +186,9 @@ class GroupControllerTest extends TestCase
             ->delete(route('groups.destroy', $group))
             ->assertRedirect(route('groups.index'))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->delete(route('groups.destroy', rand()))
+            ->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }

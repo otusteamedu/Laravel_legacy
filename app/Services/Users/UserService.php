@@ -3,6 +3,7 @@
 namespace App\Services\Users;
 
 use App\DTOs\UserDTO;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Handlers\DeleteUserHandler;
@@ -80,5 +81,17 @@ class UserService
             $data,
             [UserDTO::ROLE_ID => $roleId]
         ));
+    }
+
+    public function prepareUserDTOFromTeacher(array $data, User $teacher): UserDTO
+    {
+        return UserDTO::fromArray([
+            UserDTO::LAST_NAME => $data['last_name'] ?? $teacher->last_name,
+            UserDTO::NAME => $data['name'] ?? $teacher->name,
+            UserDTO::SECOND_NAME => $data['second_name'] ?? $teacher->second_name,
+            UserDTO::EMAIL => $data['$this->email'] ?? $teacher->email,
+            UserDTO::PASSWORD => $data['$this->password'] ?? $teacher->password,
+            UserDTO::ROLE_ID => Role::TEACHER,
+        ]);
     }
 }

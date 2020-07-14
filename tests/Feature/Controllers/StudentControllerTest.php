@@ -2,9 +2,7 @@
 
 namespace Tests\Feature\Controllers;
 
-use App\Models\Course;
 use App\Models\EducationYear;
-use App\Models\Group;
 use App\Models\Student;
 use App\Models\Role;
 use App\Models\User;
@@ -12,7 +10,9 @@ use App\Services\Students\StudentService;
 use App\Services\Users\UserService;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Response;
 use Tests\TestCase;
+use Tests\Traits\Generator;
 
 /**
  * Class StudentControllerTest
@@ -21,6 +21,7 @@ use Tests\TestCase;
  */
 class StudentControllerTest extends TestCase
 {
+    use Generator;
     use RefreshDatabase;
 
     /**
@@ -35,9 +36,7 @@ class StudentControllerTest extends TestCase
         $this->seed(\RoleSeeder::class);
         $this->seed(\EducationYearSeeder::class);
 
-        $this->user = factory(User::class)->create([
-            'role_id' => Role::METHODIST,
-        ]);
+        $this->user = $this->generateMethodist();
     }
 
     /**
@@ -84,8 +83,7 @@ class StudentControllerTest extends TestCase
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,
-            'group_id' => [$group = factory(Group::class)->create([
-                'course_id' => factory(Course::class)->create(),
+            'group_id' => [$this->generateGroup([
                 'education_year_id' => EducationYear::inRandomOrder()->first()->id,
             ])->id],
             'id_number' => rand(1, 99999999999999999),
@@ -114,6 +112,23 @@ class StudentControllerTest extends TestCase
             ->post(route('students.store'), $body)
             ->assertRedirect(route('students.show', $student))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->post(route('students.store'), [])
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
+
+        $notValidBody = [
+            'last_name' => [],
+            'name' => [],
+            'second_name' => [],
+            'group_id' => 'test',
+            'id_number' => 'test',
+        ];
+        $this->actingAs($this->user)
+            ->post(route('students.store'), $notValidBody)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
     }
 
     /**
@@ -121,11 +136,7 @@ class StudentControllerTest extends TestCase
      */
     public function testShow(): void
     {
-        $student = factory(Student::class)->create([
-            'user_id' => factory(User::class)->create([
-                'role_id' => Role::STUDENT,
-            ]),
-        ]);
+        $student = $this->generateStudent();
 
         $this->actingAs($this->user)
             ->get(route('students.show', $student))
@@ -138,11 +149,7 @@ class StudentControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $student = factory(Student::class)->create([
-            'user_id' => factory(User::class)->create([
-                'role_id' => Role::STUDENT,
-            ]),
-        ]);
+        $student = $this->generateStudent();
 
         $this->actingAs($this->user)
             ->get(route('students.edit', $student))
@@ -166,8 +173,7 @@ class StudentControllerTest extends TestCase
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,
-            'group_id' => [$group = factory(Group::class)->create([
-                'course_id' => factory(Course::class)->create(),
+            'group_id' => [$this->generateGroup([
                 'education_year_id' => EducationYear::inRandomOrder()->first()->id,
             ])->id],
             'id_number' => rand(1, 99999999999999999),
@@ -197,6 +203,34 @@ class StudentControllerTest extends TestCase
             ->put(route('students.update', $student), $body)
             ->assertRedirect(route('students.show', $student))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->put(route('students.update', $student), [])
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
+
+        $notValidBody = [
+            'last_name' => [],
+            'name' => [],
+            'second_name' => [],
+            'group_id' => 'test',
+            'id_number' => 'test',
+        ];
+        $this->actingAs($this->user)
+            ->put(route('students.update', $student), $notValidBody)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
+
+        /**
+         * ID number already exist
+         */
+        $newStudent = factory(Student::class)->create([
+            'user_id' => $user->id,
+        ]);
+        $this->actingAs($this->user)
+            ->put(route('students.update', $newStudent), $body)
+            ->assertStatus(Response::HTTP_FOUND)
+            ->assertSessionHas('errors');
     }
 
     /**
@@ -204,11 +238,7 @@ class StudentControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $student = factory(Student::class)->create([
-            'user_id' => factory(User::class)->create([
-                'role_id' => Role::STUDENT,
-            ]),
-        ]);
+        $student = $this->generateStudent();
 
         $this->partialMock(UserService::class, function ($mock) {
             $mock->shouldReceive('delete')->once()
@@ -223,5 +253,9 @@ class StudentControllerTest extends TestCase
             ->delete(route('students.destroy', $student))
             ->assertRedirect(route('students.index'))
             ->assertSessionHas('success');
+
+        $this->actingAs($this->user)
+            ->delete(route('students.destroy', rand()))
+            ->assertStatus(Response::HTTP_NOT_FOUND);
     }
 }
