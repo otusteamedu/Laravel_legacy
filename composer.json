@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "predis/predis": "^1.1",
+        "ramsey/uuid": "^4.0",
         "vagrant/calendar": "dev-VMeshavkin/hw13",
         "vetalm1/calendar": "dev-master",
         "watson/rememberable": "^4.0"

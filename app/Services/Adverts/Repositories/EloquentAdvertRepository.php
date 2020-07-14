@@ -9,6 +9,7 @@ use App\Models\Division;
 use App\Models\Town;
 
 
+
 class EloquentAdvertRepository implements AdvertRepositoryInterface
 {
 
@@ -24,12 +25,12 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
 
     public function divisionList()
     {
-        return Division::all();
+        return Division::all()->toArray();
     }
 
     public function townList()
     {
-        return Town::all();
+        return Town::all()->toArray();
     }
 
     public function paginateList($qty)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Cms\Adverts\Request\StoreAdvertRequest;
 use App\Models\Advert;
 use App\Services\Adverts\AdvertsService;
+use App\Services\Log\Handler\LogHandler;
 use App\Services\Messages\MessagesService;
 use Auth;
 use Carbon\Carbon;
@@ -15,11 +16,13 @@ class HomeController extends Controller
 {
     protected $advertService;
     protected $messagesService;
+    private $logHandler;
 
-    public function __construct(AdvertsService $advertService, MessagesService $messagesService)
+    public function __construct(AdvertsService $advertService, MessagesService $messagesService, LogHandler $logHandler)
     {
         $this->advertService = $advertService;
         $this->messagesService = $messagesService;
+        $this->logHandler = $logHandler;
     }
 
     /**
@@ -29,7 +32,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $start = microtime(true);
+       $start = microtime(true);
        $pages = $this->advertService->page(8);
        return view('home.home', ['pages' => $pages, 'start'=>$start]);
     }
@@ -59,7 +62,7 @@ class HomeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreAdvertRequest $request
      * @return Response
      */
     public function store(StoreAdvertRequest $request)
@@ -67,12 +70,9 @@ class HomeController extends Controller
         try {
             $data = $request->getFormData();
             $this->advertService->storeAdvert($data);
-
-            $context =['method'=> $request->method(), 'USER' =>'#'.Auth::user()->id.'->'.Auth::user()->name];
-            \Log::channel('daily')->info(__METHOD__ . ': Store Advert successful ', $context);
-
+            $this->logHandler->logDaily(': Store Advert successful');
         } catch (\Exception $e) {
-            \Log::channel('slack')->critical(__METHOD__ . ': Store Advert Error ');
+            $this->logHandler->logSlack(': Store Advert Error ');
         }
 
         return redirect(route('home.index', ['locale'=>'ru']));
@@ -87,7 +87,7 @@ class HomeController extends Controller
      */
     public function show(Advert $advert)
     {
-        //$advert = $this->advertService->showItem($id);
+        $advert = $this->advertService->showItem($advert->id);
 
         return view('home.adverts.show', ['advert' => $advert]);
     }
