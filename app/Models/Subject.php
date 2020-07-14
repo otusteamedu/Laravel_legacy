@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Pivots\SubjectTeacher;
+use App\Services\Subjects\SubjectService;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -36,8 +37,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $teachers
  * @property-read int|null $teachers_count
  */
-class Subject extends BaseModel
+class Subject extends CacheModel
 {
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = SubjectService::CACHE_TAG;
+
     /**
      * @return BelongsToMany
      */

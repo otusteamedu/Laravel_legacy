@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Notifications\ResetPasswordNotification;
 use App\Pivots\SubjectTeacher;
+use App\Services\Users\UserService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -14,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Watson\Rememberable\Rememberable;
 
 /**
  * App\Models\User
@@ -79,6 +81,13 @@ class User extends Authenticatable
 {
     use Notifiable;
     use SoftDeletes;
+    use Rememberable;
+
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = UserService::CACHE_TAG;
+
 
     /**
      * The attributes that are mass assignable.

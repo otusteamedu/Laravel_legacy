@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Locales\LocaleController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,7 +28,13 @@ Route::group([
      */
     Auth::routes(['register' => false]);
 
-    Route::get('/', [SiteController::class, 'index'])->name('main');
+    Route::get('/', function () {
+        dump(Cache::put('test', 123123));
+        dump(Cache::get('test'));
+        Cache::flush();
+        dump(Cache::get('test'));
+        //dd(Cache::getStore());
+    })->name('main');
 
     Route::group([
         'prefix' => 'dashboard',

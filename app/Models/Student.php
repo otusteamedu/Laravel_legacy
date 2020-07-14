@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Students\StudentService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -34,8 +35,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $group_count
  * @property-read \App\Models\User $user
  */
-class Student extends BaseModel
+class Student extends CacheModel
 {
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = StudentService::CACHE_TAG;
+
     /** @var array  */
     protected $fillable = [
         'id_number',

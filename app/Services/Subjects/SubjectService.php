@@ -5,10 +5,15 @@ namespace App\Services\Subjects;
 use App\Services\Helpers\DTOHelper;
 use App\Services\Subjects\Wrappers\SubjectsByHrefWrapper;
 use App\Services\Subjects\Repositories\SubjectRepositoryInterface;
+use App\Services\Traits\CacheClearable;
 use Illuminate\Support\Collection;
 
 class SubjectService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'SUBJECT';
+
     /** @var  SubjectRepositoryInterface */
     protected $repository;
     protected $subjectsByHrefwrapper;

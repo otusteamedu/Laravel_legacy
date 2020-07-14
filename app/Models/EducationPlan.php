@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\EducationPlans\EducationPlanService;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -38,8 +39,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \App\Models\User $teacher
  * @property-read \App\Models\Group $group
  */
-class EducationPlan extends BaseModel
+class EducationPlan extends CacheModel
 {
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = EducationPlanService::CACHE_TAG;
+
     /**
      * @return BelongsTo
      */
