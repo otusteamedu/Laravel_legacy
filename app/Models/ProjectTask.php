@@ -37,6 +37,14 @@ class ProjectTask extends Model
 {
     use SoftDeletes;
 
+    const STATUS_NEW = 'new';
+    const STATUS_PROCESS = 'process';
+    const STATUS_PAUSE = 'pause';
+    const STATUS_READY = 'ready';
+    const STATUS_FINISHED = 'finished';
+
+    protected $fillable = ['title', 'description', 'project_id', 'user_id', 'status'];
+
     /**
      * Получить проект задачи
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo

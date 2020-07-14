@@ -8,6 +8,8 @@ use App\Observers\ProjectObserver;
 use App\Observers\UserObserver;
 use App\Services\Projects\Repositories\EloquentCacheProjectsRepository;
 use App\Services\Projects\Repositories\ProjectsRepositoryInterface;
+use App\Services\ProjectTasks\Repositories\EloquentProjectTasksRepository;
+use App\Services\ProjectTasks\Repositories\ProjectTasksRepositoryInterface;
 use App\Services\Users\Repositories\EloquentCacheUsersRepository;
 use App\Services\Users\Repositories\UsersRepositoryInterface;
 use Illuminate\Support\Facades\Blade;
@@ -24,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->bind(UsersRepositoryInterface::class, EloquentCacheUsersRepository::class);
         $this->app->bind(ProjectsRepositoryInterface::class, EloquentCacheProjectsRepository::class);
+        $this->app->bind(ProjectTasksRepositoryInterface::class, EloquentProjectTasksRepository::class);
     }
 
     /**

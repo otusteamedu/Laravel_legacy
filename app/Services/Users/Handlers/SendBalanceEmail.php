@@ -4,6 +4,7 @@
 namespace App\Services\Users\Handlers;
 
 
+use App\Jobs\Queue;
 use App\Mail\Users\UsersBalanceMail;
 use App\Services\Users\Exceptions\UserNotFoundException;
 use App\Services\Users\UsersService;
@@ -41,6 +42,8 @@ class SendBalanceEmail
             throw new UserNotFoundException($userId);
         }
 
-        Mail::to($user)->send(new UsersBalanceMail($user));
+        Mail::to($user)->queue(
+            (new UsersBalanceMail($user))->onQueue(Queue::EMAILS)
+        );
     }
 }
