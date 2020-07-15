@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Courses\CourseService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
@@ -25,8 +26,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
  * @property-read int|null $groups_count
  */
-class Course extends BaseModel
+class Course extends CacheModel
 {
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = CourseService::CACHE_TAG;
+
     /** @var array  */
     protected $fillable = ['number'];
 

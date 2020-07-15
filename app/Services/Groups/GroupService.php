@@ -13,11 +13,16 @@ use App\Services\Groups\Wrappers\GroupsByHrefWrapper;
 use App\Services\Groups\Repositories\GroupRepositoryInterface;
 use App\Services\Helpers\DTOHelper;
 use App\Services\Helpers\Settings;
+use App\Services\Traits\CacheClearable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class GroupService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'GROUP';
+
     /** @var  GroupRepositoryInterface */
     protected $repository;
     /** @var CreateGroupHandler */
