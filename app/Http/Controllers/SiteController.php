@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\View\View;
 
-class SiteController
+class SiteController extends Controller
 {
     /**
      * @return View

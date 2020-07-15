@@ -3,10 +3,15 @@
 namespace App\Services\EducationPlans;
 
 use App\Services\EducationPlans\Repositories\EducationPlanRepositoryInterface;
+use App\Services\Traits\CacheClearable;
 use Illuminate\Support\Collection;
 
 class EducationPlanService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'EDUCATION_PLAN';
+
     /** @var  EducationPlanRepositoryInterface */
     protected $repository;
 
