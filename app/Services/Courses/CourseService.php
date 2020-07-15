@@ -37,7 +37,7 @@ class CourseService
 
     /**
      * Оборачивает эл-ты коллекция в тег <a></a>
-     * Получаем коллекцию вида {id => <a href="courses/id">id</a>}
+     * Получаем коллекцию вида {id => <a href="courses/id">number</a>}
      * @param Collection $courses
      * @return Collection
      */

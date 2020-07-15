@@ -12,9 +12,9 @@ class UpdateGroupRequest extends GroupRequest
     public function rules(): array
     {
         return [
-            'number' => ['integer', 'min:1'],
+            'number' => ['integer', 'min:1', 'max:99999'],
             'course_id' => ['integer', 'min:1'],
-            'education_year_id' => ['string', 'max:255'],
+            'education_year_id' => ['integer', 'min:1'],
         ];
     }
 }

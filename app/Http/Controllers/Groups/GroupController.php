@@ -69,7 +69,7 @@ class GroupController extends Controller
     {
         $group = $this->service->store(GroupDTO::fromArray($request->getFormData()));
 
-        return redirect()->route('groups.show', $group->id)
+        return redirect()->route('groups.show', $group)
             ->with(['success' => __('messages.success_save')]);
     }
 
@@ -109,9 +109,14 @@ class GroupController extends Controller
      */
     public function update(UpdateGroupRequest $request, Group $group): RedirectResponse
     {
-        $this->service->update(GroupDTO::fromArray($request->getFormData()), $group);
+        $data = [
+            GroupDTO::NUMBER => $request->number ?? $group->number,
+            GroupDTO::COURSE_ID => $request->course_id ?? $group->course_id,
+            GroupDTO::EDUCATION_YEAR_ID => $request->education_year_id ?? $group->education_year_id,
+        ];
+        $this->service->update(GroupDTO::fromArray($data), $group);
 
-        return redirect()->route('groups.show', $group->id)
+        return redirect()->route('groups.show', $group)
             ->with(['success' => __('messages.success_update')]);
     }
 

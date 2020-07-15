@@ -22,11 +22,12 @@ class UpdateStudentRequest extends StudentRequest
             'group_id' => ['required', 'array'],
             'id_number' => [
                 'integer',
-                'min:0',
+                'min:1',
+                'max:99999999999999999',
                 /** Проверка уникальности по действующим студенческим номерам */
-                function (string $attribute, int $value, Closure $fail): void {
-                    if (Student::whereIdNumber($value)
-                        ->where('id', '!=', $this->route()->student->id)
+                function (string $attribute, $value, Closure $fail): void {
+                    if (Student::whereIdNumber((int)$value)
+                        ->where('id', '!=', $this->route()->student->id ?? 0)
                         ->exists()) {
                         $fail(__('validation.id_number_unique'));
                     }

@@ -2,10 +2,8 @@
 
 namespace App\Services\Students;
 
-use App\DTOs\IdDTO;
 use App\DTOs\StudentDTO;
 use App\DTOs\StudentFilterDTO;
-use App\Http\Controllers\Students\Requests\StudentRequest;
 use App\Models\Student;
 use App\Services\Helpers\Settings;
 use App\Services\Students\Handlers\CreateStudentHandler;
@@ -71,14 +69,13 @@ class StudentService
     }
 
     /**
-     * @param StudentRequest $request
-     * @param IdDTO $userIdDTO
+     * @param StudentDTO $studentDTO
      * @param Collection $groupIdDTOCollection
      * @return Student
      */
-    public function store(StudentRequest $request, IdDTO $userIdDTO, Collection $groupIdDTOCollection): Student
+    public function store(StudentDTO $studentDTO, Collection $groupIdDTOCollection): Student
     {
-        $student = $this->createStudentHandler->handle($request, $userIdDTO);
+        $student = $this->createStudentHandler->handle($studentDTO);
         $student = $this->repository->syncWithGroups($student, $groupIdDTOCollection);
 
         return $student;

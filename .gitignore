@@ -6,6 +6,7 @@
 /storage/*.key
 /vendor
 .env
+.env.testing
 .env.backup
 .phpunit.result.cache
 Homestead.json
@@ -15,3 +16,4 @@ yarn-error.log
 .idea/
 _ide_helper.php
 .phpstorm.meta.php
+/coverage-report

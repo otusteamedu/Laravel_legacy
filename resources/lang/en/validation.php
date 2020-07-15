@@ -150,10 +150,12 @@ return [
 
     'group_integer' => 'Group number must be a number',
     'group_min' => 'Group number must be positive',
+    'group_max' => 'Group number must be up to 10 characters',
     'group_number_required' => 'Group number required',
     'course_integer' => 'Course number must be a positive number',
     'id_number_integer' => 'Student ID must not be a negative number',
     'id_number_unique' => 'Student ID used',
+    'id_number_max' => 'Student ID must be no more than 17 characters',
 
     'last_name_required' => 'Last name required',
     'last_name_max' => 'Last Name too long',

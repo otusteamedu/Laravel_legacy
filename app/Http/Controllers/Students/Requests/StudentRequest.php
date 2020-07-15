@@ -25,6 +25,7 @@ class StudentRequest extends BaseFormRequest
             'group.integer' => __('validation.group_integer'),
             'course.integer' => __('validation.course_integer'),
             'id_number.integer' => __('validation.id_number_integer'),
+            'id_number.max' => __('validation.id_number_max'),
             'last_name.max' => __('validation.last_name_max'),
             'name.max' => __('validation.name_max'),
             'second_name.max' => __('validation.second_name_max'),
