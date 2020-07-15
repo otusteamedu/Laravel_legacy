@@ -4,7 +4,7 @@
 namespace App\Advert\Domain\Service;
 
 
-interface AdvertOperationService
+interface AdvertOperation
 {
 
     public function publishAdvert();

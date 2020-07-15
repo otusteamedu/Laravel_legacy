@@ -31,7 +31,7 @@ class AdvertsService
     public function showItem($id)
     {
         $item = $this->advertRepository->find($id);
-        return ItemDto::make($item);
+        return $item; //ItemDTO::make($item);
     }
 
     public function showAdvertList()
@@ -42,20 +42,20 @@ class AdvertsService
     public function showDivisionList()
     {
         $division =$this->advertRepository->divisionList();
-        return ItemsDto::make($division);
+        return ItemsDTO::make($division);
     }
 
     public function showTownList()
     {
         $town = $this->advertRepository->townList();
-        return ItemsDto::make($town);
+        return ItemsDTO::make($town);
     }
 
     public function page($qty)
     {
 //        return $this->advertCacheRepository->cachingPage($qty);
         $pages = $this->advertRepository->paginateList($qty);
-        return PaginateDto::make($pages);
+        return PaginateDTO::make($pages);
     }
 
 

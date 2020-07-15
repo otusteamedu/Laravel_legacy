@@ -27,6 +27,9 @@
             <a class="nav-link" href="#">@lang('home.header.services')</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="{{route('cms')}}">CMS</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#">@lang('home.header.any')</a>
         </li>
     </ul>

@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-4 border rounded ">
             <img src="{{ URL::asset('img/default.jpg') }}" class="card-img-top" alt="...">
-            <h5>#{{$advert->id}} - {{$advert->userName}} (id: {{$advert->userId}})</h5>
+            <h5>#{{$advert->id}} - {{$advert->userName}} (id: {{$advert->user_id}})</h5>
             <h3>{{$advert->title}}</h3>
             <h3 class="mb-3">Цена: {{$advert->price}} р.</h3>
             <p>{{$advert->content}}</p>

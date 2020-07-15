@@ -33,8 +33,8 @@ class Owner
         $this->zipCode = $zipCode;
     }
 
-    public function getFullData(): string
+    public function getFullData(): array
     {
-        return 'Name: '.$this->name.PHP_EOL.'tel:'.$this->phone.PHP_EOL.'Adr:'.$this->address;
+        return ['Name: '=>$this->name,'tel:'=>$this->phone,'Adr:'=>$this->address];
     }
 }

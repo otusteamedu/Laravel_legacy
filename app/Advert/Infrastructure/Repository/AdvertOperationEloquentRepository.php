@@ -4,11 +4,9 @@
 namespace App\Advert\Infrastructure\Repository;
 
 
-use App\Advert\Domain\Service\AdvertOperationService;
-use App\Models\Advert;
-use App\Services\Adverts\Repositories\AdvertRepositoryInterface;
+use App\Advert\Domain\Service\AdvertOperation;
 
-class AdvertOperationEloquentRepository implements AdvertOperationService
+class AdvertOperationEloquentRepository implements AdvertOperation
 {
 
 
@@ -54,6 +52,3 @@ class AdvertOperationEloquentRepository implements AdvertOperationService
 }
 
 
-//Все что связано с модулями (swiftmailer, eloquent,  ) можно реализовать через срвисы/репозитории,
-// тем самым можно отвязаться от конкретных модулей и базы данных
-//

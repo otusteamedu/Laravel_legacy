@@ -20,6 +20,9 @@
             <a class="nav-link" href="/messages">@lang('home.admin-header.messages')</a>
         </li>
         <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link" href="#">@lang('home.admin-header.any')</a>
         </li>
     </ul>

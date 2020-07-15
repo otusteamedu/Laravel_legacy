@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/cms', 'Cms\CmsController@index')->middleware('auth');
+Route::get('/cms', 'Cms\CmsController@index')->middleware('auth')->name('cms');
 Route::redirect('/', '/ru/home');
 
 Auth::routes();
