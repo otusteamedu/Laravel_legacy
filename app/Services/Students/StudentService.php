@@ -10,12 +10,17 @@ use App\Services\Students\Handlers\CreateStudentHandler;
 use App\Services\Students\Handlers\DeleteStudentHandler;
 use App\Services\Students\Handlers\UpdateStudentHandler;
 use App\Services\Students\Repositories\StudentRepositoryInterface;
+use App\Services\Traits\CacheClearable;
 use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
 class StudentService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'STUDENT';
+
     /** @var  StudentRepositoryInterface */
     protected $repository;
     /** @var CreateStudentHandler */

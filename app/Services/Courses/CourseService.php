@@ -4,10 +4,15 @@ namespace App\Services\Courses;
 
 use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Wrappers\CoursesByHrefWrapper;
+use App\Services\Traits\CacheClearable;
 use Illuminate\Support\Collection;
 
 class CourseService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'COURSE';
+
     /** @var  CourseRepositoryInterface*/
     protected $repository;
     /** @var CoursesByHrefWrapper  */

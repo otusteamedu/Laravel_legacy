@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Scopes\EducationYearScope;
+use App\Services\Groups\GroupService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -42,8 +43,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read int|null $teachers_count
  * @property-read \App\Models\EducationYear $year
  */
-class Group extends BaseModel
+class Group extends CacheModel
 {
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = GroupService::CACHE_TAG;
+
     protected $fillable = [
         'number',
         'course_id',

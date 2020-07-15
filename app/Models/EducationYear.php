@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\Years\YearService;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -27,8 +28,13 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @mixin \Eloquent
  * @property-read \App\Models\Course|null $course
  */
-class EducationYear extends BaseModel
+class EducationYear extends CacheModel
 {
+    /**
+     * @var string
+     */
+    protected $rememberCacheTag = YearService::CACHE_TAG;
+
     /** @var array  */
     protected $casts = [
         'start_at' => 'date',

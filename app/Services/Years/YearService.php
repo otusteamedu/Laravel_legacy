@@ -2,10 +2,15 @@
 
 namespace App\Services\Years;
 
+use App\Services\Traits\CacheClearable;
 use App\Services\Years\Repositories\YearRepositoryInterface;
 
 class YearService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'EDUCATION_YEAR';
+
     /** @var  YearRepositoryInterface*/
     protected $repository;
 

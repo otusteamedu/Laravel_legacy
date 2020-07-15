@@ -5,6 +5,7 @@ namespace App\Services\Users;
 use App\DTOs\UserDTO;
 use App\Models\User;
 use App\Services\Helpers\Locale\Locale;
+use App\Services\Traits\CacheClearable;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Handlers\DeleteUserHandler;
 use App\Services\Users\Handlers\UpdateUserHandler;
@@ -13,6 +14,10 @@ use Exception;
 
 class UserService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'USER';
+
     /** @var  UserRepositoryInterface */
     protected $repository;
     /** @var CreateUserHandler */
