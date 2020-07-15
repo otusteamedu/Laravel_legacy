@@ -32,4 +32,11 @@ interface UserRepositoryInterface
      * @return User|null
      */
     public function getByEmail(UserDTO $DTO): ?User;
+
+    /**
+     * @param User $user
+     * @param string $locale
+     * @return User
+     */
+    public function setUserLocale(User $user, string $locale): User;
 }

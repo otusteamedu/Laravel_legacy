@@ -2,11 +2,26 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\Users\UserService;
 use Closure;
 use Illuminate\Http\Request;
 
 class ForbidStudents
 {
+    /**
+     * @var UserService
+     */
+    private $service;
+
+    /**
+     * ForbidStudents constructor.
+     * @param UserService $service
+     */
+    public function __construct(UserService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * Handle an incoming request.
      *
@@ -16,7 +31,7 @@ class ForbidStudents
      */
     public function handle($request, Closure $next)
     {
-        if ($request->user() && $request->user()->isStudent()) {
+        if ($this->service->checkIsStudent($request->user())) {
             return abort(403);
         }
 

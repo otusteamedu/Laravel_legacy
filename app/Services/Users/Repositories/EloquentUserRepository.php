@@ -52,4 +52,17 @@ class EloquentUserRepository implements UserRepositoryInterface
 
         return null;
     }
+
+    /**
+     * @param User $user
+     * @param string $locale
+     * @return User
+     */
+    public function setUserLocale(User $user, string $locale): User
+    {
+        $user->locale = $locale;
+        $user->save();
+
+        return $user;
+    }
 }

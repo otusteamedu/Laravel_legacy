@@ -6,8 +6,8 @@
                 @lang('scheduler.lang')
             </a>
             <div class="dropdown-menu bg-dark">
-                <a class="dropdown-item text-light" href="#">рус</a>
-                <a class="dropdown-item text-light" href="#">en</a>
+                <a class="dropdown-item text-light" href="{{ route('locales.change', \App\Services\Helpers\Locale\Locale::RU) }}">рус</a>
+                <a class="dropdown-item text-light" href="{{ route('locales.change', \App\Services\Helpers\Locale\Locale::EN) }}">en</a>
             </div>
         </li>
     </ul>
