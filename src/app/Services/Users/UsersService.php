@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Services\Users\DTOs\RegisterDTO;
 use App\Services\Users\Handlers\UserRegisterHandler;
 use App\Services\Users\Repositories\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class UsersService
 {
@@ -28,8 +29,19 @@ class UsersService
         $this->userRepository = $userRepository;
     }
 
-    public function register(RegisterDTO $registerDTO): User
+    /**
+     * Регистрация пользователя
+     * @param array $data
+     * @return User
+     */
+    public function register(array $data): User
     {
-        return $this->userRegisterHandler->handle($registerDTO);
+        $user =  RegisterDTO::fromArray([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($data['password']),
+        ]);
+
+        return $this->userRegisterHandler->handle($user);
     }
 }
