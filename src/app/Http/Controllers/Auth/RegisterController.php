@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
+use App\Services\Users\DTOs\RegisterDTO;
+use App\Services\Users\UsersService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -30,14 +31,21 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    /**
+     * @var UsersService
+     */
+    private $usersService;
 
     /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UsersService $usersService
      */
-    public function __construct()
+    public function __construct(
+        UsersService $usersService
+    )
     {
+        $this->usersService = $usersService;
         $this->middleware('guest');
     }
 
@@ -64,10 +72,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        return $this->usersService->register(RegisterDTO::fromArray([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-        ]);
+        ]));
     }
 }
