@@ -247,6 +247,7 @@ return [
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
+            'can' => 'pages',
         ],
         [
             'text' => 'films',
@@ -254,6 +255,7 @@ return [
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
+            'can' => 'films',
         ],
         ['header' => 'account_settings'],
         [
