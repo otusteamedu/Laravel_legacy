@@ -3,7 +3,6 @@
 namespace App\Http;
 
 use App\Http\Middleware\ForbidStudents;
-use App\Http\Middleware\Localization;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -73,6 +72,5 @@ class Kernel extends HttpKernel
          * Для студентов веб интерфейс скрыт
          */
         'forbid_students' => ForbidStudents::class,
-        'localization' => Localization::class,
     ];
 }

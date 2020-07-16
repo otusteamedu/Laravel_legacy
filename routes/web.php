@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\Locales\LocaleController;
 use App\Http\Controllers\SiteController;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Vrnvgasu\Localization\Middleware\Localization;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,23 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/locales/change/{locale}', [LocaleController::class, 'change'])->name('locales.change');
-
-Route::group([
-    'middleware' => 'localization',
-], function() {
+Route::group(array(
+    'middleware' => Localization::ALIAS,
+), function() {
     /**
      * Регистрации нет
      */
     Auth::routes(['register' => false]);
 
-    Route::get('/', function () {
-        dump(Cache::put('test', 123123));
-        dump(Cache::get('test'));
-        Cache::flush();
-        dump(Cache::get('test'));
-        //dd(Cache::getStore());
-    })->name('main');
+    Route::get('/', [SiteController::class, 'index'])->name('main');
 
     Route::group([
         'prefix' => 'dashboard',
