@@ -13,12 +13,12 @@
 @endstory
 
 @task('git_init', ['on' => 'web'])
-    git clone --single-branch --branch VMeshavkin/hw16 https://github.com/otusteamedu/Laravel.git
+    git clone --single-branch --branch VMeshavkin/hw16(rw) https://github.com/otusteamedu/Laravel.git
 @endtask
 
 @task('git_clone', ['on' => 'web'])
     cd Laravel
-    git pull origin VMeshavkin/hw16
+    git pull origin VMeshavkin/hw16(rw)
 @endtask
 
 @task('composer', ['on' => 'web'])
