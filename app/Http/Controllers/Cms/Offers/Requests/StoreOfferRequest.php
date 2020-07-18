@@ -4,9 +4,12 @@
 namespace App\Http\Controllers\Cms\Offers\Requests;
 
 
+use App\Jobs\ProcessImageThumbnails;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Intervention\Image\Image;
 
 
 class StoreOfferRequest extends FormRequest
@@ -33,6 +36,12 @@ class StoreOfferRequest extends FormRequest
         ];
     }
 
+    /**
+     * Upload Image
+     *
+     * @param Request $httpRequest
+     * @return array
+     */
     public function getFormData()
     {
         $data = $this->request->all();
@@ -42,8 +51,50 @@ class StoreOfferRequest extends FormRequest
         ]);
         $data['created_offer_id'] = Auth::id();
         $data['user_id'] = Auth::user()->id;
-        $data['teaser_image'] = $this->file('teaser_image')->store('uploads', 'public');
+
+        $image = $this->file('teaser_image');
+        $input['teaser_image'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/uploads');
+
+        $image->move($destinationPath, $input['teaser_image']);
+
+        // make db entry of that image
+        $image = new \App\Models\Image;
+        $image->org_path = 'uploads' . DIRECTORY_SEPARATOR . $input['teaser_image'];
+
+        $image->save();
+
+        // defer the processing of the image thumbnails
+        ProcessImageThumbnails::dispatch($image);
 
         return $data;
+    }
+
+    /**
+     * Upload Image
+     *
+     * @param  Request  $request
+     * @return Response
+     */
+    public function upload(Request $request)
+    {
+        // upload image
+        $this->validate($request, [
+            'demo_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ]);
+        $image = $request->file('demo_image');
+        $input['demo_image'] = time().'.'.$image->getClientOriginalExtension();
+        $destinationPath = public_path('/images');
+        $image->move($destinationPath, $input['demo_image']);
+
+        // make db entry of that image
+        $image = new Image;
+        $image->org_path = 'images' . DIRECTORY_SEPARATOR . $input['demo_image'];
+        $image->save();
+
+        // defer the processing of the image thumbnails
+        ProcessImageThumbnails::dispatch($image);
+
+        return Redirect::to('image/index')->with('message', 'Image uploaded successfully!');
     }
 }
