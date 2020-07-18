@@ -5,6 +5,10 @@ namespace App\Services\Users\Repositories;
 use App\DTOs\UserDTO;
 use App\Models\User;
 
+/**
+ * Class EloquentUserRepository
+ * @package App\Services\Users\Repositories
+ */
 class EloquentUserRepository implements UserRepositoryInterface
 {
     /**

@@ -5,6 +5,7 @@ namespace App\Services\Users;
 use App\DTOs\UserDTO;
 use App\Models\Role;
 use App\Models\User;
+use App\Services\Interfaces\CacheService;
 use App\Services\Traits\CacheClearable;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Handlers\DeleteUserHandler;
@@ -12,7 +13,11 @@ use App\Services\Users\Handlers\UpdateUserHandler;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Exception;
 
-class UserService
+/**
+ * Class UserService
+ * @package App\Services\Users
+ */
+class UserService implements CacheService
 {
     use CacheClearable;
 
@@ -116,5 +121,10 @@ class UserService
             UserDTO::PASSWORD => $data['$this->password'] ?? $teacher->password,
             UserDTO::ROLE_ID => Role::TEACHER,
         ]);
+    }
+
+    public function cacheWarm(): void
+    {
+        // TODO: Implement cacheWarm() method.
     }
 }

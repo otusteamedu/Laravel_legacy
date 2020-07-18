@@ -6,6 +6,10 @@ use App\DTOs\UserDTO;
 use App\Models\User;
 use App\Services\Users\Exceptions\UserCreateException;
 
+/**
+ * Class CreateUserHandler
+ * @package App\Services\Users\Handlers
+ */
 class CreateUserHandler extends BaseHandler
 {
     /**

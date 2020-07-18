@@ -5,6 +5,10 @@ namespace App\Services\Courses\Repositories;
 use App\Models\Course;
 use Illuminate\Support\Collection;
 
+/**
+ * Class EloquentCourseRepository
+ * @package App\Services\Courses\Repositories
+ */
 class EloquentCourseRepository implements CourseRepositoryInterface
 {
     /**

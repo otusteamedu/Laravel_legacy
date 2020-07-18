@@ -13,11 +13,16 @@ use App\Services\Groups\Wrappers\GroupsByHrefWrapper;
 use App\Services\Groups\Repositories\GroupRepositoryInterface;
 use App\Services\Helpers\DTOHelper;
 use App\Services\Helpers\Settings;
+use App\Services\Interfaces\CacheService;
 use App\Services\Traits\CacheClearable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-class GroupService
+/**
+ * Class GroupService
+ * @package App\Services\Groups
+ */
+class GroupService implements CacheService
 {
     use CacheClearable;
 
@@ -54,6 +59,13 @@ class GroupService
         $this->updateGroupHandler = $updateGroupHandler;
         $this->deleteGroupHandler = $deleteGroupHandler;
         $this->groupsByHrefWrapper = $groupsByHrefWrapper;
+    }
+
+    public function cacheWarm(): void
+    {
+        $this->getTableTitles();
+        $this->groupSelectList();
+        $this->selectListWithCourse();
     }
 
     /**

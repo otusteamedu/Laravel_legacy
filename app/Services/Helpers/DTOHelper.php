@@ -5,6 +5,10 @@ namespace App\Services\Helpers;
 use App\DTOs\IdDTO;
 use Illuminate\Support\Collection;
 
+/**
+ * Class DTOHelper
+ * @package App\Services\Helpers
+ */
 class DTOHelper
 {
     /**

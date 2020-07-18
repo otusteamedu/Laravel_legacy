@@ -5,6 +5,10 @@ namespace App\Services\Subjects\Repositories;
 use App\Models\Subject;
 use Illuminate\Support\Collection;
 
+/**
+ * Class EloquentSubjectRepository
+ * @package App\Services\Subjects\Repositories
+ */
 class EloquentSubjectRepository implements SubjectRepositoryInterface
 {
     /**

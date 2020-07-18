@@ -5,12 +5,22 @@ namespace App\Services\Teachers;
 use App\DTOs\TeacherFilterDTO;
 use App\Models\User;
 use App\Services\Helpers\Settings;
+use App\Services\Interfaces\CacheService;
 use App\Services\Teachers\Repositories\TeacherRepositoryInterface;
+use App\Services\Traits\CacheClearable;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-class TeacherService
+/**
+ * Class TeacherService
+ * @package App\Services\Teachers
+ */
+class TeacherService implements CacheService
 {
+    use CacheClearable;
+
+    const CACHE_TAG = 'USER';
+
     /** @var  TeacherRepositoryInterface */
     protected $repository;
 
@@ -21,6 +31,15 @@ class TeacherService
     public function __construct(TeacherRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function cacheWarm(): void
+    {
+        $this->getTableTitles();
+
+        $this->repository->getTeacherCollection(['id'])->each(function (User $user) {
+            $this->getTeacherSubjectsId($user);
+        });
     }
 
     /**

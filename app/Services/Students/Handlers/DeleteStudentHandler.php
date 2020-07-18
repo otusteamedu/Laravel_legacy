@@ -5,6 +5,10 @@ namespace App\Services\Students\Handlers;
 use App\Models\Student;
 use Exception;
 
+/**
+ * Class DeleteStudentHandler
+ * @package App\Services\Students\Handlers
+ */
 class DeleteStudentHandler extends BaseHandler
 {
     /**

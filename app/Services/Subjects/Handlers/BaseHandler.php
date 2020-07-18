@@ -4,6 +4,10 @@ namespace App\Services\Subjects\Handlers;
 
 use App\Services\Subjects\Repositories\SubjectRepositoryInterface;
 
+/**
+ * Class BaseHandler
+ * @package App\Services\Subjects\Handlers
+ */
 abstract class BaseHandler
 {
     /** @var  SubjectRepositoryInterface*/

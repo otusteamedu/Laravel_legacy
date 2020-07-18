@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+/**
+ * Class EloquentStudentRepository
+ * @package App\Services\Students\Repositories
+ */
 class EloquentStudentRepository implements StudentRepositoryInterface
 {
     /**
@@ -150,5 +154,14 @@ class EloquentStudentRepository implements StudentRepositoryInterface
     public function getStudentGroupsId(Student $student): array
     {
         return $student->groups->pluck('id')->toArray();
+    }
+
+    /**
+     * @param array $columns
+     * @return Collection
+     */
+    public function getStudentsCollection(array $columns): Collection
+    {
+        return Student::select($columns)->get();
     }
 }
