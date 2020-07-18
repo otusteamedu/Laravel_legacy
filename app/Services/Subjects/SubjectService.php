@@ -3,12 +3,17 @@
 namespace App\Services\Subjects;
 
 use App\Services\Helpers\DTOHelper;
+use App\Services\Interfaces\CacheService;
 use App\Services\Subjects\Wrappers\SubjectsByHrefWrapper;
 use App\Services\Subjects\Repositories\SubjectRepositoryInterface;
 use App\Services\Traits\CacheClearable;
 use Illuminate\Support\Collection;
 
-class SubjectService
+/**
+ * Class SubjectService
+ * @package App\Services\Subjects
+ */
+class SubjectService implements CacheService
 {
     use CacheClearable;
 
@@ -29,6 +34,11 @@ class SubjectService
     ) {
         $this->repository = $repository;
         $this->subjectsByHrefwrapper = $subjectsByHrefwrapper;
+    }
+
+    public function cacheWarm(): void
+    {
+        $this->subjectSelectList();
     }
 
     /**

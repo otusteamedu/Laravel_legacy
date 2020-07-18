@@ -6,6 +6,10 @@ use App\DTOs\StudentDTO;
 use App\Models\Student;
 use App\Services\Students\Exceptions\CreateStudentException;
 
+/**
+ * Class CreateStudentHandler
+ * @package App\Services\Students\Handlers
+ */
 class CreateStudentHandler extends BaseHandler
 {
     /**

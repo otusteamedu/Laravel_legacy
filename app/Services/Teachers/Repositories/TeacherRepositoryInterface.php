@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+/**
+ * Interface TeacherRepositoryInterface
+ * @package App\Services\Teachers\Repositories
+ */
 interface TeacherRepositoryInterface
 {
     /**
@@ -32,4 +36,10 @@ interface TeacherRepositoryInterface
      * @return array
      */
     public function getTeacherSubjectsId(User $user): array;
+
+    /**
+     * @param array $columns
+     * @return Collection
+     */
+    public function getTeacherCollection(array $columns): Collection;
 }

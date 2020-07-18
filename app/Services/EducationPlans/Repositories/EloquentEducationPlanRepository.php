@@ -4,6 +4,10 @@ namespace App\Services\EducationPlans\Repositories;
 
 use Illuminate\Support\Collection;
 
+/**
+ * Class EloquentEducationPlanRepository
+ * @package App\Services\EducationPlans\Repositories
+ */
 class EloquentEducationPlanRepository implements EducationPlanRepositoryInterface
 {
     /**

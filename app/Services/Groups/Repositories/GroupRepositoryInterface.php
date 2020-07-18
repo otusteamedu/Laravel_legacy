@@ -8,6 +8,10 @@ use App\Models\Group;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+/**
+ * Interface GroupRepositoryInterface
+ * @package App\Services\Groups\Repositories
+ */
 interface GroupRepositoryInterface
 {
     /**

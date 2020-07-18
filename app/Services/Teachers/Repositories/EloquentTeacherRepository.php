@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+/**
+ * Class EloquentTeacherRepository
+ * @package App\Services\Teachers\Repositories
+ */
 class EloquentTeacherRepository implements TeacherRepositoryInterface
 {
     /**
@@ -101,5 +105,15 @@ class EloquentTeacherRepository implements TeacherRepositoryInterface
     public function getTeacherSubjectsId(User $user): array
     {
         return $user->subjects->pluck('id')->toArray();
+    }
+
+    /**
+     * @param array $columns
+     * @return Collection
+     */
+    public function getTeacherCollection(array $columns): Collection
+    {
+        return User::select($columns)
+            ->byRole(Role::TEACHER)->get();
     }
 }

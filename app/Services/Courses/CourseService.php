@@ -4,10 +4,15 @@ namespace App\Services\Courses;
 
 use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Wrappers\CoursesByHrefWrapper;
+use App\Services\Interfaces\CacheService;
 use App\Services\Traits\CacheClearable;
 use Illuminate\Support\Collection;
 
-class CourseService
+/**
+ * Class CourseService
+ * @package App\Services\Courses
+ */
+class CourseService implements CacheService
 {
     use CacheClearable;
 
@@ -29,6 +34,11 @@ class CourseService
     ) {
         $this->repository = $repository;
         $this->coursesByHrefWrapper = $coursesByHrefWrapper;
+    }
+
+    public function cacheWarm(): void
+    {
+        $this->courseSelectList();
     }
 
     /**

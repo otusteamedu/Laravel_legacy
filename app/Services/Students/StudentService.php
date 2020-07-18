@@ -6,6 +6,7 @@ use App\DTOs\StudentDTO;
 use App\DTOs\StudentFilterDTO;
 use App\Models\Student;
 use App\Services\Helpers\Settings;
+use App\Services\Interfaces\CacheService;
 use App\Services\Students\Handlers\CreateStudentHandler;
 use App\Services\Students\Handlers\DeleteStudentHandler;
 use App\Services\Students\Handlers\UpdateStudentHandler;
@@ -15,7 +16,11 @@ use Exception;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
-class StudentService
+/**
+ * Class StudentService
+ * @package App\Services\Students
+ */
+class StudentService implements CacheService
 {
     use CacheClearable;
 
@@ -47,6 +52,15 @@ class StudentService
         $this->createStudentHandler = $createStudentHandler;
         $this->updateStudentHandler = $updateStudentHandler;
         $this->deleteStudentHandler = $deleteStudentHandler;
+    }
+
+    public function cacheWarm(): void
+    {
+        $this->getTableTitles();
+
+        $this->repository->getStudentsCollection(['id'])->each(function (Student $student) {
+            $this->getStudentGroupsId($student);
+        });
     }
 
     /**

@@ -4,6 +4,10 @@ namespace App\Services\EducationPlans\Repositories;
 
 use Illuminate\Support\Collection;
 
+/**
+ * Interface EducationPlanRepositoryInterface
+ * @package App\Services\EducationPlans\Repositories
+ */
 interface EducationPlanRepositoryInterface
 {
     /**

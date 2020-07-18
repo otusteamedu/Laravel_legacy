@@ -5,6 +5,10 @@ namespace App\Services\Users\Handlers;
 use App\Models\User;
 use Exception;
 
+/**
+ * Class DeleteUserHandler
+ * @package App\Services\Users\Handlers
+ */
 class DeleteUserHandler extends BaseHandler
 {
     /**

@@ -2,13 +2,16 @@
 
 namespace App\Services\Students\Repositories;
 
-use App\DTOs\IdDTO;
 use App\DTOs\StudentDTO;
 use App\DTOs\StudentFilterDTO;
 use App\Models\Student;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
+/**
+ * Interface StudentRepositoryInterface
+ * @package App\Services\Students\Repositories
+ */
 interface StudentRepositoryInterface
 {
     /**
@@ -57,4 +60,10 @@ interface StudentRepositoryInterface
      * @return array
      */
     public function getStudentGroupsId(Student $student): array;
+
+    /**
+     * @param array $columns
+     * @return Collection
+     */
+    public function getStudentsCollection(array $columns): Collection;
 }

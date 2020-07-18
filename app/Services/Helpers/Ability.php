@@ -2,6 +2,10 @@
 
 namespace App\Services\Helpers;
 
+/**
+ * Class Ability
+ * @package App\Services\Helpers
+ */
 class Ability
 {
     const CREATE = 'create';

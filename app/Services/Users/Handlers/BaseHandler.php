@@ -4,6 +4,10 @@ namespace App\Services\Users\Handlers;
 
 use App\Services\Users\Repositories\UserRepositoryInterface;
 
+/**
+ * Class BaseHandler
+ * @package App\Services\Users\Handlers
+ */
 abstract class BaseHandler
 {
     /** @var  UserRepositoryInterface*/

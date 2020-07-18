@@ -5,6 +5,10 @@ namespace App\Services\Groups\Handlers;
 use App\DTOs\GroupDTO;
 use App\Models\Group;
 
+/**
+ * Class UpdateGroupHandler
+ * @package App\Services\Groups\Handlers
+ */
 class UpdateGroupHandler extends BaseHandler
 {
     /**

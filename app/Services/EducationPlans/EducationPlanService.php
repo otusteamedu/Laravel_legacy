@@ -3,10 +3,15 @@
 namespace App\Services\EducationPlans;
 
 use App\Services\EducationPlans\Repositories\EducationPlanRepositoryInterface;
+use App\Services\Interfaces\CacheService;
 use App\Services\Traits\CacheClearable;
 use Illuminate\Support\Collection;
 
-class EducationPlanService
+/**
+ * Class EducationPlanService
+ * @package App\Services\EducationPlans
+ */
+class EducationPlanService implements CacheService
 {
     use CacheClearable;
 
@@ -33,5 +38,10 @@ class EducationPlanService
     public function getHoursForEducationPlans(Collection $educationPlans): int
     {
         return $this->repository->getHoursForEducationPlans($educationPlans);
+    }
+
+    public function cacheWarm(): void
+    {
+        // TODO: Implement cacheWarm() method.
     }
 }

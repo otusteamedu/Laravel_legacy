@@ -2,10 +2,15 @@
 
 namespace App\Services\Years;
 
+use App\Services\Interfaces\CacheService;
 use App\Services\Traits\CacheClearable;
 use App\Services\Years\Repositories\YearRepositoryInterface;
 
-class YearService
+/**
+ * Class YearService
+ * @package App\Services\Years
+ */
+class YearService implements CacheService
 {
     use CacheClearable;
 
@@ -21,6 +26,11 @@ class YearService
     public function __construct(YearRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    public function cacheWarm(): void
+    {
+        $this->educationYearSelectList();
     }
 
     /**
