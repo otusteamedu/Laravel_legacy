@@ -51,14 +51,11 @@ class StoreOfferRequest extends FormRequest
         ]);
         $data['created_offer_id'] = Auth::id();
         $data['user_id'] = Auth::user()->id;
-        //$data['teaser_image'] = $this->file('teaser_image')->store('uploads', 'public');
 
         $image = $this->file('teaser_image');
         $input['teaser_image'] = time().'.'.$image->getClientOriginalExtension();
         $destinationPath = public_path('/uploads');
 
-
-        //$this->file('teaser_image')->store('uploads', 'public');
         $image->move($destinationPath, $input['teaser_image']);
 
         // make db entry of that image
