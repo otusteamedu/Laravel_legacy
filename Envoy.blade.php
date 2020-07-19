@@ -3,37 +3,37 @@
 @setup
     $repository = 'https://github.com/otusteamedu/Laravel';
     $branch = $branch ?? 'AKuznetsov/Master';
-    $dir = '/var/www/html/badum/';
+    $projectPath = '/var/www/html/badum/';
+    $uploadPathLinkFrom . 'storage/app/public'
+    $uploadPathLinkTo . 'public/storage'
 @endsetup
 
-@task('clone_repository')
-    echo "clone_repository"
-    cd $site || exit 1
+@task('git:clone')
+    echo "git:clone"
+    cd {{ $projectPath }} || exit 1
     git clone {{ $repository }} {{ $branch }}
 @endtask
 
-@task('run_migrations')
-    echo "run_migrations"
+@task('app:migrate')
+    echo "app:migrate"
     php artisan migrate
 @endtask
 
-@task('clear_cache')
-    echo "clear_cache"
-    cd $site
+@task('app:cache:clear')
+    echo "app:cache:clear"
+    cd {{ $projectPath }}
     php artisan cache:clear
     php artisan route:clear
     php artisan config:clear
     php artisan view:clear
 @endtask
 
-@task('link_shared')
-    echo "link_shared"
-    cd {{ $dir }}
-    ln -snf ~/www/shared/public/upload/ {{ $dir }}/public/upload
-    ln -snf ~/www/shared/.env {{ $dir }}/.env
+@task('app:share_files')
+    echo "app:share_files"
+    ln -snf $uploadPathLinkFrom $uploadPathLinkTo
 @endtask
 
-@task('run_tests')
+@task('app:phpunit')
     php vendor/bin/phpunit --testdox
 @endtask
 
