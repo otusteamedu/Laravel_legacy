@@ -15,9 +15,7 @@ class RepositoryServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(UserRepositoryInterface::class, function () {
-            return new EloquentUserRepository();
-        });
+        $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
     }
 
     /**
