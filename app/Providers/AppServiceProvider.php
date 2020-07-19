@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(ConstructionTypesRepositoryInterface::class, EloquentConstructionTypesRepository::class);
         $this->app->bind(CachedConstructionRepositoryInterface::class,CachedConstructionRepository::class );
         $this->app->bind(CacheTimeRepositoryInterface::class,CacheTimeRepository::class);
-        $this->app->bind( CacheKeyRepositoryInterface::class,CacheKeyRepository::class);
+        $this->app->bind(CacheKeyRepositoryInterface::class,CacheKeyRepository::class);
         $this->app->bind(CacheTagRepositoryInterface::class,CacheTagRepository::class);
 
     }

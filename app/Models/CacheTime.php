@@ -14,6 +14,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class CacheTime
 {
-    const CONSTRUCTION_SECOND = 'Construction';
+    const CONSTRUCTION_SECOND = 60;
 
 }

@@ -10,7 +10,7 @@ use App\Repository\Cache\CacheKeyRepositoryInterface;
 use App\Repository\Cache\CacheTagRepositoryInterface;
 
 
-class CachedConstructionRepository implements ConstructionRepositoryInterface , CachedConstructionRepositoryInterface
+class CachedConstructionRepository implements ConstructionRepositoryInterface, CachedConstructionRepositoryInterface
 {
 
     /** @var ConstructionRepositoryInterface */
@@ -41,18 +41,17 @@ class CachedConstructionRepository implements ConstructionRepositoryInterface , 
 
     public function getAllConstruction()
     {
+
         return Cache::tags([$this->cacheTagRepository->getConstructionTag()])
-            ->remember($this->cacheKeyRepository->getConstructionKeyPrefix(), $this->cacheTimeRepository->getCacheConstructionSecond(), function (){
+            ->remember($this->cacheKeyRepository->getConstructionKeyPrefix(), $this->cacheTimeRepository->getCacheConstructionSecond(), function () {
                 return $this->constructionRepository->getAllConstruction();
             });
 
     }
 
-    public function  clearConstructionCache(){
-
-        Cache::tags([$this->cacheTagRepository->getConstructionTag()])->flush();
+    public function clearConstructionCache()
+    {
+        return Cache::tags([$this->cacheTagRepository->getConstructionTag()])->flush();
 
     }
-
-
 }

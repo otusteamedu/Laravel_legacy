@@ -22,7 +22,7 @@ class ConstructionsService
         CreateConstructionHandler $createConstructionHandler,
         DeleteConstructionHandler $deleteConstructionHandler,
         ConstructionRepositoryInterface $constructionRepository,
-        CachedConstructionRepositoryInterface  $cachedConstructionRepository
+        CachedConstructionRepositoryInterface $cachedConstructionRepository
     )
     {
         $this->createConstructionHandler = $createConstructionHandler;
@@ -51,6 +51,12 @@ class ConstructionsService
         return $this->cachedConstructionRepository->getAllConstruction();
     }
 
+    public function clearConstructionCache()
+    {
+        return $this->cachedConstructionRepository->clearConstructionCache();
+    }
+
+
     public function findOrNew($id = null): Construction
     {
         /** @var Construction $langConstructor */
@@ -61,7 +67,7 @@ class ConstructionsService
         return $this->constructionRepository->new();
     }
 
-    public function delete($id): Int
+    public function delete($id): int
     {
         return $this->deleteConstructionHandler->handle($id);
 

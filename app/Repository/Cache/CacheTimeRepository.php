@@ -7,7 +7,7 @@ use App\Models\CacheTime;
 class CacheTimeRepository implements CacheTimeRepositoryInterface
 {
 
-    public function getCacheConstructionSecond()
+    public function getCacheConstructionSecond():int
     {
          return CacheTime::CONSTRUCTION_SECOND;
     }

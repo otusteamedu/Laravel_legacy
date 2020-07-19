@@ -6,5 +6,5 @@ use App\Models\CacheTime;
 
 interface CacheTimeRepositoryInterface
 {
-     function getCacheConstructionSecond();
+     function getCacheConstructionSecond() :int;
 }
