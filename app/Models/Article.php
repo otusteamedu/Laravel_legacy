@@ -20,6 +20,7 @@ use Watson\Rememberable\Rememberable;
  * @property string|null $image_intro Изображение
  * @property string|null $intro_text Вступительный текст
  * @property string|null $full_text Полный текст
+ * @property boolean|null $is_pending Отложенная публикация
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
@@ -44,6 +45,10 @@ use Watson\Rememberable\Rememberable;
 class Article extends Model
 {
     use Rememberable;
+  
+    const STATE_DRAFT = 1;
+    const STATE_WAITING_PUBLICATION = 2;
+    const STATE_PUBLISHED = 3;
 
     protected $rememberCacheTag = 'ARTICLES';
     protected $rememberFor = 60 * 60;
@@ -54,7 +59,8 @@ class Article extends Model
         'full_text',
         'state',
         'category_id',
-        'user_id'
+        'user_id',
+        'is_pending'
     ];
 
     public function comments()
