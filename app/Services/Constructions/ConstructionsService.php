@@ -7,6 +7,8 @@ use App\Models\Construction;
 use App\Services\Constructions\Handlers\CreateConstructionHandler;
 use App\Services\Constructions\Handlers\DeleteConstructionHandler;
 use App\Services\Constructions\Repositories\ConstructionRepositoryInterface;
+use App\Services\Constructions\Repositories\CachedConstructionRepositoryInterface;
+
 
 class ConstructionsService
 {
@@ -14,16 +16,19 @@ class ConstructionsService
     private $createConstructionHandler;
     private $deleteConstructionHandler;
     private $constructionRepository;
+    private $cachedConstructionRepository;
 
     public function __construct(
         CreateConstructionHandler $createConstructionHandler,
         DeleteConstructionHandler $deleteConstructionHandler,
-        ConstructionRepositoryInterface $constructionRepository
+        ConstructionRepositoryInterface $constructionRepository,
+        CachedConstructionRepositoryInterface  $cachedConstructionRepository
     )
     {
         $this->createConstructionHandler = $createConstructionHandler;
         $this->deleteConstructionHandler = $deleteConstructionHandler;
         $this->constructionRepository = $constructionRepository;
+        $this->cachedConstructionRepository = $cachedConstructionRepository;
     }
 
     /**
@@ -39,6 +44,11 @@ class ConstructionsService
     public function getAllConstruction()
     {
         return $this->constructionRepository->getAllConstruction();
+    }
+
+    public function getAllConstructionCached()
+    {
+        return $this->cachedConstructionRepository->getAllConstruction();
     }
 
     public function findOrNew($id = null): Construction

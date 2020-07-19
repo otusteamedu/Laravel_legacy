@@ -12,7 +12,7 @@
                     @include('partials.system.status')
                     <h4 class="card-title">{{__('lang-constructor-type.title')}}</h4>
                     <p class="card-description">{{__('lang-constructor-type.description')}}</p>
-                    {!! Form::open(['url' => route('lang-constructor-type-save',['locale' => $locale]),'class'=>'pt-3']) !!}
+                    {!! Form::open(['url' => route('lang-constructor-type-save'),'class'=>'pt-3']) !!}
 
                     @include('partials.form.text', [
                          "label"=> __('form.name'),
