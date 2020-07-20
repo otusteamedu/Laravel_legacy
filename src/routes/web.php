@@ -41,4 +41,17 @@ Route::get('/message', function () {
     return view('message.index');
 });
 
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => [
+        // TODO: Добавсить авторизацию для администратора
+    ]
+], function () {
+    Route::resources([
+        'business' => 'Admin\BusinessController',
+        'procedure' => 'Admin\ProcedureController',
+    ]);
+});
+
 Auth::routes();

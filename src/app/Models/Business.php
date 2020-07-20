@@ -70,7 +70,7 @@ class Business extends Model
      */
     public function type()
     {
-        return $this->hasOne(BusinessType::class);
+        return $this->hasOne(BusinessType::class, 'id', 'type_id');
     }
 
     /**
@@ -79,6 +79,6 @@ class Business extends Model
      */
     public function user()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'user_id');
     }
 }

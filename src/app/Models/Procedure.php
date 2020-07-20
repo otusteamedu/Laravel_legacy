@@ -46,7 +46,7 @@ class Procedure extends Model
      */
     public function worker()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'worker_id');
     }
 
     /**
@@ -55,6 +55,6 @@ class Procedure extends Model
      */
     public function business()
     {
-        return $this->hasOne(Business::class);
+        return $this->hasOne(Business::class, 'id', 'business_id');
     }
 }
