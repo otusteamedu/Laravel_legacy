@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\LangConstructor;
 
+
 use App\Http\Controllers\Controller;
 use App\Models\Construction;
 use App\Policies\Abilities;
 use App\Services\Constructions\ConstructionsService;
 use App\Services\ConstructionTypes\ConstructionTypesService;
 use App\Http\Controllers\LangConstructor\Requests\SaveLangConstructorRequest;
+use App\Jobs\Construction\ConstructionCreateProcess;
+use App\Events\Construction\ConstructionCreateProcessEvent;
 
 class LangConstructorController extends Controller
 {
@@ -25,6 +28,7 @@ class LangConstructorController extends Controller
 
     public function index()
     {
+
         $this->authorize(Abilities::VIEW_ANY, Construction::class);
 
         return view('lang-constructor.lang-constructor.index',
@@ -53,8 +57,10 @@ class LangConstructorController extends Controller
         $this->authorize(Abilities::UPDATE, Construction::class);
         $data  =  $request->getFormData();
 
-        $langConstructor  = $this->constructionsService->createConstruction($data);
-        return redirect(route('lang-constructor-edit', ['id' => $langConstructor->id]))->with('status',__('system.saved'));
+        ConstructionCreateProcess::dispatch($data);
+        \Event::dispatch(new ConstructionCreateProcessEvent($data));
+
+         return redirect(route('lang-constructor-index'))->with('status',__('system.saved'));
 
     }
 

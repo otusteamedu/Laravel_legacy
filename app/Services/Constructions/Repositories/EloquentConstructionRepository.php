@@ -28,8 +28,8 @@ class EloquentConstructionRepository implements ConstructionRepositoryInterface
     public function createFromArray(array $data): Construction
     {
         $construction = new Construction();
-        $construction ->create($data);
-        return $construction;
+
+        return $construction->create($data);
     }
 
     public function updateFromArray(Construction $construction, array $data)
