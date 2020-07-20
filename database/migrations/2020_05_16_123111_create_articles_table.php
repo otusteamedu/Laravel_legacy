@@ -24,10 +24,12 @@ class CreateArticlesTable extends Migration
             $table->integer('user_id')->comment('Идентификатор пользователя добавившего статью')->nullable();
             ;$table->integer('hits')->comment('Количество просмотров')->nullable()->default(0);
             $table->string('title')->comment('Название');
-            $table->text('image_intro')->comment('Изображение')->nullable();
+            $table->text('image')->comment('Изображение')->nullable();
+            $table->text('image_intro')->comment('Миниатюра изображения')->nullable();
             $table->text('intro_text')->comment('Вступительный текст')->nullable();
             $table->text('full_text')->comment('Полный текст')->nullable();
             $table->boolean('is_pending')->comment('Отложенная публикация')->nullable();
+            $table->boolean('is_prepublish')->comment('Предварительная публикация')->nullable();
         });
 
         Schema::table('articles', function (Blueprint $table) {

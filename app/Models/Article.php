@@ -17,10 +17,12 @@ use Watson\Rememberable\Rememberable;
  * @property int|null $user_id Идентификатор пользователя добавившего статью
  * @property int|null $hits Количество просмотров
  * @property string $title Название
- * @property string|null $image_intro Изображение
+ * @property string|null $image Изображение
+ * @property string|null $image_intro Миниатюра изображения
  * @property string|null $intro_text Вступительный текст
  * @property string|null $full_text Полный текст
  * @property boolean|null $is_pending Отложенная публикация
+ * @property boolean|null $is_prepublish Предварительная публикации(будет видна только модераторам и администраторам системы)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Article query()
@@ -45,7 +47,7 @@ use Watson\Rememberable\Rememberable;
 class Article extends Model
 {
     use Rememberable;
-  
+
     const STATE_DRAFT = 1;
     const STATE_WAITING_PUBLICATION = 2;
     const STATE_PUBLISHED = 3;
@@ -56,6 +58,7 @@ class Article extends Model
     protected $fillable = [
         'title',
         'intro_text',
+        'image',
         'full_text',
         'state',
         'category_id',

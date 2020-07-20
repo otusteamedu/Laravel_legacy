@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Admin\Requests\UpdateArticleRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Admin\Requests\StoreArticleRequest;
+use App\Jobs\ArticleNotifyJob;
+use App\Jobs\ArticlePrepareJob;
+use App\Jobs\Queue;
 use App\Models\Article;
 use App\Models\Category;
 use App\Services\CategoriesService;
@@ -75,11 +78,14 @@ class ArticlesController extends Controller
         $data = $request->getFormData();
         try {
             $article = $this->articlesService->createArticle($data);
+            ArticlePrepareJob::withChain([
+                new ArticleNotifyJob($article)
+            ])->dispatch($article)->allOnQueue(Queue::PROCESS_ARTICLE_QUEUE);
             \Session::flash('alert-success', sprintf('Статья #%d успешно создана', $article->id));
         } catch (\Exception $e) {
             \Session::flash('alert-danger', sprintf('Возникла ошибка при создании статьи: %s', $e->getMessage()));
         }
-        return response()->json(['status'=> 'ok', 'redirect'=> route('articles.index')]);
+        return response()->json(['status' => 'ok', 'redirect' => route('articles.index')]);
     }
 
     /**
@@ -120,15 +126,15 @@ class ArticlesController extends Controller
         } catch (\Exception $e) {
             \Session::flash('alert-danger', sprintf('Возникла ошибка при редактировании статьи #%d: %s', $article->id, $e->getMessage()));
         }
-        return response()->json(['status'=> 'ok', 'redirect'=> route('articles.index')]);
+        return response()->json(['status' => 'ok', 'redirect' => route('articles.index')]);
     }
 
     /**
      * Удаление статьи
      *
      * @param \App\Models\Article $article
-     * @throws \Exception
      * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy(Article $article)
     {
