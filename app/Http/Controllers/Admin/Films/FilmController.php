@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 
+use Illuminate\Auth\Access\AuthorizationException;
+use App\Exceptions\SimpleException;
+
 use View;
 
 class FilmController extends Controller
@@ -31,11 +34,16 @@ class FilmController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Film::class);
-
-        $this->authorize(Abilities::VIEW_ANY, Film::class);
+        try {
+            $this->authorize(Abilities::VIEW_ANY, Film::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на просмотр фильма', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на просмотр фильма', []);
+        }
 
         View::share([
             'films' => Film::paginate(),
@@ -50,7 +58,14 @@ class FilmController extends Controller
      */
     public function create()
     {
-        $this->authorize(Abilities::CREATE, Film::class);
+        try {
+            $this->authorize(Abilities::CREATE, Film::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на создание фильма', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на создание фильма', []);
+        }
         return view('admin.films.create');
     }
 
@@ -61,7 +76,14 @@ class FilmController extends Controller
      */
     public function store(StoreFilmRequest $request)
     {
-        $this->authorize(Abilities::CREATE, Film::class);
+        try {
+            $this->authorize(Abilities::CREATE, Film::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на добавление фильма', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на добавление фильма', []);
+        }
         $data = $request->getFormData();
         $this->filmsService->createFilm($data);
         return redirect(route('cms.films.index'));
@@ -75,7 +97,15 @@ class FilmController extends Controller
      */
     public function edit(Film $film)
     {
-        $this->authorize(Abilities::UPDATE, $film);
+        try {
+            $this->authorize(Abilities::UPDATE, $film);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на редактирование фильма', [
+                $this->getCurrentUser(),
+
+            ]);
+            return  abort(403, 'Нет прав на редактирование фильма', []);
+        }
         return view('admin.films.edit', [
             'film' => $film,
         ]);
@@ -90,7 +120,14 @@ class FilmController extends Controller
      */
     public function update(UpdateFilmRequest $request, Film $film)
     {
-        $this->authorize(Abilities::UPDATE, $film);
+        try {
+            $this->authorize(Abilities::UPDATE, $film);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на обновление фильма', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на редактирование/обновление фильма', []);
+        }
 
         $this->filmsService->updateFilm($film, $request->all());
 
@@ -107,7 +144,14 @@ class FilmController extends Controller
      */
     public function destroy(Film $film)
     {
-        $this->authorize(Abilities::DELETE, $film);
+        try {
+            $this->authorize(Abilities::DELETE, $film);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на удаление фильма', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на удаления фильма', []);
+        }
         $film->delete();
         return redirect()->back()->with('success', 'Delete Successfully');
     }

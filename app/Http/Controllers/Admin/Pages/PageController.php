@@ -33,9 +33,14 @@ class PageController extends Controller
      */
     public function index()
     {
-        $this->getCurrentUser()->cant(Abilities::VIEW_ANY, Page::class);
-
-        $this->authorize(Abilities::VIEW_ANY, Page::class);
+        try {
+            $this->authorize(Abilities::VIEW_ANY, Page::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на просмотр страницы', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на просмотр страницы', []);
+        }
 
         View::share([
             'pages' => Page::paginate(),
@@ -51,7 +56,14 @@ class PageController extends Controller
      */
     public function create()
     {
-        $this->authorize(Abilities::CREATE, Page::class);
+        try {
+            $this->authorize(Abilities::CREATE, Page::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на создание страницы', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на создание страницы', []);
+        }
         return view('admin.pages.create');
     }
 
@@ -62,7 +74,15 @@ class PageController extends Controller
      */
     public function store(StorePageRequest $request)
     {
-        $this->authorize(Abilities::CREATE, Page::class);
+        try {
+            $this->authorize(Abilities::CREATE, Page::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на добавление страницы', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на добавление страницы', []);
+        }
+
         $data = $request->getFormData();
         $this->pagesService->createPage($data);
         return redirect(route('cms.pages.index'));
@@ -76,7 +96,15 @@ class PageController extends Controller
      */
     public function edit(Page $page)
     {
-        $this->authorize(Abilities::UPDATE, $page);
+        try {
+            $this->authorize(Abilities::UPDATE, $page);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на редактирование страницы', [
+                $this->getCurrentUser(),
+
+            ]);
+            return  abort(403, 'Нет прав на редактирование страницы', []);
+        }
         
         return view('admin.pages.edit', [
             'page' => $page,
@@ -91,7 +119,14 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
-        $this->authorize(Abilities::UPDATE, $page);
+        try {
+            $this->authorize(Abilities::UPDATE, $page);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на обновление страницы', [
+                $this->getCurrentUser(),
+            ]);
+            return  abort(403, 'Нет прав на редактирование/обновление страницы', []);
+        }
 
         $this->pagesService->updatePage($page, $request->all());
 
@@ -108,7 +143,14 @@ class PageController extends Controller
      */
     public function destroy(Page $page)
     {
-        $this->authorize(Abilities::DELETE, $page);
+        try {
+            $this->authorize(Abilities::DELETE, $page);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на удаление страницы', [
+                $this->getCurrentUser(),
+            ]);
+            return abort(403, 'Нет прав на удаления страницы', []);
+        }
         $page->delete();
         return redirect()->back()->with('success', 'Delete Successfully');
     }
