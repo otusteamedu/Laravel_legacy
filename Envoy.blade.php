@@ -37,6 +37,14 @@
     php vendor/bin/phpunit --testdox
 @endtask
 
+@task('app:docker')
+    docker network create br-docker -o com.docker.network.bridge.name="br-docker" --subnet=192.168.94.0/24 --ip-range=192.168.94.128/25
+    docker build --no-cache -t akuznetsov/fpm:v1 /opt/docker/fpm_npm_composer/
+    docker run -v /var/www/html:/var/www/html -d --network br-docker --name dphp --hostname dphp akuznetsov/fpm:v1
+    docker run -p 80:80 -v /etc/nginx/site_enabled:/etc/nginx/conf.d -v /var/www/html:/var/www/html -d --network br-docker --name dnginx --hostname dnginx nginx
+    docker run -v /var/lib/postgresql/data/:/var/lib/postgresql/data/ -d -p 127.0.0.1:5432:5432 --network br-docker --name dpg --hostname dpg postgres
+@endtask
+
 @story('deploy', ['on' => 'web'])
     echo "start deploy"
     clone_repository
