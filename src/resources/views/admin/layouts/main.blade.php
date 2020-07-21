@@ -21,7 +21,7 @@
 </head>
 <body class="d-flex flex-column">
 
-@include('blocks._menu')
+@include('admin.blocks._menu')
 
 <main role="main" class="flex-shrink-0 mb-5">
     <div class="container">
