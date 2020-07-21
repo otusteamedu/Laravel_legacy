@@ -7,9 +7,8 @@ use App\Http\Requests\Business\StoreBusinessRequest;
 use App\Http\Requests\Business\UpdateBusinessRequest;
 use App\Models\Business;
 use App\Providers\RouteServiceProvider;
-use App\Services\Businesses\BusinessesService;
-use App\Services\Businesses\Repositories\BusinessRepositoryInterface;
-use App\Services\BusinessTypes\Repositories\EloquentBusinessTypeRepository;
+use App\Services\Businesses\BusinessService;
+use App\Services\BusinessTypes\BusinessTypeService;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Redirect;
 
@@ -25,21 +24,21 @@ class BusinessController extends Controller
      */
     protected $redirectTo = RouteServiceProvider::HOME;
     /**
-     * @var BusinessesService
+     * @var BusinessService
      */
     private $service;
     /**
-     * @var BusinessRepositoryInterface
+     * @var BusinessTypeService
      */
-    private $repository;
+    private $typeService;
 
     public function __construct(
-        BusinessRepositoryInterface $repository,
-        BusinessesService $service
+        BusinessService $service,
+        BusinessTypeService $typeService
     )
     {
         $this->service = $service;
-        $this->repository = $repository;
+        $this->typeService = $typeService;
     }
 
     /**
@@ -49,7 +48,7 @@ class BusinessController extends Controller
      */
     public function index()
     {
-        $businesses = $this->repository->get();
+        $businesses = $this->service->list();
         return view('admin.business.index', [
             'businesses' => $businesses,
         ]);
@@ -73,7 +72,7 @@ class BusinessController extends Controller
      */
     public function create()
     {
-        $businessTypes = (new EloquentBusinessTypeRepository())->get();
+        $businessTypes = $this->typeService->list();
         return view('admin.business.create', [
             'business' => new Business(),
             'businessTypes' => $businessTypes
@@ -98,7 +97,7 @@ class BusinessController extends Controller
      */
     public function edit(Business $business)
     {
-        $businessTypes = (new EloquentBusinessTypeRepository())->get();
+        $businessTypes = $this->typeService->list();
 
         return view('admin.business.edit', [
             'business' => $business,

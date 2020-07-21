@@ -9,6 +9,7 @@ use App\Services\Procedures\Handlers\ProcedureCreateHandler;
 use App\Services\Procedures\Handlers\ProcedureDeleteHandler;
 use App\Services\Procedures\Handlers\ProcedureUpdateHandler;
 use App\Services\Procedures\Repositories\ProcedureRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
 class ProcedureService
 {
@@ -66,5 +67,14 @@ class ProcedureService
     public function delete(Procedure $procedure)
     {
         (new ProcedureDeleteHandler($this->repository))->handle($procedure);
+    }
+
+    /**
+     * Списк всех типов
+     * @return Collection|null
+     */
+    public function list(): ?Collection
+    {
+        return $this->repository->get();
     }
 }

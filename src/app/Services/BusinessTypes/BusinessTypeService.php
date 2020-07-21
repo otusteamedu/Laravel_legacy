@@ -6,8 +6,9 @@ use App\Models\BusinessType;
 use App\Services\BusinessTypes\DTOs\BusinessTypeDTO;
 use App\Services\BusinessTypes\Handlers\BusinessTypeCreateHandler;
 use App\Services\BusinessTypes\Repositories\BusinessTypeRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
-class BusinessesTypeService
+class BusinessTypeService
 {
 
     /**
@@ -40,5 +41,14 @@ class BusinessesTypeService
         ]);
 
         return $this->createHandler->handle($type);
+    }
+
+    /**
+     * Списк всех типов
+     * @return Collection|null
+     */
+    public function list(): ?Collection
+    {
+        return $this->repository->get();
     }
 }

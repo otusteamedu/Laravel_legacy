@@ -9,8 +9,9 @@ use App\Services\Businesses\Handlers\BusinessCreateHandler;
 use App\Services\Businesses\Handlers\BusinessDeleteHandler;
 use App\Services\Businesses\Handlers\BusinessUpdateHandler;
 use App\Services\Businesses\Repositories\BusinessRepositoryInterface;
+use Illuminate\Database\Eloquent\Collection;
 
-class BusinessesService
+class BusinessService
 {
 
     /**
@@ -25,16 +26,22 @@ class BusinessesService
      * @var BusinessUpdateHandler
      */
     private $updateHandler;
+    /**
+     * @var BusinessDeleteHandler
+     */
+    private $deleteHandler;
 
     public function __construct(
         BusinessCreateHandler $createHandler,
         BusinessUpdateHandler $updateHandler,
+        BusinessDeleteHandler $deleteHandler,
         BusinessRepositoryInterface $repository
     )
     {
         $this->createHandler = $createHandler;
         $this->repository = $repository;
         $this->updateHandler = $updateHandler;
+        $this->deleteHandler = $deleteHandler;
     }
 
     /**
@@ -46,6 +53,16 @@ class BusinessesService
     {
         $business =  BusinessCreateDTO::fromArray($data);
         return $this->createHandler->handle($business);
+    }
+
+    /**
+     * Списк всех салонов
+     * @return Collection|null
+     */
+    public function list(): ?Collection
+    {
+        $business = $this->repository->get();
+        return $business;
     }
 
     /**
@@ -65,6 +82,6 @@ class BusinessesService
      */
     public function delete(Business $business)
     {
-        (new BusinessDeleteHandler($this->repository))->handle($business);
+        $this->deleteHandler->handle($business);
     }
 }

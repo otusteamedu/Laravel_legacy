@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use App\Services\Businesses\Repositories\BusinessRepositoryInterface;
 use App\Services\Businesses\Repositories\EloquentBusinessRepository;
+use App\Services\BusinessTypes\Repositories\BusinessTypeRepositoryInterface;
+use App\Services\BusinessTypes\Repositories\EloquentBusinessTypeRepository;
 use App\Services\Procedures\Repositories\EloquentProcedureRepository;
 use App\Services\Procedures\Repositories\ProcedureRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
@@ -21,6 +23,7 @@ class RepositoryServiceProvider extends ServiceProvider
     {
         $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
         $this->app->bind(BusinessRepositoryInterface::class, EloquentBusinessRepository::class);
+        $this->app->bind(BusinessTypeRepositoryInterface::class, EloquentBusinessTypeRepository::class);
         $this->app->bind(ProcedureRepositoryInterface::class, EloquentProcedureRepository::class);
     }
 

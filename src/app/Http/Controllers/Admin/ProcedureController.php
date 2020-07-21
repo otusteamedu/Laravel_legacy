@@ -6,30 +6,28 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Procedure\StoreProcedureRequest;
 use App\Http\Requests\Procedure\UpdateProcedureRequest;
 use App\Models\Procedure;
-use App\Services\Businesses\Repositories\EloquentBusinessRepository;
+use App\Services\Businesses\BusinessService;
 use App\Services\Procedures\ProcedureService;
-use App\Services\Procedures\Repositories\EloquentProcedureRepository;
 use Illuminate\Support\Facades\Redirect;
 
 class ProcedureController extends Controller
 {
     /**
-     * @var EloquentProcedureRepository
-     */
-    private $repository;
-    /**
      * @var ProcedureService
      */
     private $service;
+    /**
+     * @var BusinessService
+     */
+    private $businessService;
 
     public function __construct(
-        EloquentProcedureRepository $repository,
-        ProcedureService $service
+        ProcedureService $service,
+        BusinessService $businessService
     )
     {
-
-        $this->repository = $repository;
         $this->service = $service;
+        $this->businessService = $businessService;
     }
 
     /**
@@ -39,7 +37,7 @@ class ProcedureController extends Controller
      */
     public function index()
     {
-        $procedures = $this->repository->get();
+        $procedures = $this->service->list();
         return view("admin.procedure.index", [
             'procedures' => $procedures
         ]);
@@ -52,7 +50,7 @@ class ProcedureController extends Controller
      */
     public function create()
     {
-        $businesses = (new EloquentBusinessRepository())->get();
+        $businesses = $this->businessService->list();
         return view('admin.procedure.create', [
             'procedure' => new Procedure(),
             'businesses' => $businesses
@@ -91,7 +89,7 @@ class ProcedureController extends Controller
      */
     public function edit(Procedure $procedure)
     {
-        $businesses = (new EloquentBusinessRepository())->get();
+        $businesses = $this->businessService->list();
 
         return view('admin.procedure.edit', [
             'procedure' => $procedure,
