@@ -13,8 +13,9 @@
     migrates.mig
     test.run
     project.update
-    artisan.up
     deploy.clear
+    deploy.finishing
+    artisan.up
 @endstory
 
 @error
