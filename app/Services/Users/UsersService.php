@@ -4,10 +4,16 @@
 namespace App\Services\Users;
 
 
+use App\Jobs\Queue;
+use App\Mail\Clients\InviteMail;
 use App\Models\User;
+use App\Services\Users\Exceptions\IncorrectUserException;
 use App\Services\Users\Handlers\CreateUserHandler;
 use App\Services\Users\Repositories\UsersRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Password;
 
 /**
  * Class UsersService
@@ -102,9 +108,82 @@ class UsersService
      *
      * @return mixed
      */
-    public function deleteUser(User $user)
+    public function deleteUser(User $user): User
     {
-        // @todo check current
+        if (Auth::id() == $user->id) {
+            throw new IncorrectUserException();
+        }
+
         return $this->usersRepository->delete($user);
+    }
+
+    /**
+     * Обновить e-mail пользователя
+     *
+     * @param User   $user
+     * @param string $email
+     *
+     * @return User
+     */
+    public function updateUserEmail(User $user, string $email): User
+    {
+        return $this->usersRepository->updateEmail($user, $email);
+    }
+
+    /**
+     * Обновить пароль пользователя
+     *
+     * @param User   $user
+     * @param string $password
+     *
+     * @return User
+     */
+    public function updateUserrPassword(User $user, string $password): User
+    {
+        return $this->usersRepository->updatePassword($user, $password);
+    }
+
+    /**
+     * Пригласить нового клиента
+     *
+     * @param DTO\User $userDTO
+     *
+     * @return User
+     */
+    public function sendInviteClient(DTO\User $userDTO): User
+    {
+        $user = $this->usersRepository->register($userDTO);
+
+        Mail::to($user)->queue(
+            (new InviteMail($user))->onQueue(Queue::EMAILS)
+        );
+
+        return $user;
+    }
+
+    /**
+     * Отправить ссылку на востановление пароля
+     *
+     * @param User $user
+     *
+     * @return bool
+     * @throws IncorrectUserException
+     */
+    public function sendRecoveryEmail(User $user)
+    {
+        $result = $this->usersRepository->sendRecoveryEmail($user);
+
+        switch ($result) {
+            case Password::INVALID_TOKEN:
+            case Password::INVALID_USER:
+                throw new IncorrectUserException();
+            break;
+            case Password::RESET_LINK_SENT:
+                return true;
+            break;
+            default:
+                throw new \Exception("Undefined result: " . $result);
+            break;
+        }
     }
 }

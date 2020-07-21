@@ -17,4 +17,12 @@ interface UsersRepositoryInterface
     public function updateFromArray(User $user, array $data);
 
     public function delete(User $user);
+
+    public function updateEmail(User $user, string $email): User;
+
+    public function updatePassword(User $user, string $password): User;
+
+    public function register(\App\Services\Users\DTO\User $userDTO): User;
+
+    public function sendRecoveryEmail(User $user): string;
 }

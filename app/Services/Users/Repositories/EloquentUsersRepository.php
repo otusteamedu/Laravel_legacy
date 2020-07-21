@@ -4,7 +4,9 @@
 namespace App\Services\Users\Repositories;
 
 
+use App\Models\Group;
 use App\Models\User;
+use Illuminate\Support\Facades\Password;
 
 class EloquentUsersRepository implements UsersRepositoryInterface
 {
@@ -27,7 +29,7 @@ class EloquentUsersRepository implements UsersRepositoryInterface
         return $user;
     }
 
-    public function updateFromArray(User $user, array $data)
+    public function updateFromArray(User $user, array $data): User
     {
         if (is_null($data['password'])) {
             unset($data['password']);
@@ -41,5 +43,32 @@ class EloquentUsersRepository implements UsersRepositoryInterface
     public function delete(User $user)
     {
         return $user->delete();
+    }
+
+
+    public function updateEmail(User $user, string $email): User
+    {
+        $this->updateFromArray($user, [
+            'email' => $email
+        ]);
+    }
+
+    public function updatePassword(User $user, string $password): User
+    {
+        $this->updateFromArray($user, [
+            'password' => $password
+        ]);
+    }
+
+    public function register(\App\Services\Users\DTO\User $userDTO): User
+    {
+        $userDTO->group_id = current(Group::CLIENTS);
+
+        return $this->createFromArray($userDTO->toArray());
+    }
+
+    public function sendRecoveryEmail(User $user): string
+    {
+        return Password::sendResetLink(['email' => $user->email]);
     }
 }

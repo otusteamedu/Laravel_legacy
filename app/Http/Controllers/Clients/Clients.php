@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\Group;
+use App\Services\Users\DTO\User as UserDTO;
 use App\Services\Users\UsersService;
 
 class Clients extends Controller
@@ -62,12 +63,12 @@ class Clients extends Controller
     {
         $this->authorize('client.create');
 
-        $data = array_merge(
+        $userDTO = UserDTO::fromArray(array_merge(
             $request->getFormData(),
             ['group_id' => Group::CLIENTS[0]]
-        );
+        ));
 
-        $this->usersService->storeUser($data);
+        $this->usersService->sendInviteClient($userDTO);
 
         return redirect(route('clients.index'));
     }

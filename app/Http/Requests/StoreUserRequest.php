@@ -18,7 +18,6 @@ class StoreUserRequest extends UpdateUserRequest
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|unique:users|max:100',
-            'password' => 'required|min:6|confirmed',
         ];
     }
 
@@ -28,6 +27,7 @@ class StoreUserRequest extends UpdateUserRequest
 
         $data['created_at'] = Carbon::create()->subDay();
         $data['balance'] = 0;
+        $data['password'] = app(\Faker\Generator::class)->password;
 
         return $data;
     }
