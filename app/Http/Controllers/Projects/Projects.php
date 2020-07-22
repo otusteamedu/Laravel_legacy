@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Projects;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Projects\Requests\StoreProjectRequest;
 use App\Http\Controllers\Projects\Requests\UpdateProjectRequest;
-use App\Models\Project;
 use App\Services\Projects\ProjectsService;
 
 class Projects extends Controller
