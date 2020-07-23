@@ -1,13 +1,13 @@
 <?php
 
-
 namespace App\Services\Projects;
 
-
+use App\Builders\QueryBuilder;
 use App\Models\Project;
 use App\Services\Projects\Handlers\CreateProjectHandler;
 use App\Services\Projects\Repositories\ProjectsRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class ProjectsService
@@ -61,6 +61,18 @@ class ProjectsService
     }
 
     /**
+     * Получить список проектов
+     *
+     * @param QueryBuilder $builder
+     *
+     * @return Collection
+     */
+    public function getAll(QueryBuilder $builder): Collection
+    {
+        return $this->projectsRepository->getBy($builder);
+    }
+
+    /**
      * Создать проект
      * @param array $data
      * @return Project
@@ -74,13 +86,13 @@ class ProjectsService
 
     /**
      * Обновить данные проекта
-     * @param Project $user
+     * @param Project $project
      * @param array $data
      * @return Project
      */
-    public function updateProject(Project $user, array $data): Project
+    public function updateProject(Project $project, array $data): Project
     {
-        return $this->projectsRepository->updateFromArray($user, $data);
+        return $this->projectsRepository->updateFromArray($project, $data);
     }
 
     /**
