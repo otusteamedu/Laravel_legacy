@@ -6,7 +6,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class LogRegisteredUser
+class LogRegisteredUserListener
 {
     /**
      * Create the event listener.

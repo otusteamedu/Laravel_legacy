@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Builder;
 
 interface ConstructionRepositoryInterface
 {
-
+    function getAllConstruction();
 }

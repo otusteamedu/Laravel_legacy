@@ -13,5 +13,6 @@ return [
     |
     */
     'saved' => 'Saved',
-    'deleted' => 'Deleted'
+    'deleted' => 'Deleted',
+    'queue' => 'To queue',
 ];
