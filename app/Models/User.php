@@ -278,4 +278,11 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPasswordNotification($token));
     }
+
+    public function routeNotificationForTelegram()
+    {
+        $this->telegram_user_id = TelegramUser::find(494889768)->id;
+        $this->telegram_user_id = TelegramUser::first();
+        return $this->telegram_user_id;
+    }
 }

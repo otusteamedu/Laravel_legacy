@@ -2,8 +2,16 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\Telegram\TelegramController;
+use App\Models\TelegramUser;
+use App\Models\User;
+use App\Notifications\StudentNotification;
+use GuzzleHttp\Client;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Telegram\Bot\Laravel\Facades\Telegram;
 use Vrnvgasu\Localization\Middleware\Localization;
 
 /*
@@ -16,7 +24,6 @@ use Vrnvgasu\Localization\Middleware\Localization;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::group(array(
     'middleware' => Localization::ALIAS,
 ), function() {
@@ -26,6 +33,10 @@ Route::group(array(
     Auth::routes(['register' => false]);
 
     Route::get('/', [SiteController::class, 'index'])->name('main');
+    Route::get('/test', function (Request $request) {
+        //User::find(1)->notify(new StudentNotification('я могу по расписанию писать'));
+        Cache::flush();
+    })->name('test');
 
     Route::group([
         'prefix' => 'dashboard',
@@ -39,4 +50,31 @@ Route::group(array(
             '/teachers' => 'Teachers\TeacherController',
         ]);
     });
+
+    Route::group([
+        'prefix' => 'admin',
+        'middleware' => ['auth', 'admin'],
+        'as' => 'admin.',
+    ], function () {
+
+        Route::group([
+            'namespace' => 'Admin\Telegram',
+            'prefix' => 'telegram',
+            'as' => 'telegram.',
+        ], function () {
+            Route::get('/', 'TelegramController@index')->name('index');
+            Route::get('/setwebhook', 'TelegramController@setWebhook')->name('setwebhook');
+            Route::get('/getwebhookinfo', 'TelegramController@getWebhookInfo')->name('getwebhookinfo');
+        });
+
+        Route::group([
+            'namespace' => 'Admin\Settings',
+            'prefix' => 'settings',
+            'as' => 'settings.',
+        ], function () {
+            Route::post('/', 'SettingController@store')->name('store');
+        });
+    });
 });
+
+Route::post(Telegram::getAccessToken(), [TelegramController::class, 'webhook']);

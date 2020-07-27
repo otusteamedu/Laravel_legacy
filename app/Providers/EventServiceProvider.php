@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\EducationPlan;
 use App\Models\EducationYear;
 use App\Models\Group;
+use App\Models\Setting;
 use App\Models\Student;
 use App\Models\Subject;
 use App\Models\User;
@@ -13,6 +14,7 @@ use App\Observers\CourseObserver;
 use App\Observers\EducationPlanObserver;
 use App\Observers\EducationYearObserver;
 use App\Observers\GroupObserver;
+use App\Observers\SettingObserver;
 use App\Observers\StudentObserver;
 use App\Observers\SubjectObserver;
 use App\Observers\UserObserver;
@@ -50,5 +52,6 @@ class EventServiceProvider extends ServiceProvider
         Student::observe(StudentObserver::class);
         Subject::observe(SubjectObserver::class);
         User::observe(UserObserver::class);
+        Setting::observe(SettingObserver::class);
     }
 }

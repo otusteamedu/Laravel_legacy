@@ -51,5 +51,9 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Ability::DELETE_TEACHER, function (User $user): bool {
             return $user->isMethodist();
         });
+
+        Gate::define(Ability::CHANGE_SETTINGS, function (User $user): bool {
+            return $user->isAdmin();
+        });
     }
 }

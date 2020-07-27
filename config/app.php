@@ -53,6 +53,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    //'url' => 'https://007bdc1bcfa3.ngrok.io',
 
     'asset_url' => env('ASSET_URL', null),
 
@@ -176,6 +177,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        Telegram\Bot\Laravel\TelegramServiceProvider::class,
+
     ],
 
     /*
@@ -228,6 +231,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'Telegram' => \Telegram\Bot\Laravel\Facades\Telegram::class,
     ],
 
 ];

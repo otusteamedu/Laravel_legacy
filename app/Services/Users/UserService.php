@@ -107,6 +107,19 @@ class UserService implements CacheService
     }
 
     /**
+     * @param User|null $user
+     * @return bool
+     */
+    public function checkIsAdmin(?User $user): bool
+    {
+        if ($user && $user->isAdmin()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * @param array $data
      * @param User $teacher
      * @return UserDTO

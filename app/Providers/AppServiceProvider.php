@@ -6,6 +6,8 @@ use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Repositories\EloquentCourseRepository;
 use App\Services\EducationPlans\Repositories\EducationPlanRepositoryInterface;
 use App\Services\EducationPlans\Repositories\EloquentEducationPlanRepository;
+use App\Services\Settings\Repositories\EloquentSettingRepository;
+use App\Services\Settings\Repositories\SettingRepositoryInterface;
 use App\Services\Students\Repositories\EloquentStudentRepository;
 use App\Services\Students\Repositories\StudentRepositoryInterface;
 use App\Services\Subjects\Repositories\EloquentSubjectRepository;
@@ -18,6 +20,7 @@ use App\Services\Years\Repositories\EloquentYearRepository;
 use App\Services\Years\Repositories\YearRepositoryInterface;
 use App\Services\Groups\Repositories\EloquentGroupRepository;
 use App\Services\Groups\Repositories\GroupRepositoryInterface;
+use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -32,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
         TeacherRepositoryInterface::class => EloquentTeacherRepository::class,
         SubjectRepositoryInterface::class => EloquentSubjectRepository::class,
         EducationPlanRepositoryInterface::class => EloquentEducationPlanRepository::class,
+        SettingRepositoryInterface::class => EloquentSettingRepository::class,
     ];
 
     /**
@@ -49,8 +53,10 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(Request $request)
     {
-        //
+        if ($request->server->has('HTTP_X_ORIGINAL_HOST')) {
+            $this->app['url']->forceRootUrl('https://'.$request->server->get('HTTP_X_ORIGINAL_HOST'));
+        }
     }
 }
