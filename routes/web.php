@@ -22,7 +22,7 @@ Route::get('/contacts', function () {
 });
 */
 Route::name('cms.')->group(function () {
-    Route::prefix('admin')->middleware([
+    Route::prefix('{locale}/admin')->middleware([
         'auth',
     ])->group(function () {
         Route::get('/', 'Admin\DashboardController')->name('dashboard');

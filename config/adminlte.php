@@ -236,18 +236,12 @@ return [
             'search' => true,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
+        ['header' => 'main_navigation', 'can'=>'main_navigation'],
         [
             'text' => 'pages',
             'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-            'can' => 'pages',
+            'icon' => 'fas fa-fw fa-file',
+            'can'=>'pages'
         ],
         [
             'text' => 'films',
@@ -268,7 +262,7 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
+      /*  [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -322,6 +316,7 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],
+        */
     ],
 
     /*
@@ -344,6 +339,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+        App\AdminLte\MenuFilter::class,
     ],
 
     /*
