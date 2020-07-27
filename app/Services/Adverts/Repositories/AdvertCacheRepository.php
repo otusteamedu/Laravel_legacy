@@ -36,4 +36,15 @@ class AdvertCacheRepository
 
     }
 
+    public function cachingPageApi(int $limit, int $offset)
+    {
+
+        $cacheKey = self::PAGE_CACHE_KEY.$limit.'_'.$offset; //вынести в класс-генератор ключа, генерит ключ под запрос, незабыть в пргреве
+
+        return \Cache::remember($cacheKey, self::CACHE_TIME, function() use($limit, $offset){
+            return $this->advertRepository->paginateListApi($limit, $offset);
+        });
+
+    }
+
 }

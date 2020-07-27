@@ -51,6 +51,11 @@ class AdvertsService
         return ItemsDTO::make($town);
     }
 
+    public function pageApi(int $limit, int $offset)
+    {
+        return $this->advertCacheRepository->cachingPageApi($limit, $offset);
+    }
+
     public function page($qty)
     {
 //        return $this->advertCacheRepository->cachingPage($qty);

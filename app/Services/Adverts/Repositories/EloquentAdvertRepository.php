@@ -38,6 +38,16 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
         return Advert::with('town', 'user', 'division')->paginate($qty);
     }
 
+    public function paginateListApi(int $limit, int $offset)
+    {
+        $advert = Advert::query();
+        if ($limit) $advert->take($limit);
+        if($offset) $advert->skip($offset);
+
+        $advert->with('town', 'user', 'division');
+        return $advert->get(['adverts.*']); // ???
+    }
+
     public function createFromArray(array $data): Advert
     {
 //        $advert = new Advert();
