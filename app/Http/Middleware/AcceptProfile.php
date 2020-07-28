@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
+use Auth;
 use Closure;
 use Illuminate\Auth\AuthenticationException;
-use Auth;
 
 
 /**
