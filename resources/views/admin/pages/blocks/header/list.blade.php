@@ -7,7 +7,7 @@
                 </h3>
             </div>
             <div class="card-body pad table-responsive">
-                <a style="width:30%;" href="{{ route('cms.pages.create') }}" class="btn btn-block btn-primary">@lang('messages.addPage')</a>
+                <a style="width:30%;" href="{{ App\Helpers\RouteBuilder::localeRoute('cms.pages.create') }}" class="btn btn-block btn-primary">@lang('messages.addPage')</a>
             </div>
             <!-- /.card -->
         </div>

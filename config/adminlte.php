@@ -236,10 +236,13 @@ return [
             'search' => true,
             'topnav' => true,
         ],
+       /*
+        для мультиязычности генерация меню корректно работает только в AppServiceProvider
         ['header' => 'main_navigation', 'can'=>'main_navigation'],
         [
             'text' => 'pages',
-            'url' => 'admin/pages',
+            'url' =>'/admin/pages',
+             //App\Helpers\RouteBuilder::localeRoute('cms.pages.index'),
             'icon' => 'fas fa-fw fa-file',
             'can'=>'pages'
         ],
@@ -251,6 +254,7 @@ return [
             'label_color' => 'success',
             'can' => 'films',
         ],
+        */
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

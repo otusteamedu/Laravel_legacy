@@ -25,12 +25,12 @@
     <td class="project-actions text-right">
 
 
-        <a class="btn btn-info btn-sm" href="{{ route('cms.pages.edit', ['page' => $page]) }}">
+        <a class="btn btn-info btn-sm" href="{{ App\Helpers\RouteBuilder::localeRoute('cms.pages.edit', ['page' => $page]) }}">
             <i class="fas fa-pencil-alt">
             </i>
             {{__('messages.pageEdit')}}
         </a>
-        {{ Form::open(['route'=>['cms.pages.destroy', $page],'method'=>'delete']) }}
+        {{ Form::model($page, ['url' => App\Helpers\RouteBuilder::localeRoute('cms.pages.destroy', ['page' => $page]), 'method' => 'delete']) }}
             <button onclick ="return confirm(' Вы уверены?')" type ="submit" class="btn btn-danger btn-sm">
                 <i class="fas fa-trash"></i>
             </button>

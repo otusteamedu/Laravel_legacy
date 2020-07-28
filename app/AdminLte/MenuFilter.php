@@ -9,16 +9,17 @@ class MenuFilter implements FilterInterface
 {
     public function transform($item)
     {
-        if(isset($item['can'])){
+        if (isset($item['can'])) {
             $levelUser = \Auth::user()->level;
             //если пользователь, то не показываем основное меню
-            if($levelUser==1){
+            if ($levelUser==1) {
                 $item['restricted'] = true;
-            }
-            else{
+            } else {
                 $item['restricted'] = false;
             }
         }
+
+
 
         return $item;
     }

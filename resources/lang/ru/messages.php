@@ -28,6 +28,7 @@ return [
     "filmSlug"=>"ЧПУ",
     "filmContent"=>"Содержимое фильма",
     "filmYear"=>"Год фильма",
-    "filmStatus"=>"Статус"
-
+    "filmStatus"=>"Статус",
+    "filmStatusPublished"=> "Опубликовано",
+    "filmStatusNotPublished"=> "Не опубликовано"
 ];
