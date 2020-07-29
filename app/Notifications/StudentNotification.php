@@ -2,6 +2,7 @@
 
 namespace App\Notifications;
 
+use App\Models\Post;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -14,19 +15,19 @@ class StudentNotification extends Notification
     use Queueable;
 
     /**
-     * @var string
+     * @var Post
      */
-    private $message;
+    private $post;
+
 
     /**
      * Create a new notification instance.
      *
-     * @param string $message
+     * @param Post $post
      */
-    public function __construct(string $message)
+    public function __construct(Post $post)
     {
-        //
-        $this->message = $message;
+        $this->post = $post;
     }
 
     /**
@@ -67,15 +68,18 @@ class StudentNotification extends Notification
         ];
     }
 
+    /**
+     * @param $notifiable
+     * @return TelegramMessage
+     */
     public function toTelegram($notifiable)
     {
+        $message = '*' . $this->post->title . "*\n\n";
+        $message .= $this->post->body . "\n\n";
+        $message .= $this->post->producer->full_name;
+
         return TelegramMessage::create()
-            // Optional recipient user id.
             ->to($notifiable->telegram_user_id)
-            // Markdown supported.
-            ->content($this->message);
-            // (Optional) Inline Buttons
-            //->button('View Invoice', $url)
-            //->button('Download Invoice', $url);
+            ->content($message);
     }
 }

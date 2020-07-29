@@ -43,6 +43,12 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $teachers
  * @property-read int|null $teachers_count
  * @property-read \App\Models\EducationYear $year
+ * @property-read string $group_course
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Post[] $receivePosts
+ * @property-read int|null $receive_posts_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group courseNumber($courseId)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group number($number)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Group teacherName($name)
  */
 class Group extends CacheModel
 {

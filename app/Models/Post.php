@@ -33,6 +33,11 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  * @property-read \App\Models\User $producer
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @property-read int|null $users_count
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read int|null $groups_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post byGroups($groupsId)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post byTitle($title)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Post isPublished()
  */
 class Post extends BaseModel
 {

@@ -1,7 +1,6 @@
 <?php
 
-use App\Telegram\Commands\StudentIdCommand;
-use App\Telegram\Commands\TestCommand;
+use App\Telegram\Commands\RegisterCommand;
 
 return [
     /*
@@ -60,7 +59,6 @@ return [
     */
     'commands' => [
         Telegram\Bot\Commands\HelpCommand::class,
-        TestCommand::class,
-        StudentIdCommand::class,
+        RegisterCommand::class,
     ],
 ];

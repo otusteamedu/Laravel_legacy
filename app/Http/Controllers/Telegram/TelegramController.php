@@ -4,29 +4,54 @@ namespace App\Http\Controllers\Telegram;
 
 use App\Http\Controllers\Controller;
 use App\Models\TelegramUser;
-use Illuminate\Http\Request;
+use App\Services\Telegram\TelegramService;
+use App\Telegram\Commands\RegisterCommand;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 class TelegramController extends Controller
 {
-    public function webhook()
+    /**
+     * @var TelegramService
+     */
+    private $service;
+    /**
+     * @var RegisterCommand
+     */
+    private $registerCommand;
+
+    /**
+     * TelegramController constructor.
+     * @param TelegramService $service
+     * @param RegisterCommand $registerCommand
+     */
+    public function __construct(
+        TelegramService $service,
+        RegisterCommand $registerCommand
+    )
     {
-        $telegram = Telegram::getWebhookUpdates()['message'];
-        Log::info(json_decode($telegram, true));
+        $this->service = $service;
+        $this->registerCommand = $registerCommand;
+    }
 
-        if (!TelegramUser::find($telegram['from']['id'])) {
-            $telegramUser = TelegramUser::firstOrCreate(json_decode($telegram['from'], true));
-            $telegramUser->user_id = 1;
-            $telegramUser->save();
+    public function webhook(): void
+    {
+        $telegram = json_decode(Telegram::getWebhookUpdates()['message'], true);
+
+        if (!($telegramUser = TelegramUser::find($telegram['from']['id']))) {
+            $telegramUser = $this->service->store($telegram['from']);
         }
 
-        $text = json_decode($telegram['from'], true);
-        if ($text === 'Настройки') {
-            //
+        if (!$telegramUser->user_id) {
+            try {
+                $this->registerCommand->handle($telegram);
+            } catch (\Exception $e) {
+                Log::error($e->getMessage());
+            }
+
+            return;
         }
 
-        /** обработчик команд */
         Telegram::commandsHandler(true);
     }
 }

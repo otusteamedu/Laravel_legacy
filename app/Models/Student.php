@@ -34,6 +34,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $group
  * @property-read int|null $group_count
  * @property-read \App\Models\User $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
+ * @property-read int|null $groups_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Student idNumber($idNumber)
  */
 class Student extends CacheModel
 {

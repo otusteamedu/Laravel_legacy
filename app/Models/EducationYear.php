@@ -27,6 +27,9 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EducationYear whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Course|null $course
+ * @property-read string $period
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EducationYear current()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\EducationYear date(\Carbon\Carbon $date)
  */
 class EducationYear extends CacheModel
 {

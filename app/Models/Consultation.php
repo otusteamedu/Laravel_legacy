@@ -46,6 +46,7 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property-read \App\Models\Subject $subject
  * @property-read \App\Models\User $teacher
  * @property-read \App\Models\RoomOccupation|null $occupation
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Consultation approved()
  */
 class Consultation extends BaseModel
 {

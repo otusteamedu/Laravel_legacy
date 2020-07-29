@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @mixin \Eloquent
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Group[] $groups
  * @property-read int|null $groups_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Course number($number)
  */
 class Course extends CacheModel
 {

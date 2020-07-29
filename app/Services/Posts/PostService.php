@@ -3,6 +3,7 @@
 namespace App\Services\Posts;
 
 use App\DTOs\PostFilterDTO;
+use App\Jobs\SendNotificationsToStudentJob;
 use App\Models\Post;
 use App\Services\Posts\Handlers\CreatePostHandler;
 use App\Services\Posts\Handlers\DeletePostHandler;
@@ -116,7 +117,7 @@ class PostService
     {
         $post = $this->repository->publish($post);
 
-        //job
+        SendNotificationsToStudentJob::dispatch($post);
 
         return $post;
     }

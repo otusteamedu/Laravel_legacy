@@ -58,5 +58,13 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define(Ability::CHANGE_SETTINGS, function (User $user): bool {
             return $user->isAdmin();
         });
+
+        Gate::define(Ability::SEND, function (User $user, Post $post): bool {
+            if (!is_null($post->published_at)) {
+                return false;
+            }
+
+            return $user->isAdmin() || $user->id === $post->user_id;
+        });
     }
 }

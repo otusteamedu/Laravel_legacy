@@ -9,7 +9,9 @@ class StudentDTO implements DTOInterface
 
     /** @var int  */
     private $id_number;
-    /** @var int  */
+    /**
+     * @var int|null
+     */
     private $user_id;
 
     /**
@@ -17,7 +19,7 @@ class StudentDTO implements DTOInterface
      * @param int $idNumber
      * @param int $userId
      */
-    private function __construct(int $idNumber, int $userId)
+    private function __construct(int $idNumber, int $userId = null)
     {
         $this->id_number = $idNumber;
         $this->user_id = $userId;
@@ -29,7 +31,7 @@ class StudentDTO implements DTOInterface
      */
     public static function fromArray(array $data): DTOInterface
     {
-        return new static($data[static::ID_NUMBER], $data[static::USER_ID]);
+        return new static($data[static::ID_NUMBER], $data[static::USER_ID] ?? null);
     }
 
     /**

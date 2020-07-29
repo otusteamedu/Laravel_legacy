@@ -16,4 +16,6 @@ class Ability
     const UPDATE_TEACHER = 'update-teacher';
     const DELETE_TEACHER = 'delete-teacher';
     const CHANGE_SETTINGS = 'change-settings';
+
+    const SEND = 'send';
 }

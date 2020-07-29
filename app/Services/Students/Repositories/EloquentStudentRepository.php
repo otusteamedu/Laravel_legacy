@@ -143,7 +143,7 @@ class EloquentStudentRepository implements StudentRepositoryInterface
      */
     public function getStudentByIdNumber(StudentDTO $DTO): ?Student
     {
-        return Student::idNumber($DTO->toArray(StudentDTO::ID_NUMBER))->first();
+        return Student::idNumber($DTO->toArray()[StudentDTO::ID_NUMBER])->first();
     }
 
     /**

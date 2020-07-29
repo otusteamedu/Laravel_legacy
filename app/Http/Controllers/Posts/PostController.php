@@ -9,11 +9,11 @@ use App\Http\Controllers\Posts\Requests\StorePostRequest;
 use App\Http\Controllers\Posts\Requests\UpdatePostRequest;
 use App\Models\Post;
 use App\Services\Groups\GroupService;
+use App\Services\Helpers\Ability;
 use App\Services\Posts\PostService;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\View\View;
 
 class PostController extends Controller
@@ -144,6 +144,7 @@ class PostController extends Controller
      */
     public function send(Post $post): RedirectResponse
     {
+        Gate::authorize(Ability::SEND, $post);
         $post = $this->service->send($post);
 
         return redirect()->route('posts.show', $post)

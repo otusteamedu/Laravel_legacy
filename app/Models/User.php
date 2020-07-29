@@ -76,6 +76,12 @@ use Watson\Rememberable\Rememberable;
  * @property-read int|null $subjects_count
  * @property string|null $locale
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User byRole($roleId)
+ * @property-read string $full_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\TelegramUser[] $telegramUsers
+ * @property-read int|null $telegram_users_count
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User email($email)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User lastName($lastName)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereLocale($value)
  */
 class User extends Authenticatable
 {
@@ -219,6 +225,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany
+     */
+    public function telegramUsers(): HasMany
+    {
+        return $this->hasMany(TelegramUser::class);
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function groups(): BelongsToMany
@@ -277,12 +291,5 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    public function routeNotificationForTelegram()
-    {
-        $this->telegram_user_id = TelegramUser::find(494889768)->id;
-        $this->telegram_user_id = TelegramUser::first();
-        return $this->telegram_user_id;
     }
 }

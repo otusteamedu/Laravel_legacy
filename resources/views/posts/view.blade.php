@@ -23,7 +23,7 @@
         </tr>
     </table>
 
-    @can(\App\Services\Helpers\Ability::DELETE, $post)
+    @can(\App\Services\Helpers\Ability::SEND, $post)
         @include('blocks.buttons.send', [
             'src' => route('posts.send', $post),
         ])

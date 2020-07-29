@@ -16,6 +16,8 @@ use App\Services\Subjects\Repositories\EloquentSubjectRepository;
 use App\Services\Subjects\Repositories\SubjectRepositoryInterface;
 use App\Services\Teachers\Repositories\EloquentTeacherRepository;
 use App\Services\Teachers\Repositories\TeacherRepositoryInterface;
+use App\Services\Telegram\Repositories\EloquentTelegramRepository;
+use App\Services\Telegram\Repositories\TelegramRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use App\Services\Years\Repositories\EloquentYearRepository;
@@ -39,6 +41,7 @@ class AppServiceProvider extends ServiceProvider
         EducationPlanRepositoryInterface::class => EloquentEducationPlanRepository::class,
         SettingRepositoryInterface::class => EloquentSettingRepository::class,
         PostRepositoryInterface::class => EloquentPostRepository::class,
+        TelegramRepositoryInterface::class => EloquentTelegramRepository::class,
     ];
 
     /**
