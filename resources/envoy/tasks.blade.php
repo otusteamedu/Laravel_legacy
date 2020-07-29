@@ -1,0 +1,5 @@
+@import('resources/envoy/tasks/artisan.blade.php')
+@import('resources/envoy/tasks/deploy.blade.php')
+@import('resources/envoy/tasks/migrates.blade.php')
+@import('resources/envoy/tasks/project.blade.php')
+@import('resources/envoy/tasks/test.blade.php')
