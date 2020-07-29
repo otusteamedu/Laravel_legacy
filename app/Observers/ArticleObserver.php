@@ -20,7 +20,7 @@ class ArticleObserver
 
     public function __construct(ArticlesService $articlesService)
     {
-        $this->$articlesService = $articlesService;
+        $this->articlesService = $articlesService;
     }
 
     /**
