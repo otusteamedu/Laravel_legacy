@@ -4,7 +4,9 @@
 namespace App\Services\Projects\Repositories;
 
 
+use App\Builders\QueryBuilder;
 use App\Models\Project;
+use Illuminate\Database\Eloquent\Collection;
 
 class EloquentProjectsRepository implements ProjectsRepositoryInterface
 {
@@ -19,10 +21,16 @@ class EloquentProjectsRepository implements ProjectsRepositoryInterface
         return Project::paginate($limit);
     }
 
+    public function getBy(QueryBuilder $builder): Collection
+    {
+        $builder = $builder->build(Project::query());
+
+        return $builder->get();
+    }
+
     public function createFromArray(array $data): Project
     {
-        $project = new Project();
-        $project->create($data);
+        $project = (new Project())->create($data);
 
         return $project;
     }
