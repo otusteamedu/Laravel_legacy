@@ -3,15 +3,15 @@
 @section('app_content')
     @include('posts.filter')
     @include('blocks.pages.list', [
-        'items' => [
-            [
-                'author' => 'Test',
-                'title' => 'test',
-                'date' => '2020-01-01',
-                'status' => 'public',
-                'groups' => '111, 211',
-                'subjects' => 'math',
-            ],
+        'tableContent' => 'posts.table_content',
+        'content' => [
+            'titles' => $titles,
+            'items' => $posts,
         ],
     ])
+
+    @can(\App\Services\Helpers\Ability::CREATE, \App\Models\Post::class)
+        <hr>
+        @include('blocks.buttons.add', ['src' => route('posts.create')])
+    @endcan
 @endsection

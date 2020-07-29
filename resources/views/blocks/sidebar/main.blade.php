@@ -29,7 +29,7 @@
     <a class="nav-link" href="#">@lang('scheduler.rooms')</a>
 </li>
 <li class="nav-item">
-    <a class="nav-link" href="#">@lang('scheduler.news')</a>
+    <a class="nav-link" href="{{ route('posts.index') }}">@lang('scheduler.news')</a>
 </li>
 <li class="nav-item">
     <a class="nav-link" href="#">@lang('scheduler.schedule')</a>

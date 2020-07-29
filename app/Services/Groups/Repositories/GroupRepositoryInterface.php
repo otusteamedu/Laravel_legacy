@@ -5,6 +5,7 @@ namespace App\Services\Groups\Repositories;
 use App\DTOs\GroupDTO;
 use App\DTOs\GroupFilterDTO;
 use App\Models\Group;
+use App\Models\Role;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 
@@ -41,9 +42,10 @@ interface GroupRepositoryInterface
     public function getGroupsListPaginate(int $perPage, GroupFilterDTO $DTO): LengthAwarePaginator;
 
     /**
+     * @param Role|null $userRole
      * @return Collection
      */
-    public function selectList(): Collection;
+    public function selectList(Role $userRole = null): Collection;
 
     /**
      * @return Collection

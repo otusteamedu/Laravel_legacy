@@ -82,4 +82,7 @@ return [
     'education_year' => 'Education year',
 
     'dashboard' => 'Dashboard',
+
+    'published_at' => 'Published at',
+    'id' => 'ID',
 ];

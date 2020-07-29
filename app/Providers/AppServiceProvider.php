@@ -6,6 +6,8 @@ use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Repositories\EloquentCourseRepository;
 use App\Services\EducationPlans\Repositories\EducationPlanRepositoryInterface;
 use App\Services\EducationPlans\Repositories\EloquentEducationPlanRepository;
+use App\Services\Posts\Repositories\EloquentPostRepository;
+use App\Services\Posts\Repositories\PostRepositoryInterface;
 use App\Services\Settings\Repositories\EloquentSettingRepository;
 use App\Services\Settings\Repositories\SettingRepositoryInterface;
 use App\Services\Students\Repositories\EloquentStudentRepository;
@@ -36,6 +38,7 @@ class AppServiceProvider extends ServiceProvider
         SubjectRepositoryInterface::class => EloquentSubjectRepository::class,
         EducationPlanRepositoryInterface::class => EloquentEducationPlanRepository::class,
         SettingRepositoryInterface::class => EloquentSettingRepository::class,
+        PostRepositoryInterface::class => EloquentPostRepository::class,
     ];
 
     /**
@@ -55,8 +58,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(Request $request)
     {
-        if ($request->server->has('HTTP_X_ORIGINAL_HOST')) {
-            $this->app['url']->forceRootUrl('https://'.$request->server->get('HTTP_X_ORIGINAL_HOST'));
+        if (env('USE_NGROK_LOCAL', false)) {
+            if ($request->server->has('HTTP_X_ORIGINAL_HOST')) {
+                $this->app['url']->forceRootUrl('https://' . $request->server->get('HTTP_X_ORIGINAL_HOST'));
+            }
         }
     }
 }

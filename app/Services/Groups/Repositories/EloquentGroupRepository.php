@@ -5,9 +5,11 @@ namespace App\Services\Groups\Repositories;
 use App\DTOs\GroupDTO;
 use App\DTOs\GroupFilterDTO;
 use App\Models\Group;
+use App\Models\Role;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class EloquentGroupRepository
@@ -116,11 +118,20 @@ class EloquentGroupRepository implements GroupRepositoryInterface
     }
 
     /**
+     * @param Role|null $userRole
      * @return Collection
      */
-    public function selectList(): Collection
+    public function selectList(Role $userRole = null): Collection
     {
-        return Group::pluck('number', 'id');
+        $groups = Group::query()
+            ->when(($userRole && ($userRole->name === 'teacher')), function (Builder $builder) {
+                $builder->whereHas('teachers', function (Builder $builder): void {
+                    $builder->where('groups.id', Auth::id());
+                });
+            })
+            ->pluck('number', 'id');
+
+        return $groups;
     }
 
     /**

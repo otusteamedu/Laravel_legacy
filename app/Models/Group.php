@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
 /**
  * App\Models\Group
@@ -157,5 +158,13 @@ class Group extends CacheModel
     public function getGroupCourseAttribute(): string
     {
         return $this->number . ' | ' . $this->course->number ?? ' - ';
+    }
+
+    /**
+     * @return MorphToMany
+     */
+    public function receivePosts(): MorphToMany
+    {
+        return $this->morphToMany(Post::class, 'postable');
     }
 }

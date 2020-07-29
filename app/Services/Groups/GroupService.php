@@ -6,6 +6,7 @@ use App\DTOs\GroupDTO;
 use App\DTOs\GroupFilterDTO;
 use App\Models\Course;
 use App\Models\Group;
+use App\Models\Role;
 use App\Services\Groups\Handlers\CreateGroupHandler;
 use App\Services\Groups\Handlers\DeleteGroupHandler;
 use App\Services\Groups\Handlers\UpdateGroupHandler;
@@ -140,11 +141,12 @@ class GroupService implements CacheService
 
     /**
      * Возвращает список групп вида [id => number]
+     * @param Role|null $userRole
      * @return array
      */
-    public function groupSelectList(): array
+    public function groupSelectList(Role $userRole = null): array
     {
-        return $this->repository->selectList()->toArray();
+        return $this->repository->selectList($userRole)->toArray();
     }
 
     /**

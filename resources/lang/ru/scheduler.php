@@ -82,4 +82,7 @@ return [
     'education_year' => 'Учебный год',
 
     'dashboard' => 'Рабочая панель',
+
+    'published_at' => 'Дата публикации',
+    'id' => 'ID',
 ];

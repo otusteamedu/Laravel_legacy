@@ -11,4 +11,5 @@ return [
     'update' => 'Update',
     'delete' => 'Delete',
     'close' => 'Close',
+    'send' => 'Send',
 ];

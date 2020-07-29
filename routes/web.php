@@ -3,13 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\Telegram\TelegramController;
-use App\Models\TelegramUser;
-use App\Models\User;
-use App\Notifications\StudentNotification;
-use GuzzleHttp\Client;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Telegram\Bot\Laravel\Facades\Telegram;
 use Vrnvgasu\Localization\Middleware\Localization;
@@ -33,10 +27,6 @@ Route::group(array(
     Auth::routes(['register' => false]);
 
     Route::get('/', [SiteController::class, 'index'])->name('main');
-    Route::get('/test', function (Request $request) {
-        //User::find(1)->notify(new StudentNotification('я могу по расписанию писать'));
-        Cache::flush();
-    })->name('test');
 
     Route::group([
         'prefix' => 'dashboard',
@@ -48,7 +38,10 @@ Route::group(array(
             '/groups' => 'Groups\GroupController',
             '/students' => 'Students\StudentController',
             '/teachers' => 'Teachers\TeacherController',
+            '/posts' => 'Posts\PostController',
         ]);
+
+        Route::get('/{post}/send', 'Posts\PostController@send')->name('posts.send');
     });
 
     Route::group([

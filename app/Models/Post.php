@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 
@@ -35,10 +36,50 @@ use Illuminate\Database\Eloquent\Relations\MorphToMany;
  */
 class Post extends BaseModel
 {
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'title',
+        'body',
+        'user_id',
+    ];
+
     /** @var array  */
     protected $casts = [
         'published_at' => 'datetime',
     ];
+
+    /**
+     * @param Builder $builder
+     * @param string $title
+     * @return Builder
+     */
+    public function scopeByTitle(Builder $builder, string $title): Builder
+    {
+        return $builder->where('title', 'ilike', ('%' . $title . '%'));
+    }
+
+    /**
+     * @param Builder $builder
+     * @param array $groupsId
+     * @return Builder
+     */
+    public function scopeByGroups(Builder $builder, array $groupsId): Builder
+    {
+        return $builder->whereHas('groups', function (Builder $builder) use ($groupsId): void {
+            $builder->whereIn('groups.id', $groupsId);
+        });
+    }
+
+    /**
+     * @param Builder $builder
+     * @return Builder
+     */
+    public function scopeIsPublished(Builder $builder): Builder
+    {
+        return $builder->whereNotNull('published_at');
+    }
 
     /**
      * @return BelongsTo
@@ -54,5 +95,13 @@ class Post extends BaseModel
     public function users(): MorphToMany
     {
         return $this->morphedByMany(User::class, 'postable');
+    }
+
+    /**
+     * @return MorphToMany
+     */
+    public function groups(): MorphToMany
+    {
+        return $this->morphedByMany(Group::class, 'postable');
     }
 }
