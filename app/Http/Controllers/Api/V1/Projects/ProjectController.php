@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Projects;
+namespace App\Http\Controllers\Api\V1\Projects;
 
-use App\Builders\QueryBuilder;
-use App\Http\Controllers\Api\Projects\Requests\ProjectListRequest;
-use App\Http\Controllers\Api\Projects\Requests\ProjectSaveRequest;
-use App\Http\Controllers\Api\Projects\Resources\ProjectResource;
+use App\Http\Controllers\Api\V1\Projects\Requests\ProjectListRequest;
+use App\Http\Controllers\Api\V1\Projects\Requests\ProjectSaveRequest;
+use App\Http\Controllers\Api\V1\Projects\Resources\ProjectResource;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\Projects\Resources\ProjectCollectionResource;
+use App\Http\Controllers\Api\V1\Projects\Resources\ProjectCollectionResource;
 use App\Models\Project;
 use App\Services\Projects\ProjectsService;
 
@@ -35,13 +34,10 @@ class ProjectController extends Controller
     {
         $this->authorize('project.viewAny');
 
-        $builder = new QueryBuilder();
-        $builder->setLimit($request->getLimit())->setOffset($request->getOffset());
-
-        $collection = $this->projectsService->getAll($builder);
+        $collection = $this->projectsService->getAll($request->getBuilder());
 
         $resource = new ProjectCollectionResource($collection);
-        $resource->with['total'] = $builder->getTotal();
+        $resource->with['total'] = $request->getBuilder()->getTotal();
 
         return $resource;
     }

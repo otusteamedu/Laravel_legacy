@@ -4,6 +4,7 @@
 namespace App\Services\Users;
 
 
+use App\Builders\QueryBuilder;
 use App\Jobs\Queue;
 use App\Mail\Clients\InviteMail;
 use App\Models\User;
@@ -14,6 +15,7 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Database\Eloquent\Collection;
 
 /**
  * Class UsersService
@@ -74,6 +76,18 @@ class UsersService
     }
 
     /**
+     * Получить список проектов
+     *
+     * @param QueryBuilder $builder
+     *
+     * @return Collection
+     */
+    public function getAll(QueryBuilder $builder): Collection
+    {
+        return $this->usersRepository->getBy($builder);
+    }
+
+    /**
      * Создать пользователя
      *
      * @param array $data
@@ -106,9 +120,9 @@ class UsersService
      *
      * @param User $user
      *
-     * @return mixed
+     * @return bool|null
      */
-    public function deleteUser(User $user): User
+    public function deleteUser(User $user): ?bool
     {
         if (Auth::id() == $user->id) {
             throw new IncorrectUserException();

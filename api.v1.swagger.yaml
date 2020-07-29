@@ -1,0 +1,363 @@
+swagger: "2.0"
+info:
+  description: "Пример API для ДЗ OTUS"
+  version: "1.0.0"
+  title: "OTUS CRM API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "info@codre.ru"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "otus.test"
+basePath: "/v1"
+tags:
+- name: "user"
+  description: "Работа с текущим пользователем"
+- name: "projects"
+  description: "Работа со списком проектов"
+- name: "clients"
+  description: "Работа со списком клиентов"
+schemes:
+- "https"
+- "http"
+paths:
+  /user:
+    get:
+      tags:
+      - "user"
+      summary: "Получить информацию о текущем пользователе"
+      description: ""
+      operationId: "api.user"
+      produces:
+      - "application/json"
+      responses:
+       "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      security:
+      - oauth: []
+  /projects:
+    get:
+      tags:
+      - "projects"
+      summary: "Получить список проектов"
+      operationId: "api.projects.list"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Список проектов"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Projects"
+      security:
+      - oauth: []
+    post:
+      tags:
+        - "projects"
+      summary: "Добавить новый проект"
+      operationId: "api.projects.store"
+      consumes:
+      - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "Название проекта"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Проект успешно создан"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Project"
+      security:
+      - oauth: []
+  /projects/{id}:
+    get:
+      tags:
+      - "projects"
+      summary: "Получить данные проекта по ID"
+      operationId: "api.projects.show"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id проекта"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Информация о проекте"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Project"
+      security:
+        - oauth: []
+    put:
+      tags:
+      - "projects"
+      summary: "Обновить данные проекта"
+      operationId: "api.projects.update"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id проекта"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "name"
+          in: "formData"
+          description: "Название проекта"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Проект успешно обновлён"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Project"
+      security:
+        - oauth: []
+    delete:
+      tags:
+      - "projects"
+      summary: "Удалить проект"
+      operationId: "api.projects.delete"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id проекта"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Проект успешно удалён"
+          schema:
+            type: "array"
+            items: 
+              $ref: "#/definitions/Status"
+      security:
+        - oauth: []
+        
+  /clients:
+    get:
+      tags:
+      - "clients"
+      summary: "Получить список клиентов"
+      operationId: "api.clients.list"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Список клиентов"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Users"
+      security:
+      - oauth: []
+    post:
+      tags:
+        - "clients"
+      summary: "Пригласить нового клиента"
+      operationId: "api.clients.store"
+      consumes:
+      - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "name"
+        in: "formData"
+        description: "Название клиента"
+        required: true
+        type: "string"
+      - name: "email"
+        in: "formData"
+        description: "E-mail клиента"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "Клиент успешно создан"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      security:
+      - oauth: []
+  /clients/{id}:
+    get:
+      tags:
+      - "clients"
+      summary: "Получить данные клиента по ID"
+      operationId: "api.clients.show"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id клиента"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Информация о клиенте"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      security:
+        - oauth: []
+    put:
+      tags:
+      - "clients"
+      summary: "Обновить данные клиент"
+      operationId: "api.clients.update"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          description: "Id проекта"
+          required: true
+          type: "integer"
+          format: "int64"
+        - name: "name"
+          in: "formData"
+          description: "Название клиента"
+          required: true
+          type: "string"
+        - name: "email"
+          in: "formData"
+          description: "E-mail клиента"
+          required: true
+          type: "string"
+      responses:
+        "200":
+          description: "Клиент успешно обновлён"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/User"
+      security:
+        - oauth: []
+    delete:
+      tags:
+      - "clients"
+      summary: "Удалить клиента"
+      operationId: "api.clients.delete"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "id"
+        in: "path"
+        description: "Id клиента"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "Клиент успешно удалён"
+          schema:
+            type: "array"
+            items: 
+              $ref: "#/definitions/Status"
+      security:
+        - oauth: []
+        
+securityDefinitions:
+  oauth:
+    type: "oauth2"
+    tokenUrl: "http://otus.test/oauth/token"
+    flow: "password"
+    
+definitions:
+  Project:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+  User:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      group_id:
+        type: "integer"
+        format: "int64"
+      group_name:
+        type: "string"
+      name:
+        type: "string"
+      email:
+        type: "string"
+      balance:
+        type: "integer"
+        format: "int64"
+      create_at:
+        type: "string"
+        format: "date-time"
+  Projects:
+    type: "object"
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/Project"
+      limit:
+        type: "integer"
+        format: "int64"
+      offset:
+        type: "integer"
+        format: "int64"
+      total:
+        type: "integer"
+        format: "int64"
+  Users:
+    type: "object"
+    properties:
+      data:
+        type: array
+        items:
+          $ref: "#/definitions/User"
+      limit:
+        type: "integer"
+        format: "int64"
+      offset:
+        type: "integer"
+        format: "int64"
+      total:
+        type: "integer"
+        format: "int64"
+  Status:
+    type: "object"
+    properties:
+      status: 
+        type: "string"

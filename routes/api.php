@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::middleware('auth:api')->group(function () {
-    Route::get('/user', function(Request $request) {
-        return $request->user();
-    });
-    Route::apiResource('projects', 'Api\Projects\ProjectController');
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'Api\V1',
+    'as' => 'api.',
+    'middleware' => ['auth:api'],
+], function() {
+    Route::apiResource('projects', 'Projects\ProjectController');
+    Route::apiResource('clients', 'Clients\ClientController');
+    Route::get('/user', 'Clients\ClientController@current')->name('user');
 });

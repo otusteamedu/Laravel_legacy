@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Projects\Resources;
+namespace App\Http\Controllers\Api\V1\Projects\Resources;
 
-use App\Http\Controllers\Api\Projects\Requests\ProjectListRequest;
+use App\Http\Controllers\Api\V1\Projects\Requests\ProjectListRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 

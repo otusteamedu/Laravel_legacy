@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Watson\Rememberable\Rememberable;
 
 /**
@@ -55,7 +56,7 @@ use Watson\Rememberable\Rememberable;
  */
 class User extends Authenticatable
 {
-    use Notifiable, SoftDeletes, Rememberable;
+    use Notifiable, SoftDeletes, Rememberable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.

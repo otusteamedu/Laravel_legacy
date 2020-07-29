@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class StoreUserRequest extends UpdateUserRequest
 {
@@ -27,7 +28,7 @@ class StoreUserRequest extends UpdateUserRequest
 
         $data['created_at'] = Carbon::create()->subDay();
         $data['balance'] = 0;
-        $data['password'] = app(\Faker\Generator::class)->password;
+        $data['password'] = Hash::make(app(\Faker\Generator::class)->password);
 
         return $data;
     }
