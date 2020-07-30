@@ -13,8 +13,16 @@ use Illuminate\Http\Request;
 |
 */
 
+//Route::middleware('auth:api')->group(function () {
+//    Route::apiResource('countries', 'Api\Cms\Countries\CountriesController', [
+//        'except' => [
+//            'destroy',
+//        ],
+//    ]);
+//});
+
 Route::middleware('auth:api')->group(function () {
-    Route::apiResource('countries', 'Api\Cms\Countries\CountriesController', [
+    Route::apiResource('countries', 'Api\Countries\CountriesController', [
         'except' => [
             'destroy',
         ],

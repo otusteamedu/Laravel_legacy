@@ -46,11 +46,14 @@ class CountriesService
     }
 
     /**
+     * @param array $filters
+     * @param int $limit
+     * @param int $offset
      * @return Collection
      */
-    public function getAll(): Collection
+    public function getAll(array $filters, int $limit, int $offset): Collection
     {
-        return $this->cachedCountryRepository->getBy();
+        return $this->cachedCountryRepository->getBy($filters, [], $limit, $offset);
     }
 
     /**

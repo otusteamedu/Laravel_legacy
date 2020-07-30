@@ -49,7 +49,7 @@ class CountriesController extends CmsController
 
     /**
      * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws AuthorizationException
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -63,9 +63,11 @@ class CountriesController extends CmsController
         ]);
         $data = $request->all();
         $data['created_user_id'] = Auth::id();
-        $country = $this->countriesService->storeCountry($data);
+        $this->countriesService->storeCountry($data);
 
-        return response()->json($country, 201);
+        $this->setSuccessSavedState();
+
+        return redirect(RouteBuilder::localeRoute('cms.countries.index'));
     }
 
     /**

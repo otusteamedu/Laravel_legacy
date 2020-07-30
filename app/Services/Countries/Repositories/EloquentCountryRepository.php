@@ -22,11 +22,23 @@ class EloquentCountryRepository implements CountryRepositoryInterface
     /**
      * @param array $filters
      * @param array $with
-     * @return Country[]|Collection
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return Collection
      */
-    public function getBy(array $filters = [], array $with = [])
+    public function getBy(array $filters = [], array $with = [], ?int $limit = null, ?int $offset = null): Collection
     {
-        return Country::with($with)->get();
+        $country = Country::query();
+        if ($limit) {
+            $country->take($limit);
+        }
+        if ($offset) {
+            $country->skip($offset);
+        }
+        $country->with($with);
+        return $country->get([
+            'countries.*'
+        ]);
     }
 
     /**

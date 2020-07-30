@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Collection;
 interface CachedCountryRepositoryInterface
 {
 
-    public function getBy(array $filters = [], array $with = []): Collection;
+    public function getBy(array $filters = [], array $with = [], ?int $limit = null, ?int $offset = null): Collection;
 
     public function search(array $filters = [], array $with = []);
 

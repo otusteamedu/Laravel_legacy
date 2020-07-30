@@ -32,13 +32,17 @@ class CachedCountryRepository implements CachedCountryRepositoryInterface
         $this->cacheKeyManager = $cacheKeyManager;
     }
 
-    public function getBy(array $filters = [], array $with = []): Collection
+    public function getBy(array $filters = [], array $with = [], ?int $limit = null, ?int $offset = null): Collection
     {
-        $key = $this->cacheKeyManager->getSearchCountriesKey($filters);
+        $searchData = array_merge($filters, [
+            'limit' => $limit,
+            'offset' => $offset,
+        ]);
+        $key = $this->cacheKeyManager->getSearchCountriesKey($searchData);
 
         return Cache::tags([Tag::CMS, Tag::COUNTRIES])
-            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($filters, $with) {
-                return $this->countryRepository->getBy($filters, $with);
+            ->remember($key, self::CACHE_SEARCH_SECONDS, function () use ($filters, $with, $limit, $offset) {
+                return $this->countryRepository->getBy($filters, $with, $limit, $offset);
             });
     }
 

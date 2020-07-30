@@ -18,8 +18,10 @@
             ],
         ];
     @endphp
+
     @include('blocks.breadcrumbs.index', ['breadcrumbs' => $breadcrumbs])
     @include('countries.blocks.header.list')
+    @include('cms.blocks.form.messages')
     @include('countries.blocks.list.index')
 </div>
 @endsection
