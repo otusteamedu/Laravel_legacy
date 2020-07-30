@@ -4,7 +4,7 @@
 namespace App\Services\Adverts;
 
 
-class PaginateDto
+class PaginateDTO
 {
 
     public $items;

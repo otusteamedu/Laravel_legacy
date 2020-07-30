@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Advert\Domain\Model\Vo;
+namespace App\Advert\Domain\Model\VO;
 
 
 class Img

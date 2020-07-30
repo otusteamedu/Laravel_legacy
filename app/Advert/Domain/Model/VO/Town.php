@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Advert\Domain\Model\Vo;
+namespace App\Advert\Domain\Model\VO;
 
 
 class Town
@@ -10,15 +10,15 @@ class Town
     private $name;
     private $state;
 
-    public function __construct($name, $state)
+    public function __construct(string $name, string $state)
     {
         $this->name = $name;
         $this->state = $state;
     }
 
-    public function getName(): string
+    public function getName(): array
     {
-        return $this->name.'-'.$this->state;
+        return [$this->name, $this->state];
     }
 
 }

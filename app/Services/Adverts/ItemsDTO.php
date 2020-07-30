@@ -4,7 +4,7 @@
 namespace App\Services\Adverts;
 
 
-class ItemsDto
+class ItemsDTO
 {
 
     public $items;

@@ -63,7 +63,7 @@ class HomeController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreAdvertRequest $request
-     * @return Response
+     * @return void
      */
     public function store(StoreAdvertRequest $request)
     {
@@ -95,8 +95,8 @@ class HomeController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return Response
+     * @param int $id
+     * @return void
      */
     public function edit($id)
     {
