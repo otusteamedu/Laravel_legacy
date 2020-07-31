@@ -24,13 +24,12 @@
     </td>
     <td class="project-actions text-right">
 
-
-        <a class="btn btn-info btn-sm" href="{{ route('cms.films.edit', ['film' => $film]) }}">
+        <a class="btn btn-info btn-sm" href="{{ App\Helpers\RouteBuilder::localeRoute('cms.films.edit', ['film' => $film]) }}">
             <i class="fas fa-pencil-alt">
             </i>
             {{__('messages.filmEdit')}}
         </a>
-        {{ Form::open(['route'=>['cms.films.destroy', $film],'method'=>'delete']) }}
+        {{ Form::model($film, ['url' => App\Helpers\RouteBuilder::localeRoute('cms.films.destroy', ['film' => $film]), 'method' => 'delete']) }}
             <button onclick ="return confirm(' Вы уверены?')" type ="submit" class="btn btn-danger btn-sm">
                 <i class="fas fa-trash"></i>
             </button>

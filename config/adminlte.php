@@ -236,18 +236,15 @@ return [
             'search' => true,
             'topnav' => true,
         ],
-        [
-            'text' => 'blog',
-            'url' => 'admin/blog',
-            'can' => 'manage-blog',
-        ],
+       /*
+        для мультиязычности генерация меню корректно работает только в AppServiceProvider
+        ['header' => 'main_navigation', 'can'=>'main_navigation'],
         [
             'text' => 'pages',
-            'url' => 'admin/pages',
-            'icon' => 'far fa-fw fa-file',
-            'label' => 4,
-            'label_color' => 'success',
-            'can' => 'pages',
+            'url' =>'/admin/pages',
+             //App\Helpers\RouteBuilder::localeRoute('cms.pages.index'),
+            'icon' => 'fas fa-fw fa-file',
+            'can'=>'pages'
         ],
         [
             'text' => 'films',
@@ -257,6 +254,7 @@ return [
             'label_color' => 'success',
             'can' => 'films',
         ],
+        */
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
@@ -268,7 +266,7 @@ return [
             'url' => 'admin/settings',
             'icon' => 'fas fa-fw fa-lock',
         ],
-        [
+      /*  [
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -322,6 +320,7 @@ return [
             'icon_color' => 'cyan',
             'url' => '#',
         ],
+        */
     ],
 
     /*
@@ -344,6 +343,7 @@ return [
         JeroenNoten\LaravelAdminLte\Menu\Filters\GateFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\LangFilter::class,
         JeroenNoten\LaravelAdminLte\Menu\Filters\DataFilter::class,
+        App\AdminLte\MenuFilter::class,
     ],
 
     /*

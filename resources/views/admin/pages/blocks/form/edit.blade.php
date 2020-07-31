@@ -11,10 +11,10 @@
                 </div>
             </div>
             <div class="card-body">
-                {{ Form::model($page, ['url' => route('cms.pages.update', ['page' => $page]), 'method' => 'PUT']) }}
+                {{ Form::model($page, ['url' => App\Helpers\RouteBuilder::localeRoute('cms.pages.update', ['page' => $page])]) }}
                     @include('admin.pages.blocks.form.fields')
                     <div class="form-group">
-                        {{ Form::submit(trans('messages.edit'), array('class' => 'btn btn-success')) }}
+                        {{ Form::submit(trans('messages.pageEdit'), array('class' => 'btn btn-success')) }}
                     </div>
                 {{ Form::close() }}
             </div>

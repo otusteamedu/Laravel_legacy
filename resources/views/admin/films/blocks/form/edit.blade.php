@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                {{ Form::model($film, ['url' => route('cms.films.update', ['film' => $film]), 'method' => 'PUT']) }}
+                {{ Form::model($film, ['url' => App\Helpers\RouteBuilder::localeRoute('cms.films.update', ['film' => $film])]) }}
                     @include('admin.films.blocks.form.fields')
                     <div class="form-group">
                         {{ Form::submit(trans('messages.filmEdit'), array('class' => 'btn btn-success')) }}

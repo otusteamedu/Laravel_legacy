@@ -7,7 +7,7 @@
                 </h3>
             </div>
             <div class="card-body pad table-responsive">
-                <a style="width:30%;" href="{{ route('cms.films.create') }}" class="btn btn-block btn-primary">@lang('messages.addFilm')</a>
+                <a style="width:30%;" href="{{ App\Helpers\RouteBuilder::localeRoute('cms.films.create') }}" class="btn btn-block btn-primary">@lang('messages.addFilm')</a>
             </div>
             <!-- /.card -->
         </div>

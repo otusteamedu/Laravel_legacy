@@ -22,8 +22,10 @@ Route::get('/contacts', function () {
 });
 */
 Route::name('cms.')->group(function () {
-    Route::prefix('admin')->middleware([
+    Route::prefix('{locale}/admin')->middleware([
         'auth',
+        'shareCommonData:admin',
+        'localize'
     ])->group(function () {
         Route::get('/', 'Admin\DashboardController')->name('dashboard');
         Route::resources([
@@ -33,6 +35,7 @@ Route::name('cms.')->group(function () {
     });
 });
 
-Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+
+Route::view('/', 'home');
+Auth::routes();

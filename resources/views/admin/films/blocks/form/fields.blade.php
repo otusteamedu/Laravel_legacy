@@ -28,7 +28,8 @@
 
 <div class="form-group">
     {{ Form::label('status', trans('messages.filmStatus')) }}
-    {{ Form::select('status', ['Опубликовано' => 'Опубликовано', 'Не опубликовано' => 'Не опубликовано']) }}
+    {{ Form::select('status', [trans('messages.filmStatusPublished') => trans('messages.filmStatusPublished'), 
+    trans('messages.filmStatusNotPublished') => trans('messages.filmStatusNotPublished')]) }}
 </div>
 <div class="form-group">
     {{ Form::label('content', trans('messages.filmContent')) }}
