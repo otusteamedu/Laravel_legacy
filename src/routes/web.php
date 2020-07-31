@@ -36,7 +36,7 @@ Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
     'middleware' => [
-        // TODO: Добавсить авторизацию для администратора
+        'can:accessAdminPanel'
     ]
 ], function () {
     Route::resources([
