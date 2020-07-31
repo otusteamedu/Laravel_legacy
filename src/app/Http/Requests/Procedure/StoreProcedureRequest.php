@@ -24,6 +24,7 @@ class StoreProcedureRequest extends FormRequest
     public function rules()
     {
         return [
+            "name" => 'required|string|max:150',
             "business_id" => 'required|integer',
             "worker_id" => 'required|integer',
             "duration" => 'required|integer',

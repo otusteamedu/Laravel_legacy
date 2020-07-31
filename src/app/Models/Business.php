@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Business
  *
  * @property int $id
+ * @property string $name
  * @property int|null $user_id
  * @property int|null $type_id
  * @property int $status
@@ -39,6 +40,7 @@ class Business extends Model
 
     public $fillable = [
         'id',
+        'name',
         'user_id',
         'type_id',
         'status',

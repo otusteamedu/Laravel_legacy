@@ -16,6 +16,10 @@
         <td>{{ $business->id }}</td>
     </tr>
     <tr>
+        <th scope="row">Name</th>
+        <td>{{ $business->name }}</td>
+    </tr>
+    <tr>
         <th scope="row">Username</th>
         <td>{{ $business->user->name }}</td>
     </tr>

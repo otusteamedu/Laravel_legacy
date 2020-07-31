@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * App\Models\Procedure
  *
  * @property int $id
+ * @property string $name
  * @property int $business_id
  * @property int|null $worker_id id пользователя, к которому привязана процедура
  * @property int $duration Продолжительность в мин.
@@ -31,6 +32,7 @@ class Procedure extends Model
 {
     public $fillable = [
         'id',
+        'name',
         'business_id',
         'worker_id',
         'duration',

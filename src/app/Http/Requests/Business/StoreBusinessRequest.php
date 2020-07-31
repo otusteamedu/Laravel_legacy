@@ -24,6 +24,7 @@ class StoreBusinessRequest extends FormRequest
     public function rules()
     {
         return [
+            "name" => 'required|string|max:150',
             "user_id" => 'required|integer',
             "type_id" => 'required|integer',
             "status" => 'required|integer',
