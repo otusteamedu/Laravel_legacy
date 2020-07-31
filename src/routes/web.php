@@ -23,29 +23,13 @@ Route::group([
     ]
 ], function () {
     Route::get('/home', [HomeController::class, 'home']);
-});
-
-
-Route::get('/records', function () {
-    return view('records.history');
-});
-Route::get('/staff', function () {
-    return view('staff.index');
-});
-Route::get('/procedures', function () {
-    return view('procedures.index');
-});
-Route::get('/statistic', function () {
-    return view('statistic.index');
-});
-Route::get('/business', function () {
-    return view('business.index');
-});
-Route::get('/feedback', function () {
-    return view('feedback.index');
-});
-Route::get('/message', function () {
-    return view('message.index');
+    Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index']);
+    Route::get('/staff', [\App\Http\Controllers\StaffController::class, 'index']);
+    Route::get('/procedures', [\App\Http\Controllers\ProcedureController::class, 'index']);
+    Route::get('/statistic', [\App\Http\Controllers\StatisticController::class, 'index']);
+    Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index']);
+    Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
+    Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
 });
 
 Route::group([
