@@ -13,5 +13,17 @@
         <a class="p-2 text-dark" href="/procedures">Процедуры</a>
         <a class="p-2 text-dark" href="/statistic">Статистика</a>
     </nav>
-    <a class="btn btn-outline-primary" href="/logout">Выход</a>
+
+    @if (Route::has('login'))
+        <div class="top-right links">
+            @auth
+                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                    @csrf
+                    <button class="btn btn-sm btn-outline-danger">
+                        <i class="fa fa-sign-out-alt"></i> Выход
+                    </button>
+                </form>
+            @endauth
+        </div>
+    @endif
 </div>
