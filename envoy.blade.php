@@ -1,21 +1,23 @@
 @servers(['local' => '127.0.0.1'])
 
 @setup
-    $deployDir = "../deploy/releases";
+    $appDir = "../app";
+    $deployDir = "../app/releases";
 	$releaseDate = date('YmdHis');
     $releaseDir = $deployDir .'/'. $releaseDate;
     $repository = "https://github.com/otusteamedu/Laravel";
     $branch = "SDavidenko/master";
-
 @endsetup
 
 @story('deploy',  ['on' => 'local'])
     git:clone
     composer:install
+    symlinks
     migrate
     cache:clear
     supervisor:restart
     tests:run
+    deploy:end
 @endstory
 
 @task('git:clone')
@@ -30,8 +32,17 @@
     composer install
 @endtask
 
+@task('symlinks')
+    echo "Linking..."
+    rm -rf {{$releaseDir}}/storage
+    echo 'Linking storage...'
+    ln -nsf {{$appDir}}/storage {{$releaseDir}}/storage
+    echo 'Linking .env file...'
+    ln -nsf {{$appDir}}/.env {{$releaseDir}}/.env
+@endtask
+
 @task('migrate')
-	echo "database migrate..."
+	echo "Database migrate..."
     cd {{$releaseDir}}
     php artisan migrate
 @endtask
@@ -52,4 +63,14 @@
 	echo "testing..."
     cd {{$releaseDir}}
     php vendor/bin/phpunit
+@endtask
+
+@task('deploy:end')
+    echo "End deploy..."
+    echo 'Linking current release...'
+    ln -nsf {{$releaseDir}} {{$appDir}}/current
+    cd {{$deployDir}}
+    echo "Removing old releases..."
+    rm -r `ls -1t $d | head -n-5`
+    echo "SUCCESS!"
 @endtask
