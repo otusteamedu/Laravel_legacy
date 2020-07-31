@@ -80,4 +80,22 @@ class User extends Authenticatable
     {
         return $this->level === self::LEVEL_MODERATOR;
     }
+
+    /*
+    * проверка уровня доступа
+    * необходимо возвращать всегда массив
+    */
+    public function isNeedToCheckAccess(array $item): array
+    {
+        if (isset($item['can'])) {
+            //если пользователь, то не показываем основное меню
+            if (\Auth::user()->level == 1) {
+                $item['restricted'] = true;
+            } else {
+                $item['restricted'] = false;
+            }
+        }
+
+        return $item;
+    }
 }

@@ -5,7 +5,7 @@ use App;
 
 class RouteBuilder
 {
-    public static function localeRoute($name, $parameters = [], $absolute = true): string
+    public static function localeRoute(string $name, array $parameters = [], bool $absolute = true): string
     {
         $locale = App::getLocale();
 

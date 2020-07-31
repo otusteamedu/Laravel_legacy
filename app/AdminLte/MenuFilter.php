@@ -7,20 +7,10 @@ use Laratrust\Laratrust;
 
 class MenuFilter implements FilterInterface
 {
-    public function transform($item)
+    public function transform($item): array
     {
-        if (isset($item['can'])) {
-            $levelUser = \Auth::user()->level;
-            //если пользователь, то не показываем основное меню
-            if ($levelUser==1) {
-                $item['restricted'] = true;
-            } else {
-                $item['restricted'] = false;
-            }
-        }
-
-
-
+        $user = new User();
+        $item = $user->isNeedToCheckAccess($item);
         return $item;
     }
 }
