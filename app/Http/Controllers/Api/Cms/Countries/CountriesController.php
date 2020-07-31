@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CountriesResource;
 use App\Http\Resources\CountryResource;
 use App\Models\Country;
-use App\Models\DTO\CmsCountryDTO;
 use App\Policies\Abilities;
 use App\Services\Countries\CountriesService;
 use Illuminate\Http\Request;
@@ -78,8 +77,8 @@ class CountriesController extends Controller
     {
         $this->authorize(Abilities::UPDATE, $country);
         $this->validate($request, [
-//            'name' => 'required|unique:countries,name|max:100',
-            'continent_name' => 'required|max:20'
+            'name' => "nullable|max:100|unique:countries,name,{$country->id},id",
+            'continent_name' => 'nullable|max:20',
         ]);
 
         try {

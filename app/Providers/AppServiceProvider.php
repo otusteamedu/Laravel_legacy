@@ -14,6 +14,8 @@ use App\Services\Countries\Repositories\EloquentCountryRepository;
 use App\Services\Foo\Bar;
 use App\Services\Foo\Foo;
 use App\Services\Foo\FooInterface;
+use App\Services\Notifications\SMS\InfobipSmsSender;
+use App\Services\Notifications\SMS\SmsSender;
 use App\Services\SimpleBar;
 use App\Services\SimpleFoo;
 use Illuminate\Support\ServiceProvider;
@@ -42,12 +44,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->bootBladeStatements();
-        
+
         $this->bootBindingsEvents();
     }
 
     private function registerBindings()
     {
+        $this->app->bind(SmsSender::class, InfobipSmsSender::class);
         $this->app->bind(FooInterface::class, Foo::class);
         $this->app->bind(CountryRepositoryInterface::class, EloquentCountryRepository::class);
         $this->app->bind(CityRepositoryInterface::class, EloquentCityRepository::class);
