@@ -26,7 +26,7 @@ class GateServiceProvider extends ServiceProvider
     {
         // Доступ к админке
         Gate::define('accessAdminPanel', function (User $user) {
-            return $user->id == 4;
+            return $user->role->name == "admin";
         });
     }
 }
