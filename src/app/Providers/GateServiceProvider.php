@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Business;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -31,7 +32,12 @@ class GateServiceProvider extends ServiceProvider
 
         // Доступ к панели управления салоном
         Gate::define('accessBusinessPanel', function (User $user) {
-            return $user->business()->count();
+            return isset($user->business);
+        });
+
+        // Доступ к редактированию своего салона
+        Gate::define('accessMyBusinessPanel', function (User $user, Business $business) {
+            return $business->user_id == $user->id;
         });
     }
 }
