@@ -33,7 +33,10 @@ Route::group([
         Route::get('/staff', [\App\Http\Controllers\StaffController::class, 'index']);
         Route::get('/procedures', [\App\Http\Controllers\ProcedureController::class, 'index']);
         Route::get('/statistic', [\App\Http\Controllers\StatisticController::class, 'index']);
+
         Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index']);
+        Route::get('/business/create', [\App\Http\Controllers\BusinessController::class, 'create']);
+
         Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
         Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
     });

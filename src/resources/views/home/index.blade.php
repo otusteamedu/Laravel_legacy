@@ -4,8 +4,14 @@
 
 @section('content')
 
-    @include('records._records_table')
+    @include('blocks._header')
 
-    @include('statistic._small')
+    @can('accessBusinessPanel')
+        @include('records._records_table')
+
+        @include('statistic._small')
+    @else
+        @include('business._empty')
+    @endcan
 
 @stop

@@ -23,4 +23,16 @@ class BusinessController extends Controller
     {
         return view('business.index');
     }
+
+    /**
+     * Страница добавления салона
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View+
+     */
+    public function create()
+    {
+        $businessTypes = [];
+        return view('business.create', [
+            'businessTypes' => $businessTypes,
+        ]);
+    }
 }
