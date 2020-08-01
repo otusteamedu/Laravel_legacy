@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Procedure;
+namespace App\Http\Requests\Admin\Business;
 
 use App\Http\Requests\FormRequest;
 
-class StoreProcedureRequest extends FormRequest
+class StoreBusinessRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,11 +25,9 @@ class StoreProcedureRequest extends FormRequest
     {
         return [
             "name" => 'required|string|max:150',
-            "business_id" => 'required|integer',
-            "worker_id" => 'required|integer',
-            "duration" => 'required|integer',
-            "price" => 'required|numeric',
-            "people_count" => 'required|numeric',
+            "user_id" => 'required|integer',
+            "type_id" => 'required|integer',
+            "status" => 'required|integer',
         ];
     }
 

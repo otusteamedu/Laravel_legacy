@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Procedure\StoreProcedureRequest;
-use App\Http\Requests\Procedure\UpdateProcedureRequest;
+use App\Http\Requests\Admin\Procedure\StoreProcedureRequest;
+use App\Http\Requests\Admin\Procedure\UpdateProcedureRequest;
 use App\Models\Procedure;
 use App\Services\Admin\Businesses\BusinessService;
 use App\Services\Admin\Procedures\ProcedureService;

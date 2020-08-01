@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Business\StoreBusinessRequest;
-use App\Http\Requests\Business\UpdateBusinessRequest;
+use App\Http\Requests\Admin\Business\StoreBusinessRequest;
+use App\Http\Requests\Admin\Business\UpdateBusinessRequest;
 use App\Models\Business;
 use App\Providers\RouteServiceProvider;
 use App\Services\Admin\Businesses\BusinessService;

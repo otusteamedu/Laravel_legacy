@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Requests\Business;
+namespace App\Http\Requests\Admin\Business;
 
 class UpdateBusinessRequest extends StoreBusinessRequest
 {
