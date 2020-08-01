@@ -71,4 +71,13 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserRole::class, 'id', 'user_role_id');
     }
+
+    /**
+     * Салон пользователя
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function business()
+    {
+        return $this->hasOne(Business::class, 'user_id', 'id');
+    }
 }
