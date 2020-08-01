@@ -2,14 +2,14 @@
 
 namespace App\Providers;
 
-use App\Services\Businesses\Repositories\BusinessRepositoryInterface;
-use App\Services\Businesses\Repositories\EloquentBusinessRepository;
-use App\Services\BusinessTypes\Repositories\BusinessTypeRepositoryInterface;
-use App\Services\BusinessTypes\Repositories\EloquentBusinessTypeRepository;
-use App\Services\Procedures\Repositories\EloquentProcedureRepository;
-use App\Services\Procedures\Repositories\ProcedureRepositoryInterface;
-use App\Services\Users\Repositories\EloquentUserRepository;
-use App\Services\Users\Repositories\UserRepositoryInterface;
+use App\Services\Admin\Businesses\Repositories\BusinessRepositoryInterface;
+use App\Services\Admin\Businesses\Repositories\EloquentBusinessRepository;
+use App\Services\Admin\BusinessTypes\Repositories\BusinessTypeRepositoryInterface;
+use App\Services\Admin\BusinessTypes\Repositories\EloquentBusinessTypeRepository;
+use App\Services\Admin\Procedures\Repositories\EloquentProcedureRepository;
+use App\Services\Admin\Procedures\Repositories\ProcedureRepositoryInterface;
+use App\Services\Admin\Users\Repositories\EloquentUserRepository;
+use App\Services\Admin\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider

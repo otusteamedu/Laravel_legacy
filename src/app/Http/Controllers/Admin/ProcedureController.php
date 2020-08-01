@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Procedure\StoreProcedureRequest;
 use App\Http\Requests\Procedure\UpdateProcedureRequest;
 use App\Models\Procedure;
-use App\Services\Businesses\BusinessService;
-use App\Services\Procedures\ProcedureService;
+use App\Services\Admin\Businesses\BusinessService;
+use App\Services\Admin\Procedures\ProcedureService;
 use Illuminate\Support\Facades\Redirect;
 
 class ProcedureController extends Controller
