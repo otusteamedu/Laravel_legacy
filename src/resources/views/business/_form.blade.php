@@ -1,7 +1,15 @@
-<form>
+<?php
+$route = $business->id ? 'business.update' : 'business.store';
+$route_params = $business->id ? ["business" => $business->id] : [];
+$method = $business->id ? "PATCH" : "POST";
+?>
+
+@extends('blocks._form')
+
+@section('form_content')
     <div class="form-group">
         <label for="name">{{ __('forms.business.add.name') }}</label>
-        <input type="text" class="form-control" id="name">
+        <input type="text" class="form-control" name="name" value="{{ $business->name }}">
     </div>
 
     <div class="form-group">
@@ -17,6 +25,9 @@
     </div>
 
     <div class="form-group text-right py-4">
-        <button type="submit" class="btn btn-primary">{{ __('buttons.business.add') }}</button>
+
+        <button type="submit" class="btn btn-primary">
+            {{ $business->id ? __('buttons.business.edit') : __('buttons.business.add') }}
+        </button>
     </div>
-</form>
+@stop
