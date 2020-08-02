@@ -225,9 +225,6 @@ class UpdateStudentRequestTest extends TestCase
         ];
     }
 
-    /**
-     * @group 1
-     */
     public function testUniqueIdNumber(): void
     {
         $this->seed(\RoleSeeder::class);
@@ -251,6 +248,7 @@ class UpdateStudentRequestTest extends TestCase
         });
         $this->mock(StudentService::class, function ($mock) {
             $mock->shouldReceive('update')->once();
+            $mock->shouldReceive('clearCache');
         });
 
         $this->actingAs($user)->put(route('students.update', $student), [

@@ -29,7 +29,7 @@ class ForbidStudentsTest extends TestCase
                 'role_id' => Role::TEACHER,
             ]);
         });
-        $middleware = new ForbidStudents();
+        $middleware = app(ForbidStudents::class);
 
         $this->assertEquals($request, $middleware->handle($request, function ($request) {
             return $request;
@@ -44,7 +44,7 @@ class ForbidStudentsTest extends TestCase
                 'role_id' => Role::STUDENT,
             ]);
         });
-        $middleware = new ForbidStudents();
+        $middleware = app(ForbidStudents::class);
 
         $this->expectExceptionObject(new HttpException(404));
         $middleware->handle($request, function ($request) {
