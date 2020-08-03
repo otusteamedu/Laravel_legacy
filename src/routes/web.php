@@ -29,9 +29,10 @@ Route::group([
             'can:accessBusinessPanel'
         ]
     ], function () {
+        Route::resources(['procedure' => '\App\Http\Controllers\ProcedureController']);
+
         Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index']);
         Route::get('/staff', [\App\Http\Controllers\StaffController::class, 'index']);
-        Route::get('/procedures', [\App\Http\Controllers\ProcedureController::class, 'index']);
         Route::get('/statistic', [\App\Http\Controllers\StatisticController::class, 'index']);
         Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
         Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
