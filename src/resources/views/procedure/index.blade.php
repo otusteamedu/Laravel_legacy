@@ -3,13 +3,15 @@
 @section('title', __('headers.procedures.index'))
 
 @section('header_button')
-    <button type="button" class="btn btn-outline-success">Добавить</button>
+    <a href="{{ route('procedure.create') }}" class="btn btn-outline-success">
+        {{ __('buttons.procedure.add') }}
+    </a>
 @stop
 
 @section('content')
 
     @include('blocks._header')
 
-    @include('procedures._procedures_table')
+    @include('procedure._table')
 
 @stop

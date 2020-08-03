@@ -10,6 +10,17 @@
         <a class="p-2 text-dark" href="#features">Преимущества</a>
         <a class="p-2 text-dark" href="#about">О продукте</a>
     </nav>
-    <a class="btn btn-outline-primary" href="/login">Вход</a>
-    <a class="btn btn-success ml-2" href="/register">Регистрация</a>
+
+    @if (Route::has('login'))
+        <div class="top-right links">
+            @guest
+                <a class="btn btn-outline-primary" href="{{ route('login') }}">Вход</a>
+
+                @if (Route::has('register'))
+                    <a class="btn btn-success ml-2" href="{{ route('register') }}">Регистрация</a>
+                @endif
+            @endauth
+        </div>
+    @endif
+
 </div>

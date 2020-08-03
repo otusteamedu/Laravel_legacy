@@ -22,6 +22,11 @@ $button_text = $business->id ? "Сохранить" : "Отправить";
     </div>
 
     <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" class="form-control" name="name" value="{{ $business->name }}">
+    </div>
+
+    <div class="form-group">
         <label for="type_id">Тип</label>
         <select class="form-control" name="type_id">
             @forelse($businessTypes as $type)

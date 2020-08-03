@@ -2,8 +2,11 @@
 
 namespace App\Http\Requests\Procedure;
 
-use App\Http\Requests\FormRequest;
-
+/**
+ * Правила при редактировании процедуры
+ * Class UpdateProcedureRequest
+ * @package App\Http\Requests\Procedure
+ */
 class UpdateProcedureRequest extends StoreProcedureRequest
 {
 }

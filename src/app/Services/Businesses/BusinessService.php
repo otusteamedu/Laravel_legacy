@@ -10,6 +10,7 @@ use App\Services\Businesses\Handlers\BusinessDeleteHandler;
 use App\Services\Businesses\Handlers\BusinessUpdateHandler;
 use App\Services\Businesses\Repositories\BusinessRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class BusinessService
 {
@@ -45,6 +46,15 @@ class BusinessService
     }
 
     /**
+     * Списк всех типов
+     * @return Collection|null
+     */
+    public function getMyBusiness(): ?Business
+    {
+        return $this->repository->findByUserId(Auth::user()->id);
+    }
+
+    /**
      * Добавление салона
      * @param array $data
      * @return Business
@@ -53,16 +63,6 @@ class BusinessService
     {
         $business =  BusinessCreateDTO::fromArray($data);
         return $this->createHandler->handle($business);
-    }
-
-    /**
-     * Списк всех салонов
-     * @return Collection|null
-     */
-    public function list(): ?Collection
-    {
-        $business = $this->repository->get();
-        return $business;
     }
 
     /**

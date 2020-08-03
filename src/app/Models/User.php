@@ -18,6 +18,8 @@ use Illuminate\Notifications\Notifiable;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  *
+ * @property Business $business
+ *
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User newModelQuery()
@@ -63,4 +65,21 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function role()
+    {
+        return $this->hasOne(UserRole::class, 'id', 'user_role_id');
+    }
+
+    /**
+     * Салон пользователя
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function business()
+    {
+        return $this->hasOne(Business::class, 'user_id', 'id');
+    }
 }

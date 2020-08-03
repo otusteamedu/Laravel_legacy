@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Services\BusinessTypes\Handlers;
+namespace App\Services\Admin\BusinessTypes\Handlers;
 
 use App\Models\BusinessType;
-use App\Services\BusinessTypes\Repositories\BusinessTypeRepositoryInterface;
-use App\Services\BusinessTypes\DTOs\BusinessTypeDTO;
+use App\Services\Admin\BusinessTypes\Repositories\BusinessTypeRepositoryInterface;
+use App\Services\Admin\BusinessTypes\DTOs\BusinessTypeDTO;
 
 class BusinessTypeCreateHandler
 {

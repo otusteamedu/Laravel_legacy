@@ -7,8 +7,6 @@ class BusinessTypeDTO
     private int $user_id;
     private int $type_id;
     private int $status;
-//    private string $created_at;
-//    private string $updated_at;
 
     private function __construct(
         int $user_id,

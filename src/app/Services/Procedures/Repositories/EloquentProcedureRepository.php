@@ -3,7 +3,7 @@
 namespace App\Services\Procedures\Repositories;
 
 use App\Models\Procedure;
-use App\Services\Procedures\DTOs\ProcedureCreateDTO;
+use App\Services\Procedures\DTOs\ProcedureHandlerDTO;
 use Illuminate\Database\Eloquent\Collection;
 
 class EloquentProcedureRepository implements ProcedureRepositoryInterface
@@ -14,7 +14,12 @@ class EloquentProcedureRepository implements ProcedureRepositoryInterface
         return Procedure::find($id);
     }
 
-    public function create(ProcedureCreateDTO $DTO): ?Procedure
+    public function findByBusinessId(int $business_id): ?Collection
+    {
+        return Procedure::whereBusinessId($business_id)->get();
+    }
+
+    public function create(ProcedureHandlerDTO $DTO): ?Procedure
     {
         return Procedure::create($DTO->toArray());
     }

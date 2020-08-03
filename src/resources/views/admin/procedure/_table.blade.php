@@ -8,6 +8,7 @@
     <thead>
     <tr>
         <th scope="col">#</th>
+        <th scope="col">Процедура</th>
         <th scope="col">Салон</th>
         <th scope="col">Работник</th>
         <th scope="col">Продолжительность</th>
@@ -20,6 +21,7 @@
     @forelse($procedures as $procedure)
         <tr>
             <th scope="row">{{ $procedure->id }}</th>
+            <td>{{ $procedure->name }}</td>
             <td>{{ $procedure->business_id }}</td>
             <td>{{ $procedure->worker->name }}</td>
             <td>{{ $procedure->duration }}</td>

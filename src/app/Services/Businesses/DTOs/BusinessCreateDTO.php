@@ -4,34 +4,31 @@ namespace App\Services\Businesses\DTOs;
 
 class BusinessCreateDTO
 {
-    private int $user_id;
+    private string $name;
     private int $type_id;
-    private int $status;
+    private int $status = 1;
 
     private function __construct(
-        int $user_id,
-        int $type_id,
-        int $status
+        string $name,
+        int $type_id
     )
     {
-        $this->user_id = $user_id;
+        $this->name = $name;
         $this->type_id = $type_id;
-        $this->status = $status;
     }
 
     public static function fromArray(array $data)
     {
         return new static(
-            $data['user_id'],
-            $data['type_id'],
-            $data['status'],
+            $data['name'],
+            $data['type_id']
         );
     }
 
     public function toArray(): array
     {
         return [
-            'user_id' => $this->user_id,
+            'name' => $this->name,
             'type_id' => $this->type_id,
             'status' => $this->status,
         ];

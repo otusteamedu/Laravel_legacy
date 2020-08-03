@@ -10,6 +10,7 @@ use App\Services\Procedures\Handlers\ProcedureDeleteHandler;
 use App\Services\Procedures\Handlers\ProcedureUpdateHandler;
 use App\Services\Procedures\Repositories\ProcedureRepositoryInterface;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 
 class ProcedureService
 {
@@ -70,11 +71,11 @@ class ProcedureService
     }
 
     /**
-     * Списк всех типов
+     * Списк всех процедур для салона
      * @return Collection|null
      */
-    public function list(): ?Collection
+    public function getMyProcedures(): ?Collection
     {
-        return $this->repository->get();
+        return $this->repository->findByBusinessId(Auth::user()->business->id);
     }
 }

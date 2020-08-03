@@ -13,6 +13,7 @@ class UsersTableSeeder extends Seeder
     {
         factory(App\Models\User::class, 2)->create();
         factory(App\Models\User::class, 1)->create([
+            'user_role_id' => '1',
             'email' => 'admin@admin.ru'
         ]);
     }

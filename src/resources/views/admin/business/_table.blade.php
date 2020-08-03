@@ -2,6 +2,7 @@
     <thead>
     <tr>
         <th scope="col">#</th>
+        <th scope="col">Салон</th>
         <th scope="col">Пользователь</th>
         <th scope="col">Тип</th>
         <th scope="col"></th>
@@ -11,6 +12,7 @@
     @forelse($businesses as $business)
     <tr>
         <th scope="row">{{ $business->id }}</th>
+        <td>{{ $business->name }}</td>
         <td>{{ $business->user->name }}</td>
         <td>{{ $business->type->name }}</td>
         <td>

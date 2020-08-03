@@ -4,6 +4,11 @@ namespace App\Http\Requests\Business;
 
 use App\Http\Requests\FormRequest;
 
+/**
+ * Правила при добавлении записи
+ * Class StoreBusinessRequest
+ * @package App\Http\Requests\Business
+ */
 class StoreBusinessRequest extends FormRequest
 {
     /**
@@ -24,16 +29,14 @@ class StoreBusinessRequest extends FormRequest
     public function rules()
     {
         return [
-            "user_id" => 'required|integer',
+            "name" => 'required|string|max:150',
             "type_id" => 'required|integer',
-            "status" => 'required|integer',
         ];
     }
 
     public function getFormData()
     {
         $data = parent::getFromData();
-
         return $data;
     }
 }

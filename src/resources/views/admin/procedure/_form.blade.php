@@ -22,6 +22,11 @@ $button_text = $procedure->id ? "Сохранить" : "Отправить";
     </div>
 
     <div class="form-group">
+        <label for="name">Имя</label>
+        <input type="text" class="form-control" name="name" value="{{ $procedure->name }}">
+    </div>
+
+    <div class="form-group">
         <label for="business_id">Салон</label>
         @include("admin.blocks._select", [
             'name' => 'business_id',

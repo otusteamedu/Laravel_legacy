@@ -15,6 +15,7 @@ class CreateBusinessesTable extends Migration
     {
         Schema::create('businesses', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 150);
             $table->unsignedbigInteger('user_id')->unsigned()->nullable();
             $table->unsignedSmallInteger('type_id')->nullable();
             $table->unsignedSmallInteger("status")->default(0);

@@ -4,6 +4,11 @@ namespace App\Http\Requests\Procedure;
 
 use App\Http\Requests\FormRequest;
 
+/**
+ * Правила при добавлении процедуры
+ * Class StoreProcedureRequest
+ * @package App\Http\Requests\Procedure
+ */
 class StoreProcedureRequest extends FormRequest
 {
     /**
@@ -24,11 +29,10 @@ class StoreProcedureRequest extends FormRequest
     public function rules()
     {
         return [
-            "business_id" => 'required|integer',
-            "worker_id" => 'required|integer',
+            "name" => 'required|string|max:150',
             "duration" => 'required|integer',
             "price" => 'required|numeric',
-            "people_count" => 'required|numeric',
+            "people_count" => 'required|integer',
         ];
     }
 

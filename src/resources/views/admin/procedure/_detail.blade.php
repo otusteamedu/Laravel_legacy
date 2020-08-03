@@ -16,6 +16,10 @@
         <td>{{ $procedure->id }}</td>
     </tr>
     <tr>
+        <th scope="row">Name</th>
+        <td>{{ $procedure->name }}</td>
+    </tr>
+    <tr>
         <th scope="row">Business ID</th>
         <td>{{ $procedure->business_id }}</td>
     </tr>

@@ -19,6 +19,7 @@ use Illuminate\Support\Str;
 
 $factory->define(\App\Models\Business::class, function (Faker $faker) {
     return [
+        'name' => $faker->company(),
         'status' => 1,
     ];
 });
