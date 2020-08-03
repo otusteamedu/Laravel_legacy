@@ -39,5 +39,10 @@ class GateServiceProvider extends ServiceProvider
         Gate::define('accessMyBusinessPanel', function (User $user, Business $business) {
             return $business->user_id == $user->id;
         });
+
+        // TODO: Починить
+//        Gate::guessPolicyNamesUsing(function ($modelClass) {
+//            return str_replace("\\Models\\", "\\Policies\\" , $modelClass) . 'Policy';
+//        });
     }
 }
