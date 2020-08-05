@@ -113,7 +113,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param Post $post
-     * @return Response
+     * @return PostResource
      */
     public function destroy(Post $post): PostResource
     {
