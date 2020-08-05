@@ -25,11 +25,13 @@ class UserSeeder extends Seeder
 
         factory(User::class, 1)->create([
             'email' => 'meth@meth.ru',
+            'api_token' => 'meth',
             'role_id' => Role::METHODIST,
         ]);
 
         factory(User::class, 1)->create([
             'email' => 'admin@admin.ru',
+            'api_token' => 'admin',
             'role_id' => Role::ADMIN,
         ]);
 

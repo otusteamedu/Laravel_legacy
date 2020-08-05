@@ -28,8 +28,7 @@ class TelegramController extends Controller
     public function __construct(
         TelegramService $service,
         RegisterCommand $registerCommand
-    )
-    {
+    ) {
         $this->service = $service;
         $this->registerCommand = $registerCommand;
     }

@@ -53,8 +53,7 @@ class TelegramService
         CreateTelegramUserHandler $createTelegramUserHandler,
         UpdateTelegramUserHandler $updateTelegramUserHandler,
         RegisterTelegramUserHandler $registerTelegramUserHandler
-    )
-    {
+    ) {
         $client = new Client([
             'base_uri' => 'https://api.telegram.org/bot' . Telegram::getAccessToken() . '/',
         ]);

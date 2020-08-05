@@ -2,6 +2,7 @@
 
 namespace App\DTOs;
 
+use App\Services\Helpers\Settings;
 use Exception;
 
 /**
@@ -13,6 +14,8 @@ class PostFilterDTO implements DTOInterface
     const GROUPS = 'groups';
     const TITLE = 'title';
     const PUBLISHED  = 'published';
+    const LIMIT  = 'limit';
+
     /**
      * @var string|null
      */
@@ -25,19 +28,25 @@ class PostFilterDTO implements DTOInterface
      * @var array
      */
     private $groups;
+    /**
+     * @var int
+     */
+    private $limit;
 
     /**
      * PostFilterDTO constructor.
      * @param string|null $title
      * @param bool|null $published
      * @param array $groups
+     * @param int $limit
      * @throws Exception
      */
-    private function __construct(?string $title, ?bool $published, array $groups = [])
+    private function __construct(?string $title, ?bool $published, array $groups, int $limit)
     {
         $this->title = $title;
         $this->published = $published;
         $this->groups = $this->prepareGroups($groups);
+        $this->limit = $limit;
     }
 
     /**
@@ -69,7 +78,8 @@ class PostFilterDTO implements DTOInterface
         return new static(
             $data[static::TITLE] ?? null,
             $data[static::PUBLISHED] ?? null,
-            $data[static::GROUPS] ?? []
+            $data[static::GROUPS] ?? [],
+            $data[static::LIMIT] ?? Settings::PER_PAGE
         );
     }
 
@@ -82,6 +92,7 @@ class PostFilterDTO implements DTOInterface
             static::TITLE => $this->title,
             static::PUBLISHED => $this->published,
             static::GROUPS => $this->groups,
+            static::LIMIT => $this->limit,
         ];
     }
 }

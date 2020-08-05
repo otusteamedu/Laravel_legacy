@@ -17,6 +17,7 @@ class BaseFormRequest extends FormRequest
         $data = Arr::except($data, [
             '_method',
             '_token',
+            'api_token',
         ]);
 
         return $data;

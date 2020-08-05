@@ -55,7 +55,9 @@ class PostService
      */
     public function paginate(PostFilterDTO $DTO): LengthAwarePaginator
     {
-        return $this->repository->getPostsListPaginate(Settings::PER_PAGE, $DTO);
+        $perPage = $DTO->toArray()[PostFilterDTO::LIMIT] ?? Settings::PER_PAGE;
+
+        return $this->repository->getPostsListPaginate($perPage, $DTO);
     }
 
     /**
