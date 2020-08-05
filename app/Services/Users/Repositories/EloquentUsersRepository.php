@@ -4,8 +4,10 @@
 namespace App\Services\Users\Repositories;
 
 
+use App\Builders\QueryBuilder;
 use App\Models\Group;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Password;
 
 class EloquentUsersRepository implements UsersRepositoryInterface
@@ -21,17 +23,23 @@ class EloquentUsersRepository implements UsersRepositoryInterface
         return User::whereIn('group_id', $groups)->paginate($limit);
     }
 
+    public function getBy(QueryBuilder $builder): Collection
+    {
+        $builder = $builder->build(User::query());
+
+        return $builder->get();
+    }
+
     public function createFromArray(array $data): User
     {
-        $user = new User();
-        $user->create($data);
+        $user = (new User())->create($data);
 
         return $user;
     }
 
     public function updateFromArray(User $user, array $data): User
     {
-        if (is_null($data['password'])) {
+        if (isset($data['password']) && is_null($data['password'])) {
             unset($data['password']);
         }
 
