@@ -2,9 +2,7 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +17,7 @@ use Illuminate\Support\Str;
 
 $factory->define(\App\Models\BusinessType::class, function (Faker $faker) {
     return [
+        'name' => $faker->jobTitle(20),
         'description' => $faker->text(20),
     ];
 });

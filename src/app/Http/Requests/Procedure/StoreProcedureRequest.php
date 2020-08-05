@@ -30,9 +30,9 @@ class StoreProcedureRequest extends FormRequest
     {
         return [
             "name" => 'required|string|max:150',
-            "duration" => 'required|integer',
+            "duration" => 'required|integer|max:127',
             "price" => 'required|numeric',
-            "people_count" => 'required|integer',
+            "people_count" => 'required|integer|max:127',
         ];
     }
 
