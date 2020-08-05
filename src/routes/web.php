@@ -37,7 +37,8 @@ Route::group([
         Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
         Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
 
-        Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index']);
+        Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index'])
+            ->name('business.index');
         Route::get('/business/edit/{business}', [\App\Http\Controllers\BusinessController::class, 'edit'])
             ->name('business.edit')
             ->middleware("can:accessMyBusinessPanel,business");
@@ -49,7 +50,8 @@ Route::group([
             ->middleware("can:accessMyBusinessPanel,business");
     });
 
-    Route::get('/business/create', [\App\Http\Controllers\BusinessController::class, 'create']);
+    Route::get('/business/create', [\App\Http\Controllers\BusinessController::class, 'create'])
+        ->name('business.create');
     Route::post('/business/store', [\App\Http\Controllers\BusinessController::class, 'store'])
         ->name('business.store');
 });
