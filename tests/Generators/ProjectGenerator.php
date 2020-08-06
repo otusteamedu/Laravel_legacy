@@ -22,4 +22,15 @@ class ProjectGenerator
 
         return $projects->first();
     }
+    /**
+     * Получить проект
+     *
+     * @return Project
+     */
+    public static function generateProjectMake(): Project
+    {
+        $projects = factory(Project::class, 1)->make();
+
+        return $projects->first();
+    }
 }

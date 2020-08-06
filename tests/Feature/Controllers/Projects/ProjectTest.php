@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Projects;
 
 use App\Models\Project;
 use Tests\Generators\ProjectGenerator;
