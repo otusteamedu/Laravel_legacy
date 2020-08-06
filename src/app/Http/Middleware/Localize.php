@@ -17,7 +17,7 @@ class Localize
      */
     public function handle($request, Closure $next)
     {
-        $locale = $request->session()->pull(Locale::LOCALE_SESSION_KEY, App::getLocale());
+        $locale = $request->session()->get(Locale::LOCALE_SESSION_KEY);
         App::setLocale($locale);
 
         return $next($request);
