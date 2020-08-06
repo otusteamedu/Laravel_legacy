@@ -24,6 +24,8 @@ Route::group([
     ],
 ], function () {
     Route::get('/', [HomeController::class, 'index']);
+    Route::get('/localize/{locale}', [\App\Http\Controllers\LocalizeController::class, 'setLocalize'])
+        ->name('localize.set');
 
     /**
      * Страницы закрытые

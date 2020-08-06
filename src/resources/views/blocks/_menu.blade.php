@@ -28,4 +28,12 @@
             @endauth
         </div>
     @endif
+
+    <button class="p-2 ml-3 dropdown-toggle text-dark btn btn-sm" data-toggle="dropdown">
+        <i class="far fa-flag"></i>
+    </button>
+    <div class="dropdown-menu">
+        <a class="dropdown-item" href="{{ route("localize.set", ['locale' => 'ru']) }}">Ru</a>
+        <a class="dropdown-item" href="{{ route("localize.set", ['locale' => 'en']) }}">En</a>
+    </div>
 </div>
