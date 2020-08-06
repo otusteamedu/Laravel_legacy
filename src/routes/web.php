@@ -15,53 +15,69 @@ use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', [HomeController::class, 'index']);
-
+/**
+ * Все клиентские страницы
+ */
 Route::group([
     'middleware' => [
-        'auth'
-    ]
+        'all',
+    ],
 ], function () {
-    Route::get('/home', [HomeController::class, 'home'])->name('home');
+    Route::get('/', [HomeController::class, 'index']);
 
+    /**
+     * Страницы закрытые
+     */
     Route::group([
         'middleware' => [
-            'can:accessBusinessPanel'
-        ]
+            'auth',
+        ],
     ], function () {
-        Route::resources(['procedure' => '\App\Http\Controllers\ProcedureController']);
+        Route::get('/home', [HomeController::class, 'home'])->name('home');
 
-        Route::get('/records', [\App\Http\Controllers\RecordController::class, 'index']);
-        Route::get('/staff', [\App\Http\Controllers\StaffController::class, 'index']);
-        Route::get('/statistic', [\App\Http\Controllers\StatisticController::class, 'index']);
-        Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
-        Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
+        Route::group([
+            'middleware' => [
+                'can:accessBusinessPanel',
+            ],
+        ], function () {
+            Route::resources(['procedure' => '\App\Http\Controllers\ProcedureController']);
+            Route::resources(['record' => '\App\Http\Controllers\RecordController']);
 
-        Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index'])
-            ->name('business.index');
-        Route::get('/business/edit/{business}', [\App\Http\Controllers\BusinessController::class, 'edit'])
-            ->name('business.edit')
-            ->middleware("can:accessMyBusinessPanel,business");
-        Route::patch('/business/{business}', [\App\Http\Controllers\BusinessController::class, 'update'])
-            ->name('business.update')
-            ->middleware("can:accessMyBusinessPanel,business");
-        Route::delete('/business/{business}', [\App\Http\Controllers\BusinessController::class, 'destroy'])
-            ->name('business.destroy')
-            ->middleware("can:accessMyBusinessPanel,business");
+            Route::get('/staff', [\App\Http\Controllers\StaffController::class, 'index']);
+            Route::get('/statistic', [\App\Http\Controllers\StatisticController::class, 'index'])
+                ->name('statistic.index');
+            Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
+            Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
+
+            Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index'])
+                ->name('business.index');
+            Route::get('/business/edit/{business}', [\App\Http\Controllers\BusinessController::class, 'edit'])
+                ->name('business.edit')
+                ->middleware("can:accessMyBusinessPanel,business");
+            Route::patch('/business/{business}', [\App\Http\Controllers\BusinessController::class, 'update'])
+                ->name('business.update')
+                ->middleware("can:accessMyBusinessPanel,business");
+            Route::delete('/business/{business}', [\App\Http\Controllers\BusinessController::class, 'destroy'])
+                ->name('business.destroy')
+                ->middleware("can:accessMyBusinessPanel,business");
+        });
+
+        Route::get('/business/create', [\App\Http\Controllers\BusinessController::class, 'create'])
+            ->name('business.create');
+        Route::post('/business/store', [\App\Http\Controllers\BusinessController::class, 'store'])
+            ->name('business.store');
     });
-
-    Route::get('/business/create', [\App\Http\Controllers\BusinessController::class, 'create'])
-        ->name('business.create');
-    Route::post('/business/store', [\App\Http\Controllers\BusinessController::class, 'store'])
-        ->name('business.store');
 });
 
+/**
+ * Админка
+ */
 Route::group([
     'prefix' => 'admin',
     'as' => 'admin.',
     'middleware' => [
-        'can:accessAdminPanel'
-    ]
+        'can:accessAdminPanel',
+    ],
 ], function () {
     Route::resources([
         'business' => 'Admin\BusinessController',
