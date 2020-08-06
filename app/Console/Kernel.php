@@ -28,6 +28,11 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')->hourly();
 
         Balance::register($schedule);
+        $schedule->command('cache:warm')
+            ->hourlyAt(3)
+            ->environments(['test', 'production'])
+            ->onOneServer()
+            ->runInBackground();
     }
 
     /**
