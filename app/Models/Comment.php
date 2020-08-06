@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\Comment
  *
@@ -35,8 +33,7 @@ class Comment extends Model
 
     public function films()
     {
-      //один ко многим
-       return $this->hasMany(Film::class);
+        //один ко многим
+        return $this->hasMany(Film::class);
     }
-
 }

@@ -17,14 +17,13 @@ class CreateGenresTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->comment('название жанра')->nullable();
             $table->string('slug')->comment('название фильма транслитом для ЧПУ')->nullable();
-            //$table->bigInteger('film_id')->unsigned()->nullable()->comment('id фильма');
+            $table->bigInteger('film_id')->unsigned()->nullable()->comment('id фильма');
             $table->timestamps();
         });
 
-       /* Schema::table('genres', function (Blueprint $table) {
+        Schema::table('genres', function (Blueprint $table) {
             $table->foreign('film_id')->references('id')->on('films');
         });
-        */
     }
 
     /**
@@ -34,11 +33,9 @@ class CreateGenresTable extends Migration
      */
     public function down()
     {
-
-       /* Schema::table('genres', function (Blueprint $table) {
+        Schema::table('genres', function (Blueprint $table) {
             $table->dropForeign('film_id');
         });
-        */
 
         Schema::dropIfExists('genres');
     }

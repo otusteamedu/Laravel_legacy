@@ -2,12 +2,22 @@
 
 namespace App\Services\Films\Repositories;
 
-
 use App\Models\Film;
 use Illuminate\Database\Eloquent\Builder;
 
+//use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
+
 class EloquentFilmRepository implements FilmRepositoryInterface
 {
+    /*
+    * выводим без пагинации для тестирования кеширования
+    */
+    public function index()
+    {
+        return Film::All();
+    }
+    
     public function find(int $id)
     {
         return Film::find($id);

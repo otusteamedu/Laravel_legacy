@@ -2,9 +2,9 @@
 
 namespace App\Services\Films;
 
-
 use App\Models\Film;
 use App\Services\Films\Handlers\CreateFilmHandler;
+use App\Services\Films\Handlers\IndexFilmHandler;
 use App\Services\Films\Repositories\FilmRepositoryInterface;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
@@ -17,12 +17,18 @@ class FilmsService
     private $createFilmHandler;
 
     public function __construct(
+        IndexFilmHandler $indexFilmHandler,
         CreateFilmHandler $createFilmHandler,
         FilmRepositoryInterface $filmRepository
-    )
-    {
+    ) {
+        $this->indexFilmHandler = $indexFilmHandler;
         $this->createFilmHandler = $createFilmHandler;
         $this->filmRepository = $filmRepository;
+    }
+
+    public function indexFilm()
+    {
+        return $this->indexFilmHandler->handle();
     }
 
     /**
@@ -60,5 +66,4 @@ class FilmsService
     {
         return $this->filmRepository->updateFromArray($film, $data);
     }
-
 }

@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * App\Models\ActorAndRole
  *
@@ -37,13 +35,13 @@ class ActorAndRole extends Model
 
     public function films()
     {
-      //один ко многим
-       return $this->hasMany(Film::class);
+        //один ко многим
+        return $this->hasMany(Film::class);
     }
 
     public function actors()
     {
-      //один ко многим
-       return $this->hasMany(Film::class);
+        //один ко многим
+        return $this->hasMany(Film::class);
     }
 }
