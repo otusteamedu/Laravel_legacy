@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                {{ Form::open(['url' => App\Helpers\RouteBuilder::localeRoute('cms.films.create')]) }}
+                {{ Form::open(['url' => App\Helpers\RouteBuilder::localeRoute('cms.films.store')]) }}
                     @include('admin.films.blocks.form.fields')
                     <div class="form-group">
                         {{ Form::submit(trans('messages.addFilm'), array('class' => 'btn btn-success')) }}

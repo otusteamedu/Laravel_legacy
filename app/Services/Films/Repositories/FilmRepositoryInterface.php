@@ -13,6 +13,10 @@ interface FilmRepositoryInterface
 
     public function find(int $id);
 
+    public function getList(int $limit, int $offset);
+
+    public function searchByNames(string $name = '');
+
     public function search(array $filters = []);
 
     public function createFromArray(array $data): Film;
