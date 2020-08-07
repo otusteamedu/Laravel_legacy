@@ -42,6 +42,8 @@ Route::group(array(
         ]);
 
         Route::get('/{post}/send', 'Posts\PostController@send')->name('posts.send');
+
+        Route::get('/settings/passport', 'Settings\SettingController@passport')->name('passport');
     });
 
     Route::group([

@@ -12,8 +12,11 @@ use App\Models\Post;
 use App\Services\Groups\GroupService;
 use App\Services\Posts\PostService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 
+/**
+ * Class PostController
+ * @package App\Http\Controllers\Api\Posts
+ */
 class PostController extends Controller
 {
     /**

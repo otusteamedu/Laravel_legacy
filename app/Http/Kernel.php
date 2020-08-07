@@ -5,6 +5,9 @@ namespace App\Http;
 use App\Http\Middleware\Admin;
 use App\Http\Middleware\ForbidStudents;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Laravel\Passport\Http\Middleware\CheckClientCredentials;
+use Laravel\Passport\Http\Middleware\CheckForAnyScope;
+use Laravel\Passport\Http\Middleware\CheckScopes;
 
 class Kernel extends HttpKernel
 {
@@ -74,5 +77,12 @@ class Kernel extends HttpKernel
          */
         'forbid_students' => ForbidStudents::class,
         'admin' => Admin::class,
+
+        /**
+         * Laravel Passport
+         */
+        'client' => CheckClientCredentials::class,
+        'scopes' => CheckScopes::class,
+        'scope' => CheckForAnyScope::class,
     ];
 }

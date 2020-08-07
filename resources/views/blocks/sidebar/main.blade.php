@@ -34,3 +34,9 @@
 <li class="nav-item">
     <a class="nav-link" href="#">@lang('scheduler.schedule')</a>
 </li>
+<li class="nav-item">
+    <span class="nav-link">@lang('scheduler.settings')</span>
+    <ul>
+        <li><a href="{{ route('passport') }}">Passport</a></li>
+    </ul>
+</li>

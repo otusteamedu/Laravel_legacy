@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Api\Posts\Resources;
 
+use App\Http\Controllers\Api\Users\Resources\UserResource;
 use App\Http\Resources\GroupResource;
-use App\Http\Resources\UserResource;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
+/**
+ * Class PostResource
+ * @package App\Http\Controllers\Api\Posts\Resources
+ */
 class PostResource extends JsonResource
 {
     /**
@@ -16,7 +19,7 @@ class PostResource extends JsonResource
      * @param  Request  $request
      * @return array
      */
-    public function toArray($request)
+    public function toArray($request): array
     {
         return [
             'id' => $this->id,

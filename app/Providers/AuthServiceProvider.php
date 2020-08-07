@@ -12,6 +12,7 @@ use App\Policies\StudentPolicy;
 use App\Services\Helpers\Ability;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Passport\Passport;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -35,6 +36,23 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        $this->gates();
+
+        $this->laravelPassport();
+    }
+
+    private function laravelPassport(): void
+    {
+        Passport::routes();
+
+        Passport::tokensCan([
+            'userinfo' => 'Get user info',
+            'messages' => 'Access messages',
+        ]);
+    }
+
+    private function gates(): void
+    {
         Gate::before(function (User $user, string $ability): ?bool {
             if ($user->isAdmin()) {
                 return true;

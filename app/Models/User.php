@@ -15,6 +15,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 use Watson\Rememberable\Rememberable;
 
 /**
@@ -85,6 +86,7 @@ use Watson\Rememberable\Rememberable;
  */
 class User extends Authenticatable
 {
+    use HasApiTokens;
     use Notifiable;
     use SoftDeletes;
     use Rememberable;
