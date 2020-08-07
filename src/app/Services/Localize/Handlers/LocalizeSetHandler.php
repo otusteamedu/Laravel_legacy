@@ -3,7 +3,7 @@
 namespace App\Services\Localize\Handlers;
 
 use App\Services\Locale\Locale;
-use Illuminate\Http\Request;
+use App\Services\Localize\Repositories\LocalizeRepositoryInterface;
 
 /**
  * Установка локализации
@@ -14,15 +14,15 @@ class LocalizeSetHandler
 {
 
     /**
-     * @var Request
+     * @var LocalizeRepositoryInterface
      */
-    private $request;
+    private $repository;
 
     public function __construct(
-        Request $request
+        LocalizeRepositoryInterface $repository
     )
     {
-        $this->request = $request;
+        $this->repository = $repository;
     }
 
     /**
@@ -34,7 +34,6 @@ class LocalizeSetHandler
         if (!Locale::isSupported($locale))
             return false;
 
-        $this->request->session()->put(Locale::LOCALE_SESSION_KEY, $locale);
-        return true;
+        return $this->repository->set($locale);
     }
 }

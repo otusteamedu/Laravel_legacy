@@ -3,11 +3,22 @@
 namespace App\Http\Middleware;
 
 use App\Services\Locale\Locale;
+use App\Services\Localize\LocalizeService;
 use Closure;
 use Illuminate\Support\Facades\App;
 
 class Localize
 {
+    /**
+     * @var LocalizeService
+     */
+    private $localizeService;
+
+    public function __construct(LocalizeService $localizeService)
+    {
+        $this->localizeService = $localizeService;
+    }
+
     /**
      * Установка локализации приложения
      *
@@ -17,7 +28,7 @@ class Localize
      */
     public function handle($request, Closure $next)
     {
-        $locale = $request->session()->get(Locale::LOCALE_SESSION_KEY);
+        $locale = $this->localizeService->get();
         App::setLocale($locale);
 
         return $next($request);
