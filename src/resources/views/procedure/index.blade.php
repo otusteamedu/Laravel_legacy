@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', __('headers.procedures.index'))
+@section('title', __('headers.procedure.index'))
 
 @section('header_button')
     <a href="{{ route('procedure.create') }}" class="btn btn-outline-success">
