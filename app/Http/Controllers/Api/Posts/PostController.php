@@ -53,6 +53,11 @@ class PostController extends Controller
     {
         $DTO = PostFilterDTO::fromArray($request->getFormData());
         $posts = $this->service->paginate($DTO);
+        $posts->loadMissing([
+            'groups',
+            'producer',
+            'producer.role',
+        ]);
 
         return PostResource::collection($posts);
     }

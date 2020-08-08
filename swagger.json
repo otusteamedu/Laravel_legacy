@@ -1,0 +1,320 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Api управления новостями.",
+    "version" : "1.0.0",
+    "title" : "Scheduller API",
+    "license" : {
+      "name" : "Scheduller posts",
+      "url" : "http://otus-laravel.test"
+    }
+  },
+  "host" : "otus-laravel.test",
+  "basePath" : "/v1.0.0",
+  "tags" : [ {
+    "name" : "posts",
+    "description" : "Manage posts"
+  } ],
+  "schemes" : [ "https", "http" ],
+  "security" : [ {
+    "accessCode" : [ "userinfo", "messages" ]
+  } ],
+  "paths" : {
+    "/userinfo" : {
+      "get" : {
+        "tags" : [ "user" ],
+        "summary" : "Информация о пользователя",
+        "description" : "Получить информацию об авторизованном пользователе.",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/posts" : {
+      "get" : {
+        "tags" : [ "posts" ],
+        "summary" : "Получить список новостей.",
+        "description" : "Список новостей созданных авторизованного пользователя.",
+        "parameters" : [ {
+          "name" : "limit",
+          "in" : "query",
+          "description" : "Posts limit",
+          "required" : false,
+          "type" : "integer"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "Posts title like",
+          "required" : false,
+          "type" : "string"
+        }, {
+          "name" : "groups",
+          "in" : "query",
+          "description" : "Posts groups",
+          "required" : false,
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          },
+          "collectionFormat" : "multi"
+        }, {
+          "name" : "published",
+          "in" : "query",
+          "description" : "Posts is published",
+          "required" : false,
+          "type" : "boolean"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Post"
+              }
+            }
+          }
+        }
+      },
+      "post" : {
+        "tags" : [ "posts" ],
+        "summary" : "Создать новость.",
+        "parameters" : [ {
+          "name" : "title",
+          "in" : "query",
+          "description" : "Posts title",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "body",
+          "in" : "query",
+          "description" : "Posts body",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "groups",
+          "in" : "query",
+          "description" : "Posts groups",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/Post"
+            }
+          }
+        }
+      }
+    },
+    "/posts/{postId}" : {
+      "get" : {
+        "tags" : [ "posts" ],
+        "summary" : "Показать новость.",
+        "parameters" : [ {
+          "name" : "postId",
+          "in" : "path",
+          "description" : "Post id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/Post"
+            }
+          }
+        }
+      },
+      "put" : {
+        "tags" : [ "posts" ],
+        "summary" : "Обновить новость.",
+        "parameters" : [ {
+          "name" : "postId",
+          "in" : "path",
+          "description" : "Post id",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "title",
+          "in" : "query",
+          "description" : "Posts title",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "body",
+          "in" : "query",
+          "description" : "Posts body",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "groups",
+          "in" : "query",
+          "description" : "Posts groups",
+          "required" : true,
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          },
+          "collectionFormat" : "multi"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/Post"
+            }
+          }
+        }
+      },
+      "delete" : {
+        "tags" : [ "posts" ],
+        "summary" : "Удалить новость.",
+        "parameters" : [ {
+          "name" : "postId",
+          "in" : "path",
+          "description" : "Post id",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "schema" : {
+              "$ref" : "#/definitions/PostPlane"
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "accessCode" : {
+      "type" : "oauth2",
+      "authorizationUrl" : "http://otus-laravel.test/oauth/authorize",
+      "tokenUrl" : "http://otus-laravel.test/oauth/token",
+      "flow" : "accessCode",
+      "scopes" : {
+        "userinfo" : "Get user info",
+        "messages" : "Access messages"
+      }
+    }
+  },
+  "definitions" : {
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "last_name" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "second_name" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "role_id" : {
+          "type" : "integer"
+        },
+        "role" : {
+          "$ref" : "#/definitions/Role"
+        }
+      }
+    },
+    "Post" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "body" : {
+          "type" : "string"
+        },
+        "published_at" : {
+          "type" : "string"
+        },
+        "user_id" : {
+          "type" : "integer"
+        },
+        "producer" : {
+          "$ref" : "#/definitions/User"
+        },
+        "groups" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Group"
+          }
+        }
+      }
+    },
+    "Group" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "number" : {
+          "type" : "integer"
+        },
+        "course_id" : {
+          "type" : "integer"
+        },
+        "education_year_id" : {
+          "type" : "integer"
+        }
+      }
+    },
+    "Role" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PostPlane" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "title" : {
+          "type" : "string"
+        },
+        "body" : {
+          "type" : "string"
+        },
+        "published_at" : {
+          "type" : "string"
+        },
+        "user_id" : {
+          "type" : "integer"
+        }
+      }
+    }
+  }
+}
