@@ -8,7 +8,7 @@
 
     <div class="row">
         <div class="col-md-8">
-            @include('records._records_table')
+            @include('records._table')
         </div>
         <div class="col-md-4">
             <h5 class="mb-3 text-right">Часто посещаемые</h5>

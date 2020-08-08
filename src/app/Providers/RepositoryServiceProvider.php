@@ -17,6 +17,8 @@ use App\Services\Localize\Repositories\LocalizeRepositoryInterface;
 use App\Services\Localize\Repositories\SessionLocalizeRepository;
 use App\Services\Procedures\Repositories\EloquentProcedureRepository;
 use App\Services\Procedures\Repositories\ProcedureRepositoryInterface;
+use App\Services\Records\Repositories\EloquentRecordRepository;
+use App\Services\Records\Repositories\RecordRepositoryInterface;
 use App\Services\Users\Repositories\EloquentUserRepository;
 use App\Services\Users\Repositories\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
@@ -36,6 +38,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(BusinessTypeRepositoryInterface::class, EloquentBusinessTypeRepository::class);
         $this->app->bind(ProcedureRepositoryInterface::class, EloquentProcedureRepository::class);
         $this->app->bind(LocalizeRepositoryInterface::class, SessionLocalizeRepository::class);
+        $this->app->bind(RecordRepositoryInterface::class, EloquentRecordRepository::class);
 
         // Admin
         $this->app->bind(AdminBusinessRepositoryInterface::class, AdminEloquentBusinessRepository::class);
