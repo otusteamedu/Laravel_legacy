@@ -1,9 +1,10 @@
 <?php
 /**
  * @var \App\Models\Procedure $procedure
- * @var $procedures
+ * @var $records
  */
 ?>
+
 <table class="table table-hover mt-4">
     <thead>
     <tr>
@@ -17,9 +18,10 @@
     <tbody>
     @forelse($records as $record)
         <tr>
-            <th scope="row">{{ $record->procedure_id }}</th>
-            <td>{{ $record->client_id }}</td>
-            <td>{{ $record->time }}</td>
+            <th scope="row">{{ $record->id }}</th>
+            <th>{{ $record->procedure->name }}</th>
+            <td>{{ $record->client->name }}</td>
+            <td>{{ date("d M H:i", strtotime($record->date_start)) }}</td>
             <td>
                 <a href="{{ route('record.show', ['record' => $record->id]) }}"
                    class="btn btn-sm btn-outline-primary"><i class="fa fa-eye"></i></a>

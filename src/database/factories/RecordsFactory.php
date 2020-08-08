@@ -2,9 +2,8 @@
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use App\Models\User;
 use Faker\Generator as Faker;
-use Illuminate\Support\Str;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,11 +16,16 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(\App\Models\Procedure::class, function (Faker $faker) {
+$factory->define(\App\Models\Record::class, function (Faker $faker) {
+    $date_start = $faker->dateTimeBetween('-1 month');
+    $date_end = Carbon::createFromTimestamp(rand(200, 6200) + $date_start->getTimestamp());
+    $user = \App\Models\User::inRandomOrder()->first();
+
     return [
-        'name' => $faker->jobTitle(),
-        'duration' => $faker->numberBetween(20, 120),
-        'price' => $faker->randomFloat(2, 300, 1200),
-        'people_count' => $faker->randomFloat(0, 1, 3),
+        'date_start' => $date_start,
+        'date_end' => $date_end,
+        'status' => rand(0, 3),
+        'user_create' => $user->id,
+        'user_update' => $user->id,
     ];
 });
