@@ -33,4 +33,12 @@ class Locale
         return in_array($locale, self::$supported);
     }
 
+    /**
+     * Массив с поддерживаемыми локалями
+     * @return array
+     */
+    public static function getSupportedLocales()
+    {
+        return self::$supported;
+    }
 }
