@@ -1,0 +1,257 @@
+swagger: "2.0"
+info:
+  description: "Описание работы API версии доски объявлений"
+  version: "1.0.0"
+  title: "Advert API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "vetalf.m3000@gmail.com"
+  license:
+    name: "Adverts Board"
+    url: "http://homestead.test"
+host: "homestead.test"
+basePath: "/v1"
+tags:
+  - name: "adverts"
+    description: "Работа с объявлениями"
+paths:
+  /adverts:
+    get:
+      tags:
+        - "adverts"
+      summary: "Получить список объявлений"
+      operationId: "api.adverts.list"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "limit"
+          in: "query"
+          type: "integer"
+          description: "Кол-во возвращаемых объявлений"
+        - name: "offset"
+          in: "query"
+          type: "integer"
+          description: "Кол-во пропущенных объявлений от начала"
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "successful request"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/adverts"
+
+    post:
+      tags:
+        - "adverts"
+      summary: "Добавить новое объявление"
+      operationId: "api.adverts.store"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+        - name: "title"
+          in: "formData"
+          description: "Заголовок объявления"
+          required: true
+          type: "string"
+
+        - name: "price"
+          in: "formData"
+          description: "Стоимость товара в объявлении"
+          required: true
+          type: "integer"
+
+        - name: "content"
+          in: "formData"
+          description: "Описание в объявлении"
+          required: true
+          type: "string"
+
+        - name: "town"
+          in: "formData"
+          description: "Город отображения объявления"
+          required: true
+          type: "string"
+
+        - name: "user"
+          in: "formData"
+          description: "Владелец обявления"
+          required: true
+          type: "string"
+
+        - name: "division"
+          in: "formData"
+          description: "Подразделение объявления"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "Объявление успешно размещено"
+
+  /adverts/{id}:
+    get:
+      tags:
+        - "adverts"
+      summary: "Получить объявление по id"
+      operationId: "api.adverts.item"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "Id объявления"
+
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "successful request"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/advert"
+
+    put:
+      tags:
+        - "adverts"
+      summary: "Получить объявление по id"
+      operationId: "api.adverts.update"
+      produces:
+        - "application/json"
+      consumes:
+        - "multipart/form-data"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "id объявления"
+
+        - name: "title"
+          in: "formData"
+          description: "Заголовок объявления"
+          required: true
+          type: "string"
+
+        - name: "price"
+          in: "formData"
+          description: "Стоимость товара в объявлении"
+          required: true
+          type: "integer"
+
+        - name: "content"
+          in: "formData"
+          description: "Описание в объявлении"
+          required: true
+          type: "string"
+
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "successful update"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/advert"
+
+    delete:
+      tags:
+        - "adverts"
+      summary: "Получить объявление по id"
+      operationId: "api.adverts.delete"
+      produces:
+        - "application/json"
+      parameters:
+
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "Id объявления"
+
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "successful delete"
+
+
+
+definitions:
+  adverts:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      user_id:
+        type: "integer"
+      title:
+        type: "string"
+      price:
+        type: "integer"
+      img:
+        type: "string"
+      content:
+        type: "string"
+      created_at:
+        type: "string"
+      updated_at:
+        type: "string"
+      town:
+        type: "object"
+      user:
+        type: "object"
+      division:
+        type: "object"
+
+  advert:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      user_id:
+        type: "integer"
+      title:
+        type: "string"
+      price:
+        type: "integer"
+      img:
+        type: "string"
+      content:
+        type: "string"
+      created_at:
+        type: "string"
+      updated_at:
+        type: "string"
+      town:
+        type: "object"
+      user:
+        type: "object"
+      division:
+        type: "object"
+      messages:
+        type: "object"

@@ -1,21 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Api\Adverts;
+namespace App\Http\Controllers\Api\V1\Adverts;
 
-use App\Http\Controllers\Api\Adverts\Request\AdvertsListRequest;
-use App\Http\Controllers\Api\Adverts\Resources\AdvertsResource;
-use App\Http\Controllers\Api\Adverts\Resources\AdvertWithMessagesResource;
+use App\Http\Controllers\Api\V1\Adverts\Request\AdvertsListRequest;
+use App\Http\Controllers\Api\V1\Adverts\Resources\AdvertsResource;
+use App\Http\Controllers\Api\V1\Adverts\Resources\AdvertWithMessagesResource;
 use App\Http\Controllers\Cms\Adverts\Request\StoreAdvertRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Advert;
 use App\Services\Adverts\AdvertsService;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+
 
 class AdvertsController extends Controller
 {
-    const MAX_PER_PAGE = 2;
-
     /**
      * @var AdvertsService
      */
