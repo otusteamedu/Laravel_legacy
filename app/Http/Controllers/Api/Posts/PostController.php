@@ -12,8 +12,11 @@ use App\Models\Post;
 use App\Services\Groups\GroupService;
 use App\Services\Posts\PostService;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\Response;
 
+/**
+ * Class PostController
+ * @package App\Http\Controllers\Api\Posts
+ */
 class PostController extends Controller
 {
     /**
@@ -50,6 +53,11 @@ class PostController extends Controller
     {
         $DTO = PostFilterDTO::fromArray($request->getFormData());
         $posts = $this->service->paginate($DTO);
+        $posts->loadMissing([
+            'groups',
+            'producer',
+            'producer.role',
+        ]);
 
         return PostResource::collection($posts);
     }

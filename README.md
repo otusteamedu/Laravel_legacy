@@ -11,8 +11,9 @@ npm install
 # run migrations
 php artisan migrate
 
-# generate key
+# generate keys
 php artisan key:generate
+php artisan passport:keys
 
 # build for development
 npm run dev

@@ -85,4 +85,6 @@ return [
 
     'published_at' => 'Published at',
     'id' => 'ID',
+
+    'settings' => 'User settings',
 ];
