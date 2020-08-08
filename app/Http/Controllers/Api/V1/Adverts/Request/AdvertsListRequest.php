@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Http\Controllers\Api\Adverts\Request;
+namespace App\Http\Controllers\Api\V1\Adverts\Request;
 
 
 use Illuminate\Foundation\Http\FormRequest;

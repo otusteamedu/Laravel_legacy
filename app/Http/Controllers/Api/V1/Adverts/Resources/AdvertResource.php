@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Api\Adverts\Resources;
+namespace App\Http\Controllers\Api\V1\Adverts\Resources;
 
 use App\Models\Advert;
-use App\Http\Controllers\Api\Adverts\Request\AdvertsListRequest;
+use App\Http\Controllers\Api\V1\Adverts\Request\AdvertsListRequest;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**

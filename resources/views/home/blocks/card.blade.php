@@ -7,7 +7,7 @@
             <div class="card-body">
                 <h5 class="card-title">{{$item->title}}</h5>
                 <p class="card-text">{{$item->town->name}}</p>
-                <h6>Цена: {{$item->price}}</h6>
+                <h6>Цена: {{number_format($item->price, 0, ',', ' ')}}</h6>
                 <a href="{{route('home.show', ['locale'=>$locale,'advert'=>$item->id])}}" class="btn btn-outline-primary mt-3">просмотр</a>
                 <a href="#" class="btn btn-outline-primary mt-3">в избранное
                     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="18" height="18" viewBox="0 0 1792 1792">

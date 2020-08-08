@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\Api\Adverts\Resources;
+namespace App\Http\Controllers\Api\V1\Adverts\Resources;
 
-use App\Http\Controllers\Api\Adverts\Request\AdvertsListRequest;
+use App\Http\Controllers\Api\V1\Adverts\Request\AdvertsListRequest;
 use App\Models\Advert;
 use Illuminate\Http\Resources\Json\ResourceCollection;
 use Illuminate\Support\Str;
