@@ -2,14 +2,14 @@
 
 namespace App\Services\Localize;
 
-use App\Services\Localize\Handlers\LocalizeSetHandler;
+use App\Services\Localize\Handlers\LocalizeHandler;
 use App\Services\Localize\Repositories\LocalizeRepositoryInterface;
 
 class LocalizeService
 {
 
     /**
-     * @var LocalizeSetHandler
+     * @var LocalizeHandler
      */
     private $setHandler;
     /**
@@ -18,7 +18,7 @@ class LocalizeService
     private $repository;
 
     public function __construct(
-        LocalizeSetHandler $setHandler,
+        LocalizeHandler $setHandler,
         LocalizeRepositoryInterface $repository
     )
     {

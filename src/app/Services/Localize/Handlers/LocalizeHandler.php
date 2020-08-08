@@ -10,7 +10,7 @@ use App\Services\Localize\Repositories\LocalizeRepositoryInterface;
  * Class BusinessCreateHandler
  * @package App\Services\Businesses\Handlers
  */
-class LocalizeSetHandler
+class LocalizeHandler
 {
 
     /**
