@@ -19,7 +19,11 @@ class Balance
      */
     public static function register(Schedule $schedule)
     {
-        $schedule->command('users:balance -D')->weeklyOn(1, '9:00');
+        $schedule->command('users:balance -D')
+            ->weeklyOn(1, '9:00')
+            ->environments(['test', 'production'])
+            ->onOneServer()
+            ->runInBackground();
     }
 
 }
