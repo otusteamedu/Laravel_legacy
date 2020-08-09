@@ -12,6 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $address
  *
  * @property-read \App\Models\Business|null $business
+ * @property-read \App\Models\BusinessContact|null $contact
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BusinessAddress newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BusinessAddress newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BusinessAddress query()
@@ -37,5 +39,14 @@ class BusinessAddress extends Model
     public function business()
     {
         return $this->hasOne(Business::class);
+    }
+
+    /**
+     * Contacts
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function contacts()
+    {
+        return $this->hasMany(BusinessContact::class, 'business_address_id', 'id');
     }
 }

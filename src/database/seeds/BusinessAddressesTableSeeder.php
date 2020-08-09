@@ -12,7 +12,7 @@ class BusinessAddressesTableSeeder extends Seeder
     public function run()
     {
         foreach (\App\Models\Business::all() as $business) {
-            factory(\App\Models\BusinessAddress::class, 1)->create([
+            factory(\App\Models\BusinessAddress::class, 2)->create([
                 'business_id' => $business->id,
             ]);
         }
