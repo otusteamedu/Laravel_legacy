@@ -20,6 +20,15 @@ services:
       - ./src:/var/www/html
       - ./php.www.conf:/usr/local/etc/php-fpm.d/zz-docker.conf
       - socket:/var/run
+    links:
+      - redis
+
+  redis:
+    image: redis:latest
+    volumes:
+      - socket:/var/run
+    ports:
+      - 6379:6379
 
 volumes:
   socket:
