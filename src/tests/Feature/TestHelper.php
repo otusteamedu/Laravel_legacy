@@ -33,7 +33,11 @@ class TestHelper extends TestCase
      */
     protected function getBusiness(User $user): Business
     {
-        return factory(Business::class)->create(['user_id' => $user->id]);
+        $type_id = $this->getBusinessType()->id;
+        return factory(Business::class)->create([
+            'user_id' => $user->id,
+            'type_id' => $type_id
+        ]);
     }
 
     /**

@@ -7,7 +7,12 @@ use App\Services\Businesses\DTOs\BusinessHandlerDTO;
 
 interface BusinessRepositoryInterface
 {
-//    public function find(int $id): ?Business;
+    /**
+     * Найти запись по ID
+     * @param int $id
+     * @return Business|null
+     */
+    public function find(int $id): ?Business;
 
     /**
      * Вернет салон пользователя

@@ -19,5 +19,13 @@ return [
             'price' => 'Цена',
             'people_count' => 'Кол-во человек',
         ]
+    ],
+
+    'feedback' => [
+        'add' => [
+            'name' => 'Имя',
+            'email' => 'Email',
+            'text' => 'Текст',
+        ]
     ]
 ];

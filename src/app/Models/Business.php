@@ -58,12 +58,12 @@ class Business extends Model
     }
 
     /**
-     * Contacts
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * First Address
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneOrMany
      */
-    public function contacts()
+    public function address()
     {
-        return $this->hasMany(BusinessContact::class);
+        return $this->hasOne(BusinessAddress::class, "business_id", 'id');
     }
 
     /**
@@ -82,5 +82,14 @@ class Business extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    /**
+     * Procedures
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function procedures()
+    {
+        return $this->hasMany(Procedure::class, 'business_id', 'id');
     }
 }

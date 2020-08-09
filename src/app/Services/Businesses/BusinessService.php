@@ -47,6 +47,16 @@ class BusinessService
 
     /**
      * Списк всех типов
+     * @param int $id
+     * @return Collection|null
+     */
+    public function get(int $id): ?Business
+    {
+        return $this->repository->find($id);
+    }
+
+    /**
+     * Списк всех типов
      * @return Collection|null
      */
     public function getMyBusiness(): ?Business

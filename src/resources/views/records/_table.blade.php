@@ -18,7 +18,7 @@
     <tbody>
     @forelse($records as $record)
         <tr>
-            <th scope="row">{{ $record->id }}</th>
+            <th scope="row">{{ $loop->iteration }}</th>
             <th>{{ $record->procedure->name }}</th>
             <td>{{ $record->client->name }}</td>
             <td>{{ date("d M H:i", strtotime($record->date_start)) }}</td>
