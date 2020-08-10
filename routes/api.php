@@ -20,6 +20,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group([
     'middleware' => ['auth:api', 'forbid_students', 'scopes:userinfo,messages'],
     'namespace' => 'Api',
+    'as' => 'api.',
 ], function () {
     Route::apiResources([
         'posts' => 'Posts\PostController',

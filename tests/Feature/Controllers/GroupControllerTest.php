@@ -8,8 +8,9 @@ use App\Models\User;
 use App\Services\Groups\GroupService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\Generators\GroupGenerator;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
-use Tests\Traits\Generator;
 
 /**
  * Class GroupControllerTest
@@ -18,7 +19,6 @@ use Tests\Traits\Generator;
  */
 class GroupControllerTest extends TestCase
 {
-    use Generator;
     use RefreshDatabase;
 
     /**
@@ -33,7 +33,7 @@ class GroupControllerTest extends TestCase
         $this->seed(\RoleSeeder::class);
         $this->seed(\EducationYearSeeder::class);
 
-        $this->user = $this->generateMethodist();
+        $this->user = UserGenerator::generateMethodist();
     }
 
     /**
@@ -75,7 +75,7 @@ class GroupControllerTest extends TestCase
             'course_id' => factory(Course::class)->create()->id,
             'education_year_id' => EducationYear::inRandomOrder()->first()->id,
         ];
-        $group = $this->generateGroup(['education_year_id' => $body['education_year_id']]);
+        $group = GroupGenerator::generateGroup(['education_year_id' => $body['education_year_id']]);
 
         $this->mock(GroupService::class, function ($mock) use ($group) {
             $mock->shouldReceive('store')->once()
@@ -108,7 +108,7 @@ class GroupControllerTest extends TestCase
      */
     public function testShow(): void
     {
-        $group = $this->generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
+        $group = GroupGenerator::generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
 
         $this->actingAs($this->user)
             ->get(route('groups.show', $group))
@@ -121,7 +121,7 @@ class GroupControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $group = $this->generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
+        $group = GroupGenerator::generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
 
         $this->actingAs($this->user)
             ->get(route('groups.edit', $group))
@@ -142,7 +142,7 @@ class GroupControllerTest extends TestCase
             'course_id' => factory(Course::class)->create()->id,
             'education_year_id' => EducationYear::inRandomOrder()->first()->id,
         ];
-        $group = $this->generateGroup(['education_year_id' => $body['education_year_id']]);
+        $group = GroupGenerator::generateGroup(['education_year_id' => $body['education_year_id']]);
 
         $this->mock(GroupService::class, function ($mock) use ($group) {
             $mock->shouldReceive('update')->twice()
@@ -175,7 +175,7 @@ class GroupControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $group = $this->generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
+        $group = GroupGenerator::generateGroup(['education_year_id' => EducationYear::inRandomOrder()->first()->id]);
 
         $this->mock(GroupService::class, function ($mock) use ($group) {
             $mock->shouldReceive('delete')->once()

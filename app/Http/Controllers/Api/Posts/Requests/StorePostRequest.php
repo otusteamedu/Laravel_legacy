@@ -16,7 +16,7 @@ class StorePostRequest extends BaseFormRequest
         return [
             'title' => ['required', 'nullable', 'string', 'min:1'],
             'body' => ['required', 'nullable', 'string', 'min:1'],
-            'groups' => ['required', 'array', 'min:1'],
+            'groups' => ['required', 'array', 'min:1', 'exists:groups,id'],
             'groups.*' => ['integer'],
         ];
     }

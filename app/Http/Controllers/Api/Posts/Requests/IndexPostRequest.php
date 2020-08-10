@@ -16,8 +16,8 @@ class IndexPostRequest extends BaseFormRequest
     {
         return [
             'title' => ['nullable', 'string', 'min:1'],
-            'groups' => ['array'],
-            'groups.*' => ['integer'],
+            'groups' => ['array', 'min:1'],
+            'groups.*' => ['integer', 'exists:groups,id'],
             'published' => ['nullable', 'bool'],
             'limit' => ['integer', 'min:1', 'max:' . Settings::PER_PAGE],
         ];

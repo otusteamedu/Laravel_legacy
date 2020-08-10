@@ -25,7 +25,7 @@ class PostResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'body' => $this->body,
-            'published_at' => $this->published_at,
+            'published_at' => $this->published_at ? $this->published_at->format('Y-m-d H:i:s') : null,
             'user_id' => $this->user_id,
             'producer' => new UserResource($this->whenLoaded('producer')),
             'groups' => GroupResource::collection($this->whenLoaded('groups')),

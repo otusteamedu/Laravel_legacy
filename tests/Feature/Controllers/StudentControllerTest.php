@@ -11,8 +11,10 @@ use App\Services\Users\UserService;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\Generators\GroupGenerator;
+use Tests\Generators\StudentGenerator;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
-use Tests\Traits\Generator;
 
 /**
  * Class StudentControllerTest
@@ -21,7 +23,6 @@ use Tests\Traits\Generator;
  */
 class StudentControllerTest extends TestCase
 {
-    use Generator;
     use RefreshDatabase;
 
     /**
@@ -36,7 +37,7 @@ class StudentControllerTest extends TestCase
         $this->seed(\RoleSeeder::class);
         $this->seed(\EducationYearSeeder::class);
 
-        $this->user = $this->generateMethodist();
+        $this->user = UserGenerator::generateMethodist();
     }
 
     /**
@@ -83,7 +84,7 @@ class StudentControllerTest extends TestCase
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,
-            'group_id' => [$this->generateGroup([
+            'group_id' => [GroupGenerator::generateGroup([
                 'education_year_id' => EducationYear::inRandomOrder()->first()->id,
             ])->id],
             'id_number' => rand(1, 99999999999999999),
@@ -136,7 +137,7 @@ class StudentControllerTest extends TestCase
      */
     public function testShow(): void
     {
-        $student = $this->generateStudent();
+        $student = StudentGenerator::generateStudent();
 
         $this->actingAs($this->user)
             ->get(route('students.show', $student))
@@ -149,7 +150,7 @@ class StudentControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $student = $this->generateStudent();
+        $student = StudentGenerator::generateStudent();
 
         $this->actingAs($this->user)
             ->get(route('students.edit', $student))
@@ -173,7 +174,7 @@ class StudentControllerTest extends TestCase
             'last_name' => $faker->firstName,
             'name' => $faker->firstName,
             'second_name' => $faker->firstName,
-            'group_id' => [$this->generateGroup([
+            'group_id' => [GroupGenerator::generateGroup([
                 'education_year_id' => EducationYear::inRandomOrder()->first()->id,
             ])->id],
             'id_number' => rand(1, 99999999999999999),
@@ -238,7 +239,7 @@ class StudentControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $student = $this->generateStudent();
+        $student = StudentGenerator::generateStudent();
 
         $this->partialMock(UserService::class, function ($mock) {
             $mock->shouldReceive('delete')->once()

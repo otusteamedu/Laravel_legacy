@@ -10,8 +10,8 @@ use App\Services\Users\UserService;
 use Faker\Factory;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Http\Response;
+use Tests\Generators\UserGenerator;
 use Tests\TestCase;
-use Tests\Traits\Generator;
 
 /**
  * Class TeacherControllerTest
@@ -20,7 +20,6 @@ use Tests\Traits\Generator;
  */
 class TeacherControllerTest extends TestCase
 {
-    use Generator;
     use RefreshDatabase;
 
     /**
@@ -35,7 +34,7 @@ class TeacherControllerTest extends TestCase
         $this->seed(\RoleSeeder::class);
         $this->seed(\EducationYearSeeder::class);
 
-        $this->user = $this->generateMethodist();
+        $this->user = UserGenerator::generateMethodist();
     }
 
     /**
@@ -84,7 +83,7 @@ class TeacherControllerTest extends TestCase
             'email' => $faker->email,
         ];
 
-        $teacher = $user = $this->generateTeacher();
+        $teacher = $user = UserGenerator::generateTeacher();
 
         $this->partialMock(UserService::class, function ($mock) use ($user) {
             $mock->shouldReceive('store')->once()
@@ -123,7 +122,7 @@ class TeacherControllerTest extends TestCase
      */
     public function testShow(): void
     {
-        $teacher = $this->generateTeacher();
+        $teacher = UserGenerator::generateTeacher();
 
         $this->actingAs($this->user)
             ->get(route('teachers.show', $teacher))
@@ -139,7 +138,7 @@ class TeacherControllerTest extends TestCase
      */
     public function testEdit(): void
     {
-        $teacher = $this->generateTeacher();
+        $teacher = UserGenerator::generateTeacher();
 
         $this->actingAs($this->user)
             ->get(route('teachers.edit', $teacher))
@@ -205,7 +204,7 @@ class TeacherControllerTest extends TestCase
         /**
          * Email already exist
          */
-        $newTeacher = $user = $this->generateTeacher();
+        $newTeacher = $user = UserGenerator::generateTeacher();
         $this->actingAs($this->user)
             ->put(route('teachers.update', $newTeacher), $body)
             ->assertStatus(Response::HTTP_FOUND)
@@ -217,7 +216,7 @@ class TeacherControllerTest extends TestCase
      */
     public function testDestroy(): void
     {
-        $teacher = $this->generateTeacher();
+        $teacher = UserGenerator::generateTeacher();
 
         $this->partialMock(UserService::class, function ($mock) {
             $mock->shouldReceive('delete')->once()
