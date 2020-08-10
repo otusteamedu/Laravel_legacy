@@ -24,6 +24,9 @@ class StoreAdvertRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',  //unique:divisions,name|
+            'town_id' => 'required',
+            'division_id' => 'required',
+            'price' => 'required',
         ];
     }
 
@@ -34,7 +37,6 @@ class StoreAdvertRequest extends FormRequest
         $data = Arr::except($data, ['_token',]);
         $data['user_id'] = Auth::id();
         $data['img'] = 'img/default.jpg';
-
         return $data;
     }
 
