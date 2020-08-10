@@ -35,7 +35,7 @@ Route::name('cms.')->group(function () {
     });
 });
 
-
+Route::get('/films', 'FilmController@index')->name('films');
 
 Route::view('/', 'home');
 Auth::routes();

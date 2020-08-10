@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="card-body">
-                {{ Form::open(['url' => route('cms.pages.store')]) }}
+                {{ Form::open(['url' => App\Helpers\RouteBuilder::localeRoute('cms.films.store')]) }}
                     @include('admin.pages.blocks.form.fields')
                     <div class="form-group">
                         {{ Form::submit(trans('messages.addPage'), array('class' => 'btn btn-success')) }}

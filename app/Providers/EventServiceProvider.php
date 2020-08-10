@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Listeners\Cache\CacheHitEventListener;
 use App\Listeners\LogAuthenticated;
 use App\Listeners\LogAuthenticationAttempt;
 use App\Listeners\LogFailedLogin;
@@ -13,6 +14,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
+use Illuminate\Cache\Events\CacheHit;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -46,6 +48,14 @@ class EventServiceProvider extends ServiceProvider
 
         Lockout::class => [
             LogLockout::class
+        ],
+        
+        FilmSaved::class => [
+            ClearFilmCache::class,
+        ],
+
+        CacheHit::class => [
+            CacheHitEventListener::class,
         ],
     ];
 

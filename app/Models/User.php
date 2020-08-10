@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Watson\Rememberable\Rememberable;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -34,7 +34,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,Rememberable;
 
     const LEVEL_USER = 1;
     const LEVEL_MODERATOR = 2;

@@ -6,6 +6,7 @@ use App\Policies\Abilities;
 use Gate;
 use Auth;
 use Log;
+use Cache;
 use App\Http\Controllers\Admin\Films\Requests\StoreFilmRequest;
 use App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest;
 use App\Models\Film;
@@ -17,6 +18,8 @@ use Illuminate\Validation\ValidationException;
 
 use Illuminate\Auth\Access\AuthorizationException;
 use App\Exceptions\SimpleException;
+
+use App\Helpers\RouteBuilder;
 
 use View;
 
@@ -36,19 +39,20 @@ class FilmController extends Controller
      */
     public function index(Request $request)
     {
-        try {
-            $this->authorize(Abilities::VIEW_ANY, Film::class);
-        } catch (AuthorizationException $e) {
-            \Log::critical('Нет прав на просмотр фильма', [
-                $this->getCurrentUser(),
-            ]);
-            return  abort(403, 'Нет прав на просмотр фильма', []);
-        }
-
-        View::share([
-            'films' => Film::paginate(),
-        ]);
-        return view('admin.films.index');
+        $key = $request->user()->id . '|' . $request->getUri();
+        return Cache::remember($key, 60, function () {
+            try {
+                $this->authorize(Abilities::VIEW_ANY, Film::class);
+            } catch (AuthorizationException $e) {
+                \Log::critical('Нет прав на просмотр фильма', [
+                    $this->getCurrentUser(),
+                ]);
+                return  abort(403, 'Нет прав на просмотр фильма', []);
+            }
+            return view('admin.films.index', [
+                'films' => Film::paginate()
+            ])->render();
+        });
     }
 
     /**
@@ -84,9 +88,22 @@ class FilmController extends Controller
             ]);
             return  abort(403, 'Нет прав на добавление фильма', []);
         }
-        $data = $request->getFormData();
-        $this->filmsService->createFilm($data);
-        return redirect(route('cms.films.index'));
+
+        $lockKey = 'create-film';
+        $lock = Cache::lock($lockKey, 5);
+        if ($lock->get()) {
+            $this->validate($request, [
+                'title' => 'required|unique:films,title|max:100',
+                'slug' => 'required|unique:films,slug|max:100',
+            ]);
+            $data = $request->all();
+            $data['created_user_id'] = Auth::id();
+            $film = $this->filmsService->createFilm($data);
+            $lock->release();
+            return redirect(RouteBuilder::localeRoute('cms.films.index'));
+            //return response()->json($film, 201);
+        }
+        abort(422);
     }
 
     /**

@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-
-
 /**
  * App\Models\Film
  *
@@ -52,12 +48,12 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Film extends Model
 {
-   /**
-   * The table associated with the model.
-   *
-   * @var string
-   */
-   protected $table = 'films';
+    /**
+    * The table associated with the model.
+    *
+    * @var string
+    */
+    protected $table = 'films';
 
     protected $fillable = [
         'title',
@@ -70,35 +66,33 @@ class Film extends Model
         'year'
     ];
 
-   public function actors()
-   {
-      return $this->hasMany(Actor::class);
-   }
+    public function actors()
+    {
+        return $this->hasMany(Actor::class);
+    }
 
-   public function genres()
-   {
-      return $this->hasMany(Genre::class);
+    public function genres()
+    {
+        return $this->hasMany(Genre::class);
+    }
 
-   }
+    public function producers()
+    {
+        return $this->hasMany(Producer::class);
+    }
 
-   public function producers()
-   {
-      return $this->hasMany(Producer::class);
-   }
+    public function years()
+    {
+        return $this->hasMany(Year::class);
+    }
 
-   public function years()
-   {
-      return $this->hasMany(Year::class);
-   }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
-   public function comments()
-   {
-      return $this->hasMany(Comment::class);
-   }
-
-   public function actorsAndRoles()
-   {
-      return $this->hasMany(ActorAndRole::class);
-   }
-
+    public function actorsAndRoles()
+    {
+        return $this->hasMany(ActorAndRole::class);
+    }
 }

@@ -8,6 +8,9 @@ use App\Services\Films\Repositories\EloquentFilmRepository;
 use App\Services\Pages\Repositories\PageRepositoryInterface;
 use App\Services\Pages\Repositories\EloquentPageRepository;
 
+use App\Services\Films\Repositories\CachedFilmRepository;
+use App\Services\Films\Repositories\CachedFilmRepositoryInterface;
+
 use Illuminate\Support\ServiceProvider;
 
 use Illuminate\Contracts\Events\Dispatcher;
@@ -58,5 +61,6 @@ class AppServiceProvider extends ServiceProvider
         // $this->app->bind(FooInterface::class, Foo::class);
         $this->app->bind(FilmRepositoryInterface::class, EloquentFilmRepository::class);
         $this->app->bind(PageRepositoryInterface::class, EloquentPageRepository::class);
+        $this->app->bind(CachedFilmRepositoryInterface::class, CachedFilmRepository::class);
     }
 }
