@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'Api\V1',
+    'as' => 'api.',
     'middleware' => ['auth:api'],
 ], function() {
     Route::apiResource('/adverts', 'Adverts\AdvertsController');

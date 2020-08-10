@@ -38,10 +38,10 @@ class AdvertsController extends Controller
 
         $adverts =$this->advertsService->pageApi($limit, $offset);
 
-        //return  response()->json($adverts);
+        return  response()->json($adverts);
         //return AdvertResource::collection($adverts);
 
-        return new AdvertsResource($adverts);
+        //return new AdvertsResource($adverts);
 
     }
 
@@ -54,8 +54,8 @@ class AdvertsController extends Controller
     public function store(StoreAdvertRequest $request)
     {
         $data = $request->getFormData();
-        $this->advertsService->storeAdvert($data);
-        return 'saved';
+
+        return $this->advertsService->storeAdvert($data);
     }
 
     /**
@@ -78,8 +78,7 @@ class AdvertsController extends Controller
      */
     public function update(StoreAdvertRequest $request, Advert $advert)
     {
-        $this->advertsService->updateAdvert($advert, $request->all());
-        return 'Updated';
+        return $this->advertsService->updateAdvert($advert, $request->all());
     }
 
     /**
@@ -90,6 +89,6 @@ class AdvertsController extends Controller
      */
     public function destroy(Advert $advert)
     {
-        $this->advertsService->deleteAdvert($advert);
+        return $this->advertsService->deleteAdvert($advert);
     }
 }
