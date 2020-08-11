@@ -38,10 +38,10 @@ class AdvertsController extends Controller
 
         $adverts =$this->advertsService->pageApi($limit, $offset);
 
-        return  response()->json($adverts);
+        //return  response()->json($adverts);
         //return AdvertResource::collection($adverts);
 
-        //return new AdvertsResource($adverts);
+        return new AdvertsResource($adverts);
 
     }
 

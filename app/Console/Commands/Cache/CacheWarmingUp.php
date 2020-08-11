@@ -41,7 +41,7 @@ class CacheWarmingUp extends Command
      */
     public function handle()
     {
-
+        //app('log')->info('cache-warm');
         $this->cacheWarmingHandler->forgetCacheKeys(
             [
                 CacheKeyGenerator::HOME_LIST,

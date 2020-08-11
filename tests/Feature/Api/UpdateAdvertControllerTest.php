@@ -22,7 +22,6 @@ class UpdateAdvertControllerTest extends TestCase
 
     /**
      * @group api
-     * @group 1
      */
     public function testUpdate()
     {
