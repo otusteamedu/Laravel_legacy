@@ -38,7 +38,7 @@ class ListAdvertsControllerTest extends TestCase
         $this->json('get', route('api.adverts.index',
                                           ['limit'=>1,'offset'=>1]) )
                 ->assertStatus(200)
-                /*->assertJsonCount(1)*/; //TODO 'этот тест не работает, dd($request->getLimit()) дает занчение поумолчанию
+                ->assertJsonCount(1);
 
     }
 }

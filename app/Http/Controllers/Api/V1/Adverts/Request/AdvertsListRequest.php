@@ -21,12 +21,12 @@ class AdvertsListRequest extends FormRequest
 
     public function getLimit(): int
     {
-        return $this->request->get('limit', self::MAX_PER_PAGE);
+        return $this->get('limit', self::MAX_PER_PAGE);
     }
 
     public function getOffset(): int
     {
-        return $this->request->get('offset', 0);
+        return $this->get('offset', 0);
     }
 
 }
