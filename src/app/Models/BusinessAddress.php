@@ -11,8 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $business_id
  * @property string $address
  *
- * @property-read \App\Models\Business|null $business
- * @property-read \App\Models\BusinessContact|null $contact
+ * @property-read Business|null $business
+ * @property-read BusinessContact|null $contacts
  *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BusinessAddress newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\BusinessAddress newQuery()
