@@ -35,7 +35,7 @@ class LocalizeController extends Controller
      * @param string $locale
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function setLocalize(string $locale)
+    public function setLocale(string $locale)
     {
         $this->service->set($locale);
         return Redirect::back();

@@ -177,6 +177,7 @@ return [
 
         App\Providers\RepositoryServiceProvider::class,
         App\Providers\GateServiceProvider::class,
+        App\Providers\ObserverServiceProvider::class,
 
     ],
 

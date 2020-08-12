@@ -11,13 +11,13 @@ class BusinessContactTableSeeder extends Seeder
      */
     public function run()
     {
-        $type = \App\Models\BusinessContactType::whereName("Телефон")->first();
-
-        foreach (\App\Models\Business::all() as $business) {
-            factory(\App\Models\BusinessContact::class, 1)->create([
-                'business_id' => $business->id,
-                'type_id' => $type->id,
-            ]);
+        foreach (\App\Models\BusinessAddress::all() as $business_address) {
+            foreach (\App\Models\BusinessContactType::all() as $type) {
+                factory(\App\Models\BusinessContact::class, 1)->create([
+                    'business_address_id' => $business_address->id,
+                    'type_id' => $type->id,
+                ]);
+            }
         }
     }
 }

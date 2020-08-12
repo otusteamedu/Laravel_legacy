@@ -9,10 +9,10 @@ use Illuminate\Database\Eloquent\Collection;
 class EloquentBusinessRepository implements BusinessRepositoryInterface
 {
 
-//    public function find(int $id): ?Business
-//    {
-//        return Business::find($id);
-//    }
+    public function find(int $id): ?Business
+    {
+        return Business::find($id);
+    }
 
     public function findByUserId(int $user_id): ?Business
     {

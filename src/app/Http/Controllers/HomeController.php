@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Records\RecordService;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
     /**
+     * @var RecordService
+     */
+    private $recordService;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        RecordService $recordService
+    )
     {
+        $this->recordService = $recordService;
     }
 
     /**
@@ -35,6 +44,10 @@ class HomeController extends Controller
      */
     public function home()
     {
-        return view('home.index');
+        $records = $this->recordService->getMyRecord();
+
+        return view('home.index', [
+            'records' => $records
+        ]);
     }
 }

@@ -7,7 +7,7 @@
     @include('blocks._header')
 
     @can('accessBusinessPanel')
-        @include('records._records_table')
+        @include('records._table')
 
         @include('statistic._small')
     @else

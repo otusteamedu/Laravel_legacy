@@ -20,7 +20,7 @@
     @include('blocks._header')
 
     <div class="border border-info">
-        @include('business._constructor')
+        @include('constructor._constructor')
     </div>
 
 @stop

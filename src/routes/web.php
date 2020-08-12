@@ -24,7 +24,7 @@ Route::group([
     ],
 ], function () {
     Route::get('/', [HomeController::class, 'index']);
-    Route::get('/localize/{locale}', [\App\Http\Controllers\LocalizeController::class, 'setLocalize'])
+    Route::get('/localize/{locale}', [\App\Http\Controllers\LocalizeController::class, 'setLocale'])
         ->name('localize.set');
 
     /**
@@ -44,15 +44,17 @@ Route::group([
         ], function () {
             Route::resources(['procedure' => '\App\Http\Controllers\ProcedureController']);
             Route::resources(['record' => '\App\Http\Controllers\RecordController']);
+            Route::resources(['feedback' => '\App\Http\Controllers\FeedbackController']);
 
             Route::get('/staff', [\App\Http\Controllers\StaffController::class, 'index']);
             Route::get('/statistic', [\App\Http\Controllers\StatisticController::class, 'index'])
                 ->name('statistic.index');
-            Route::get('/feedback', [\App\Http\Controllers\FeedbackController::class, 'index']);
             Route::get('/message', [\App\Http\Controllers\MessageController::class, 'index']);
 
             Route::get('/business', [\App\Http\Controllers\BusinessController::class, 'index'])
                 ->name('business.index');
+            Route::get('/business/{business}', [\App\Http\Controllers\BusinessController::class, 'show'])
+                ->name('business.show');
             Route::get('/business/edit/{business}', [\App\Http\Controllers\BusinessController::class, 'edit'])
                 ->name('business.edit')
                 ->middleware("can:accessMyBusinessPanel,business");

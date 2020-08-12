@@ -46,6 +46,19 @@ class BusinessController extends Controller
     }
 
     /**
+     * Вывод страницы салона
+     * @param Business $business
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show($id)
+    {
+        $business = $this->service->get($id);
+        return view('business.show', [
+            'business' => $business
+        ]);
+    }
+
+    /**
      * Страница добавления салона
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View+
      */

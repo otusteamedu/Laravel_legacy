@@ -14,7 +14,7 @@ class ProceduresTableSeeder extends Seeder
         foreach (\App\Models\User::all() as $user) {
             $business = \App\Models\Business::whereUserId($user->id)->first();
 
-            factory(\App\Models\Procedure::class, 1)->create([
+            factory(\App\Models\Procedure::class, 3)->create([
                 'business_id' => $business->id,
                 'worker_id' => $user->id,
             ]);

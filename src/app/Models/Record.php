@@ -80,7 +80,7 @@ class Record extends Model
      */
     public function business()
     {
-        return $this->hasOne(Business::class);
+        return $this->hasOne(Business::class, 'id', 'business_id');
     }
 
     /**
@@ -89,7 +89,7 @@ class Record extends Model
      */
     public function procedure()
     {
-        return $this->hasOne(Procedure::class);
+        return $this->hasOne(Procedure::class, 'id', 'procedure_id');
     }
 
     /**
@@ -98,6 +98,6 @@ class Record extends Model
      */
     public function client()
     {
-        return $this->hasOne(User::class);
+        return $this->hasOne(User::class, 'id', 'client_id');
     }
 }

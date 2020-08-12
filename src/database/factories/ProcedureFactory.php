@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 
 $factory->define(\App\Models\Procedure::class, function (Faker $faker) {
     return [
-        'name' => $faker->word(),
+        'name' => $faker->jobTitle(),
         'duration' => $faker->numberBetween(20, 120),
         'price' => $faker->randomFloat(2, 300, 1200),
         'people_count' => $faker->randomFloat(0, 1, 3),

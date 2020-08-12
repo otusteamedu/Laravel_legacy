@@ -2,15 +2,25 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\Records\RecordService;
+
 class RecordController extends Controller
 {
+    /**
+     * @var RecordService
+     */
+    private $service;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(
+        RecordService $service
+    )
     {
+        $this->service = $service;
     }
 
     /**
@@ -19,6 +29,9 @@ class RecordController extends Controller
      */
     public function index()
     {
-        return view('records.index');
+        $records = $this->service->getMyRecord();
+        return view('records.index', [
+            'records' => $records
+        ]);
     }
 }

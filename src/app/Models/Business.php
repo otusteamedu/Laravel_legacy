@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,8 +20,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $addresses_count
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\BusinessContact[] $contacts
  * @property-read int|null $contacts_count
- * @property-read \App\Models\BusinessType|null $type
- * @property-read \App\Models\User|null $user
+ *
+ * @property-read BusinessType|null $type
+ * @property-read User|null $user
+ * @property-read Collection|null $procedures
+ * @property-read BusinessAddress|null $address
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Business newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Business newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Business query()
@@ -34,6 +39,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Business extends Model
 {
+    const CACHE_TTL = 2240;
+    const CACHE_PREFIX = "business";
+
     const STATUS_REGISTERED = 0;
     const STATUS_CONFIRMED = 1;
     const STATUS_BLOCKED = 2;
@@ -49,7 +57,7 @@ class Business extends Model
     ];
 
     /**
-     * Address
+     * Addresses
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function addresses()
@@ -58,12 +66,12 @@ class Business extends Model
     }
 
     /**
-     * Contacts
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * First Address
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneOrMany
      */
-    public function contacts()
+    public function address()
     {
-        return $this->hasMany(BusinessContact::class);
+        return $this->hasOne(BusinessAddress::class, "business_id", 'id');
     }
 
     /**
@@ -82,5 +90,14 @@ class Business extends Model
     public function user()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    /**
+     * Procedures
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function procedures()
+    {
+        return $this->hasMany(Procedure::class, 'business_id', 'id');
     }
 }

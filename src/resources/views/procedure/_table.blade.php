@@ -18,7 +18,7 @@
     <tbody>
     @forelse($procedures as $procedure)
         <tr>
-            <th scope="row">{{ $procedure->id }}</th>
+            <th scope="row">{{ $loop->iteration }}</th>
             <td>{{ $procedure->name }}</td>
             <td>{{ $procedure->duration }}</td>
             <td>{{ $procedure->price }}</td>
