@@ -39,20 +39,20 @@ class FilmController extends Controller
      */
     public function index(Request $request)
     {
-        $key = $request->user()->id . '|' . $request->getUri();
-        return Cache::remember($key, 60, function () {
-            try {
-                $this->authorize(Abilities::VIEW_ANY, Film::class);
-            } catch (AuthorizationException $e) {
-                \Log::critical('Нет прав на просмотр фильма', [
+        //$key = $request->user()->id . '|' . $request->getUri();
+        //return Cache::remember($key, 60, function () {
+        try {
+            $this->authorize(Abilities::VIEW_ANY, Film::class);
+        } catch (AuthorizationException $e) {
+            \Log::critical('Нет прав на просмотр фильма', [
                     $this->getCurrentUser(),
                 ]);
-                return  abort(403, 'Нет прав на просмотр фильма', []);
-            }
-            return view('admin.films.index', [
+            return  abort(403, 'Нет прав на просмотр фильма', []);
+        }
+        return view('admin.films.index', [
                 'films' => Film::paginate()
             ])->render();
-        });
+        //});
     }
 
     /**
@@ -101,6 +101,7 @@ class FilmController extends Controller
             $film = $this->filmsService->createFilm($data);
             $lock->release();
             return redirect(RouteBuilder::localeRoute('cms.films.index'));
+            //return redirect('/en/admin/films');
             //return response()->json($film, 201);
         }
         abort(422);
@@ -150,7 +151,7 @@ class FilmController extends Controller
 
         $film->update($request->all());
 
-        return redirect(route('cms.films.index'));
+        return redirect(RouteBuilder::localeRoute('cms.films.index'));
     }
 
     /**

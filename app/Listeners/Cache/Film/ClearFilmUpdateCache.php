@@ -3,9 +3,9 @@
 namespace App\Listeners\Cache\Film;
 
 use App\Services\Films\Repositories\CachedFilmRepositoryInterface;
-use App\Services\Events\Models\Country\FilmSaved;
+use App\Services\Events\Models\Film\FilmUpdated;
 
-class ClearFilmCache
+class ClearFilmUpdateCache
 {
 
     /** @var CachedFilmRepositoryInterface */
@@ -24,10 +24,13 @@ class ClearFilmCache
     /**
      * @param FilmSaved $filmSaved
      */
-    public function handle(FilmSaved $filmSaved)
+    public function handle(FilmUpdated $filmUpdated)
     {
         $this->cachedFilmRepository->clearFilmCache(
-            $filmSaved->getFilm()
+            $filmUpdated->getFilm()
         );
+
+        $this->cachedFilmRepository->clearSearchCache();
+        $this->cachedFilmRepository->searchByNames('');
     }
 }

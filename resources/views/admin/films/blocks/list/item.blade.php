@@ -12,10 +12,17 @@
         </small>
     </td>
     <td>
+        @if ($film->status == '1')
+            {{__('messages.filmStatusPublished')}}
+        @elseif ($film->status == '0')
+            {{__('messages.filmStatusNotPublished')}}
+        @endif
+    </td>
+    <td>
         {{ $film->meta_title }}
     </td>
     <td class="project_progress">
-        {{ $film->meta_keywords }}
+        {{ $film->keywords }}
 
     </td>
     <td class="project-state">

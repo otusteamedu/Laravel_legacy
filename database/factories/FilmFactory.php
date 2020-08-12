@@ -5,7 +5,7 @@
 use Faker\Generator as Faker;
 
 $factory->define(\App\Models\Film::class, function (Faker $faker) {
-    $createdAt = $faker->dateTimeBetween('-3 months','-2 months');
+    $createdAt = $faker->dateTimeBetween('-3 months', '-2 months');
     $title = $faker->word;
     return [
         'title' =>$title,
@@ -13,7 +13,7 @@ $factory->define(\App\Models\Film::class, function (Faker $faker) {
         'meta_description'=>$title,
         'keywords'=>$title,
         'slug'=>Str::slug($title),
-        'status'=>"Опубликовано",
+        'status'=>1,
         'content'=>$faker->sentence(20),
         'year'=>$faker->year,
         'created_at' => $createdAt,
