@@ -25,18 +25,20 @@ class IndexFilmHandler
         $films = $this->filmRepository->index();
 
         foreach ($films as $item) {
-            $allFilms[] = [
-                "id"=>$item->id,
-                "title"=>$item->title,
-                "meta_title"=>$item->meta_title,
-                "meta_description"=>$item->meta_description,
-                "keywords"=>$item->keywords,
-                "slug"=>$item->slug,
-                "status"=>$item->status,
-                "content"=>$item->content,
-                "year"=>$item->year,
-                "genres"=>$item->genres
-            ];
+            if ($item->status=='1') {
+                $allFilms[] = [
+                    "id"=>$item->id,
+                    "title"=>$item->title,
+                    "meta_title"=>$item->meta_title,
+                    "meta_description"=>$item->meta_description,
+                    "keywords"=>$item->keywords,
+                    "slug"=>$item->slug,
+                    "status"=>$item->status,
+                    "content"=>$item->content,
+                    "year"=>$item->year,
+                    "genres"=>$item->genres
+                ];
+            }
         }
         
         return $allFilms;

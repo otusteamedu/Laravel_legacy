@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Services\Events\Models\Film\FilmSaved;
+use App\Services\Events\Models\Film\FilmUpdated;
+
 /**
  * App\Models\Film
  *
@@ -54,6 +57,12 @@ class Film extends Model
     * @var string
     */
     protected $table = 'films';
+
+
+    protected $dispatchesEvents = [
+        'saved' => FilmSaved::class,
+        'updated'=> FilmUpdated::class,
+    ];
 
     protected $fillable = [
         'title',

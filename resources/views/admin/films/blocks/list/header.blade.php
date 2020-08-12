@@ -6,6 +6,9 @@
         <th style="width: 20%">
             Название страницы
         </th>
+        <th style="width: 20%">
+            Опубликован
+        </th>
         <th style="width: 30%">
             Meta title
         </th>

@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Listeners\Cache\CacheHitEventListener;
+use App\Listeners\Cache\Film\ClearFilmSaveCache;
+use App\Listeners\Cache\Film\ClearFilmUpdateCache;
 use App\Listeners\LogAuthenticated;
 use App\Listeners\LogAuthenticationAttempt;
 use App\Listeners\LogFailedLogin;
@@ -10,6 +12,8 @@ use App\Listeners\LogLockout;
 use App\Listeners\LogRegisteredUser;
 use App\Listeners\LogSuccessfulLogin;
 use App\Listeners\LogSuccessfulLogout;
+use App\Services\Events\Models\Film\FilmSaved;
+use App\Services\Events\Models\Film\FilmUpdated;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -51,7 +55,11 @@ class EventServiceProvider extends ServiceProvider
         ],
         
         FilmSaved::class => [
-            ClearFilmCache::class,
+            ClearFilmSaveCache::class,
+        ],
+
+        FilmUpdated::class => [
+            ClearFilmUpdateCache::class
         ],
 
         CacheHit::class => [
