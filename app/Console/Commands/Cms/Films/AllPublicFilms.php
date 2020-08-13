@@ -3,24 +3,25 @@
 namespace App\Console\Commands\Cms\Films;
 
 use Illuminate\Console\Command;
-//use App\Services\Cache\Handlers\WarmupCacheHandler;
+
+use App\Services\Films\Handlers\AllPublicFilmHandler;
 
 /**
- * Консольная команда публикует все фильмы
- * неопубликованные
+ * Консольная команда публикует все фильмы которые находяться в статусе - неопубликованные
+ * очищает кеш при изменении каждого фильма
  * Class AllPublicFilms
  * @package App\Console\Commands
  */
 class AllPublicFilms extends Command
 {
     /**
-     * The name and signature of the console command.
-     * в дальнейшем кеш расширю для остальных моделей
-     *
+     * --all - команда публикует все не опубликованные ранее фильмы
+     * --id = 1,2,3 - команда публикует указанные фильмы (через запятую указываются id фильмов)
      * @var string
      */
-    protected $signature = 'film:public
+    protected $signature = 'cms:films:public
         {--all : Public All Films}
+        {--id=None : Public specified Film (id=1,2,3)}
     ';
 
     /**
@@ -30,16 +31,18 @@ class AllPublicFilms extends Command
      */
     protected $description = 'Public Films';
 
-
+    /** @var AllPublicFilmHandler */
     private $allPublicFilmsHandler;
+    /** @var CachedFilmRepositoryInterface */
+    private $cachedFilmRepository;
     /**
      * Create a new command instance.
      *
      * @return void
      */
-    public function __construct(WarmupCacheHandler $warmupCacheHandler)
+    public function __construct(AllPublicFilmHandler $allPublicFilmsHandler)
     {
-        $this->warmupCacheHandler = $warmupCacheHandler;
+        $this->allPublicFilmsHandler = $allPublicFilmsHandler;
         parent::__construct();
     }
 
@@ -50,16 +53,41 @@ class AllPublicFilms extends Command
      */
     public function handle()
     {
-        //
         $options = $this->option();
-        if (!empty($options['films'])) {
+        
+        if (!empty($options['all'])) {
+            $result = $this->allPublicFilmsHandler->publicAll(); 
+            $this->templateResult($result);
+        }
+        if(!empty($options['id']) && $options['id']!='None' ){
+           $arIds = explode( ',', $options['id'] );
+           $result = $this->allPublicFilmsHandler->publicByIds($arIds); 
+           $this->templateResult($result);
+        }
+
+  
+    }
+
+    public function templateResult($result){
+
+        if (!empty($result)){
             $ts = microtime(true);
-            $this->warmupCacheHandler->warmUpForFilms();
+            $bar = $this->output->createProgressBar(count($result));
+            $headers = ['ID','TITLE', 'SLUG', 'STATUS'];
+            //пошаговое выполнение
+            foreach ($result as $item) {
+                sleep(1);
+                $bar->advance();
+            };
+            $bar->finish();
             $time = microtime(true) - $ts;
-            $this->info('Films cache clear: ' . $time . 's');
+            //выводим результат выполнения
+            $this->table($headers, $result);
+            $this->info('Films public: ' . $time . 's');
         }
-        if (empty($options['cms']) && empty($options['films'])) {
-            $this->info("Nothing to do!");
+        else{
+            $this->info("Nothing to do!"); 
         }
+
     }
 }

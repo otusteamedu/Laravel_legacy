@@ -4,43 +4,65 @@ namespace App\Services\Films\Handlers;
 
 use App\Models\Film;
 use App\Services\Films\Repositories\EloquentFilmRepository;
-use Illuminate\Database\Eloquent\Collection;
+use App\Services\Films\Repositories\CachedFilmRepositoryInterface;
 
 class AllPublicFilmHandler
 {
+    /** @var EloquentFilmRepository */
     private $filmRepository;
+    /** @var CachedFilmRepositoryInterface */
+    private $cachedFilmRepository;
 
     public function __construct(
-        EloquentFilmRepository $filmRepository
+        EloquentFilmRepository $filmRepository,
+        CachedFilmRepositoryInterface $cachedFilmRepository
     ) {
+        $this->cachedFilmRepository = $cachedFilmRepository;
         $this->filmRepository = $filmRepository;
+    }
+
+    /**
+     * @return array
+    */
+    public function publicAll(): array
+    {
+        $films = $this->filmRepository->index();
+        $arPublic = [];
+        foreach ($films as $item) {
+            if ($item->status=='0') {
+                $this->filmRepository->updateFromArray($item, ['status'=>'1']);
+                $this->cachedFilmRepository->clearFilmCache($item);
+                $arPublic[] = [
+                    "id"=>$item->id,
+                    "title"=>$item->title,
+                    "slug"=>$item->slug,
+                    "status"=>$item->status
+                ];
+            }
+        }
+
+        return $arPublic;
     }
 
     /**
      * @param array $data
      * @return array
-     */
-    public function handle(): array
+    */
+    public function publicByIds(array $data): array
     {
-        $films = $this->filmRepository->index();
-
-        foreach ($films as $item) {
-            if ($item->status=='1') {
-                $allFilms[] = [
-                    "id"=>$item->id,
-                    "title"=>$item->title,
-                    "meta_title"=>$item->meta_title,
-                    "meta_description"=>$item->meta_description,
-                    "keywords"=>$item->keywords,
-                    "slug"=>$item->slug,
-                    "status"=>$item->status,
-                    "content"=>$item->content,
-                    "year"=>$item->year,
-                    "genres"=>$item->genres
-                ];
-            }
+        $arResult = [];
+        foreach($data as $id){
+            $film = $this->filmRepository->find($id);
+            $result = $this->filmRepository->updateFromArray($film, ['status'=>'1']);
+            $this->cachedFilmRepository->clearFilmCache($result);
+            $arResult[] = [
+                "id"=>$result->id,
+                "title"=>$result->title,
+                "slug"=>$result->slug,
+                "status"=>$result->status
+            ];
         }
 
-        return $allFilms;
+        return $arResult;
     }
 }
