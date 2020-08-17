@@ -4,7 +4,8 @@ namespace App\Console\Commands\Cms\Films;
 
 use Illuminate\Console\Command;
 
-use App\Services\Films\Handlers\AllPublicFilmHandler;
+use App\Services\Films\Handlers\PublishAllFilmsHandler;
+use App\Services\Films\Handlers\PublishFilmsHandler;
 
 /**
  * Консольная команда публикует все фильмы которые находяться в статусе - неопубликованные
@@ -12,7 +13,7 @@ use App\Services\Films\Handlers\AllPublicFilmHandler;
  * Class AllPublicFilms
  * @package App\Console\Commands
  */
-class AllPublicFilms extends Command
+class PublicFilms extends Command
 {
     /**
      * --all - команда публикует все не опубликованные ранее фильмы
@@ -31,8 +32,10 @@ class AllPublicFilms extends Command
      */
     protected $description = 'Public Films';
 
-    /** @var AllPublicFilmHandler */
-    private $allPublicFilmsHandler;
+    /** @var PublishAllFilmsHandler */
+    private $publishAllFilmsHandler;
+    /** @var PublishFilmsHandler */
+    private $publishFilmsHandler;
     /** @var CachedFilmRepositoryInterface */
     private $cachedFilmRepository;
     /**
@@ -40,9 +43,10 @@ class AllPublicFilms extends Command
      *
      * @return void
      */
-    public function __construct(AllPublicFilmHandler $allPublicFilmsHandler)
+    public function __construct(PublishAllFilmsHandler $publishAllFilmsHandler, PublishFilmsHandler $publishFilmsHandler )
     {
-        $this->allPublicFilmsHandler = $allPublicFilmsHandler;
+        $this->publishAllFilmsHandler = $publishAllFilmsHandler;
+        $this->publishFilmsHandler = $publishFilmsHandler;
         parent::__construct();
     }
 
@@ -56,12 +60,12 @@ class AllPublicFilms extends Command
         $options = $this->option();
         
         if (!empty($options['all'])) {
-            $result = $this->allPublicFilmsHandler->publicAll(); 
+            $result = $this->publishAllFilmsHandler->handle(); 
             $this->templateResult($result);
         }
         if(!empty($options['id']) && $options['id']!='None' ){
            $arIds = explode( ',', $options['id'] );
-           $result = $this->allPublicFilmsHandler->publicByIds($arIds); 
+           $result = $this->publishFilmsHandler->handle($arIds); 
            $this->templateResult($result);
         }
 
@@ -73,7 +77,7 @@ class AllPublicFilms extends Command
         if (!empty($result)){
             $ts = microtime(true);
             $bar = $this->output->createProgressBar(count($result));
-            $headers = ['ID','TITLE', 'SLUG', 'STATUS'];
+            $headers = ['ID','TITLE', 'SLUG'];
             //пошаговое выполнение
             foreach ($result as $item) {
                 sleep(1);
