@@ -4,6 +4,7 @@ namespace App\Services\Films\Repositories;
 
 use App\Models\Film;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class EloquentFilmRepository implements FilmRepositoryInterface
@@ -64,9 +65,9 @@ class EloquentFilmRepository implements FilmRepositoryInterface
     /**
     * возвращает не опубликованные фильмы
     * @param array $data массив id фильмов
-    * @return array
+    * @return Collection
     */
-    public function getNotPublishedFilms(array $data): array
+    public function getNotPublishedFilms(array $data): Collection
     {
         if(empty($data)){
             $films = Film::select('id', 'title', 'slug')->where('status', Film::STATUS_NOT_PUBLISHED)->get();      
@@ -74,8 +75,8 @@ class EloquentFilmRepository implements FilmRepositoryInterface
         else{
             $films = Film::select('id', 'title', 'slug')->whereIn('id',$data)->get();
         }
-
-        return $films->toArray();
+        
+        return $films;
     }
 
     /**

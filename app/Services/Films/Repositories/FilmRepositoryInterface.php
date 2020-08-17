@@ -3,8 +3,7 @@
 namespace App\Services\Films\Repositories;
 
 use App\Models\Film;
-
-//use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 interface FilmRepositoryInterface
 {
@@ -14,7 +13,7 @@ interface FilmRepositoryInterface
 
     public function getList(int $limit, int $offset);
 
-    public function getNotPublishedFilms(array $data): array;
+    public function getNotPublishedFilms(array $data): Collection;
 
     public function updateNotPublishedFilms(array $data): int;
 

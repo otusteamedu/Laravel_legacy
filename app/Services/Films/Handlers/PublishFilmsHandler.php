@@ -27,7 +27,14 @@ class PublishFilmsHandler
     public function handle(array $data): array
     {
 
-        $arResult = $this->filmRepository->getNotPublishedFilms($data);
+        $collectionFilms = $this->filmRepository->getNotPublishedFilms($data);
+        
+        foreach ($collectionFilms as $item) {
+            $this->cachedFilmRepository->clearFilmCache($item);
+        }
+
+        $arResult = $collectionFilms->toArray();
+
         $this->filmRepository->updateNotPublishedFilms($data);
 
         return $arResult;
