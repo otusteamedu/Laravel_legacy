@@ -54,6 +54,12 @@ return [
             'days' => 14,
         ],
 
+        'processlog' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/daily/process.log'),
+            'days' => 14,
+        ],
+
         'slack' => [
             'driver' => 'slack',
             'url' => env('LOG_SLACK_WEBHOOK_URL'),

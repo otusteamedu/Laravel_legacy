@@ -41,7 +41,7 @@ class FilmPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin();
+        return $user->isModerator() || $user->isAdmin();
     }
 
     /**

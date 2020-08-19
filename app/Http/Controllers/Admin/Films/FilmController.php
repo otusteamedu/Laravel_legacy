@@ -12,7 +12,9 @@ use App\Http\Controllers\Admin\Films\Requests\UpdateFilmRequest;
 use App\Models\Film;
 use App\Services\Films\FilmsService;
 use Illuminate\Http\Request;
-
+use App\Jobs\FilmNotifyJob;
+use App\Jobs\FilmPrepareJob;
+use App\Jobs\Queue;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\ValidationException;
 
@@ -70,7 +72,9 @@ class FilmController extends Controller
             ]);
             return  abort(403, 'Нет прав на создание фильма', []);
         }
-        return view('admin.films.create');
+        // добавил в шаблон переменную moderator для проверки
+        // модератор может создавать фильмы только не опубликованными
+        return view('admin.films.create', ['moderator'=>$this->getCurrentUser()->isModerator()]);
     }
 
     /**
@@ -99,10 +103,13 @@ class FilmController extends Controller
             $data = $request->all();
             $data['created_user_id'] = Auth::id();
             $film = $this->filmsService->createFilm($data);
+            FilmPrepareJob::withChain([
+                new FilmNotifyJob($film)
+            ])->dispatch($film)->allOnQueue(Queue::PROCESS_FILM_QUEUE);
+
             $lock->release();
+
             return redirect(RouteBuilder::localeRoute('cms.films.index'));
-            //return redirect('/en/admin/films');
-            //return response()->json($film, 201);
         }
         abort(422);
     }
@@ -126,6 +133,7 @@ class FilmController extends Controller
         }
         return view('admin.films.edit', [
             'film' => $film,
+            'moderator'=>$this->getCurrentUser()->isModerator()
         ]);
     }
 
