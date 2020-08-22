@@ -25,6 +25,7 @@ class AddNewColumnsToUsersTable extends Migration
                 ->on('user_groups')
                 ->onDelete('set null');
             $table->index('group_id');
+            $table->string('api_token')->after('password')->unique()->nullable()->default(null);
         });
     }
 
@@ -36,7 +37,7 @@ class AddNewColumnsToUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('group_id', 'avatar');
+            $table->dropColumn('group_id', 'avatar', 'api_token');
         });
     }
 }

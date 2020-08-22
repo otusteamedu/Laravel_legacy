@@ -33,7 +33,8 @@ class ArticleRepository
      */
     public function paginated(array $options = null)
     {
-        return Article::paginate();
+        $page = isset($options['page']) ? $options['page'] : null;
+        return Article::paginate(null, ['*'], null, (int)$page);
     }
 
     /**

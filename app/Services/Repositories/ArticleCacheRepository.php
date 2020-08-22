@@ -40,9 +40,15 @@ class ArticleCacheRepository
      */
     public function paginated(array $options = null)
     {
-        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST'), Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
-            return $this->articleRepository->paginated($options);
+        $optionsCachePrefix = '_';
+        array_walk($options, function ($option , $optionKey) use (&$optionsCachePrefix) {
+            $optionsCachePrefix .= strtoupper($optionKey.'_'.$option);
+            return $optionsCachePrefix;
         });
+        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST' . $optionsCachePrefix),
+            Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
+                return $this->articleRepository->paginated($options);
+            });
         return $articles;
     }
 

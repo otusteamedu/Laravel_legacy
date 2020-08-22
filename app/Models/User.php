@@ -61,6 +61,7 @@ class User extends Authenticatable
         'password',
         'group_id',
         'avatar',
+        'api_token'
     ];
 
     /**
