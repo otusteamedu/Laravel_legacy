@@ -28,35 +28,51 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-       $start = microtime(true);
+       $divisionList = $this->advertService->showDivisionList();
+       $townList = $this->advertService->showTownList();
        $pages = $this->advertService->page(8);
-       return view('home.home', ['pages' => $pages, 'start'=>$start]);
+
+       $request->cookie('town') //TODO убрать в кукиконтроллер
+           ? $cookieTownValue = $request->cookie('town')
+           : $cookieTownValue = 'all';
+
+       return view('home.home',
+           [
+               'pages' => $pages,
+               'divisionList' => $divisionList,
+               'townList' => $townList,
+               'town_id'=>$cookieTownValue, //TODO из куки брать
+       ]);
     }
 
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return Response
      */
-    public function create()
+    public function create(Request $request)
     {
         if (!Auth::user())  return redirect('/login');
 
         $divisionList = $this->advertService->showDivisionList();
         $townList = $this->advertService->showTownList();
 
+        $request->cookie('town') //TODO убрать в кукиконтроллер
+            ? $cookieTownValue = $request->cookie('town')
+            : $cookieTownValue = 'all';
 
         return view('home.adverts.create',
                 [
                     'divisionList'=>$divisionList,
-                    'townList'=>$townList
+                    'townList'=>$townList,
+                    'town_id'=>$cookieTownValue, //TODO из куки брать
                 ]);
-
-
     }
 
     /**
@@ -83,13 +99,26 @@ class HomeController extends Controller
      * Display the specified resource.
      *
      * @param Advert $advert
+     * @param Request $request
      * @return void
      */
-    public function show(Advert $advert)
+    public function show(Advert $advert, Request $request)
     {
+        $divisionList = $this->advertService->showDivisionList();
+        $townList = $this->advertService->showTownList();
         $advert = $this->advertService->showItem($advert->id);
 
-        return view('home.adverts.show', ['advert' => $advert]);
+        $request->cookie('town') //TODO убрать в кукиконтроллер
+            ? $cookieTownValue = $request->cookie('town')
+            : $cookieTownValue = 'all';
+
+        return view('home.adverts.show',
+            [
+                'advert' => $advert,
+                'divisionList' => $divisionList,
+                'townList' => $townList,
+                'town_id'=>$cookieTownValue, //TODO из куки брать
+            ]);
     }
 
     /**

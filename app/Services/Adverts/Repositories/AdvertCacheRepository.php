@@ -12,6 +12,8 @@ class AdvertCacheRepository
     const PAGE_CACHE_KEY = 'homeList';
     const CACHE_TIME = 60*20;
 
+    public $paginateResult;
+
     private $advertRepository;
 
     public function __construct(AdvertRepositoryInterface $advertRepository)
@@ -27,11 +29,16 @@ class AdvertCacheRepository
 
     }
 
-    public function cachingPage($qty)
+    public function cachingPage($qty)  //TODO вернуть кэш в хоум контроллер, проверить,
     {
 
-        return \Cache::remember(self:: PAGE_CACHE_KEY, self::CACHE_TIME, function() use($qty){
-            return $this->advertRepository->paginateList($qty);
+        $this->paginateResult = $this->advertRepository->paginateList($qty);
+
+        $cacheKey =  self::PAGE_CACHE_KEY.'-'.$this->paginateResult->links->data->currentPage; //TODO вынести в класс-генератор ключа, генерит ключ под запрос, незабыть в прогреве
+
+        return \Cache::remember($cacheKey, self::CACHE_TIME, function() use($qty){
+            return $this->paginateResult;
+            //return $this->advertRepository->paginateList($qty);
         });
 
     }
@@ -39,7 +46,7 @@ class AdvertCacheRepository
     public function cachingPageApi(int $limit, int $offset)
     {
 
-        $cacheKey = self::PAGE_CACHE_KEY.$limit.'_'.$offset; //вынести в класс-генератор ключа, генерит ключ под запрос, незабыть в пргреве
+        $cacheKey = self::PAGE_CACHE_KEY.$limit.'_'.$offset; //TODO вынести в класс-генератор ключа, генерит ключ под запрос, незабыть в прогреве
 
         return \Cache::remember($cacheKey, self::CACHE_TIME, function() use($limit, $offset){
             return $this->advertRepository->paginateListApi($limit, $offset);

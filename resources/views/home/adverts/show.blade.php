@@ -7,7 +7,9 @@
 @section('content')
 
     @include('home.blocks.header')
-    @include('layouts.breadcrumbs')
+{{--    @include('layouts.breadcrumbs')--}}
+
+    {{ Breadcrumbs::render('advert', $advert) }}
 
     @include('cms.adverts.blocks.item')
 

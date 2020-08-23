@@ -26,6 +26,8 @@ return [
       'services'=>'Услуги',
       'placeholder'=>'Advert search',
       'button'=>'search',
+      'division'=>'Division',
+        'town'=>'Town',
     ],
 
     'footer' => [

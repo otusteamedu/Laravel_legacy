@@ -7,36 +7,25 @@
 </div>
 
 {{--{{$locale  ?? '' }}--}}
+@include('home.blocks.towns')
 
-<a href="{{route('home.index', ['locale'=>'en'])}}"<?= $locale === 'en' ? 'class="alert-link"' : '' ?>>En</a>
+<a class="ml-1" href="{{route('home.index', ['locale'=>'en'])}}"<?= $locale === 'en' ? 'class="alert-link"' : '' ?>>En</a>
 <a href="{{route('home.index', ['locale'=>'ru'])}}"<?= $locale === 'ru' ? 'class="alert-link"' : '' ?>>Рус</a>
 
 
 <div class="container">
     <ul class="nav justify-content-center">
-        <li class="nav-item">
-            <a class="nav-link active" href="#">@lang('home.header.car')</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">@lang('home.header.realty')</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">@lang('home.header.job')</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">@lang('home.header.services')</a>
-        </li>
+
+        @include('home.blocks.nav')
+
         <li class="nav-item">
             <a class="nav-link" href="{{route('cms')}}">CMS</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">@lang('home.header.any')</a>
         </li>
-    </ul>
 
-{{--    @foreach($day as $item)--}}
-{{--        {{$item['date']}}--}}
-{{--    @Endforeach--}}
+    </ul>
 
 
     @include('home.blocks.auth')

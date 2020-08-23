@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 
@@ -7,9 +6,9 @@
 @section('content')
 
     @include('home.blocks.header')
-
 {{--    @include('layouts.breadcrumbs')--}}
-{{--    {{ Breadcrumbs::render('home') }}--}}
+
+    {{ Breadcrumbs::render('division', $division, $town_id) }}
 
     @include('home.blocks.card')
 

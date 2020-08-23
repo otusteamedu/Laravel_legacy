@@ -27,6 +27,7 @@ class PaginateDTO
         $arrayObjects =[];
         $this->links = $pages->links();
 
+
         foreach ($pages as $item)
         {
             $arrayObjects[] = (object)$item;

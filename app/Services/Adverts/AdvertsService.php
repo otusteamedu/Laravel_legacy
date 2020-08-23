@@ -3,7 +3,6 @@
 
 namespace App\Services\Adverts;
 
-
 use App\Models\Advert;
 use App\Services\Adverts\Handler\StoreAdvertHandler;
 use App\Services\Adverts\Repositories\AdvertCacheRepository;
@@ -60,6 +59,12 @@ class AdvertsService
     {
 //        return $this->advertCacheRepository->cachingPage($qty);
         $pages = $this->advertRepository->paginateList($qty);
+        return PaginateDTO::make($pages);
+    }
+
+    public function filteredPage($qty, $division_id, $town_id='all')
+    {
+        $pages = $this->advertRepository->filteredPaginateList($qty, $division_id, $town_id);
         return PaginateDTO::make($pages);
     }
 

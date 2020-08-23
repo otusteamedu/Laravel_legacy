@@ -25,7 +25,7 @@
 {{--    {{ $pages->links() }}--}}
         {{$pages->links    }}
 
-    <?php echo 'Время генерации: ' . ( microtime(true) - $start ) . ' сек.'; ?>
+<!--    --><?php //echo 'Время генерации: ' . ( microtime(true) - $start ) . ' сек.'; ?>
 </div>
 
 
