@@ -2,7 +2,7 @@
     <div class="col-4 pt-1">
     </div>
     <div class="col-4 text-center">
-        <h1><a class="blog-header-logo text-dark" href="/">NEWS SITE</a></h1>
+        <h1><a class="blog-header-logo text-dark" href="/">@lang('messages.blocks.header.site_title')</a></h1>
     </div>
     <div class="col-4 d-flex justify-content-end align-items-center">
         <a class="text-muted" href="#">

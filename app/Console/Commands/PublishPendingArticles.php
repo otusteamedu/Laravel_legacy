@@ -49,12 +49,11 @@ class PublishPendingArticles extends Command
     public function handle()
     {
         $articles = $this->articlesService->getPendingItems();
-
         foreach ($articles as $article) {
             if ($article->published_at <= Carbon::now()) {
-                $result = $this->articlesService->publishArticle($article);
+                $result = $this->articlesService->publishArticle($article, false);
                 if ($result) {
-                    $this->info(sprintf('Наступление даты публикации статьи id:%d. Статус изменен на "Опубликована"', $article->id));
+                    $this->info(sprintf('%s:Наступление даты публикации статьи id:%d. Статус изменен на "Опубликована"\n', now(), $article->id));
                 }
             }
         }

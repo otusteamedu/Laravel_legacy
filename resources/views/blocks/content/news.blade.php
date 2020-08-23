@@ -4,11 +4,8 @@
  */
 ?>
 <div class="col-md-8 blog-main">
-    <h3 class="mb-4 font-italic">
-        Last News
-    </h3>
     <div class="news-list">
-        @foreach ($news as $i=>$article)
+        @foreach ($articles as $i=>$article)
             <div class="card flex-md-row mb-4 rounded box-shadow h-md-200">
                 <img class="card-img-right flex-auto d-none d-md-block" data-src="holder.js/200x200?theme=thumb"
                      alt="Thumbnail [200x200]"
@@ -17,17 +14,28 @@
                 <div class="card-body d-flex flex-column align-items-start">
                     <strong class="d-inline-block mb-2 text-primary">
                         <a class="text-success"
-                           href="{{route('category', ['id'=>$article->category_id])}}">{{$article->category->title}}</a>
+                           href="{{route('category', ['category'=>$article->category_id])}}">{{$article->category->title}}</a>
                     </strong>
                     <h3 class="mb-0">
                         <a class="text-dark" href="#">{{$article->title}}</a>
                     </h3>
                     <div class="mb-1 text-muted">{{$article->published_at}}</div>
                     <p class="card-text mb-auto">{{$article->intro_text}}</p>
-                    <a href="{{route('article', ['id'=>$article->id])}}">Перейти к чтению</a>
+                    <a href="{{route('article', ['article'=>$article->id])}}">Перейти к чтению</a>
                 </div>
             </div>
         @endforeach
     </div>
+    @if($articles->total() > $articles->count())
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card border-0">
+                    <div class="card-body">
+                        {{ $articles->links() }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 </div>
 

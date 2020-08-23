@@ -22,6 +22,7 @@ use App\Services\ArticlesService;
  */
 class ArticlesController extends Controller
 {
+    const RESOURCE_CACHE_KEY = 'ADMIN';
 
     /**
      * @var ArticlesService
@@ -52,8 +53,9 @@ class ArticlesController extends Controller
      */
     public function index()
     {
+        $page = request()->has('page') ? request()->get('page') : 1;
         $categoriesList = $this->categoriesService->getCategoriesList();
-        $articles = $this->articlesService->allPaginated();
+        $articles = $this->articlesService->allPaginated(['page' => $page], self::RESOURCE_CACHE_KEY);
         return view('admin.articles-list', ['articles' => $articles, 'categoriesList' => $categoriesList]);
     }
 
@@ -124,7 +126,8 @@ class ArticlesController extends Controller
             $article = $this->articlesService->updateArticle($article, $data);
             \Session::flash('alert-success', sprintf('Статья #%d успешно отредактирована', $article->id));
         } catch (\Exception $e) {
-            \Session::flash('alert-danger', sprintf('Возникла ошибка при редактировании статьи #%d: %s', $article->id, $e->getMessage()));
+            \Session::flash('alert-danger',
+                sprintf('Возникла ошибка при редактировании статьи #%d: %s', $article->id, $e->getMessage()));
         }
         return response()->json(['status' => 'ok', 'redirect' => route('articles.index')]);
     }
@@ -143,7 +146,8 @@ class ArticlesController extends Controller
             $this->articlesService->deleteArticle($article);
             \Session::flash('alert-success', sprintf('Статья #%d успешно удалена', $id));
         } catch (\Exception $e) {
-            \Session::flash('alert-danger', sprintf('Возникла ошибка при удалении статьи #%d: %s', $id, $e->getMessage()));
+            \Session::flash('alert-danger',
+                sprintf('Возникла ошибка при удалении статьи #%d: %s', $id, $e->getMessage()));
         }
         return redirect()->route('articles.index');
     }

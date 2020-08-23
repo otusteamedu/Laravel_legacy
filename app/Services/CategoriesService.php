@@ -51,7 +51,7 @@ class CategoriesService
      */
     public function allPaginated(array $options = null)
     {
-        return $this->categoryCacheRepository->paginated($options);
+        return $this->categoryRepository->paginated($options);
     }
 
     public function getCategoriesList(array $options = null)

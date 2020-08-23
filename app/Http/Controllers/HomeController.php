@@ -4,20 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use App\Services\ArticlesService;
+use App\Services\CategoriesService;
 use Illuminate\Http\Request;
 use function GuzzleHttp\Promise\all;
 use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
+    const RESOURCE_CACHE_KEY = 'PUBLIC';
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var ArticlesService
      */
-    public function __construct()
+    private $articlesService;
+
+    /**
+     * @var CategoriesService
+     */
+    private $categoriesService;
+
+    /**
+     * HomeController constructor.
+     * @param ArticlesService $articlesService
+     * @param CategoriesService $categoriesService
+     */
+    public function __construct(ArticlesService $articlesService, CategoriesService $categoriesService)
     {
-        // $this->middleware('auth');
+        $this->articlesService = $articlesService;
+        $this->categoriesService = $categoriesService;
     }
 
     /**
@@ -27,47 +41,34 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
-        $categories = Category::all();
-        return view('home', ['news' => $articles, 'categories' => $categories]);
+        $page = request()->has('page') ? request()->get('page') : 1;
+        $articles = $this->articlesService->allPaginated(['page' => $page], self::RESOURCE_CACHE_KEY);
+        $categoriesList = $this->categoriesService->getCategoriesList();
+
+        return view('public.home', ['articles' => $articles, 'categories' => $categoriesList]);
     }
 
     /**
-     * @param int $id
+     * @param Article $id
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function article($id)
+    public function article(Article $article)
     {
-        $article = Article::find($id);
-        $categories = Category::all();
-        return view('article', ['article' => $article, 'categories' => $categories]);
+        $categoriesList = $this->categoriesService->getCategoriesList();
+
+        return view('public.article', ['article' => $article, 'categories' => $categoriesList]);
     }
 
     /**
-     * @param int $id
+     * @param Category $category
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function category($id)
+    public function category(Category $category)
     {
-        $articles = Article::where('category_id', $id)->orderBy('published_at', 'desc')->get();
-        $categories = Category::all();
-        return view('category', ['news' => $articles, 'categories' => $categories]);
+        $articles = $category->articles()->paginate(5);
+        $categoriesList = $this->categoriesService->getCategoriesList();
+
+        return view('public.category', ['articles' => $articles, 'categories' => $categoriesList]);
     }
 
-    /**
-     * @param string $type
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function list($type)
-    {
-        switch ($type) {
-            case 'categories':
-                $result = DB::table('articles')
-                    ->select('category', DB::raw('count(id) as total'))
-                    ->groupBy('category')
-                    ->get();
-        }
-
-        return view('list', ['result' => $result]);
-    }
 }
