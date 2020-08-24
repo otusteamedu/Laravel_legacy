@@ -58,6 +58,9 @@ class Film extends Model
     */
     protected $table = 'films';
 
+    
+    const STATUS_PUBLISHED = 1;
+    const STATUS_NOT_PUBLISHED = 0;
 
     protected $dispatchesEvents = [
         'saved' => FilmSaved::class,

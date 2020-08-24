@@ -5,8 +5,6 @@ namespace App\Services\Films\Repositories;
 use App\Models\Film;
 use Illuminate\Database\Eloquent\Collection;
 
-//use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-
 interface FilmRepositoryInterface
 {
     public function index();
@@ -14,6 +12,10 @@ interface FilmRepositoryInterface
     public function find(int $id);
 
     public function getList(int $limit, int $offset);
+
+    public function getNotPublishedFilms(array $data): Collection;
+
+    public function updateNotPublishedFilms(array $data): int;
 
     public function searchByNames(string $name = '');
 

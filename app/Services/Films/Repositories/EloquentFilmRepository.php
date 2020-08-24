@@ -4,8 +4,7 @@ namespace App\Services\Films\Repositories;
 
 use App\Models\Film;
 use Illuminate\Database\Eloquent\Builder;
-
-//use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
 
 
 class EloquentFilmRepository implements FilmRepositoryInterface
@@ -57,6 +56,41 @@ class EloquentFilmRepository implements FilmRepositoryInterface
                 ->paginate();
         } else {
             $films = Film::orderBy('id', 'desc')->paginate();
+        }
+        return $films;
+    }
+
+
+
+    /**
+    * возвращает не опубликованные фильмы
+    * @param array $data массив id фильмов
+    * @return Collection
+    */
+    public function getNotPublishedFilms(array $data): Collection
+    {
+        if(empty($data)){
+            $films = Film::select('id', 'title', 'slug')->where('status', Film::STATUS_NOT_PUBLISHED)->get();      
+        }
+        else{
+            $films = Film::select('id', 'title', 'slug')->whereIn('id',$data)->get();
+        }
+        
+        return $films;
+    }
+
+    /**
+    * поиск и обновление не опубликованных фильмов сразу
+    * @param array $data массив id фильмов
+    * @return int
+    */
+    public function updateNotPublishedFilms(array $data): int
+    {
+        if(empty($data)){
+            $films = Film::where('status', Film::STATUS_NOT_PUBLISHED)->update(array('status' => Film::STATUS_PUBLISHED));    
+        }
+        else{
+            $films = Film::whereIn('id',$data)->update(array('status' => Film::STATUS_PUBLISHED));
         }
         return $films;
     }
