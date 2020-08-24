@@ -28,8 +28,14 @@
 
 <div class="form-group">
     {{ Form::label('status', trans('messages.filmStatus')) }}
-    {{ Form::select('status', [ 1 =>trans('messages.filmStatusPublished'), 
-     0 => trans('messages.filmStatusNotPublished')]) }}
+    @if (isset($moderator) && $moderator == true)
+        {{ Form::select('status', [
+        0 => trans('messages.filmStatusNotPublished')]) }}
+    @else
+        {{ Form::select('status', [ 1 =>trans('messages.filmStatusPublished'),
+        0 => trans('messages.filmStatusNotPublished')]) }}
+    @endif
+
 </div>
 <div class="form-group">
     {{ Form::label('content', trans('messages.filmContent')) }}

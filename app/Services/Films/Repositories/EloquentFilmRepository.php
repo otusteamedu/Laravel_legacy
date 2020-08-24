@@ -97,9 +97,8 @@ class EloquentFilmRepository implements FilmRepositoryInterface
 
     public function createFromArray(array $data): Film
     {
-        $film = new Film();
-        $film->create($data);
-        return $film;
+    
+        return Film::create($data);
     }
 
     public function updateFromArray(Film $film, array $data)

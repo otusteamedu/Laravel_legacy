@@ -91,4 +91,17 @@ class FilmsService
     {
         return $this->filmRepository->updateFromArray($film, $data);
     }
+
+
+    /**
+     * @param Film $film
+     * @return boolean
+     */
+    public function publishFilm(Film $film)
+    {
+        $film->status = Film::STATUS_PUBLISHED;
+
+        return $film->save();
+    }
+
 }
