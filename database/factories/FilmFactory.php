@@ -12,6 +12,7 @@ $factory->define(\App\Models\Film::class, function (Faker $faker) {
         'meta_title'=>$title,
         'meta_description'=>$title,
         'keywords'=>$title,
+        'image'=>"",
         'slug'=>Str::slug($title),
         'status'=>1,
         'content'=>$faker->sentence(20),

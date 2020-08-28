@@ -23,4 +23,23 @@ namespace App\Models;
 class Genre extends Model
 {
     //
+
+    protected $table = 'genres';
+
+    protected $fillable = [
+        'name',
+        'slug'
+    ];
+
+
+
+    public function films()
+    {
+        return $this->belongsToMany(Film::class);
+    }
+
+    public function genres()
+    {
+        return $this->belongsToMany(Genre::class);
+    }
 }

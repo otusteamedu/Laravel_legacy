@@ -47,10 +47,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'display_name',
+        'website',
+        'fb_url',
+        'vk_url',
+        'ok_url',
         'email',
         'password',
-        'level',
+        'level'
     ];
 
     /**
@@ -70,6 +76,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function isUser(): bool
+    {
+        return $this->level === self::LEVEL_USER;
+    }
 
     public function isAdmin(): bool
     {

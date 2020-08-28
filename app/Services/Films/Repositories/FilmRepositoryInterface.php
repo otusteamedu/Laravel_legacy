@@ -11,6 +11,8 @@ interface FilmRepositoryInterface
 
     public function find(int $id);
 
+    public function getBy(array $filters = [], ?int $limit = null, ?int $offset = null): Collection;
+
     public function getList(int $limit, int $offset);
 
     public function getNotPublishedFilms(array $data): Collection;

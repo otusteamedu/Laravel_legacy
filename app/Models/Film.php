@@ -58,9 +58,6 @@ class Film extends Model
     */
     protected $table = 'films';
 
-    
-    const STATUS_PUBLISHED = 1;
-    const STATUS_NOT_PUBLISHED = 0;
 
     const STATUS_PUBLISHED = 1;
     const STATUS_NOT_PUBLISHED = 0;
@@ -79,17 +76,18 @@ class Film extends Model
         'slug',
         'status',
         'content',
-        'year'
+        'year',
+        'image'
     ];
 
     public function actors()
     {
-        return $this->hasMany(Actor::class);
+        return $this->belongsToMany(Actor::class);
     }
 
     public function genres()
     {
-        return $this->hasMany(Genre::class);
+        return $this->belongsToMany(Genre::class);
     }
 
     public function producers()
@@ -109,6 +107,6 @@ class Film extends Model
 
     public function actorsAndRoles()
     {
-        return $this->hasMany(ActorAndRole::class);
+        return $this->belongsToMany(ActorAndRole::class);
     }
 }

@@ -38,7 +38,7 @@ class CreateYearsTable extends Migration
             $table->dropForeign('film_id');
         });
         */
-        
+
         Schema::dropIfExists('years');
     }
 }
