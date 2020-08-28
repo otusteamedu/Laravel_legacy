@@ -7,6 +7,69 @@ use App\Services\Events\Models\Film\FilmUpdated;
 
 /**
  * App\Models\Film
+ * 
+ * @SWG\Definition (
+ *  definition="Film",
+ *  @SWG\Property(
+ *      property="id",
+ *      type="integer",
+ *      title="Уникальный индентификатор (автоматически создается)"
+ *  ),
+ *  @SWG\Property(
+ *      property="title",
+ *      type="string",
+ *      title="Название фильма"
+ *  ),
+ *  @SWG\Property(
+ *      property="meta_title",
+ *      type="integer",
+ *      title="название для SEO"
+ *  ),
+ *  @SWG\Property(
+ *      property="meta_description",
+ *      type="string",
+ *      title="Описание для SEO"
+ *  ),
+ *  @SWG\Property(
+ *      property="slug",
+ *      type="string",
+ *      title="title по английски для ЧПУ"
+ *  ),
+ *  @SWG\Property(
+ *      property="status",
+ *      type="string",
+ *      title="0 - Не опубликовано 1 - Опубликовано"
+ *  ),
+ *  @SWG\Property(
+ *      property="content",
+ *      type="string",
+ *      title="Полное описание фильма"
+ *  ),
+ *  @SWG\Property(
+ *      property="year",
+ *      type="string",
+ *      title="Год фильма"
+ *  ),
+ *  @SWG\Property(
+ *      property="image",
+ *      type="string",
+ *      title="Изображение для фильма"
+ *  ),
+ * 
+ *  @SWG\Property(
+ *      property="updated_at",
+ *      type="string",
+ *      format="date-time",
+ *      title="Дата/Время обновления"
+ *  ),
+ *  @SWG\Property(
+ *      property="deleted_at",
+ *      type="string",
+ *      format="date-time",
+ *      title="Дата/Время удаления"
+ *  )
+ * )
+ * 
  *
  * @property int $id
  * @property string $title Название фильма

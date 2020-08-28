@@ -30,6 +30,64 @@ class FilmsController extends Controller
         $this->filmsService = $filmsService;
     }
 
+     /**
+     * @SWG\Get(
+     *     path="/api/films",
+     *     summary="Возвращает все фильмы",
+     *     tags={"Film"},
+     *     description="Получить все фильмы",
+     *   security={
+     *     {"api_key_security_example": {}},
+     *   },
+     *   @SWG\Parameter(
+     *         name="api_token",
+     *         in="path",
+     *         description="token",
+     *         required=true,
+     *         type="string",
+     *   ),
+     *   @SWG\Parameter(
+     *         name="limit",
+     *         in="path",
+     *         description="сколько выводить записей",
+     *         required=false,
+     *         type="string",
+     *   ),
+     *   @SWG\Parameter(
+     *         name="offset",
+     *         in="path",
+     *         description="",
+     *         required=false,
+     *         type="string",
+     *   ),
+     *   @SWG\Response(
+     *         response=200,
+     *         description="successful operation",
+     *         @SWG\Schema(type="object",
+     *          @SWG\Property(property="id", type="integer", title="Название файла"),
+     *          @SWG\Property(property="title", type="string", title="Тип файла"),
+     *          @SWG\Property(property="content", type="string", title="Расширение файла"),
+     *          @SWG\Property(property="status", type="string", title="Связь с контрагентом по id"),
+     *          @SWG\Property(property="slug", type="string", title="Связь с контрагентом по id"),
+     *          @SWG\Property(property="created_at", type="string", format="date-time", title="Дата время создания"),
+     *          @SWG\Property(property="count", type="integer", title="Количество записей"),
+     *          @SWG\Property(property="limit", type="integer", title="Ограничение на количество выводимых записей"),
+     *        )
+     *    ),
+     *   @SWG\Response(
+     *         response="401",
+     *         description="Пользователь не авторизован",
+     *   ),
+     *   @SWG\Response(
+     *         response="404",
+     *         description="Метод не найден",
+     *   ),
+     *   @SWG\Response(
+     *         response="403",
+     *         description="Не передан обязательный параметр token! Либо токен истек. Либо не найден.",
+     *   )
+     * )
+     */
     /**
      * Display a listing of the resource.
      *
