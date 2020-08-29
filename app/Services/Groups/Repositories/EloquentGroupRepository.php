@@ -126,7 +126,7 @@ class EloquentGroupRepository implements GroupRepositoryInterface
         $groups = Group::query()
             ->when(($userRole && ($userRole->name === 'teacher')), function (Builder $builder) {
                 $builder->whereHas('teachers', function (Builder $builder): void {
-                    $builder->where('groups.id', Auth::id());
+                    $builder->where('users.id', Auth::id());
                 });
             })
             ->pluck('number', 'id');
