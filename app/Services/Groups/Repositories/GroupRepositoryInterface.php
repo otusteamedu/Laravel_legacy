@@ -51,4 +51,10 @@ interface GroupRepositoryInterface
      * @return Collection
      */
     public function selectListWithCourse(): Collection;
+
+    /**
+     * @param int $number
+     * @return Group|null
+     */
+    public function getByNumber(int $number): ?Group;
 }

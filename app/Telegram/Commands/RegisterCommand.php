@@ -2,10 +2,10 @@
 
 namespace App\Telegram\Commands;
 
+use App\DTOs\TelegramMessageDTO;
 use App\Models\TelegramUser;
 use App\Services\Telegram\Statuses\TelegramUserStatus;
 use App\Services\Telegram\TelegramService;
-use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\Laravel\Facades\Telegram;
@@ -34,18 +34,19 @@ class RegisterCommand extends Command
     private $service;
 
     /**
-     * {@inheritdoc}
+     * @var TelegramMessageDTO $telegramMessageDTO
      */
-    public function handle($telegram)
+    public function handle($telegramMessageDTO)
     {
         $this->telegramUserStatus = app(TelegramUserStatus::class);
         $this->service = app(TelegramService::class);
+        $telegram = $telegramMessageDTO->toArray();
 
         $this->replyWithChatAction([
             'action' => Actions::TYPING,
         ]);
 
-        $telegramUser = TelegramUser::find($telegram['from']['id']);
+        $telegramUser = $this->service->findById($telegram['from']['id']);
 
         $status = $this->telegramUserStatus->getAndClearStatus($telegramUser);
 
@@ -68,9 +69,9 @@ class RegisterCommand extends Command
     {
         $this->telegramUserStatus->setStatus($telegramUser, TelegramUserStatus::START_REGISTRATION);
 
-        $response = Telegram::sendMessage([
+        Telegram::sendMessage([
             'chat_id' => $telegram['from']['id'],
-            'text' => 'Укажи номер студенческого билета',
+            'text' => __('telegram.set_id'),
         ]);
     }
 
@@ -81,7 +82,7 @@ class RegisterCommand extends Command
     private function successRegister($telegram, TelegramUser $telegramUser):void
     {
         $keyboard = [
-            ['Меню'],
+            [__('telegram.menu')],
         ];
 
         $reply_markup = Telegram::replyKeyboardMarkup([
@@ -90,9 +91,9 @@ class RegisterCommand extends Command
             'one_time_keyboard' => false,
         ]);
 
-        $response = Telegram::sendMessage([
+        Telegram::sendMessage([
             'chat_id' => $telegram['from']['id'],
-            'text' => 'Добро пожаловать ' . $telegramUser->user->full_name,
+            'text' => __('telegram.hello') . $telegramUser->user->full_name,
             'reply_markup' => $reply_markup,
         ]);
     }
@@ -103,7 +104,7 @@ class RegisterCommand extends Command
     private function failedRegister($telegram): void
     {
         $keyboard = [
-            ['Попробовать зарегистрироваться снова'],
+            [__('telegram.try_register_again')],
         ];
 
         $reply_markup = Telegram::replyKeyboardMarkup([
@@ -112,9 +113,9 @@ class RegisterCommand extends Command
             'one_time_keyboard' => false,
         ]);
 
-        $response = Telegram::sendMessage([
+        Telegram::sendMessage([
             'chat_id' => $telegram['from']['id'],
-            'text' => 'Ошибка регистрации.(((',
+            'text' => __('telegram.register_fail'),
             'reply_markup' => $reply_markup,
         ]);
     }

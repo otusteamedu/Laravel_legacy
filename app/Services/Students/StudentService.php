@@ -133,4 +133,23 @@ class StudentService implements CacheService
     {
         return $this->repository->getStudentGroupsId($student);
     }
+
+    /**
+     * Получить список групп студента id => number
+     * @param Student $student
+     * @return array
+     */
+    public function getStudentGroupsList(Student $student): array
+    {
+        return $this->repository->getStudentGroupsList($student);
+    }
+
+    /**
+     * @param int $id
+     * @return Student|null
+     */
+    public function getStudentByUserId(int $id): ?Student
+    {
+        return $this->repository->getStudentByUserId($id);
+    }
 }

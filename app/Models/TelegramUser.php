@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -38,6 +39,7 @@ use Illuminate\Notifications\Notifiable;
 class TelegramUser extends Model
 {
     use Notifiable;
+    use SoftDeletes;
 
     /**
      * @var string[]
@@ -50,6 +52,7 @@ class TelegramUser extends Model
         'username',
         'language_code',
         'user_id',
+        'default_group',
     ];
 
     /**
@@ -58,6 +61,14 @@ class TelegramUser extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function group(): BelongsTo
+    {
+        return $this->belongsTo(Group::class, 'default_group', 'id')->withDefault();
     }
 
     /**

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Cache;
 class TelegramUserStatus
 {
     const START_REGISTRATION = 1;
+    const SET_GROUP = 2;
 
     public static function getKey(TelegramUser $telegramUser): string
     {

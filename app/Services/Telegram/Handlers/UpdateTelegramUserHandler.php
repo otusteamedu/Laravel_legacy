@@ -12,20 +12,13 @@ use App\Models\TelegramUser;
 class UpdateTelegramUserHandler extends BaseHandler
 {
     /**
-     * @param array $data
+     * @param TelegramUserDTO $telegramUserDTO
      * @param TelegramUser $telegramUser
      * @return TelegramUser
      */
-    public function handle(array $data, Telegram $telegramUser): TelegramUser
+    public function handle(TelegramUserDTO $telegramUserDTO, TelegramUser $telegramUser): TelegramUser
     {
-        $DTO = TelegramUserDTO::fromArray(array_merge(
-            $data,
-            [TelegramUserDTO::USER_ID => $telegramUser->user_id]
-        ));
-        $groupsId = $data['groups'];
-        $telegramUser = $this->repository->update($DTO, $telegramUser);
-
-        $telegramUser->groups()->sync($groupsId);
+        $this->repository->update($telegramUserDTO, $telegramUser);
 
         return $telegramUser;
     }

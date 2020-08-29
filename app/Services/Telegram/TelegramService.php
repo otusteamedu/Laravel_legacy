@@ -2,12 +2,19 @@
 
 namespace App\Services\Telegram;
 
+use App\DTOs\TelegramUserDTO;
 use App\Models\Post;
 use App\Models\TelegramUser;
+use App\Services\Telegram\Exceptions\TelegramException;
 use App\Services\Telegram\Handlers\CreateTelegramUserHandler;
 use App\Services\Telegram\Handlers\RegisterTelegramUserHandler;
 use App\Services\Telegram\Handlers\UpdateTelegramUserHandler;
 use App\Services\Telegram\Repositories\TelegramRepositoryInterface;
+use App\Services\Telegram\Statuses\TelegramUserStatus;
+use App\Telegram\Commands\MenuCommand;
+use App\Telegram\Commands\GetGroupsCommand;
+use App\Telegram\Commands\SetDefaultGroupCommand;
+use App\Telegram\Commands\SettingsCommand;
 use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
@@ -65,8 +72,44 @@ class TelegramService
     }
 
     /**
+     * @return array
+     */
+    public function getCommands(): array
+    {
+        return [
+            __('telegram.set_group') => GetGroupsCommand::class,
+            __('telegram.menu') => MenuCommand::class,
+            __('telegram.settings') => SettingsCommand::class,
+        ];
+    }
+
+    /**
+     * @param string $commandName
+     * @return string|null
+     */
+    public function getCommandByCommandName(string $commandName): ?string
+    {
+        return $this->getCommands()[$commandName] ?? null;
+    }
+
+    /**
+     * @param int $status
+     * @return string
+     */
+    public function getCommandByStatus(int $status): string
+    {
+        switch ($status) {
+            case TelegramUserStatus::SET_GROUP:
+                return SetDefaultGroupCommand::class;
+        }
+
+        throw new TelegramException($status . ' not exist.');
+    }
+
+    /**
      * @param string $url
      * @return string
+     * @throws GuzzleException
      */
     public function setWebhook(string $url): string
     {
@@ -120,6 +163,16 @@ class TelegramService
     }
 
     /**
+     * @param TelegramUserDTO $telegramUserDTO
+     * @param TelegramUser $telegramUser
+     * @return TelegramUser
+     */
+    public function update(TelegramUserDTO $telegramUserDTO, TelegramUser $telegramUser): TelegramUser
+    {
+        return $this->updateTelegramUserHandler->handle($telegramUserDTO, $telegramUser);
+    }
+
+    /**
      * @param TelegramUser $telegramUser
      * @param $IdNumber
      * @return TelegramUser|null
@@ -132,5 +185,14 @@ class TelegramService
     public function getTelegramUsersByGroupsInPost(Post $post): Collection
     {
         return $this->repository->getTelegramUsersByGroupsInPost($post);
+    }
+
+    /**
+     * @param int $id
+     * @return TelegramUser|null
+     */
+    public function findById(int $id): ?TelegramUser
+    {
+        return $this->repository->findById($id);
     }
 }

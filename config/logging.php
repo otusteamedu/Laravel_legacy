@@ -115,6 +115,22 @@ return [
         'emergency' => [
             'path' => storage_path('logs/laravel.log'),
         ],
+
+        'telegram_errors' => [
+            'driver' => 'daily',
+            'days' => 7,
+            'bubble' => false,
+            'level' => 'error',
+            'path' => storage_path('logs/telegram_errors.log'),
+        ],
+
+        'telegram_info' => [
+            'driver' => 'daily',
+            'days' => 7,
+            'bubble' => false,
+            'level' => 'debug',
+            'path' => storage_path('logs/telegram_info.log'),
+        ],
     ],
 
 ];

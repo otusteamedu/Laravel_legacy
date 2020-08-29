@@ -21,7 +21,10 @@ class EloquentTelegramRepository implements TelegramRepositoryInterface
      */
     public function update(TelegramUserDTO $telegramUserDTO, TelegramUser $telegramUser): TelegramUser
     {
-        $telegramUser->update($telegramUserDTO->toArray());
+        $data = $telegramUserDTO->toArray();
+        unset($data['id']);
+
+        $telegramUser->update($data);
 
         return $telegramUser;
     }
@@ -36,6 +39,15 @@ class EloquentTelegramRepository implements TelegramRepositoryInterface
     }
 
     /**
+     * @param int $userId
+     */
+    public function unsetUser(int $userId): void
+    {
+        $telegramUsersId = TelegramUser::where('user_id', $userId)->pluck('id');
+        TelegramUser::destroy($telegramUsersId);
+    }
+
+    /**
      * @param Post $post
      * @return Collection
      */
@@ -44,5 +56,14 @@ class EloquentTelegramRepository implements TelegramRepositoryInterface
         return TelegramUser::whereHas('user.students.groups', function (Builder $builder) use ($post): void {
             $builder->whereIn('id', $post->groups->pluck('id'));
         })->get();
+    }
+
+    /**
+     * @param int $id
+     * @return TelegramUser|null
+     */
+    public function findById(int $id): ?TelegramUser
+    {
+        return TelegramUser::find($id);
     }
 }

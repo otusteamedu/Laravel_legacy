@@ -166,4 +166,13 @@ class GroupService implements CacheService
     {
         return DTOHelper::getIdsDTOFromArray($ids);
     }
+
+    /**
+     * @param int $number
+     * @return Group|null
+     */
+    public function getByNumber(int $number): ?Group
+    {
+        return $this->repository->getByNumber($number);
+    }
 }

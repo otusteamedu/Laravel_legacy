@@ -157,11 +157,30 @@ class EloquentStudentRepository implements StudentRepositoryInterface
     }
 
     /**
+     * Получить список групп студента id => number
+     * @param Student $student
+     * @return array
+     */
+    public function getStudentGroupsList(Student $student): array
+    {
+        return $student->groups->pluck('number', 'id')->toArray();
+    }
+
+    /**
      * @param array $columns
      * @return Collection
      */
     public function getStudentsCollection(array $columns): Collection
     {
         return Student::select($columns)->get();
+    }
+
+    /**
+     * @param int $id
+     * @return Student|null
+     */
+    public function getStudentByUserId(int $id): ?Student
+    {
+        return Student::where('user_id', $id)->first();
     }
 }

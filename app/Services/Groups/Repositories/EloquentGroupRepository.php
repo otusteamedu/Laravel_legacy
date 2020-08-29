@@ -149,4 +149,13 @@ class EloquentGroupRepository implements GroupRepositoryInterface
 
         return $groups->pluck('groupCourse', 'id');
     }
+
+    /**
+     * @param int $number
+     * @return Group|null
+     */
+    public function getByNumber(int $number): ?Group
+    {
+        return Group::whereNumber($number)->first();
+    }
 }

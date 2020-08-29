@@ -66,4 +66,17 @@ interface StudentRepositoryInterface
      * @return Collection
      */
     public function getStudentsCollection(array $columns): Collection;
+
+    /**
+     * Получить список групп студента id => number
+     * @param Student $student
+     * @return array
+     */
+    public function getStudentGroupsList(Student $student): array;
+
+    /**
+     * @param int $id
+     * @return Student|null
+     */
+    public function getStudentByUserId(int $id): ?Student;
 }

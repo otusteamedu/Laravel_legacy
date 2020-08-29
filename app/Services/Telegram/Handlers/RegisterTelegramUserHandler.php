@@ -38,8 +38,6 @@ class RegisterTelegramUserHandler extends BaseHandler
      */
     public function handle(TelegramUser $telegramUser, $IdNumber): ?TelegramUser
     {
-
-        \Log::error('$IdNumber ' . $IdNumber);
         if ($student = $this->studentRepository->getStudentByIdNumber(StudentDTO::fromArray([
             StudentDTO::ID_NUMBER => (int)$IdNumber,
         ]))) {
@@ -47,6 +45,8 @@ class RegisterTelegramUserHandler extends BaseHandler
                 $telegramUser->toArray(),
                 [TelegramUserDTO::USER_ID => $student->user->id]
             ));
+
+            $this->repository->unsetUser($student->user_id);
             return $this->repository->update($DTO, $telegramUser);
         }
 

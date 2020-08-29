@@ -15,6 +15,8 @@ class TelegramUserDTO implements DTOInterface
     const USERNAME  = 'username';
     const LANGUAGE_CODE  = 'language_code';
     const USER_ID  = 'user_id';
+    const DEFAULT_GROUP  = 'default_group';
+
     /**
      * @var int
      */
@@ -43,16 +45,21 @@ class TelegramUserDTO implements DTOInterface
      * @var string
      */
     private $userId;
+    /**
+     * @var int|null
+     */
+    private $defaultGroup;
 
     /**
      * TelegramUserDTO constructor.
      * @param int $id
      * @param bool $isBot
-     * @param string $firstName
-     * @param string $lastName
-     * @param string $username
-     * @param string $landuageCode
-     * @param string $userId
+     * @param string|null $firstName
+     * @param string|null $lastName
+     * @param string|null $username
+     * @param string|null $landuageCode
+     * @param string|null $userId
+     * @param int|null $defaultGroup
      */
     private function __construct(
         int $id,
@@ -61,7 +68,8 @@ class TelegramUserDTO implements DTOInterface
         ?string $lastName,
         ?string $username,
         ?string $landuageCode,
-        ?string $userId
+        ?string $userId,
+        ?int $defaultGroup
     ) {
 
         $this->id = $id;
@@ -71,6 +79,7 @@ class TelegramUserDTO implements DTOInterface
         $this->username = $username;
         $this->landuageCode = $landuageCode;
         $this->userId = $userId;
+        $this->defaultGroup = $defaultGroup;
     }
 
     /**
@@ -86,7 +95,8 @@ class TelegramUserDTO implements DTOInterface
             $data[static::LAST_NAME] ?? null,
             $data[static::USERNAME] ?? null,
             $data[static::LANGUAGE_CODE] ?? null,
-            $data[static::USER_ID] ?? null
+            $data[static::USER_ID] ?? null,
+            $data[static::DEFAULT_GROUP] ?? null
         );
     }
 
@@ -103,6 +113,7 @@ class TelegramUserDTO implements DTOInterface
             static::USERNAME => $this->username,
             static::LANGUAGE_CODE => $this->landuageCode,
             static::USER_ID => $this->userId,
+            static::DEFAULT_GROUP => $this->defaultGroup,
         ];
     }
 }

@@ -27,8 +27,19 @@ interface TelegramRepositoryInterface
     public function store(TelegramUserDTO $DTO): TelegramUser;
 
     /**
+     * @param int $userId
+     */
+    public function unsetUser(int $userId): void;
+
+    /**
      * @param Post $post
      * @return Collection
      */
     public function getTelegramUsersByGroupsInPost(Post $post): Collection;
+
+    /**
+     * @param int $id
+     * @return TelegramUser
+     */
+    public function findById(int $id): ?TelegramUser;
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\Telegram\Commands\RegisterCommand;
+use App\Telegram\Commands\GetGroupsCommand;
 
 return [
     /*
@@ -59,6 +60,6 @@ return [
     */
     'commands' => [
         Telegram\Bot\Commands\HelpCommand::class,
-        RegisterCommand::class,
+        'register' => RegisterCommand::class,
     ],
 ];
