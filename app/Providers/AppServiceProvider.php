@@ -6,6 +6,8 @@ use App\Services\Courses\Repositories\CourseRepositoryInterface;
 use App\Services\Courses\Repositories\EloquentCourseRepository;
 use App\Services\EducationPlans\Repositories\EducationPlanRepositoryInterface;
 use App\Services\EducationPlans\Repositories\EloquentEducationPlanRepository;
+use App\Services\Lessons\Repositories\EloquentLessonRepository;
+use App\Services\Lessons\Repositories\LessonRepositoryInterface;
 use App\Services\Posts\Repositories\EloquentPostRepository;
 use App\Services\Posts\Repositories\PostRepositoryInterface;
 use App\Services\Settings\Repositories\EloquentSettingRepository;
@@ -42,6 +44,7 @@ class AppServiceProvider extends ServiceProvider
         SettingRepositoryInterface::class => EloquentSettingRepository::class,
         PostRepositoryInterface::class => EloquentPostRepository::class,
         TelegramRepositoryInterface::class => EloquentTelegramRepository::class,
+        LessonRepositoryInterface::class => EloquentLessonRepository::class,
     ];
 
     /**

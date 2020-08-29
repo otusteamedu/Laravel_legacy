@@ -11,8 +11,10 @@ use App\Services\Telegram\Handlers\RegisterTelegramUserHandler;
 use App\Services\Telegram\Handlers\UpdateTelegramUserHandler;
 use App\Services\Telegram\Repositories\TelegramRepositoryInterface;
 use App\Services\Telegram\Statuses\TelegramUserStatus;
+use App\Telegram\Commands\GetScheduleOnDateCommand;
 use App\Telegram\Commands\MenuCommand;
 use App\Telegram\Commands\GetGroupsCommand;
+use App\Telegram\Commands\ScheduleCommand;
 use App\Telegram\Commands\SetDefaultGroupCommand;
 use App\Telegram\Commands\SettingsCommand;
 use Exception;
@@ -80,6 +82,7 @@ class TelegramService
             __('telegram.set_group') => GetGroupsCommand::class,
             __('telegram.menu') => MenuCommand::class,
             __('telegram.settings') => SettingsCommand::class,
+            __('telegram.schedule') => ScheduleCommand::class,
         ];
     }
 
@@ -101,6 +104,8 @@ class TelegramService
         switch ($status) {
             case TelegramUserStatus::SET_GROUP:
                 return SetDefaultGroupCommand::class;
+            case TelegramUserStatus::SET_SCHEDULE_DATE:
+                return GetScheduleOnDateCommand::class;
         }
 
         throw new TelegramException($status . ' not exist.');

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Telegram\Exceptions\TelegramException;
 use App\Services\Telegram\Statuses\TelegramUserStatus;
 use App\Services\Telegram\TelegramService;
+use App\Telegram\Commands\ErrorCommand;
 use App\Telegram\Commands\RegisterCommand;
 use Exception;
 use Illuminate\Support\Facades\Log;
@@ -76,6 +77,7 @@ class TelegramController extends Controller
              * Вызываем команду по алиас
              */
             if ($command = $this->service->getCommandByCommandName($telegramMessageDTO->toArray()['text'])) {
+                $this->status->getAndClearStatus($telegramUser);
                 resolve($command)->handle(TelegramCommandDTO::fromArray([
                     TelegramCommandDTO::TELEGRAM_MESSAGE_DTO => $telegramMessageDTO,
                     TelegramCommandDTO::TELEGRAM_USER => $telegramUser,
@@ -98,9 +100,25 @@ class TelegramController extends Controller
 
             Telegram::commandsHandler(true);
         } catch (TelegramException $telegramException) {
-            Log::channel('telegram_errors')->error($telegramException->getTrace());
+            Log::channel('telegram_errors')->error($this->prepareLogData($telegramException));
+            resolve(ErrorCommand::class)->handle($telegramMessageDTO ?? null);
         } catch (Exception $exception) {
-            Log::error($exception->getTrace());
+            Log::error($this->prepareLogData($exception));
+            resolve(ErrorCommand::class)->handle($telegramMessageDTO ?? null);
         }
+    }
+
+    /**
+     * @param Exception $e
+     * @return array
+     */
+    private function prepareLogData(Exception $e): array
+    {
+        return [
+            'date' => date('Y-m-d H:i:s'),
+            'message' => $e->getMessage(),
+            'file' => $e->getFile(),
+            'line' => $e->getLine(),
+        ];
     }
 }

@@ -29,28 +29,10 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Lesson whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\EducationPlan $educationPlan
- * @property-read \App\Models\Room $room
- * @property-read \App\Models\Schedule $schedule
  * @property-read \App\Models\RoomOccupation|null $occupation
  */
 class Lesson extends BaseModel
 {
-    /**
-     * @return BelongsTo
-     */
-    public function schedule(): BelongsTo
-    {
-        return $this->belongsTo(Schedule::class);
-    }
-
-    /**
-     * @return BelongsTo
-     */
-    public function room(): BelongsTo
-    {
-        return $this->belongsTo(Room::class);
-    }
-
     /**
      * @return BelongsTo
      */

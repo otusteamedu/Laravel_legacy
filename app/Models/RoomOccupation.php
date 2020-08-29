@@ -36,6 +36,10 @@ use Illuminate\Database\Eloquent\Relations\MorphTo;
  */
 class RoomOccupation extends BaseModel
 {
+    protected $casts = [
+        'date' => 'date',
+    ];
+
     /**
      * @return BelongsTo
      */

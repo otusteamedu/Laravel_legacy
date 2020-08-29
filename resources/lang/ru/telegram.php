@@ -15,4 +15,6 @@ return [
     'available_groups' => 'Доступные группы',
     'no_available_groups' => 'Нет доступных групп:(',
     'error' => 'Что-то пошло не так:(',
+    'set_date' => 'Укажите дату в формате дд.мм (03.04)',
+    'no_available_lessons' => 'Занятий нет',
 ];

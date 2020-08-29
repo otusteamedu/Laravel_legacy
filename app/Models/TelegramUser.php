@@ -17,6 +17,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null $username
  * @property string $language_code
  * @property int|null $user_id
+ * @property int|null $default_group
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at

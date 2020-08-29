@@ -13,6 +13,7 @@ class TelegramUserStatus
 {
     const START_REGISTRATION = 1;
     const SET_GROUP = 2;
+    const SET_SCHEDULE_DATE = 3;
 
     public static function getKey(TelegramUser $telegramUser): string
     {
