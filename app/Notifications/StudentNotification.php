@@ -74,8 +74,8 @@ class StudentNotification extends Notification
      */
     public function toTelegram($notifiable)
     {
-        $message = '*' . $this->post->title . "*\n\n";
-        $message .= $this->post->body . "\n\n";
+        $message = '*' . $this->post->title . "*\n-----------\n";
+        $message .= $this->post->body . "\n-----------\n";
         $message .= $this->post->producer->full_name;
 
         return TelegramMessage::create()

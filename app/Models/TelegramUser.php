@@ -40,7 +40,7 @@ use Illuminate\Notifications\Notifiable;
 class TelegramUser extends Model
 {
     use Notifiable;
-    use SoftDeletes;
+    //use SoftDeletes;
 
     /**
      * @var string[]
