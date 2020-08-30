@@ -18,6 +18,7 @@
     <script src="{{ asset('js/front.scripts.js') }}"></script>
     <script src="{{ asset('js/front.livesearch.js') }}"></script>
     <script src="{{ asset('js/jquery.fancybox.min.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}" defer></script>
     <!-- Styles -->
     <link href="{{ asset('css/front.owl.css') }}" rel="stylesheet">
     <link href="{{ asset('css/front.style.css') }}" rel="stylesheet">

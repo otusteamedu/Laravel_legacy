@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Watson\Rememberable\Rememberable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * App\Models\User
@@ -34,7 +35,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable,Rememberable;
+    use Notifiable,Rememberable,HasApiTokens;
 
     const LEVEL_USER = 1;
     const LEVEL_MODERATOR = 2;
@@ -49,6 +50,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname',
         'lastname',
+        'username',
         'display_name',
         'website',
         'fb_url',

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('firstname')->comment("Имя");
             $table->string('lastname')->comment("Фамилия");
             $table->string('display_name')->comment("Отображаемое имя");
+            $table->string('username')->comment("Имя пользователя");
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

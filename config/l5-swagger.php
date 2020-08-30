@@ -118,7 +118,7 @@ return [
                 ],
                 */
 
-                /* Open API 3.0 support
+                /* Open API 3.0 support       */
                 'passport' => [ // Unique name of security
                     'type' => 'oauth2', // The type of the security scheme. Valid values are "basic", "apiKey" or "oauth2".
                     'description' => 'Laravel passport oauth2 security.',
@@ -126,14 +126,14 @@ return [
                     'scheme' => 'https',
                     'flows' => [
                         "password" => [
-                            "authorizationUrl" => config('app.url') . '/oauth/authorize',
-                            "tokenUrl" => config('app.url') . '/oauth/token',
-                            "refreshUrl" => config('app.url') . '/token/refresh',
+                            "authorizationUrl" => config('app.url') . '/api/v1/login',
+                            "tokenUrl" => config('app.url') . '/api/v1/login',
+                            "refreshUrl" => config('app.url') . '/api/v1/logout',
                             "scopes" => []
                         ],
                     ],
                 ],
-                */
+
             ],
             'security' => [
                 /*
@@ -191,8 +191,8 @@ return [
         /*
          * Uncomment to add constants which can be used in annotations
          */
-        'constants' => [
+         'constants' => [
          'L5_SWAGGER_CONST_HOST' => env('L5_SWAGGER_CONST_HOST', 'http://my-default-host.com'),
-         ],
+        ],
     ],
 ];

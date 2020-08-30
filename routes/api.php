@@ -19,7 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 
-Route::middleware('auth:api')->group(function () {
+/* Version v1*/
+Route::prefix('v1')->middleware([
+    'auth:api'
+])->group(function () {
     Route::apiResource('films', 'Api\Cms\Films\FilmsController', []);
 });
 
+Route::prefix('v1')->group(function () {
+    Route::post('register', 'Api\Cms\Auth\RegisterController');
+    Route::post('login', 'Api\Cms\Auth\LoginController');
+    Route::post('logout', 'Api\Cms\Auth\LogoutController')->middleware('auth:api');
+});

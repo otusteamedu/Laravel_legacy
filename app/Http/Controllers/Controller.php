@@ -6,18 +6,34 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
-/**
- * @SWG\Swagger(
- *   @SWG\Info(
- *     title="Онлайн кинотеатр",
- *     version="1.0",
- *     description="API для сайта фильмов",
- *     @SWG\Contact(
- *         email="sckat@yandex.ru"
- *     )
- *   )
- * )
- */
+
+
+    /**
+     * @OA\Info(
+     *      version="1.0.0",
+     *      title="Сайт онлайн-фильмов",
+     *      description="API",
+     *      @OA\Contact(
+     *          email="sckat@yandex.ru"
+     *      ),
+     *      @OA\License(
+     *          name="Apache 2.0",
+     *          url="http://www.apache.org/licenses/LICENSE-2.0.html"
+     *      )
+     * )
+     *
+     * @OA\Server(
+     *      url= L5_SWAGGER_CONST_HOST,
+     *      description="API Server"
+     * )
+    * @OA\Get(
+    *     path="/",
+    *     description="Home page",
+    *     @OA\Response(response="default", description="Welcome page")
+    * )
+    *
+    *
+    */
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
