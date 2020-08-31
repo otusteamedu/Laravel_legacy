@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+ <IfModule mod_headers.c>
+ Header set Access-Control-Allow-Origin "*"
+ Header set Access-Control-Allow-Methods "GET,POST,OPTIONS,DELETE,PUT"
+ Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Requested-With, token"
+ Header set Access-Control-Allow-Credentials "true"
+ </IfModule>

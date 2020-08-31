@@ -26,13 +26,8 @@ use Illuminate\Routing\Controller as BaseController;
      *      url= L5_SWAGGER_CONST_HOST,
      *      description="API Server"
      * )
-    * @OA\Get(
-    *     path="/",
-    *     description="Home page",
-    *     @OA\Response(response="default", description="Welcome page")
-    * )
-    *
-    *
+     *
+     *
     */
 class Controller extends BaseController
 {

@@ -20,8 +20,8 @@ use App\Services\Events\Models\Film\FilmUpdated;
  *  @OA\Property(property="content", type="string", description="Content Film", example="Full content filn"),
  *  @OA\Property(property="year", type="string", description="Year of film", example="2005"),
  *  @OA\Property(property="image", type="string", description="Image for film", example=""),
- *  @OA\Property(property="created_at", readOnly="true", type="string",  format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
- *  @OA\Property(property="updated_at", readOnly="true", type="string",  format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *  @OA\Property(property="created_at", readOnly=true, type="string",  format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *  @OA\Property(property="updated_at", readOnly=true, type="string",  format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
 
  * )
  *

@@ -32,11 +32,12 @@ class FilmsController extends Controller
 
      /**
      * @OA\Get(
-     *      path="/api/v1/films/",
+     *      path="/api/v1/films/{limit}{offset}",
      *      operationId="getFilms",
      *      tags={"Film"},
      *      summary="Get list of Films",
      *      description="Returns list of films",
+     *      security={ {"passport": {*} }},
      *  @OA\Parameter(
      *      name="limit",
      *      in="path",
@@ -103,27 +104,24 @@ class FilmsController extends Controller
 
     /**
      * @OA\Post(
-     *      path="/api/v1/films/",
+     *      path="/api/v1/films",
      *      operationId="addFilm",
      *      tags={"AddFilm"},
      *      summary="Add new Film",
      *      description="Returns film",
-     *  @OA\Parameter(
-     *      name="limit",
-     *      in="path",
-     *      required=false,
-     *      @OA\Schema(
-     *           type="integer"
-     *      )
-     *   ),
-     *   @OA\Parameter(
-     *      name="offset",
-     *      in="path",
-     *      required=false,
-     *      @OA\Schema(
-     *           type="integer"
-     *      )
-     *   ),
+     *      security={ {"passport": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Params",
+     *    @OA\JsonContent(
+     *       required={"title","slug", "status", "year"},
+     *       @OA\Property(property="title", type="string", example="Witcher 3"),
+     *       @OA\Property(property="slug", type="string", example="witcher_3"),
+     *       @OA\Property(property="status", type="string", example="0"),
+     *       @OA\Property(property="year", type="string", example="2000"),
+     * 
+     *    ),
+     * ),
      *   @OA\Response(
      *          response=200,
      *          description="Successful operation",
@@ -150,72 +148,6 @@ class FilmsController extends Controller
      * ),
      *  )
      */
-
-    /**
-     * @SWG\Post(
-     *     path="/api/v1/films",
-     *     summary="Добавляет новый фильм",
-     *     tags={"Film"},
-     *     description="Добавляет новый фильм",
-     *   security={
-     *     {"passport": {}},
-     *   },
-     *   @SWG\Parameter(
-     *     name="title",
-     *     in="body",
-     *     description="Название фильма",
-     *     required=true,
-     *     @SWG\Schema(type="string"),
-     *      type="string",
-     *   ),
-     *   @SWG\Parameter(
-     *      name="slug",
-     *      in="body",
-     *      description="Чпу (название фильма по английски)",
-     *      required=true,
-     *      @SWG\Schema(type="string"),
-     *        type="string",
-     *   ),
-     *   @SWG\Parameter(
-     *      name="status",
-     *      in="body",
-     *      description="Статус фильма (0 или 1)",
-     *      required=true,
-     *      @SWG\Schema(type="integer"),
-     *        type="integer",
-     *   ),
-     *   @SWG\Parameter(
-     *      name="year",
-     *      in="body",
-     *      description="Год фильма",
-     *      required=true,
-     *      @SWG\Schema(type="integer"),
-     *        type="integer",
-     *   ),
-     *   security={
-     *     {"api_key_security_example": {}},
-     *   },
-     *   @SWG\Response(
-     *      response=200,
-     *      description="successful operation",
-     *      @SWG\Schema(
-     *            ref="#/definitions/Film"
-     *      ),
-     *   ),
-     *   @SWG\Response(
-     *         response="401",
-     *         description="Пользователь не авторизован",
-     *   ),
-     *   @SWG\Response(
-     *         response="404",
-     *         description="Метод не найден",
-     *   ),
-     *   @SWG\Response(
-     *         response="403",
-     *         description="Не передан обязательный параметр token! Либо токен истек. Либо не найден.",
-     *   )
-     * )
-     */
     /**
      * Store a newly created resource in storage.
      *
@@ -230,34 +162,85 @@ class FilmsController extends Controller
     }
 
      /**
-     * @SWG\Get(
-     *     path="/api/v1/films/{id}",
-     *     summary="Возвращает фильм по id",
-     *     tags={"Film"},
-     *     description="Возвращает фильм по id",
-     *   security={
-     *     {"api_key_security_example": {}},
-     *   },
-     *   @SWG\Response(
-     *      response=200,
-     *      description="successful operation",
-     *      @SWG\Schema(
-     *            ref="#/definitions/Film"
+     * @OA\Get(
+     *      path="/api/v1/films/{id}",
+     *      operationId="getFilm",
+     *      tags={"Film"},
+     *      summary="Get Film",
+     *      description="Returns film",
+     *      security={ {"passport": {} }},
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *  @OA\JsonContent(
+     *          @OA\Property(
+     *           property="data",
+     *           type="object",
+     *           @OA\Property(
+     *              property="id",
+     *              type="integer",
+     *              example="id film"
+     *           ),
+     *           @OA\Property(
+     *              property="title",
+     *              type="string",
+     *              example="title film"
+     *           ),
+     *           @OA\Property(
+     *              property="content",
+     *              type="string",
+     *              example="content film"
+     *           ),
+     *          @OA\Property(
+     *              property="status",
+     *              type="string",
+     *              example="0 or 1"
+     *           ),
+     *          @OA\Property(
+     *              property="slug",
+     *              type="string",
+     *              example="slug film"
+     *           ),
+     *          @OA\Property(
+     *              property="created_at",
+     *              type="string",
+     *              format="date-time", 
+     *              example="2019-02-25 12:59:20"
+     *           ),
+     *          @OA\Property(
+     *              property="comments_count",
+     *              type="integer",
+     *              example="count comments"
+     *           )
+     *        )
+     *     )
+     *   ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
      *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
      *   ),
-     *   @SWG\Response(
-     *         response="401",
-     *         description="Пользователь не авторизован",
-     *   ),
-     *   @SWG\Response(
-     *         response="404",
-     *         description="Метод не найден",
-     *   ),
-     *   @SWG\Response(
-     *         response="403",
-     *         description="Не передан обязательный параметр token! Либо токен истек. Либо не найден.",
-     *   )
-     * )
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *  )
+     * ),
+     *  )
      */
 
     /**
@@ -268,6 +251,89 @@ class FilmsController extends Controller
     {
         return new FilmWithCommentsCountResource($film);
     }
+
+
+     /**
+     * @OA\Put(
+     *      path="/api/v1/films/{id}",
+     *      operationId="updateFilm",
+     *      tags={"Update Film"},
+     *      summary="Update Film",
+     *      description="Returns film",
+     *      security={ {"passport": {} }},
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *     @OA\JsonContent(
+     *          @OA\Property(
+     *           property="data",
+     *           type="object",
+     *           @OA\Property(
+     *              property="id",
+     *              type="integer",
+     *              example="id film"
+     *           ),
+     *           @OA\Property(
+     *              property="title",
+     *              type="string",
+     *              example="title film"
+     *           ),
+     *           @OA\Property(
+     *              property="content",
+     *              type="string",
+     *              example="content film"
+     *           ),
+     *          @OA\Property(
+     *              property="status",
+     *              type="string",
+     *              example="0 or 1"
+     *           ),
+     *          @OA\Property(
+     *              property="slug",
+     *              type="string",
+     *              example="slug film"
+     *           ),
+     *          @OA\Property(
+     *              property="created_at",
+     *              type="string",
+     *              format="date-time", 
+     *              example="2019-02-25 12:59:20"
+     *           ),
+     *          @OA\Property(
+     *              property="comments_count",
+     *              type="integer",
+     *              example="count comments"
+     *           )
+     *        )
+     *     )
+     *   ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *  )
+     * ),
+     *  )
+     */
 
     /**
      * Update the specified resource in storage.
@@ -281,6 +347,88 @@ class FilmsController extends Controller
         $film = $this->filmsService->updateFilm($film, $request->all());
         return new FilmResource($film);
     }
+
+      /**
+     * @OA\Delete(
+     *      path="/api/v1/films/{id}",
+     *      operationId="deleteFilm",
+     *      tags={"Delete Film"},
+     *      summary="Delete Film",
+     *      description="Returns film",
+     *      security={ {"passport": {} }},
+     *  @OA\Parameter(
+     *      name="id",
+     *      in="path",
+     *      required=true,
+     *      @OA\Schema(
+     *           type="integer"
+     *      )
+     *   ),
+     *   @OA\Response(
+     *          response=200,
+     *          description="Successful operation",
+     *     @OA\JsonContent(
+     *          @OA\Property(
+     *           property="data",
+     *           type="object",
+     *           @OA\Property(
+     *              property="id",
+     *              type="integer",
+     *              example="id film"
+     *           ),
+     *           @OA\Property(
+     *              property="title",
+     *              type="string",
+     *              example="title film"
+     *           ),
+     *           @OA\Property(
+     *              property="content",
+     *              type="string",
+     *              example="content film"
+     *           ),
+     *          @OA\Property(
+     *              property="status",
+     *              type="string",
+     *              example="0 or 1"
+     *           ),
+     *          @OA\Property(
+     *              property="slug",
+     *              type="string",
+     *              example="slug film"
+     *           ),
+     *          @OA\Property(
+     *              property="created_at",
+     *              type="string",
+     *              format="date-time", 
+     *              example="2019-02-25 12:59:20"
+     *           ),
+     *          @OA\Property(
+     *              property="comments_count",
+     *              type="integer",
+     *              example="count comments"
+     *           )
+     *        )
+     *     )
+     *   ),
+     *      @OA\Response(
+     *          response=401,
+     *          description="Unauthenticated",
+     *      ),
+     *      @OA\Response(
+     *          response=403,
+     *          description="Forbidden"
+     *      ),
+     * @OA\Response(
+     *      response=400,
+     *      description="Bad Request"
+     *   ),
+     * @OA\Response(
+     *      response=404,
+     *      description="not found"
+     *  )
+     * ),
+     *  )
+     */
 
     /**
      * Remove the specified resource from storage.
