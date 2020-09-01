@@ -56,17 +56,17 @@ class TelegramMessageDTO implements DTOInterface
         $this->setFrom(
             $from[static::ID],
             $from[static::IS_BOT],
-            $from[static::FIRST_NAME],
-            $from[static::LAST_NAME],
-            $from[static::USERNAME],
-            $from[static::LANGUAGE_CODE]
+            $from[static::FIRST_NAME] ?? null,
+            $from[static::LAST_NAME] ?? null,
+            $from[static::USERNAME] ?? null,
+            $from[static::LANGUAGE_CODE] ?? null
         );
         $this->setChat(
             $chat[static::ID],
-            $chat[static::FIRST_NAME],
-            $chat[static::LAST_NAME],
-            $chat[static::USERNAME],
-            $chat[static::TYPE]
+            $chat[static::FIRST_NAME] ?? null,
+            $chat[static::LAST_NAME] ?? null,
+            $chat[static::USERNAME] ?? null,
+            $chat[static::TYPE] ?? null
         );
         $this->date = $date;
         $this->text = $text;

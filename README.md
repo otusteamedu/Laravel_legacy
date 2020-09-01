@@ -1,3 +1,6 @@
+## Description
+Educational project made on courses Otus "Framework Laravel".
+
 ## Build Setup
 
 ``` bash
@@ -20,4 +23,12 @@ npm run dev
 
 # Run Laravel development server http://127.0.0.1:8000
 php artisan serve
+
+# Set your telegram telegram bot tooken to TELEGRAM_BOT_TOKEN in .env
+
+# Start queues
+php artisan queue:listen
+
+# Optionally generate fake data for development
+php artisan db:seed
 ```
