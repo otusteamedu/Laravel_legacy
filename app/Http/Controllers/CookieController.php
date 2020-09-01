@@ -23,4 +23,15 @@ class CookieController extends Controller
         $value = $request->cookie('town');
         echo $value;
     }
+
+
+    public function getCookieTownId(Request $request)
+    {
+        $request->cookie('town')
+            ? $cookieTownId = $request->cookie('town')
+            : $cookieTownId = 'all';
+
+        return $cookieTownId;
+
+    }
 }

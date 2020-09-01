@@ -18,11 +18,23 @@ Breadcrumbs::for('division', function ($breadcrumbs, $division, $town_id) {
     ]));
 });
 
-
 Breadcrumbs::for('advert', function ($breadcrumbs, $advert) {
     $breadcrumbs->parent('division', $advert->division, $advert->town_id);
     $breadcrumbs->push($advert->title, route('home.show', [
         'advert'=>$advert->id,
         'locale'=>'ru',
     ]));
+});
+
+Breadcrumbs::for('lk', function ($breadcrumbs, $town_id) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push('Личный кабинет', route('lk', [
+        'locale'=>'ru',
+        'town'=>$town_id,
+    ]));
+});
+
+Breadcrumbs::for('search', function ($breadcrumbs, $town_id, $text) {
+    $breadcrumbs->parent('home');
+    $breadcrumbs->push($text, null);
 });

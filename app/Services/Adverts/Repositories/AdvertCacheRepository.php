@@ -4,6 +4,8 @@
 namespace App\Services\Adverts\Repositories;
 
 
+use App\Services\Adverts\Handler\CacheKeyGenerator;
+
 class AdvertCacheRepository
 {
 
@@ -15,10 +17,12 @@ class AdvertCacheRepository
     public $paginateResult;
 
     private $advertRepository;
+    private $cacheKeyGenerator;
 
-    public function __construct(AdvertRepositoryInterface $advertRepository)
+    public function __construct(AdvertRepositoryInterface $advertRepository, CacheKeyGenerator $cacheKeyGenerator)
     {
         $this->advertRepository = $advertRepository;
+        $this->cacheKeyGenerator = $cacheKeyGenerator;
     }
 
     public function cachingAdvertList()
@@ -29,16 +33,15 @@ class AdvertCacheRepository
 
     }
 
-    public function cachingPage($qty)  //TODO вернуть кэш в хоум контроллер, проверить,
+    public function cachingPage($qty)
     {
 
         $this->paginateResult = $this->advertRepository->paginateList($qty);
-
-        $cacheKey =  self::PAGE_CACHE_KEY.'-'.$this->paginateResult->links->data->currentPage; //TODO вынести в класс-генератор ключа, генерит ключ под запрос, незабыть в прогреве
+        $cacheKey = $this->cacheKeyGenerator->generatePageKey($this->paginateResult->currentPage());  //TODO  добавить в прогрев
 
         return \Cache::remember($cacheKey, self::CACHE_TIME, function() use($qty){
-            return $this->paginateResult;
-            //return $this->advertRepository->paginateList($qty);
+            //return $this->paginateResult;
+            return $this->advertRepository->paginateList($qty);
         });
 
     }
@@ -46,7 +49,7 @@ class AdvertCacheRepository
     public function cachingPageApi(int $limit, int $offset)
     {
 
-        $cacheKey = self::PAGE_CACHE_KEY.$limit.'_'.$offset; //TODO вынести в класс-генератор ключа, генерит ключ под запрос, незабыть в прогреве
+        $cacheKey = $this->cacheKeyGenerator->generatePageAPIKey($limit, $offset);       //TODO  добавить в прогрев
 
         return \Cache::remember($cacheKey, self::CACHE_TIME, function() use($limit, $offset){
             return $this->advertRepository->paginateListApi($limit, $offset);

@@ -7,8 +7,8 @@
 
     @include('cms.blocks.header')
 
-<h1 >Выберите пункты меню в верху</h1>
+<h3 >Выберите пункты меню </h3>
 
-    @include('cms.blocks.passport')
+{{--    @include('cms.blocks.passport')--}}
 
 @endsection

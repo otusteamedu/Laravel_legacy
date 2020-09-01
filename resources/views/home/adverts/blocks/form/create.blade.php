@@ -18,13 +18,13 @@
         </select>
         <br><br>
         <label >Заголовок</label>
-        <input type="text" name="title" class="form-control" >
+        <input type="text" name="title" class="form-control" required>
 
         <label >Цена</label>
-        <input type="text" name="price" class="form-control" >
+        <input type="text" name="price" class="form-control" required>
 
         <label >Описание</label>
-        <input type="text" name="content" class="form-control" >
+        <input type="text" name="content" class="form-control" required>
 
     </div>
 

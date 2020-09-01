@@ -24,8 +24,8 @@ class StoreAdvertRequest extends FormRequest
     {
         return [
             'title' => 'required|max:100',  //unique:divisions,name|
-            'town_id' => 'required',
-            'division_id' => 'required',
+           // 'town_id' => 'required',
+           // 'division_id' => 'required',
             'price' => 'required',
         ];
     }

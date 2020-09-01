@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Message;
 use App\Services\Messages\MessagesService;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class MessagesController extends Controller
 {
@@ -20,7 +21,7 @@ class MessagesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index()
     {
@@ -31,7 +32,7 @@ class MessagesController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -41,8 +42,8 @@ class MessagesController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return Response
      */
     public function store(StoreMessageRequest $request)
     {
@@ -56,7 +57,7 @@ class MessagesController extends Controller
      * Display the specified resource.
      *
      * @param Message $message
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Message $message)
     {
@@ -67,11 +68,12 @@ class MessagesController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Message $message
+     * @param Request $request
      * @return void
      */
-    public function edit(Message $message)
+    public function edit(Message $message, Request $request)
     {
-        return view('cms.messages.edit', ['message' => $message]);
+        return view('cms.messages.edit', ['message' => $message, 'url'=>url()->previous()]);
     }
 
     /**
@@ -84,14 +86,15 @@ class MessagesController extends Controller
     public function update(StoreMessageRequest $request, Message $message)
     {
         $this->messageService->updateMessage($message, $request->all());
-        return redirect()->back()->with('success', 'Обновлено'); //redirect(route('messages.index'));
+        //return redirect()->back()->with('success', 'Обновлено');
+        return redirect($request->url);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Message $message
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy(Message $message)
     {

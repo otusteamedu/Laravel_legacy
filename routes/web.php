@@ -1,13 +1,8 @@
 <?php
 
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-*/
+/*---------------------------------- Web Routes ---------*/
 
 Route::get('/cms', 'Cms\CmsController@index')->middleware('auth')->name('cms');
 Route::redirect('/', '/ru/home');
@@ -17,7 +12,7 @@ Route::get('/cookie/get','CookieController@getCookie')->name('getTown');
 
 Auth::routes();
 Route::group([
-    'middleware' => 'auth',
+    'middleware' => 'cms',
     'namespace' => 'Cms',
 ], function()
 {
@@ -36,7 +31,10 @@ Route::prefix('{locale}/')
 
         Route::get('/division/{division}', 'SearchController@division')->name('division');
         Route::get('/division/{division}/town/{town}', 'SearchController@division')->name('town');
-       // Route::get('/search/division/{division}/town/{town}', 'SearchController@search');
+
+        Route::match(['get', 'post'],'/search', 'SearchController@mainSearch')->name('search');
+
+        Route::get('lk', 'LkController@index')->name('lk')->middleware('auth');
 
     });
 

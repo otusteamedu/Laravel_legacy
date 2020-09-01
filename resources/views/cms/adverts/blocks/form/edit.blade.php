@@ -16,6 +16,8 @@
         <label >Описание</label>
         <input type="text" name="description" value="{{$advert->description}}" class="form-control" >
 
+        <input type="hidden" name="town_id" value="{{$advert->town_id}}">
+        <input type="hidden" name="division_id" value="{{$advert->division_id}}">
 
         <input type="hidden" name="_method" value="PUT">
 

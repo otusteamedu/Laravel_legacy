@@ -12,7 +12,7 @@ class DivisionPolicy
 
     /**
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @return mixed
      */
     public function before($user){
@@ -22,7 +22,7 @@ class DivisionPolicy
     /**
      * Determine whether the user can view any models.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @return mixed
      */
     public function viewAny(User $user)
@@ -33,19 +33,19 @@ class DivisionPolicy
     /**
      * Determine whether the user can view the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Division  $division
+     * @param User $user
+     * @param Division $division
      * @return mixed
      */
     public function view(User $user, Division $division)
     {
-
+        return $user->isAdmin();
     }
 
     /**
      * Determine whether the user can create models.
      *
-     * @param  \App\Models\User  $user
+     * @param User $user
      * @return mixed
      */
     public function create(User $user)
@@ -56,8 +56,8 @@ class DivisionPolicy
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Division  $division
+     * @param User $user
+     * @param Division $division
      * @return mixed
      */
     public function update(User $user, Division $division)
@@ -68,8 +68,8 @@ class DivisionPolicy
     /**
      * Determine whether the user can delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Division  $division
+     * @param User $user
+     * @param Division $division
      * @return mixed
      */
     public function delete(User $user, Division $division)
@@ -80,8 +80,8 @@ class DivisionPolicy
     /**
      * Determine whether the user can restore the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Division  $division
+     * @param User $user
+     * @param Division $division
      * @return mixed
      */
     public function restore(User $user, Division $division)
@@ -92,8 +92,8 @@ class DivisionPolicy
     /**
      * Determine whether the user can permanently delete the model.
      *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Division  $division
+     * @param User $user
+     * @param Division $division
      * @return mixed
      */
     public function forceDelete(User $user, Division $division)

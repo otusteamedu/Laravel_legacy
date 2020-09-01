@@ -8,12 +8,15 @@
                 <a class="nav-link" href="{{ route('register') }}">Зарегистрироваться</a>
             </li>
         @endif
+        <li class="nav-item pl-0">
+            <a class="nav-link" href="{{ route('lk', ['locale'=>$locale]) }}">Кабинет</a>
+        </li>
     </ul>
 
 @else
     <ul class="nav justify-content-center">
         <li class="nav-item ml-auto">
-            <a class="nav-link alert-link" href="#"> {{ Auth::user()->name }} </a>
+            <a class="nav-link alert-link" href="{{ route('lk', ['locale'=>$locale]) }}"> {{ Auth::user()->name }} </a>
 
         </li>
         <li class="nav-item pl-0">
@@ -24,3 +27,4 @@
         </li>
     </ul>
 @endguest
+

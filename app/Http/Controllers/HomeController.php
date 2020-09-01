@@ -17,12 +17,16 @@ class HomeController extends Controller
     protected $advertService;
     protected $messagesService;
     private $logHandler;
+    private $cookieController;
 
-    public function __construct(AdvertsService $advertService, MessagesService $messagesService, LogHandler $logHandler)
+
+    public function __construct(AdvertsService $advertService, MessagesService $messagesService,
+                                LogHandler $logHandler, CookieController $cookieController)
     {
         $this->advertService = $advertService;
         $this->messagesService = $messagesService;
         $this->logHandler = $logHandler;
+        $this->cookieController = $cookieController;
     }
 
     /**
@@ -33,20 +37,15 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-       $divisionList = $this->advertService->showDivisionList();
-       $townList = $this->advertService->showTownList();
+       $headerData = $this->advertService->getHeaderData($request);
        $pages = $this->advertService->page(8);
-
-       $request->cookie('town') //TODO убрать в кукиконтроллер
-           ? $cookieTownValue = $request->cookie('town')
-           : $cookieTownValue = 'all';
 
        return view('home.home',
            [
                'pages' => $pages,
-               'divisionList' => $divisionList,
-               'townList' => $townList,
-               'town_id'=>$cookieTownValue, //TODO из куки брать
+               'divisionList' => $headerData['divisionList'],
+               'townList' => $headerData['townList'],
+               'town_id'=> $headerData['town_id'],
        ]);
     }
 
@@ -60,18 +59,13 @@ class HomeController extends Controller
     {
         if (!Auth::user())  return redirect('/login');
 
-        $divisionList = $this->advertService->showDivisionList();
-        $townList = $this->advertService->showTownList();
-
-        $request->cookie('town') //TODO убрать в кукиконтроллер
-            ? $cookieTownValue = $request->cookie('town')
-            : $cookieTownValue = 'all';
+        $headerData = $this->advertService->getHeaderData($request);
 
         return view('home.adverts.create',
                 [
-                    'divisionList'=>$divisionList,
-                    'townList'=>$townList,
-                    'town_id'=>$cookieTownValue, //TODO из куки брать
+                    'divisionList' => $headerData['divisionList'],
+                    'townList' => $headerData['townList'],
+                    'town_id'=> $headerData['town_id'],
                 ]);
     }
 
@@ -85,13 +79,16 @@ class HomeController extends Controller
     {
         try {
             $data = $request->getFormData();
-            $this->advertService->storeAdvert($data);
+            $advert = $this->advertService->storeAdvert($data);
             $this->logHandler->logDaily(': Store Advert successful');
+
+            return redirect(route('home.show', ['locale'=>'ru', 'advert'=>$advert->id]));
+
         } catch (\Exception $e) {
             $this->logHandler->logSlack(': Store Advert Error ');
         }
 
-        return redirect(route('home.index', ['locale'=>'ru']));
+       // return redirect(route('home.index', ['locale'=>'ru']));
     }
 
 
@@ -104,52 +101,29 @@ class HomeController extends Controller
      */
     public function show(Advert $advert, Request $request)
     {
-        $divisionList = $this->advertService->showDivisionList();
-        $townList = $this->advertService->showTownList();
+        $headerData = $this->advertService->getHeaderData($request);
         $advert = $this->advertService->showItem($advert->id);
-
-        $request->cookie('town') //TODO убрать в кукиконтроллер
-            ? $cookieTownValue = $request->cookie('town')
-            : $cookieTownValue = 'all';
 
         return view('home.adverts.show',
             [
                 'advert' => $advert,
-                'divisionList' => $divisionList,
-                'townList' => $townList,
-                'town_id'=>$cookieTownValue, //TODO из куки брать
+                'divisionList' => $headerData['divisionList'],
+                'townList' => $headerData['townList'],
+                'town_id'=> $headerData['town_id'],
             ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param int $id
-     * @return void
-     */
     public function edit($id)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return Response
-     */
     public function update()
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+
     public function destroy($id)
     {
         //

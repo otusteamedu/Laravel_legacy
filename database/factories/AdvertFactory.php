@@ -17,7 +17,7 @@ $factory->define(Advert::class, function (Faker $faker) {
     $faker = \Faker\Factory::create('ru_Ru');
     return [
         'user_id' => $faker->numberBetween(1, 2), // factory(User::class),
-        'town_id' => $faker->numberBetween(1, 3),
+        'town_id' => $faker->numberBetween(1, 5),
         'division_id' => $faker->numberBetween(1, 4),
         'title' => $faker->sentence(3),
         'price' => $faker->numberBetween(500000 , 5000000),

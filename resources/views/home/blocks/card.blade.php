@@ -1,7 +1,7 @@
 <div class="container">
 
     <div class="row justify-content-center">
-    @foreach($pages->items as $item)
+    @foreach($pages as $item)
         <div class="card m-4" style="width: 18rem;">
             <img src="{{ URL::asset('img/default.jpg') }}" class="card-img-top" alt="...">
             <div class="card-body">
@@ -23,9 +23,8 @@
     </div>
 
 {{--    {{ $pages->links() }}--}}
-        {{$pages->links    }}
+        {{$pages->appends(['text' => $text ?? ''])->links()    }}
 
-<!--    --><?php //echo 'Время генерации: ' . ( microtime(true) - $start ) . ' сек.'; ?>
 </div>
 
 

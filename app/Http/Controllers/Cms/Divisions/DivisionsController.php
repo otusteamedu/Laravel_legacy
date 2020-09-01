@@ -16,7 +16,7 @@ class DivisionsController extends Controller
     public function __construct(DivisionsService $divisionService)
     {
         $this->divisionService = $divisionService;
-        $this->authorizeResource(Division::class, 'divisions');
+        //$this->authorizeResource(Division::class, 'divisions');
     }
 
     /**

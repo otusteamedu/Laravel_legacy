@@ -4,6 +4,7 @@ namespace App\Http;
 
 use App\Http\Middleware\CheckAge;
 use App\Http\Middleware\Localize;
+use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\RequestLoger;
 use App\Http\Middleware\ShareCommonData;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
@@ -45,11 +46,13 @@ class Kernel extends HttpKernel
 
         'cms' => [
           'logger',
+          'auth',
+          'isAdmin',
           'checkAge:editor'
         ],
         'home' =>[
             'localize',
-            'auth',
+            //'auth',
             'shareCommonData',
 
         ],
@@ -82,5 +85,6 @@ class Kernel extends HttpKernel
         'logger' =>RequestLoger::class,
         'checkAge' =>CheckAge::class,
         'localize' =>Localize::class,
+        'isAdmin' =>IsAdmin::class,
     ];
 }

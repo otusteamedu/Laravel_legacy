@@ -2,10 +2,10 @@
 <br>
 <div class="container">
     <div class="row alert alert-primary justify-content-start ">
-        <form class="form-inline">
-
+        <form  method="post" action="{{route('search', ['locale'=>$locale])}}" class="form-inline">
+            {{ csrf_field() }}
             <div class="form-group ml-1 ">
-                <select class="custom-select" required>
+                <select name="division_id" class="custom-select" required>
                     <option value="selected">@lang('home.search.division')</option>
                     @foreach($divisionList->items as $item)
                         <option value="{{$item->id}}">{{$item->name}}</option>
@@ -14,7 +14,7 @@
             </div>
 
             <div class="form-group ml-1 ">
-                <select class="custom-select" required>
+                <select name="town_id" class="custom-select" required>
                     <option value="selected">@lang('home.search.town')</option>
                     @foreach($townList->items as $item)
                         <option value="{{$item->id}}">{{$item->name}}</option>
@@ -23,7 +23,7 @@
             </div>
 
             <div class="form-group ml-1">
-                <input type="text" class="form-control" id="inputPassword2" placeholder="@lang('home.search.placeholder') ">
+                <input name="text" type="text" class="form-control" value="{{$text ?? ''}}" required placeholder="@lang('home.search.placeholder') ">
             </div>
             <div class="form-group ml-1">
                 <button type="submit" class=" btn btn-primary ml-2">@lang('home.search.button')</button>

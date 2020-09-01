@@ -40,10 +40,6 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
 
     public function filteredPaginateList($qty, $division_id, $town_id)
     {
-//        return Advert::with('town', 'user', 'division')
-//                ->where('division_id', $division_id )
-//                ->paginate($qty);
-
         $advert = Advert::query();
         $town_id!='all'
             ? $advert->where([['division_id', $division_id],['town_id', $town_id] ])

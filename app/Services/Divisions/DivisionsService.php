@@ -17,6 +17,11 @@ class DivisionsService
         $this->divisionRepository = $divisionRepository;
     }
 
+    public function getSelectedDivision($division_id)
+    {
+        return $this->divisionRepository->find($division_id);
+    }
+
     public function showDivisionList()
     {
         return $this->divisionRepository->list();

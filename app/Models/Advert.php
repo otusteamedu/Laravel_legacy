@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-
+use ScoutElastic\Searchable;
 
 /**
  * Class Advert
@@ -41,6 +41,23 @@ namespace App\Models;
 
 class Advert extends Model
 {
+
+    //use Searchable;
+
+    /**
+     * Получить индексируемый массив данных для модели.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Изменение массива...
+
+        return $array;
+    }
+
 
     protected $fillable = [
         'user_id', 'town_id', 'division_id','title', 'price', 'img', 'content'

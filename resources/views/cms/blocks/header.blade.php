@@ -37,6 +37,9 @@
                 <a class="nav-link" href="{{ route('register') }}">Зарегистрироваться</a>
             </li>
     @endif
+            <li class="nav-item pl-0">
+                <a class="nav-link" href="{{ route('lk', ['locale'=>'ru']) }}">Кабинет</a>
+            </li>
         </ul>
 
     @else
@@ -50,6 +53,9 @@
                 @csrf
                 <button type="submit" class="btn btn-link">(logout)</button>
             </form>
+        </li>
+        <li class="nav-item pl-0">
+            <a class="nav-link" href="{{ route('lk', ['locale'=>'ru']) }}">Кабинет</a>
         </li>
     </ul>
     @endguest

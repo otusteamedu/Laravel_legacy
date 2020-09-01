@@ -9,7 +9,9 @@
     "license": "MIT",
     "require": {
         "php": "^7.2.5",
+        "babenkoivan/scout-elasticsearch-driver": "^4.2",
         "davejamesmiller/laravel-breadcrumbs": "5.x",
+        "elasticsearch/elasticsearch": "^7.0",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
         "guzzlehttp/guzzle": "^6.3",
@@ -17,6 +19,7 @@
         "laravel/browser-kit-testing": "^6.0",
         "laravel/framework": "^7.0",
         "laravel/passport": "^9.3",
+        "laravel/scout": "^8.2",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
         "predis/predis": "^1.1",
