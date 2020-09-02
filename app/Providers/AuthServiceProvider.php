@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Page;
 use App\Models\Film;
 use App\Models\User;
+use Laravel\Passport\Passport;
 use App\Policies\PagePolicy;
 use App\Policies\FilmPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -29,6 +30,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Passport::routes();
         $this->registerPolicies();
 
         //

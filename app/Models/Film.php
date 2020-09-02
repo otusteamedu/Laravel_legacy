@@ -8,6 +8,23 @@ use App\Services\Events\Models\Film\FilmUpdated;
 /**
  * App\Models\Film
  *
+ *
+ * @OA\Schema(
+ *  @OA\Xml(name="Film"),
+ *  @OA\Property(property="title", type="string",  example="Witcher 3"),
+ *  @OA\Property(property="meta_title", type="string",  description="title for search",  example="Witсher 3 watch online"),
+ *  @OA\Property(property="meta_description", type="string", description="description for search", example="Witсher 3 most..."),
+ *  @OA\Property(property="keywords", type="string", description="keywords for search", example="witсher 3,witсher 3 online"),
+ *  @OA\Property(property="slug", type="string", description="name film slug", example="witcher_3"),
+ *  @OA\Property(property="status", type="string", description="Status Film 0 or 1", example="0"),
+ *  @OA\Property(property="content", type="string", description="Content Film", example="Full content filn"),
+ *  @OA\Property(property="year", type="string", description="Year of film", example="2005"),
+ *  @OA\Property(property="image", type="string", description="Image for film", example=""),
+ *  @OA\Property(property="created_at", readOnly=true, type="string",  format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+ *  @OA\Property(property="updated_at", readOnly=true, type="string",  format="date-time", description="Datetime marker of verification status", example="2019-02-25 12:59:20"),
+
+ * )
+ *
  * @property int $id
  * @property string $title Название фильма
  * @property string|null $meta_title Название фильма для поисковой системы
@@ -16,7 +33,6 @@ use App\Services\Events\Models\Film\FilmUpdated;
  * @property string $slug Название фильма транслитом для ЧПУ
  * @property string $status Опубликовано или нет
  * @property string $content Описание фильма
- * @property string|null $role Роль актера в данном фильме
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Actor[] $actors
@@ -58,9 +74,6 @@ class Film extends Model
     */
     protected $table = 'films';
 
-    
-    const STATUS_PUBLISHED = 1;
-    const STATUS_NOT_PUBLISHED = 0;
 
     const STATUS_PUBLISHED = 1;
     const STATUS_NOT_PUBLISHED = 0;
@@ -79,17 +92,18 @@ class Film extends Model
         'slug',
         'status',
         'content',
-        'year'
+        'year',
+        'image'
     ];
 
     public function actors()
     {
-        return $this->hasMany(Actor::class);
+        return $this->belongsToMany(Actor::class);
     }
 
     public function genres()
     {
-        return $this->hasMany(Genre::class);
+        return $this->belongsToMany(Genre::class);
     }
 
     public function producers()
@@ -109,6 +123,6 @@ class Film extends Model
 
     public function actorsAndRoles()
     {
-        return $this->hasMany(ActorAndRole::class);
+        return $this->belongsToMany(ActorAndRole::class);
     }
 }

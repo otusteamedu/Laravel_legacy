@@ -80,6 +80,27 @@ class EloquentFilmRepository implements FilmRepositoryInterface
     }
 
     /**
+     * @param array $filters
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return Collection
+     */
+    public function getBy(array $filters = [], ?int $limit = null, ?int $offset = null): Collection
+    {
+        $film = Film::query();
+        if ($limit) {
+            $film->take($limit);
+        }
+        if ($offset) {
+            $film->skip($offset);
+        }
+        return $film->get([
+            'films.*'
+        ]);
+    }
+
+
+    /**
     * поиск и обновление не опубликованных фильмов сразу
     * @param array $data массив id фильмов
     * @return int

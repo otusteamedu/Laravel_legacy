@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Watson\Rememberable\Rememberable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * App\Models\User
@@ -34,7 +35,7 @@ use Illuminate\Notifications\Notifiable;
  */
 class User extends Authenticatable
 {
-    use Notifiable,Rememberable;
+    use Notifiable,Rememberable,HasApiTokens;
 
     const LEVEL_USER = 1;
     const LEVEL_MODERATOR = 2;
@@ -47,10 +48,17 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'firstname',
+        'lastname',
+        'username',
+        'display_name',
+        'website',
+        'fb_url',
+        'vk_url',
+        'ok_url',
         'email',
         'password',
-        'level',
+        'level'
     ];
 
     /**
@@ -70,6 +78,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function isUser(): bool
+    {
+        return $this->level === self::LEVEL_USER;
+    }
 
     public function isAdmin(): bool
     {

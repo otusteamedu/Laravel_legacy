@@ -47,6 +47,28 @@ class FilmsService
     }
 
     /**
+     * @param array $filters
+     * @param int $limit
+     * @param int $offset
+     * @return Collection
+    */
+    public function getAll(array $filters, int $limit, int $offset):Collection
+    {
+        return $this->filmRepository->getBy($filters, $limit, $offset);
+    }
+
+
+    /**
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function searchFilmsWithComments(): LengthAwarePaginator
+    {
+        return $this->filmRepository->search([], [
+            'comments'
+        ]);
+    }
+
+    /**
      * @param int $id
      * @return Film|null
      */

@@ -48,11 +48,11 @@ class UserRepository
      */
     public function findBy(array $params, array $orderBy = null, $limit = null, $offset = null)
     {
-        return User::where($criteria)->get();
+        return User::where($params)->get();
     }
 
     /**
-     * Finds a single entity by a set of criteria.
+     * Finds a single entity by a set of params.
      *
      * @param array $params
      * @param array|null $orderBy
