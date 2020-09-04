@@ -4,9 +4,12 @@
 namespace App\Http\Controllers\Cms\Offers\Requests;
 
 
+use App\Jobs\ProcessImageThumbnails;
 use Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Intervention\Image\Image;
 
 
 class StoreOfferRequest extends FormRequest
@@ -33,7 +36,13 @@ class StoreOfferRequest extends FormRequest
         ];
     }
 
-    public function getFormData()
+    /**
+     * Upload Image
+     *
+     * @param Request $httpRequest
+     * @return array
+     */
+        public function getFormData()
     {
         $data = $this->request->all();
 

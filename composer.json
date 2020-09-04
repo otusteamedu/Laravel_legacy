@@ -9,18 +9,19 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "ext-imagick": "*",
         "arcanedev/log-viewer": "5.2.0",
         "bacon/bacon-qr-code": "^2.0",
         "fideloper/proxy": "^4.0",
         "guzzlehttp/guzzle": "^6.5",
+        "intervention/image": "^2.5",
         "laravel/framework": "^6.2",
         "laravel/helpers": "^1.2",
         "laravel/passport": "^8.4",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^10.1",
-        "watson/rememberable": "^3.2.1",
-        "ext-imagick": "*"
+        "watson/rememberable": "^3.2.1"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^2.6",
@@ -36,7 +37,8 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "disable-tls": true
     },
     "extra": {
         "laravel": {
