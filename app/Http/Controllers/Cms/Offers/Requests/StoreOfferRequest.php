@@ -42,7 +42,8 @@ class StoreOfferRequest extends FormRequest
         ]);
         $data['created_offer_id'] = Auth::id();
         $data['user_id'] = Auth::user()->id;
-        $data['teaser_image'] = $this->file('teaser_image')->store('uploads', 'public');
+        if (!is_null($this->file('teaser_image')))
+            $data['teaser_image'] = $this->file('teaser_image')->store('uploads', 'public');
 
         return $data;
     }
