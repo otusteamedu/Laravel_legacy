@@ -2,6 +2,9 @@
 
 namespace App\Services;
 
+use App\Jobs\ArticleNotifyJob;
+use App\Jobs\ArticlePrepareJob;
+use App\Jobs\Queue;
 use App\Models\ArticleState;
 use App\Services\Repositories\ArticleCacheRepository;
 use App\Services\Repositories\ArticleRepository;
@@ -127,6 +130,13 @@ class ArticlesService
     {
         $this->articleCacheRepository->clear();
 
+    }
+
+    public function runPrepareJob(Article $article)
+    {
+        ArticlePrepareJob::withChain([
+            new ArticleNotifyJob($article)
+        ])->dispatch($article)->allOnQueue(Queue::PROCESS_ARTICLE_QUEUE);
     }
 
     public function prepareForPublication(Article $article)
