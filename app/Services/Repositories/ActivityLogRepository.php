@@ -33,7 +33,7 @@ class ActivityLogRepository
      */
     public function paginated(array $options = null)
     {
-        return ActivityLog::paginate();
+        return ActivityLog::orderByDesc('id')->paginate();
     }
 
     /**

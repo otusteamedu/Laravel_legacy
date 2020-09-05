@@ -37,6 +37,9 @@ class UserGroup extends Model
     const REGISTERED_GROUP = 'Registered';
     //Заблокированный
     const BLOCKED_GROUP = 'Blocked';
+    //Заблокированный
+    const GUEST_GROUP = 'Guest';
+
 
     protected $rememberCacheTag = 'USER_GROUPS';
     protected $rememberFor = 60 * 60;

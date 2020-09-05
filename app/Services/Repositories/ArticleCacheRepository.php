@@ -44,19 +44,21 @@ class ArticleCacheRepository
         $arg_list = func_get_args();
         $mixedCacheKey = $this->getMixedCacheKey($arg_list);
 
-        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST'.$mixedCacheKey), Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
-            return $this->articleRepository->paginated($options);
-        });
+        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST' . $mixedCacheKey),
+            Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($options) {
+                return $this->articleRepository->paginated($options);
+            });
         return $articles;
     }
 
     /**
      * @param array $criterias
+     * @param $resourceCacheKey
      * @param int|null $limit
      * @param int $page
      * @return Article[]|Collection|null
      */
-    public function findBy(array $criterias, $limit = null, $page = 1)
+    public function findBy(array $criterias, $resourceCacheKey, $limit = null, $page = 1)
     {
         if (!isset($criterias)) {
             throw new \InvalidArgumentException('criteria is required');
@@ -64,9 +66,10 @@ class ArticleCacheRepository
         $arg_list = func_get_args();
 
         $mixedCacheKey = $this->getMixedCacheKey($arg_list);
-        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey('LIST'.$mixedCacheKey), Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($criterias, $limit) {
-            return Article::where($criterias)->paginate($limit);
-        });
+        $articles = \Cache::tags(self::CACHE_TAG_NAME)->remember($this->getCacheKey($resourceCacheKey . 'FINDBY' . $mixedCacheKey),
+            Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($criterias, $limit) {
+                return Article::where($criterias)->orderBy('id', 'desc')->paginate($limit);
+            });
 
         return $articles;
     }
@@ -91,8 +94,8 @@ class ArticleCacheRepository
     public function getMixedCacheKey(array $options)
     {
         $mixedCacheKey = '_';
-        array_walk_recursive($options, function ($option , $optionKey) use (&$mixedCacheKey) {
-            $mixedCacheKey .= strtoupper($optionKey.'_'.$option);
+        array_walk_recursive($options, function ($option, $optionKey) use (&$mixedCacheKey) {
+            $mixedCacheKey .= strtoupper($optionKey . '_' . $option);
             return $mixedCacheKey;
         });
 

@@ -59,7 +59,7 @@ class ArticlesService
      */
     public function allPaginatedBy(array $options)
     {
-        $articles = $this->articleCacheRepository->findBy($options['criterias'], $options['limit'], $options['page']);
+        $articles = $this->articleCacheRepository->findBy($options['criterias'], $options['resourceCacheKey'], isset($options['limit']) ?: null, $options['page']);
         return $articles;
     }
 

@@ -53,7 +53,7 @@ class PublishPendingArticles extends Command
             if ($article->published_at <= Carbon::now()) {
                 $result = $this->articlesService->publishArticle($article, false);
                 if ($result) {
-                    $this->info(sprintf('%s:Наступление даты публикации статьи id:%d. Статус изменен на "Опубликована"\n', now(), $article->id));
+                    $this->info(sprintf('%s:Наступление даты публикации статьи id:%d. Статус изменен на "Опубликована"', now(), $article->id));
                 }
             }
         }

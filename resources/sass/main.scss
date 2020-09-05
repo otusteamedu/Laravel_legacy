@@ -53,3 +53,40 @@ html, body {
 a:hover {
     text-decoration: none;
 }
+
+ul.keywords {
+    padding: 20px 0;
+    line-height: 200%;
+    li {
+        display: inline;
+        list-style: none;
+        margin-right: 5px;
+        a {
+            white-space: nowrap;
+            border: 1px solid grey;
+            padding: 5px;
+            color: gray;
+            text-transform: uppercase;
+            font-size: 0.76em;
+            &:hover {
+                border: 1px solid red;
+                background-color: indianred;
+                color: white;
+            }
+        }
+    }
+}
+
+.keywords-group {
+    ul.keywords {
+        padding: 5px;
+        line-height: 200%;
+        li {
+            margin-right: 0;
+
+            a {
+                padding: 5px;
+            }
+        }
+    }
+}

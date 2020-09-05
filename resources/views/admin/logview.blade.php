@@ -37,7 +37,7 @@
                     <tr>
                         <td>{{ $row->created_at }}</td>
                         <td>{{ $row->url }}</td>
-                        <td>{{ $row->user ? $row->user->name : '-' }}</td>
+                        <td>{{ $row->user_id ? $row->user->name : '-' }}</td>
                         <td>{{ $row->ip }}</td>
                         <td>{{ $row->status }}</td>
                         <td>{{ $row->duration }}</td>

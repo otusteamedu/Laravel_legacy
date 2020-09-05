@@ -28,7 +28,7 @@ class UsersController extends Controller
         foreach ($userGroups as $group) {
             $groupList[$group->id] = $group->title;
         }
-        $users = User::paginate(20);
+        $users = User::orderByDesc('id')->paginate(20);
 
         return view('admin.users-list', ['users' => $users, 'groupList' => $groupList]);
     }

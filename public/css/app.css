@@ -10962,6 +10962,45 @@ a:hover {
   text-decoration: none;
 }
 
+ul.keywords {
+  padding: 20px 0;
+  line-height: 200%;
+}
+
+ul.keywords li {
+  display: inline;
+  list-style: none;
+  margin-right: 5px;
+}
+
+ul.keywords li a {
+  white-space: nowrap;
+  border: 1px solid grey;
+  padding: 5px;
+  color: gray;
+  text-transform: uppercase;
+  font-size: 0.76em;
+}
+
+ul.keywords li a:hover {
+  border: 1px solid red;
+  background-color: indianred;
+  color: white;
+}
+
+.keywords-group ul.keywords {
+  padding: 5px;
+  line-height: 200%;
+}
+
+.keywords-group ul.keywords li {
+  margin-right: 0;
+}
+
+.keywords-group ul.keywords li a {
+  padding: 5px;
+}
+
 body {
   font-size: 0.875rem;
 }

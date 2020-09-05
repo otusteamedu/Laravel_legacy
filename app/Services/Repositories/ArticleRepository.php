@@ -34,7 +34,7 @@ class ArticleRepository
      */
     public function paginated(array $options = null)
     {
-        return Article::paginate();
+        return Article::orderBy('id','desc')->paginate();
     }
 
     /**
@@ -47,7 +47,7 @@ class ArticleRepository
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return Article::where($criteria)->get();
+        return Article::where($criteria)->orderBy('id', 'desc')->get();
     }
 
     /**

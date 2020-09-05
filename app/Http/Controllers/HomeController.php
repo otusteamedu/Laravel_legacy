@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\ArticleState;
 use App\Models\Category;
 use App\Services\ArticlesService;
 use App\Services\CategoriesService;
@@ -42,7 +43,11 @@ class HomeController extends Controller
     public function index()
     {
         $page = request()->has('page') ? request()->get('page') : 1;
-        $articles = $this->articlesService->allPaginated(['page' => $page], self::RESOURCE_CACHE_KEY);
+        $articles = $this->articlesService->allPaginatedBy([
+            'criterias' => ['state_id' => ArticleState::STATE_PUBLISHED],
+            'resourceCacheKey' => self::RESOURCE_CACHE_KEY,
+            'page' => $page
+        ]);
         $categoriesList = $this->categoriesService->getCategoriesList();
 
         return view('public.home', ['articles' => $articles, 'categories' => $categoriesList]);
