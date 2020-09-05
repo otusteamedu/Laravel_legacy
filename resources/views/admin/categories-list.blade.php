@@ -5,10 +5,10 @@
     @include('blocks.navbars.admin-menu')
     <main role="main" class="col-md-9 ml-sm-auto col-lg-10 pt-3 px-4 ">
         <div class="table-wrapper">
-            <div class="table-title">
+            <div class="table-title border-bottom">
                 <div class="row">
                     <div class="col-sm-6">
-                        <h2>Управление <b>Категориями статей</b></h2>
+                        <h2>@lang('messages.admin.categories-list.title')</h2>
                     </div>
                     <div class="col-sm-6">
                         @can('create', \App\Models\Category::class)
@@ -28,7 +28,7 @@
                 @endforeach
             </div>
             <div id="data-list" class="table-responsive">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover table-sm">
                     <thead>
                         <tr>
                             <th>id</th>

@@ -2,20 +2,38 @@
 
 namespace App\Services;
 
+use App\Services\Repositories\UserGroupCacheRepository;
 use App\Services\Repositories\UserGroupRepository;
 use App\Models\UserGroup;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
+/**
+ * Class UserGroupsService
+ * @package App\Services
+ */
 class UserGroupsService
 {
+    /**
+     * @var UserGroupRepository
+     */
     private $userGroupRepository;
 
-    public function __construct(UserGroupRepository $userGroupRepository)
+    /**
+     * @var UserGroupCacheRepository
+     */
+    private $userGroupCacheRepository;
+
+    /**
+     * UserGroupsService constructor.
+     * @param UserGroupRepository $userGroupRepository
+     * @param UserGroupCacheRepository $userGroupCacheRepository
+     */
+    public function __construct(UserGroupRepository $userGroupRepository, UserGroupCacheRepository $userGroupCacheRepository)
     {
         $this->userGroupRepository = $userGroupRepository;
+        $this->userGroupCacheRepository = $userGroupCacheRepository;
     }
-
 
     /**
      * @param array|null $options
@@ -34,7 +52,6 @@ class UserGroupsService
     {
         return $this->userGroupRepository->paginated($options);
     }
-
 
     /**
      * @param array|null $options
@@ -82,6 +99,15 @@ class UserGroupsService
     public function deleteUserGroup(UserGroup $userGroup, array $options = null)
     {
         return $this->userGroupRepository->delete($userGroup);
+    }
+
+    /**
+     * Очистка кэша
+     */
+    public function clearCache()
+    {
+        $this->userGroupCacheRepository->clear();
+
     }
 
 }

@@ -53,4 +53,9 @@ class ActivityLog extends Model
         'params',
         'status'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

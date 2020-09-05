@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\ArticleState;
 use App\Services\Repositories\ArticleCacheRepository;
 use App\Services\Repositories\ArticleRepository;
 use App\Models\Article;
@@ -45,11 +46,21 @@ class ArticlesService
 
     /**
      * @param array|null $options
+     * @param $resourceCacheKey
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function allPaginated(array $options = null)
+    public function allPaginated(array $options = null, $resourceCacheKey)
     {
-        return $this->articleCacheRepository->paginated($options);
+        return $this->articleCacheRepository->paginated($options, $resourceCacheKey);
+    }
+
+    /**
+     * @param array $options
+     */
+    public function allPaginatedBy(array $options)
+    {
+        $articles = $this->articleCacheRepository->findBy($options['criterias'], $options['resourceCacheKey'], isset($options['limit']) ?: null, $options['page']);
+        return $articles;
     }
 
     /**
@@ -58,7 +69,7 @@ class ArticlesService
      */
     public function createArticle(array $data)
     {
-        $data['state'] = 1;
+        $data['state_id'] = ArticleState::STATE_DRAFT;
         $data['image'] = '/img/image.jpg';
 
         return $this->articleRepository->createFromArray($data);
@@ -93,7 +104,7 @@ class ArticlesService
      */
     public function getPendingItems()
     {
-        return $this->articleRepository->findBy(['is_pending' => true, 'state' => Article::STATE_WAITING_PUBLICATION]);
+        return $this->articleRepository->findBy(['is_pending' => 1, 'state_id' => ArticleState::STATE_WAITING_PUBLICATION]);
     }
 
     /**
@@ -101,9 +112,9 @@ class ArticlesService
      * @param boolean $prePublication
      * @return boolean
      */
-    public function publishArticle(Article $article,bool $prePublication)
+    public function publishArticle(Article $article, bool $prePublication)
     {
-        $article->state = Article::STATE_PUBLISHED;
+        $article->state_id = ArticleState::STATE_PUBLISHED;
         $article->is_prepublish = $prePublication;
 
         return $article->save();
@@ -140,7 +151,7 @@ class ArticlesService
         $dest = public_path("img/articles/thumb/{$basename}");   // Файл с результатом работы
 
         $stype = explode(".", $source);
-        $stype = $stype[count($stype)-1];
+        $stype = $stype[count($stype) - 1];
 
         $size = getimagesize($source);
         $w = $size[0];    // Ширина изображения

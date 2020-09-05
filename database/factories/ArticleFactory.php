@@ -7,6 +7,7 @@ use Faker\Generator as Faker;
 use Faker\Factory as FakerFactory;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\ArticleState;
 
 $factory->define(Article::class, function (Faker $faker) {
     //$faker = FakerFactory::create('Ru_RU');  ERROR:  invalid byte sequence for encoding "UTF8"
@@ -16,7 +17,7 @@ $factory->define(Article::class, function (Faker $faker) {
         'created_at' => $created_at,
         'updated_at' => $created_at,
         'published_at' => $faker->dateTimeBetween($created_at),
-        'state' => rand(0, 2),
+        'state_id' => ArticleState::all()->random(),
         'user_id'=> User::all()->random(),
         'category_id' => Category::all()->random(),
         'hits' => mt_rand(0, 999999),

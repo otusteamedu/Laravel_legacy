@@ -43,14 +43,16 @@ use Watson\Rememberable\Rememberable;
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\ArticleComment[] $comments
  * @property-read int|null $comments_count
  * @property-read \App\Models\User|null $user
+ * @method static \Illuminate\Database\Eloquent\Builder|Article whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Article whereIsPending($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Article whereIsPrepublish($value)
+ * @property int $state_id Состояние
+ * @method static \Illuminate\Database\Eloquent\Builder|Article whereStateId($value)
  */
 class Article extends Model
 {
     use Rememberable;
 
-    const STATE_DRAFT = 1;
-    const STATE_WAITING_PUBLICATION = 2;
-    const STATE_PUBLISHED = 3;
 
     protected $rememberCacheTag = 'ARTICLES';
     protected $rememberFor = 60 * 60;
@@ -60,7 +62,7 @@ class Article extends Model
         'intro_text',
         'image',
         'full_text',
-        'state',
+        'state_id',
         'category_id',
         'user_id',
         'is_pending'
@@ -79,6 +81,11 @@ class Article extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function state()
+    {
+        return $this->belongsTo(ArticleState::class);
     }
 
 }

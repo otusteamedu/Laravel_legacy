@@ -3,20 +3,47 @@
 namespace App\Services;
 
 use App\Models\UserGroup;
+use App\Services\Repositories\UserCacheRepository;
 use App\Services\Repositories\UserRepository;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Mail;
 
+/**
+ * Class UsersService
+ * @package App\Services
+ */
 class UsersService
 {
+    /**
+     * @var UserRepository
+     */
     private $userRepository;
+
+    /**
+     * @var UserCacheRepository
+     */
+    private $userCacheRepository;
+
+    /**
+     * @var UserGroupsService
+     */
     private $userGroupsService;
 
-    public function __construct(UserRepository $userRepository, UserGroupsService $userGroupsService)
-    {
+    /**
+     * UsersService constructor.
+     * @param UserRepository $userRepository
+     * @param UserCacheRepository $userCacheRepository
+     * @param UserGroupsService $userGroupsService
+     */
+    public function __construct(
+        UserRepository $userRepository,
+        UserCacheRepository $userCacheRepository,
+        UserGroupsService $userGroupsService
+    ) {
         $this->userRepository = $userRepository;
+        $this->userCacheRepository = $userCacheRepository;
         $this->userGroupsService = $userGroupsService;
     }
 
@@ -79,6 +106,15 @@ class UsersService
         $users = $groupId ? $this->userRepository->findBy(['group_id' => $groupId]) : null;
 
         return $users;
+
+    }
+
+    /**
+     * Очистка кэша
+     */
+    public function clearCache()
+    {
+        $this->userCacheRepository->clear();
 
     }
 

@@ -32,8 +32,25 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('hasAdminAccess', function (User $user) {
-            $allowedUserGroups = [UserGroup::ADMIN_GROUP, UserGroup::EDITOR_GROUP, UserGroup::AUTHOR_GROUP, UserGroup::MODERATOR_GROUP];
+            $allowedUserGroups = [
+                UserGroup::ADMIN_GROUP,
+                UserGroup::EDITOR_GROUP,
+                UserGroup::AUTHOR_GROUP,
+                UserGroup::MODERATOR_GROUP
+            ];
             return in_array($user->group->name, $allowedUserGroups);
+        });
+        Gate::define('canViewPublic', function (?User $user, Article $article) {
+            if ($article->is_prepublish) {
+                if (isset($user)) {
+                    return !in_array($user->group->name,
+                        [UserGroup::GUEST_GROUP, UserGroup::REGISTERED_GROUP, UserGroup::BLOCKED_GROUP]);
+                } else {
+                    return  false;
+                }
+            } else {
+                return true;
+            }
         });
     }
 }

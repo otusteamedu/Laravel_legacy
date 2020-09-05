@@ -26,10 +26,10 @@ Route::group(['prefix' => LocaleHelper::getLocale(), 'middleware' => 'LocaleMidd
     Route::get('/', 'HomeController@index')->name('home');
 
     //страница новости
-    Route::get('/article/{id}', 'HomeController@article')->name('article');
+    Route::get('/article/{article}', 'HomeController@article')->name('article');
 
     //страница новостей категории
-    Route::get('/category/{id}', 'HomeController@category')->name('category');
+    Route::get('/category/{category}', 'HomeController@category')->name('category');
 
     //страница со списком(не доделано)
     Route::get('/list/{type}', 'HomeController@list')->name('list');
@@ -39,6 +39,12 @@ Route::group(['prefix' => LocaleHelper::getLocale(), 'middleware' => 'LocaleMidd
 
     //админка
     Route::group(['namespace' => 'Admin', 'middleware' => ['auth', 'AdminAccess'], 'prefix' => '/admin'], function () {
+        Route::group(['prefix' => '/system'], function () {
+            Route::get('/', 'SystemController@index')->name('system.commands');
+            Route::get('/clearCache', 'SystemController@clearCache')->name('system.clearCache');
+            Route::get('/publishArticles', 'SystemController@publishArticles')->name('system.publishArticles');
+            Route::get('/logview', 'SystemController@logView')->name('system.logView');
+        });
         Route::get('/', 'IndexController@index')->name('admin.index');
         Route::resource('articles', 'ArticlesController')->except(['create']);
         Route::resource('categories', 'CategoriesController')->except(['create']);

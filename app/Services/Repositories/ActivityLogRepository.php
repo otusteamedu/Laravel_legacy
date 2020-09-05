@@ -2,30 +2,29 @@
 
 namespace App\Services\Repositories;
 
-use App\Models\Article;
+use App\Models\ActivityLog;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
-use Illuminate\Support\Facades\DB;
 
-class ArticleRepository
+class ActivityLogRepository
 {
     /**
      * @param $id
-     * @return Article|null
+     * @return ActivityLog|null
      */
     public function find($id)
     {
-        return Article::find($id);
+        return ActivityLog::find($id);
     }
 
     /**
      * @param array $columns
-     * @return Article[]|Collection
+     * @return ActivityLog[]|Collection
      */
     public function getAll(array $columns = ['*'])
     {
-        return Article::all($columns);
+        return ActivityLog::all($columns);
     }
 
     /**
@@ -34,8 +33,7 @@ class ArticleRepository
      */
     public function paginated(array $options = null)
     {
-        $page = isset($options['page']) ? $options['page'] : null;
-        return Article::paginate(null, ['*'], null, (int)$page);
+        return ActivityLog::orderByDesc('id')->paginate();
     }
 
     /**
@@ -44,11 +42,11 @@ class ArticleRepository
      * @param int|null $limit
      * @param int|null $offset
      *
-     * @return Article[]|Collection|null
+     * @return ActivityLog[]|Collection|null
      */
     public function findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
     {
-        return Article::where($criteria)->orderBy('id', 'desc')->get();
+        return ActivityLog::where($criteria)->get();
     }
 
     /**
@@ -57,7 +55,7 @@ class ArticleRepository
      * @param array $criteria
      * @param array|null $orderBy
      *
-     * @return Article|null
+     * @return ActivityLog|null
      */
     public function findOneBy(array $criteria, array $orderBy = null)
     {
@@ -66,33 +64,33 @@ class ArticleRepository
 
     /**
      * @param array $data
-     * @return Article|Model
+     * @return ActivityLog|Model
      */
     public function createFromArray(array $data)
     {
-        return Article::create($data);
+        return ActivityLog::create($data);
     }
 
     /**
-     * @param Article $article
+     * @param ActivityLog $ActivityLog
      * @param array $data
-     * @return Article|Model
+     * @return ActivityLog|Model
      */
-    public function updateFromArray(Article $article, array $data)
+    public function updateFromArray(ActivityLog $ActivityLog, array $data)
     {
-        $article->update($data);
+        $ActivityLog->update($data);
 
-        return $article;
+        return $ActivityLog;
     }
 
     /**
-     * @param Article $article
+     * @param ActivityLog $ActivityLog
      * @param array|null $options
      * @return bool|null
      * @throws \Exception
      */
-    public function delete(Article $article, array $options = null)
+    public function delete(ActivityLog $ActivityLog, array $options = null)
     {
-        return $article->delete();
+        return $ActivityLog->delete();
     }
 }

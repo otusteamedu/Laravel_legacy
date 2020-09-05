@@ -19,7 +19,7 @@ class CreateArticlesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->dateTime('published_at')->comment('Дата публикации')->nullable();
-            $table->integer('state')->comment('Состояние');
+            $table->integer('state_id')->comment('Состояние');
             $table->integer('category_id')->comment('Идентификатор категории');
             $table->integer('user_id')->comment('Идентификатор пользователя добавившего статью')->nullable();
             ;$table->integer('hits')->comment('Количество просмотров')->nullable()->default(0);
@@ -41,9 +41,13 @@ class CreateArticlesTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('cascade');
+            $table->foreign('state_id')
+                ->references('id')
+                ->on('article_states')
+                ->onDelete('cascade');
             $table->index('user_id');
             $table->index('category_id');
-            $table->index('state');
+            $table->index('state_id');
             $table->index('published_at');
         });
     }

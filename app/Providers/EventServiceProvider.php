@@ -31,8 +31,8 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        DB::listen(function ($query) {
+       /* DB::listen(function ($query) {
             Log::channel('querylog')->info(sprintf('%s. With params:[%s]. Execution time: %s ms',$query->sql, implode(',' , $query->bindings), $query->time));
-        });
+        });*/
     }
 }
