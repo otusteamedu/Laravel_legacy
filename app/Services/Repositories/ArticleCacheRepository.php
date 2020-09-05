@@ -70,7 +70,6 @@ class ArticleCacheRepository
             Carbon::now()->addMinutes(self::CACHE_TTL), function () use ($criterias, $limit) {
                 return Article::where($criterias)->orderBy('id', 'desc')->paginate($limit);
             });
-
         return $articles;
     }
 
