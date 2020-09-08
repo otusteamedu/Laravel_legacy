@@ -35,4 +35,15 @@ class UserGenerator
 
         return $user;
     }
+
+    /**
+     * @param array $params
+     * @return User|mixed
+     */
+    public function createUserByParams(array $params)
+    {
+        $user = factory(User::class)->create($params);
+
+        return $user;
+    }
 }
