@@ -1,0 +1,224 @@
+swagger: "2.0"
+info:
+  description: "Описание API для работы со статьями"
+  version: "1.0.0"
+  title: "Articles API"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "sergdavio@gmail.com"
+  license:
+    name: "News"
+    url: "http://laravel.test"
+host: "laravel.test"
+basePath: "/api/v1/articles"
+tags:
+  - name: "articles"
+    description: "Работа со статьями"
+paths:
+  /articles:
+    get:
+      tags:
+        - "articles"
+      summary: "Получить список статей"
+      operationId: "api.articles.index"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "page"
+          in: "query"
+          type: "integer"
+          description: "Страница"
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/articles"
+
+    post:
+      tags:
+        - "articles"
+      summary: "Добавить новою статью"
+      operationId: "api.articles.store"
+      consumes:
+        - "multipart/form-data"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+        - name: "title"
+          in: "formData"
+          description: "Заголовок"
+          required: true
+          type: "string"
+
+        - name: "category_id"
+          in: "formData"
+          description: "Категория"
+          required: true
+          type: "integer"
+
+        - name: "intro_text"
+          in: "formData"
+          description: "Вступительный текст"
+          required: true
+          type: "string"
+
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/article"
+
+  /articles/{id}:
+    get:
+      tags:
+        - "articles"
+      summary: "Посмотреть статью по id"
+      operationId: "api.articles.show"
+      produces:
+        - "application/json"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "Id статьи"
+
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/article"
+
+    put:
+      tags:
+        - "articles"
+      summary: "Изменить статью по id"
+      operationId: "api.articles.update"
+      produces:
+        - "application/json"
+      consumes:
+        - "multipart/form-data"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "id статьи"
+
+        - name: "title"
+          in: "formData"
+          description: "Заголовок"
+          required: true
+          type: "string"
+
+        - name: "category_id"
+          in: "formData"
+          description: "Категория"
+          required: true
+          type: "integer"
+
+        - name: "intro_text"
+          in: "formData"
+          description: "Вступительный текст"
+          required: true
+          type: "string"
+
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/article"
+
+    delete:
+      tags:
+        - "articles"
+      summary: "Удалить статью по id"
+      operationId: "api.articles.delete"
+      produces:
+        - "application/json"
+      parameters:
+
+        - name: "id"
+          in: "path"
+          required: true
+          type: "integer"
+          description: "id статьи"
+
+        - name: "Authorization"
+          in: "header"
+          type: "string"
+          description: "Bearer + AuthToken"
+
+      responses:
+        "200":
+          description: "Статья успешно удалена"
+        "500":
+          description: "Возникла ошибка при удалении статьи"
+
+definitions:
+  articles:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      title:
+        type: "string"
+      intro_text:
+        type: "string"
+      full_text:
+        type: "string"
+      published_at:
+        type: "string"
+      author:
+        type: "string"
+      image:
+        type: "string"
+      image_intro:
+        type: "string"
+
+  article:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      title:
+        type: "string"
+      intro_text:
+        type: "string"
+      full_text:
+        type: "string"
+      published_at:
+        type: "string"
+      author:
+        type: "string"
+      image:
+        type: "string"
+      image_intro:
+        type: "string"

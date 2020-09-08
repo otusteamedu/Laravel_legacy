@@ -18,6 +18,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['namespace' => 'Api', 'middleware' => ['auth:api']], function () {
-    Route::apiResource('articles', 'ArticlesController');
+Route::group([
+    'prefix' => 'v1',
+    'namespace' => 'Api\V1'
+    ], function() {
+    Route::apiResource('/articles', 'ArticlesController')->middleware(['auth:api']);
+    Route::post('/login', 'LoginController@login');
 });
