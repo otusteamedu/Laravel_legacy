@@ -26,7 +26,8 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('articles:publish-pending-items')
             ->withoutOverlapping()
-            ->everyMinute()->runInBackground()
+            ->everyMinute()
+            ->runInBackground()
             ->appendOutputTo(storage_path('logs/schedule/publishPendingItems.log'));
     }
 
