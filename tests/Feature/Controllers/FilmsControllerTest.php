@@ -25,7 +25,9 @@ class FilmsControllerTest extends TestCase
     {
         $user = UserGenerator::createAdminUser();
         $this->actingAs($user)
-            ->get(route('cms.films.index'))
+            ->get(route('cms.films.index',[
+                'locale' => config('app.locale'),
+            ]))
             ->assertStatus(200);
     }
 
@@ -36,11 +38,13 @@ class FilmsControllerTest extends TestCase
      * @group cms
      * @return void
      */
-    public function testCreatePage()
+    public function testCreateFilm()
     {
         $user = UserGenerator::createAdminUser();
 
-        $this->actingAs($user)->get(route('cms.films.create'))->assertStatus(200);
+        $this->actingAs($user)->get(route('cms.films.create',[
+            'locale' => config('app.locale'),
+        ]))->assertStatus(200);
     }
 
     /**
@@ -53,11 +57,10 @@ class FilmsControllerTest extends TestCase
     {
         $user = UserGenerator::createAdminUser();
 
-        $this->actingAs($user)
-            ->post(route('cms.films.store'), [
-                'name' => '',
-            ])
-            ->assertSessionHasErrors();
+        $this->createFilm([
+            'name' => '',
+        ])->assertSessionHasErrors();
+
 
         $this->assertEquals(0, Film::all()->count());
     }
@@ -112,7 +115,8 @@ class FilmsControllerTest extends TestCase
 
         $this->actingAs($user)->put(route('cms.films.update', [
                 'film' => $film->id,
-            ]), $data)->assertStatus(302);
+                'locale' => config('app.locale')
+        ]), $data)->assertStatus(302);
     }
     /**
      * Тест по редактированию фильма
@@ -125,10 +129,10 @@ class FilmsControllerTest extends TestCase
         $user = UserGenerator::createAdminUser();
         $film = FilmGenerator::createFilm();
 
-        
         $this->actingAs($user)->get(
             route('cms.films.edit', [
                 'film' => $film,
+                'locale' => config('app.locale')
             ])
         )->assertStatus(200);
     }
@@ -143,8 +147,7 @@ class FilmsControllerTest extends TestCase
     {
         $user = UserGenerator::createAdminUser();
         $film = FilmGenerator::createFilm();
-
-        $this->actingAs($user)->delete(route('cms.films.destroy', ['film' => $film]))->assertStatus(302);
+        $this->actingAs($user)->delete(route('cms.films.destroy', ['film' => $film, 'locale' => config('app.locale')]))->assertStatus(302);
     }
 
     /**
@@ -176,6 +179,8 @@ class FilmsControllerTest extends TestCase
     private function createFilm(array $data)
     {
         $user = UserGenerator::createAdminUser();
-        return $this->actingAs($user)->post(route('cms.films.store'), $data);
+        return $this->actingAs($user)->post(route('cms.films.store',[
+            'locale' => config('app.locale'),
+        ]), $data);
     }
 }

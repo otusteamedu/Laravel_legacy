@@ -3,6 +3,7 @@
 namespace Tests\Generators;
 
 use App\Models\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 
 class UserGenerator
 {
