@@ -154,7 +154,6 @@ class FilmController extends Controller
             ]);
             return  abort(403, 'Нет прав на редактирование/обновление фильма', []);
         }
-
         $this->filmsService->updateFilm($film, $request->all());
 
         $film->update($request->all());

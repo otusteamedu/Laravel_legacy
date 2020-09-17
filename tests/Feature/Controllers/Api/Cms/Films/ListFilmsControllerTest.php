@@ -4,13 +4,17 @@ namespace Tests\Feature\Controllers\Api\Cms\Films;
 
 
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Passport\Passport;
 use Tests\Generators\UserGenerator;
+use Tests\Generators\FilmGenerator;
 use Tests\TestCase;
 
 class ListFilmsControllerTest extends TestCase
 {
+    
 
+    use RefreshDatabase;
     use WithFaker;
 
     /**
@@ -20,15 +24,17 @@ class ListFilmsControllerTest extends TestCase
     public function testList()
     {
 
-        $user = FilmGenerator::createAdminUser();
+        $user = UserGenerator::createAdminUser();
+
         Passport::actingAs($user);
 
         $response = $this->json(
             'GET',
-            route('api.films.index')
+            route('films.index')
         )
             ->assertStatus(200);
-        $response->assertJsonCount(2);
+
+        $response->assertJsonCount(3);
     }
 
     /**
@@ -40,9 +46,9 @@ class ListFilmsControllerTest extends TestCase
 
         $this->json(
             'GET',
-            route('api.films.index')
+            route('films.index')
         )
-            ->assertStatus(401);;
+            ->assertStatus(401);
     }
 
 }

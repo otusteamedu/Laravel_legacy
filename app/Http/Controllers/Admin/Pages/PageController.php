@@ -119,6 +119,8 @@ class PageController extends Controller
      */
     public function update(UpdatePageRequest $request, Page $page)
     {
+
+
         try {
             $this->authorize(Abilities::UPDATE, $page);
         } catch (AuthorizationException $e) {
@@ -132,7 +134,10 @@ class PageController extends Controller
 
         $page->update($request->all());
 
-        return redirect(route('cms.pages.index'));
+        return view('admin.pages.edit', [
+            'page' => $page,
+            'moderator'=>$this->getCurrentUser()->isModerator()
+        ]);
     }
 
     /**
