@@ -25,6 +25,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        $schedule->command('cache:warmup --films')
+        ->hourlyAt(5)
+        ->environments(['local'])
+        ->onOneServer()
+        ->runInBackground();
     }
 
     /**
