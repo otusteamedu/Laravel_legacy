@@ -16,7 +16,8 @@
         "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.1",
-        "watson/rememberable": "^4.0"
+        "watson/rememberable": "^4.0",
+        "sdav/activitylog": "1.0.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",
@@ -70,5 +71,11 @@
             "php artisan ide-helper:generate",
             "php artisan ide-helper:meta"
         ]
-    }
+    },
+    "repositories": [
+        {
+            "type": "path",
+            "url": "packages/sdav/activitylog/"
+        }
+    ]
 }

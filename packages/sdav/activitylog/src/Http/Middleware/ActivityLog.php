@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Middleware;
+namespace Sdav\ActivityLog\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use App\Models\ActivityLog as Log;
+use Sdav\ActivityLog\Models\ActivityLog as Log;
 use Illuminate\Http\Response;
 
 /**
  * Посредник записывающий действия пользователя в базу(table activity_log)
  *
  * Class ActivityLog
- * @package App\Http\Middleware
+ * @package Sdav\ActivityLog\Middleware
  */
 class ActivityLog
 {

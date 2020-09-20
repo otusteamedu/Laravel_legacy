@@ -1,0 +1,30 @@
+{
+    "version": "1.0.0",
+    "name": "sdav/activitylog",
+    "description": "Activity log package",
+    "type": "project",
+    "authors": [
+        {
+            "name": "sergdavio",
+            "email": "sergdavio@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Sdav\\ActivityLog\\": "src/"
+        }
+    },
+    "require": {
+        "illuminate/support": "^7.0",
+        "illuminate/routing": "^7.0",
+        "illuminate/http": "^7.0",
+        "illuminate/database": "^7.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "\\Sdav\\ActivityLog\\ServiceProvider"
+            ]
+        }
+    }
+}
