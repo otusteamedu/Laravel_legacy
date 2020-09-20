@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Cms\Adverts\Request\StoreAdvertRequest;
 use App\Models\Advert;
 use App\Services\Adverts\AdvertsService;
+use App\Services\Header\HeaderService;
 use App\Services\Log\Handler\LogHandler;
 use App\Services\Messages\MessagesService;
 use Auth;
@@ -18,15 +19,21 @@ class HomeController extends Controller
     protected $messagesService;
     private $logHandler;
     private $cookieController;
+    private $headerService;
 
 
-    public function __construct(AdvertsService $advertService, MessagesService $messagesService,
-                                LogHandler $logHandler, CookieController $cookieController)
-    {
+    public function __construct(
+        AdvertsService $advertService,
+        MessagesService $messagesService,
+        LogHandler $logHandler,
+        CookieController $cookieController,
+        HeaderService $headerService
+    ) {
         $this->advertService = $advertService;
         $this->messagesService = $messagesService;
         $this->logHandler = $logHandler;
         $this->cookieController = $cookieController;
+        $this->headerService = $headerService;
     }
 
     /**
@@ -37,7 +44,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-       $headerData = $this->advertService->getHeaderData($request);
+       $headerData = $this->headerService->getHeaderData($request);
        $pages = $this->advertService->page(8);
 
        return view('home.home',
@@ -59,7 +66,7 @@ class HomeController extends Controller
     {
         if (!Auth::user())  return redirect('/login');
 
-        $headerData = $this->advertService->getHeaderData($request);
+        $headerData = $this->headerService->getHeaderData($request);
 
         return view('home.adverts.create',
                 [
@@ -101,7 +108,7 @@ class HomeController extends Controller
      */
     public function show(Advert $advert, Request $request)
     {
-        $headerData = $this->advertService->getHeaderData($request);
+        $headerData = $this->headerService->getHeaderData($request);
         $advert = $this->advertService->showItem($advert->id);
 
         return view('home.adverts.show',

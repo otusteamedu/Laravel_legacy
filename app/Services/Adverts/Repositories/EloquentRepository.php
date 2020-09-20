@@ -10,7 +10,7 @@ use App\Models\Town;
 
 
 
-class EloquentAdvertRepository implements AdvertRepositoryInterface
+class EloquentRepository implements AdvertRepositoryInterface
 {
 
     public function find(int $id)
@@ -57,6 +57,15 @@ class EloquentAdvertRepository implements AdvertRepositoryInterface
 
         $advert->with('town', 'user', 'division');
         return $advert->get(['adverts.*']); // ???
+    }
+
+    public function filteredByUserAdverts(int $userId)
+    {
+        $adverts = Advert::query();
+        $adverts->where('user_id', $userId );
+        $adverts->with('town', 'user', 'division');
+
+        return $adverts->paginate(10); //todo magic digit - to const
     }
 
     public function createFromArray(array $data): Advert

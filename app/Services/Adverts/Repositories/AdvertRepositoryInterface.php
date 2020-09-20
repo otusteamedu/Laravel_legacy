@@ -20,6 +20,8 @@ interface AdvertRepositoryInterface
     public function filteredPaginateList($qty, $division_id, $town_id);
     public function paginateListApi(int $limit, int $offset);
 
+    public function filteredByUserAdverts(int $userId);
+
     public function createFromArray(array $data): Advert;
 
     public function updateFromArray(Advert $advert, array $data );

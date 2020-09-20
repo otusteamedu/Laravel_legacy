@@ -6,16 +6,19 @@ use App\Http\Controllers\Cms\Adverts\Request\StoreAdvertRequest;
 use App\Http\Controllers\Controller;
 use App\Models\Advert;
 use App\Services\Adverts\AdvertsService;
+use App\Services\Header\HeaderService;
 use Illuminate\Http\Request;
 
 class AdvertsController extends Controller
 {
 
     protected $advertService;
+    private $headerService;
 
-    public function __construct(AdvertsService $advertService)
+    public function __construct(AdvertsService $advertService, HeaderService $headerService )
     {
         $this->advertService = $advertService;
+        $this->headerService = $headerService;
     }
 
     /**
@@ -37,8 +40,8 @@ class AdvertsController extends Controller
      */
     public function create()
     {
-        $divisionList = $this->advertService->showDivisionList();
-        $townList = $this->advertService->showTownList();
+        $divisionList = $this->headerService->showDivisionList();
+        $townList = $this->headerService->showTownList();
 
         return view('cms.adverts.create',
             [

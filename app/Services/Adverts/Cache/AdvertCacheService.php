@@ -1,12 +1,13 @@
 <?php
 
 
-namespace App\Services\Adverts\Repositories;
+namespace App\Services\Adverts\Cache;
 
 
 use App\Services\Adverts\Handler\CacheKeyGenerator;
+use App\Services\Adverts\Repositories\AdvertRepositoryInterface;
 
-class AdvertCacheRepository
+class AdvertCacheService
 {
 
 
@@ -39,7 +40,7 @@ class AdvertCacheRepository
         $this->paginateResult = $this->advertRepository->paginateList($qty);
         $cacheKey = $this->cacheKeyGenerator->generatePageKey($this->paginateResult->currentPage());  //TODO  добавить в прогрев
 
-        return \Cache::remember($cacheKey, self::CACHE_TIME, function() use($qty){
+        return \Cache::tags('CacheWebPages')->remember($cacheKey, self::CACHE_TIME, function() use($qty){
             //return $this->paginateResult;
             return $this->advertRepository->paginateList($qty);
         });
@@ -55,6 +56,12 @@ class AdvertCacheRepository
             return $this->advertRepository->paginateListApi($limit, $offset);
         });
 
+    }
+
+    public function forgetAdvertCachedPages()
+    {
+        \Cache::tags('CacheWebPages')->flush();
+        // \Cache::forget($key);
     }
 
 }

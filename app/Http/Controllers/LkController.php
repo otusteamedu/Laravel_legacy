@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 
 
 use App\Services\Adverts\AdvertsService;
+use App\Services\Header\HeaderService;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -12,17 +13,22 @@ class LkController
 {
     private $advertsService;
     private $cookieController;
+    private $headerService;
 
-    public function __construct(AdvertsService $advertsService, CookieController $cookieController)
-    {
+    public function __construct(
+        AdvertsService $advertsService,
+        CookieController $cookieController,
+        HeaderService $headerService
+    ) {
         $this->advertsService = $advertsService;
         $this->cookieController = $cookieController;
 
+        $this->headerService = $headerService;
     }
 
     public function index(Request $request)
     {
-        $headerData = $this->advertsService->getHeaderData($request);
+        $headerData = $this->headerService->getHeaderData($request);
         $userAdverts = $this->advertsService->getUserAdverts(Auth::id());
         $userInfo = $this->advertsService->getUserInfo(Auth::id());
 

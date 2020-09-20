@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Services\Repositories\RepositoryInterface;
+
 use App\Services\Adverts\Repositories\AdvertRepositoryInterface;
-use App\Services\Adverts\Repositories\EloquentAdvertRepository;
+use App\Services\Adverts\Repositories\EloquentRepository;
 
 use App\Services\Divisions\Repositories\DivisionRepositoryInterface;
 use App\Services\Divisions\Repositories\EloquentDivisionRepository;
@@ -26,6 +28,10 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(
+            RepositoryInterface::class,
+            \App\Services\Repositories\EloquentRepository::class
+        );
+        $this->app->bind(
             DivisionRepositoryInterface::class,
             EloquentDivisionRepository::class
         );
@@ -35,7 +41,7 @@ class RepositoryServiceProvider extends ServiceProvider
         );
         $this->app->bind(
             AdvertRepositoryInterface::class,
-            EloquentAdvertRepository::class
+            EloquentRepository::class
         );
         $this->app->bind(
             MessageRepositoryInterface::class,
