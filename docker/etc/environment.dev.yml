@@ -1,0 +1,50 @@
+#######################################
+# Environment Configuration
+#  - feel free to edit -
+# -> for most changes you only have to
+#         docker-compose up -d
+#    to apply them
+#######################################
+
+#######################################
+# PHP settings
+# (available in docker images after 2017-06-15)
+
+# PHP.ini
+
+php.display_errors=1
+php.date.timezone=Europe/Kyiv
+
+# Zend OPCache
+php.opcache.revalidate_freq=0
+php.opcache.validate_timestamps=1
+
+# XDebug
+php.xdebug.remote_enable=0
+php.xdebug.remote_connect_back=1
+php.xdebug.idekey=PHPSTORM
+php.xdebug.cli_color=1
+php.xdebug.max_nesting_level=1000
+php.xdebug.profiler_enable_trigger=1
+php.xdebug.profiler_output_dir='/tmp/debug/'
+php.xhprof.output_dir='/tmp/debug/'
+
+#######################################
+# PHP Debugger (xdebug|blackfire|none)
+
+PHP_DISPLAY_ERRORS=1
+PHP_DEBUGGER=xdebug
+XDEBUG_REMOTE_AUTOSTART=1
+XDEBUG_HOST=0.0.0.0
+XDEBUG_PORT=9000
+
+#######################################
+# Context environment
+
+# TYPO3
+TYPO3_CONTEXT=Development/Docker
+
+# Laravel
+APP_ENV=local
+APP_DEBUG=true
+

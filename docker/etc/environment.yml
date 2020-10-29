@@ -1,0 +1,96 @@
+#######################################
+# Environment Configuration
+#  - feel free to edit -
+# -> for most changes you only have to
+#         docker-compose up -d
+#    to apply them
+#######################################
+
+#######################################
+# Webserver
+
+# General
+
+WEB_DOCUMENT_ROOT=/app/public
+#default web php socket is linked to 'php' container 9000 port
+WEB_PHP_SOCKET=app:9000
+WEB_DOCUMENT_INDEX=index.php
+#CLI_SCRIPT=php /app/public/index.php
+
+#######################################
+# PHP settings
+# (available in docker images after 2017-06-15)
+
+# PHP.ini
+
+php.display_errors=0
+
+php.short_open_tag=On
+php.variables_order='GPCS'
+php.request_order='GP'
+
+php.allow_url_fopen=On
+php.allow_url_include=Off
+
+php.memory_limit=2G
+#php.memory_limit=1024M
+php.date.timezone=UTC
+php.max_execution_time=9000
+php.post_max_size=50M
+php.upload_max_filesize=500M
+php.max_input_vars=5000
+
+php.expose_php=Off
+
+php.mysql.default_host=mysql
+
+# Zend OPCache
+php.opcache.enable=1
+php.opcache.memory_consumption=256
+php.opcache.interned_strings_buffer=16
+php.opcache.max_accelerated_files=10000
+php.opcache.fast_shutdown=1
+php.opcache.enable_cli=1
+php.opcache.revalidate_freq=2
+php.opcache.validate_timestamps=1
+
+# XDebug
+php.xdebug.remote_enable=0
+php.xdebug.remote_connect_back=off
+
+# FPM global (master)
+
+# fpm.global.process_control_timeout=5m
+# fpm.global.process.max=100
+
+# FPM pool
+
+# fpm.pool.pm=dynamic
+# fpm.pool.pm.max_children=20
+# fpm.pool.pm.start_servers=20
+# fpm.pool.pm.min_spare_servers=1
+# fpm.pool.pm.max_spare_servers=3
+# fpm.pool.pm.process_idle_timeout=10s
+# fpm.pool.pm.max_requests=1000
+# fpm.pool.request_terminate_timeout=5m
+
+#######################################
+# SSH settings
+# SSH public key (without comment):
+# -> ssh-rsa AAAAB3Nza....
+#  Github public ssh keys:
+# -> https://github.com/USERNAME.keys
+SSH_AUTH_KEY=""
+
+#######################################
+# PostgreSQL settings
+POSTGRES_USER=dev
+POSTGRES_PASSWORD=dev
+POSTGRES_DATABASE=dev
+
+#######################################
+# FTP settings
+FTP_USER=dev
+FTP_PASSWORD=dev
+FTP_PATH=/storage/ftp/
+#FTP_PATH=/app/

@@ -1,0 +1,151 @@
+version: "2.4"
+services:
+# images documentation https://dockerfile.readthedocs.io/en/latest/content/DockerImages/index.html
+#######################################
+##    Composer service used to run composer while application starting
+#######################################
+  composer:
+    build:
+      context: .
+      dockerfile: docker/composer/Dockerfile
+    container_name: ${APP_NAME}-composer
+    depends_on:
+      - app
+      - nginx
+    user: 1000:1000
+    restart: 'no'
+    volumes:
+      - .:/app
+    command: 'install -a --ignore-platform-reqs --no-scripts'
+
+######################################
+#    NginX app service  # for current application used `webdevops/nginx-dev:alpine` image
+######################################
+  nginx:
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    container_name: ${APP_NAME}-nginx
+    environment:
+      CONTAINER_UID: 1000
+      CONTAINER_GID: 1000
+    env_file:
+      - docker/etc/environment.yml
+      - docker/etc/environment.dev.yml
+    ports:
+      - ${APP_PORT}:80
+      - ${APP_SSL_PORT}:443
+    volumes:
+      - ./:/app
+      - ./:/docker/
+    depends_on:
+      app:
+        condition: service_healthy
+    external_links:
+      - postgres
+    networks:
+      - default
+
+######################################
+#    PHP-FPM service used `webdevops/php-dev:7.4` image
+######################################
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: ${APP_NAME}-app
+    ports:
+      - ${APP_SSH_PORT}:22
+      - 9000
+    volumes:
+      - ./:/app/
+      - ./:/docker/
+#    user: application:application
+    healthcheck:
+      test: ["CMD", "php-fpm", "-t"]
+      interval: 3s
+      timeout: 5s
+      retries: 5
+    environment:
+      CONTAINER_UID: 1000
+      CONTAINER_GID: 1000
+# cap and privileged needed for slowlog
+    cap_add:
+      - SYS_PTRACE
+    privileged: true
+    env_file:
+      - docker/etc/environment.yml
+      - docker/etc/environment.dev.yml
+    networks:
+      - default
+
+#######################################
+# MySQL server
+#######################################
+  mysql:
+    build:
+      context: docker/mysql
+      dockerfile: MySQL-5.7.Dockerfile
+    container_name: ${APP_NAME}-mysql
+    ports:
+      - ${MYSQL_DB_PORT_EXTERNAL}:3306
+    volumes:
+      - mysqldata:/var/lib/mysql
+    env_file:
+      - docker/etc/environment.yml
+      - docker/etc/environment.dev.yml
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - default
+
+#######################################
+##    PostgreSQL server
+#######################################
+#  postgres:
+#    build:
+#      context: docker/postgres/
+#      dockerfile: Postgres-12.1.Dockerfile
+#    container_name: postgres
+#    env_file:
+#      - etc/environment.yml
+#      - etc/environment.dev.yml
+#    environment:
+#      POSTGRES_USER: ${DB_USERNAME}
+#      POSTGRES_PASSWORD: ${DB_PASSWORD}
+#      POSTGRES_DB: ${DB_DATABASE}
+#    ports:
+#      - ${DB_PORT_EXTERNAL}:${DB_PORT}
+#    volumes:
+#      - pgsqldata:/var/lib/postgresql/data
+#    networks:
+#      - default
+
+#######################################
+##    RabbitMQ server
+#######################################
+#  rabbitmq:
+#    image: 'rabbitmq:3.8.9-management-alpine'
+#    container_name: ${APP_NAME}-rabbitmq
+#    restart: always
+#    ports:
+#      - ${RABBITMQ_PORT_EXTERNAL}:5672
+#      - ${RABBITMQ_SERVICE_PORT_EXTERNAL}:15672
+#    networks:
+#      - default
+
+volumes:
+  mysqldata:
+    driver: "local"
+#  pgsqldata:
+#    driver: "local"
+#  mongodbdata:
+#    driver: "local"
+
+networks:
+  default:
+    external:
+      name: ${DOCKER_NETWORK}
