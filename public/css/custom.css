@@ -1,0 +1,82 @@
+/* static pages */
+
+.index {
+    background: url("/img/background-index.jpeg") top left no-repeat;
+    min-height: 400px;
+}
+
+.color-white{
+    color: #fff;
+}
+
+.right{
+    text-align: right;
+}
+
+.social li{
+    display: inline-block;
+    list-style: none;
+}
+
+.center{
+    text-align: center;
+}
+
+.about .col-sm div{
+    width: 230px;
+    height: 200px;
+    background-image: url("/img/bage.png");
+    background-repeat: no-repeat;
+    float: left;
+}
+
+.recommendations{
+    background-position: 0 -40px;
+}
+
+.easy-bank{
+    background-position: -1150px -40px;
+}
+
+.budget{
+    background-position: -225px -40px;
+}
+
+.goal-planning{
+    background-position: -675px -40px;
+}
+
+.calendar{
+    background-position: -915px -40px;
+}
+
+.graphs{
+    background-position: -445px -40px;
+}
+
+.about h2, .about p{
+    margin-left: 240px;
+}
+
+/* users */
+.together{
+    margin-right: -10px;
+}
+
+.income{
+    color: green;
+}
+
+.consumption{
+    color: red;
+}
+
+.logout{
+    display: block;
+    color:#fff;
+    margin-top: 20px;
+}
+
+.logout:hover{
+    color: #000;
+}
