@@ -1,0 +1,9 @@
+для запуска задач по крону необходимо в
+планировщие (crontab -e) указать следующие стоки
+
+1	*	*	*	*	cd /var/www/; php artisan cache -a  #очистка кеша
+1	*	*	*	*	cd /var/www/; php artisan cache -H  #прогрев кеша
+
+каждую первую минуту часа кэш будет очищатся и обновлятся
+
+Команды cache -a и cache -H указаны в app/Console/Commands/CacheCommand.php
