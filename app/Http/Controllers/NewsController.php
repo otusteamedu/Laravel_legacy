@@ -24,6 +24,12 @@ class NewsController extends Controller
         return view('news', compact('data'));
     }
 
+    public function getId($id)
+    {
+        $data = $this->newsService->getCachedId($id);
+        return view('newsid', compact('data'));
+    }
+
     public function clearCache()
     {
         Cache::flush();
