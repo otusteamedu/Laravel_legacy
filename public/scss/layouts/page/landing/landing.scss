@@ -1,0 +1,232 @@
+/* Landing Header */
+.landing-header {
+	@include background-size(cover);
+	background-position: center center;
+	background-repeat: no-repeat;
+	.content {
+		padding-bottom: 245px;
+	}
+	.landing-inner-1 {
+		padding: 35px 50px 183px;
+		@extend display-flex;
+		@include justify-content(space-between);
+		figure {
+		    margin: -3px 0 0;
+		}
+		.btn-small {
+			padding: 17px 28px;
+			i {
+				padding-left: 10px;
+			}
+		}
+	}
+	.landing-inner-2 {
+		text-align: center;
+		width: 29%;
+		margin: 0 auto;
+		span {
+			font-size: 25px;
+			color: #5a5d5a;
+			margin-top: 38px;
+    		display: block;
+		}
+	}
+}
+/* End Landing Header */
+
+/* Landing Homepage */
+.landing-homepage.section-box {
+	padding: 112px 0 97px;
+}
+.landing-homepage {
+	.content {
+		.hp-left {
+			padding-right: 35px;
+		}
+		.hp-right {
+			padding-left: 35px;
+		}
+		.details {
+			text-align: center;
+			padding-bottom: 62px;
+			.image {
+				overflow: hidden;
+				margin-bottom: 38px;
+				@include box-shadow(0px 0px 10px 0px rgba(0, 0, 0, 0.2));
+				img {
+					@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+				}
+				&:hover {
+					img {
+						@include transform(scale(1.1));
+					}
+				}
+			}
+			h3 {
+				a {
+					font-size: 22px;
+					color: #666;
+					&:hover {
+						color: #333;
+					}
+				}
+			}
+		}
+	}
+}
+/* End Landing Homepage */
+
+/* Landing Footer */
+.landing-footer {
+	@include background-size(cover);
+	background-repeat: no-repeat;
+	.content {
+		text-align: center;
+    	margin: 0 auto;
+    	width: 30%;
+    	padding: 90px 0 95px;
+		h4 {
+			font-size: 21px;
+		}
+		p {
+			margin: 19px 0 43px;
+		}
+		.btn-small {
+			padding: 17px 28px;
+			i {
+				padding-left: 10px;
+			}
+		}
+	}
+}
+/* End Landing Footer */
+
+/* Landing Layout */
+.landing-layout {
+	background: #f7f7f7;
+	padding-top: 111px;
+	.special-heading {
+		margin-bottom: 73px;
+	}
+	.content {
+		padding-left: 142px;
+		padding-right: 142px;
+		@extend display-flex;
+		@include align-items(flex-end);
+		.landing-item {
+			.images {
+				overflow: hidden;
+				@include box-shadow(0px 0px 10px 0px rgba(0, 0, 0, 0.2));
+				img {
+					@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+				}
+				&:hover {
+					img {
+						@include transform(scale(1.1));
+					}
+				}
+			}
+		}
+		.landing-bigger {
+		    position: relative;
+		    z-index: 9;
+		    &.landing-left {
+		    	margin-left: -272px;
+		    }
+		    &.landing-right {
+		    	margin-right: -272px;
+		    }
+		}
+		.landing-center {
+			position: relative;
+		    z-index: 99;
+		    margin-left: -272px;
+    		margin-right: -272px;
+		}
+	}
+}
+/* End Landing Layout */
+
+/* Landing Page Section */
+.landing-page-section {
+	.content {
+		position: relative;
+	    padding: 228px 0 235px;
+    	margin-top: 150px;
+    	&.content-2 {
+    		margin: 100px 0 120px;
+    	}
+    	h4 {
+			font-size: 30px;
+		}
+		p {
+			margin: 15px 0 53px;
+		}
+		.btn-small {
+			padding: 17px 34.5px;
+			i {
+				padding-left: 10px;
+			}
+		}
+		.portfolio-layouts {
+			text-align: right;
+			padding-right: 35px;	
+		}
+		.pages-right {
+			margin-left: 50%;
+		}
+		.other-pages {
+			padding-left: 35px;
+		}
+		.portfolio-image-view {
+		    position: absolute;
+		    top: 0;
+		    right: 0;
+		    bottom: 0;
+		    padding-right: 0;
+		    .portfolio-right {
+		    	@extend display-flex;
+		    	@include align-items(center);
+		    	padding-left: 35px;
+		    }
+		}
+		.page-image-view {
+			position: absolute;
+		    top: 0;
+		    left: 0;
+		    bottom: 0;
+		    padding-left: 0;
+		    .page-left {
+		    	@extend display-flex;
+		    	@include align-items(center);
+		    	padding-right: 35px;
+		    }
+		}
+		.portfolio-item {
+	    	&.portfolio-small {
+	    		z-index: 9;
+	    	}
+	    	&.portfolio-bigger {
+	    		margin-left: -70%;
+	    		z-index: 99;
+	    	}
+	    	&.portfolio-bigger-2 {
+	    		margin-right: -70%;
+	    		z-index: 99;
+	    	}
+	    	.images {
+				overflow: hidden;
+				@include box-shadow(0px 0px 10px 0px rgba(0, 0, 0, 0.2));
+				img {
+					@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+				}
+				&:hover {
+					img {
+						@include transform(scale(1.1));
+					}
+				}
+			}
+	    }
+	}
+}
+/* End Landing Page Section */

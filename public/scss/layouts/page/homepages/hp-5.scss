@@ -1,0 +1,127 @@
+/* Items Section */
+.items-hp-5 {
+	.woocommerce {
+	    width: 100%;
+	    @extend display-flex;
+	    .woocommerce-product-gallery {
+		    width: 33.33%;
+		    padding-top: 72px;
+		    .owl-carousel {
+		    	.item {
+		    		img {
+		    			width: auto;
+		    		}
+		    	}
+		    	.owl-thumbs {
+		    		@extend display-flex;
+    				position: absolute;
+		    		top: 60.5%;
+    				left: 111%;
+    				margin-bottom: 10px; 
+		    		.owl-thumb-item {
+		    			padding: 0;
+					    margin-right: 15px;
+					    width: 100px;
+					    height: 90px;
+					    @include outline(none);
+					    background: transparent;
+					    border: 1px solid #f2f2f2;
+					    cursor: pointer;
+					    &:hover {
+					    	border: 1px solid #e5e5e5;
+				    		@include box-shadow(0px 2px 5px 0px rgba(0, 0, 0, 0.1));
+					    }
+					    &.active {
+					    	border: 1px solid #e5e5e5;
+				    		@include box-shadow(0px 2px 5px 0px rgba(0, 0, 0, 0.1));
+					    }
+					    &:last-child {
+					    	margin-right: 0px;
+					    }
+					}
+		    	}
+		    }
+		}
+		.entry-summary {
+		    width: 33.33%;
+		    padding: 170px 65px 100px 68px;
+		    .product_title {
+		    	font-size: 30px;
+		    }
+		    .woocommerce-product-details__short-description {
+			    padding: 17px 0 43px;
+			}
+		    .price {
+		    	font-size: 25px;
+		    	font-weight: 500;
+		    	color: #333;
+		    	float: left;
+    			margin-right: 19px;
+		    	.woocommerce-Price-currencySymbol {
+				    margin-right: -5px;
+				}
+		    }
+		    .single_add_to_cart_button {
+		    	i {
+		    		padding-left: 10px;
+		    	}
+		    }
+		    .btn-small {
+			    padding: 17px 34.5px;
+			}
+		}
+		.images-cover {
+		    width: 33.33%;
+		    .bg-image {
+		    	position: relative;
+		    	overflow: hidden;
+		    	&:before, 
+		    	&:after {
+				    content: '';
+				    position: absolute;
+				    top: 0;
+				    bottom: 0;
+				    right: 0;
+				    left: 0;
+				    @include transition((all 0.6s ease-in-out));
+				}
+		    }
+		    &:hover {
+		    	.bg-image {
+		    		&:before {
+						right: 50%;
+    					left: 50%;
+    					background: rgba(255, 255, 255, 0.2);
+		    		}
+		    		&:after {
+					    top: 50%;
+					    bottom: 50%;
+					    background: rgba(255, 255, 255, 0.2);
+		    		}
+		    	}
+		    }
+		}
+		&.items-content-1 {
+			.woocommerce-product-gallery {
+				.owl-carousel {
+		    		.owl-thumbs {
+		    			right: 111%;
+		    			left: auto;
+		    		}
+		    	}
+			}
+			.entry-summary {
+				text-align: right;
+				form.cart {
+				    float: left;
+				    margin-left: 46.5%;
+				}
+				.price {
+					float: none;
+					margin-right: 0;
+				}
+			}
+		}
+	}
+}
+/* End Items Section */

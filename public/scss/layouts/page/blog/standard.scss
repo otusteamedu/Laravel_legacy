@@ -1,0 +1,302 @@
+/* Blog Section Of Blog Right Sidebar */
+.blog-sidebar-right.section-box {
+	padding: 120px 0 92px;
+}
+.blog-sidebar-right {
+	.woocommerce {
+		.content-area {
+			padding-right: 10px;
+			.blog-images {
+				position: relative;
+				margin-bottom: 8px;
+				.overlay {
+					background: rgba(0, 0, 0, 0.2);
+				}
+				&:hover {
+					.overlay {
+						opacity: 1;
+					}
+				}
+			}
+			h4 {
+				font-size: 25px;
+		        padding: 14px 0;
+    			line-height: 1.4;
+    			position: relative;
+    			@include transition(all 0.5s ease 0.1s);
+    			&:before {
+				    position: absolute;
+				    content: '';
+				    width: 7px;
+				    height: 1px;
+				    background: #000;
+				    top: 50%;
+				    @include transform(translateY(-50%));
+				    left: 0;
+				    display: none;
+				}
+				&:hover {
+					padding-left: 15px;
+					&:before {
+						display: block;
+					}
+				}
+			}
+			.calendar {
+				padding-bottom: 19px;
+				i {
+					padding-right: 8px;
+				}
+				.date {
+					padding-right: 16px;
+				}
+				a {
+					color: #666;
+					&:hover {
+						color: #333;
+					}
+				}
+			}
+			.final-blog {
+			    @extend display-flex;
+			    @include justify-content(space-between);
+			    padding: 26px 0 50px;
+			    .read-more {
+			    	@include transition(all 0.5s ease 0.1s);
+			    	i {
+			    		padding-left: 12px;
+			    	}
+					&:hover {
+						padding-left: 15px;
+					}
+			    }
+			    .socials {
+			    	a {
+			    		font-size: 17px;
+			    		color: #999;
+			    		padding-left: 15px;
+			    		&:hover {
+			    			color: #333;
+			    		}
+			    	}
+			    }
+			}
+			.link-post,
+			.quote-post {
+				border: 1px solid #333;
+			    padding: 16px 35px 13px;
+			    position: relative;
+			    margin-bottom: 60px;
+				.link {
+					position: absolute;
+					font-size: 35px;
+					right: 18px;
+					bottom: -3px;
+					@include transition(all 0.5s ease 0.1s);
+					&:hover {
+						@include transform(scale(1.1));
+					}
+				}
+			}
+		}
+		.pagination {
+			text-align: center;
+			display: block;
+			.page-numbers {
+				a {
+					color: #999;
+					padding: 2px 6px 0;
+					font-size: 18px;
+					&.current {
+						color: #333;
+					}
+					&:hover {
+						color: #333;
+					}
+				}
+			}
+		}
+		.widget-area {
+			.widget-title {
+				font-size: 20px;
+			}
+			.widget_search {
+				position: relative;
+				margin-bottom: 57px;
+				input {
+					padding: 0 0 9px;
+					border: none;
+					border-bottom: 1px solid #333;
+					@include input-placeholder(#333);
+				}
+				.search-submit {
+					border: none;
+				    background: transparent;
+				    font-size: 20px;
+				    padding: 0;
+				    position: absolute;
+				    right: 0;
+				    top: -4px;
+				    cursor: pointer;
+				    @include outline(none);
+				}
+			}
+			.widget-best-team {
+			    text-align: center;
+			    .info {
+			    	span {
+			    		font-size: 20px;
+			    		font-weight: 500;
+			    		color: #333;
+			    		display: block;
+			    		padding: 21px 0 1px;
+			    	}
+			    	a {
+			    		color: #666;
+			    		&:hover {
+			    			color: #333;
+			    		}
+			    	}
+			    	.signature {
+					    width: 34%;
+					    margin: 18px auto 55px;
+					}
+			    }
+			}
+			.widget_product_categories {
+				padding-bottom: 33px;
+				.widget-title {
+					padding-bottom: 23px;
+				}
+				.product-categories {
+					.cat-item {
+						@extend display-flex;
+						@include justify-content(space-between);
+						padding-bottom: 15px;
+						a {
+				    		color: #666;
+				    		&:hover {
+				    			color: #333;
+				    		}
+				    	}
+					}
+				}
+			}
+			.latest-post {
+				padding-bottom: 35px;
+				.widget-title {
+					margin-bottom: 30px;
+				}
+				.latest-post-inner {
+					margin-bottom: 20px;
+					overflow: hidden;
+					.images {
+						position: relative;
+						width: 90px;
+						height: 72px;
+						float: left;
+						.overlay {
+						    background: rgba(0, 0, 0, 0.2);
+						}
+						&:hover {
+							.overlay {
+								opacity: 1;
+							}
+						}
+					}
+					.title {
+						margin-left: 106px;
+						margin-top: 6px;
+						.day {
+							font-size: 13px;
+							padding-bottom: 4px;
+    						display: block;
+						}
+						a {
+							font-size: 17px;
+							font-weight: 500;
+							&:hover {
+								padding-left: 3px;
+							}
+						}
+					}
+				}
+			}
+			.novas-insta {
+				padding-bottom: 45px;
+				.widget-title {
+					padding-bottom: 35px;
+				}
+				.insta-inner {
+					@extend display-flex;
+					margin: 0 -5px 10px;
+					.images {
+						position: relative;
+						margin: 0 5px;
+						.overlay {
+						    background: rgba(0, 0, 0, 0.2);
+						}
+						&:hover {
+							.overlay {
+								opacity: 1;
+							}
+						}
+					}
+				}
+			}
+			.widget_tag_cloud {
+				.widget-title {
+					margin-bottom: 23px;
+				}
+				.tagcloud {
+					a {
+						color: #666;
+						position: relative;
+						padding-right: 10px;
+						margin-right: 8px;
+						&:hover {
+							color: #333;
+						}
+						&:before {
+							position: absolute;
+							content: '';
+							background: #ccc;
+							width: 1px;
+							height: 11px;
+							left: 100%;
+							top: 50%;
+							@include transform(translateY(-50%));
+						}
+						&.last {
+							&:before {
+								content: none;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+/* End Blog Section Of Blog Right Sidebar */
+
+/* Blog Section Of Blog Left Sidebar */
+.blog-sidebar-right.blog-sidebar-left {
+	.woocommerce {
+		.content-area {
+			padding-left: 10px;
+			padding-right: 0;
+		}
+	}
+}
+/* End Blog Section Of Blog Left Sidebar */
+
+/* Blog Section Of Blog No Sidebar */
+.blog-sidebar-right.blog-no-sidebar {
+	.woocommerce {
+		.content-area {
+			padding-right: 0;
+		}
+	}
+}
+/* End Blog Section Of Blog No Sidebar */

@@ -1,0 +1,138 @@
+/* Newsletter Section Of Mailchimp Form Page */
+.newsletter-mailchimp-form.section-box {
+	padding: 120px 0 100px;
+}
+/* End Newsletter Section Of Mailchimp Form Page */
+
+/* Deal Off Section Of Countdown Timer Page */
+.deal-countdown-timer.section-box {
+	padding: 120px 0 165px;
+}
+/* End Deal Off Section Of Countdown Timer Page */
+
+/* Categories Section Of Product Categories Page */
+.categories-product-page.section-box {
+	padding: 120px 0 93px;
+}
+/* End Categories Section Of Product Categories Page */
+
+/* Featured Sale Section Of Standard List Page */
+.featured-hp-1.featured-hp-4.featured-four-columns {
+	.woocommerce {
+		padding-top: 111px;
+	}
+}
+.featured-hp-1.featured-five-columns {
+	padding: 61px 0 70px;
+	.woocommerce {
+		overflow: hidden;
+	}
+}
+/* Featured Sale Section Of Standard List Page */
+
+/* List Section Of Product Widget Page */
+.list-product-widget.section-box {
+	padding-bottom: 74px;
+}
+/* End List Section Of Product Widget Page */
+
+/* Banner Section Of Banner Page */
+.banner-hp-1.banner-page-1.section-box {
+	padding: 120px 0 93px;
+}
+.banner-page-3.section-box {
+	padding: 100px 0 93px;
+}
+/* End Banner Section Of Banner Page */
+
+/* Items Section Of Product Showcase Page */
+.items-hp-5.section-box {
+	padding: 120px 0 93px;
+}
+/* End Items Section Of Product Showcase Page */
+
+/* Shop Section Of Masonry List */
+.shop-hp-4.featured-hp-1.shop-masonry-list {
+	padding: 120px 0 97px;
+	.content-area {
+		.woocommerce-LoopProduct-link {
+			.product-image {
+				&.product-image-2,
+				&.product-image-3 {
+					border-bottom: 1px solid #f2f2f2;
+				}
+				&.product-image-4 {
+					border-right: none;
+					border-left: none;
+				}
+			}
+		}
+	}
+}
+/* End Shop Section Of Masonry List */
+
+/* Our Team Section Of Our Team Page */
+.our-team-page.section-box {
+	padding: 120px 0 93px;
+}
+.our-team-page {
+	.our-team-content {
+		.our-team-detail {
+			text-align: center;
+			.member-images {
+				overflow: hidden;
+				cursor: pointer;
+				@include border-radius(50%);
+				img {
+					@include border-radius(50%);
+					@include transition(transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94));
+				}
+				&:hover {
+					img {
+						@include transform(scale(1.1));
+					}
+				}
+			}
+			.member-info {
+				cursor: pointer;
+				.name {
+					font-size: 20px;
+					padding: 27px 0 7px;
+				}
+				.job {
+					font-size: 15px;
+					font-weight: 400;
+					color: #666;
+					display: block;
+				}
+				.socials {
+					display: none;
+					margin-bottom: -10px;
+					a {
+						color: #999;
+						font-size: 18px;
+					    padding: 0 8px;
+						&:hover {
+							color: #333;
+						}
+					}
+				}
+				&:hover {
+					.job {
+						display: none;
+					}
+					.socials {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}
+/* End Our Team Section Of Our Team Page */
+
+/* Testimonial Section Of Testimonial Page */
+.testimonials-hp-1.section-box {
+	padding: 120px 0 100px;
+}
+/* End Testimonial Section Of Testimonial Page */
